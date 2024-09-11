@@ -23,5 +23,4 @@ namespace VLS.BatchExportNet.Detach
             }
         }
     }
-    public class ExportModelsDetachedCommand_Availability : CommandAvailabilityWrapper { }
 }

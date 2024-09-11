@@ -23,5 +23,4 @@ namespace VLS.BatchExportNet.Migrate
             }
         }
     }
-    public class MigrateModelsCommand_Availability : CommandAvailabilityWrapper { }
 }

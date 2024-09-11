@@ -7,7 +7,7 @@ using VLS.BatchExportNet.Utils;
 namespace VLS.BatchExportNet.Transmit
 {
     [Transaction(TransactionMode.Manual)]
-    public class ExportModelsTransmitted : CommandWrapper
+    public class ExportModelsTransmitted : IExternalCommand
     {
         public virtual Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
@@ -23,5 +23,4 @@ namespace VLS.BatchExportNet.Transmit
             }
         }
     }
-    public class ExportModelsTransmittedCommand_Availability : CommandAvailabilityWrapper { }
 }

@@ -23,5 +23,4 @@ namespace VLS.BatchExportNet.IFC
             }
         }
     }
-    public class ExportModelsToIFCCommand_Availability : CommandAvailabilityWrapper { }
 }

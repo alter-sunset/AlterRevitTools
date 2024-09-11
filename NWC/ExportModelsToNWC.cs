@@ -23,6 +23,4 @@ namespace VLS.BatchExportNet.NWC
             }
         }
     }
-
-    public class ExportModelsToNWCCommand_Availability : CommandAvailabilityWrapper { }
 }

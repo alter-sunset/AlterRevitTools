@@ -14,6 +14,7 @@ using VLS.BatchExportNet.Transmit;
 using VLS.BatchExportNet.Migrate;
 using VLS.BatchExportNet.Link;
 using System.IO;
+using Autodesk.Revit.DB;
 
 namespace VLS.BatchExportNet
 {
@@ -24,10 +25,11 @@ namespace VLS.BatchExportNet
     public class App : IExternalApplication
     {
         private static Window _myForm;
+        private string _thisAssemblyPath;
 
         public Result OnStartup(UIControlledApplication a)
         {
-            string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
+            _thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
             RibbonPanel panel = RibbonPanel(a, "Пакетный экспорт");
             string[] applIconPath = { "VLS.BatchExportNet.Resources.VLS.png", "VLS.BatchExportNet.Resources.VLS_16.png" };
             string[] ifcIconPath = { "VLS.BatchExportNet.Resources.ifc.png", "VLS.BatchExportNet.Resources.ifc_16.png" };
@@ -36,78 +38,16 @@ namespace VLS.BatchExportNet
             RibbonPanel panelIntern = RibbonPanel(a, "Внутренние штуки");
             string[] rvtIconPath = { "VLS.BatchExportNet.Resources.rvt.png", "VLS.BatchExportNet.Resources.rvt_16.png" };
 
-            PushButtonData exportModelsToNWCButtonData = new PushButtonData(
-                   "Экспорт NWC",
-                   "Экспорт\nNWC",
-                   thisAssemblyPath,
-                   "VLS.BatchExportNet.NWC.ExportModelsToNWC")
-            {
-                AvailabilityClassName = "VLS.BatchExportNet.NWC.ExportModelsToNWCCommand_Availability"
-            };
-
-            string exportModelsToNWCToolTip = "Пакетный экспорт в NWC";
-            CreateNewPushButton(panel, exportModelsToNWCButtonData, exportModelsToNWCToolTip, navisIconPath);
-
-            PushButtonData exportModelsDetachedButtonData = new PushButtonData(
-                   "Экспорт отсоединённых моделей",
-                   "Экспорт\nотсоединённых\nмоделей",
-                   thisAssemblyPath,
-                   "VLS.BatchExportNet.Detach.ExportModelsDetached")
-            {
-                AvailabilityClassName = "VLS.BatchExportNet.Detach.ExportModelsDetachedCommand_Availability"
-            };
-
-            string exportModelsDetachedToolTip = "Пакетный экспорт отсоединённых моделей";
-            CreateNewPushButton(panel, exportModelsDetachedButtonData, exportModelsDetachedToolTip, applIconPath);
-
-            PushButtonData transmitModelsButtonData = new PushButtonData(
-                   "Передача моделей",
-                   "Передача",
-                   thisAssemblyPath,
-                   "VLS.BatchExportNet.Transmit.ExportModelsTransmitted")
-            {
-                AvailabilityClassName = "VLS.BatchExportNet.Transmit.ExportModelsTransmittedCommand_Availability"
-            };
-
-            string transmitModelsToolTip = "Пакетная передача моделей";
-            CreateNewPushButton(panel, transmitModelsButtonData, transmitModelsToolTip, applIconPath);
-
-            PushButtonData migrateModelsButtonData = new PushButtonData(
-                   "Миграция моделей",
-                   "Миграция\nмоделей",
-                   thisAssemblyPath,
-                   "VLS.BatchExportNet.Migrate.MigrateModels")
-            {
-                AvailabilityClassName = "VLS.BatchExportNet.Migrate.MigrateModelsCommand_Availability"
-            };
-
-            string migrateModelsToolTip = "Пакетная миграция моделей с обновлением связей";
-            CreateNewPushButton(panel, migrateModelsButtonData, migrateModelsToolTip, applIconPath);
-
-            PushButtonData exportModelsToIFCButtonData = new PushButtonData(
-                   "Экспорт IFC",
-                   "Экспорт\nIFC",
-                   thisAssemblyPath,
-                   "VLS.BatchExportNet.IFC.ExportModelsToIFC")
-            {
-                AvailabilityClassName = "VLS.BatchExportNet.IFC.ExportModelsToIFCCommand_Availability"
-            };
-
-            string exportModelsToIFCToolTip = "Пакетный экспорт в IFC";
-            CreateNewPushButton(panel, exportModelsToIFCButtonData, exportModelsToIFCToolTip, ifcIconPath);
-
-            PushButtonData linkModelsButtonData = new PushButtonData(
-                   "Batch Revit links",
-                   "Batch\nRevit Links",
-                   thisAssemblyPath,
-                   "VLS.BatchExportNet.Link.LinkModels");
-
-            string linkModelsToolTip = "Пакетное добавление Revit ссылок";
-            CreateNewPushButton(panelIntern, linkModelsButtonData, linkModelsToolTip, rvtIconPath);
+            CreateNewPushButton(panel, PushButtonDataWrapper(Forms.NWC), "Пакетный экспорт в NWC", navisIconPath);
+            CreateNewPushButton(panel, PushButtonDataWrapper(Forms.Detach), "Пакетный экспорт отсоединённых моделей", applIconPath);
+            CreateNewPushButton(panel, PushButtonDataWrapper(Forms.Transmit), "Пакетная передача моделей", applIconPath);
+            CreateNewPushButton(panel, PushButtonDataWrapper(Forms.Migrate), "Пакетная миграция моделей с обновлением связей", applIconPath);
+            CreateNewPushButton(panel, PushButtonDataWrapper(Forms.IFC), "Пакетный экспорт в IFC", ifcIconPath);
+            CreateNewPushButton(panelIntern, PushButtonDataWrapper(Forms.Link), "Пакетное добавление Revit ссылок", rvtIconPath);
 
             return Result.Succeeded;
         }
-        static void CreateNewPushButton(RibbonPanel ribbonPanel, PushButtonData pushButtonData, string toolTip, string[] iconPath)
+        private static void CreateNewPushButton(RibbonPanel ribbonPanel, PushButtonData pushButtonData, string toolTip, string[] iconPath)
         {
             BitmapSource bitmap_32 = GetEmbeddedImage(iconPath[0]);
             BitmapSource bitmap_16 = GetEmbeddedImage(iconPath[1]);
@@ -117,7 +57,6 @@ namespace VLS.BatchExportNet
             pushButton.LargeImage = bitmap_32;
         }
         public Result OnShutdown(UIControlledApplication a) => Result.Succeeded;
-
         public static void ShowForm(UIApplication uiapp, Forms form)
         {
             if (_myForm != null && _myForm == null) return;
@@ -159,7 +98,7 @@ namespace VLS.BatchExportNet
                 MessageBox.Show(ex.ToString());
             }
         }
-        public static RibbonPanel RibbonPanel(UIControlledApplication a, string tabName)
+        private static RibbonPanel RibbonPanel(UIControlledApplication a, string tabName)
         {
             string tab = "VLS";
             RibbonPanel ribbonPanel = null;
@@ -180,7 +119,51 @@ namespace VLS.BatchExportNet
             }
             return ribbonPanel;
         }
-        public static BitmapSource GetEmbeddedImage(string name)
+        private PushButtonData PushButtonDataWrapper(Forms forms)
+        {
+            string name = "";
+            string text = "";
+            string className = "";
+            switch (forms)
+            {
+                case Forms.Detach:
+                    name = "Экспорт отсоединённых моделей";
+                    text = "Экспорт\nотсоединённых\nмоделей";
+                    className = "VLS.BatchExportNet.Detach.ExportModelsDetached";
+                    break;
+                case Forms.IFC:
+                    name = "Экспорт IFC";
+                    text = "Экспорт\nIFC";
+                    className = "VLS.BatchExportNet.IFC.ExportModelsToIFC";
+                    break;
+                case Forms.NWC:
+                    name = "Экспорт NWC";
+                    text = "Экспорт\nNWC";
+                    className = "VLS.BatchExportNet.NWC.ExportModelsToNWC";
+                    break;
+                case Forms.Migrate:
+                    name = "Миграция моделей";
+                    text = "Миграция\nмоделей";
+                    className = "VLS.BatchExportNet.Migrate.MigrateModels";
+                    break;
+                case Forms.Transmit:
+                    name = "Передача моделей";
+                    text = "Передача\nмоделей";
+                    className = "VLS.BatchExportNet.Transmit.ExportModelsTransmitted";
+                    break;
+                case Forms.Link:
+                    return new PushButtonData(
+                            "Batch Revit links",
+                            "Batch\nRevit Links",
+                            _thisAssemblyPath,
+                            "VLS.BatchExportNet.Link.LinkModels");
+            }
+            return new PushButtonData(name, text, _thisAssemblyPath, className)
+            {
+                AvailabilityClassName = "VLS.BatchExportNet.CommandAvailabilityWrapper"
+            };
+        }
+        private static BitmapSource GetEmbeddedImage(string name)
         {
             try
             {
@@ -202,5 +185,9 @@ namespace VLS.BatchExportNet
         Migrate,
         Transmit,
         Link
+    }
+    public class CommandAvailabilityWrapper : IExternalCommandAvailability
+    {
+        public bool IsCommandAvailable(UIApplication applicationData, CategorySet selectedCategories) => true;
     }
 }
