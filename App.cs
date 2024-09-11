@@ -17,10 +17,6 @@ using Autodesk.Revit.UI;
 
 namespace VLS.BatchExportNet
 {
-    /// <summary>
-    /// This is the main class which defines the Application, and inherits from Revit's
-    /// IExternalApplication class.
-    /// </summary>
     public class App : IExternalApplication
     {
         private static Window _myForm;
@@ -29,27 +25,30 @@ namespace VLS.BatchExportNet
         public Result OnStartup(UIControlledApplication a)
         {
             _thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
-            RibbonPanel panel = RibbonPanel(a, "Пакетный экспорт");
-            string[] applIconPath = { "VLS.BatchExportNet.Resources.VLS.png", "VLS.BatchExportNet.Resources.VLS_16.png" };
-            string[] ifcIconPath = { "VLS.BatchExportNet.Resources.ifc.png", "VLS.BatchExportNet.Resources.ifc_16.png" };
-            string[] navisIconPath = { "VLS.BatchExportNet.Resources.navisworks.png", "VLS.BatchExportNet.Resources.navisworks_16.png" };
+
+            RibbonPanel panelExtern = RibbonPanel(a, "Пакетный экспорт");
+            string[] applIconPath = { "VLS.png", "VLS_16.png" };
+            string[] ifcIconPath = { "ifc.png", "ifc_16.png" };
+            string[] navisIconPath = { "navisworks.png", "navisworks_16.png" };
 
             RibbonPanel panelIntern = RibbonPanel(a, "Внутренние штуки");
-            string[] rvtIconPath = { "VLS.BatchExportNet.Resources.rvt.png", "VLS.BatchExportNet.Resources.rvt_16.png" };
+            string[] rvtIconPath = { "rvt.png", "rvt_16.png" };
 
-            CreateNewPushButton(panel, PushButtonDataWrapper(Forms.NWC), "Пакетный экспорт в NWC", navisIconPath);
-            CreateNewPushButton(panel, PushButtonDataWrapper(Forms.Detach), "Пакетный экспорт отсоединённых моделей", applIconPath);
-            CreateNewPushButton(panel, PushButtonDataWrapper(Forms.Transmit), "Пакетная передача моделей", applIconPath);
-            CreateNewPushButton(panel, PushButtonDataWrapper(Forms.Migrate), "Пакетная миграция моделей с обновлением связей", applIconPath);
-            CreateNewPushButton(panel, PushButtonDataWrapper(Forms.IFC), "Пакетный экспорт в IFC", ifcIconPath);
+            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.IFC), "Пакетный экспорт в IFC", ifcIconPath);
+            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.NWC), "Пакетный экспорт в NWC", navisIconPath);
+            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.Detach), "Пакетный экспорт отсоединённых моделей", applIconPath);
+            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.Migrate), "Пакетная миграция моделей с обновлением связей", applIconPath);
+            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.Transmit), "Пакетная передача моделей", applIconPath);
+
             CreateNewPushButton(panelIntern, PushButtonDataWrapper(Forms.Link), "Пакетное добавление Revit ссылок", rvtIconPath);
 
             return Result.Succeeded;
         }
         private static void CreateNewPushButton(RibbonPanel ribbonPanel, PushButtonData pushButtonData, string toolTip, string[] iconPath)
         {
-            BitmapSource bitmap_32 = GetEmbeddedImage(iconPath[0]);
-            BitmapSource bitmap_16 = GetEmbeddedImage(iconPath[1]);
+            const string BASEPATH = "VLS.BatchExportNet.Resources.";
+            BitmapSource bitmap_32 = GetEmbeddedImage(BASEPATH + iconPath[0]);
+            BitmapSource bitmap_16 = GetEmbeddedImage(BASEPATH + iconPath[1]);
             PushButton pushButton = ribbonPanel.AddItem(pushButtonData) as PushButton;
             pushButton.ToolTip = toolTip;
             pushButton.Image = bitmap_16;
@@ -120,6 +119,7 @@ namespace VLS.BatchExportNet
         }
         private PushButtonData PushButtonDataWrapper(Forms forms)
         {
+            const string BASE = "VLS.BatchExportNet.";
             string name = "";
             string text = "";
             string className = "";
@@ -128,38 +128,38 @@ namespace VLS.BatchExportNet
                 case Forms.Detach:
                     name = "Экспорт отсоединённых моделей";
                     text = "Экспорт\nотсоединённых\nмоделей";
-                    className = "VLS.BatchExportNet.Detach.ExportModelsDetached";
+                    className = BASE + "Detach.ExportModelsDetached";
                     break;
                 case Forms.IFC:
                     name = "Экспорт IFC";
                     text = "Экспорт\nIFC";
-                    className = "VLS.BatchExportNet.IFC.ExportModelsToIFC";
+                    className = BASE + "IFC.ExportModelsToIFC";
                     break;
                 case Forms.NWC:
                     name = "Экспорт NWC";
                     text = "Экспорт\nNWC";
-                    className = "VLS.BatchExportNet.NWC.ExportModelsToNWC";
+                    className = BASE + "NWC.ExportModelsToNWC";
                     break;
                 case Forms.Migrate:
                     name = "Миграция моделей";
                     text = "Миграция\nмоделей";
-                    className = "VLS.BatchExportNet.Migrate.MigrateModels";
+                    className = BASE + "Migrate.MigrateModels";
                     break;
                 case Forms.Transmit:
                     name = "Передача моделей";
                     text = "Передача\nмоделей";
-                    className = "VLS.BatchExportNet.Transmit.ExportModelsTransmitted";
+                    className = BASE + "Transmit.ExportModelsTransmitted";
                     break;
                 case Forms.Link:
                     return new PushButtonData(
-                            "Batch Revit links",
-                            "Batch\nRevit Links",
+                            "Batch add Revit links",
+                            "Batch add\nRevit Links",
                             _thisAssemblyPath,
-                            "VLS.BatchExportNet.Link.LinkModels");
+                            BASE + "Link.LinkModels");
             }
             return new PushButtonData(name, text, _thisAssemblyPath, className)
             {
-                AvailabilityClassName = "VLS.BatchExportNet.CommandAvailabilityWrapper"
+                AvailabilityClassName = BASE + "CommandAvailabilityWrapper"
             };
         }
         private static BitmapSource GetEmbeddedImage(string name)

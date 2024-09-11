@@ -28,13 +28,11 @@ namespace VLS.BatchExportNet
         public void Execute(UIApplication app)
         {
             TType args;
-
             lock (_lock)
             {
                 args = _savedArgs;
                 _savedArgs = default;
             }
-
             Execute(app, args);
         }
 
@@ -42,10 +40,7 @@ namespace VLS.BatchExportNet
         /// Get the name of the operation.
         /// </summary>
         /// <returns>Operation Name.</returns>
-        public string GetName()
-        {
-            return GetType().Name;
-        }
+        public string GetName() => GetType().Name;
 
         /// <summary>
         /// Execute the wrapped external event in a valid Revit API context.
@@ -57,7 +52,6 @@ namespace VLS.BatchExportNet
             {
                 _savedArgs = args;
             }
-
             _revitEvent.Raise();
         }
 

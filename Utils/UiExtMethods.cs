@@ -213,7 +213,7 @@ namespace VLS.BatchExportNet.Utils
             if (!Directory.Exists(textBoxFolder))
             {
                 bool isIt = true;
-                const string abort = "Нет, так нет.\nТогда живи в проклятом мире, который сам и создал.";
+                const string ABORT = "Нет, так нет.\nТогда живи в проклятом мире, который сам и создал.";
 
                 MessageBoxResult messageBox = MessageBox
                     .Show("Такой папки не существует.\nСоздать папку?", "Добрый вечер", MessageBoxButton.YesNo);
@@ -224,11 +224,11 @@ namespace VLS.BatchExportNet.Utils
                         break;
                     case MessageBoxResult.No:
                         isIt = false;
-                        MessageBox.Show(abort);
+                        MessageBox.Show(ABORT);
                         break;
                     case MessageBoxResult.Cancel:
                         isIt = false;
-                        MessageBox.Show(abort);
+                        MessageBox.Show(ABORT);
                         break;
                 }
                 if (!isIt)

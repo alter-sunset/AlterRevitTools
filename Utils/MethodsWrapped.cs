@@ -200,7 +200,6 @@ namespace VLS.BatchExportNet.Utils
                 File.Copy(filePath, transmittedFilePath, true);
                 ModelPath transmittedModelPath = new FilePath(transmittedFilePath);
                 Methods.UnloadRevitLinks(transmittedModelPath, isSameFolder, folder);
-                //Methods.UnloadRevitLinks(new FilePath(filePath), isSameFolder, folder);
             }
 
             TaskDialog taskDialog = new("Готово!")

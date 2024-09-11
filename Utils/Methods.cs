@@ -400,7 +400,7 @@ namespace VLS.BatchExportNet.Utils
             }
             else
             {
-                IFCExportOptions iFCExportOptions = new();
+                IFCExportOptions iFCExportOptions = IFCExportOptions(document, ui);
                 string folder = "";
                 string prefix = "";
                 string postfix = "";
