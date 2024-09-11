@@ -1,0 +1,410 @@
+﻿<Window x:Name="Пакетный_экспорт_NWC" x:Class="VLS.BatchExportNet.NWC.NWCExportUi"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:VLS.BatchExportNet.NWC"
+             mc:Ignorable="d" 
+             d:Height="900" d:Width="800"
+             ResizeMode="NoResize"
+             Title="Пакетный экспорт NWC">
+    <Grid Background="WhiteSmoke">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition>
+
+            </ColumnDefinition>
+            <ColumnDefinition>
+
+            </ColumnDefinition>
+            <ColumnDefinition>
+
+            </ColumnDefinition>
+            <ColumnDefinition>
+
+            </ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50">
+
+            </RowDefinition>
+            <RowDefinition Height="150">
+
+            </RowDefinition>
+            <RowDefinition Height="50">
+
+            </RowDefinition>
+            <RowDefinition Height="50">
+
+            </RowDefinition>
+            <RowDefinition Height="50">
+
+            </RowDefinition>
+            <RowDefinition Height="50">
+
+            </RowDefinition>
+            <RowDefinition Height="50">
+
+            </RowDefinition>
+            <RowDefinition Height="50">
+
+            </RowDefinition>
+            <RowDefinition Height="50">
+
+            </RowDefinition>
+            <RowDefinition Height="50">
+
+            </RowDefinition>
+            <RowDefinition Height="50">
+
+            </RowDefinition>
+            <RowDefinition Height="50">
+
+            </RowDefinition>
+            <RowDefinition Height="50">
+
+            </RowDefinition>
+            <RowDefinition Height="50">
+
+            </RowDefinition>
+            <RowDefinition Height="50">
+
+            </RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Margin="10,0,10,0"
+                   FontSize="14"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   VerticalAlignment="Center">
+            Список RVT файлов для экспорта
+        </TextBlock>
+        <Button Margin="10"
+                Grid.Column="3"
+                Grid.Row="0"
+                x:Name="ButtonHelp"
+                Click="ButtonHelp_Click"
+                ToolTip="Справка по работе с плагином"
+                Content="Справка"/>
+        <ListBox Grid.Row="1"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="4"
+                 Margin="10"
+                 x:Name="ListBoxRVTFiles"
+                 SelectionMode="Extended"
+                 ItemsSource="{Binding}">
+            <ListBox.ToolTip>
+                <ToolTip>
+                    Список файлов в формате (.rvt)
+                </ToolTip>
+            </ListBox.ToolTip>
+        </ListBox>
+
+        <Button Margin="10"
+                Grid.Column="0"
+                Grid.Row="2"
+                x:Name="ButtonLoad"
+                Click="ButtonLoad_Click"
+                ToolTip="Загрузить файлы в формате (.rvt)">Загрузить</Button>
+        <Button Margin="10"
+                Grid.Column="1"
+                Grid.Row="2"
+                x:Name="ButtonLoadList"
+                Click="ButtonLoadList_Click"
+                ToolTip="Загрузить сохранённый ранее файл конфигурации в формате (.JSON)">Загрузить список</Button>
+        <Button Margin="10"
+                Grid.Column="2"
+                Grid.Row="2"
+                x:Name="ButtonSaveList"
+                Click="ButtonSaveList_Click"
+                ToolTip="Сохранить файл конфигурации в формате (.JSON)">Сохранить список</Button>
+        <Button Margin="10"
+                Grid.Column="3"
+                Grid.Row="2"
+                x:Name="ButtonDelete"
+                Click="ButtonDelete_Click"
+                ToolTip="Удалить выбранные файлы из списка">Удалить</Button>
+
+        <TextBlock Margin="10,0,40,0"
+                   FontSize="14"
+                   Grid.Row="3"
+                   Grid.Column="0"
+                   VerticalAlignment="Center">Папка для сохранения</TextBlock>
+        <TextBox Margin="165,10,135,10"
+                 Grid.Row="3"
+                 Grid.ColumnSpan="4"
+                 x:Name="TextBoxFolder"
+                 VerticalContentAlignment="Center"
+                 TextChanged="TextBoxFolder_TextChanged"/>
+        <Button Margin="80,10,10,10"
+                Grid.Column="3"
+                Grid.Row="3"
+                x:Name="ButtonBrowseFolder"
+                Click="ButtonBrowseFolder_Click">Обзор</Button>
+
+        <TextBlock Margin="10,0,80,0"
+                   Grid.Row="4"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   ToolTip="Префикс, который необходимо вставить перед названием файла">
+            Префикс названия
+        </TextBlock>
+        <TextBox Margin="125,10,10,10"
+                 Grid.Row="4"
+                 VerticalContentAlignment="Center"
+                 x:Name="TextBoxPrefix" Grid.ColumnSpan="2"
+                 ToolTip="Префикс, который необходимо вставить перед названием файла"/>
+        <TextBlock Margin="10,0,80,0"
+                   Grid.Row="4"
+                   Grid.Column="2"
+                   VerticalAlignment="Center"
+                   ToolTip="Постфикс, который необходимо вставить после названия файла">
+            Постфикс названия
+        </TextBlock>
+        <TextBox Margin="125,10,10,10"
+                 Grid.Row="4"
+                 Grid.Column="2"
+                 VerticalContentAlignment="Center"
+                 x:Name="TextBoxPostfix" Grid.ColumnSpan="2"
+                 ToolTip="Постфикс, который необходимо вставить после названия файла"/>
+
+        <CheckBox Margin="10,10,10,10"
+                  Grid.Row="5"
+                  Grid.Column="0"
+                  VerticalContentAlignment="Center"
+                  x:Name="CheckBoxConvertElementProperties"
+                  ToolTip="">
+            <TextBlock>Конвертировать<LineBreak/>
+                свойства объектов</TextBlock>
+        </CheckBox>
+        <TextBlock Margin="10,10,110,10"
+                   Grid.Row="5"
+                   Grid.Column="1"
+                   VerticalAlignment="Center">Координаты</TextBlock>
+        <ComboBox Margin="95,10,10,10"
+                  Grid.Row="5"
+                  Grid.Column="1"
+                  VerticalContentAlignment="Center"
+                  x:Name="ComboBoxCoordinates"
+                  SelectionChanged="ComboBoxCoordinates_SelectionChanged">
+            <ComboBoxItem Content="Внутренние для проекта" TabIndex="0"/>
+            <ComboBoxItem IsSelected="True" Content="Общие" TabIndex="1"/>
+        </ComboBox>
+        <CheckBox Margin="10,10,10,10"
+                  Grid.Row="5"
+                  Grid.Column="2"
+                  VerticalContentAlignment="Center"
+                  IsChecked="True"
+                  x:Name="CheckBoxDivideFileIntoLevels" Checked="CheckBoxDivideFileIntoLevels_Checked">
+            <TextBlock>Разделить файл на уровни</TextBlock>
+        </CheckBox>
+        <CheckBox Margin="10,10,10,10"
+                  Grid.Row="5"
+                  Grid.Column="3"
+                  VerticalContentAlignment="Center"
+                  IsChecked="True"
+                  x:Name="CheckBoxExportElementIds">
+            <TextBlock>Экспортировать<LineBreak/>
+                Id элементов</TextBlock>
+        </CheckBox>
+
+        <CheckBox Margin="10"
+                  Grid.Row="6"
+                  Grid.Column="0"
+                  VerticalContentAlignment="Center"
+                  x:Name="CheckBoxExportLinks">
+            <TextBlock>Экспортировать <LineBreak/>
+                связанные файлы</TextBlock>
+        </CheckBox>
+        <CheckBox Margin="10"
+                  Grid.Row="6"
+                  Grid.Column="1"
+                  VerticalContentAlignment="Center"
+                  x:Name="CheckBoxExportParts">
+            <TextBlock>
+                Экспортировать<LineBreak/>
+                элементы конструкции
+            </TextBlock>
+        </CheckBox>
+        <CheckBox Margin="10"
+                  Grid.Row="6"
+                  Grid.Column="2"
+                  VerticalContentAlignment="Center"
+                  IsChecked="True"
+                  x:Name="CheckBoxExportRoomAsAttribute">
+            <TextBlock>
+                Экспортировать<LineBreak/>
+                помещения как атрибут
+            </TextBlock>
+        </CheckBox>
+        <CheckBox Margin="10"
+                  Grid.Row="6"
+                  Grid.Column="3"
+                  VerticalContentAlignment="Center"
+                  x:Name="CheckBoxExportRoomGeometry">
+            <TextBlock>
+                Экспортировать<LineBreak/>
+                геометрию помещений
+            </TextBlock>
+        </CheckBox>
+
+        <RadioButton Margin="10"
+                     Grid.Row="7"
+                     Grid.Column="0"
+                     VerticalContentAlignment="Center"
+                     GroupName="ExportScope"
+                     x:Name="RadioBattonExportScopeModel" Checked="RadioBattonExportScopeModel_Checked">
+            <TextBlock>                
+            Экспортировать
+            <LineBreak/>
+            весь проект
+            </TextBlock>
+        </RadioButton>
+        <RadioButton Margin="10,10,60,10"
+                     Grid.Row="7"
+                     Grid.Column="1"
+                     VerticalContentAlignment="Center"
+                     GroupName="ExportScope"
+                     IsChecked="True"
+                     x:Name="RadioButtonExportScopeView" Checked="RadioButtonExportScopeView_Checked">
+            <TextBlock>
+                Экспортировать<LineBreak/>
+                вид с названием
+            </TextBlock>
+        </RadioButton>
+        <TextBox Margin="145,10,10,10"
+                 Grid.Row="7"
+                 Grid.Column="1"
+                 VerticalContentAlignment="Center"
+                 x:Name="TextBoxExportScopeViewName" Grid.ColumnSpan="2">
+            Navisworks
+        </TextBox>
+        <CheckBox Margin="10"
+                  Grid.Row="7"
+                  Grid.Column="3"
+                  VerticalContentAlignment="Center"
+                  x:Name="CheckBoxExportUrls">
+            <TextBlock>
+                Экспортировать<LineBreak/>
+                URL адреса
+            </TextBlock>
+        </CheckBox>
+
+        <CheckBox Margin="10"
+                  Grid.Row="8"
+                  Grid.Column="0"
+                  VerticalContentAlignment="Center"
+                  x:Name="CheckBoxFindMissingMaterials">
+            <TextBlock>
+                Проверять и находить<LineBreak/>
+                отсутсвующие материалы
+            </TextBlock>
+        </CheckBox>
+        <TextBlock Margin="10,10,170,10"
+                   Grid.Row="8"
+                   Grid.Column="1" Grid.ColumnSpan="2"
+                   VerticalAlignment="Center">
+            Конвертировать параметры объектов
+        </TextBlock>
+        <ComboBox Margin="35,10,10,10"
+                  Grid.Row="8"
+                  Grid.Column="2"
+                  VerticalContentAlignment="Center"                  
+                  x:Name="ComboBoxParameters">
+            <ComboBoxItem Tag="None" Content="Нет" TabIndex="0"/>
+            <ComboBoxItem Tag="Elements" Content="Объекты" TabIndex="1"/>
+            <ComboBoxItem Tag="All" IsSelected="True" Content="Все" TabIndex="2"/>
+        </ComboBox>
+
+
+        <TextBlock Margin="10"
+                   FontSize="14"
+                   Grid.Row="9"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="4"
+                   VerticalAlignment="Center">
+            Настройки для версии Revit 2020 и выше
+        </TextBlock>
+
+        <CheckBox Margin="10"
+                  Grid.Row="10"
+                  Grid.Column="0"
+                  VerticalContentAlignment="Center"
+                  x:Name="CheckBoxConvertLinkedCADFormats">
+            <TextBlock>
+                Экспортировать<LineBreak/>
+                связанные CAD файлы
+            </TextBlock>
+        </CheckBox>
+        <CheckBox Margin="10"
+                  Grid.Row="10"
+                  Grid.Column="1"
+                  VerticalContentAlignment="Center"
+                  x:Name="CheckBoxConvertLights">
+            <TextBlock>
+                Экспортировать<LineBreak/>
+                источники света
+            </TextBlock>
+        </CheckBox>
+        <TextBlock Margin="10,0,30,0"
+                  Grid.Row="10"
+                  Grid.Column="2"
+                  VerticalAlignment="Center">
+            Коэффициент фасетизации
+        </TextBlock>
+        <TextBox Margin="175,10,10,10"
+                 Grid.Row="10"
+                 Grid.Column="2"
+                 VerticalContentAlignment="Center"
+                 x:Name="TextBoxFacetingFactor" Grid.ColumnSpan="2">
+            1
+        </TextBox>
+
+        <Button Margin="10"
+                Grid.Row="11"
+                Grid.Column="1"
+                x:Name="ButtonErase"
+                Click="ButtonErase_Click"
+                Content="Очистить список"/>
+        <Button Margin="10"
+                Grid.Row="11"
+                Grid.Column="2"
+                x:Name="ButtonOK" Click="ButtonOK_Click" Content="ОК"
+                ToolTip="Запуск пакетного экспорта текущей конфигурации"/>
+        <Button Margin="10"
+                Grid.Row="11"
+                Grid.Column="3"
+                x:Name="ButtonCancel" Click="ButtonCancel_Click"
+                Content="Отмена"
+                ToolTip="Закрыть окно"/>
+
+        <TextBlock Margin="10"
+                   FontSize="14"
+                   Grid.Row="12"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   Text="Список JSON конфигов">
+        </TextBlock>
+        <ListBox Margin="10"
+                 Grid.Row="12"
+                 Grid.RowSpan="3"
+                 Grid.Column="1"
+                 Grid.ColumnSpan="3"
+                 x:Name="ListBoxJsonConfigs"
+                 ToolTip="Список файлов конфигураций">
+        </ListBox>
+        <Button Margin="10"
+                Grid.Row="13"
+                Grid.Column="0"
+                x:Name="ButtonLoadJson" Click="ButtonLoadJson_Click"
+                Content="Загрузить конфиги"
+                ToolTip="Загрузить список с файлами конфигураций в формате (.JSON)">
+        </Button>
+        <Button Margin="10"
+                Grid.Row="14"
+                Grid.Column="0"
+                x:Name="ButtonStartJson" Click="ButtonStartJson_Click"
+                Content="Начать"
+                ToolTip="Запустить экспорт нескольких конфигураций">
+        </Button>
+    </Grid>
+</Window>
+
