@@ -1,20 +1,19 @@
-﻿using Autodesk.Revit.DB;
+﻿using System;
+using System.IO;
+using System.Linq;
+using System.Windows;
+using System.Windows.Media;
+using System.Windows.Controls;
+using System.Threading;
+using VLS.BatchExportNet.IFC;
+using VLS.BatchExportNet.NWC;
+using VLS.BatchExportNet.Link;
+using VLS.BatchExportNet.Detach;
+using System.Collections.Generic;
+using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Events;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using VLS.BatchExportNet.Detach;
-using VLS.BatchExportNet.IFC;
-using VLS.BatchExportNet.Link;
-using VLS.BatchExportNet.NWC;
-using VLS.BatchExportNet.Transmit;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 
 namespace VLS.BatchExportNet.Utils

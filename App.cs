@@ -1,6 +1,5 @@
-﻿using Autodesk.Revit.UI.Events;
-using Autodesk.Revit.UI;
-using System;
+﻿using System;
+using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -13,8 +12,8 @@ using VLS.BatchExportNet.Detach;
 using VLS.BatchExportNet.Transmit;
 using VLS.BatchExportNet.Migrate;
 using VLS.BatchExportNet.Link;
-using System.IO;
 using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
 
 namespace VLS.BatchExportNet
 {

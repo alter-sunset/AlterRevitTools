@@ -1,5 +1,4 @@
-﻿using Autodesk.Revit.UI;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -8,9 +7,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
-using VLS.BatchExportNet.Utils;
 using MessageBox = System.Windows.Forms.MessageBox;
 using RadioButton = System.Windows.Controls.RadioButton;
+using VLS.BatchExportNet.Utils;
+using Autodesk.Revit.UI;
 
 namespace VLS.BatchExportNet.Detach
 {

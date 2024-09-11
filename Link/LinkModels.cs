@@ -1,8 +1,7 @@
-﻿using Autodesk.Revit.Attributes;
+﻿using System;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using System;
-using VLS.BatchExportNet.Utils;
+using Autodesk.Revit.Attributes;
 
 namespace VLS.BatchExportNet.Link
 {
