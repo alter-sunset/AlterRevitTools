@@ -1,18 +1,19 @@
-﻿using Autodesk.Revit.DB;
+﻿using Autodesk.Revit.Attributes;
+using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System;
 using VLS.BatchExportNet.Utils;
 
 namespace VLS.BatchExportNet.IFC
 {
-    [Autodesk.Revit.Attributes.Transaction(Autodesk.Revit.Attributes.TransactionMode.Manual)]
+    [Transaction(TransactionMode.Manual)]
     public class ExportModelsToIFC : IExternalCommand
     {
         public virtual Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             try
             {
-                App.ShowFormIFC(commandData.Application);
+                App.ShowForm(commandData.Application, Forms.IFC);
                 return Result.Succeeded;
             }
             catch (Exception ex)

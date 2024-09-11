@@ -23,25 +23,10 @@ namespace VLS.BatchExportNet
     /// </summary>
     public class App : IExternalApplication
     {
-        // class instance
-        private static App _thisApp;
-
-        // ModelessForm instance
-        private static NWCExportUi _mMyFormNWC;
-        private static IFCExportUi _mMyFormIFC;
-        private static DetachModelsUi _mMyFormDetach;
-        private static TransmitModelsUi _mMyFormTransmit;
-        private static MigrateModelsUi _mMyFormMigrate;
-        private static LinkModelsUi _mMyFormLink;
+        private static Window _myForm;
 
         public Result OnStartup(UIControlledApplication a)
         {
-            _mMyFormNWC = null; // no dialog needed yet; the command will bring it
-            _mMyFormIFC = null;
-            _mMyFormDetach = null;
-            _thisApp = this; // static access to this application instance
-
-            // Method to add Tab and Panel 
             string thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
             RibbonPanel panel = RibbonPanel(a, "Пакетный экспорт");
             string[] applIconPath = { "VLS.BatchExportNet.Resources.VLS.png", "VLS.BatchExportNet.Resources.VLS_16.png" };
@@ -131,152 +116,70 @@ namespace VLS.BatchExportNet
             pushButton.Image = bitmap_16;
             pushButton.LargeImage = bitmap_32;
         }
-
-        /// <summary>
-        /// What to do when the application is shut down.
-        /// </summary>
         public Result OnShutdown(UIControlledApplication a) => Result.Succeeded;
 
-        /// <summary>
-        /// This is the method which launches the WPF window, and injects any methods that are
-        /// wrapped by ExternalEventHandlers. This can be done in a number of different ways, and
-        /// implementation will differ based on how the WPF is set up.
-        /// </summary>
-        /// <param name="uiapp">The Revit UIApplication within the add-in will operate.</param>
-        public static void ShowFormNWC(UIApplication uiapp)
+        public static void ShowForm(UIApplication uiapp, Forms form)
         {
-            // If we do not have a dialog yet, create and show it
-            if (_mMyFormNWC != null && _mMyFormNWC == null) return;
-            //EXTERNAL EVENTS WITH ARGUMENTS
-            EventHandlerNWCExportUiArg evUi = new();
-            EventHandlerNWCExportBatchUiArg eventHandlerNWCExportBatchUiArg = new();
-
-            // The dialog becomes the owner responsible for disposing the objects given to it.
-            _mMyFormNWC = new NWCExportUi(uiapp, evUi, eventHandlerNWCExportBatchUiArg) { Height = 900, Width = 800 };
-            _mMyFormNWC.Show();
-        }
-        public static void ShowFormIFC(UIApplication uiapp)
-        {
-            // If we do not have a dialog yet, create and show it
-            if (_mMyFormIFC != null && _mMyFormIFC == null) return;
-            //EXTERNAL EVENTS WITH ARGUMENTS
-            EventHandlerIFCExportUiArg evUi = new();
-
-            // The dialog becomes the owner responsible for disposing the objects given to it.
-            _mMyFormIFC = new IFCExportUi(uiapp, evUi) { Height = 700, Width = 800 };
-            _mMyFormIFC.Show();
-        }
-        public static void ShowFormDetach(UIApplication uiapp)
-        {
-            // If we do not have a dialog yet, create and show it
-            if (_mMyFormDetach != null && _mMyFormDetach == null) return;
-            //EXTERNAL EVENTS WITH ARGUMENTS
-            EventHandlerDetachModelsUiArg evUi = new();
-
-            // The dialog becomes the owner responsible for disposing the objects given to it.
+            if (_myForm != null && _myForm == null) return;
 
             try
             {
-                _mMyFormDetach = new DetachModelsUi(uiapp, evUi) { Height = 600, Width = 800 };
-                _mMyFormDetach.Show();
-
+                switch (form)
+                {
+                    case Forms.Detach:
+                        EventHandlerDetachModelsUiArg evDetachUi = new();
+                        _myForm = new DetachModelsUi(uiapp, evDetachUi) { Height = 600, Width = 800 };
+                        break;
+                    case Forms.IFC:
+                        EventHandlerIFCExportUiArg evIFCUi = new();
+                        _myForm = new IFCExportUi(uiapp, evIFCUi) { Height = 700, Width = 800 };
+                        break;
+                    case Forms.NWC:
+                        EventHandlerNWCExportUiArg evNWCUi = new();
+                        EventHandlerNWCExportBatchUiArg eventHandlerNWCExportBatchUiArg = new();
+                        _myForm = new NWCExportUi(uiapp, evNWCUi, eventHandlerNWCExportBatchUiArg) { Height = 900, Width = 800 };
+                        break;
+                    case Forms.Migrate:
+                        EventHandlerMigrateModelsUiArg evMigrateUi = new();
+                        _myForm = new MigrateModelsUi(uiapp, evMigrateUi) { Height = 200, Width = 600 };
+                        break;
+                    case Forms.Transmit:
+                        EventHandlerTransmitModelsUiArg evTransmitUi = new();
+                        _myForm = new TransmitModelsUi(uiapp, evTransmitUi) { Height = 500, Width = 800 };
+                        break;
+                    case Forms.Link:
+                        EventHandlerLinkModelsUiArg evLinkUi = new();
+                        _myForm = new LinkModelsUi(uiapp, evLinkUi) { Height = 500, Width = 800 };
+                        break;
+                }
+                _myForm.Show();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
         }
-        public static void ShowFormTransmit(UIApplication uiapp)
+        public static RibbonPanel RibbonPanel(UIControlledApplication a, string tabName)
         {
-            // If we do not have a dialog yet, create and show it
-            if (_mMyFormTransmit != null && _mMyFormTransmit == null) return;
-            //EXTERNAL EVENTS WITH ARGUMENTS
-            EventHandlerTransmitModelsUiArg evUi = new();
-
-            // The dialog becomes the owner responsible for disposing the objects given to it.
-
-            try
-            {
-                _mMyFormTransmit = new TransmitModelsUi(uiapp, evUi) { Height = 500, Width = 800 };
-                _mMyFormTransmit.Show();
-
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-        public static void ShowFormMigrate(UIApplication uiapp)
-        {
-            // If we do not have a dialog yet, create and show it
-            if (_mMyFormMigrate != null && _mMyFormMigrate == null) return;
-            //EXTERNAL EVENTS WITH ARGUMENTS
-            EventHandlerMigrateModelsUiArg evUi = new();
-
-            // The dialog becomes the owner responsible for disposing the objects given to it.
-
-            try
-            {
-                _mMyFormMigrate = new MigrateModelsUi(uiapp, evUi) { Height = 200, Width = 600 };
-                _mMyFormMigrate.Show();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-        public static void ShowFormLink(UIApplication uiapp)
-        {
-            // If we do not have a dialog yet, create and show it
-            if (_mMyFormLink != null && _mMyFormLink == null) return;
-            //EXTERNAL EVENTS WITH ARGUMENTS
-            EventHandlerLinkModelsUiArg evUi = new();
-            // The dialog becomes the owner responsible for disposing the objects given to it.
-            try
-            {
-                _mMyFormLink = new LinkModelsUi(uiapp, evUi) { Height = 500, Width = 800 };
-                _mMyFormLink.Show();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-        #region Ribbon Panel
-        public RibbonPanel RibbonPanel(UIControlledApplication a, string tabName)
-        {
-            string tab = "VLS"; // Tab name
-            // Empty ribbon panel 
+            string tab = "VLS";
             RibbonPanel ribbonPanel = null;
-            // Try to create ribbon tab. 
             try
             {
                 a.CreateRibbonTab(tab);
             }
-            catch
-            {
-            }
-
-            // Try to create ribbon panel.
+            catch { }
             try
             {
                 RibbonPanel panel = a.CreateRibbonPanel(tab, tabName);
             }
-            catch
-            {
-            }
-
-            // Search existing tab for your panel.
+            catch { }
             List<RibbonPanel> panels = a.GetRibbonPanels(tab);
             foreach (RibbonPanel p in panels.Where(p => p.Name == tabName))
             {
                 ribbonPanel = p;
             }
-
-            //return panel 
             return ribbonPanel;
         }
-        #endregion
         public static BitmapSource GetEmbeddedImage(string name)
         {
             try
@@ -290,5 +193,14 @@ namespace VLS.BatchExportNet
                 return null;
             }
         }
+    }
+    public enum Forms
+    {
+        Detach,
+        IFC,
+        NWC,
+        Migrate,
+        Transmit,
+        Link
     }
 }

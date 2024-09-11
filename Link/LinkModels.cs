@@ -2,6 +2,7 @@
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System;
+using VLS.BatchExportNet.Utils;
 
 namespace VLS.BatchExportNet.Link
 {
@@ -12,7 +13,7 @@ namespace VLS.BatchExportNet.Link
         {
             try
             {
-                App.ShowFormLink(commandData.Application);
+                App.ShowForm(commandData.Application, Forms.Link);
                 return Result.Succeeded;
             }
             catch (Exception ex)
