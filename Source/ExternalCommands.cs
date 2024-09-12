@@ -1,10 +1,14 @@
-﻿using Autodesk.Revit.Attributes;
+﻿using System;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using System;
+using Autodesk.Revit.Attributes;
 
 namespace VLS.BatchExportNet.Source
 {
+    public class CommandAvailabilityWrapper : IExternalCommandAvailability
+    {
+        public bool IsCommandAvailable(UIApplication applicationData, CategorySet selectedCategories) => true;
+    }
     static class ExternalCommandWrapper
     {
         public static Result Execute(UIApplication app, ref string message, Forms form)

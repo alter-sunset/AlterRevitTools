@@ -8,17 +8,17 @@ using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Controls;
-using VLS.BatchExportNet.NWC;
-using VLS.BatchExportNet.IFC;
-using VLS.BatchExportNet.Link;
-using VLS.BatchExportNet.Detach;
-using VLS.BatchExportNet.Migrate;
-using VLS.BatchExportNet.Transmit;
+using VLS.BatchExportNet.Utils;
+using VLS.BatchExportNet.Views.NWC;
+using VLS.BatchExportNet.Views.IFC;
+using VLS.BatchExportNet.Views.Link;
+using VLS.BatchExportNet.Views.Detach;
+using VLS.BatchExportNet.Views.Migrate;
+using VLS.BatchExportNet.Views.Transmit;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Events;
 using Application = Autodesk.Revit.ApplicationServices.Application;
-using VLS.BatchExportNet.Utils;
 
 namespace VLS.BatchExportNet.Source
 {
@@ -51,7 +51,7 @@ namespace VLS.BatchExportNet.Source
                 ui.Dispatcher.Invoke(() => folder = @ui.TextBoxFolder.Text);
                 Logger logger = new(folder);
 
-                Methods.BatchExportNWC(uiApp, ui, ref logger);
+                NWC.BatchExportModels(uiApp, ui, ref logger);
                 Thread.Sleep(3000);
             }
 
@@ -81,7 +81,7 @@ namespace VLS.BatchExportNet.Source
             ui.Dispatcher.Invoke(() => folder = @ui.TextBoxFolder.Text);
             Logger logger = new(folder);
 
-            Methods.BatchExportNWC(uiApp, ui, ref logger);
+            NWC.BatchExportModels(uiApp, ui, ref logger);
 
             TaskDialog taskDialog = new("Готово!")
             {
@@ -109,7 +109,7 @@ namespace VLS.BatchExportNet.Source
             ui.Dispatcher.Invoke(() => folder = @ui.TextBoxFolder.Text);
             Logger logger = new(folder);
 
-            Methods.BatchExportIFC(uiApp, ui, ref logger);
+            IFC.BatchExportModels(uiApp, ui, ref logger);
 
             TaskDialog taskDialog = new("Готово!")
             {
@@ -136,8 +136,8 @@ namespace VLS.BatchExportNet.Source
             using Application application = uiApp.Application;
             List<ListBoxItem> listItems = @ui.listBoxItems.ToList();
 
-            uiApp.DialogBoxShowing += new EventHandler<DialogBoxShowingEventArgs>(Methods.TaskDialogBoxShowingEvent);
-            application.FailuresProcessing += new EventHandler<Autodesk.Revit.DB.Events.FailuresProcessingEventArgs>(Methods.Application_FailuresProcessing);
+            uiApp.DialogBoxShowing += new EventHandler<DialogBoxShowingEventArgs>(ErrorSwallowers.TaskDialogBoxShowingEvent);
+            application.FailuresProcessing += new EventHandler<Autodesk.Revit.DB.Events.FailuresProcessingEventArgs>(ErrorSwallowers.Application_FailuresProcessing);
             foreach (ListBoxItem item in listItems)
             {
                 string filePath = item.Content.ToString();
@@ -149,10 +149,10 @@ namespace VLS.BatchExportNet.Source
                     continue;
                 }
 
-                Methods.DetachModel(application, filePath, ui);
+                DetachModel(application, filePath, ui);
             }
-            uiApp.DialogBoxShowing -= new EventHandler<DialogBoxShowingEventArgs>(Methods.TaskDialogBoxShowingEvent);
-            application.FailuresProcessing -= new EventHandler<Autodesk.Revit.DB.Events.FailuresProcessingEventArgs>(Methods.Application_FailuresProcessing);
+            uiApp.DialogBoxShowing -= new EventHandler<DialogBoxShowingEventArgs>(ErrorSwallowers.TaskDialogBoxShowingEvent);
+            application.FailuresProcessing -= new EventHandler<Autodesk.Revit.DB.Events.FailuresProcessingEventArgs>(ErrorSwallowers.Application_FailuresProcessing);
 
             TaskDialog taskDialog = new("Готово!")
             {
@@ -164,6 +164,76 @@ namespace VLS.BatchExportNet.Source
             ui.IsEnabled = false;
             taskDialog.Show();
             ui.IsEnabled = true;
+        }
+        private static void DetachModel(Application application, string filePath, DetachModelsUi ui)
+        {
+            Document document;
+            BasicFileInfo fileInfo;
+            bool isWorkshared = true;
+            try
+            {
+                fileInfo = BasicFileInfo.Extract(filePath);
+                if (!fileInfo.IsWorkshared)
+                {
+                    document = application.OpenDocumentFile(filePath);
+                    isWorkshared = false;
+                }
+                else
+                {
+                    ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
+                    WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.CloseAllWorksets);
+                    document = OpenDocument.OpenDetached(application, modelPath, worksetConfiguration);
+                    isWorkshared = true;
+                }
+            }
+            catch
+            {
+                return;
+            }
+            RevitLinks.Delete(document);
+            string fileDetachedPath = "";
+            switch (ui.RadioButtonSavingPathMode)
+            {
+                case 1:
+                    string folder = "";
+                    ui.Dispatcher.Invoke(() => folder = @ui.TextBoxFolder.Text);
+                    fileDetachedPath = folder + "\\" + document.Title.Replace("_detached", "").Replace("_отсоединено", "") + ".rvt";
+                    break;
+                case 3:
+                    string maskIn = "";
+                    string maskOut = "";
+                    ui.Dispatcher.Invoke(() => maskIn = @ui.TextBoxMaskIn.Text);
+                    ui.Dispatcher.Invoke(() => maskOut = @ui.TextBoxMaskOut.Text);
+                    fileDetachedPath = @filePath.Replace(maskIn, maskOut);
+                    break;
+            }
+
+            SaveAsOptions saveAsOptions = new()
+            {
+                OverwriteExistingFile = true,
+                MaximumBackups = 1
+            };
+            WorksharingSaveAsOptions worksharingSaveAsOptions = new()
+            {
+                SaveAsCentral = true
+            };
+            if (isWorkshared)
+                saveAsOptions.SetWorksharingOptions(worksharingSaveAsOptions);
+
+            ModelPath modelDetachedPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(fileDetachedPath);
+            document?.SaveAs(modelDetachedPath, saveAsOptions);
+
+            try
+            {
+                if (isWorkshared)
+                    ExtMethods.FreeTheModel(document);
+            }
+            catch
+            {
+            }
+
+            document?.Close();
+            document?.Dispose();
         }
     }
 
@@ -197,7 +267,7 @@ namespace VLS.BatchExportNet.Source
                 string transmittedFilePath = folder + "\\" + filePath.Split('\\').Last();
                 File.Copy(filePath, transmittedFilePath, true);
                 ModelPath transmittedModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(transmittedFilePath);
-                Methods.UnloadRevitLinks(transmittedModelPath, isSameFolder, folder);
+                RevitLinks.Unload(transmittedModelPath, isSameFolder, folder);
             }
 
             TaskDialog taskDialog = new("Готово!")
@@ -271,13 +341,13 @@ namespace VLS.BatchExportNet.Source
             foreach (string newFile in movedFiles)
             {
                 using ModelPath newFilePath = ModelPathUtils.ConvertUserVisiblePathToModelPath(newFile);
-                Methods.ReplaceRevitLinks(newFilePath, items);
+                RevitLinks.Replace(newFilePath, items);
 
                 using Document document = OpenDocument.OpenTransmitted(application, newFilePath);
 
                 try
                 {
-                    Methods.FreeTheModel(document);
+                    ExtMethods.FreeTheModel(document);
                 }
                 catch (Exception ex)
                 {
@@ -304,7 +374,7 @@ namespace VLS.BatchExportNet.Source
     {
         public override void Execute(UIApplication uiApp, LinkModelsUi ui)
         {
-            Methods.LinkRevitModel(uiApp, ui);
+            RevitLinks.CreateLinks(uiApp, ui);
 
             TaskDialog taskDialog = new("Готово!")
             {

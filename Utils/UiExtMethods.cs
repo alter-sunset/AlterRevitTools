@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Security.Cryptography;
 using System.Windows;
-using VLS.BatchExportNet.Detach;
-using VLS.BatchExportNet.IFC;
-using VLS.BatchExportNet.NWC;
-using VLS.BatchExportNet.Transmit;
+using System.Security.Cryptography;
+using VLS.BatchExportNet.Views.IFC;
+using VLS.BatchExportNet.Views.NWC;
+using VLS.BatchExportNet.Views.Detach;
+using VLS.BatchExportNet.Views.Transmit;
 
 namespace VLS.BatchExportNet.Utils
 {

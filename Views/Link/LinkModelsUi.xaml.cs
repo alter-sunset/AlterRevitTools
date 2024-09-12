@@ -11,7 +11,7 @@ using MessageBox = System.Windows.Forms.MessageBox;
 using System.Collections.ObjectModel;
 using VLS.BatchExportNet.Source;
 
-namespace VLS.BatchExportNet.Link
+namespace VLS.BatchExportNet.Views.Link
 {
     /// <summary>
     /// Interaction logic for DetachModelsUi.xaml

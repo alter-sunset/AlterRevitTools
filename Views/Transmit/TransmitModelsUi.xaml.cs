@@ -11,7 +11,7 @@ using System.Windows.Media;
 using VLS.BatchExportNet.Source;
 using MessageBox = System.Windows.Forms.MessageBox;
 
-namespace VLS.BatchExportNet.Transmit
+namespace VLS.BatchExportNet.Views.Transmit
 {
     /// <summary>
     /// Interaction logic for DetachModelsUi.xaml

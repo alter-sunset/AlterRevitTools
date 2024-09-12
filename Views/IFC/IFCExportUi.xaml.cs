@@ -13,8 +13,9 @@ using MessageBox = System.Windows.Forms.MessageBox;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
 using VLS.BatchExportNet.Source;
+using VLS.BatchExportNet.Views.IFC;
 
-namespace VLS.BatchExportNet.IFC
+namespace VLS.BatchExportNet.Views.IFC
 {
     /// <summary>
     /// Interaction logic for NWCExportUi.xaml

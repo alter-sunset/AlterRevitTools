@@ -10,11 +10,12 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
 using VLS.BatchExportNet.Source;
+using VLS.BatchExportNet.Views.NWC;
 using MessageBox = System.Windows.Forms.MessageBox;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
 
-namespace VLS.BatchExportNet.NWC
+namespace VLS.BatchExportNet.Views.NWC
 {
     /// <summary>
     /// Interaction logic for NWCExportUi.xaml

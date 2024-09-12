@@ -12,7 +12,7 @@ using RadioButton = System.Windows.Controls.RadioButton;
 using Autodesk.Revit.UI;
 using VLS.BatchExportNet.Source;
 
-namespace VLS.BatchExportNet.Detach
+namespace VLS.BatchExportNet.Views.Detach
 {
     /// <summary>
     /// Interaction logic for DetachModelsUi.xaml

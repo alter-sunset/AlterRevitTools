@@ -4,7 +4,7 @@ using MessageBox = System.Windows.Forms.MessageBox;
 using Autodesk.Revit.UI;
 using VLS.BatchExportNet.Source;
 
-namespace VLS.BatchExportNet.Migrate
+namespace VLS.BatchExportNet.Views.Migrate
 {
     /// <summary>
     /// Interaction logic for DetachModelsUi.xaml

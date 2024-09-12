@@ -5,13 +5,12 @@ using System.Linq;
 using System.Windows;
 using System.Reflection;
 using System.Windows.Media.Imaging;
-using VLS.BatchExportNet.NWC;
-using VLS.BatchExportNet.IFC;
-using VLS.BatchExportNet.Detach;
-using VLS.BatchExportNet.Transmit;
-using VLS.BatchExportNet.Migrate;
-using VLS.BatchExportNet.Link;
-using Autodesk.Revit.DB;
+using VLS.BatchExportNet.Views.NWC;
+using VLS.BatchExportNet.Views.IFC;
+using VLS.BatchExportNet.Views.Detach;
+using VLS.BatchExportNet.Views.Transmit;
+using VLS.BatchExportNet.Views.Migrate;
+using VLS.BatchExportNet.Views.Link;
 using Autodesk.Revit.UI;
 
 namespace VLS.BatchExportNet.Source
@@ -183,9 +182,5 @@ namespace VLS.BatchExportNet.Source
         Migrate,
         Transmit,
         Link
-    }
-    public class CommandAvailabilityWrapper : IExternalCommandAvailability
-    {
-        public bool IsCommandAvailable(UIApplication applicationData, CategorySet selectedCategories) => true;
     }
 }
