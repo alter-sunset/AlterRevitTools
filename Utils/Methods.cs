@@ -22,13 +22,12 @@ namespace VLS.BatchExportNet.Utils
     {
         public static void BatchExportNWC(UIApplication uiApp, NWCExportUi ui, ref Logger logger)
         {
-            Autodesk.Revit.ApplicationServices.Application application = uiApp.Application;
+            using Application application = uiApp.Application;
             List<ListBoxItem> listItems = ui.listBoxItems.ToList();
 
             foreach (ListBoxItem item in listItems)
             {
                 string filePath = item.Content.ToString();
-
                 bool fileIsWorkshared = true;
 
                 logger.LineBreak();
@@ -43,8 +42,8 @@ namespace VLS.BatchExportNet.Utils
                 }
                 uiApp.DialogBoxShowing += new EventHandler<DialogBoxShowingEventArgs>(TaskDialogBoxShowingEvent);
                 application.FailuresProcessing += new EventHandler<FailuresProcessingEventArgs>(Application_FailuresProcessing);
-                Document document;
 
+                Document document;
                 BasicFileInfo fileInfo;
                 try
                 {
@@ -123,8 +122,6 @@ namespace VLS.BatchExportNet.Utils
                     Thread.Sleep(500);
                 }
             }
-
-            application.Dispose();
 
             logger.LineBreak();
             logger.ErrorTotal();
@@ -273,14 +270,12 @@ namespace VLS.BatchExportNet.Utils
         }
         public static void BatchExportIFC(UIApplication uiApp, IFCExportUi ui, ref Logger logger)
         {
-            Application application = uiApp.Application;
-
+            using Application application = uiApp.Application;
             List<ListBoxItem> listItems = ui.listBoxItems.ToList();
 
             foreach (ListBoxItem item in listItems)
             {
                 string filePath = item.Content.ToString();
-
                 bool fileIsWorkshared = true;
 
                 logger.LineBreak();
@@ -295,8 +290,8 @@ namespace VLS.BatchExportNet.Utils
                 }
                 uiApp.DialogBoxShowing += new EventHandler<DialogBoxShowingEventArgs>(TaskDialogBoxShowingEvent);
                 application.FailuresProcessing += new EventHandler<FailuresProcessingEventArgs>(Application_FailuresProcessing);
-                Document document;
 
+                Document document;
                 BasicFileInfo fileInfo;
 
                 try
@@ -372,12 +367,11 @@ namespace VLS.BatchExportNet.Utils
 
                     uiApp.DialogBoxShowing -= new EventHandler<DialogBoxShowingEventArgs>(TaskDialogBoxShowingEvent);
                     application.FailuresProcessing -= new EventHandler<FailuresProcessingEventArgs>(Application_FailuresProcessing);
+
                     logger.TimeForFile(startTime);
                     Thread.Sleep(500);
                 }
             }
-
-            application.Dispose();
 
             logger.LineBreak();
             logger.ErrorTotal();
@@ -413,14 +407,13 @@ namespace VLS.BatchExportNet.Utils
                 string fileName = folder + "\\" + fileExportName + ".ifc";
 
                 string oldHash = null;
-
                 if (File.Exists(fileName))
                 {
                     oldHash = UiExtMethods.MD5Hash(fileName);
                     logger.Hash(oldHash);
                 }
 
-                using (Transaction transaction = new Transaction(document))
+                using (Transaction transaction = new(document))
                 {
                     transaction.Start("Экспорт IFC");
 
@@ -435,7 +428,6 @@ namespace VLS.BatchExportNet.Utils
                     }
                     transaction.Commit();
                 }
-
 
                 iFCExportOptions.Dispose();
 
@@ -485,8 +477,7 @@ namespace VLS.BatchExportNet.Utils
         }
         public static void LinkRevitModel(UIApplication uiApp, LinkModelsUi ui)
         {
-            //forgot to check for shared coord site
-            Application application = uiApp.Application;
+            using Application application = uiApp.Application;
             UIDocument uiDoc = uiApp.ActiveUIDocument;
             Document doc = uiDoc.Document;
             bool isCurrentWorkset = (bool)ui.CheckBoxCurrentWorkset.IsChecked;
@@ -575,7 +566,6 @@ namespace VLS.BatchExportNet.Utils
                     isConfirm = true;
                     dialogResult = (int)TaskDialogResult.CommandLink1;
                     break;
-                //case "TaskDialog_Cannot_Find_Central_Model":
                 default:
                     isConfirm = true;
                     dialogResult = (int)TaskDialogResult.Close;
@@ -590,7 +580,7 @@ namespace VLS.BatchExportNet.Utils
             View3D view = element as View3D;
             try
             {
-                using FilteredElementCollector collector = new FilteredElementCollector(document, view.Id);
+                using FilteredElementCollector collector = new(document, view.Id);
                 return !collector.Where(e => e.Category != null && e.GetType() != typeof(RevitLinkInstance)).Any(e => e.CanBeHidden(view));
             }
             catch
@@ -606,8 +596,7 @@ namespace VLS.BatchExportNet.Utils
         }
         private static FailureProcessingResult PreprocessFailures(FailuresAccessor a)
         {
-            IList<FailureMessageAccessor> failures
-              = a.GetFailureMessages();
+            IList<FailureMessageAccessor> failures = a.GetFailureMessages();
 
             foreach (FailureMessageAccessor f in failures)
             {
@@ -663,7 +652,7 @@ namespace VLS.BatchExportNet.Utils
                     isWorkshared = true;
                 }
             }
-            catch (Exception ex)
+            catch
             {
                 return;
             }

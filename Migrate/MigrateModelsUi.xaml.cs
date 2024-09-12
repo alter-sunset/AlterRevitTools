@@ -1,8 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Forms;
 using MessageBox = System.Windows.Forms.MessageBox;
-using VLS.BatchExportNet.Utils;
 using Autodesk.Revit.UI;
+using VLS.BatchExportNet.Source;
 
 namespace VLS.BatchExportNet.Migrate
 {
@@ -21,7 +21,7 @@ namespace VLS.BatchExportNet.Migrate
 
         private void ButtonLoad_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog()
+            OpenFileDialog openFileDialog = new()
             {
                 Multiselect = false,
                 DefaultExt = ".json",

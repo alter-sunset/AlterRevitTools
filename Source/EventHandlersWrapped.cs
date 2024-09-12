@@ -18,8 +18,9 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Events;
 using Application = Autodesk.Revit.ApplicationServices.Application;
+using VLS.BatchExportNet.Utils;
 
-namespace VLS.BatchExportNet.Utils
+namespace VLS.BatchExportNet.Source
 {
     public class EventHandlerNWCExportBatchUiArg : RevitEventWrapper<NWCExportUi>
     {
@@ -48,13 +49,13 @@ namespace VLS.BatchExportNet.Utils
 
                 string folder = "";
                 ui.Dispatcher.Invoke(() => folder = @ui.TextBoxFolder.Text);
-                Logger logger = new Logger(folder);
+                Logger logger = new(folder);
 
                 Methods.BatchExportNWC(uiApp, ui, ref logger);
                 Thread.Sleep(3000);
             }
 
-            TaskDialog taskDialog = new TaskDialog("Готово!")
+            TaskDialog taskDialog = new("Готово!")
             {
                 CommonButtons = TaskDialogCommonButtons.Close,
                 Id = "ExportBatchNWCFinished",
@@ -94,6 +95,7 @@ namespace VLS.BatchExportNet.Utils
             ui.IsEnabled = true;
         }
     }
+
     public class EventHandlerIFCExportUiArg : RevitEventWrapper<IFCExportUi>
     {
         public override void Execute(UIApplication uiApp, IFCExportUi ui)
@@ -131,7 +133,7 @@ namespace VLS.BatchExportNet.Utils
                 return;
             }
 
-            Application application = uiApp.Application;
+            using Application application = uiApp.Application;
             List<ListBoxItem> listItems = @ui.listBoxItems.ToList();
 
             uiApp.DialogBoxShowing += new EventHandler<DialogBoxShowingEventArgs>(Methods.TaskDialogBoxShowingEvent);
@@ -147,9 +149,7 @@ namespace VLS.BatchExportNet.Utils
                     continue;
                 }
 
-
                 Methods.DetachModel(application, filePath, ui);
-
             }
             uiApp.DialogBoxShowing -= new EventHandler<DialogBoxShowingEventArgs>(Methods.TaskDialogBoxShowingEvent);
             application.FailuresProcessing -= new EventHandler<Autodesk.Revit.DB.Events.FailuresProcessingEventArgs>(Methods.Application_FailuresProcessing);
@@ -160,8 +160,6 @@ namespace VLS.BatchExportNet.Utils
                 Id = "DetachModelsFinished",
                 MainContent = "Задание выполнено"
             };
-
-            application.Dispose();
 
             ui.IsEnabled = false;
             taskDialog.Show();
@@ -178,7 +176,7 @@ namespace VLS.BatchExportNet.Utils
                 return;
             }
 
-            Application application = uiApp.Application;
+            using Application application = uiApp.Application;
             List<ListBoxItem> listItems = @ui.listBoxItems.ToList();
 
             foreach (ListBoxItem item in listItems)
@@ -198,7 +196,7 @@ namespace VLS.BatchExportNet.Utils
 
                 string transmittedFilePath = folder + "\\" + filePath.Split('\\').Last();
                 File.Copy(filePath, transmittedFilePath, true);
-                ModelPath transmittedModelPath = new FilePath(transmittedFilePath);
+                ModelPath transmittedModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(transmittedFilePath);
                 Methods.UnloadRevitLinks(transmittedModelPath, isSameFolder, folder);
             }
 
@@ -208,8 +206,6 @@ namespace VLS.BatchExportNet.Utils
                 Id = "TransmitModelsFinished",
                 MainContent = "Задание выполнено"
             };
-
-            application.Dispose();
 
             ui.IsEnabled = false;
             taskDialog.Show();
@@ -229,8 +225,8 @@ namespace VLS.BatchExportNet.Utils
             }
 
             Dictionary<string, string> items;
-            List<string> movedFiles = new List<string>();
-            List<string> failedFiles = new List<string>();
+            List<string> movedFiles = new();
+            List<string> failedFiles = new();
 
             using (FileStream file = File.OpenRead(ui.TextBoxConfig.Text))
             {
@@ -245,7 +241,7 @@ namespace VLS.BatchExportNet.Utils
                 }
             }
 
-            Application application = uiApp.Application;
+            using Application application = uiApp.Application;
 
             foreach (string oldFile in items.Keys)
             {
@@ -274,12 +270,10 @@ namespace VLS.BatchExportNet.Utils
 
             foreach (string newFile in movedFiles)
             {
-                ModelPath newFilePath = new FilePath(newFile);
+                using ModelPath newFilePath = ModelPathUtils.ConvertUserVisiblePathToModelPath(newFile);
                 Methods.ReplaceRevitLinks(newFilePath, items);
 
-                Document document = OpenDocument.OpenTransmitted(application, newFilePath);
-
-                newFilePath.Dispose();
+                using Document document = OpenDocument.OpenTransmitted(application, newFilePath);
 
                 try
                 {
@@ -291,23 +285,21 @@ namespace VLS.BatchExportNet.Utils
                 }
 
                 document.Close();
-                document.Dispose();
             }
 
-            TaskDialog taskDialog = new TaskDialog("Готово!")
+            TaskDialog taskDialog = new("Готово!")
             {
                 CommonButtons = TaskDialogCommonButtons.Close,
                 Id = "MigrateModelsFinished",
                 MainContent = $"Задание выполнено.\nСледующие файлы не были скопированы:\n{string.Join("\n", failedFiles)}"
             };
 
-            application.Dispose();
-
             ui.IsEnabled = false;
             taskDialog.Show();
             ui.IsEnabled = true;
         }
     }
+
     public class EventHandlerLinkModelsUiArg : RevitEventWrapper<LinkModelsUi>
     {
         public override void Execute(UIApplication uiApp, LinkModelsUi ui)

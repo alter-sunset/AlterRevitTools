@@ -12,7 +12,7 @@ using System.Windows.Media;
 using MessageBox = System.Windows.Forms.MessageBox;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
-using VLS.BatchExportNet.Utils;
+using VLS.BatchExportNet.Source;
 
 namespace VLS.BatchExportNet.IFC
 {
