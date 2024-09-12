@@ -8,6 +8,14 @@
 		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Remove="Resources\detach.png" />
+	  <None Remove="Resources\detach_16.png" />
+	  <None Remove="Resources\migrate.png" />
+	  <None Remove="Resources\migrate_16.png" />
+	  <None Remove="Resources\transmit.png" />
+	  <None Remove="Resources\transmit_16.png" />
+	</ItemGroup>
+	<ItemGroup>
 		<Reference Include="RevitAPI">
 			<HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2025\RevitAPI.dll</HintPath>
 			<Private>False</Private>
@@ -18,12 +26,18 @@
 		</Reference>
 	</ItemGroup>
 	<ItemGroup>
+		<EmbeddedResource Include="Resources\detach.png" />
+		<EmbeddedResource Include="Resources\detach_16.png" />
+		<EmbeddedResource Include="Resources\migrate.png" />
+		<EmbeddedResource Include="Resources\migrate_16.png" />
 		<EmbeddedResource Include="Resources\navisworks_16.png" />
 		<EmbeddedResource Include="Resources\navisworks.png" />
 		<EmbeddedResource Include="Resources\ifc.png" />
 		<EmbeddedResource Include="Resources\ifc_16.png" />
 		<EmbeddedResource Include="Resources\rvt.png" />
 		<EmbeddedResource Include="Resources\rvt_16.png" />
+		<EmbeddedResource Include="Resources\transmit.png" />
+		<EmbeddedResource Include="Resources\transmit_16.png" />
 		<EmbeddedResource Include="Resources\VLS.png" />
 		<EmbeddedResource Include="Resources\VLS_16.png" />
 	</ItemGroup>

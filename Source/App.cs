@@ -25,18 +25,21 @@ namespace VLS.BatchExportNet.Source
             _thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
 
             RibbonPanel panelExtern = RibbonPanel(a, "Пакетный экспорт");
-            string[] applIconPath = { "VLS.png", "VLS_16.png" };
+            string[] vlsIconPath = { "VLS.png", "VLS_16.png" };
+            string[] detachIconPath = { "detach.png", "detach_16.png" };
+            string[] migrateIconPath = { "migrate.png", "migrate_16.png" };
+            string[] transmitIconPath = { "transmit.png", "transmit_16.png" };
             string[] ifcIconPath = { "ifc.png", "ifc_16.png" };
-            string[] navisIconPath = { "navisworks.png", "navisworks_16.png" };
+            string[] nvcIconPath = { "navisworks.png", "navisworks_16.png" };
 
             RibbonPanel panelIntern = RibbonPanel(a, "Внутренние штуки");
             string[] rvtIconPath = { "rvt.png", "rvt_16.png" };
 
-            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.NWC), "Пакетный экспорт в NWCHelper", navisIconPath);
+            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.NWC), "Пакетный экспорт в NWCHelper", nvcIconPath);
             CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.IFC), "Пакетный экспорт в IFCHelper", ifcIconPath);
-            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.Detach), "Пакетный экспорт отсоединённых моделей", applIconPath);
-            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.Transmit), "Пакетная передача моделей", applIconPath);
-            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.Migrate), "Пакетная миграция моделей с обновлением связей", applIconPath);
+            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.Detach), "Пакетный экспорт отсоединённых моделей", detachIconPath);
+            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.Transmit), "Пакетная передача моделей", transmitIconPath);
+            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.Migrate), "Пакетная миграция моделей с обновлением связей", migrateIconPath);
 
             CreateNewPushButton(panelIntern, PushButtonDataWrapper(Forms.Link), "Пакетное добавление Revit ссылок", rvtIconPath);
 
