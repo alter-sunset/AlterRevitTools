@@ -10,21 +10,8 @@ using VLS.BatchExportNet.Views.Transmit;
 
 namespace VLS.BatchExportNet.Utils
 {
-    public static class UiExtMethods
-    {
-        public static string MD5Hash(string fileName)
-        {
-            using MD5 md5 = MD5.Create();
-            try
-            {
-                using FileStream stream = File.OpenRead(fileName);
-                return Convert.ToBase64String(md5.ComputeHash(stream));
-            }
-            catch
-            {
-                return null;
-            }
-        }
+    public static class ViewHelper
+    {        
         public static bool IsEverythingFilled(NWCExportUi ui)
         {
             if (ui.listBoxItems.Count == 0)

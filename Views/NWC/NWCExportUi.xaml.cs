@@ -305,7 +305,7 @@ namespace VLS.BatchExportNet.Views.NWC
         private void ButtonStartJson_Click(object sender, RoutedEventArgs e) => _eventHandlerNWCExportBatchUiArg.Raise(this);
         private void ButtonHelp_Click(object sender, RoutedEventArgs e)
         {
-            const string msg = "\tПлагин предназначен для пакетного экспорта файлов в формат NWC." +
+            const string msg = "\tПлагин предназначен для пакетного экспорта файлов в формат NWCHelper." +
                  "\n" +
                  "\tЕсли вы впервые используете плагин, и у вас нет ранее сохранённых файлов конфигурации, то вам необходимо выполнить следующее: " +
                  "используя кнопку \"Загрузить\" добавьте все модели объекта, которые необходимо экспортировать. " +

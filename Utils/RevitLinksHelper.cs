@@ -11,7 +11,7 @@ using Application = Autodesk.Revit.ApplicationServices.Application;
 
 namespace VLS.BatchExportNet.Utils
 {
-    public static class RevitLinks
+    public static class RevitLinksHelper
     {
         public static void Delete(Document document)
         {

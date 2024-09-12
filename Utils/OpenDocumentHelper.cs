@@ -3,7 +3,7 @@ using Autodesk.Revit.ApplicationServices;
 
 namespace VLS.BatchExportNet.Utils
 {
-    public static class OpenDocument
+    public static class OpenDocumentHelper
     {
         public static Document OpenAsIs(Application application, ModelPath modelPath, WorksetConfiguration worksetConfiguration)
         {

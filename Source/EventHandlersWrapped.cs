@@ -51,7 +51,7 @@ namespace VLS.BatchExportNet.Source
                 ui.Dispatcher.Invoke(() => folder = @ui.TextBoxFolder.Text);
                 Logger logger = new(folder);
 
-                NWC.BatchExportModels(uiApp, ui, ref logger);
+                NWCHelper.BatchExportModels(uiApp, ui, ref logger);
                 Thread.Sleep(3000);
             }
 
@@ -72,7 +72,7 @@ namespace VLS.BatchExportNet.Source
     {
         public override void Execute(UIApplication uiApp, NWCExportUi ui)
         {
-            if (!UiExtMethods.IsEverythingFilled(ui))
+            if (!ViewHelper.IsEverythingFilled(ui))
             {
                 return;
             }
@@ -81,7 +81,7 @@ namespace VLS.BatchExportNet.Source
             ui.Dispatcher.Invoke(() => folder = @ui.TextBoxFolder.Text);
             Logger logger = new(folder);
 
-            NWC.BatchExportModels(uiApp, ui, ref logger);
+            NWCHelper.BatchExportModels(uiApp, ui, ref logger);
 
             TaskDialog taskDialog = new("Готово!")
             {
@@ -100,7 +100,7 @@ namespace VLS.BatchExportNet.Source
     {
         public override void Execute(UIApplication uiApp, IFCExportUi ui)
         {
-            if (!UiExtMethods.IsEverythingFilled(ui))
+            if (!ViewHelper.IsEverythingFilled(ui))
             {
                 return;
             }
@@ -109,7 +109,7 @@ namespace VLS.BatchExportNet.Source
             ui.Dispatcher.Invoke(() => folder = @ui.TextBoxFolder.Text);
             Logger logger = new(folder);
 
-            IFC.BatchExportModels(uiApp, ui, ref logger);
+            IFCHelper.BatchExportModels(uiApp, ui, ref logger);
 
             TaskDialog taskDialog = new("Готово!")
             {
@@ -128,7 +128,7 @@ namespace VLS.BatchExportNet.Source
     {
         public override void Execute(UIApplication uiApp, DetachModelsUi ui)
         {
-            if (!UiExtMethods.IsEverythingFilled(ui))
+            if (!ViewHelper.IsEverythingFilled(ui))
             {
                 return;
             }
@@ -136,8 +136,8 @@ namespace VLS.BatchExportNet.Source
             using Application application = uiApp.Application;
             List<ListBoxItem> listItems = @ui.listBoxItems.ToList();
 
-            uiApp.DialogBoxShowing += new EventHandler<DialogBoxShowingEventArgs>(ErrorSwallowers.TaskDialogBoxShowingEvent);
-            application.FailuresProcessing += new EventHandler<Autodesk.Revit.DB.Events.FailuresProcessingEventArgs>(ErrorSwallowers.Application_FailuresProcessing);
+            uiApp.DialogBoxShowing += new EventHandler<DialogBoxShowingEventArgs>(ErrorSwallowersHelper.TaskDialogBoxShowingEvent);
+            application.FailuresProcessing += new EventHandler<Autodesk.Revit.DB.Events.FailuresProcessingEventArgs>(ErrorSwallowersHelper.Application_FailuresProcessing);
             foreach (ListBoxItem item in listItems)
             {
                 string filePath = item.Content.ToString();
@@ -151,8 +151,8 @@ namespace VLS.BatchExportNet.Source
 
                 DetachModel(application, filePath, ui);
             }
-            uiApp.DialogBoxShowing -= new EventHandler<DialogBoxShowingEventArgs>(ErrorSwallowers.TaskDialogBoxShowingEvent);
-            application.FailuresProcessing -= new EventHandler<Autodesk.Revit.DB.Events.FailuresProcessingEventArgs>(ErrorSwallowers.Application_FailuresProcessing);
+            uiApp.DialogBoxShowing -= new EventHandler<DialogBoxShowingEventArgs>(ErrorSwallowersHelper.TaskDialogBoxShowingEvent);
+            application.FailuresProcessing -= new EventHandler<Autodesk.Revit.DB.Events.FailuresProcessingEventArgs>(ErrorSwallowersHelper.Application_FailuresProcessing);
 
             TaskDialog taskDialog = new("Готово!")
             {
@@ -182,7 +182,7 @@ namespace VLS.BatchExportNet.Source
                 {
                     ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
                     WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.CloseAllWorksets);
-                    document = OpenDocument.OpenDetached(application, modelPath, worksetConfiguration);
+                    document = OpenDocumentHelper.OpenDetached(application, modelPath, worksetConfiguration);
                     isWorkshared = true;
                 }
             }
@@ -190,7 +190,7 @@ namespace VLS.BatchExportNet.Source
             {
                 return;
             }
-            RevitLinks.Delete(document);
+            RevitLinksHelper.Delete(document);
             string fileDetachedPath = "";
             switch (ui.RadioButtonSavingPathMode)
             {
@@ -226,7 +226,7 @@ namespace VLS.BatchExportNet.Source
             try
             {
                 if (isWorkshared)
-                    ExtMethods.FreeTheModel(document);
+                    ModelHelper.FreeTheModel(document);
             }
             catch
             {
@@ -241,7 +241,7 @@ namespace VLS.BatchExportNet.Source
     {
         public override void Execute(UIApplication uiApp, TransmitModelsUi ui)
         {
-            if (!UiExtMethods.IsEverythingFilled(ui))
+            if (!ViewHelper.IsEverythingFilled(ui))
             {
                 return;
             }
@@ -267,7 +267,7 @@ namespace VLS.BatchExportNet.Source
                 string transmittedFilePath = folder + "\\" + filePath.Split('\\').Last();
                 File.Copy(filePath, transmittedFilePath, true);
                 ModelPath transmittedModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(transmittedFilePath);
-                RevitLinks.Unload(transmittedModelPath, isSameFolder, folder);
+                RevitLinksHelper.Unload(transmittedModelPath, isSameFolder, folder);
             }
 
             TaskDialog taskDialog = new("Готово!")
@@ -341,13 +341,13 @@ namespace VLS.BatchExportNet.Source
             foreach (string newFile in movedFiles)
             {
                 using ModelPath newFilePath = ModelPathUtils.ConvertUserVisiblePathToModelPath(newFile);
-                RevitLinks.Replace(newFilePath, items);
+                RevitLinksHelper.Replace(newFilePath, items);
 
-                using Document document = OpenDocument.OpenTransmitted(application, newFilePath);
+                using Document document = OpenDocumentHelper.OpenTransmitted(application, newFilePath);
 
                 try
                 {
-                    ExtMethods.FreeTheModel(document);
+                    ModelHelper.FreeTheModel(document);
                 }
                 catch (Exception ex)
                 {
@@ -374,7 +374,7 @@ namespace VLS.BatchExportNet.Source
     {
         public override void Execute(UIApplication uiApp, LinkModelsUi ui)
         {
-            RevitLinks.CreateLinks(uiApp, ui);
+            RevitLinksHelper.CreateLinks(uiApp, ui);
 
             TaskDialog taskDialog = new("Готово!")
             {

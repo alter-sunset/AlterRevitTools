@@ -6,7 +6,7 @@ using Autodesk.Revit.UI.Events;
 
 namespace VLS.BatchExportNet.Utils
 {
-    public static class ErrorSwallowers
+    public static class ErrorSwallowersHelper
     {
         public static void TaskDialogBoxShowingEvent(object sender, DialogBoxShowingEventArgs e)
         {

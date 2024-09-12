@@ -1,10 +1,13 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
 using Autodesk.Revit.DB;
+using System.IO;
+using System.Security.Cryptography;
+using System;
 
 namespace VLS.BatchExportNet.Utils
 {
-    public static class ExtMethods
+    public static class ModelHelper
     {
         public static WorksetConfiguration CloseWorksetsWithLinks(ModelPath modelPath)
         {
@@ -44,6 +47,19 @@ namespace VLS.BatchExportNet.Utils
             RelinquishOptions relinquishOptions = new(true);
             TransactWithCentralOptions transactWithCentralOptions = new();
             WorksharingUtils.RelinquishOwnership(document, relinquishOptions, transactWithCentralOptions);
+        }
+        public static string MD5Hash(string fileName)
+        {
+            using MD5 md5 = MD5.Create();
+            try
+            {
+                using FileStream stream = File.OpenRead(fileName);
+                return Convert.ToBase64String(md5.ComputeHash(stream));
+            }
+            catch
+            {
+                return null;
+            }
         }
     }
 }

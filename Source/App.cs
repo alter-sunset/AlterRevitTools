@@ -32,11 +32,11 @@ namespace VLS.BatchExportNet.Source
             RibbonPanel panelIntern = RibbonPanel(a, "Внутренние штуки");
             string[] rvtIconPath = { "rvt.png", "rvt_16.png" };
 
-            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.IFC), "Пакетный экспорт в IFC", ifcIconPath);
-            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.NWC), "Пакетный экспорт в NWC", navisIconPath);
+            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.NWC), "Пакетный экспорт в NWCHelper", navisIconPath);
+            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.IFC), "Пакетный экспорт в IFCHelper", ifcIconPath);
             CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.Detach), "Пакетный экспорт отсоединённых моделей", applIconPath);
-            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.Migrate), "Пакетная миграция моделей с обновлением связей", applIconPath);
             CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.Transmit), "Пакетная передача моделей", applIconPath);
+            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.Migrate), "Пакетная миграция моделей с обновлением связей", applIconPath);
 
             CreateNewPushButton(panelIntern, PushButtonDataWrapper(Forms.Link), "Пакетное добавление Revit ссылок", rvtIconPath);
 
@@ -129,12 +129,12 @@ namespace VLS.BatchExportNet.Source
                     className = BASE + "ExportModelsDetached";
                     break;
                 case Forms.IFC:
-                    name = "Экспорт IFC";
+                    name = "Экспорт IFCHelper";
                     text = "Экспорт\nIFC";
                     className = BASE + "ExportModelsToIFC";
                     break;
                 case Forms.NWC:
-                    name = "Экспорт NWC";
+                    name = "Экспорт NWCHelper";
                     text = "Экспорт\nNWC";
                     className = BASE + "ExportModelsToNWC";
                     break;

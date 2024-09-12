@@ -5,7 +5,7 @@ using System.Threading;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
-using VLS.BatchExportNet.Views.NWC;
+using VLS.BatchExportNet.Views.IFC;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.UI;
@@ -14,9 +14,9 @@ using Autodesk.Revit.ApplicationServices;
 
 namespace VLS.BatchExportNet.Utils
 {
-    public class NWC
+    public class IFCHelper
     {
-        public static void BatchExportModels(UIApplication uiApp, NWCExportUi ui, ref Logger logger)
+        public static void BatchExportModels(UIApplication uiApp, IFCExportUi ui, ref Logger logger)
         {
             using Application application = uiApp.Application;
             List<ListBoxItem> listItems = ui.listBoxItems.ToList();
@@ -36,11 +36,12 @@ namespace VLS.BatchExportNet.Utils
                     item.Background = Brushes.Red;
                     continue;
                 }
-                uiApp.DialogBoxShowing += new EventHandler<DialogBoxShowingEventArgs>(ErrorSwallowers.TaskDialogBoxShowingEvent);
-                application.FailuresProcessing += new EventHandler<FailuresProcessingEventArgs>(ErrorSwallowers.Application_FailuresProcessing);
+                uiApp.DialogBoxShowing += new EventHandler<DialogBoxShowingEventArgs>(ErrorSwallowersHelper.TaskDialogBoxShowingEvent);
+                application.FailuresProcessing += new EventHandler<FailuresProcessingEventArgs>(ErrorSwallowersHelper.Application_FailuresProcessing);
 
                 Document document;
                 BasicFileInfo fileInfo;
+
                 try
                 {
                     fileInfo = BasicFileInfo.Extract(filePath);
@@ -52,14 +53,14 @@ namespace VLS.BatchExportNet.Utils
                     else if (filePath.Equals(fileInfo.CentralPath))
                     {
                         ModelPath modelPath = new FilePath(filePath);
-                        WorksetConfiguration worksetConfiguration = ExtMethods.CloseWorksetsWithLinks(modelPath);
-                        document = OpenDocument.OpenAsIs(application, modelPath, worksetConfiguration);
+                        WorksetConfiguration worksetConfiguration = ModelHelper.CloseWorksetsWithLinks(modelPath);
+                        document = OpenDocumentHelper.OpenAsIs(application, modelPath, worksetConfiguration);
                     }
                     else
                     {
                         ModelPath modelPath = new FilePath(filePath);
                         WorksetConfiguration worksetConfiguration = new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
-                        document = OpenDocument.OpenAsIs(application, modelPath, worksetConfiguration);
+                        document = OpenDocumentHelper.OpenAsIs(application, modelPath, worksetConfiguration);
                     }
                 }
                 catch (Exception ex)
@@ -90,7 +91,7 @@ namespace VLS.BatchExportNet.Utils
                     {
                         try
                         {
-                            ExtMethods.FreeTheModel(document);
+                            ModelHelper.FreeTheModel(document);
                         }
                         catch (Exception ex)
                         {
@@ -112,8 +113,9 @@ namespace VLS.BatchExportNet.Utils
                         logger.Success("Всё ок.");
                     }
 
-                    uiApp.DialogBoxShowing -= new EventHandler<DialogBoxShowingEventArgs>(ErrorSwallowers.TaskDialogBoxShowingEvent);
-                    application.FailuresProcessing -= new EventHandler<FailuresProcessingEventArgs>(ErrorSwallowers.Application_FailuresProcessing);
+                    uiApp.DialogBoxShowing -= new EventHandler<DialogBoxShowingEventArgs>(ErrorSwallowersHelper.TaskDialogBoxShowingEvent);
+                    application.FailuresProcessing -= new EventHandler<FailuresProcessingEventArgs>(ErrorSwallowersHelper.Application_FailuresProcessing);
+
                     logger.TimeForFile(startTime);
                     Thread.Sleep(500);
                 }
@@ -124,25 +126,23 @@ namespace VLS.BatchExportNet.Utils
             logger.TimeTotal();
             logger.Dispose();
         }
-        public static void ExportModel(Document document, NWCExportUi ui, ref bool isFuckedUp, Logger logger)
+        public static void ExportModel(Document document, IFCExportUi ui, ref bool isFuckedUp, Logger logger)
         {
             Element view = default;
-
             using (FilteredElementCollector stuff = new(document))
             {
                 view = stuff.OfClass(typeof(View3D)).FirstOrDefault(e => e.Name == ui.TextBoxExportScopeViewName.Text && !((View3D)e).IsTemplate);
             }
 
             if ((bool)ui.RadioButtonExportScopeView.IsChecked
-                && !(bool)ui.CheckBoxExportLinks.IsChecked
-                && ExtMethods.IsViewEmpty(document, view))
+                && ModelHelper.IsViewEmpty(document, view))
             {
                 logger.Error("Нет геометрии на виде.");
                 isFuckedUp = true;
             }
             else
             {
-                NavisworksExportOptions navisworksExportOptions = NWC_ExportOptions(document, ui);
+                IFCExportOptions iFCExportOptions = IFC_ExportOptions(document, ui);
                 string folder = "";
                 string prefix = "";
                 string postfix = "";
@@ -152,27 +152,32 @@ namespace VLS.BatchExportNet.Utils
                 ui.Dispatcher.Invoke(() => postfix = ui.TextBoxPostfix.Text);
 
                 string fileExportName = prefix + document.Title.Replace("_отсоединено", "") + postfix;
-                string fileName = folder + "\\" + fileExportName + ".nwc";
+                string fileName = folder + "\\" + fileExportName + ".ifc";
 
                 string oldHash = null;
-
                 if (File.Exists(fileName))
                 {
-                    oldHash = UiExtMethods.MD5Hash(fileName);
+                    oldHash = ModelHelper.MD5Hash(fileName);
                     logger.Hash(oldHash);
                 }
 
-                try
+                using (Transaction transaction = new(document))
                 {
-                    document?.Export(folder, fileExportName, navisworksExportOptions);
-                }
-                catch (Exception ex)
-                {
-                    logger.Error("Смотри исключение.", ex);
-                    isFuckedUp = true;
+                    transaction.Start("Экспорт IFCHelper");
+
+                    try
+                    {
+                        document?.Export(folder, fileExportName, iFCExportOptions);
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Error("Смотри исключение.", ex);
+                        isFuckedUp = true;
+                    }
+                    transaction.Commit();
                 }
 
-                navisworksExportOptions.Dispose();
+                iFCExportOptions.Dispose();
 
                 if (!File.Exists(fileName))
                 {
@@ -181,7 +186,7 @@ namespace VLS.BatchExportNet.Utils
                 }
                 else
                 {
-                    string newHash = UiExtMethods.MD5Hash(fileName);
+                    string newHash = ModelHelper.MD5Hash(fileName);
                     logger.Hash(newHash);
 
                     if (newHash == oldHash)
@@ -194,73 +199,27 @@ namespace VLS.BatchExportNet.Utils
                 view?.Dispose();
             }
         }
-        public static NavisworksExportOptions NWC_ExportOptions(Document document, NWCExportUi batchExportNWC)
+        public static IFCExportOptions IFC_ExportOptions(Document document, IFCExportUi batchExportIFC)
         {
-            string coordinates = ((ComboBoxItem)batchExportNWC.ComboBoxCoordinates.SelectedItem).Content.ToString();
-            bool exportScope = (bool)batchExportNWC.RadioBattonExportScopeModel.IsChecked;
-            string parameters = ((ComboBoxItem)batchExportNWC.ComboBoxParameters.SelectedItem).Content.ToString();
-
-            if (double.TryParse(batchExportNWC.TextBoxFacetingFactor.Text, out double facetingFactor))
+            IFCExportOptions options = new()
             {
-                facetingFactor = double.Parse(batchExportNWC.TextBoxFacetingFactor.Text);
-            }
-            else
-            {
-                facetingFactor = 1.0;
-            }
-
-            NavisworksExportOptions options = new NavisworksExportOptions()
-            {
-                ConvertElementProperties = (bool)batchExportNWC.CheckBoxConvertElementProperties.IsChecked,
-                DivideFileIntoLevels = (bool)batchExportNWC.CheckBoxDivideFileIntoLevels.IsChecked,
-                ExportElementIds = (bool)batchExportNWC.CheckBoxExportElementIds.IsChecked,
-                ExportLinks = (bool)batchExportNWC.CheckBoxExportLinks.IsChecked,
-                ExportParts = (bool)batchExportNWC.CheckBoxExportParts.IsChecked,
-                ExportRoomAsAttribute = (bool)batchExportNWC.CheckBoxExportRoomAsAttribute.IsChecked,
-                ExportRoomGeometry = (bool)batchExportNWC.CheckBoxExportRoomGeometry.IsChecked,
-                ExportUrls = (bool)batchExportNWC.CheckBoxExportUrls.IsChecked,
-                FindMissingMaterials = (bool)batchExportNWC.CheckBoxFindMissingMaterials.IsChecked,
-                ConvertLights = (bool)batchExportNWC.CheckBoxConvertLights.IsChecked,
-                ConvertLinkedCADFormats = (bool)batchExportNWC.CheckBoxConvertLinkedCADFormats.IsChecked,
-                FacetingFactor = facetingFactor
+                ExportBaseQuantities = (bool)batchExportIFC.CheckBoxExportBaseQuantities.IsChecked,
+                FamilyMappingFile = batchExportIFC.TextBoxMapping.Text,
+                FileVersion = IFCExportUi
+                    .indexToIFCVersion
+                    .First(e => e.Key == batchExportIFC
+                        .ComboBoxIFCVersion
+                        .SelectedIndex)
+                    .Value,
+                FilterViewId = new FilteredElementCollector(document)
+                .OfClass(typeof(View))
+                .FirstOrDefault(e => e.Name == batchExportIFC
+                    .TextBoxExportScopeViewName
+                    .Text)
+                .Id,
+                SpaceBoundaryLevel = batchExportIFC.ComboBoxSpaceBoundaryLevel.SelectedIndex,
+                WallAndColumnSplitting = (bool)batchExportIFC.CheckBoxWallAndColumnSplitting.IsChecked
             };
-
-            switch (coordinates)
-            {
-                case "Общие":
-                    options.Coordinates = NavisworksCoordinates.Shared;
-                    break;
-                case "Внутренние для проекта":
-                    options.Coordinates = NavisworksCoordinates.Internal;
-                    break;
-            }
-
-            switch (exportScope)
-            {
-                case true:
-                    options.ExportScope = NavisworksExportScope.Model;
-                    break;
-                case false:
-                    options.ExportScope = NavisworksExportScope.View;
-                    options.ViewId = new FilteredElementCollector(document)
-                        .OfClass(typeof(View3D))
-                        .FirstOrDefault(e => e.Name == batchExportNWC.TextBoxExportScopeViewName.Text && !((View3D)e).IsTemplate)
-                        .Id;
-                    break;
-            }
-
-            switch (parameters)
-            {
-                case "Все":
-                    options.Parameters = NavisworksParameters.All;
-                    break;
-                case "Объекты":
-                    options.Parameters = NavisworksParameters.Elements;
-                    break;
-                case "Нет":
-                    options.Parameters = NavisworksParameters.None;
-                    break;
-            }
 
             return options;
         }
