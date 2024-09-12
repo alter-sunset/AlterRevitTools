@@ -2,20 +2,21 @@
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.Attributes;
+using VLS.BatchExportNet.Utils;
 
 namespace VLS.BatchExportNet.Source
 {
-    public class CommandAvailabilityWrapper : IExternalCommandAvailability
+    public class CommandAvailability : IExternalCommandAvailability
     {
         public bool IsCommandAvailable(UIApplication applicationData, CategorySet selectedCategories) => true;
     }
     static class ExternalCommandWrapper
     {
-        public static Result Execute(UIApplication app, ref string message, Forms form)
+        internal static Result Execute(UIApplication app, ref string message, Forms form)
         {
             try
             {
-                App.ShowForm(app, form);
+                ViewHelper.ShowForm(app, form);
                 return Result.Succeeded;
             }
             catch (Exception ex)

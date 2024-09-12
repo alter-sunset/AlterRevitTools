@@ -14,9 +14,9 @@ using Autodesk.Revit.ApplicationServices;
 
 namespace VLS.BatchExportNet.Utils
 {
-    public class NWCHelper
+    static class NWCHelper
     {
-        public static void BatchExportModels(UIApplication uiApp, NWCExportUi ui, ref Logger logger)
+        internal static void BatchExportModels(UIApplication uiApp, NWCExportUi ui, ref Logger logger)
         {
             using Application application = uiApp.Application;
             List<ListBoxItem> listItems = ui.listBoxItems.ToList();
@@ -51,13 +51,13 @@ namespace VLS.BatchExportNet.Utils
                     }
                     else if (filePath.Equals(fileInfo.CentralPath))
                     {
-                        ModelPath modelPath = new FilePath(filePath);
+                        ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
                         WorksetConfiguration worksetConfiguration = ModelHelper.CloseWorksetsWithLinks(modelPath);
                         document = OpenDocumentHelper.OpenAsIs(application, modelPath, worksetConfiguration);
                     }
                     else
                     {
-                        ModelPath modelPath = new FilePath(filePath);
+                        ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
                         WorksetConfiguration worksetConfiguration = new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
                         document = OpenDocumentHelper.OpenAsIs(application, modelPath, worksetConfiguration);
                     }
@@ -124,7 +124,7 @@ namespace VLS.BatchExportNet.Utils
             logger.TimeTotal();
             logger.Dispose();
         }
-        public static void ExportModel(Document document, NWCExportUi ui, ref bool isFuckedUp, Logger logger)
+        private static void ExportModel(Document document, NWCExportUi ui, ref bool isFuckedUp, Logger logger)
         {
             Element view = default;
 
@@ -194,7 +194,7 @@ namespace VLS.BatchExportNet.Utils
                 view?.Dispose();
             }
         }
-        public static NavisworksExportOptions NWC_ExportOptions(Document document, NWCExportUi batchExportNWC)
+        private static NavisworksExportOptions NWC_ExportOptions(Document document, NWCExportUi batchExportNWC)
         {
             string coordinates = ((ComboBoxItem)batchExportNWC.ComboBoxCoordinates.SelectedItem).Content.ToString();
             bool exportScope = (bool)batchExportNWC.RadioBattonExportScopeModel.IsChecked;
@@ -209,7 +209,7 @@ namespace VLS.BatchExportNet.Utils
                 facetingFactor = 1.0;
             }
 
-            NavisworksExportOptions options = new NavisworksExportOptions()
+            NavisworksExportOptions options = new()
             {
                 ConvertElementProperties = (bool)batchExportNWC.CheckBoxConvertElementProperties.IsChecked,
                 DivideFileIntoLevels = (bool)batchExportNWC.CheckBoxDivideFileIntoLevels.IsChecked,

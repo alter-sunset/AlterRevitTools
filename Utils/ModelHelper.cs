@@ -1,15 +1,15 @@
-﻿using System.Linq;
-using System.Collections.Generic;
-using Autodesk.Revit.DB;
+﻿using System;
 using System.IO;
+using System.Linq;
+using System.Collections.Generic;
 using System.Security.Cryptography;
-using System;
+using Autodesk.Revit.DB;
 
 namespace VLS.BatchExportNet.Utils
 {
-    public static class ModelHelper
+    static class ModelHelper
     {
-        public static WorksetConfiguration CloseWorksetsWithLinks(ModelPath modelPath)
+        internal static WorksetConfiguration CloseWorksetsWithLinks(ModelPath modelPath)
         {
             WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.OpenAllWorksets);
 
@@ -27,7 +27,6 @@ namespace VLS.BatchExportNet.Utils
             worksetConfiguration.Close(worksetIds);
             return worksetConfiguration;
         }
-
         internal static bool IsViewEmpty(Document document, Element element)
         {
             View3D view = element as View3D;
@@ -41,14 +40,13 @@ namespace VLS.BatchExportNet.Utils
                 return true;
             }
         }
-
-        public static void FreeTheModel(Document document)
+        internal static void FreeTheModel(Document document)
         {
             RelinquishOptions relinquishOptions = new(true);
             TransactWithCentralOptions transactWithCentralOptions = new();
             WorksharingUtils.RelinquishOwnership(document, relinquishOptions, transactWithCentralOptions);
         }
-        public static string MD5Hash(string fileName)
+        internal static string MD5Hash(string fileName)
         {
             using MD5 md5 = MD5.Create();
             try

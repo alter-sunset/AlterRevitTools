@@ -1,23 +1,14 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
 using System.Reflection;
 using System.Windows.Media.Imaging;
-using VLS.BatchExportNet.Views.NWC;
-using VLS.BatchExportNet.Views.IFC;
-using VLS.BatchExportNet.Views.Detach;
-using VLS.BatchExportNet.Views.Transmit;
-using VLS.BatchExportNet.Views.Migrate;
-using VLS.BatchExportNet.Views.Link;
 using Autodesk.Revit.UI;
 
 namespace VLS.BatchExportNet.Source
 {
     public class App : IExternalApplication
     {
-        private static Window _myForm;
         private string _thisAssemblyPath;
 
         public Result OnStartup(UIControlledApplication a)
@@ -35,8 +26,8 @@ namespace VLS.BatchExportNet.Source
             RibbonPanel panelIntern = RibbonPanel(a, "Внутренние штуки");
             string[] rvtIconPath = { "rvt.png", "rvt_16.png" };
 
-            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.NWC), "Пакетный экспорт в NWCHelper", nvcIconPath);
-            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.IFC), "Пакетный экспорт в IFCHelper", ifcIconPath);
+            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.NWC), "Пакетный экспорт в NWC", nvcIconPath);
+            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.IFC), "Пакетный экспорт в IFC", ifcIconPath);
             CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.Detach), "Пакетный экспорт отсоединённых моделей", detachIconPath);
             CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.Transmit), "Пакетная передача моделей", transmitIconPath);
             CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.Migrate), "Пакетная миграция моделей с обновлением связей", migrateIconPath);
@@ -44,6 +35,28 @@ namespace VLS.BatchExportNet.Source
             CreateNewPushButton(panelIntern, PushButtonDataWrapper(Forms.Link), "Пакетное добавление Revit ссылок", rvtIconPath);
 
             return Result.Succeeded;
+        }
+        public Result OnShutdown(UIControlledApplication a) => Result.Succeeded;
+        private static RibbonPanel RibbonPanel(UIControlledApplication a, string panelName)
+        {
+            string tabName = "VLS";
+            RibbonPanel ribbonPanel = null;
+            try
+            {
+                a.CreateRibbonTab(tabName);
+            }
+            catch { }
+            try
+            {
+                RibbonPanel panel = a.CreateRibbonPanel(tabName, panelName);
+            }
+            catch { }
+            List<RibbonPanel> panels = a.GetRibbonPanels(tabName);
+            foreach (RibbonPanel p in panels.Where(p => p.Name == panelName))
+            {
+                ribbonPanel = p;
+            }
+            return ribbonPanel;
         }
         private static void CreateNewPushButton(RibbonPanel ribbonPanel, PushButtonData pushButtonData, string toolTip, string[] iconPath)
         {
@@ -54,69 +67,6 @@ namespace VLS.BatchExportNet.Source
             pushButton.ToolTip = toolTip;
             pushButton.Image = bitmap_16;
             pushButton.LargeImage = bitmap_32;
-        }
-        public Result OnShutdown(UIControlledApplication a) => Result.Succeeded;
-        public static void ShowForm(UIApplication uiapp, Forms form)
-        {
-            if (_myForm != null && _myForm == null) return;
-
-            try
-            {
-                switch (form)
-                {
-                    case Forms.Detach:
-                        EventHandlerDetachModelsUiArg evDetachUi = new();
-                        _myForm = new DetachModelsUi(uiapp, evDetachUi) { Height = 600, Width = 800 };
-                        break;
-                    case Forms.IFC:
-                        EventHandlerIFCExportUiArg evIFCUi = new();
-                        _myForm = new IFCExportUi(uiapp, evIFCUi) { Height = 700, Width = 800 };
-                        break;
-                    case Forms.NWC:
-                        EventHandlerNWCExportUiArg evNWCUi = new();
-                        EventHandlerNWCExportBatchUiArg eventHandlerNWCExportBatchUiArg = new();
-                        _myForm = new NWCExportUi(uiapp, evNWCUi, eventHandlerNWCExportBatchUiArg) { Height = 900, Width = 800 };
-                        break;
-                    case Forms.Migrate:
-                        EventHandlerMigrateModelsUiArg evMigrateUi = new();
-                        _myForm = new MigrateModelsUi(uiapp, evMigrateUi) { Height = 200, Width = 600 };
-                        break;
-                    case Forms.Transmit:
-                        EventHandlerTransmitModelsUiArg evTransmitUi = new();
-                        _myForm = new TransmitModelsUi(uiapp, evTransmitUi) { Height = 500, Width = 800 };
-                        break;
-                    case Forms.Link:
-                        EventHandlerLinkModelsUiArg evLinkUi = new();
-                        _myForm = new LinkModelsUi(uiapp, evLinkUi) { Height = 500, Width = 800 };
-                        break;
-                }
-                _myForm.Show();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-        }
-        private static RibbonPanel RibbonPanel(UIControlledApplication a, string tabName)
-        {
-            string tab = "VLS";
-            RibbonPanel ribbonPanel = null;
-            try
-            {
-                a.CreateRibbonTab(tab);
-            }
-            catch { }
-            try
-            {
-                RibbonPanel panel = a.CreateRibbonPanel(tab, tabName);
-            }
-            catch { }
-            List<RibbonPanel> panels = a.GetRibbonPanels(tab);
-            foreach (RibbonPanel p in panels.Where(p => p.Name == tabName))
-            {
-                ribbonPanel = p;
-            }
-            return ribbonPanel;
         }
         private PushButtonData PushButtonDataWrapper(Forms forms)
         {
@@ -160,7 +110,7 @@ namespace VLS.BatchExportNet.Source
             }
             return new PushButtonData(name, text, _thisAssemblyPath, className)
             {
-                AvailabilityClassName = BASE + "CommandAvailabilityWrapper"
+                AvailabilityClassName = BASE + "CommandAvailability"
             };
         }
         private static BitmapSource GetEmbeddedImage(string name)

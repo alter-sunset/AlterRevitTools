@@ -340,7 +340,7 @@ namespace VLS.BatchExportNet.Source
 
             foreach (string newFile in movedFiles)
             {
-                using ModelPath newFilePath = ModelPathUtils.ConvertUserVisiblePathToModelPath(newFile);
+                ModelPath newFilePath = ModelPathUtils.ConvertUserVisiblePathToModelPath(newFile);
                 RevitLinksHelper.Replace(newFilePath, items);
 
                 using Document document = OpenDocumentHelper.OpenTransmitted(application, newFilePath);

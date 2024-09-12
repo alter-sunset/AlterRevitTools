@@ -14,9 +14,9 @@ using Autodesk.Revit.ApplicationServices;
 
 namespace VLS.BatchExportNet.Utils
 {
-    public class IFCHelper
+    static class IFCHelper
     {
-        public static void BatchExportModels(UIApplication uiApp, IFCExportUi ui, ref Logger logger)
+        internal static void BatchExportModels(UIApplication uiApp, IFCExportUi ui, ref Logger logger)
         {
             using Application application = uiApp.Application;
             List<ListBoxItem> listItems = ui.listBoxItems.ToList();
@@ -52,13 +52,13 @@ namespace VLS.BatchExportNet.Utils
                     }
                     else if (filePath.Equals(fileInfo.CentralPath))
                     {
-                        ModelPath modelPath = new FilePath(filePath);
+                        ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
                         WorksetConfiguration worksetConfiguration = ModelHelper.CloseWorksetsWithLinks(modelPath);
                         document = OpenDocumentHelper.OpenAsIs(application, modelPath, worksetConfiguration);
                     }
                     else
                     {
-                        ModelPath modelPath = new FilePath(filePath);
+                        ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
                         WorksetConfiguration worksetConfiguration = new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
                         document = OpenDocumentHelper.OpenAsIs(application, modelPath, worksetConfiguration);
                     }
@@ -126,7 +126,7 @@ namespace VLS.BatchExportNet.Utils
             logger.TimeTotal();
             logger.Dispose();
         }
-        public static void ExportModel(Document document, IFCExportUi ui, ref bool isFuckedUp, Logger logger)
+        private static void ExportModel(Document document, IFCExportUi ui, ref bool isFuckedUp, Logger logger)
         {
             Element view = default;
             using (FilteredElementCollector stuff = new(document))
@@ -199,7 +199,7 @@ namespace VLS.BatchExportNet.Utils
                 view?.Dispose();
             }
         }
-        public static IFCExportOptions IFC_ExportOptions(Document document, IFCExportUi batchExportIFC)
+        private static IFCExportOptions IFC_ExportOptions(Document document, IFCExportUi batchExportIFC)
         {
             IFCExportOptions options = new()
             {

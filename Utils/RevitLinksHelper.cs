@@ -11,9 +11,9 @@ using Application = Autodesk.Revit.ApplicationServices.Application;
 
 namespace VLS.BatchExportNet.Utils
 {
-    public static class RevitLinksHelper
+    static class RevitLinksHelper
     {
-        public static void Delete(Document document)
+        internal static void Delete(Document document)
         {
             using Transaction transaction = new(document);
             transaction.Start("Delete links from model");
@@ -30,7 +30,7 @@ namespace VLS.BatchExportNet.Utils
             }
             transaction.Commit();
         }
-        public static void Unload(ModelPath location, bool isSameFolder, string folder)
+        internal static void Unload(ModelPath location, bool isSameFolder, string folder)
         {
             TransmissionData transData = TransmissionData.ReadTransmissionData(location);
 
@@ -62,7 +62,7 @@ namespace VLS.BatchExportNet.Utils
                 TaskDialog.Show("Unload Links", "The document does not have any transmission data");
             }
         }
-        public static void Replace(ModelPath filePath, Dictionary<string, string> oldNewFilePairs)
+        internal static void Replace(ModelPath filePath, Dictionary<string, string> oldNewFilePairs)
         {
             TransmissionData transData = TransmissionData.ReadTransmissionData(filePath);
 
@@ -99,7 +99,7 @@ namespace VLS.BatchExportNet.Utils
                 TaskDialog.Show("Replace Links", "The document does not have any transmission data");
             }
         }
-        public static void CreateLinks(UIApplication uiApp, LinkModelsUi ui)
+        internal static void CreateLinks(UIApplication uiApp, LinkModelsUi ui)
         {
             using Application application = uiApp.Application;
             UIDocument uiDoc = uiApp.ActiveUIDocument;
