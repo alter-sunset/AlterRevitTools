@@ -9,7 +9,7 @@ namespace VLS.BatchExportNet.Utils
 {
     static class ModelHelper
     {
-        internal static WorksetConfiguration CloseWorksetsWithLinks(ModelPath modelPath)
+        internal static WorksetConfiguration CloseWorksetsWithLinks(ModelPath modelPath, params string[] prefixes)
         {
             WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.OpenAllWorksets);
 
@@ -18,7 +18,7 @@ namespace VLS.BatchExportNet.Utils
 
             foreach (WorksetPreview worksetPreview in worksets)
             {
-                if (worksetPreview.Name.StartsWith("99") || worksetPreview.Name.StartsWith("00"))
+                if (prefixes.Any(worksetPreview.Name.StartsWith))
                 {
                     worksetIds.Add(worksetPreview.Id);
                 }

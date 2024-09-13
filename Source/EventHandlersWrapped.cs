@@ -52,6 +52,7 @@ namespace VLS.BatchExportNet.Source
                 Logger logger = new(folder);
 
                 NWCHelper.BatchExportModels(uiApp, ui, ref logger);
+                logger.Dispose();
                 Thread.Sleep(3000);
             }
 
@@ -61,7 +62,6 @@ namespace VLS.BatchExportNet.Source
                 Id = "ExportBatchNWCFinished",
                 MainContent = $"Задание выполнено. Общее время выполнения: {DateTime.Now - timeStart}"
             };
-
             ui.IsEnabled = false;
             taskDialog.Show();
             ui.IsEnabled = true;
@@ -90,6 +90,7 @@ namespace VLS.BatchExportNet.Source
                 MainContent = $"В процессе выполнения было {logger.ErrorCount} ошибок из {logger.ErrorCount + logger.SuccessCount} файлов."
             };
 
+            logger.Dispose();
             ui.IsEnabled = false;
             taskDialog.Show();
             ui.IsEnabled = true;
@@ -118,6 +119,7 @@ namespace VLS.BatchExportNet.Source
                 MainContent = $"В процессе выполнения было {logger.ErrorCount} ошибок из {logger.ErrorCount + logger.SuccessCount} файлов."
             };
 
+            logger.Dispose();
             ui.IsEnabled = false;
             taskDialog.Show();
             ui.IsEnabled = true;

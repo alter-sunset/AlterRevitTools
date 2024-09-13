@@ -5,14 +5,14 @@ using System.Threading;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
-using VLS.BatchExportNet.Views.NWC;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Events;
 using Autodesk.Revit.ApplicationServices;
+using VLS.BatchExportNet.Utils;
 
-namespace VLS.BatchExportNet.Utils
+namespace VLS.BatchExportNet.Views.NWC
 {
     static class NWCHelper
     {
@@ -52,7 +52,8 @@ namespace VLS.BatchExportNet.Utils
                     else if (filePath.Equals(fileInfo.CentralPath))
                     {
                         ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
-                        WorksetConfiguration worksetConfiguration = ModelHelper.CloseWorksetsWithLinks(modelPath);
+                        string[] prefixes = ui.TextBoxWorksetPrefix.Text.Split(';').Select(s => s.Trim()).Where(e => !string.IsNullOrEmpty(e)).ToArray();
+                        WorksetConfiguration worksetConfiguration = ModelHelper.CloseWorksetsWithLinks(modelPath, prefixes);
                         document = OpenDocumentHelper.OpenAsIs(application, modelPath, worksetConfiguration);
                     }
                     else
@@ -122,7 +123,6 @@ namespace VLS.BatchExportNet.Utils
             logger.LineBreak();
             logger.ErrorTotal();
             logger.TimeTotal();
-            logger.Dispose();
         }
         private static void ExportModel(Document document, NWCExportUi ui, ref bool isFuckedUp, Logger logger)
         {

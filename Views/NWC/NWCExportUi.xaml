@@ -273,10 +273,11 @@
         <TextBox Margin="145,10,10,10"
                  Grid.Row="7"
                  Grid.Column="1"
+                 Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
-                 x:Name="TextBoxExportScopeViewName" Grid.ColumnSpan="2">
-            Navisworks
-        </TextBox>
+                 x:Name="TextBoxExportScopeViewName"
+                 Text="Navisworks"/>
+
         <CheckBox Margin="10"
                   Grid.Row="7"
                   Grid.Column="3"
@@ -343,24 +344,39 @@
         <TextBox Margin="175,10,10,10"
                  Grid.Row="9"
                  Grid.Column="2"
+                 Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
-                 x:Name="TextBoxFacetingFactor" Grid.ColumnSpan="2">
-            1
-        </TextBox>
+                 x:Name="TextBoxFacetingFactor" 
+                 Text="1"/>
+
+        <TextBlock Margin="10,0,10,0"
+                   Grid.Row="10"
+                   Grid.Column="0"
+                   VerticalAlignment="Center">
+            Префиксы рабочих наборов,<LineBreak/>
+            которые нужно закрыть
+        </TextBlock>
+        <TextBox Margin="10,10,10,10"
+                 Grid.Row="10"
+                 Grid.Column="1"
+                 Grid.ColumnSpan="2"
+                 VerticalContentAlignment="Center"
+                 x:Name="TextBoxWorksetPrefix"
+                 ToolTip="Укажите через точку-запятую (;) префиксы всех рабочих наборов, которые необходимо закрыть при открытии файла. Обычно рабочие виды со связями, чтобы упростить открытие моделей."/>
 
         <Button Margin="10"
-                Grid.Row="10"
+                Grid.Row="11"
                 Grid.Column="1"
                 x:Name="ButtonErase"
                 Click="ButtonErase_Click"
                 Content="Очистить список"/>
         <Button Margin="10"
-                Grid.Row="10"
+                Grid.Row="11"
                 Grid.Column="2"
                 x:Name="ButtonOK" Click="ButtonOK_Click" Content="ОК"
                 ToolTip="Запуск пакетного экспорта текущей конфигурации"/>
         <Button Margin="10"
-                Grid.Row="10"
+                Grid.Row="11"
                 Grid.Column="3"
                 x:Name="ButtonCancel" Click="ButtonCancel_Click"
                 Content="Отмена"
@@ -368,14 +384,14 @@
 
         <TextBlock Margin="10"
                    FontSize="14"
-                   Grid.Row="11"
+                   Grid.Row="12"
                    Grid.Column="0"
                    VerticalAlignment="Center"
                    Text="Список JSON конфигов">
         </TextBlock>
         <ListBox Margin="10"
-                 Grid.Row="11"
-                 Grid.RowSpan="4"
+                 Grid.Row="12"
+                 Grid.RowSpan="3"
                  Grid.Column="1"
                  Grid.ColumnSpan="3"
                  x:Name="ListBoxJsonConfigs"
