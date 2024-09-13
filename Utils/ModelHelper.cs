@@ -14,7 +14,7 @@ namespace VLS.BatchExportNet.Utils
             WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.OpenAllWorksets);
 
             IList<WorksetPreview> worksets = WorksharingUtils.GetUserWorksetInfo(modelPath);
-            IList<WorksetId> worksetIds = new List<WorksetId>();
+            List<WorksetId> worksetIds = [];
 
             foreach (WorksetPreview worksetPreview in worksets)
             {

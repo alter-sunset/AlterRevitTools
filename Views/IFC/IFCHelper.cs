@@ -53,7 +53,11 @@ namespace VLS.BatchExportNet.Views.IFC
                     else if (filePath.Equals(fileInfo.CentralPath))
                     {
                         ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
-                        string[] prefixes = ui.TextBoxWorksetPrefix.Text.Split(';').Select(s => s.Trim()).Where(e => !string.IsNullOrEmpty(e)).ToArray();
+                        string[] prefixes = ui.TextBoxWorksetPrefix
+                            .Text.Split(';')
+                            .Select(s => s.Trim())
+                            .Where(e => !string.IsNullOrEmpty(e))
+                            .ToArray();
                         WorksetConfiguration worksetConfiguration = ModelHelper.CloseWorksetsWithLinks(modelPath);
                         document = OpenDocumentHelper.OpenAsIs(application, modelPath, worksetConfiguration);
                     }

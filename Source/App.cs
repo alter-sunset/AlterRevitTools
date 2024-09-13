@@ -16,23 +16,15 @@ namespace VLS.BatchExportNet.Source
             _thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
 
             RibbonPanel panelExtern = RibbonPanel(a, "Пакетный экспорт");
-            string[] vlsIconPath = { "VLS.png", "VLS_16.png" };
-            string[] detachIconPath = { "detach.png", "detach_16.png" };
-            string[] migrateIconPath = { "migrate.png", "migrate_16.png" };
-            string[] transmitIconPath = { "transmit.png", "transmit_16.png" };
-            string[] ifcIconPath = { "ifc.png", "ifc_16.png" };
-            string[] nvcIconPath = { "navisworks.png", "navisworks_16.png" };
-
             RibbonPanel panelIntern = RibbonPanel(a, "Внутренние штуки");
-            string[] rvtIconPath = { "rvt.png", "rvt_16.png" };
 
-            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.NWC), "Пакетный экспорт в NWC", nvcIconPath);
-            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.IFC), "Пакетный экспорт в IFC", ifcIconPath);
-            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.Detach), "Пакетный экспорт отсоединённых моделей", detachIconPath);
-            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.Transmit), "Пакетная передача моделей", transmitIconPath);
-            CreateNewPushButton(panelExtern, PushButtonDataWrapper(Forms.Migrate), "Пакетная миграция моделей с обновлением связей", migrateIconPath);
+            CreateNewPushButton(panelExtern, Forms.NWC);
+            CreateNewPushButton(panelExtern, Forms.IFC);
+            CreateNewPushButton(panelExtern, Forms.Detach);
+            CreateNewPushButton(panelExtern, Forms.Transmit);
+            CreateNewPushButton(panelExtern, Forms.Migrate);
 
-            CreateNewPushButton(panelIntern, PushButtonDataWrapper(Forms.Link), "Пакетное добавление Revit ссылок", rvtIconPath);
+            CreateNewPushButton(panelIntern, Forms.Link);
 
             return Result.Succeeded;
         }
@@ -58,49 +50,55 @@ namespace VLS.BatchExportNet.Source
             }
             return ribbonPanel;
         }
-        private static void CreateNewPushButton(RibbonPanel ribbonPanel, PushButtonData pushButtonData, string toolTip, string[] iconPath)
+        private void CreateNewPushButton(RibbonPanel ribbonPanel, Forms form)
         {
             const string BASEPATH = "VLS.BatchExportNet.Resources.";
-            BitmapSource bitmap_32 = GetEmbeddedImage(BASEPATH + iconPath[0]);
-            BitmapSource bitmap_16 = GetEmbeddedImage(BASEPATH + iconPath[1]);
-            PushButton pushButton = ribbonPanel.AddItem(pushButtonData) as PushButton;
-            pushButton.ToolTip = toolTip;
+            ButtonContext buttonContext = GetButtonContext(form);
+            BitmapSource bitmap_32 = GetEmbeddedImage(BASEPATH + buttonContext.LargeImage);
+            BitmapSource bitmap_16 = GetEmbeddedImage(BASEPATH + buttonContext.SmallImage);
+            PushButton pushButton = ribbonPanel.AddItem(PushButtonDataWrapper(form)) as PushButton;
+            pushButton.ToolTip = buttonContext.ToolTip;
             pushButton.Image = bitmap_16;
             pushButton.LargeImage = bitmap_32;
         }
-        private PushButtonData PushButtonDataWrapper(Forms forms)
+        private PushButtonData PushButtonDataWrapper(Forms form)
         {
             const string BASE = "VLS.BatchExportNet.Source.";
             string name = "";
             string text = "";
             string className = "";
-            switch (forms)
+            switch (form)
             {
                 case Forms.Detach:
                     name = "Экспорт отсоединённых моделей";
                     text = "Экспорт\nотсоединённых\nмоделей";
                     className = BASE + "ExportModelsDetached";
                     break;
+
                 case Forms.IFC:
                     name = "Экспорт IFCHelper";
                     text = "Экспорт\nIFC";
                     className = BASE + "ExportModelsToIFC";
                     break;
+
                 case Forms.NWC:
                     name = "Экспорт NWCHelper";
                     text = "Экспорт\nNWC";
                     className = BASE + "ExportModelsToNWC";
                     break;
+
                 case Forms.Migrate:
                     name = "Миграция моделей";
                     text = "Миграция\nмоделей";
                     className = BASE + "MigrateModels";
                     break;
+
                 case Forms.Transmit:
                     name = "Передача моделей";
                     text = "Передача\nмоделей";
                     className = BASE + "ExportModelsTransmitted";
                     break;
+
                 case Forms.Link:
                     return new PushButtonData(
                             "Batch add Revit links",
@@ -112,6 +110,55 @@ namespace VLS.BatchExportNet.Source
             {
                 AvailabilityClassName = BASE + "CommandAvailability"
             };
+        }
+        private static ButtonContext GetButtonContext(Forms form)
+        {
+            ButtonContext buttonContext = new();
+            switch (form)
+            {
+                case Forms.Detach:
+                    buttonContext.ToolTip = "Пакетный экспорт отсоединённых моделей";
+                    buttonContext.SmallImage = "detach_16.png";
+                    buttonContext.LargeImage = "detach.png";
+                    return buttonContext;
+
+                case Forms.IFC:
+                    buttonContext.ToolTip = "Пакетный экспорт в IFC";
+                    buttonContext.SmallImage = "ifc_16.png";
+                    buttonContext.LargeImage = "ifc.png";
+                    return buttonContext;
+
+                case Forms.NWC:
+                    buttonContext.ToolTip = "Пакетный экспорт в NWC";
+                    buttonContext.SmallImage = "navisworks_16.png";
+                    buttonContext.LargeImage = "navisworks.png";
+                    return buttonContext;
+
+                case Forms.Migrate:
+                    buttonContext.ToolTip = "Пакетная миграция моделей с обновлением связей";
+                    buttonContext.SmallImage = "migrate_16.png";
+                    buttonContext.LargeImage = "migrate.png";
+                    return buttonContext;
+
+                case Forms.Transmit:
+                    buttonContext.ToolTip = "Пакетная передача моделей";
+                    buttonContext.SmallImage = "transmit_16.png";
+                    buttonContext.LargeImage = "transmit.png";
+                    return buttonContext;
+
+                case Forms.Link:
+                    buttonContext.ToolTip = "Пакетное добавление Revit ссылок";
+                    buttonContext.SmallImage = "rvt_16.png";
+                    buttonContext.LargeImage = "rvt.png";
+                    return buttonContext;
+
+                case Forms.VLS:
+                    buttonContext.ToolTip = "Велесстрой";
+                    buttonContext.SmallImage = "VLS_16.png";
+                    buttonContext.LargeImage = "VLS.png";
+                    return buttonContext;
+            }
+            return buttonContext;
         }
         private static BitmapSource GetEmbeddedImage(string name)
         {
@@ -134,6 +181,17 @@ namespace VLS.BatchExportNet.Source
         NWC,
         Migrate,
         Transmit,
-        Link
+        Link,
+        VLS
+    }
+    class ButtonContext
+    {
+        private string _smallImage;
+        private string _largeImage;
+        private string _toolTip;
+
+        public string SmallImage { get => _smallImage; set => _smallImage = value; }
+        public string LargeImage { get => _largeImage; set => _largeImage = value; }
+        public string ToolTip { get => _toolTip; set => _toolTip = value; }
     }
 }

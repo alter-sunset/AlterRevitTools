@@ -13,8 +13,8 @@ namespace VLS.BatchExportNet.Utils
             TaskDialogShowingEventArgs e2 = e as TaskDialogShowingEventArgs;
 
             string dialogId = e2.DialogId;
-            bool isConfirm = false;
-            int dialogResult = 0;
+            int dialogResult;
+            bool isConfirm;
 
             switch (dialogId)
             {

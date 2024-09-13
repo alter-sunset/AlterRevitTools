@@ -52,14 +52,18 @@ namespace VLS.BatchExportNet.Views.NWC
                     else if (filePath.Equals(fileInfo.CentralPath))
                     {
                         ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
-                        string[] prefixes = ui.TextBoxWorksetPrefix.Text.Split(';').Select(s => s.Trim()).Where(e => !string.IsNullOrEmpty(e)).ToArray();
+                        string[] prefixes = ui.TextBoxWorksetPrefix
+                            .Text.Split(';')
+                            .Select(s => s.Trim())
+                            .Where(e => !string.IsNullOrEmpty(e))
+                            .ToArray();
                         WorksetConfiguration worksetConfiguration = ModelHelper.CloseWorksetsWithLinks(modelPath, prefixes);
                         document = OpenDocumentHelper.OpenAsIs(application, modelPath, worksetConfiguration);
                     }
                     else
                     {
                         ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
-                        WorksetConfiguration worksetConfiguration = new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
+                        WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.OpenAllWorksets);
                         document = OpenDocumentHelper.OpenAsIs(application, modelPath, worksetConfiguration);
                     }
                 }
