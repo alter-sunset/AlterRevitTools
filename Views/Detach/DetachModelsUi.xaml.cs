@@ -9,7 +9,6 @@ using System.Windows.Forms;
 using System.Windows.Media;
 using MessageBox = System.Windows.Forms.MessageBox;
 using RadioButton = System.Windows.Controls.RadioButton;
-using Autodesk.Revit.UI;
 using VLS.BatchExportNet.Source;
 
 namespace VLS.BatchExportNet.Views.Detach

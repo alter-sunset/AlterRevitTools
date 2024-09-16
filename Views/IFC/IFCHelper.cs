@@ -167,7 +167,7 @@ namespace VLS.BatchExportNet.Views.IFC
 
                 using (Transaction transaction = new(document))
                 {
-                    transaction.Start("Экспорт IFCHelper");
+                    transaction.Start("Экспорт IFC");
 
                     try
                     {

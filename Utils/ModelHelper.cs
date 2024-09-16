@@ -4,9 +4,6 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Autodesk.Revit.DB;
-using System.Diagnostics;
-using System.Windows.Controls;
-using System.Transactions;
 using Transaction = Autodesk.Revit.DB.Transaction;
 
 namespace VLS.BatchExportNet.Utils

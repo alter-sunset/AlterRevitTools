@@ -13,13 +13,8 @@
 		<IncludeSymbols>False</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-	  <Optimize>True</Optimize>
-	  <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-	</PropertyGroup>
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-	  <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+		<Optimize>True</Optimize>
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
 	</PropertyGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="Resources\detach.png" />
@@ -42,14 +37,14 @@
 		<PackageReference Include="System.Text.Json" Version="8.0.4" />
 	</ItemGroup>
 	<ItemGroup>
-	  <Reference Include="RevitAPI">
-	    <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2025\RevitAPI.dll</HintPath>
-	    <Private>False</Private>
-	  </Reference>
-	  <Reference Include="RevitAPIUI">
-	    <HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2025\RevitAPIUI.dll</HintPath>
-	    <Private>False</Private>
-	  </Reference>
+		<Reference Include="RevitAPI">
+			<HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2025\RevitAPI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
+		<Reference Include="RevitAPIUI">
+			<HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2025\RevitAPIUI.dll</HintPath>
+			<Private>False</Private>
+		</Reference>
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="VLS.BatchExport.addin">

@@ -9,7 +9,6 @@ using VLS.BatchExportNet.Views.Link;
 using VLS.BatchExportNet.Views.Detach;
 using VLS.BatchExportNet.Views.Migrate;
 using VLS.BatchExportNet.Views.Transmit;
-using Autodesk.Revit.UI;
 
 namespace VLS.BatchExportNet.Utils
 {

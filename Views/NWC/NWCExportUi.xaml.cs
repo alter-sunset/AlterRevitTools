@@ -1,5 +1,4 @@
 ﻿using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -10,7 +9,6 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
 using VLS.BatchExportNet.Source;
-using VLS.BatchExportNet.Views.NWC;
 using MessageBox = System.Windows.Forms.MessageBox;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 using SaveFileDialog = System.Windows.Forms.SaveFileDialog;

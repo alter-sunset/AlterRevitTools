@@ -200,11 +200,13 @@
             <ComboBoxItem Tag="IFC2x3" Content="IFC 2x3 Coordination View" TabIndex="3"/>
             <ComboBoxItem Tag="IFCCOBIE" Content="IFC 2x3 GSA Concept Design Bim 2010" TabIndex="4"/>
             <ComboBoxItem Tag="IFC2c3CV2" Content="IFC 2x3 Coordination View 2.0" TabIndex="5"/>
+            <ComboBoxItem Tag="IFC2x3BFM" Content="IFC 2x3 Basic FM Handover View" TabIndex="10"/>
+            <ComboBoxItem Tag="IFC2x3FM" Content="IFC 2x3 Extended FM Handover View" TabIndex="7"/>
             <ComboBoxItem Tag="IFC4" Content="IFC 4" TabIndex="6"/>
-            <ComboBoxItem Tag="IFC2x3FM" Content="IFC2x3 Extended FM Handover View" TabIndex="7"/>
-            <ComboBoxItem Tag="IFC4RV" Content="IFC4 Reference View" TabIndex="8"/>
-            <ComboBoxItem Tag="IFC4DTV" Content="IFC4 Design Transfer View" TabIndex="9"/>
-            <ComboBoxItem Tag="IFC2x3BFM" Content="IFC2x3 Basic FM Handover View" TabIndex="10"/>
+            <ComboBoxItem Tag="IFC4RV" Content="IFC 4 Reference View" TabIndex="8"/>
+            <ComboBoxItem Tag="IFC4DTV" Content="IFC 4 Design Transfer View" TabIndex="9"/>
+            <ComboBoxItem Tag="IFC4x3" Content="IFC 4x3" TabIndex="11"/>
+            <ComboBoxItem Tag="IFCSG" Content="IFC-SG Regulatory Requirements View" TabIndex="12"/>
         </ComboBox>
         <CheckBox Margin="10"
                   Grid.Row="6"

@@ -204,14 +204,9 @@ namespace VLS.BatchExportNet.Views.NWC
             bool exportScope = (bool)batchExportNWC.RadioBattonExportScopeModel.IsChecked;
             string parameters = ((ComboBoxItem)batchExportNWC.ComboBoxParameters.SelectedItem).Content.ToString();
 
-            if (double.TryParse(batchExportNWC.TextBoxFacetingFactor.Text, out double facetingFactor))
-            {
-                facetingFactor = double.Parse(batchExportNWC.TextBoxFacetingFactor.Text);
-            }
-            else
-            {
-                facetingFactor = 1.0;
-            }
+            double facetingFactor = double
+                .TryParse(batchExportNWC.TextBoxFacetingFactor.Text, out double result)
+                ? result : 1.0;
 
             NavisworksExportOptions options = new()
             {
@@ -248,7 +243,8 @@ namespace VLS.BatchExportNet.Views.NWC
                     options.ExportScope = NavisworksExportScope.View;
                     options.ViewId = new FilteredElementCollector(document)
                         .OfClass(typeof(View3D))
-                        .FirstOrDefault(e => e.Name == batchExportNWC.TextBoxExportScopeViewName.Text && !((View3D)e).IsTemplate)
+                        .FirstOrDefault(e => e.Name == batchExportNWC.TextBoxExportScopeViewName.Text
+                            && !((View3D)e).IsTemplate)
                         .Id;
                     break;
             }

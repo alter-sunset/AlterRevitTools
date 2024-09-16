@@ -1,5 +1,4 @@
 ﻿using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
 using System.Text.Json;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,7 +12,6 @@ using MessageBox = System.Windows.Forms.MessageBox;
 using OpenFileDialog = System.Windows.Forms.OpenFileDialog;
 using SaveFileDialog = System.Windows.Forms.SaveFileDialog;
 using VLS.BatchExportNet.Source;
-using VLS.BatchExportNet.Views.IFC;
 
 namespace VLS.BatchExportNet.Views.IFC
 {
@@ -38,7 +36,9 @@ namespace VLS.BatchExportNet.Views.IFC
             {7, IFCVersion.IFC2x3FM },
             {8, IFCVersion.IFC4RV },
             {9, IFCVersion.IFC4DTV },
-            {10, IFCVersion.IFC2x3BFM }
+            {10, IFCVersion.IFC2x3BFM },
+            {11, IFCVersion.IFC4x3 },
+            {12, IFCVersion.IFCSG }
         };
 
         public IFCExportUi(EventHandlerIFCExportUiArg eventHandlerIFCExportUiArg)
