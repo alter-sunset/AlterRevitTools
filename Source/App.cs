@@ -32,19 +32,19 @@ namespace VLS.BatchExportNet.Source
         public Result OnShutdown(UIControlledApplication a) => Result.Succeeded;
         private static RibbonPanel RibbonPanel(UIControlledApplication a, string panelName)
         {
-            string tabName = "VLS";
+            const string TAB_NAME = "VLS";
             RibbonPanel ribbonPanel = null;
             try
             {
-                a.CreateRibbonTab(tabName);
+                a.CreateRibbonTab(TAB_NAME);
             }
             catch { }
             try
             {
-                RibbonPanel panel = a.CreateRibbonPanel(tabName, panelName);
+                RibbonPanel panel = a.CreateRibbonPanel(TAB_NAME, panelName);
             }
             catch { }
-            List<RibbonPanel> panels = a.GetRibbonPanels(tabName);
+            List<RibbonPanel> panels = a.GetRibbonPanels(TAB_NAME);
             foreach (RibbonPanel p in panels.Where(p => p.Name == panelName))
             {
                 ribbonPanel = p;

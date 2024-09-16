@@ -34,7 +34,9 @@ namespace VLS.BatchExportNet.Utils
             try
             {
                 using FilteredElementCollector collector = new(doc, view.Id);
-                return !collector.Where(e => e.Category != null && e.GetType() != typeof(RevitLinkInstance)).Any(e => e.CanBeHidden(view));
+                return !collector.Where(e => e.Category != null
+                        && e.GetType() != typeof(RevitLinkInstance))
+                    .Any(e => e.CanBeHidden(view));
             }
             catch
             {
