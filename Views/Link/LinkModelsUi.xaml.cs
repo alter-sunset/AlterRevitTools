@@ -18,9 +18,9 @@ namespace VLS.BatchExportNet.Views.Link
     /// </summary>
     public partial class LinkModelsUi : Window
     {
-        public ObservableCollection<ListBoxItem> listBoxItems = new();
+        public ObservableCollection<ListBoxItem> listBoxItems = [];
         private readonly EventHandlerLinkModelsUiArg _eventHandlerLinkModelsUiArg;
-        public LinkModelsUi(UIApplication uiApp, EventHandlerLinkModelsUiArg eventHandlerLinkModelsUiArg)
+        public LinkModelsUi(EventHandlerLinkModelsUiArg eventHandlerLinkModelsUiArg)
         {
             InitializeComponent();
             this.DataContext = listBoxItems;
@@ -41,7 +41,7 @@ namespace VLS.BatchExportNet.Views.Link
             {
                 foreach (string file in openFileDialog.FileNames)
                 {
-                    ListBoxItem listBoxItem = new ListBoxItem() { Content = file, Background = Brushes.White };
+                    ListBoxItem listBoxItem = new() { Content = file, Background = Brushes.White };
                     if (!listBoxItems.Any(cont => cont.Content.ToString() == file))
                         listBoxItems.Add(listBoxItem);
                 }
@@ -68,7 +68,7 @@ namespace VLS.BatchExportNet.Views.Link
 
                 foreach (string rVTFile in listRVTFiles)
                 {
-                    ListBoxItem listBoxItem = new ListBoxItem() { Content = rVTFile, Background = Brushes.White };
+                    ListBoxItem listBoxItem = new() { Content = rVTFile, Background = Brushes.White };
                     if (!listBoxItems.Any(cont => cont.Content.ToString() == rVTFile) && rVTFile.EndsWith(".rvt"))
                     {
                         listBoxItems.Add(listBoxItem);
@@ -83,7 +83,7 @@ namespace VLS.BatchExportNet.Views.Link
         }
         private void ButtonSaveList_Click(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog()
+            SaveFileDialog saveFileDialog = new()
             {
                 FileName = "ListOfRVTFilesToLink",
                 DefaultExt = ".txt",

@@ -4,6 +4,10 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Autodesk.Revit.DB;
+using System.Diagnostics;
+using System.Windows.Controls;
+using System.Transactions;
+using Transaction = Autodesk.Revit.DB.Transaction;
 
 namespace VLS.BatchExportNet.Utils
 {
@@ -27,12 +31,12 @@ namespace VLS.BatchExportNet.Utils
             worksetConfiguration.Close(worksetIds);
             return worksetConfiguration;
         }
-        internal static bool IsViewEmpty(Document document, Element element)
+        internal static bool IsViewEmpty(Document doc, Element element)
         {
             View3D view = element as View3D;
             try
             {
-                using FilteredElementCollector collector = new(document, view.Id);
+                using FilteredElementCollector collector = new(doc, view.Id);
                 return !collector.Where(e => e.Category != null && e.GetType() != typeof(RevitLinkInstance)).Any(e => e.CanBeHidden(view));
             }
             catch
@@ -40,11 +44,33 @@ namespace VLS.BatchExportNet.Utils
                 return true;
             }
         }
-        internal static void FreeTheModel(Document document)
+        internal static void FreeTheModel(Document doc)
         {
             RelinquishOptions relinquishOptions = new(true);
             TransactWithCentralOptions transactWithCentralOptions = new();
-            WorksharingUtils.RelinquishOwnership(document, relinquishOptions, transactWithCentralOptions);
+            WorksharingUtils.RelinquishOwnership(doc, relinquishOptions, transactWithCentralOptions);
+        }
+        internal static void DeleteAllLinks(Document doc)
+        {
+            using Transaction t = new(doc);
+            t.Start("Delete all Links");
+
+            FailureHandlingOptions failOpt = t.GetFailureHandlingOptions();
+            failOpt.SetFailuresPreprocessor(new CopyWatchAlertSwallower());
+            t.SetFailureHandlingOptions(failOpt);
+
+            ICollection<ElementId> ids = ExternalFileUtils.GetAllExternalFileReferences(doc);
+
+            foreach (ElementId id in ids)
+            {
+                try
+                {
+                    doc.Delete(id);
+                }
+                catch { }
+            }
+
+            t.Commit();
         }
         internal static string MD5Hash(string fileName)
         {

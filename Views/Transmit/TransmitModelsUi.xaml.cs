@@ -18,9 +18,9 @@ namespace VLS.BatchExportNet.Views.Transmit
     /// </summary>
     public partial class TransmitModelsUi : Window
     {
-        public ObservableCollection<ListBoxItem> listBoxItems = new();
+        public ObservableCollection<ListBoxItem> listBoxItems = [];
         private readonly EventHandlerTransmitModelsUiArg _eventHandlerTransmitModelsUiArg;
-        public TransmitModelsUi(UIApplication uiApp, EventHandlerTransmitModelsUiArg eventHandlerTransmitModelsUiArg)
+        public TransmitModelsUi(EventHandlerTransmitModelsUiArg eventHandlerTransmitModelsUiArg)
         {
             InitializeComponent();
             this.DataContext = listBoxItems;
@@ -41,7 +41,7 @@ namespace VLS.BatchExportNet.Views.Transmit
             {
                 foreach (string file in openFileDialog.FileNames)
                 {
-                    ListBoxItem listBoxItem = new ListBoxItem() { Content = file, Background = Brushes.White };
+                    ListBoxItem listBoxItem = new() { Content = file, Background = Brushes.White };
                     if (!listBoxItems.Any(cont => cont.Content.ToString() == file))
                         listBoxItems.Add(listBoxItem);
                 }
@@ -68,7 +68,7 @@ namespace VLS.BatchExportNet.Views.Transmit
 
                 foreach (string rVTFile in listRVTFiles)
                 {
-                    ListBoxItem listBoxItem = new ListBoxItem() { Content = rVTFile, Background = Brushes.White };
+                    ListBoxItem listBoxItem = new() { Content = rVTFile, Background = Brushes.White };
                     if (!listBoxItems.Any(cont => cont.Content.ToString() == rVTFile) && rVTFile.EndsWith(".rvt"))
                     {
                         listBoxItems.Add(listBoxItem);
@@ -84,7 +84,7 @@ namespace VLS.BatchExportNet.Views.Transmit
         }
         private void ButtonSaveList_Click(object sender, RoutedEventArgs e)
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog()
+            SaveFileDialog saveFileDialog = new()
             {
                 FileName = "ListOfRVTFilesToTransmit",
                 DefaultExt = ".txt",

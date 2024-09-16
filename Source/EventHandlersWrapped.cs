@@ -136,7 +136,7 @@ namespace VLS.BatchExportNet.Source
             }
 
             using Application application = uiApp.Application;
-            List<ListBoxItem> listItems = @ui.listBoxItems.ToList();
+            List<ListBoxItem> listItems = [.. @ui.listBoxItems];
 
             uiApp.DialogBoxShowing += new EventHandler<DialogBoxShowingEventArgs>(ErrorSwallowersHelper.TaskDialogBoxShowingEvent);
             application.FailuresProcessing += new EventHandler<Autodesk.Revit.DB.Events.FailuresProcessingEventArgs>(ErrorSwallowersHelper.Application_FailuresProcessing);
@@ -192,7 +192,8 @@ namespace VLS.BatchExportNet.Source
             {
                 return;
             }
-            RevitLinksHelper.Delete(document);
+            //RevitLinksHelper.Delete(document);
+            ModelHelper.DeleteAllLinks(document); //Delete all links instead of just rvt links
             string fileDetachedPath = "";
             switch (ui.RadioButtonSavingPathMode)
             {
@@ -249,7 +250,7 @@ namespace VLS.BatchExportNet.Source
             }
 
             using Application application = uiApp.Application;
-            List<ListBoxItem> listItems = @ui.listBoxItems.ToList();
+            List<ListBoxItem> listItems = [.. @ui.listBoxItems];
 
             foreach (ListBoxItem item in listItems)
             {
@@ -297,8 +298,8 @@ namespace VLS.BatchExportNet.Source
             }
 
             Dictionary<string, string> items;
-            List<string> movedFiles = new();
-            List<string> failedFiles = new();
+            List<string> movedFiles = [];
+            List<string> failedFiles = [];
 
             using (FileStream file = File.OpenRead(ui.TextBoxConfig.Text))
             {

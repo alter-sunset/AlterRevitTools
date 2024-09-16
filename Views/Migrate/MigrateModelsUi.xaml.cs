@@ -13,7 +13,7 @@ namespace VLS.BatchExportNet.Views.Migrate
     {
         private readonly EventHandlerMigrateModelsUiArg _eventHandlerMigrateModelsUiArg;
 
-        public MigrateModelsUi(UIApplication uiApp, EventHandlerMigrateModelsUiArg eventHandlerMigrateModelsUiArg)
+        public MigrateModelsUi(EventHandlerMigrateModelsUiArg eventHandlerMigrateModelsUiArg)
         {
             InitializeComponent();
             _eventHandlerMigrateModelsUiArg = eventHandlerMigrateModelsUiArg;

@@ -22,7 +22,7 @@ namespace VLS.BatchExportNet.Utils
             failOpt.SetFailuresPreprocessor(new CopyWatchAlertSwallower());
             transaction.SetFailureHandlingOptions(failOpt);
 
-            List<Element> links = new FilteredElementCollector(document).OfClass(typeof(RevitLinkType)).ToList();
+            List<Element> links = [.. new FilteredElementCollector(document).OfClass(typeof(RevitLinkType))];
 
             foreach (Element link in links)
             {
@@ -45,7 +45,7 @@ namespace VLS.BatchExportNet.Utils
                         string name = extRef.GetPath().CentralServerPath.Split('\\').Last();
                         if (isSameFolder)
                         {
-                            FilePath path = new FilePath(folder + '\\' + name);
+                            FilePath path = new(folder + '\\' + name);
                             transData.SetDesiredReferenceData(refId, path, PathType.Absolute, false);
                         }
                         else
@@ -105,7 +105,7 @@ namespace VLS.BatchExportNet.Utils
             UIDocument uiDoc = uiApp.ActiveUIDocument;
             Document doc = uiDoc.Document;
             bool isCurrentWorkset = (bool)ui.CheckBoxCurrentWorkset.IsChecked;
-            List<ListBoxItem> listItems = @ui.listBoxItems.ToList();
+            List<ListBoxItem> listItems = [.. @ui.listBoxItems];
 
             ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(doc.PathName);
             IList<WorksetPreview> worksets = null;
@@ -122,7 +122,7 @@ namespace VLS.BatchExportNet.Utils
                     isCurrentWorkset = false;
                 }
             }
-            RevitLinkOptions options = new RevitLinkOptions(false);
+            RevitLinkOptions options = new(false);
 
             foreach (ListBoxItem item in listItems)
             {

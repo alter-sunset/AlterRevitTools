@@ -19,7 +19,7 @@ namespace VLS.BatchExportNet.Views.NWC
         internal static void BatchExportModels(UIApplication uiApp, NWCExportUi ui, ref Logger logger)
         {
             using Application application = uiApp.Application;
-            List<ListBoxItem> listItems = ui.listBoxItems.ToList();
+            List<ListBoxItem> listItems = [.. ui.listBoxItems];
 
             foreach (ListBoxItem item in listItems)
             {

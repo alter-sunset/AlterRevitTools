@@ -22,11 +22,11 @@ namespace VLS.BatchExportNet.Views.NWC
     /// </summary>
     public partial class NWCExportUi : Window
     {
-        public ObservableCollection<ListBoxItem> listBoxItems = new();
-        private List<string> listJsonConfigs = new List<string>();
+        public ObservableCollection<ListBoxItem> listBoxItems = [];
+        private List<string> listJsonConfigs = [];
         private readonly EventHandlerNWCExportUiArg _eventHandlerNWCExportUiArg;
         private readonly EventHandlerNWCExportBatchUiArg _eventHandlerNWCExportBatchUiArg;
-        public NWCExportUi(UIApplication uiApp, EventHandlerNWCExportUiArg eventHandlerNWCExportUiArg, EventHandlerNWCExportBatchUiArg eventHandlerNWCExportBatchUiArg)
+        public NWCExportUi(EventHandlerNWCExportUiArg eventHandlerNWCExportUiArg, EventHandlerNWCExportBatchUiArg eventHandlerNWCExportBatchUiArg)
         {
             InitializeComponent();
             DataContext = listBoxItems;
@@ -36,7 +36,7 @@ namespace VLS.BatchExportNet.Views.NWC
         }
         private void ButtonLoad_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog()
+            OpenFileDialog openFileDialog = new()
             {
                 Multiselect = true,
                 DefaultExt = ".rvt",
@@ -49,7 +49,7 @@ namespace VLS.BatchExportNet.Views.NWC
             {
                 foreach (string file in openFileDialog.FileNames)
                 {
-                    ListBoxItem listBoxItem = new ListBoxItem() { Content = file, Background = Brushes.White };
+                    ListBoxItem listBoxItem = new() { Content = file, Background = Brushes.White };
                     if (!listBoxItems.Any(cont => cont.Content.ToString() == file))
                     {
                         listBoxItems.Add(listBoxItem);
@@ -60,7 +60,7 @@ namespace VLS.BatchExportNet.Views.NWC
         private void ButtonLoadList_Click(object sender, RoutedEventArgs e)
         {
 
-            OpenFileDialog openFileDialog = new OpenFileDialog()
+            OpenFileDialog openFileDialog = new()
             {
                 Multiselect = false,
                 DefaultExt = ".json",
@@ -119,7 +119,7 @@ namespace VLS.BatchExportNet.Views.NWC
                     continue;
                 }
 
-                ListBoxItem listBoxItem = new ListBoxItem() { Content = file, Background = Brushes.White };
+                ListBoxItem listBoxItem = new() { Content = file, Background = Brushes.White };
                 if (!listBoxItems.Any(cont => cont.Content.ToString() == file)
                     || file.EndsWith(".rvt", true, System.Globalization.CultureInfo.CurrentCulture))
                 {
@@ -139,7 +139,7 @@ namespace VLS.BatchExportNet.Views.NWC
         {
             NWCForm form = NWCFormSerializer();
 
-            SaveFileDialog saveFileDialog = new SaveFileDialog()
+            SaveFileDialog saveFileDialog = new()
             {
                 FileName = "ConfigBatchExportNWC",
                 DefaultExt = ".json",
@@ -174,7 +174,7 @@ namespace VLS.BatchExportNet.Views.NWC
                 facetingFactor = 1.0;
             }
 
-            NWCForm form = new NWCForm()
+            NWCForm form = new()
             {
                 ConvertElementProperties = (bool)CheckBoxConvertElementProperties.IsChecked,
                 DivideFileIntoLevels = (bool)CheckBoxDivideFileIntoLevels.IsChecked,
@@ -245,7 +245,7 @@ namespace VLS.BatchExportNet.Views.NWC
 
         private void ButtonBrowseFolder_Click(object sender, RoutedEventArgs e)
         {
-            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog() { SelectedPath = TextBoxFolder.Text };
+            FolderBrowserDialog folderBrowserDialog = new() { SelectedPath = TextBoxFolder.Text };
             DialogResult result = folderBrowserDialog.ShowDialog();
             string folderPath = folderBrowserDialog.SelectedPath;
 
@@ -272,7 +272,7 @@ namespace VLS.BatchExportNet.Views.NWC
             listJsonConfigs.Clear();
             ListBoxJsonConfigs.Items.Clear();
 
-            OpenFileDialog openFileDialog = new OpenFileDialog()
+            OpenFileDialog openFileDialog = new()
             {
                 Multiselect = false,
                 DefaultExt = ".json",
@@ -283,16 +283,14 @@ namespace VLS.BatchExportNet.Views.NWC
 
             if (result == System.Windows.Forms.DialogResult.OK)
             {
-                using (FileStream file = File.OpenRead(openFileDialog.FileName))
+                using FileStream file = File.OpenRead(openFileDialog.FileName);
+                try
                 {
-                    try
-                    {
-                        listJsonConfigs = JsonSerializer.Deserialize<List<string>>(file);
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Неверная схема файла");
-                    }
+                    listJsonConfigs = JsonSerializer.Deserialize<List<string>>(file);
+                }
+                catch
+                {
+                    MessageBox.Show("Неверная схема файла");
                 }
             }
 

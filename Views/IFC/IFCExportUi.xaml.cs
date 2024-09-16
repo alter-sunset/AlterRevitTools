@@ -22,11 +22,11 @@ namespace VLS.BatchExportNet.Views.IFC
     /// </summary>
     public partial class IFCExportUi : Window
     {
-        public ObservableCollection<ListBoxItem> listBoxItems = new ObservableCollection<ListBoxItem>();
+        public ObservableCollection<ListBoxItem> listBoxItems = [];
 
         private readonly EventHandlerIFCExportUiArg _eventHandlerIFCExportUiArg;
 
-        public static readonly Dictionary<int, IFCVersion> indexToIFCVersion = new Dictionary<int, IFCVersion>()
+        public static readonly Dictionary<int, IFCVersion> indexToIFCVersion = new()
         {
             {0, IFCVersion.Default },
             {1, IFCVersion.IFCBCA },
@@ -41,7 +41,7 @@ namespace VLS.BatchExportNet.Views.IFC
             {10, IFCVersion.IFC2x3BFM }
         };
 
-        public IFCExportUi(UIApplication uiApp, EventHandlerIFCExportUiArg eventHandlerIFCExportUiArg)
+        public IFCExportUi(EventHandlerIFCExportUiArg eventHandlerIFCExportUiArg)
         {
             InitializeComponent();
             DataContext = listBoxItems;
@@ -50,7 +50,7 @@ namespace VLS.BatchExportNet.Views.IFC
 
         private void ButtonLoad_Click(object sender, RoutedEventArgs e)
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog()
+            OpenFileDialog openFileDialog = new()
             {
                 Multiselect = true,
                 DefaultExt = ".rvt",
@@ -63,7 +63,7 @@ namespace VLS.BatchExportNet.Views.IFC
             {
                 foreach (string file in openFileDialog.FileNames)
                 {
-                    ListBoxItem listBoxItem = new ListBoxItem() { Content = file, Background = Brushes.White };
+                    ListBoxItem listBoxItem = new() { Content = file, Background = Brushes.White };
                     if (!listBoxItems.Any(cont => cont.Content.ToString() == file))
                     {
                         listBoxItems.Add(listBoxItem);
@@ -135,7 +135,7 @@ namespace VLS.BatchExportNet.Views.IFC
                     continue;
                 }
 
-                ListBoxItem listBoxItem = new ListBoxItem() { Content = file, Background = Brushes.White };
+                ListBoxItem listBoxItem = new() { Content = file, Background = Brushes.White };
                 if (!listBoxItems.Any(cont => cont.Content.ToString() == file)
                     || file.EndsWith(".rvt", true, System.Globalization.CultureInfo.CurrentCulture))
                 {
@@ -209,7 +209,7 @@ namespace VLS.BatchExportNet.Views.IFC
 
         private void ButtonBrowseFolder_Click(object sender, RoutedEventArgs e)
         {
-            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog() { SelectedPath = TextBoxFolder.Text };
+            FolderBrowserDialog folderBrowserDialog = new() { SelectedPath = TextBoxFolder.Text };
             DialogResult result = folderBrowserDialog.ShowDialog();
             string folderPath = folderBrowserDialog.SelectedPath;
 

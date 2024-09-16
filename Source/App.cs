@@ -18,6 +18,7 @@ namespace VLS.BatchExportNet.Source
             RibbonPanel panelExtern = RibbonPanel(a, "Пакетный экспорт");
             RibbonPanel panelIntern = RibbonPanel(a, "Внутренние штуки");
 
+            //certainly not the best way to add multiple buttons, still looking for smthng better
             CreateNewPushButton(panelExtern, Forms.NWC);
             CreateNewPushButton(panelExtern, Forms.IFC);
             CreateNewPushButton(panelExtern, Forms.Detach);
@@ -160,7 +161,7 @@ namespace VLS.BatchExportNet.Source
             }
             return buttonContext;
         }
-        private static BitmapSource GetEmbeddedImage(string name)
+        private static BitmapFrame GetEmbeddedImage(string name)
         {
             try
             {
@@ -174,7 +175,7 @@ namespace VLS.BatchExportNet.Source
             }
         }
     }
-    public enum Forms
+    internal enum Forms
     {
         Detach,
         IFC,

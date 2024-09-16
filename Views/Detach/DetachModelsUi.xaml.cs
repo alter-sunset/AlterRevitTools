@@ -19,13 +19,13 @@ namespace VLS.BatchExportNet.Views.Detach
     /// </summary>
     public partial class DetachModelsUi : Window
     {
-        public ObservableCollection<ListBoxItem> listBoxItems = new();
+        public ObservableCollection<ListBoxItem> listBoxItems = [];
 
         private readonly EventHandlerDetachModelsUiArg _eventHandlerDetachModelsUiArg;
 
         public int RadioButtonSavingPathMode = 0;
 
-        public DetachModelsUi(UIApplication uiApp, EventHandlerDetachModelsUiArg eventHandlerDetachModelsUiArg)
+        public DetachModelsUi(EventHandlerDetachModelsUiArg eventHandlerDetachModelsUiArg)
         {
             InitializeComponent();
             this.DataContext = listBoxItems;
@@ -77,7 +77,7 @@ namespace VLS.BatchExportNet.Views.Detach
 
                 foreach (string rVTFile in listRVTFiles)
                 {
-                    ListBoxItem listBoxItem = new ListBoxItem() { Content = rVTFile, Background = Brushes.White };
+                    ListBoxItem listBoxItem = new() { Content = rVTFile, Background = Brushes.White };
                     if (!listBoxItems.Any(cont => cont.Content.ToString() == rVTFile) && rVTFile.EndsWith(".rvt"))
                     {
                         listBoxItems.Add(listBoxItem);
