@@ -285,12 +285,12 @@ namespace VLS.BatchExportNet.Source
         }
     }
 
-    public class EventHandlerMigrateModelsUiArg : RevitEventWrapper<MigrateModelsUi>
+    public class EventHandlerMigrateModelsUiArg : RevitEventWrapper<MigrateViewModel>
     {
-        public override void Execute(UIApplication uiApp, MigrateModelsUi ui)
+        public override void Execute(UIApplication uiApp, MigrateViewModel migrateViewModel)
         {
-            if (string.IsNullOrEmpty(ui.TextBoxConfig.Text)
-                || !ui.TextBoxConfig.Text.EndsWith(".json", true, CultureInfo.InvariantCulture))
+            if (string.IsNullOrEmpty(migrateViewModel.ConfigPath)
+                || !migrateViewModel.ConfigPath.EndsWith(".json", true, CultureInfo.InvariantCulture))
             {
                 MessageBox.Show("Предоставьте ссылку на конфиг");
                 return;
@@ -300,7 +300,7 @@ namespace VLS.BatchExportNet.Source
             List<string> movedFiles = [];
             List<string> failedFiles = [];
 
-            using (FileStream file = File.OpenRead(ui.TextBoxConfig.Text))
+            using (FileStream file = File.OpenRead(migrateViewModel.ConfigPath))
             {
                 try
                 {
@@ -359,16 +359,20 @@ namespace VLS.BatchExportNet.Source
                 document.Close();
             }
 
+            string msg = failedFiles.Count > 0
+                ? $"Задание выполнено.\nСледующие файлы не были скопированы:\n{string.Join("\n", failedFiles)}"
+                : "Задание выполнено.";
+
             TaskDialog taskDialog = new("Готово!")
             {
                 CommonButtons = TaskDialogCommonButtons.Close,
                 Id = "MigrateModelsFinished",
-                MainContent = $"Задание выполнено.\nСледующие файлы не были скопированы:\n{string.Join("\n", failedFiles)}"
+                MainContent = msg
             };
 
-            ui.IsEnabled = false;
+            migrateViewModel.IsViewEnabled = false;
             taskDialog.Show();
-            ui.IsEnabled = true;
+            migrateViewModel.IsViewEnabled = true;
         }
     }
 
