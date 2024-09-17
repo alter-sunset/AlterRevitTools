@@ -373,11 +373,11 @@ namespace VLS.BatchExportNet.Source
         }
     }
 
-    public class EventHandlerLinkModelsUiArg : RevitEventWrapper<LinkModelsUi>
+    public class EventHandlerLinkModelsUiArg : RevitEventWrapper<LinkViewModel>
     {
-        public override void Execute(UIApplication uiApp, LinkModelsUi ui)
+        public override void Execute(UIApplication uiApp, LinkViewModel linkViewModel)
         {
-            RevitLinksHelper.CreateLinks(uiApp, ui);
+            RevitLinksHelper.CreateLinks(uiApp, linkViewModel);
 
             TaskDialog taskDialog = new("Готово!")
             {
@@ -386,9 +386,9 @@ namespace VLS.BatchExportNet.Source
                 MainContent = "Задание выполнено"
             };
 
-            ui.IsEnabled = false;
+            linkViewModel.IsViewEnabled = false;
             taskDialog.Show();
-            ui.IsEnabled = true;
+            linkViewModel.IsViewEnabled = true;
         }
     }
 }

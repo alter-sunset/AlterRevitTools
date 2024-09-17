@@ -99,13 +99,13 @@ namespace VLS.BatchExportNet.Utils
                 TaskDialog.Show("Replace Links", "The document does not have any transmission data");
             }
         }
-        internal static void CreateLinks(UIApplication uiApp, LinkModelsUi ui)
+        internal static void CreateLinks(UIApplication uiApp, LinkViewModel linkViewModel)
         {
             using Application application = uiApp.Application;
             UIDocument uiDoc = uiApp.ActiveUIDocument;
             Document doc = uiDoc.Document;
-            bool isCurrentWorkset = (bool)ui.CheckBoxCurrentWorkset.IsChecked;
-            List<ListBoxItem> listItems = [.. @ui.listBoxItems];
+            bool isCurrentWorkset = linkViewModel.IsCurrentWorkset;
+            List<ListBoxItem> listItems = [.. linkViewModel.ListBoxItems];
 
             ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(doc.PathName);
             IList<WorksetPreview> worksets = null;

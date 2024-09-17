@@ -46,7 +46,7 @@ namespace VLS.BatchExportNet.Utils
                         break;
                     case Forms.Link:
                         EventHandlerLinkModelsUiArg evLinkUi = new();
-                        _myForm = new LinkModelsUi(evLinkUi) { Height = 500, Width = 800 };
+                        _myForm = new LinkModelsUi(evLinkUi) { Height = 450, Width = 800 };
                         break;
                 }
                 _myForm.Show();
