@@ -15,7 +15,14 @@ namespace VLS.BatchExportNet.Views
     {
         private ObservableCollection<ListBoxItem> _listBoxItems = [];
         public virtual ObservableCollection<ListBoxItem> ListBoxItems
-        { get => _listBoxItems; }
+        {
+            get => _listBoxItems;
+            set
+            {
+                _listBoxItems = value;
+                OnPropertyChanged("ListBoxItems");
+            }
+        }
 
         private ListBoxItem _selectedItems;
         public ListBoxItem SelectedItems
@@ -56,23 +63,23 @@ namespace VLS.BatchExportNet.Views
 
                     if (result == DialogResult.OK)
                     {
-                        _listBoxItems.Clear();
+                        ListBoxItems.Clear();
 
                         IEnumerable listRVTFiles = File.ReadLines(openFileDialog.FileName);
 
                         foreach (string rVTFile in listRVTFiles)
                         {
                             ListBoxItem listBoxItem = new() { Content = rVTFile, Background = Brushes.White };
-                            if (!_listBoxItems.Any(cont => cont.Content.ToString() == rVTFile)
+                            if (!ListBoxItems.Any(cont => cont.Content.ToString() == rVTFile)
                                     && rVTFile.EndsWith(".rvt"))
                             {
-                                _listBoxItems.Add(listBoxItem);
+                                ListBoxItems.Add(listBoxItem);
                             }
                         }
 
-                        if (_listBoxItems.Count.Equals(0))
+                        if (ListBoxItems.Count.Equals(0))
                         {
-                            System.Windows.MessageBox.Show("В текстовом файле не было найдено подходящей информации");
+                            MessageBox.Show("В текстовом файле не было найдено подходящей информации");
                         }
                     }
                     FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
@@ -101,8 +108,8 @@ namespace VLS.BatchExportNet.Views
                         foreach (string file in openFileDialog.FileNames)
                         {
                             ListBoxItem listBoxItem = new() { Content = file, Background = Brushes.White };
-                            if (!_listBoxItems.Any(cont => cont.Content.ToString() == file))
-                                _listBoxItems.Add(listBoxItem);
+                            if (!ListBoxItems.Any(cont => cont.Content.ToString() == file))
+                                ListBoxItems.Add(listBoxItem);
                         }
                     }
                 });
@@ -130,7 +137,7 @@ namespace VLS.BatchExportNet.Views
                         string fileName = saveFileDialog.FileName;
                         File.Delete(fileName);
 
-                        foreach (string fileRVT in _listBoxItems.Select(cont => cont.Content.ToString()))
+                        foreach (string fileRVT in ListBoxItems.Select(cont => cont.Content.ToString()))
                         {
                             if (!File.Exists(fileName))
                             {
@@ -164,7 +171,7 @@ namespace VLS.BatchExportNet.Views
             {
                 return _eraseCommand ??= new RelayCommand(obj =>
                 {
-                    _listBoxItems.Clear();
+                    ListBoxItems.Clear();
                 });
             }
         }
@@ -207,7 +214,7 @@ namespace VLS.BatchExportNet.Views
             List<ListBoxItem> selectedItems = ListBoxItems.Where(e => e.IsSelected).ToList();
             foreach (ListBoxItem item in selectedItems)
             {
-                _listBoxItems.Remove(item);
+                ListBoxItems.Remove(item);
             }
         }
 

@@ -97,20 +97,19 @@ namespace VLS.BatchExportNet.Source
         }
     }
 
-    public class EventHandlerIFCExportUiArg : RevitEventWrapper<IFCExportUi>
+    public class EventHandlerIFCExportUiArg : RevitEventWrapper<IFC_ViewModel>
     {
-        public override void Execute(UIApplication uiApp, IFCExportUi ui)
+        public override void Execute(UIApplication uiApp, IFC_ViewModel ifc_ViewModel)
         {
-            if (!ViewHelper.IsEverythingFilled(ui))
+            if (!ViewHelper.IsEverythingFilled(ifc_ViewModel))
             {
                 return;
             }
 
-            string folder = "";
-            ui.Dispatcher.Invoke(() => folder = @ui.TextBoxFolder.Text);
+            string folder = ifc_ViewModel.FolderPath;
             Logger logger = new(folder);
 
-            IFCHelper.BatchExportModels(uiApp, ui, ref logger);
+            IFCHelper.BatchExportModels(uiApp, ifc_ViewModel, ref logger);
 
             TaskDialog taskDialog = new("Готово!")
             {
@@ -120,9 +119,9 @@ namespace VLS.BatchExportNet.Source
             };
 
             logger.Dispose();
-            ui.IsEnabled = false;
+            ifc_ViewModel.IsViewEnabled = false;
             taskDialog.Show();
-            ui.IsEnabled = true;
+            ifc_ViewModel.IsViewEnabled = true;
         }
     }
 
@@ -171,7 +170,7 @@ namespace VLS.BatchExportNet.Source
         {
             Document document;
             BasicFileInfo fileInfo;
-            bool isWorkshared = true;
+            bool isWorkshared;
             try
             {
                 fileInfo = BasicFileInfo.Extract(filePath);

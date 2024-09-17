@@ -52,6 +52,5 @@ namespace VLS.BatchExportNet.Views.Transmit
                 });
             }
         }
-
     }
 }

@@ -99,15 +99,15 @@ namespace VLS.BatchExportNet.Views.NWC
 
             NavisworksExportScope navisworksExportScope = form.ExportScope;
 
-            switch (navisworksExportScope)
-            {
-                case NavisworksExportScope.Model:
-                    RadioBattonExportScopeModel.IsChecked = true;
-                    break;
-                case NavisworksExportScope.View:
-                    RadioButtonExportScopeView.IsChecked = true;
-                    break;
-            }
+            //switch (navisworksExportScope)
+            //{
+            //    case NavisworksExportScope.Model:
+            //        RadioBattonExportScopeModel.IsChecked = true;
+            //        break;
+            //    case NavisworksExportScope.View:
+            //        RadioButtonExportScopeView.IsChecked = true;
+            //        break;
+            //}
 
             listBoxItems.Clear();
             foreach (string file in form.RVTFiles)
@@ -160,7 +160,7 @@ namespace VLS.BatchExportNet.Views.NWC
         private NWCForm NWCFormSerializer()
         {
             string coordinates = ((ComboBoxItem)ComboBoxCoordinates.SelectedItem).Content.ToString();
-            bool exportScope = (bool)RadioBattonExportScopeModel.IsChecked;
+            //bool exportScope = (bool)RadioBattonExportScopeModel.IsChecked;
             string parameters = ((ComboBoxItem)ComboBoxParameters.SelectedItem).Content.ToString();
 
             if (double.TryParse(TextBoxFacetingFactor.Text, out double facetingFactor))
@@ -203,15 +203,15 @@ namespace VLS.BatchExportNet.Views.NWC
                     break;
             }
 
-            switch (exportScope)
-            {
-                case true:
-                    form.ExportScope = NavisworksExportScope.Model;
-                    break;
-                case false:
-                    form.ExportScope = NavisworksExportScope.View;
-                    break;
-            }
+            //switch (exportScope)
+            //{
+            //    case true:
+            //        form.ExportScope = NavisworksExportScope.Model;
+            //        break;
+            //    case false:
+            //        form.ExportScope = NavisworksExportScope.View;
+            //        break;
+            //}
 
             switch (parameters)
             {
@@ -301,7 +301,7 @@ namespace VLS.BatchExportNet.Views.NWC
         private void ButtonStartJson_Click(object sender, RoutedEventArgs e) => _eventHandlerNWCExportBatchUiArg.Raise(this);
         private void ButtonHelp_Click(object sender, RoutedEventArgs e)
         {
-            const string msg = "\tПлагин предназначен для пакетного экспорта файлов в формат NWCHelper." +
+            const string msg = "\tПлагин предназначен для пакетного экспорта файлов в формат NWC." +
                  "\n" +
                  "\tЕсли вы впервые используете плагин, и у вас нет ранее сохранённых файлов конфигурации, то вам необходимо выполнить следующее: " +
                  "используя кнопку \"Загрузить\" добавьте все модели объекта, которые необходимо экспортировать. " +

@@ -16,10 +16,10 @@ namespace VLS.BatchExportNet.Views.IFC
 {
     static class IFCHelper
     {
-        internal static void BatchExportModels(UIApplication uiApp, IFCExportUi ui, ref Logger logger)
+        internal static void BatchExportModels(UIApplication uiApp, IFC_ViewModel ifc_ViewModel, ref Logger logger)
         {
             using Application application = uiApp.Application;
-            List<ListBoxItem> listItems = [.. ui.listBoxItems];
+            List<ListBoxItem> listItems = [.. ifc_ViewModel.ListBoxItems];
 
             foreach (ListBoxItem item in listItems)
             {
@@ -53,8 +53,8 @@ namespace VLS.BatchExportNet.Views.IFC
                     else if (filePath.Equals(fileInfo.CentralPath))
                     {
                         ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
-                        string[] prefixes = ui.TextBoxWorksetPrefix
-                            .Text.Split(';')
+                        string[] prefixes = ifc_ViewModel.WorksetPrefix
+                            .Split(';')
                             .Select(s => s.Trim())
                             .Where(e => !string.IsNullOrEmpty(e))
                             .ToArray();
@@ -83,7 +83,7 @@ namespace VLS.BatchExportNet.Views.IFC
 
                 try
                 {
-                    ExportModel(document, ui, ref isFuckedUp, logger);
+                    ExportModel(document, ifc_ViewModel, ref isFuckedUp, logger);
                 }
                 catch (Exception ex)
                 {
@@ -130,15 +130,15 @@ namespace VLS.BatchExportNet.Views.IFC
             logger.ErrorTotal();
             logger.TimeTotal();
         }
-        private static void ExportModel(Document document, IFCExportUi ui, ref bool isFuckedUp, Logger logger)
+        private static void ExportModel(Document document, IFC_ViewModel ifc_ViewModel, ref bool isFuckedUp, Logger logger)
         {
             Element view = default;
             using (FilteredElementCollector stuff = new(document))
             {
-                view = stuff.OfClass(typeof(View3D)).FirstOrDefault(e => e.Name == ui.TextBoxExportScopeViewName.Text && !((View3D)e).IsTemplate);
+                view = stuff.OfClass(typeof(View3D)).FirstOrDefault(e => e.Name == ifc_ViewModel.ViewName && !((View3D)e).IsTemplate);
             }
 
-            if ((bool)ui.RadioButtonExportScopeView.IsChecked
+            if (ifc_ViewModel.ExportScopeView
                 && ModelHelper.IsViewEmpty(document, view))
             {
                 logger.Error("Нет геометрии на виде.");
@@ -146,14 +146,10 @@ namespace VLS.BatchExportNet.Views.IFC
             }
             else
             {
-                IFCExportOptions iFCExportOptions = IFC_ExportOptions(document, ui);
-                string folder = "";
-                string prefix = "";
-                string postfix = "";
-
-                ui.Dispatcher.Invoke(() => folder = ui.TextBoxFolder.Text);
-                ui.Dispatcher.Invoke(() => prefix = ui.TextBoxPrefix.Text);
-                ui.Dispatcher.Invoke(() => postfix = ui.TextBoxPostfix.Text);
+                IFCExportOptions iFCExportOptions = IFC_ExportOptions(document, ifc_ViewModel);
+                string folder = ifc_ViewModel.FolderPath;
+                string prefix = ifc_ViewModel.NamePrefix;
+                string postfix = ifc_ViewModel.NamePostfix;
 
                 string fileExportName = prefix + document.Title.Replace("_отсоединено", "") + postfix;
                 string fileName = folder + "\\" + fileExportName + ".ifc";
@@ -203,26 +199,19 @@ namespace VLS.BatchExportNet.Views.IFC
                 view?.Dispose();
             }
         }
-        private static IFCExportOptions IFC_ExportOptions(Document document, IFCExportUi batchExportIFC)
+        private static IFCExportOptions IFC_ExportOptions(Document document, IFC_ViewModel ifc_ViewModel)
         {
             IFCExportOptions options = new()
             {
-                ExportBaseQuantities = (bool)batchExportIFC.CheckBoxExportBaseQuantities.IsChecked,
-                FamilyMappingFile = batchExportIFC.TextBoxMapping.Text,
-                FileVersion = IFCExportUi
-                    .indexToIFCVersion
-                    .First(e => e.Key == batchExportIFC
-                        .ComboBoxIFCVersion
-                        .SelectedIndex)
-                    .Value,
+                ExportBaseQuantities = ifc_ViewModel.ExportBaseQuantities,
+                FamilyMappingFile = ifc_ViewModel.Mapping,
+                FileVersion = ifc_ViewModel.SelectedVersion.Key,
                 FilterViewId = new FilteredElementCollector(document)
                 .OfClass(typeof(View))
-                .FirstOrDefault(e => e.Name == batchExportIFC
-                    .TextBoxExportScopeViewName
-                    .Text)
+                .FirstOrDefault(e => e.Name == ifc_ViewModel.ViewName)
                 .Id,
-                SpaceBoundaryLevel = batchExportIFC.ComboBoxSpaceBoundaryLevel.SelectedIndex,
-                WallAndColumnSplitting = (bool)batchExportIFC.CheckBoxWallAndColumnSplitting.IsChecked
+                SpaceBoundaryLevel = ifc_ViewModel.SelectedLevel.Key,
+                WallAndColumnSplitting = ifc_ViewModel.WallAndColumnSplitting
             };
 
             return options;

@@ -82,11 +82,11 @@ namespace VLS.BatchExportNet.Utils
             string viewName = "";
             ui.Dispatcher.Invoke(() => viewName = ui.TextBoxExportScopeViewName.Text);
 
-            if ((bool)ui.RadioButtonExportScopeView.IsChecked && string.IsNullOrEmpty(viewName))
-            {
-                MessageBox.Show("Введите имя вида для экспорта!");
-                return false;
-            }
+            //if ((bool)ui.RadioButtonExportScopeView.IsChecked && string.IsNullOrEmpty(viewName))
+            //{
+            //    MessageBox.Show("Введите имя вида для экспорта!");
+            //    return false;
+            //}
 
             if (!Directory.Exists(textBoxFolder))
             {
@@ -112,33 +112,28 @@ namespace VLS.BatchExportNet.Utils
             }
             return true;
         }
-        internal static bool IsEverythingFilled(IFCExportUi ui)
+        internal static bool IsEverythingFilled(IFC_ViewModel ifc_ViewModel)
         {
-            if (ui.listBoxItems.Count == 0)
+            if (ifc_ViewModel.ListBoxItems.Count == 0)
             {
                 MessageBox.Show("Добавьте хотя бы один файл для экспорта!");
                 return false;
             }
 
-            string textBoxFolder = "";
-            ui.Dispatcher.Invoke(() => textBoxFolder = ui.TextBoxFolder.Text);
-
+            string textBoxFolder = ifc_ViewModel.FolderPath;
             if (string.IsNullOrEmpty(textBoxFolder))
             {
                 MessageBox.Show("Укажите папку для экспорта!");
                 return false;
             }
-
             if (Uri.IsWellFormedUriString(textBoxFolder, UriKind.RelativeOrAbsolute))
             {
                 MessageBox.Show("Укажите корректную папку для экспорта!");
                 return false;
             }
 
-            string viewName = "";
-            ui.Dispatcher.Invoke(() => viewName = ui.TextBoxExportScopeViewName.Text);
-
-            if ((bool)ui.RadioButtonExportScopeView.IsChecked && string.IsNullOrEmpty(viewName))
+            string viewName = ifc_ViewModel.ViewName;
+            if (ifc_ViewModel.ExportScopeView && string.IsNullOrEmpty(viewName))
             {
                 MessageBox.Show("Введите имя вида для экспорта!");
                 return false;

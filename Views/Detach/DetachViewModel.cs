@@ -1,4 +1,6 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.ObjectModel;
+using System.Windows.Controls;
+using System.Windows.Forms;
 using VLS.BatchExportNet.Source;
 
 namespace VLS.BatchExportNet.Views.Detach

@@ -52,13 +52,13 @@ namespace VLS.BatchExportNet.Views.NWC
                     else if (filePath.Equals(fileInfo.CentralPath))
                     {
                         ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
-                        string[] prefixes = ui.TextBoxWorksetPrefix
-                            .Text.Split(';')
-                            .Select(s => s.Trim())
-                            .Where(e => !string.IsNullOrEmpty(e))
-                            .ToArray();
-                        WorksetConfiguration worksetConfiguration = ModelHelper.CloseWorksetsWithLinks(modelPath, prefixes);
-                        document = OpenDocumentHelper.OpenAsIs(application, modelPath, worksetConfiguration);
+                        //string[] prefixes = ui.TextBoxWorksetPrefix
+                        //    .Text.Split(';')
+                        //    .Select(s => s.Trim())
+                        //    .Where(e => !string.IsNullOrEmpty(e))
+                        //    .ToArray();
+                        //WorksetConfiguration worksetConfiguration = ModelHelper.CloseWorksetsWithLinks(modelPath, prefixes);
+                        //document = OpenDocumentHelper.OpenAsIs(application, modelPath, worksetConfiguration);
                     }
                     else
                     {
@@ -82,7 +82,7 @@ namespace VLS.BatchExportNet.Views.NWC
 
                 try
                 {
-                    ExportModel(document, ui, ref isFuckedUp, logger);
+                    //ExportModel(document, ui, ref isFuckedUp, logger);
                 }
                 catch (Exception ex)
                 {
@@ -95,7 +95,7 @@ namespace VLS.BatchExportNet.Views.NWC
                     {
                         try
                         {
-                            ModelHelper.FreeTheModel(document);
+                            //ModelHelper.FreeTheModel(document);
                         }
                         catch (Exception ex)
                         {
@@ -104,8 +104,8 @@ namespace VLS.BatchExportNet.Views.NWC
                         }
                     }
 
-                    document?.Close(false);
-                    document?.Dispose();
+                    //document?.Close(false);
+                    //document?.Dispose();
 
                     if (isFuckedUp)
                     {
@@ -137,71 +137,71 @@ namespace VLS.BatchExportNet.Views.NWC
                 view = stuff.OfClass(typeof(View3D)).FirstOrDefault(e => e.Name == ui.TextBoxExportScopeViewName.Text && !((View3D)e).IsTemplate);
             }
 
-            if ((bool)ui.RadioButtonExportScopeView.IsChecked
-                && !(bool)ui.CheckBoxExportLinks.IsChecked
-                && ModelHelper.IsViewEmpty(document, view))
+            //if ((bool)ui.RadioButtonExportScopeView.IsChecked
+            //    && !(bool)ui.CheckBoxExportLinks.IsChecked
+            //    && ModelHelper.IsViewEmpty(document, view))
+            //{
+            //    logger.Error("Нет геометрии на виде.");
+            //    isFuckedUp = true;
+            //}
+            //else
+            //{
+            NavisworksExportOptions navisworksExportOptions = NWC_ExportOptions(document, ui);
+            string folder = "";
+            string prefix = "";
+            string postfix = "";
+
+            ui.Dispatcher.Invoke(() => folder = ui.TextBoxFolder.Text);
+            ui.Dispatcher.Invoke(() => prefix = ui.TextBoxPrefix.Text);
+            ui.Dispatcher.Invoke(() => postfix = ui.TextBoxPostfix.Text);
+
+            string fileExportName = prefix + document.Title.Replace("_отсоединено", "") + postfix;
+            string fileName = folder + "\\" + fileExportName + ".nwc";
+
+            string oldHash = null;
+
+            if (File.Exists(fileName))
             {
-                logger.Error("Нет геометрии на виде.");
+                oldHash = ModelHelper.MD5Hash(fileName);
+                logger.Hash(oldHash);
+            }
+
+            try
+            {
+                document?.Export(folder, fileExportName, navisworksExportOptions);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Смотри исключение.", ex);
+                isFuckedUp = true;
+            }
+
+            navisworksExportOptions.Dispose();
+
+            if (!File.Exists(fileName))
+            {
+                logger.Error("Файл не был создан. Скорее всего нет геометрии на виде.");
                 isFuckedUp = true;
             }
             else
             {
-                NavisworksExportOptions navisworksExportOptions = NWC_ExportOptions(document, ui);
-                string folder = "";
-                string prefix = "";
-                string postfix = "";
+                string newHash = ModelHelper.MD5Hash(fileName);
+                logger.Hash(newHash);
 
-                ui.Dispatcher.Invoke(() => folder = ui.TextBoxFolder.Text);
-                ui.Dispatcher.Invoke(() => prefix = ui.TextBoxPrefix.Text);
-                ui.Dispatcher.Invoke(() => postfix = ui.TextBoxPostfix.Text);
-
-                string fileExportName = prefix + document.Title.Replace("_отсоединено", "") + postfix;
-                string fileName = folder + "\\" + fileExportName + ".nwc";
-
-                string oldHash = null;
-
-                if (File.Exists(fileName))
+                if (newHash == oldHash)
                 {
-                    oldHash = ModelHelper.MD5Hash(fileName);
-                    logger.Hash(oldHash);
-                }
-
-                try
-                {
-                    document?.Export(folder, fileExportName, navisworksExportOptions);
-                }
-                catch (Exception ex)
-                {
-                    logger.Error("Смотри исключение.", ex);
+                    logger.Error("Файл не был обновлён. Хэш сумма не изменилась.");
                     isFuckedUp = true;
                 }
-
-                navisworksExportOptions.Dispose();
-
-                if (!File.Exists(fileName))
-                {
-                    logger.Error("Файл не был создан. Скорее всего нет геометрии на виде.");
-                    isFuckedUp = true;
-                }
-                else
-                {
-                    string newHash = ModelHelper.MD5Hash(fileName);
-                    logger.Hash(newHash);
-
-                    if (newHash == oldHash)
-                    {
-                        logger.Error("Файл не был обновлён. Хэш сумма не изменилась.");
-                        isFuckedUp = true;
-                    }
-                }
-
-                view?.Dispose();
             }
+
+            view?.Dispose();
+            //}
         }
         private static NavisworksExportOptions NWC_ExportOptions(Document document, NWCExportUi batchExportNWC)
         {
             string coordinates = ((ComboBoxItem)batchExportNWC.ComboBoxCoordinates.SelectedItem).Content.ToString();
-            bool exportScope = (bool)batchExportNWC.RadioBattonExportScopeModel.IsChecked;
+            //bool exportScope = (bool)batchExportNWC.RadioBattonExportScopeModel.IsChecked;
             string parameters = ((ComboBoxItem)batchExportNWC.ComboBoxParameters.SelectedItem).Content.ToString();
 
             double facetingFactor = double
@@ -234,20 +234,20 @@ namespace VLS.BatchExportNet.Views.NWC
                     break;
             }
 
-            switch (exportScope)
-            {
-                case true:
-                    options.ExportScope = NavisworksExportScope.Model;
-                    break;
-                case false:
-                    options.ExportScope = NavisworksExportScope.View;
-                    options.ViewId = new FilteredElementCollector(document)
-                        .OfClass(typeof(View3D))
-                        .FirstOrDefault(e => e.Name == batchExportNWC.TextBoxExportScopeViewName.Text
-                            && !((View3D)e).IsTemplate)
-                        .Id;
-                    break;
-            }
+            //switch (exportScope)
+            //{
+            //    case true:
+            //        options.ExportScope = NavisworksExportScope.Model;
+            //        break;
+            //    case false:
+            //        options.ExportScope = NavisworksExportScope.View;
+            //        options.ViewId = new FilteredElementCollector(document)
+            //            .OfClass(typeof(View3D))
+            //            .FirstOrDefault(e => e.Name == batchExportNWC.TextBoxExportScopeViewName.Text
+            //                && !((View3D)e).IsTemplate)
+            //            .Id;
+            //        break;
+            //}
 
             switch (parameters)
             {
