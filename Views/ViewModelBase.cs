@@ -11,7 +11,7 @@ using System.Windows.Media;
 
 namespace VLS.BatchExportNet.Views
 {
-    public class BaseViewModel() : INotifyPropertyChanged
+    public class ViewModelBase() : INotifyPropertyChanged
     {
         private ObservableCollection<ListBoxItem> _listBoxItems = [];
         public ObservableCollection<ListBoxItem> ListBoxItems
@@ -117,7 +117,7 @@ namespace VLS.BatchExportNet.Views
                 {
                     SaveFileDialog saveFileDialog = new()
                     {
-                        FileName = "ListOfRVTFilesToLink",
+                        FileName = "ListOfRVTFiles",
                         DefaultExt = ".txt",
                         Filter = "Текстовый файл (.txt)|*.txt"
                     };
@@ -163,6 +163,36 @@ namespace VLS.BatchExportNet.Views
                 return _eraseCommand ??= new RelayCommand(obj =>
                 {
                     _listBoxItems.Clear();
+                });
+            }
+        }
+
+        private string _folderPath;
+        public string FolderPath
+        {
+            get => _folderPath;
+            set
+            {
+                _folderPath = value;
+                OnPropertyChanged("FolderPath");
+            }
+        }
+
+        private RelayCommand _browseFolderCommand;
+        public RelayCommand BrowseFolderCommand
+        {
+            get
+            {
+                return _browseFolderCommand ??= new RelayCommand(obj =>
+                {
+                    FolderBrowserDialog folderBrowserDialog = new() { SelectedPath = FolderPath };
+                    DialogResult result = folderBrowserDialog.ShowDialog();
+                    string folderPath = folderBrowserDialog.SelectedPath;
+
+                    if (result == DialogResult.OK)
+                    {
+                        FolderPath = folderPath;
+                    }
                 });
             }
         }

@@ -240,17 +240,17 @@ namespace VLS.BatchExportNet.Source
         }
     }
 
-    public class EventHandlerTransmitModelsUiArg : RevitEventWrapper<TransmitModelsUi>
+    public class EventHandlerTransmitModelsUiArg : RevitEventWrapper<TransmitViewModel>
     {
-        public override void Execute(UIApplication uiApp, TransmitModelsUi ui)
+        public override void Execute(UIApplication uiApp, TransmitViewModel transmitViewModel)
         {
-            if (!ViewHelper.IsEverythingFilled(ui))
+            if (!ViewHelper.IsEverythingFilled(transmitViewModel))
             {
                 return;
             }
 
             using Application application = uiApp.Application;
-            List<ListBoxItem> listItems = [.. @ui.listBoxItems];
+            List<ListBoxItem> listItems = [.. transmitViewModel.ListBoxItems];
 
             foreach (ListBoxItem item in listItems)
             {
@@ -263,9 +263,8 @@ namespace VLS.BatchExportNet.Source
                     continue;
                 }
 
-                string folder = "";
-                ui.Dispatcher.Invoke(() => folder = @ui.TextBoxFolder.Text);
-                bool isSameFolder = (bool)ui.CheckBoxIsSameFolder.IsChecked;
+                string folder = transmitViewModel.FolderPath;
+                bool isSameFolder = transmitViewModel.IsSameFolder;
 
                 string transmittedFilePath = folder + "\\" + filePath.Split('\\').Last();
                 File.Copy(filePath, transmittedFilePath, true);
@@ -280,9 +279,9 @@ namespace VLS.BatchExportNet.Source
                 MainContent = "Задание выполнено"
             };
 
-            ui.IsEnabled = false;
+            transmitViewModel.IsViewEnabled = false;
             taskDialog.Show();
-            ui.IsEnabled = true;
+            transmitViewModel.IsViewEnabled = true;
         }
     }
 

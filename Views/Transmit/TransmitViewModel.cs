@@ -1,12 +1,12 @@
 ﻿using System.Windows;
 using VLS.BatchExportNet.Source;
 
-namespace VLS.BatchExportNet.Views.Link
+namespace VLS.BatchExportNet.Views.Transmit
 {
-    public class LinkViewModel(EventHandlerLinkModelsUiArg eventHandlerLinkModelsUiArg) : ViewModelBase
+    public class TransmitViewModel(EventHandlerTransmitModelsUiArg eventHandlerTransmitModelsUiArg) : ViewModelBase
     {
-        //TODO: create base vm class and assign inheritance
-        const string HELP_MESSAGE = "\tПлагин предназначен для пакетного добавления моделей в качестве Revit ссылок." +
+        private readonly EventHandlerTransmitModelsUiArg _eventHandlerTransmitModelsUiArg = eventHandlerTransmitModelsUiArg;
+        private const string HELP_MESSAGE = "\tПлагин предназначен для пакетной передачи моделей и реализует схожий функционал с плагином \"eTransmit\"." +
                   "\n" +
                   "\tЕсли вы впервые используете плагин, и у вас нет ранее сохранённых списков, то вам необходимо выполнить следующее: " +
                   "используя кнопку \"Загрузить\" добавьте все модели объекта, которые необходимо передать. " +
@@ -16,22 +16,9 @@ namespace VLS.BatchExportNet.Views.Link
                   "\n" +
                   "\tСохраните список кнопкой \"Сохранить список\" в формате (.txt)." +
                   "\n" +
-                  "\tДалее этот список можно будет использовать для повторного добавления данного комплекта, используя кнопку \"Загрузить список\"." +
+                  "\tДалее этот список можно будет использовать для повторного экспорта, используя кнопку \"Загрузить список\"." +
                   "\n\n" +
-                  "\tЗапустите добавление кнопкой \"ОК\".";
-
-        private readonly EventHandlerLinkModelsUiArg _eventHandlerLinkModelsUiArg = eventHandlerLinkModelsUiArg;
-
-        private bool _isCurrentWorkset = true;
-        public bool IsCurrentWorkset
-        {
-            get => _isCurrentWorkset;
-            set
-            {
-                _isCurrentWorkset = value;
-                OnPropertyChanged("IsCurrentWorkset");
-            }
-        }
+                  "\tЗапустите экспорт кнопкой \"ОК\".";
         private RelayCommand _helpCommand;
         public override RelayCommand HelpCommand
         {
@@ -44,6 +31,16 @@ namespace VLS.BatchExportNet.Views.Link
             }
         }
 
+        private bool _isSameFolder;
+        public bool IsSameFolder
+        {
+            get => _isSameFolder;
+            set
+            {
+                _isSameFolder = value;
+                OnPropertyChanged("IsSameFolder");
+            }
+        }
         private RelayCommand _raiseEventCommand;
         public override RelayCommand RaiseEventCommand
         {
@@ -51,9 +48,10 @@ namespace VLS.BatchExportNet.Views.Link
             {
                 return _raiseEventCommand ??= new RelayCommand(obj =>
                 {
-                    _eventHandlerLinkModelsUiArg.Raise(this);
+                    _eventHandlerTransmitModelsUiArg.Raise(this);
                 });
             }
         }
+
     }
 }

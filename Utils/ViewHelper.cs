@@ -218,16 +218,15 @@ namespace VLS.BatchExportNet.Utils
             }
             return true;
         }
-        internal static bool IsEverythingFilled(TransmitModelsUi ui)
+        internal static bool IsEverythingFilled(TransmitViewModel transmitViewModel)
         {
-            if (!ui.listBoxItems.Any())
+            if (!transmitViewModel.ListBoxItems.Any())
             {
                 MessageBox.Show("Добавьте хотя бы один файл для экспорта!");
                 return false;
             }
 
-            string textBoxFolder = "";
-            ui.Dispatcher.Invoke(() => textBoxFolder = ui.TextBoxFolder.Text);
+            string textBoxFolder = transmitViewModel.FolderPath;
 
             if (string.IsNullOrEmpty(textBoxFolder))
             {
