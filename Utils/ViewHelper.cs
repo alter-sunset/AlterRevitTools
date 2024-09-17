@@ -25,7 +25,7 @@ namespace VLS.BatchExportNet.Utils
                 {
                     case Forms.Detach:
                         EventHandlerDetachModelsUiArg evDetachUi = new();
-                        _myForm = new DetachModelsUi(evDetachUi) { Height = 600, Width = 800 };
+                        _myForm = new DetachModelsUi(evDetachUi) { Height = 550, Width = 800 };
                         break;
                     case Forms.IFC:
                         EventHandlerIFCExportUiArg evIFCUi = new();
@@ -168,22 +168,21 @@ namespace VLS.BatchExportNet.Utils
             }
             return true;
         }
-        internal static bool IsEverythingFilled(DetachModelsUi ui)
+        internal static bool IsEverythingFilled(DetachViewModel detachViewModel)
         {
-            if (ui.listBoxItems.Count == 0)
+            if (detachViewModel.ListBoxItems.Count == 0)
             {
                 MessageBox.Show("Добавьте хотя бы один файл для экспорта!");
                 return false;
             }
 
-            switch (ui.RadioButtonSavingPathMode)
+            switch (detachViewModel.RadionButtonMode)
             {
                 case 0:
                     MessageBox.Show("Выберите режим выбора пути");
                     return false;
                 case 1:
-                    string textBoxFolder = "";
-                    ui.Dispatcher.Invoke(() => textBoxFolder = ui.TextBoxFolder.Text);
+                    string textBoxFolder = detachViewModel.FolderPath;
 
                     if (string.IsNullOrEmpty(textBoxFolder))
                     {
@@ -197,19 +196,14 @@ namespace VLS.BatchExportNet.Utils
                         return false;
                     }
                     break;
-                case 3:
-                    string maskIn = "";
-                    string maskOut = "";
-                    ui.Dispatcher.Invoke(() => maskIn = ui.TextBoxMaskIn.Text);
-                    ui.Dispatcher.Invoke(() => maskOut = ui.TextBoxMaskOut.Text);
-
-                    if (string.IsNullOrEmpty(maskIn) || string.IsNullOrEmpty(maskOut))
+                case 2:
+                    if (string.IsNullOrEmpty(detachViewModel.MaskIn) || string.IsNullOrEmpty(detachViewModel.MaskOut))
                     {
                         MessageBox.Show("Укажите маску замены");
                         return false;
                     }
-                    if (!ui.listBoxItems.Select(e => e.Content)
-                        .All(e => e.ToString().Contains(maskIn)))
+                    if (!detachViewModel.ListBoxItems.Select(e => e.Content)
+                        .All(e => e.ToString().Contains(detachViewModel.MaskIn)))
                     {
                         MessageBox.Show("Несоответсвие входной маски и имён файлов.");
                         return false;

@@ -14,7 +14,7 @@ namespace VLS.BatchExportNet.Views
     public class ViewModelBase() : INotifyPropertyChanged
     {
         private ObservableCollection<ListBoxItem> _listBoxItems = [];
-        public ObservableCollection<ListBoxItem> ListBoxItems
+        public virtual ObservableCollection<ListBoxItem> ListBoxItems
         { get => _listBoxItems; }
 
         private ListBoxItem _selectedItems;
@@ -75,6 +75,7 @@ namespace VLS.BatchExportNet.Views
                             System.Windows.MessageBox.Show("В текстовом файле не было найдено подходящей информации");
                         }
                     }
+                    FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
                 });
             }
         }
@@ -141,6 +142,7 @@ namespace VLS.BatchExportNet.Views
                                 File.AppendAllText(fileName, toWrite);
                             }
                         }
+                        FolderPath = Path.GetDirectoryName(saveFileDialog.FileName);
                     }
                 });
             }
@@ -198,6 +200,7 @@ namespace VLS.BatchExportNet.Views
         }
         public virtual RelayCommand HelpCommand { get; }
         public virtual RelayCommand RaiseEventCommand { get; }
+        public virtual RelayCommand RadioButtonCommand { get; }
 
         private void DeleteSelectedItems(object parameter)
         {

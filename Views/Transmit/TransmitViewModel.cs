@@ -18,7 +18,7 @@ namespace VLS.BatchExportNet.Views.Transmit
                   "\n" +
                   "\tДалее этот список можно будет использовать для повторного экспорта, используя кнопку \"Загрузить список\"." +
                   "\n\n" +
-                  "\tЗапустите экспорт кнопкой \"ОК\".";
+                  "\tЗапустите экспорт кнопкой \"Запуск\".";
         private RelayCommand _helpCommand;
         public override RelayCommand HelpCommand
         {

@@ -5,7 +5,6 @@ namespace VLS.BatchExportNet.Views.Link
 {
     public class LinkViewModel(EventHandlerLinkModelsUiArg eventHandlerLinkModelsUiArg) : ViewModelBase
     {
-        //TODO: create base vm class and assign inheritance
         const string HELP_MESSAGE = "\tПлагин предназначен для пакетного добавления моделей в качестве Revit ссылок." +
                   "\n" +
                   "\tЕсли вы впервые используете плагин, и у вас нет ранее сохранённых списков, то вам необходимо выполнить следующее: " +
@@ -18,7 +17,7 @@ namespace VLS.BatchExportNet.Views.Link
                   "\n" +
                   "\tДалее этот список можно будет использовать для повторного добавления данного комплекта, используя кнопку \"Загрузить список\"." +
                   "\n\n" +
-                  "\tЗапустите добавление кнопкой \"ОК\".";
+                  "\tЗапустите добавление кнопкой \"Запуск\".";
 
         private readonly EventHandlerLinkModelsUiArg _eventHandlerLinkModelsUiArg = eventHandlerLinkModelsUiArg;
 

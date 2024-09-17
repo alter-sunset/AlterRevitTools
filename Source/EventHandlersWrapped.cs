@@ -126,17 +126,17 @@ namespace VLS.BatchExportNet.Source
         }
     }
 
-    public class EventHandlerDetachModelsUiArg : RevitEventWrapper<DetachModelsUi>
+    public class EventHandlerDetachModelsUiArg : RevitEventWrapper<DetachViewModel>
     {
-        public override void Execute(UIApplication uiApp, DetachModelsUi ui)
+        public override void Execute(UIApplication uiApp, DetachViewModel detachViewModel)
         {
-            if (!ViewHelper.IsEverythingFilled(ui))
+            if (!ViewHelper.IsEverythingFilled(detachViewModel))
             {
                 return;
             }
 
             using Application application = uiApp.Application;
-            List<ListBoxItem> listItems = [.. @ui.listBoxItems];
+            List<ListBoxItem> listItems = [.. detachViewModel.ListBoxItems];
 
             uiApp.DialogBoxShowing += new EventHandler<DialogBoxShowingEventArgs>(ErrorSwallowersHelper.TaskDialogBoxShowingEvent);
             application.FailuresProcessing += new EventHandler<Autodesk.Revit.DB.Events.FailuresProcessingEventArgs>(ErrorSwallowersHelper.Application_FailuresProcessing);
@@ -151,7 +151,7 @@ namespace VLS.BatchExportNet.Source
                     continue;
                 }
 
-                DetachModel(application, filePath, ui);
+                DetachModel(application, filePath, detachViewModel);
             }
             uiApp.DialogBoxShowing -= new EventHandler<DialogBoxShowingEventArgs>(ErrorSwallowersHelper.TaskDialogBoxShowingEvent);
             application.FailuresProcessing -= new EventHandler<Autodesk.Revit.DB.Events.FailuresProcessingEventArgs>(ErrorSwallowersHelper.Application_FailuresProcessing);
@@ -163,11 +163,11 @@ namespace VLS.BatchExportNet.Source
                 MainContent = "Задание выполнено"
             };
 
-            ui.IsEnabled = false;
+            detachViewModel.IsViewEnabled = false;
             taskDialog.Show();
-            ui.IsEnabled = true;
+            detachViewModel.IsViewEnabled = true;
         }
-        private static void DetachModel(Application application, string filePath, DetachModelsUi ui)
+        private static void DetachModel(Application application, string filePath, DetachViewModel detachViewModel)
         {
             Document document;
             BasicFileInfo fileInfo;
@@ -195,18 +195,15 @@ namespace VLS.BatchExportNet.Source
             //RevitLinksHelper.Delete(document);
             ModelHelper.DeleteAllLinks(document); //Delete all links instead of just rvt links
             string fileDetachedPath = "";
-            switch (ui.RadioButtonSavingPathMode)
+            switch (detachViewModel.RadionButtonMode)
             {
                 case 1:
-                    string folder = "";
-                    ui.Dispatcher.Invoke(() => folder = @ui.TextBoxFolder.Text);
+                    string folder = detachViewModel.FolderPath;
                     fileDetachedPath = folder + "\\" + document.Title.Replace("_detached", "").Replace("_отсоединено", "") + ".rvt";
                     break;
-                case 3:
-                    string maskIn = "";
-                    string maskOut = "";
-                    ui.Dispatcher.Invoke(() => maskIn = @ui.TextBoxMaskIn.Text);
-                    ui.Dispatcher.Invoke(() => maskOut = @ui.TextBoxMaskOut.Text);
+                case 2:
+                    string maskIn = detachViewModel.MaskIn;
+                    string maskOut = detachViewModel.MaskOut;
                     fileDetachedPath = @filePath.Replace(maskIn, maskOut);
                     break;
             }
