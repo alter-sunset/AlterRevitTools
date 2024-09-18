@@ -138,7 +138,7 @@ namespace VLS.BatchExportNet.Views.IFC
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show($"Неверная схема файла {ex.Message}");
+                            MessageBox.Show($"Неверная схема файла\n{ex.Message}");
                         }
                     }
                 });
@@ -206,7 +206,7 @@ namespace VLS.BatchExportNet.Views.IFC
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show($"Неверная схема файла {ex.Message}");
+                            MessageBox.Show($"Неверная схема файла\n{ex.Message}");
                         }
                     }
 
@@ -214,30 +214,24 @@ namespace VLS.BatchExportNet.Views.IFC
                 });
             }
         }
-        private IFCForm IFCFormSerializer()
+        private IFCForm IFCFormSerializer() => new()
         {
-            IFCForm form = new()
-            {
-                ExportBaseQuantities = ExportBaseQuantities,
-                FamilyMappingFile = Mapping,
-                FileVersion = SelectedVersion.Key,
-                SpaceBoundaryLevel = SelectedLevel.Key,
-                WallAndColumnSplitting = WallAndColumnSplitting,
-                DestinationFolder = FolderPath,
-                NamePrefix = NamePrefix,
-                NamePostfix = NamePostfix,
-                WorksetPrefix = WorksetPrefix,
+            ExportBaseQuantities = ExportBaseQuantities,
+            FamilyMappingFile = Mapping,
+            FileVersion = SelectedVersion.Key,
+            SpaceBoundaryLevel = SelectedLevel.Key,
+            WallAndColumnSplitting = WallAndColumnSplitting,
+            DestinationFolder = FolderPath,
+            NamePrefix = NamePrefix,
+            NamePostfix = NamePostfix,
+            WorksetPrefix = WorksetPrefix,
+            ExportView = ExportScopeView,
+            ViewName = ViewName,
 
-                RVTFiles = ListBoxItems
+            RVTFiles = ListBoxItems
                 .Select(cont => cont.Content.ToString())
-                .ToList(),
-
-                ViewName = ViewName,
-                ExportView = ExportScopeView
-            };
-
-            return form;
-        }
+                .ToList()
+        };
 
         private readonly Dictionary<IFCVersion, string> _ifcVersions
             = IFC_Context.IFCVersions;

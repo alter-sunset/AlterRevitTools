@@ -6,8 +6,9 @@ namespace VLS.BatchExportNet.Views.NWC
     public class NWCForm : NavisworksExportOptions
     {
         private string _destinationFolder;
-        private string _prefix;
-        private string _postfix;
+        private string _namePrefix;
+        private string _namePostfix;
+        private string _worksetPrefix;
         private List<string> _rvtFiles;
         private string _viewName;
         private bool _convertLights;
@@ -15,12 +16,14 @@ namespace VLS.BatchExportNet.Views.NWC
         private double _facetingFactor;
 
         public string DestinationFolder { get => _destinationFolder; set => _destinationFolder = value; }
-        public string Prefix { get => _prefix; set => _prefix = value; }
-        public string Postfix { get => _postfix; set => _postfix = value; }
+        public string NamePrefix { get => _namePrefix; set => _namePrefix = value; }
+        public string NamePostfix { get => _namePostfix; set => _namePostfix = value; }
+        public string WorksetPrefix { get => _worksetPrefix; set => _worksetPrefix = value; }
         public List<string> RVTFiles { get => _rvtFiles; set => _rvtFiles = value; }
         public string ViewName { get => _viewName; set => _viewName = value; }
         public new bool ConvertLights { get => _convertLights; set => _convertLights = value; }
         public new bool ConvertLinkedCADFormats { get => _convertLinkedCADFormats; set => _convertLinkedCADFormats = value; }
         public new double FacetingFactor { get => _facetingFactor; set => _facetingFactor = value; }
+        public new bool ViewId { get; set; }
     }
 }

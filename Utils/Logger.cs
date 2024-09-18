@@ -92,7 +92,6 @@ namespace VLS.BatchExportNet.Utils
             FilePath = default;
             ErrorCount = default;
             SuccessCount = default;
-            GC.SuppressFinalize(this);
         }
     }
 }

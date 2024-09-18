@@ -22,11 +22,11 @@ using Application = Autodesk.Revit.ApplicationServices.Application;
 
 namespace VLS.BatchExportNet.Source
 {
-    public class EventHandlerNWCExportBatchUiArg : RevitEventWrapper<NWCExportUi>
+    public class EventHandlerNWCExportBatchUiArg : RevitEventWrapper<NWC_ViewModel>
     {
-        public override void Execute(UIApplication uiApp, NWCExportUi ui)
+        public override void Execute(UIApplication uiApp, NWC_ViewModel nwc_ViewModel)
         {
-            if (ui.ListBoxJsonConfigs.Items.Count == 0)
+            if (nwc_ViewModel.Configs.Count == 0)
             {
                 MessageBox.Show("Загрузите конфиги.");
                 return;
@@ -34,54 +34,52 @@ namespace VLS.BatchExportNet.Source
 
             DateTime timeStart = DateTime.Now;
 
-            foreach (string config in ui.ListBoxJsonConfigs.Items)
+            foreach (string config in nwc_ViewModel.Configs)
             {
                 try
                 {
                     using FileStream file = File.OpenRead(config);
                     NWCForm form = JsonSerializer.Deserialize<NWCForm>(file);
-                    ui.NWCFormDeserilaizer(form);
+                    nwc_ViewModel.NWCFormDeserilaizer(form);
                 }
                 catch
                 {
                     continue;
                 }
 
-                string folder = "";
-                ui.Dispatcher.Invoke(() => folder = @ui.TextBoxFolder.Text);
+                string folder = nwc_ViewModel.FolderPath;
                 Logger logger = new(folder);
 
-                NWCHelper.BatchExportModels(uiApp, ui, ref logger);
+                NWCHelper.BatchExportModels(uiApp, nwc_ViewModel, ref logger);
                 logger.Dispose();
-                Thread.Sleep(3000);
+                Thread.Sleep(1000);
             }
 
             TaskDialog taskDialog = new("Готово!")
             {
                 CommonButtons = TaskDialogCommonButtons.Close,
                 Id = "ExportBatchNWCFinished",
-                MainContent = $"Задание выполнено. Общее время выполнения: {DateTime.Now - timeStart}"
+                MainContent = $"Задание выполнено. Всего затрачено времени:{DateTime.Now - timeStart}"
             };
-            ui.IsEnabled = false;
+            nwc_ViewModel.IsViewEnabled = false;
             taskDialog.Show();
-            ui.IsEnabled = true;
+            nwc_ViewModel.IsViewEnabled = true;
         }
     }
 
-    public class EventHandlerNWCExportUiArg : RevitEventWrapper<NWCExportUi>
+    public class EventHandlerNWCExportUiArg : RevitEventWrapper<NWC_ViewModel>
     {
-        public override void Execute(UIApplication uiApp, NWCExportUi ui)
+        public override void Execute(UIApplication uiApp, NWC_ViewModel nwc_ViewModel)
         {
-            if (!ViewHelper.IsEverythingFilled(ui))
+            if (!ViewHelper.IsEverythingFilled(nwc_ViewModel))
             {
                 return;
             }
 
-            string folder = "";
-            ui.Dispatcher.Invoke(() => folder = @ui.TextBoxFolder.Text);
+            string folder = nwc_ViewModel.FolderPath;
             Logger logger = new(folder);
 
-            NWCHelper.BatchExportModels(uiApp, ui, ref logger);
+            NWCHelper.BatchExportModels(uiApp, nwc_ViewModel, ref logger);
 
             TaskDialog taskDialog = new("Готово!")
             {
@@ -91,9 +89,9 @@ namespace VLS.BatchExportNet.Source
             };
 
             logger.Dispose();
-            ui.IsEnabled = false;
+            nwc_ViewModel.IsViewEnabled = false;
             taskDialog.Show();
-            ui.IsEnabled = true;
+            nwc_ViewModel.IsViewEnabled = true;
         }
     }
 

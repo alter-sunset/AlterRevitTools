@@ -54,7 +54,7 @@ namespace VLS.BatchExportNet.Views
                 {
                     OpenFileDialog openFileDialog = new()
                     {
-                        Multiselect = true,
+                        Multiselect = false,
                         DefaultExt = ".txt",
                         Filter = "Текстовый файл (.txt)|*.txt"
                     };

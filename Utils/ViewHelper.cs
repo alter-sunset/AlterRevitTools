@@ -56,16 +56,16 @@ namespace VLS.BatchExportNet.Utils
                 MessageBox.Show(ex.ToString());
             }
         }
-        internal static bool IsEverythingFilled(NWCExportUi ui)
+        internal static bool IsEverythingFilled(NWC_ViewModel nwc_ViewModel)
         {
-            if (ui.listBoxItems.Count == 0)
+            //replace as generic methods
+            if (nwc_ViewModel.ListBoxItems.Count == 0)
             {
                 MessageBox.Show("Добавьте хотя бы один файл для экспорта!");
                 return false;
             }
 
-            string textBoxFolder = "";
-            ui.Dispatcher.Invoke(() => textBoxFolder = ui.TextBoxFolder.Text);
+            string textBoxFolder = nwc_ViewModel.FolderPath;
 
             if (string.IsNullOrEmpty(textBoxFolder))
             {
@@ -79,14 +79,13 @@ namespace VLS.BatchExportNet.Utils
                 return false;
             }
 
-            string viewName = "";
-            ui.Dispatcher.Invoke(() => viewName = ui.TextBoxExportScopeViewName.Text);
+            string viewName = nwc_ViewModel.ViewName;
 
-            //if ((bool)ui.RadioButtonExportScopeView.IsChecked && string.IsNullOrEmpty(viewName))
-            //{
-            //    MessageBox.Show("Введите имя вида для экспорта!");
-            //    return false;
-            //}
+            if (nwc_ViewModel.ExportScopeView && string.IsNullOrEmpty(viewName))
+            {
+                MessageBox.Show("Введите имя вида для экспорта!");
+                return false;
+            }
 
             if (!Directory.Exists(textBoxFolder))
             {

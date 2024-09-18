@@ -139,7 +139,7 @@
                   Grid.Row="5"
                   Grid.Column="0"
                   VerticalContentAlignment="Center"
-                  x:Name="CheckBoxConvertElementProperties"
+                  IsChecked="{Binding ConvertElementProperties}"
                   ToolTip="">
             <TextBlock>Конвертировать<LineBreak/>
                 свойства объектов</TextBlock>
@@ -147,29 +147,29 @@
         <TextBlock Margin="10,10,110,10"
                    Grid.Row="5"
                    Grid.Column="1"
-                   VerticalAlignment="Center">Координаты</TextBlock>
+                   VerticalAlignment="Center"
+                   Text="Координаты"/>
         <ComboBox Margin="95,10,10,10"
                   Grid.Row="5"
                   Grid.Column="1"
                   VerticalContentAlignment="Center"
                   x:Name="ComboBoxCoordinates"
-                  SelectionChanged="ComboBoxCoordinates_SelectionChanged">
-            <ComboBoxItem Content="Внутренние для проекта" TabIndex="0"/>
-            <ComboBoxItem IsSelected="True" Content="Общие" TabIndex="1"/>
-        </ComboBox>
+                  ItemsSource="{Binding Coordinates}"
+                  SelectedItem="{Binding SelectedCoordinates}"
+                  DisplayMemberPath="Value"/>
         <CheckBox Margin="10,10,10,10"
                   Grid.Row="5"
                   Grid.Column="2"
                   VerticalContentAlignment="Center"
-                  IsChecked="True"
-                  x:Name="CheckBoxDivideFileIntoLevels" Checked="CheckBoxDivideFileIntoLevels_Checked">
+                  IsChecked="{Binding DivideFileIntoLevels}"
+                  x:Name="CheckBoxDivideFileIntoLevels">
             <TextBlock>Разделить файл на уровни</TextBlock>
         </CheckBox>
         <CheckBox Margin="10,10,10,10"
                   Grid.Row="5"
                   Grid.Column="3"
                   VerticalContentAlignment="Center"
-                  IsChecked="True"
+                  IsChecked="{Binding ExportElementIds}"
                   x:Name="CheckBoxExportElementIds">
             <TextBlock>Экспортировать<LineBreak/>
                 Id элементов</TextBlock>
@@ -179,7 +179,8 @@
                   Grid.Row="6"
                   Grid.Column="0"
                   VerticalContentAlignment="Center"
-                  x:Name="CheckBoxExportLinks">
+                  x:Name="CheckBoxExportLinks"
+                  IsChecked="{Binding ExportLinks}">
             <TextBlock>Экспортировать <LineBreak/>
                 связанные файлы</TextBlock>
         </CheckBox>
@@ -187,7 +188,8 @@
                   Grid.Row="6"
                   Grid.Column="1"
                   VerticalContentAlignment="Center"
-                  x:Name="CheckBoxExportParts">
+                  x:Name="CheckBoxExportParts"
+                  IsChecked="{Binding ExportParts}">
             <TextBlock>
                 Экспортировать<LineBreak/>
                 элементы конструкции
@@ -197,7 +199,7 @@
                   Grid.Row="6"
                   Grid.Column="2"
                   VerticalContentAlignment="Center"
-                  IsChecked="True"
+                  IsChecked="{Binding ExportRoomAsAttribute}"
                   x:Name="CheckBoxExportRoomAsAttribute">
             <TextBlock>
                 Экспортировать<LineBreak/>
@@ -208,6 +210,7 @@
                   Grid.Row="6"
                   Grid.Column="3"
                   VerticalContentAlignment="Center"
+                  IsChecked="{Binding ExportRoomGeometry}"
                   x:Name="CheckBoxExportRoomGeometry">
             <TextBlock>
                 Экспортировать<LineBreak/>
@@ -240,14 +243,16 @@
                   Grid.Row="7"
                   Grid.Column="3"
                   VerticalContentAlignment="Center"
-                  x:Name="CheckBoxExportUrls"                  
+                  x:Name="CheckBoxExportUrls"
+                  IsChecked="{Binding ExportUrls}"
                   Content="Экспортировать URL адреса"/>
 
         <CheckBox Margin="10"
                   Grid.Row="8"
                   Grid.Column="0"
                   VerticalContentAlignment="Center"
-                  x:Name="CheckBoxFindMissingMaterials">
+                  x:Name="CheckBoxFindMissingMaterials"
+                  IsChecked="{Binding FindMissingMaterials}">
             <TextBlock>
                 Проверять и находить<LineBreak/>
                 отсутсвующие материалы
@@ -264,18 +269,19 @@
         <ComboBox Margin="175,10,10,10"
                   Grid.Row="8"
                   Grid.Column="1"
+                  Grid.ColumnSpan="2"
                   VerticalContentAlignment="Center"                  
-                  x:Name="ComboBoxParameters" Grid.ColumnSpan="2">
-            <ComboBoxItem Tag="None" Content="Нет" TabIndex="0"/>
-            <ComboBoxItem Tag="Elements" Content="Объекты" TabIndex="1"/>
-            <ComboBoxItem Tag="All" IsSelected="True" Content="Все" TabIndex="2"/>
-        </ComboBox>
+                  x:Name="ComboBoxParameters"
+                  ItemsSource="{Binding Parameters}"
+                  SelectedItem="{Binding SelectedParameters}"
+                  DisplayMemberPath="Value"/>
 
         <CheckBox Margin="10"
                   Grid.Row="9"
                   Grid.Column="0"
                   VerticalContentAlignment="Center"
-                  x:Name="CheckBoxConvertLinkedCADFormats">
+                  x:Name="CheckBoxConvertLinkedCADFormats"
+                  IsChecked="{Binding ConvertLinkedCADFormats}">
             <TextBlock>
                 Экспортировать<LineBreak/>
                 связанные CAD файлы
@@ -285,7 +291,8 @@
                   Grid.Row="9"
                   Grid.Column="1"
                   VerticalContentAlignment="Center"
-                  x:Name="CheckBoxConvertLights">
+                  x:Name="CheckBoxConvertLights"
+                  IsChecked="{Binding ConvertLights}">
             <TextBlock>
                 Экспортировать<LineBreak/>
                 источники света
@@ -294,16 +301,15 @@
         <TextBlock Margin="10,0,30,0"
                   Grid.Row="9"
                   Grid.Column="2"
-                  VerticalAlignment="Center">
-            Коэффициент фасетизации
-        </TextBlock>
+                  VerticalAlignment="Center"
+                  Text="Коэффициент фасетизации"/>
         <TextBox Margin="175,10,10,10"
                  Grid.Row="9"
                  Grid.Column="2"
                  Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
                  x:Name="TextBoxFacetingFactor" 
-                 Text="1"/>
+                 Text="{Binding FacetingFactor}"/>
 
         <TextBlock Margin="10,0,10,0"
                 FontSize="12"
@@ -346,20 +352,22 @@
                  Grid.RowSpan="3"
                  Grid.Column="1"
                  Grid.ColumnSpan="3"
-                 x:Name="ListBoxJsonConfigs"
-                 ToolTip="Список файлов конфигураций">
+                 ToolTip="Список файлов конфигураций"
+                 ItemsSource="{Binding Configs}">
         </ListBox>
         <Button Margin="10"
                 Grid.Row="13"
                 Grid.Column="0"
-                x:Name="ButtonLoadJson" Click="ButtonLoadJson_Click"
+                x:Name="ButtonLoadConfigs"
+                Command="{Binding LoadConfigsCommand}"
                 Content="Загрузить конфиги"
-                ToolTip="Загрузить список с файлами конфигураций в формате (.JSON)">
+                ToolTip="Загрузить список с файлами конфигураций в формате (.txt)">
         </Button>
         <Button Margin="10"
                 Grid.Row="14"
                 Grid.Column="0"
-                x:Name="ButtonStartJson" Click="ButtonStartJson_Click"
+                x:Name="ButtonStartJson"
+                Command="{Binding RaiseBatchEventCommand}"
                 Content="Начать"
                 ToolTip="Запустить экспорт нескольких конфигураций">
         </Button>
