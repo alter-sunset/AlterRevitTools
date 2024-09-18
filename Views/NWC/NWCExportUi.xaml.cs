@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using VLS.BatchExportNet.Source;
+using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.NWC
 {
@@ -8,7 +8,7 @@ namespace VLS.BatchExportNet.Views.NWC
     /// </summary>
     public partial class NWCExportUi : Window
     {
-        public NWCExportUi(EventHandlerNWCExportUiArg eventHandlerNWCExportUiArg, EventHandlerNWCExportBatchUiArg eventHandlerNWCExportBatchUiArg)
+        public NWCExportUi(EventHandlerNWCExportVMArg eventHandlerNWCExportUiArg, EventHandlerNWCExportBatchVMArg eventHandlerNWCExportBatchUiArg)
         {
             InitializeComponent();
             DataContext = new NWC_ViewModel(eventHandlerNWCExportBatchUiArg, eventHandlerNWCExportUiArg);

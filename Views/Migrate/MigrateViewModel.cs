@@ -1,11 +1,10 @@
 ﻿using System.Windows.Forms;
-using VLS.BatchExportNet.Source;
+using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.Migrate
 {
-    public class MigrateViewModel(EventHandlerMigrateModelsUiArg eventHandlerMigrateModelsUiArg) : ViewModelBase
+    public class MigrateViewModel : ViewModelBase
     {
-        private readonly EventHandlerMigrateModelsUiArg _eventHandlerMigrateModelsUiArg = eventHandlerMigrateModelsUiArg;
         private const string HELP_MESSAGE = "\tПлагин предназначен для миграции проекта в новое место с сохранением структуры связей, как внутри папок, так и внутри самих моделей." +
                 "\n" +
                 "\tОткройте или вставьте ссылку на Json конфиг, который хранит в себе структуру типа Dictionary<string, string>," +
@@ -15,16 +14,10 @@ namespace VLS.BatchExportNet.Views.Migrate
                 "Пример:" +
                 "\n" +
                 "{ \"C:\\oldfile.rvt\": \"C:\\newfile.rvt\",}";
-        private RelayCommand _helpCommand;
-        public override RelayCommand HelpCommand
+        public MigrateViewModel(EventHandlerMigrateModelsVMArg eventHandlerMigrateModelsUiArg)
         {
-            get
-            {
-                return _helpCommand ??= new RelayCommand(obj =>
-                {
-                    MessageBox.Show(HELP_MESSAGE, "Справка");
-                });
-            }
+            EventHandlerBaseVMArgs = eventHandlerMigrateModelsUiArg;
+            HelpMessage = HELP_MESSAGE;
         }
 
         private string _configPath;
@@ -58,18 +51,6 @@ namespace VLS.BatchExportNet.Views.Migrate
                     {
                         ConfigPath = openFileDialog.FileName;
                     }
-                });
-            }
-        }
-
-        private RelayCommand _raiseEventCommand;
-        public override RelayCommand RaiseEventCommand
-        {
-            get
-            {
-                return _raiseEventCommand ??= new RelayCommand(obj =>
-                {
-                    _eventHandlerMigrateModelsUiArg.Raise(this);
                 });
             }
         }

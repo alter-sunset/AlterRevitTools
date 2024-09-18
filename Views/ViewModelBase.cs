@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
+using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views
 {
@@ -205,8 +206,41 @@ namespace VLS.BatchExportNet.Views
                 });
             }
         }
-        public virtual RelayCommand HelpCommand { get; }
-        public virtual RelayCommand RaiseEventCommand { get; }
+        private string _helpMessage;
+        public string HelpMessage
+        {
+            get => _helpMessage;
+            set => _helpMessage = value;
+        }
+        private RelayCommand _helpCommand;
+        public virtual RelayCommand HelpCommand
+        {
+            get
+            {
+                return _helpCommand ??= new RelayCommand(obj =>
+                {
+                    MessageBox.Show(HelpMessage, "Справка");
+                });
+            }
+        }
+
+        private EventHandlerBaseVMArgs _eventHandlerBaseVMArgs;
+        public EventHandlerBaseVMArgs EventHandlerBaseVMArgs
+        {
+            get => _eventHandlerBaseVMArgs;
+            set => _eventHandlerBaseVMArgs = value;
+        }
+        private RelayCommand _raiseEventCommand;
+        public RelayCommand RaiseEventCommand
+        {
+            get
+            {
+                return _raiseEventCommand ??= new RelayCommand(obj =>
+                {
+                    _eventHandlerBaseVMArgs.Raise(this);
+                });
+            }
+        }
         public virtual RelayCommand RadioButtonCommand { get; }
 
         private void DeleteSelectedItems(object parameter)

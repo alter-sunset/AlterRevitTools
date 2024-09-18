@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using VLS.BatchExportNet.Source;
+using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.Transmit
 {
@@ -8,7 +8,7 @@ namespace VLS.BatchExportNet.Views.Transmit
     /// </summary>
     public partial class TransmitModelsUi : Window
     {
-        public TransmitModelsUi(EventHandlerTransmitModelsUiArg eventHandlerTransmitModelsUiArg)
+        public TransmitModelsUi(EventHandlerTransmitModelsVMArg eventHandlerTransmitModelsUiArg)
         {
             InitializeComponent();
             DataContext = new TransmitViewModel(eventHandlerTransmitModelsUiArg);

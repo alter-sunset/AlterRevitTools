@@ -1,9 +1,9 @@
 ﻿using System.Windows;
-using VLS.BatchExportNet.Source;
+using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.Link
 {
-    public class LinkViewModel(EventHandlerLinkModelsUiArg eventHandlerLinkModelsUiArg) : ViewModelBase
+    public class LinkViewModel : ViewModelBase
     {
         const string HELP_MESSAGE = "\tПлагин предназначен для пакетного добавления моделей в качестве Revit ссылок." +
                   "\n" +
@@ -18,8 +18,11 @@ namespace VLS.BatchExportNet.Views.Link
                   "\tДалее этот список можно будет использовать для повторного добавления данного комплекта, используя кнопку \"Загрузить список\"." +
                   "\n\n" +
                   "\tЗапустите добавление кнопкой \"Запуск\".";
-
-        private readonly EventHandlerLinkModelsUiArg _eventHandlerLinkModelsUiArg = eventHandlerLinkModelsUiArg;
+        public LinkViewModel(EventHandlerLinkModelsVMArg eventHandlerLinkModelsUiArg)
+        {
+            EventHandlerBaseVMArgs = eventHandlerLinkModelsUiArg;
+            HelpMessage = HELP_MESSAGE;
+        }
 
         private bool _isCurrentWorkset = true;
         public bool IsCurrentWorkset
@@ -29,29 +32,6 @@ namespace VLS.BatchExportNet.Views.Link
             {
                 _isCurrentWorkset = value;
                 OnPropertyChanged("IsCurrentWorkset");
-            }
-        }
-        private RelayCommand _helpCommand;
-        public override RelayCommand HelpCommand
-        {
-            get
-            {
-                return _helpCommand ??= new RelayCommand(obj =>
-                {
-                    MessageBox.Show(HELP_MESSAGE, "Справка");
-                });
-            }
-        }
-
-        private RelayCommand _raiseEventCommand;
-        public override RelayCommand RaiseEventCommand
-        {
-            get
-            {
-                return _raiseEventCommand ??= new RelayCommand(obj =>
-                {
-                    _eventHandlerLinkModelsUiArg.Raise(this);
-                });
             }
         }
     }

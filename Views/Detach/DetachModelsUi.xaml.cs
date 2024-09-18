@@ -1,5 +1,5 @@
-﻿using VLS.BatchExportNet.Source;
-using System.Windows;
+﻿using System.Windows;
+using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.Detach
 {
@@ -8,7 +8,7 @@ namespace VLS.BatchExportNet.Views.Detach
     /// </summary>
     public partial class DetachModelsUi : Window
     {
-        public DetachModelsUi(EventHandlerDetachModelsUiArg eventHandlerDetachModelsUiArg)
+        public DetachModelsUi(EventHandlerDetachModelsVMArg eventHandlerDetachModelsUiArg)
         {
             InitializeComponent();
             DataContext = new DetachViewModel(eventHandlerDetachModelsUiArg);
