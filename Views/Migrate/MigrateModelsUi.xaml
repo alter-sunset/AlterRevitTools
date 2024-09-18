@@ -8,7 +8,8 @@
              mc:Ignorable="d" 
              d:Height="180" d:Width="600"
              ResizeMode="NoResize"
-             Title="Пакетная миграция моделей">
+             Title="Пакетная миграция моделей"
+             IsEnabled="{Binding IsViewEnabled}">
     <Grid Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -25,37 +26,27 @@
         <Button Margin="10"
                 Grid.Column="0"
                 Grid.Row="0"
-                x:Name="ButtonLoad"
-                Click="ButtonLoad_Click"
+                Command="{Binding LoadListCommand}"
                 Content="Загрузить конфиг"/>
         <Button Margin="10"
                 Grid.Row="0"
                 Grid.Column="3"
-                x:Name="ButtonHelp"
-                Click="ButtonHelp_Click"
+                Command="{Binding HelpCommand}"
                 Content="Справка"/>
 
         <TextBox Margin="10"
                  Grid.Row="1"
                  Grid.Column="0"
                  Grid.ColumnSpan="4"
-                 x:Name="TextBoxConfig"
+                 Text="{Binding ConfigPath}"
                  VerticalContentAlignment="Center"/>
 
         <Button Margin="10"
                 Grid.Row="2"
-                Grid.Column="2"
-                x:Name="ButtonOK"
-                Click="ButtonOK_Click"
-                Content="ОК"
-                ToolTip="Запуск пакетного экспорта текущей конфигурации"/>
-        <Button Margin="10"
-                Grid.Row="2"
                 Grid.Column="3"
-                x:Name="ButtonCancel"
-                Click="ButtonCancel_Click"
-                Content="Отмена"
-                ToolTip="Закрыть окно"/>
+                Command="{Binding RaiseEventCommand}"
+                Content="Запуск"
+                ToolTip="Запуск пакетного экспорта текущей конфигурации"/>
+
     </Grid>
 </Window>
-
