@@ -7,292 +7,232 @@
              mc:Ignorable="d" 
              d:Height="670" d:Width="800"
              ResizeMode="NoResize"
-             Title="Пакетный экспорт IFC">
+             Title="Пакетный экспорт IFC"
+             IsEnabled="{Binding IsViewEnabled}">
     <Grid Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition>
-
-            </ColumnDefinition>
             <ColumnDefinition/>
-            <ColumnDefinition>
-
-            </ColumnDefinition>
-            <ColumnDefinition>
-
-            </ColumnDefinition>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50">
-
-            </RowDefinition>
-            <RowDefinition Height="150">
-
-            </RowDefinition>
-            <RowDefinition Height="50">
-
-            </RowDefinition>
-            <RowDefinition Height="50">
-
-            </RowDefinition>
-            <RowDefinition Height="50">
-
-            </RowDefinition>
-            <RowDefinition Height="50">
-
-            </RowDefinition>
-            <RowDefinition Height="50">
-
-            </RowDefinition>
-            <RowDefinition Height="50">
-
-            </RowDefinition>
-            <RowDefinition Height="50">
-
-            </RowDefinition>
-            <RowDefinition Height="50">
-
-            </RowDefinition>
-            <RowDefinition Height="50">
-
-            </RowDefinition>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <TextBlock Margin="10,0,10,0"
                    FontSize="14"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
-                   VerticalAlignment="Center">
-            Список RVT файлов для экспорта
-        </TextBlock>
+                   VerticalAlignment="Center"
+                   Text="Список RVT файлов для экспорта"/>
+
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="0"
-                x:Name="ButtonHelp"
-                Click="ButtonHelp_Click"
+                Command="{Binding HelpCommand}"
                 ToolTip="Справка по работе с плагином"
                 Content="Справка"/>
         <ListBox Grid.Row="1"
                  Grid.Column="0"
                  Grid.ColumnSpan="4"
                  Margin="10"
-                 x:Name="ListBoxRVTFiles"
                  SelectionMode="Extended"
-                 ItemsSource="{Binding}">
-            <ListBox.ToolTip>
-                <ToolTip>
-                    Список файлов в формате (.rvt)
-                </ToolTip>
-            </ListBox.ToolTip>
-        </ListBox>
+                 ItemsSource="{Binding ListBoxItems}"
+                 SelectedItem="{Binding Selecteditem}"
+                 ToolTip="Список файлов в формате (.rvt)"/>
 
         <Button Margin="10"
                 Grid.Column="0"
                 Grid.Row="2"
-                x:Name="ButtonLoad"
-                Click="ButtonLoad_Click"
-                ToolTip="Загрузить файлы в формате (.rvt)">Загрузить</Button>
+                Command="{Binding LoadCommand}"
+                ToolTip="Загрузить файлы в формате (.rvt)"
+                Content="Загрузить"/>
         <Button Margin="10"
                 Grid.Column="1"
                 Grid.Row="2"
-                x:Name="ButtonLoadList"
-                Click="ButtonLoadList_Click"
-                ToolTip="Загрузить сохранённый ранее файл конфигурации в формате (.JSON)">Загрузить список</Button>
+                Command="{Binding LoadListCommand}"
+                ToolTip="Загрузить сохранённый ранее файл конфигурации в формате (.JSON)"
+                Content="Загрузить список"/>
         <Button Margin="10"
                 Grid.Column="2"
                 Grid.Row="2"
-                x:Name="ButtonSaveList"
-                Click="ButtonSaveList_Click"
-                ToolTip="Сохранить файл конфигурации в формате (.JSON)">Сохранить список</Button>
+                Command="{Binding SaveListCommand}"
+                ToolTip="Сохранить файл конфигурации в формате (.JSON)"
+                Content="Сохранить список"/>
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="2"
-                x:Name="ButtonDelete"
-                Click="ButtonDelete_Click"
-                ToolTip="Удалить выбранные файлы из списка">Удалить</Button>
+                Command="{Binding DeleteCommand}"
+                ToolTip="Удалить выбранные файлы из списка"
+                Content="Удалить"/>
 
         <TextBlock Margin="10,0,40,0"
                    FontSize="14"
                    Grid.Row="3"
                    Grid.Column="0"
-                   VerticalAlignment="Center">Папка для сохранения</TextBlock>
+                   VerticalAlignment="Center"
+                   Text="Папка для сохранения"/>
         <TextBox Margin="165,10,135,10"
                  Grid.Row="3"
                  Grid.ColumnSpan="4"
-                 x:Name="TextBoxFolder"
                  VerticalContentAlignment="Center"
-                 TextChanged="TextBoxFolder_TextChanged"/>
+                 Text="{Binding FolderPath}"/>
         <Button Margin="80,10,10,10"
                 Grid.Column="3"
                 Grid.Row="3"
-                x:Name="ButtonBrowseFolder"
-                Click="ButtonBrowseFolder_Click">Обзор</Button>
+                Command="{Binding BrowseFolderCommand}"
+                Content="Обзор"/>
 
         <TextBlock Margin="10,0,80,0"
                    Grid.Row="4"
                    Grid.Column="0"
                    VerticalAlignment="Center"
-                   ToolTip="Префикс, который необходимо вставить перед названием файла">
-            Префикс названия
-        </TextBlock>
+                   ToolTip="Префикс, который необходимо вставить перед названием файла"
+                   FontSize="12"
+                   Text="Префикс названия"/>
         <TextBox Margin="125,10,10,10"
                  Grid.Row="4"
+                 Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
-                 x:Name="TextBoxPrefix" Grid.ColumnSpan="2"
+                 Text="{Binding NamePrefix}"
                  ToolTip="Префикс, который необходимо вставить перед названием файла"/>
         <TextBlock Margin="10,0,80,0"
                    Grid.Row="4"
                    Grid.Column="2"
                    VerticalAlignment="Center"
-                   ToolTip="Постфикс, который необходимо вставить после названия файла">
-            Постфикс названия
-        </TextBlock>
+                   ToolTip="Постфикс, который необходимо вставить после названия файла"
+                   FontSize="12"
+                   Text="Постфикс названия"/>
         <TextBox Margin="125,10,10,10"
                  Grid.Row="4"
                  Grid.Column="2"
+                 Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
-                 x:Name="TextBoxPostfix" Grid.ColumnSpan="2"
+                 Text="{Binding NamePostfix}"
                  ToolTip="Постфикс, который необходимо вставить после названия файла"/>
 
         <TextBlock Margin="10,0,40,0"
                    FontSize="14"
                    Grid.Row="5"
                    Grid.Column="0"
-                   VerticalAlignment="Center">
-            Таблица соответствия<LineBreak/>
-                
-             параметров экспорта
-        </TextBlock>
+                   VerticalAlignment="Center"
+                   TextWrapping="Wrap"
+                   Text="Таблица соответствия параметров экспорта"/>
+
         <TextBox Margin="165,10,135,10"
                  Grid.Row="5"
                  Grid.ColumnSpan="4"
-                 x:Name="TextBoxMapping"
                  VerticalContentAlignment="Center"
-                 TextChanged="TextBoxMapping_TextChanged"/>
+                 Text="{Binding Mapping}"/>
         <Button Margin="80,10,10,10"
                 Grid.Column="3"
                 Grid.Row="5"
-                x:Name="ButtonBrowseMapping"
-                Click="ButtonBrowseMapping_Click">Обзор</Button>
+                Command="{Binding LoadMapping}"
+                Content="Обзор"/>
 
         <CheckBox Margin="10"
                   Grid.Row="6"
                   Grid.Column="0"
-                  x:Name="CheckBoxExportBaseQuantities"
                   VerticalAlignment="Center"
-                  FontSize="12">
-            Экспорт основных величин
-        </CheckBox>
+                  FontSize="12"
+                  Content="Экспорт основных величин"
+                  IsChecked="{Binding ExportBaseQuantities}"/>
         <TextBlock Margin="10,0,100,0"
                    FontSize="14"
                    Grid.Row="6"
                    Grid.Column="1"
-                   VerticalAlignment="Center">
-            Версия IFC
-        </TextBlock>
+                   VerticalAlignment="Center"
+                   Text="Версия IFC"/>
         <ComboBox Margin="100,10,10,10"
-                 Grid.Row="6"
-                 Grid.Column="1"
-                 Grid.ColumnSpan="2"
-                 x:Name="ComboBoxIFCVersion"
-                 VerticalContentAlignment="Center">
-            <ComboBoxItem Tag="Default" Content="По умолчанию" TabIndex="0" IsSelected="True"/>
-            <ComboBoxItem Tag="IFCBCA" Content="IFC 2x2 Singapore BCA e-Plan Check" TabIndex="1"/>
-            <ComboBoxItem Tag="IFC2x2" Content="IFC 2x2 Coordination View" TabIndex="2"/>
-            <ComboBoxItem Tag="IFC2x3" Content="IFC 2x3 Coordination View" TabIndex="3"/>
-            <ComboBoxItem Tag="IFCCOBIE" Content="IFC 2x3 GSA Concept Design Bim 2010" TabIndex="4"/>
-            <ComboBoxItem Tag="IFC2c3CV2" Content="IFC 2x3 Coordination View 2.0" TabIndex="5"/>
-            <ComboBoxItem Tag="IFC2x3BFM" Content="IFC 2x3 Basic FM Handover View" TabIndex="10"/>
-            <ComboBoxItem Tag="IFC2x3FM" Content="IFC 2x3 Extended FM Handover View" TabIndex="7"/>
-            <ComboBoxItem Tag="IFC4" Content="IFC 4" TabIndex="6"/>
-            <ComboBoxItem Tag="IFC4RV" Content="IFC 4 Reference View" TabIndex="8"/>
-            <ComboBoxItem Tag="IFC4DTV" Content="IFC 4 Design Transfer View" TabIndex="9"/>
-            <ComboBoxItem Tag="IFC4x3" Content="IFC 4x3" TabIndex="11"/>
-            <ComboBoxItem Tag="IFCSG" Content="IFC-SG Regulatory Requirements View" TabIndex="12"/>
-        </ComboBox>
+                  Grid.Row="6"
+                  Grid.Column="1"
+                  Grid.ColumnSpan="2"
+                  VerticalContentAlignment="Center"
+                  ItemsSource="{Binding IFCVersions}"
+                  SelectedItem="{Binding SelectedVersion}"
+                  DisplayMemberPath="Value"/>
         <CheckBox Margin="10"
                   Grid.Row="6"
                   Grid.Column="3"
-                  x:Name="CheckBoxWallAndColumnSplitting"
-                  VerticalContentAlignment="Center">
+                  VerticalContentAlignment="Center"
+                  IsChecked="{Binding WallAndColumnSplitting}">
             <TextBlock>
             Разделить стены, колонны
             <LineBreak/> и воздуховоды по уровню
             </TextBlock>
         </CheckBox>
+
         <RadioButton Margin="10"
                      Grid.Row="7"
                      Grid.Column="0"
                      VerticalContentAlignment="Center"
                      GroupName="ExportScope"
-                     x:Name="RadioButtonExportScopeModel"
-                     Checked="RadioButtonExportScopeModel_Checked">
-            Экспортировать весь проект
-        </RadioButton>
-        <RadioButton Margin="10,10,60,10"
+                     IsChecked="{Binding ExportScopeWhole}"
+                     Content="Экспортировать весь проект"/>
+        <RadioButton Margin="10,10,50,10"
                      Grid.Row="7"
                      Grid.Column="1"
                      VerticalContentAlignment="Center"
                      GroupName="ExportScope"
-                     IsChecked="True"
-                     x:Name="RadioButtonExportScopeView"
-                     Checked="RadioButtonExportScopeView_Checked">
-            <TextBlock>
-                Экспортировать<LineBreak/>
-                вид с названием
-            </TextBlock>
-        </RadioButton>
-        <TextBox Margin="145,10,10,10"
+                     IsChecked="{Binding ExportScopeView}"
+                     Content="Экспортировать вид"/>
+        <TextBox Margin="155,10,10,10"
                  Grid.Row="7"
                  Grid.Column="1"
                  VerticalContentAlignment="Center"
-                 x:Name="TextBoxExportScopeViewName" Grid.ColumnSpan="2">
-            Navisworks
-        </TextBox>
+                 Grid.ColumnSpan="2"
+                 Text="{Binding ViewName}"/>
 
         <TextBlock Margin="10,0,40,0"
                    FontSize="14"
                    Grid.Row="8"
                    Grid.Column="2"
-                   VerticalAlignment="Center">
-            Границы пространств
-        </TextBlock>
+                   VerticalAlignment="Center"
+                   Text="Границы пространств"/>
+
         <ComboBox Margin="165,9,10,11"
-                  Grid.Row="8" Grid.ColumnSpan="2"
-                  x:Name="ComboBoxSpaceBoundaryLevel" Grid.Column="2">
-            <ComboBoxItem Tag="0" Content="Нет" TabIndex="0"/>
-            <ComboBoxItem Tag="1" Content="Первый уровень" TabIndex="1" IsSelected="True"/>
-            <ComboBoxItem Tag="2" Content="Второй уровень" TabIndex="2"/>
-        </ComboBox>
+                  Grid.Row="8"
+                  Grid.Column="2"
+                  Grid.ColumnSpan="2"
+                  ItemsSource="{Binding SpaceBoundaryLevels}"
+                  SelectedItem="{Binding SelectedLevel}"
+                  DisplayMemberPath="Value"/>
 
         <TextBlock Margin="10,0,10,0"
-           Grid.Row="9"
-           Grid.Column="0"
-           VerticalAlignment="Center">
-    Префиксы рабочих наборов,<LineBreak/>
-    которые нужно закрыть
-        </TextBlock>
+                FontSize="12"
+                Grid.Row="9"
+                Grid.Column="0"
+                VerticalAlignment="Center"
+                TextWrapping="Wrap"
+                Text="Префиксы рабочих наборов, которые нужно закрыть"/>
         <TextBox Margin="10,10,10,10"
-         Grid.Row="9"
-         Grid.Column="1"
-         Grid.ColumnSpan="2"
-         VerticalContentAlignment="Center"
-         x:Name="TextBoxWorksetPrefix"
-         ToolTip="Укажите через точку-запятую (;) префиксы всех рабочих наборов, которые необходимо закрыть при открытии файла. Обычно закрывают рабочие наборы со связями, чтобы ускорить открытие моделей."/>
-
-        <Button Margin="10"
-                Grid.Row="10"
+                Grid.Row="9"
                 Grid.Column="1"
-                x:Name="ButtonErase" Click="ButtonErase_Click" Content="Очистить список"/>
+                Grid.ColumnSpan="2"
+                VerticalContentAlignment="Center"
+                Text="{Binding WorksetPrefix}"
+                ToolTip="Укажите через точку-запятую (;) префиксы всех рабочих наборов, которые необходимо закрыть при открытии файла. Обычно закрывают рабочие наборы со связями, чтобы ускорить открытие моделей."/>
+
         <Button Margin="10"
                 Grid.Row="10"
                 Grid.Column="2"
-                x:Name="ButtonOK" Click="ButtonOK_Click" Content="ОК"
-                ToolTip="Запуск пакетного экспорта текущей конфигурации"/>
+                Command="{Binding EraseCommand}"
+                Content="Очистить список"/>
         <Button Margin="10"
                 Grid.Row="10"
                 Grid.Column="3"
-                x:Name="ButtonCancel" Click="ButtonCancel_Click"
-                Content="Отмена"
-                ToolTip="Закрыть окно"/>
+                Command="{Binding RaiseEventCommand}"
+                Content="Запуск"
+                ToolTip="Запуск пакетного экспорта текущей конфигурации"/>
     </Grid>
 </Window>
-

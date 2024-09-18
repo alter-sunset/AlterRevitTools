@@ -6,105 +6,73 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:VLS.BatchExportNet.Views.Detach"
              mc:Ignorable="d" 
-             d:Height="600" d:Width="800"
+             d:Height="550" d:Width="800"
              ResizeMode="NoResize"
-             Title="Пакетный экспорт отсоединённых моделей">
+             Title="Пакетный экспорт отсоединённых моделей"
+             IsEnabled="{Binding IsViewEnabled}">
     <Grid Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition>
-
-            </ColumnDefinition>
-            <ColumnDefinition>
-
-            </ColumnDefinition>
-            <ColumnDefinition>
-
-            </ColumnDefinition>
-            <ColumnDefinition>
-
-            </ColumnDefinition>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50">
-
-            </RowDefinition>
-            <RowDefinition Height="150">
-
-            </RowDefinition>
-            <RowDefinition Height="50">
-
-            </RowDefinition>
-            <RowDefinition Height="50">
-
-            </RowDefinition>
-            <RowDefinition Height="50">
-
-            </RowDefinition>
-            <RowDefinition Height="50">
-
-            </RowDefinition>
-            <RowDefinition Height="50">
-
-            </RowDefinition>
-            <RowDefinition Height="50">
-
-            </RowDefinition>
-            <RowDefinition Height="50">
-
-            </RowDefinition>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
         <TextBlock Margin="10,0,10,0"
                    FontSize="14"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
-                   VerticalAlignment="Center">
-            Список RVT файлов для экспорта
-        </TextBlock>
+                   VerticalAlignment="Center"
+                   Text="Список RVT файлов для экспорта"/>
+
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="0"
-                x:Name="ButtonHelp"
-                Click="ButtonHelp_Click"
+                Command="{Binding HelpCommand}"
                 ToolTip="Справка по работе с плагином"
                 Content="Справка"/>
         <ListBox Grid.Row="1"
                  Grid.Column="0"
                  Grid.ColumnSpan="4"
                  Margin="10"
-                 x:Name="ListBoxRVTFiles"
-                 SelectionMode="Extended"
-                 ItemsSource="{Binding}">
-            <ListBox.ToolTip>
-                <ToolTip>
-                    Список файлов в формате (.rvt)
-                </ToolTip>
-            </ListBox.ToolTip>
-        </ListBox>
+                 SelectionMode="Extended"                 
+                 ItemsSource="{Binding ListBoxItems}"
+                 SelectedItem="{Binding Selecteditem}"
+                 ToolTip="Список файлов в формате (.rvt)"/>
 
         <Button Margin="10"
                 Grid.Column="0"
                 Grid.Row="2"
-                x:Name="ButtonLoad"
-                Click="ButtonLoad_Click"
-                ToolTip="Загрузить файлы в формате (.rvt)">Загрузить</Button>
+                Command="{Binding LoadCommand}"
+                Content="Загрузить"
+                ToolTip="Загрузить файлы в формате (.rvt)"/>
         <Button Margin="10"
                 Grid.Column="1"
                 Grid.Row="2"
-                x:Name="ButtonLoadList"
-                Click="ButtonLoadList_Click"
-                ToolTip="Загрузить сохранённый ранее файл конфигурации в формате (.JSON)">Загрузить список</Button>
+                Command="{Binding LoadListCommand}"
+                Content="Загрузить список"
+                ToolTip="Загрузить сохранённый ранее файл конфигурации в формате (.JSON)"/>
         <Button Margin="10"
                 Grid.Column="2"
                 Grid.Row="2"
-                x:Name="ButtonSaveList"
-                Click="ButtonSaveList_Click"
-                ToolTip="Сохранить файл конфигурации в формате (.JSON)">Сохранить список</Button>
+                Command="{Binding SaveListCommand}"
+                Content="Сохранить список"
+                ToolTip="Сохранить файл конфигурации в формате (.JSON)"/>
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="2"
-                x:Name="ButtonDelete"
-                Click="ButtonDelete_Click"
-                ToolTip="Удалить выбранные файлы из списка">Удалить</Button>
+                Command="{Binding DeleteCommand}"
+                Content="Удалить"
+                ToolTip="Удалить выбранные файлы из списка"/>
 
         <TextBlock Margin="10,10,10,10"
                    FontSize="16"
@@ -118,69 +86,67 @@
                    Grid.Column="0"
                    VerticalAlignment="Center"
                    GroupName="SavingPathMode"
-                   Checked="RadioButton_Checked"
+                   Name="rbFolder"
+                   Command="{Binding RadioButtonCommand}"
+                   CommandParameter="{Binding ElementName=rbFolder, Path=Tag}"
                    Content="Папка для сохранения"
                    Tag="Folder"/>
         <TextBox Margin="10,10,135,10"
-                 Grid.Row="4"
-                 Grid.ColumnSpan="3"
-                 x:Name="TextBoxFolder"
                  VerticalContentAlignment="Center"
-                 Grid.Column="1"/>
+                 Grid.Row="4"
+                 Grid.Column="1"
+                 Grid.ColumnSpan="3"
+                 Text="{Binding FolderPath}"/>
         <Button Margin="80,10,10,10"
                 Grid.Column="3"
                 Grid.Row="4"
-                x:Name="ButtonBrowseFolder"
-                Click="ButtonBrowseFolder_Click"
+                Command="{Binding BrowseFolderCommand}"
                 Content="Обзор"/>
 
         <RadioButton Margin="10,10,10,10"
                      FontSize="14"
-                     Grid.Row="6"
+                     Grid.Row="5"
                      Grid.Column="0"
                      VerticalAlignment="Center"
                      GroupName="SavingPathMode"
                      Content="Маска"
-                     Checked="RadioButton_Checked"
+                     Name="rbMask"
+                     Command="{Binding RadioButtonCommand}"
+                     CommandParameter="{Binding ElementName=rbMask, Path=Tag}"
                      Tag="Mask"/>
         <TextBlock Margin="10,0,100,0"
                    FontSize="14"
-                   Grid.Row="6"
+                   Grid.Row="5"
                    Grid.Column="1"
                    VerticalAlignment="Center"
                    Text="Заменить"/>
         <TextBox Margin="110,10,80,10"
-                 Grid.Row="6"
-                 Grid.Column="1" Grid.ColumnSpan="2"
-                 x:Name="TextBoxMaskIn"
-                 Text="05_В_Работе\52_ПД"/>
+                 Grid.Row="5"
+                 Grid.Column="1"
+                 Grid.ColumnSpan="2"
+                 Text="{Binding MaskIn}"/>
         <TextBlock Margin="140,0,30,0"
                    FontSize="14"
-                   Grid.Row="6"
+                   Grid.Row="5"
                    Grid.Column="2"
                    VerticalAlignment="Center"
                    Text="На"/>
         <TextBox Margin="180,10,10,10"
-                 Grid.Row="6"
-                 Grid.Column="2" Grid.ColumnSpan="2"
-                 x:Name="TextBoxMaskOut"
-                 Text="06_Общие\62_ПД"/>
+                 Grid.Row="5"
+                 Grid.Column="2"
+                 Grid.ColumnSpan="2"
+                 Text="{Binding MaskOut}"/>
 
         <Button Margin="10"
-                Grid.Row="8"
-                Grid.Column="1"
-                x:Name="ButtonErase" Click="ButtonErase_Click" Content="Очистить список"/>
-        <Button Margin="10"
-                Grid.Row="8"
+                Grid.Row="7"
                 Grid.Column="2"
-                x:Name="ButtonOK" Click="ButtonOK_Click" Content="ОК"
-                ToolTip="Запуск пакетного экспорта текущей конфигурации"/>
+                Command="{Binding EraseCommand}"
+                Content="Очистить список"/>
         <Button Margin="10"
-                Grid.Row="8"
+                Grid.Row="7"
                 Grid.Column="3"
-                x:Name="ButtonCancel" Click="ButtonCancel_Click"
-                Content="Отмена"
-                ToolTip="Закрыть окно"/>
+                Command="{Binding RaiseEventCommand}"
+                Content="Запуск"
+                ToolTip="Запуск пакетного экспорта текущей конфигурации"/>
     </Grid>
 </Window>
-

@@ -32,19 +32,19 @@ namespace VLS.BatchExportNet.Source
         public Result OnShutdown(UIControlledApplication a) => Result.Succeeded;
         private static RibbonPanel RibbonPanel(UIControlledApplication a, string panelName)
         {
-            string tabName = "VLS";
+            const string TAB_NAME = "VLS";
             RibbonPanel ribbonPanel = null;
             try
             {
-                a.CreateRibbonTab(tabName);
+                a.CreateRibbonTab(TAB_NAME);
             }
             catch { }
             try
             {
-                RibbonPanel panel = a.CreateRibbonPanel(tabName, panelName);
+                RibbonPanel panel = a.CreateRibbonPanel(TAB_NAME, panelName);
             }
             catch { }
-            List<RibbonPanel> panels = a.GetRibbonPanels(tabName);
+            List<RibbonPanel> panels = a.GetRibbonPanels(TAB_NAME);
             foreach (RibbonPanel p in panels.Where(p => p.Name == panelName))
             {
                 ribbonPanel = p;
@@ -174,25 +174,5 @@ namespace VLS.BatchExportNet.Source
                 return null;
             }
         }
-    }
-    internal enum Forms
-    {
-        Detach,
-        IFC,
-        NWC,
-        Migrate,
-        Transmit,
-        Link,
-        VLS
-    }
-    class ButtonContext
-    {
-        private string _smallImage;
-        private string _largeImage;
-        private string _toolTip;
-
-        public string SmallImage { get => _smallImage; set => _smallImage = value; }
-        public string LargeImage { get => _largeImage; set => _largeImage = value; }
-        public string ToolTip { get => _toolTip; set => _toolTip = value; }
     }
 }
