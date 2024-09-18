@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using VLS.BatchExportNet.Source;
+using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.Migrate
 {
@@ -8,7 +8,7 @@ namespace VLS.BatchExportNet.Views.Migrate
     /// </summary>
     public partial class MigrateModelsUi : Window
     {
-        public MigrateModelsUi(EventHandlerMigrateModelsUiArg eventHandlerMigrateModelsUiArg)
+        public MigrateModelsUi(EventHandlerMigrateModelsVMArg eventHandlerMigrateModelsUiArg)
         {
             InitializeComponent();
             DataContext = new MigrateViewModel(eventHandlerMigrateModelsUiArg);

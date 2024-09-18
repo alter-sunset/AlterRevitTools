@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using VLS.BatchExportNet.Source;
+using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.IFC
 {
@@ -8,7 +8,7 @@ namespace VLS.BatchExportNet.Views.IFC
     /// </summary>
     public partial class IFCExportUi : Window
     {
-        public IFCExportUi(EventHandlerIFCExportUiArg eventHandlerIFCExportUiArg)
+        public IFCExportUi(EventHandlerIFCExportVMArg eventHandlerIFCExportUiArg)
         {
             InitializeComponent();
             DataContext = new IFC_ViewModel(eventHandlerIFCExportUiArg);

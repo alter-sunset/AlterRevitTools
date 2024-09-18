@@ -7,13 +7,12 @@ using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
-using VLS.BatchExportNet.Source;
+using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.IFC
 {
     public class IFC_ViewModel : ViewModelBase_Extended
     {
-        private readonly EventHandlerIFCExportUiArg _eventHandlerIFCExportUiArg;
         private const string HELP_MESSAGE = "\tПлагин предназначен для пакетного экспорта файлов в формат IFC." +
                  "\n" +
                  "\tЕсли вы впервые используете плагин, и у вас нет ранее сохранённых файлов конфигурации, то вам необходимо выполнить следующее: " +
@@ -31,9 +30,9 @@ namespace VLS.BatchExportNet.Views.IFC
                  "\tДалее эту конфигурацию можно будет использовать для повторного экспорта, используя кнопку \"Загрузить список\"." +
                  "\n\n" +
                  "\tЗапустите экспорт кнопкой \"ОК\".";
-        public IFC_ViewModel(EventHandlerIFCExportUiArg eventHandlerIFCExportUiArg)
+        public IFC_ViewModel(EventHandlerIFCExportVMArg eventHandlerIFCExportUiArg)
         {
-            _eventHandlerIFCExportUiArg = eventHandlerIFCExportUiArg;
+            EventHandlerBaseVMArgs = eventHandlerIFCExportUiArg;
             HelpMessage = HELP_MESSAGE;
         }
 
@@ -260,18 +259,6 @@ namespace VLS.BatchExportNet.Views.IFC
             {
                 _selectedLevel = value;
                 OnPropertyChanged("SelectedLevel");
-            }
-        }
-
-        private RelayCommand _raiseEventCommand;
-        public override RelayCommand RaiseEventCommand
-        {
-            get
-            {
-                return _raiseEventCommand ??= new RelayCommand(obj =>
-                {
-                    _eventHandlerIFCExportUiArg.Raise(this);
-                });
             }
         }
     }

@@ -1,11 +1,9 @@
-﻿using System.Windows.Forms;
-using VLS.BatchExportNet.Source;
+﻿using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.Detach
 {
     public class DetachViewModel : ViewModelBase
     {
-        private readonly EventHandlerDetachModelsUiArg _eventHandlerDetachModelsUiArg;
         const string HELP_MESSAGE = "\tПлагин предназначен для экспорта отсоединённых моделей." +
                 "\n" +
                 "\tЕсли вы впервые используете плагин, и у вас нет ранее сохранённых списков, то вам необходимо выполнить следующее: " +
@@ -25,9 +23,9 @@ namespace VLS.BatchExportNet.Views.Detach
                 "\tДалее этот список можно будет использовать для повторного экспорта, используя кнопку \"Загрузить список\"." +
                 "\n\n" +
                 "\tЗапустите экспорт кнопкой \"Запуск\".";
-        public DetachViewModel(EventHandlerDetachModelsUiArg eventHandlerDetachModelsUiArg)
+        public DetachViewModel(EventHandlerDetachModelsVMArg eventHandlerDetachModelsUiArg)
         {
-            _eventHandlerDetachModelsUiArg = eventHandlerDetachModelsUiArg;
+            EventHandlerBaseVMArgs = eventHandlerDetachModelsUiArg;
             HelpMessage = HELP_MESSAGE;
         }
 
@@ -82,18 +80,6 @@ namespace VLS.BatchExportNet.Views.Detach
             {
                 _maskOut = value;
                 OnPropertyChanged("MaskOut");
-            }
-        }
-
-        private RelayCommand _raiseEventCommand;
-        public override RelayCommand RaiseEventCommand
-        {
-            get
-            {
-                return _raiseEventCommand ??= new RelayCommand(obj =>
-                {
-                    _eventHandlerDetachModelsUiArg.Raise(this);
-                });
             }
         }
     }

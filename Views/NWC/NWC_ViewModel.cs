@@ -8,14 +8,13 @@ using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using VLS.BatchExportNet.Source;
+using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.NWC
 {
     public class NWC_ViewModel : ViewModelBase_Extended
     {
-        private readonly EventHandlerNWCExportBatchUiArg _eventHandlerNWCExportBatchUiArg;
-        private readonly EventHandlerNWCExportUiArg _eventHandlerNWCExportUiArg;
+        private readonly EventHandlerNWCExportBatchVMArg _eventHandlerNWCExportBatchUiArg;
         private const string HELP_MESSAGE = "\tПлагин предназначен для пакетного экспорта файлов в формат NWC." +
                  "\n" +
                  "\tЕсли вы впервые используете плагин, и у вас нет ранее сохранённых файлов конфигурации, то вам необходимо выполнить следующее: " +
@@ -42,11 +41,11 @@ namespace VLS.BatchExportNet.Views.NWC
                  "Структура списка выглядит следующим образом: \n\tpath\\\\config.json\n\tpath\\\\config2.json\n\tpath\\\\config3.json" +
                  "\n" +
                  "\tКнопкой \"Начать\" запустите пакетный экспорт второго уровня, который экспортирует несколько объектов с соответствующими им настройками.";
-        public NWC_ViewModel(EventHandlerNWCExportBatchUiArg eventHandlerNWCExportBatchUiArg,
-                EventHandlerNWCExportUiArg eventHandlerNWCExportUiArg)
+        public NWC_ViewModel(EventHandlerNWCExportBatchVMArg eventHandlerNWCExportBatchUiArg,
+                EventHandlerNWCExportVMArg eventHandlerNWCExportUiArg)
         {
             _eventHandlerNWCExportBatchUiArg = eventHandlerNWCExportBatchUiArg;
-            _eventHandlerNWCExportUiArg = eventHandlerNWCExportUiArg;
+            EventHandlerBaseVMArgs = eventHandlerNWCExportUiArg;
             HelpMessage = HELP_MESSAGE;
         }
 
@@ -407,18 +406,6 @@ namespace VLS.BatchExportNet.Views.NWC
                 return _raiseBatchEventCommand ??= new RelayCommand(obj =>
                 {
                     _eventHandlerNWCExportBatchUiArg.Raise(this);
-                });
-            }
-        }
-
-        private RelayCommand _raiseEventCommand;
-        public override RelayCommand RaiseEventCommand
-        {
-            get
-            {
-                return _raiseEventCommand ??= new RelayCommand(obj =>
-                {
-                    _eventHandlerNWCExportUiArg.Raise(this);
                 });
             }
         }
