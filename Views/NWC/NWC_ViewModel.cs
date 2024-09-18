@@ -12,16 +12,10 @@ using VLS.BatchExportNet.Source;
 
 namespace VLS.BatchExportNet.Views.NWC
 {
-    public class NWC_ViewModel
-        (
-        EventHandlerNWCExportBatchUiArg eventHandlerNWCExportBatchUiArg,
-        EventHandlerNWCExportUiArg eventHandlerNWCExportUiArg
-        ) : ViewModelBase_Extended
+    public class NWC_ViewModel : ViewModelBase_Extended
     {
-        private readonly EventHandlerNWCExportBatchUiArg _eventHandlerNWCExportBatchUiArg
-            = eventHandlerNWCExportBatchUiArg;
-        private readonly EventHandlerNWCExportUiArg _eventHandlerNWCExportUiArg
-            = eventHandlerNWCExportUiArg;
+        private readonly EventHandlerNWCExportBatchUiArg _eventHandlerNWCExportBatchUiArg;
+        private readonly EventHandlerNWCExportUiArg _eventHandlerNWCExportUiArg;
         private const string HELP_MESSAGE = "\tПлагин предназначен для пакетного экспорта файлов в формат NWC." +
                  "\n" +
                  "\tЕсли вы впервые используете плагин, и у вас нет ранее сохранённых файлов конфигурации, то вам необходимо выполнить следующее: " +
@@ -48,16 +42,12 @@ namespace VLS.BatchExportNet.Views.NWC
                  "Структура списка выглядит следующим образом: \n\tpath\\\\config.json\n\tpath\\\\config2.json\n\tpath\\\\config3.json" +
                  "\n" +
                  "\tКнопкой \"Начать\" запустите пакетный экспорт второго уровня, который экспортирует несколько объектов с соответствующими им настройками.";
-        private RelayCommand _helpCommand;
-        public override RelayCommand HelpCommand
+        public NWC_ViewModel(EventHandlerNWCExportBatchUiArg eventHandlerNWCExportBatchUiArg,
+                EventHandlerNWCExportUiArg eventHandlerNWCExportUiArg)
         {
-            get
-            {
-                return _helpCommand ??= new RelayCommand(obj =>
-                {
-                    MessageBox.Show(HELP_MESSAGE, "Справка");
-                });
-            }
+            _eventHandlerNWCExportBatchUiArg = eventHandlerNWCExportBatchUiArg;
+            _eventHandlerNWCExportUiArg = eventHandlerNWCExportUiArg;
+            HelpMessage = HELP_MESSAGE;
         }
 
         private bool _convertElementProperties = false;

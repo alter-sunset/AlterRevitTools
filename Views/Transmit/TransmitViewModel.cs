@@ -3,9 +3,9 @@ using VLS.BatchExportNet.Source;
 
 namespace VLS.BatchExportNet.Views.Transmit
 {
-    public class TransmitViewModel(EventHandlerTransmitModelsUiArg eventHandlerTransmitModelsUiArg) : ViewModelBase
+    public class TransmitViewModel : ViewModelBase
     {
-        private readonly EventHandlerTransmitModelsUiArg _eventHandlerTransmitModelsUiArg = eventHandlerTransmitModelsUiArg;
+        private readonly EventHandlerTransmitModelsUiArg _eventHandlerTransmitModelsUiArg;
         private const string HELP_MESSAGE = "\tПлагин предназначен для пакетной передачи моделей и реализует схожий функционал с плагином \"eTransmit\"." +
                   "\n" +
                   "\tЕсли вы впервые используете плагин, и у вас нет ранее сохранённых списков, то вам необходимо выполнить следующее: " +
@@ -19,16 +19,10 @@ namespace VLS.BatchExportNet.Views.Transmit
                   "\tДалее этот список можно будет использовать для повторного экспорта, используя кнопку \"Загрузить список\"." +
                   "\n\n" +
                   "\tЗапустите экспорт кнопкой \"Запуск\".";
-        private RelayCommand _helpCommand;
-        public override RelayCommand HelpCommand
+        public TransmitViewModel(EventHandlerTransmitModelsUiArg eventHandlerTransmitModelsUiArg)
         {
-            get
-            {
-                return _helpCommand ??= new RelayCommand(obj =>
-                {
-                    MessageBox.Show(HELP_MESSAGE, "Справка");
-                });
-            }
+            _eventHandlerTransmitModelsUiArg = eventHandlerTransmitModelsUiArg;
+            HelpMessage = HELP_MESSAGE;
         }
 
         private bool _isSameFolder;

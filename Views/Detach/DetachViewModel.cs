@@ -3,11 +3,9 @@ using VLS.BatchExportNet.Source;
 
 namespace VLS.BatchExportNet.Views.Detach
 {
-    public class DetachViewModel(EventHandlerDetachModelsUiArg eventHandlerDetachModelsUiArg) : ViewModelBase
+    public class DetachViewModel : ViewModelBase
     {
-        private readonly EventHandlerDetachModelsUiArg _eventHandlerDetachModelsUiArg
-            = eventHandlerDetachModelsUiArg;
-
+        private readonly EventHandlerDetachModelsUiArg _eventHandlerDetachModelsUiArg;
         const string HELP_MESSAGE = "\tПлагин предназначен для экспорта отсоединённых моделей." +
                 "\n" +
                 "\tЕсли вы впервые используете плагин, и у вас нет ранее сохранённых списков, то вам необходимо выполнить следующее: " +
@@ -27,16 +25,10 @@ namespace VLS.BatchExportNet.Views.Detach
                 "\tДалее этот список можно будет использовать для повторного экспорта, используя кнопку \"Загрузить список\"." +
                 "\n\n" +
                 "\tЗапустите экспорт кнопкой \"Запуск\".";
-        private RelayCommand _helpCommand;
-        public override RelayCommand HelpCommand
+        public DetachViewModel(EventHandlerDetachModelsUiArg eventHandlerDetachModelsUiArg)
         {
-            get
-            {
-                return _helpCommand ??= new RelayCommand(obj =>
-                {
-                    MessageBox.Show(HELP_MESSAGE, "Справка");
-                });
-            }
+            _eventHandlerDetachModelsUiArg = eventHandlerDetachModelsUiArg;
+            HelpMessage = HELP_MESSAGE;
         }
 
         private int _radioButtonMode = 0;

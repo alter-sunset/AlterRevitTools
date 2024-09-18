@@ -11,33 +11,30 @@ using VLS.BatchExportNet.Source;
 
 namespace VLS.BatchExportNet.Views.IFC
 {
-    public class IFC_ViewModel(EventHandlerIFCExportUiArg eventHandlerIFCExportUiArg) : ViewModelBase_Extended
+    public class IFC_ViewModel : ViewModelBase_Extended
     {
-        private readonly EventHandlerIFCExportUiArg _eventHandlerIFCExportUiArg
-            = eventHandlerIFCExportUiArg;
-        private const string HELP_MESSAGE = "\tПлагин предназначен для пакетной передачи моделей и реализует схожий функционал с плагином \"eTransmit\"." +
-                  "\n" +
-                  "\tЕсли вы впервые используете плагин, и у вас нет ранее сохранённых списков, то вам необходимо выполнить следующее: " +
-                  "используя кнопку \"Загрузить\" добавьте все модели объекта, которые необходимо передать. " +
-                  "Если случайно были добавлены лишние файлы, выделите их и нажмите кнопку \"Удалить\"" +
-                  "\n" +
-                  "\tДалее укажите папку для сохранения. Прописать путь можно в ручную или же выбрать папку используя кнопку \"Обзор\"." +
-                  "\n" +
-                  "\tСохраните список кнопкой \"Сохранить список\" в формате (.txt)." +
-                  "\n" +
-                  "\tДалее этот список можно будет использовать для повторного экспорта, используя кнопку \"Загрузить список\"." +
-                  "\n\n" +
-                  "\tЗапустите экспорт кнопкой \"Запуск\".";
-        private RelayCommand _helpCommand;
-        public override RelayCommand HelpCommand
+        private readonly EventHandlerIFCExportUiArg _eventHandlerIFCExportUiArg;
+        private const string HELP_MESSAGE = "\tПлагин предназначен для пакетного экспорта файлов в формат IFC." +
+                 "\n" +
+                 "\tЕсли вы впервые используете плагин, и у вас нет ранее сохранённых файлов конфигурации, то вам необходимо выполнить следующее: " +
+                 "используя кнопку \"Загрузить\" добавьте все модели объекта, которые необходимо экспортировать. " +
+                 "Если случайно были добавлены лишние файлы, выделите их и нажмите кнопку \"Удалить\"" +
+                 "\n" +
+                 "\tДалее укажите папку для сохранения. Прописать путь можно в ручную или же выбрать папку используя кнопку \"Обзор\"." +
+                 "\n" +
+                 "\tЗадайте префикс и постфикс, которые будет необходимо добавить в название файлов. Если такой необходимости нет, то оставьте поля пустыми." +
+                 "\n" +
+                 "\tВыберите необходимые свойства экспорта." +
+                 "\n" +
+                 "\tСохраните конфигурацию кнопкой \"Сохранить список\" в формате (.JSON)." +
+                 "\n" +
+                 "\tДалее эту конфигурацию можно будет использовать для повторного экспорта, используя кнопку \"Загрузить список\"." +
+                 "\n\n" +
+                 "\tЗапустите экспорт кнопкой \"ОК\".";
+        public IFC_ViewModel(EventHandlerIFCExportUiArg eventHandlerIFCExportUiArg)
         {
-            get
-            {
-                return _helpCommand ??= new RelayCommand(obj =>
-                {
-                    MessageBox.Show(HELP_MESSAGE, "Справка");
-                });
-            }
+            _eventHandlerIFCExportUiArg = eventHandlerIFCExportUiArg;
+            HelpMessage = HELP_MESSAGE;
         }
 
         private string _mapping = "";

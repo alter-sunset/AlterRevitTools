@@ -3,9 +3,9 @@ using VLS.BatchExportNet.Source;
 
 namespace VLS.BatchExportNet.Views.Migrate
 {
-    public class MigrateViewModel(EventHandlerMigrateModelsUiArg eventHandlerMigrateModelsUiArg) : ViewModelBase
+    public class MigrateViewModel : ViewModelBase
     {
-        private readonly EventHandlerMigrateModelsUiArg _eventHandlerMigrateModelsUiArg = eventHandlerMigrateModelsUiArg;
+        private readonly EventHandlerMigrateModelsUiArg _eventHandlerMigrateModelsUiArg;
         private const string HELP_MESSAGE = "\tПлагин предназначен для миграции проекта в новое место с сохранением структуры связей, как внутри папок, так и внутри самих моделей." +
                 "\n" +
                 "\tОткройте или вставьте ссылку на Json конфиг, который хранит в себе структуру типа Dictionary<string, string>," +
@@ -15,16 +15,10 @@ namespace VLS.BatchExportNet.Views.Migrate
                 "Пример:" +
                 "\n" +
                 "{ \"C:\\oldfile.rvt\": \"C:\\newfile.rvt\",}";
-        private RelayCommand _helpCommand;
-        public override RelayCommand HelpCommand
+        public MigrateViewModel(EventHandlerMigrateModelsUiArg eventHandlerMigrateModelsUiArg)
         {
-            get
-            {
-                return _helpCommand ??= new RelayCommand(obj =>
-                {
-                    MessageBox.Show(HELP_MESSAGE, "Справка");
-                });
-            }
+            _eventHandlerMigrateModelsUiArg = eventHandlerMigrateModelsUiArg;
+            HelpMessage = HELP_MESSAGE;
         }
 
         private string _configPath;

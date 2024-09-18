@@ -205,7 +205,23 @@ namespace VLS.BatchExportNet.Views
                 });
             }
         }
-        public virtual RelayCommand HelpCommand { get; }
+        private string _helpMessage;
+        public string HelpMessage
+        {
+            get => _helpMessage;
+            set => _helpMessage = value;
+        }
+        private RelayCommand _helpCommand;
+        public virtual RelayCommand HelpCommand
+        {
+            get
+            {
+                return _helpCommand ??= new RelayCommand(obj =>
+                {
+                    MessageBox.Show(HelpMessage, "Справка");
+                });
+            }
+        }
         public virtual RelayCommand RaiseEventCommand { get; }
         public virtual RelayCommand RadioButtonCommand { get; }
 

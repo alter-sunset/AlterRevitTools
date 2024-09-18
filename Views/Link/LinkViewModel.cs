@@ -3,8 +3,9 @@ using VLS.BatchExportNet.Source;
 
 namespace VLS.BatchExportNet.Views.Link
 {
-    public class LinkViewModel(EventHandlerLinkModelsUiArg eventHandlerLinkModelsUiArg) : ViewModelBase
+    public class LinkViewModel : ViewModelBase
     {
+        private readonly EventHandlerLinkModelsUiArg _eventHandlerLinkModelsUiArg;
         const string HELP_MESSAGE = "\tПлагин предназначен для пакетного добавления моделей в качестве Revit ссылок." +
                   "\n" +
                   "\tЕсли вы впервые используете плагин, и у вас нет ранее сохранённых списков, то вам необходимо выполнить следующее: " +
@@ -18,8 +19,11 @@ namespace VLS.BatchExportNet.Views.Link
                   "\tДалее этот список можно будет использовать для повторного добавления данного комплекта, используя кнопку \"Загрузить список\"." +
                   "\n\n" +
                   "\tЗапустите добавление кнопкой \"Запуск\".";
-
-        private readonly EventHandlerLinkModelsUiArg _eventHandlerLinkModelsUiArg = eventHandlerLinkModelsUiArg;
+        public LinkViewModel(EventHandlerLinkModelsUiArg eventHandlerLinkModelsUiArg)
+        {
+            _eventHandlerLinkModelsUiArg = eventHandlerLinkModelsUiArg;
+            HelpMessage = HELP_MESSAGE;
+        }
 
         private bool _isCurrentWorkset = true;
         public bool IsCurrentWorkset
@@ -29,17 +33,6 @@ namespace VLS.BatchExportNet.Views.Link
             {
                 _isCurrentWorkset = value;
                 OnPropertyChanged("IsCurrentWorkset");
-            }
-        }
-        private RelayCommand _helpCommand;
-        public override RelayCommand HelpCommand
-        {
-            get
-            {
-                return _helpCommand ??= new RelayCommand(obj =>
-                {
-                    MessageBox.Show(HELP_MESSAGE, "Справка");
-                });
             }
         }
 
