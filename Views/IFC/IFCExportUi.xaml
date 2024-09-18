@@ -39,7 +39,6 @@
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="0"
-                x:Name="ButtonHelp"
                 Command="{Binding HelpCommand}"
                 ToolTip="Справка по работе с плагином"
                 Content="Справка"/>
@@ -47,7 +46,6 @@
                  Grid.Column="0"
                  Grid.ColumnSpan="4"
                  Margin="10"
-                 x:Name="ListBoxRVTFiles"
                  SelectionMode="Extended"
                  ItemsSource="{Binding ListBoxItems}"
                  SelectedItem="{Binding Selecteditem}"
@@ -56,28 +54,24 @@
         <Button Margin="10"
                 Grid.Column="0"
                 Grid.Row="2"
-                x:Name="ButtonLoad"
                 Command="{Binding LoadCommand}"
                 ToolTip="Загрузить файлы в формате (.rvt)"
                 Content="Загрузить"/>
         <Button Margin="10"
                 Grid.Column="1"
                 Grid.Row="2"
-                x:Name="ButtonLoadList"
                 Command="{Binding LoadListCommand}"
                 ToolTip="Загрузить сохранённый ранее файл конфигурации в формате (.JSON)"
                 Content="Загрузить список"/>
         <Button Margin="10"
                 Grid.Column="2"
                 Grid.Row="2"
-                x:Name="ButtonSaveList"
                 Command="{Binding SaveListCommand}"
                 ToolTip="Сохранить файл конфигурации в формате (.JSON)"
                 Content="Сохранить список"/>
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="2"
-                x:Name="ButtonDelete"
                 Command="{Binding DeleteCommand}"
                 ToolTip="Удалить выбранные файлы из списка"
                 Content="Удалить"/>
@@ -91,13 +85,11 @@
         <TextBox Margin="165,10,135,10"
                  Grid.Row="3"
                  Grid.ColumnSpan="4"
-                 x:Name="TextBoxFolder"
                  VerticalContentAlignment="Center"
                  Text="{Binding FolderPath}"/>
         <Button Margin="80,10,10,10"
                 Grid.Column="3"
                 Grid.Row="3"
-                x:Name="ButtonBrowseFolder"
                 Command="{Binding BrowseFolderCommand}"
                 Content="Обзор"/>
 
@@ -112,7 +104,6 @@
                  Grid.Row="4"
                  Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
-                 x:Name="TextBoxPrefix"
                  Text="{Binding NamePrefix}"
                  ToolTip="Префикс, который необходимо вставить перед названием файла"/>
         <TextBlock Margin="10,0,80,0"
@@ -127,7 +118,6 @@
                  Grid.Column="2"
                  Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
-                 x:Name="TextBoxPostfix"
                  Text="{Binding NamePostfix}"
                  ToolTip="Постфикс, который необходимо вставить после названия файла"/>
 
@@ -142,20 +132,17 @@
         <TextBox Margin="165,10,135,10"
                  Grid.Row="5"
                  Grid.ColumnSpan="4"
-                 x:Name="TextBoxMapping"
                  VerticalContentAlignment="Center"
                  Text="{Binding Mapping}"/>
         <Button Margin="80,10,10,10"
                 Grid.Column="3"
                 Grid.Row="5"
-                x:Name="ButtonBrowseMapping"
                 Command="{Binding LoadMapping}"
                 Content="Обзор"/>
 
         <CheckBox Margin="10"
                   Grid.Row="6"
                   Grid.Column="0"
-                  x:Name="CheckBoxExportBaseQuantities"
                   VerticalAlignment="Center"
                   FontSize="12"
                   Content="Экспорт основных величин"
@@ -170,7 +157,6 @@
                   Grid.Row="6"
                   Grid.Column="1"
                   Grid.ColumnSpan="2"
-                  x:Name="ComboBoxIFCVersion"
                   VerticalContentAlignment="Center"
                   ItemsSource="{Binding IFCVersions}"
                   SelectedItem="{Binding SelectedVersion}"
@@ -178,7 +164,6 @@
         <CheckBox Margin="10"
                   Grid.Row="6"
                   Grid.Column="3"
-                  x:Name="CheckBoxWallAndColumnSplitting"
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding WallAndColumnSplitting}">
             <TextBlock>
@@ -205,7 +190,6 @@
                  Grid.Row="7"
                  Grid.Column="1"
                  VerticalContentAlignment="Center"
-                 x:Name="TextBoxExportScopeViewName"
                  Grid.ColumnSpan="2"
                  Text="{Binding ViewName}"/>
 
@@ -220,7 +204,6 @@
                   Grid.Row="8"
                   Grid.Column="2"
                   Grid.ColumnSpan="2"
-                  x:Name="ComboBoxSpaceBoundaryLevel"
                   ItemsSource="{Binding SpaceBoundaryLevels}"
                   SelectedItem="{Binding SelectedLevel}"
                   DisplayMemberPath="Value"/>
@@ -243,16 +226,13 @@
         <Button Margin="10"
                 Grid.Row="10"
                 Grid.Column="2"
-                x:Name="ButtonErase"
                 Command="{Binding EraseCommand}"
                 Content="Очистить список"/>
         <Button Margin="10"
                 Grid.Row="10"
                 Grid.Column="3"
-                x:Name="ButtonStart"
                 Command="{Binding RaiseEventCommand}"
                 Content="Запуск"
                 ToolTip="Запуск пакетного экспорта текущей конфигурации"/>
     </Grid>
 </Window>
-

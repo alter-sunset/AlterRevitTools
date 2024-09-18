@@ -19,6 +19,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Events;
 using Application = Autodesk.Revit.ApplicationServices.Application;
+using Autodesk.Revit.DB.Events;
 
 namespace VLS.BatchExportNet.Source
 {
@@ -71,27 +72,16 @@ namespace VLS.BatchExportNet.Source
     {
         public override void Execute(UIApplication uiApp, NWC_ViewModel nwc_ViewModel)
         {
-            if (!ViewHelper.IsEverythingFilled(nwc_ViewModel))
+            if (!ViewModelHelper.IsEverythingFilled(nwc_ViewModel))
             {
                 return;
             }
-
-            string folder = nwc_ViewModel.FolderPath;
-            Logger logger = new(folder);
-
+            Logger logger = new(nwc_ViewModel.FolderPath);
             NWCHelper.BatchExportModels(uiApp, nwc_ViewModel, ref logger);
 
-            TaskDialog taskDialog = new("Готово!")
-            {
-                CommonButtons = TaskDialogCommonButtons.Close,
-                Id = "ExportNWCFinished",
-                MainContent = $"В процессе выполнения было {logger.ErrorCount} ошибок из {logger.ErrorCount + logger.SuccessCount} файлов."
-            };
-
+            string msg = $"В процессе выполнения было {logger.ErrorCount} ошибок из {logger.ErrorCount + logger.SuccessCount} файлов.";
             logger.Dispose();
-            nwc_ViewModel.IsViewEnabled = false;
-            taskDialog.Show();
-            nwc_ViewModel.IsViewEnabled = true;
+            ModelHelper.Finisher(nwc_ViewModel, "ExportNWCFinished", msg);
         }
     }
 
@@ -99,27 +89,16 @@ namespace VLS.BatchExportNet.Source
     {
         public override void Execute(UIApplication uiApp, IFC_ViewModel ifc_ViewModel)
         {
-            if (!ViewHelper.IsEverythingFilled(ifc_ViewModel))
+            if (!ViewModelHelper.IsEverythingFilled(ifc_ViewModel))
             {
                 return;
             }
-
-            string folder = ifc_ViewModel.FolderPath;
-            Logger logger = new(folder);
-
+            Logger logger = new(ifc_ViewModel.FolderPath);
             IFCHelper.BatchExportModels(uiApp, ifc_ViewModel, ref logger);
 
-            TaskDialog taskDialog = new("Готово!")
-            {
-                CommonButtons = TaskDialogCommonButtons.Close,
-                Id = "ExportIFCFinished",
-                MainContent = $"В процессе выполнения было {logger.ErrorCount} ошибок из {logger.ErrorCount + logger.SuccessCount} файлов."
-            };
-
+            string msg = $"В процессе выполнения было {logger.ErrorCount} ошибок из {logger.ErrorCount + logger.SuccessCount} файлов.";
             logger.Dispose();
-            ifc_ViewModel.IsViewEnabled = false;
-            taskDialog.Show();
-            ifc_ViewModel.IsViewEnabled = true;
+            ModelHelper.Finisher(ifc_ViewModel, "ExportIFCFinished", msg);
         }
     }
 
@@ -127,7 +106,7 @@ namespace VLS.BatchExportNet.Source
     {
         public override void Execute(UIApplication uiApp, DetachViewModel detachViewModel)
         {
-            if (!ViewHelper.IsEverythingFilled(detachViewModel))
+            if (!ViewModelHelper.IsEverythingFilled(detachViewModel))
             {
                 return;
             }
@@ -136,7 +115,7 @@ namespace VLS.BatchExportNet.Source
             List<ListBoxItem> listItems = [.. detachViewModel.ListBoxItems];
 
             uiApp.DialogBoxShowing += new EventHandler<DialogBoxShowingEventArgs>(ErrorSwallowersHelper.TaskDialogBoxShowingEvent);
-            application.FailuresProcessing += new EventHandler<Autodesk.Revit.DB.Events.FailuresProcessingEventArgs>(ErrorSwallowersHelper.Application_FailuresProcessing);
+            application.FailuresProcessing += new EventHandler<FailuresProcessingEventArgs>(ErrorSwallowersHelper.Application_FailuresProcessing);
             foreach (ListBoxItem item in listItems)
             {
                 string filePath = item.Content.ToString();
@@ -151,18 +130,9 @@ namespace VLS.BatchExportNet.Source
                 DetachModel(application, filePath, detachViewModel);
             }
             uiApp.DialogBoxShowing -= new EventHandler<DialogBoxShowingEventArgs>(ErrorSwallowersHelper.TaskDialogBoxShowingEvent);
-            application.FailuresProcessing -= new EventHandler<Autodesk.Revit.DB.Events.FailuresProcessingEventArgs>(ErrorSwallowersHelper.Application_FailuresProcessing);
+            application.FailuresProcessing -= new EventHandler<FailuresProcessingEventArgs>(ErrorSwallowersHelper.Application_FailuresProcessing);
 
-            TaskDialog taskDialog = new("Готово!")
-            {
-                CommonButtons = TaskDialogCommonButtons.Close,
-                Id = "DetachModelsFinished",
-                MainContent = "Задание выполнено"
-            };
-
-            detachViewModel.IsViewEnabled = false;
-            taskDialog.Show();
-            detachViewModel.IsViewEnabled = true;
+            ModelHelper.Finisher(detachViewModel, "DetachModelsFinished");
         }
         private static void DetachModel(Application application, string filePath, DetachViewModel detachViewModel)
         {
@@ -189,8 +159,7 @@ namespace VLS.BatchExportNet.Source
             {
                 return;
             }
-            //RevitLinksHelper.Delete(document);
-            ModelHelper.DeleteAllLinks(document); //Delete all links instead of just rvt links
+            ModelHelper.DeleteAllLinks(document);
             string fileDetachedPath = "";
             switch (detachViewModel.RadionButtonMode)
             {
@@ -238,7 +207,7 @@ namespace VLS.BatchExportNet.Source
     {
         public override void Execute(UIApplication uiApp, TransmitViewModel transmitViewModel)
         {
-            if (!ViewHelper.IsEverythingFilled(transmitViewModel))
+            if (!ViewModelHelper.IsEverythingFilled(transmitViewModel))
             {
                 return;
             }
@@ -265,17 +234,7 @@ namespace VLS.BatchExportNet.Source
                 ModelPath transmittedModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(transmittedFilePath);
                 RevitLinksHelper.Unload(transmittedModelPath, isSameFolder, folder);
             }
-
-            TaskDialog taskDialog = new("Готово!")
-            {
-                CommonButtons = TaskDialogCommonButtons.Close,
-                Id = "TransmitModelsFinished",
-                MainContent = "Задание выполнено"
-            };
-
-            transmitViewModel.IsViewEnabled = false;
-            taskDialog.Show();
-            transmitViewModel.IsViewEnabled = true;
+            ModelHelper.Finisher(transmitViewModel, "TransmitModelsFinished");
         }
     }
 
@@ -302,7 +261,7 @@ namespace VLS.BatchExportNet.Source
                 }
                 catch
                 {
-                    System.Windows.Forms.MessageBox.Show("Неверная схема файла");
+                    MessageBox.Show("Неверная схема файла");
                     return;
                 }
             }
@@ -326,7 +285,7 @@ namespace VLS.BatchExportNet.Source
                 }
                 catch (Exception ex)
                 {
-                    System.Windows.Forms.MessageBox.Show(ex.Message);
+                    MessageBox.Show(ex.Message);
                     failedFiles.Add(oldFile);
                     continue;
                 }
@@ -357,16 +316,7 @@ namespace VLS.BatchExportNet.Source
                 ? $"Задание выполнено.\nСледующие файлы не были скопированы:\n{string.Join("\n", failedFiles)}"
                 : "Задание выполнено.";
 
-            TaskDialog taskDialog = new("Готово!")
-            {
-                CommonButtons = TaskDialogCommonButtons.Close,
-                Id = "MigrateModelsFinished",
-                MainContent = msg
-            };
-
-            migrateViewModel.IsViewEnabled = false;
-            taskDialog.Show();
-            migrateViewModel.IsViewEnabled = true;
+            ModelHelper.Finisher(migrateViewModel, "MigrateModelsFinished", msg);
         }
     }
 
@@ -375,17 +325,7 @@ namespace VLS.BatchExportNet.Source
         public override void Execute(UIApplication uiApp, LinkViewModel linkViewModel)
         {
             RevitLinksHelper.CreateLinks(uiApp, linkViewModel);
-
-            TaskDialog taskDialog = new("Готово!")
-            {
-                CommonButtons = TaskDialogCommonButtons.Close,
-                Id = "LinkModelsFinished",
-                MainContent = "Задание выполнено"
-            };
-
-            linkViewModel.IsViewEnabled = false;
-            taskDialog.Show();
-            linkViewModel.IsViewEnabled = true;
+            ModelHelper.Finisher(linkViewModel, "LinkModelsFinished");
         }
     }
 }

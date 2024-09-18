@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using Autodesk.Revit.DB;
 using Transaction = Autodesk.Revit.DB.Transaction;
+using VLS.BatchExportNet.Views;
+using Autodesk.Revit.UI;
 
 namespace VLS.BatchExportNet.Utils
 {
@@ -83,6 +85,18 @@ namespace VLS.BatchExportNet.Utils
             {
                 return null;
             }
+        }
+        internal static void Finisher(ViewModelBase viewModel, string id, string msg = "Задание выполнено")
+        {
+            TaskDialog taskDialog = new("Готово!")
+            {
+                CommonButtons = TaskDialogCommonButtons.Close,
+                Id = id,
+                MainContent = msg
+            };
+            viewModel.IsViewEnabled = false;
+            taskDialog.Show();
+            viewModel.IsViewEnabled = true;
         }
     }
 }

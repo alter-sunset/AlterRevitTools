@@ -1,5 +1,4 @@
-﻿using RadioButton = System.Windows.Controls.RadioButton;
-using VLS.BatchExportNet.Source;
+﻿using VLS.BatchExportNet.Source;
 using System.Windows;
 
 namespace VLS.BatchExportNet.Views.Detach

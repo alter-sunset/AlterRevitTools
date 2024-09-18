@@ -1,16 +1,13 @@
 ﻿using Autodesk.Revit.DB;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Text.Json.Serialization.Metadata;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
+using System.Windows.Controls;
+using System.Collections.Generic;
 using VLS.BatchExportNet.Source;
-using VLS.BatchExportNet.Utils;
 
 namespace VLS.BatchExportNet.Views.IFC
 {

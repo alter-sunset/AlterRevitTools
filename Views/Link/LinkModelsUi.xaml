@@ -35,7 +35,6 @@
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="0"
-                x:Name="ButtonHelp"
                 Command="{Binding HelpCommand}"
                 ToolTip="Справка по работе с плагином"
                 Content="Справка"/>
@@ -43,38 +42,32 @@
                  Grid.Column="0"
                  Grid.ColumnSpan="4"
                  Margin="10"
-                 x:Name="ListBoxRVTFiles"
                  SelectionMode="Extended"
                  ItemsSource="{Binding ListBoxItems}"
                  SelectedItem="{Binding Selecteditem}"
                  ToolTip="Список файлов в формате (.rvt)"/>
 
-
         <Button Margin="10"
                 Grid.Column="0"
                 Grid.Row="2"
-                x:Name="ButtonLoad"
                 Command="{Binding LoadCommand}"
                 ToolTip="Загрузить файлы в формате (.rvt)"
                 Content="Загрузить"/>
         <Button Margin="10"
                 Grid.Column="1"
                 Grid.Row="2"
-                x:Name="ButtonLoadList"
                 Command="{Binding LoadListCommand}"
                 ToolTip="Загрузить сохранённый ранее файл конфигурации в формате (.JSON)"
                 Content="Загрузить список"/>
         <Button Margin="10"
                 Grid.Column="2"
                 Grid.Row="2"
-                x:Name="ButtonSaveList"
                 Command="{Binding SaveListCommand}"
                 ToolTip="Сохранить файл конфигурации в формате (.txt)"
                 Content="Сохранить список"/>
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="2"
-                x:Name="ButtonDelete"
                 Command="{Binding DeleteCommand}"
                 ToolTip="Удалить выбранные файлы из списка"
                 Content="Удалить"/>
@@ -85,22 +78,18 @@
                   VerticalAlignment="Center"
                   Content="Добавить в текущий рабочий набор"
                   Grid.ColumnSpan="2"
-                  x:Name="CheckBoxCurrentWorkset"
                   IsChecked="{Binding IsCurrentWorkset}"/>
 
         <Button Margin="10"
                 Grid.Row="4"
                 Grid.Column="2"
-                x:Name="ButtonErase"
                 Command="{Binding EraseCommand}"
                 Content="Очистить список"/>
         <Button Margin="10"
                 Grid.Row="4"
                 Grid.Column="3"
-                x:Name="ButtonStart"
                 Command="{Binding RaiseEventCommand}"
                 Content="Запуск"
                 ToolTip="Запуск пакетного экспорта текущей конфигурации"/>
     </Grid>
 </Window>
-
