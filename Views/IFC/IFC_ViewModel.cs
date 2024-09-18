@@ -3,13 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
+using System.Text.Json.Serialization;
+using System.Text.Json.Serialization.Metadata;
 using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
 using VLS.BatchExportNet.Source;
+using VLS.BatchExportNet.Utils;
 
 namespace VLS.BatchExportNet.Views.IFC
 {
@@ -127,7 +128,10 @@ namespace VLS.BatchExportNet.Views.IFC
                         using FileStream file = File.OpenRead(openFileDialog.FileName);
                         try
                         {
-                            JsonSerializerOptions options = new() { WriteIndented = true };
+                            JsonSerializerOptions options = new()
+                            {
+                                WriteIndented = true
+                            };
                             IFCForm form = JsonSerializer.Deserialize<IFCForm>(file, options);
                             IFCFormDeserilaizer(form);
                             form.Dispose();
@@ -192,9 +196,18 @@ namespace VLS.BatchExportNet.Views.IFC
                     {
                         string fileName = saveFileDialog.FileName;
                         File.Delete(fileName);
-                        JsonSerializerOptions options = new() { WriteIndented = true };
-
-                        File.WriteAllText(fileName, JsonSerializer.Serialize(form, options));
+                        try
+                        {
+                            JsonSerializerOptions options = new()
+                            {
+                                WriteIndented = true
+                            };
+                            File.WriteAllText(fileName, JsonSerializer.Serialize(form, options));
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Неверная схема файла {ex.Message}");
+                        }
                     }
 
                     form.Dispose();

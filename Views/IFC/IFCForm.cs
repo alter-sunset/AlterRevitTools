@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Text.Json.Serialization;
 using Autodesk.Revit.DB;
 
 namespace VLS.BatchExportNet.Views.IFC
@@ -21,8 +20,6 @@ namespace VLS.BatchExportNet.Views.IFC
         public List<string> RVTFiles { get => _rvtFiles; set => _rvtFiles = value; }
         public string ViewName { get => _viewName; set => _viewName = value; }
         public bool ExportView { get => _exportView; set => _exportView = value; }
-
-        [JsonIgnore]
-        public new ElementId FilterViewId { get; set; }
+        public new bool FilterViewId { get; set; }
     }
 }

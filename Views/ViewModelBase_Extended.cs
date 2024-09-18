@@ -60,6 +60,7 @@ namespace VLS.BatchExportNet.Views
             {
                 _exportScopeView = value;
                 OnPropertyChanged("ExportScopeView");
+                OnPropertyChanged("ExportScopeWhole");
             }
         }
         public bool ExportScopeWhole
@@ -69,6 +70,7 @@ namespace VLS.BatchExportNet.Views
             {
                 _exportScopeView = !value;
                 OnPropertyChanged("ExportScopeWhole");
+                OnPropertyChanged("ExportScopeView");
             }
         }
     }
