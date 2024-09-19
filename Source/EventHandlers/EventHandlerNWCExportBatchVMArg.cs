@@ -6,7 +6,6 @@ using System.Threading;
 using System.Windows;
 using VLS.BatchExportNet.Utils;
 using VLS.BatchExportNet.Views;
-using VLS.BatchExportNet.Views.Migrate;
 using VLS.BatchExportNet.Views.NWC;
 
 namespace VLS.BatchExportNet.Source.EventHandlers

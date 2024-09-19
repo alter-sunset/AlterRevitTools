@@ -5,25 +5,25 @@ namespace VLS.BatchExportNet.Utils
 {
     static class OpenDocumentHelper
     {
-        internal static Document OpenAsIs(Application application, ModelPath modelPath, WorksetConfiguration worksetConfiguration)
+        internal static Document OpenAsIs(Application application,
+            ModelPath modelPath,
+            WorksetConfiguration worksetConfiguration)
         {
             OpenOptions openOptions = new()
             {
                 DetachFromCentralOption = DetachFromCentralOption.DoNotDetach
             };
-            openOptions.SetOpenWorksetsConfiguration(worksetConfiguration);
-            Document openedDoc = application.OpenDocumentFile(modelPath, openOptions);
-            return openedDoc;
+            return OpenDocument(openOptions, worksetConfiguration, application, modelPath);
         }
-        internal static Document OpenDetached(Application application, ModelPath modelPath, WorksetConfiguration worksetConfiguration)
+        internal static Document OpenDetached(Application application,
+            ModelPath modelPath,
+            WorksetConfiguration worksetConfiguration)
         {
             OpenOptions openOptions = new()
             {
                 DetachFromCentralOption = DetachFromCentralOption.DetachAndPreserveWorksets
             };
-            openOptions.SetOpenWorksetsConfiguration(worksetConfiguration);
-            Document openedDoc = application.OpenDocumentFile(modelPath, openOptions);
-            return openedDoc;
+            return OpenDocument(openOptions, worksetConfiguration, application, modelPath);
         }
         internal static Document OpenTransmitted(Application application, ModelPath modelPath)
         {
@@ -32,6 +32,13 @@ namespace VLS.BatchExportNet.Utils
                 DetachFromCentralOption = DetachFromCentralOption.ClearTransmittedSaveAsNewCentral
             };
             WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.CloseAllWorksets);
+            return OpenDocument(openOptions, worksetConfiguration, application, modelPath);
+        }
+        private static Document OpenDocument(OpenOptions openOptions,
+            WorksetConfiguration worksetConfiguration,
+            Application application,
+            ModelPath modelPath)
+        {
             openOptions.SetOpenWorksetsConfiguration(worksetConfiguration);
             Document openedDoc = application.OpenDocumentFile(modelPath, openOptions);
             return openedDoc;

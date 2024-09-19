@@ -49,7 +49,11 @@ namespace VLS.BatchExportNet.Utils
         {
             RelinquishOptions relinquishOptions = new(true);
             TransactWithCentralOptions transactWithCentralOptions = new();
-            WorksharingUtils.RelinquishOwnership(doc, relinquishOptions, transactWithCentralOptions);
+            try
+            {
+                WorksharingUtils.RelinquishOwnership(doc, relinquishOptions, transactWithCentralOptions);
+            }
+            catch { }
         }
         internal static void DeleteAllLinks(Document doc)
         {
@@ -61,7 +65,6 @@ namespace VLS.BatchExportNet.Utils
             t.SetFailureHandlingOptions(failOpt);
 
             ICollection<ElementId> ids = ExternalFileUtils.GetAllExternalFileReferences(doc);
-
             foreach (ElementId id in ids)
             {
                 try
@@ -70,7 +73,6 @@ namespace VLS.BatchExportNet.Utils
                 }
                 catch { }
             }
-
             t.Commit();
         }
         internal static string MD5Hash(string fileName)

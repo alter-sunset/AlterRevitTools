@@ -23,36 +23,36 @@ namespace VLS.BatchExportNet.Utils
                 switch (form)
                 {
                     case Forms.Detach:
-                        EventHandlerDetachModelsVMArg evDetachUi = new();
-                        _myForm = new DetachModelsUi(evDetachUi) { Height = 550, Width = 800 };
+                        EventHandlerDetachModelsVMArg evDetachVM = new();
+                        _myForm = new DetachModelsView(evDetachVM) { Height = 550, Width = 800 };
                         break;
                     case Forms.IFC:
-                        EventHandlerIFCExportVMArg evIFCUi = new();
-                        _myForm = new IFCExportUi(evIFCUi) { Height = 700, Width = 800 };
+                        EventHandlerIFCExportVMArg evIFCE_VM = new();
+                        _myForm = new IFCExportView(evIFCE_VM) { Height = 700, Width = 800 };
                         break;
                     case Forms.NWC:
-                        EventHandlerNWCExportVMArg evNWCUi = new();
-                        EventHandlerNWCExportBatchVMArg eventHandlerNWCExportBatchUiArg = new();
-                        _myForm = new NWCExportUi(evNWCUi, eventHandlerNWCExportBatchUiArg) { Height = 900, Width = 800 };
+                        EventHandlerNWCExportVMArg evNWC_VM = new();
+                        EventHandlerNWCExportBatchVMArg evBatchNWC_VM = new();
+                        _myForm = new NWCExportView(evNWC_VM, evBatchNWC_VM) { Height = 900, Width = 800 };
                         break;
                     case Forms.Migrate:
-                        EventHandlerMigrateModelsVMArg evMigrateUi = new();
-                        _myForm = new MigrateModelsUi(evMigrateUi) { Height = 200, Width = 600 };
+                        EventHandlerMigrateModelsVMArg evMigrateVM = new();
+                        _myForm = new MigrateModelsView(evMigrateVM) { Height = 200, Width = 600 };
                         break;
                     case Forms.Transmit:
-                        EventHandlerTransmitModelsVMArg evTransmitUi = new();
-                        _myForm = new TransmitModelsUi(evTransmitUi) { Height = 500, Width = 800 };
+                        EventHandlerTransmitModelsVMArg evTransmitVM = new();
+                        _myForm = new TransmitModelsView(evTransmitVM) { Height = 500, Width = 800 };
                         break;
                     case Forms.Link:
-                        EventHandlerLinkModelsVMArg evLinkUi = new();
-                        _myForm = new LinkModelsUi(evLinkUi) { Height = 450, Width = 800 };
+                        EventHandlerLinkModelsVMArg evLinkVM = new();
+                        _myForm = new LinkModelsView(evLinkVM) { Height = 450, Width = 800 };
                         break;
                 }
                 _myForm.Show();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
         }
     }
