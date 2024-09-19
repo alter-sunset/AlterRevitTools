@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.NWC
@@ -12,6 +13,11 @@ namespace VLS.BatchExportNet.Views.NWC
         {
             InitializeComponent();
             DataContext = new NWC_ViewModel(eventHandlerNWCExportBatchVMArg, eventHandlerNWCExportVMArg);
+        }
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            DataContext = null;
+            base.OnClosing(e);
         }
     }
 }

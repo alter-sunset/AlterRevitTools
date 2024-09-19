@@ -16,11 +16,15 @@ namespace VLS.BatchExportNet.Utils
         private static Window _myForm;
         internal static void ShowForm(Forms form)
         {
-            if (_myForm != null && _myForm == null) return;
+            if (_myForm != null)
+            {
+                _myForm.Close();
+                _myForm = null;
+            }
 
             try
             {
-                switch (form)
+                switch (form) //might need to rework this aproach if i need multiple views fsr
                 {
                     case Forms.Detach:
                         EventHandlerDetachModelsVMArg evDetachVM = new();

@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using Autodesk.Revit.DB;
+using System.ComponentModel;
+using System.Windows;
 using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.Link
@@ -12,6 +14,11 @@ namespace VLS.BatchExportNet.Views.Link
         {
             InitializeComponent();
             DataContext = new LinkViewModel(eventHandlerLinkModelsVMArg);
+        }
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            DataContext = null;
+            base.OnClosing(e);
         }
     }
 }

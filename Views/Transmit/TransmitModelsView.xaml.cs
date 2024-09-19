@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.Transmit
@@ -12,6 +13,11 @@ namespace VLS.BatchExportNet.Views.Transmit
         {
             InitializeComponent();
             DataContext = new TransmitViewModel(eventHandlerTransmitModelsVMArg);
+        }
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            DataContext = null;
+            base.OnClosing(e);
         }
     }
 }
