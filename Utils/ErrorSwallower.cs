@@ -6,7 +6,7 @@ using Autodesk.Revit.UI.Events;
 
 namespace VLS.BatchExportNet.Utils
 {
-    public static class ErrorSwallowersHelper
+    public static class ErrorSwallower
     {
         public static void TaskDialogBoxShowingEvent(object sender, DialogBoxShowingEventArgs e)
         {
@@ -54,23 +54,6 @@ namespace VLS.BatchExportNet.Utils
                 {
                     a.ResolveFailure(f);
                     return FailureProcessingResult.ProceedWithCommit;
-                }
-            }
-            return FailureProcessingResult.Continue;
-        }
-    }
-    public class CopyWatchAlertSwallower : IFailuresPreprocessor
-    {
-        public FailureProcessingResult PreprocessFailures(FailuresAccessor a)
-        {
-            IList<FailureMessageAccessor> failures = a.GetFailureMessages();
-            foreach (FailureMessageAccessor f in failures)
-            {
-                FailureDefinitionId id = f.GetFailureDefinitionId();
-
-                if (BuiltInFailures.CopyMonitorFailures.CopyWatchAlert == id)
-                {
-                    a.DeleteWarning(f);
                 }
             }
             return FailureProcessingResult.Continue;

@@ -107,23 +107,5 @@ namespace VLS.BatchExportNet.Utils
                 return null;
             }
         }
-        /// <summary>
-        /// Default finish method of most plugins,
-        /// that will show final TaskDialog and lock View until TaskDialog is closed
-        /// </summary>
-        /// <param name="id">TaskDialog Id</param>
-        /// <param name="msg">Message to show to user</param>
-        internal static void Finisher(this ViewModelBase viewModel, string id, string msg = "Задание выполнено")
-        {
-            TaskDialog taskDialog = new("Готово!")
-            {
-                CommonButtons = TaskDialogCommonButtons.Close,
-                Id = id,
-                MainContent = msg
-            };
-            viewModel.IsViewEnabled = false;
-            taskDialog.Show();
-            viewModel.IsViewEnabled = true;
-        }
     }
 }
