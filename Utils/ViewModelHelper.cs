@@ -22,6 +22,10 @@ namespace VLS.BatchExportNet.Utils
         {
             return IsListNotEmpty(viewModel) && IsFolderPathOK(viewModel) && IsViewNameOK(viewModel);
         }
+        internal static bool IsEverythingFilled(ViewModelBase viewModel)
+        {
+            return IsListNotEmpty(viewModel);
+        }
 
         private static bool IsListNotEmpty(ViewModelBase viewModel)
         {

@@ -10,6 +10,10 @@ namespace VLS.BatchExportNet.Source.EventHandlers
         public override void Execute(UIApplication uiApp, ViewModelBase viewModelBase)
         {
             LinkViewModel linkViewModel = viewModelBase as LinkViewModel;
+            if (!ViewModelHelper.IsEverythingFilled(linkViewModel))
+            {
+                return;
+            }
             RevitLinksHelper.CreateLinks(uiApp, linkViewModel);
             ModelHelper.Finisher(linkViewModel, "LinkModelsFinished");
         }
