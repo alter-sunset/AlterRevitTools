@@ -16,7 +16,7 @@ namespace VLS.BatchExportNet.Source
         {
             try
             {
-                ViewHelper.ShowForm(form);
+                form.ShowForm();
                 return Result.Succeeded;
             }
             catch (Exception ex)

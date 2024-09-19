@@ -73,13 +73,13 @@ namespace VLS.BatchExportNet.Source.EventHandlers
             foreach (string newFile in movedFiles)
             {
                 ModelPath newFilePath = ModelPathUtils.ConvertUserVisiblePathToModelPath(newFile);
-                RevitLinksHelper.Replace(newFilePath, items);
+                newFilePath.ReplaceLinks(items);
 
-                using Document document = OpenDocumentHelper.OpenTransmitted(application, newFilePath);
+                using Document document = newFilePath.OpenTransmitted(application);
 
                 try
                 {
-                    ModelHelper.FreeTheModel(document);
+                    document.FreeTheModel();
                 }
                 catch (Exception ex)
                 {
@@ -93,7 +93,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
                 ? $"Задание выполнено.\nСледующие файлы не были скопированы:\n{string.Join("\n", failedFiles)}"
                 : "Задание выполнено.";
 
-            ModelHelper.Finisher(migrateViewModel, "MigrateModelsFinished", msg);
+            migrateViewModel.Finisher("MigrateModelsFinished", msg);
         }
     }
 }

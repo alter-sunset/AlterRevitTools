@@ -16,7 +16,7 @@ namespace VLS.BatchExportNet.Views.NWC
 {
     static class NWCHelper
     {
-        internal static void BatchExportModels(UIApplication uiApp, NWC_ViewModel nwc_ViewModel, ref Logger logger)
+        internal static void BatchExportModels(this NWC_ViewModel nwc_ViewModel, UIApplication uiApp, ref Logger logger)
         {
             using Application application = uiApp.Application;
             List<ListBoxItem> listItems = [.. nwc_ViewModel.ListBoxItems];
@@ -57,14 +57,14 @@ namespace VLS.BatchExportNet.Views.NWC
                             .Select(s => s.Trim())
                             .Where(e => !string.IsNullOrEmpty(e))
                             .ToArray();
-                        WorksetConfiguration worksetConfiguration = ModelHelper.CloseWorksetsWithLinks(modelPath, prefixes);
-                        document = OpenDocumentHelper.OpenAsIs(application, modelPath, worksetConfiguration);
+                        WorksetConfiguration worksetConfiguration = modelPath.CloseWorksetsWithLinks(prefixes);
+                        document = modelPath.OpenAsIs(application, worksetConfiguration);
                     }
                     else
                     {
                         ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
                         WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.OpenAllWorksets);
-                        document = OpenDocumentHelper.OpenAsIs(application, modelPath, worksetConfiguration);
+                        document = modelPath.OpenAsIs(application, worksetConfiguration);
                     }
                 }
                 catch (Exception ex)
@@ -82,7 +82,7 @@ namespace VLS.BatchExportNet.Views.NWC
 
                 try
                 {
-                    ExportModel(document, nwc_ViewModel, ref isFuckedUp, logger);
+                    nwc_ViewModel.ExportModel(document, ref isFuckedUp, logger);
                 }
                 catch (Exception ex)
                 {
@@ -95,7 +95,7 @@ namespace VLS.BatchExportNet.Views.NWC
                     {
                         try
                         {
-                            ModelHelper.FreeTheModel(document);
+                            document.FreeTheModel();
                         }
                         catch (Exception ex)
                         {
@@ -128,7 +128,7 @@ namespace VLS.BatchExportNet.Views.NWC
             logger.ErrorTotal();
             logger.TimeTotal();
         }
-        private static void ExportModel(Document document, NWC_ViewModel nwc_ViewModel, ref bool isFuckedUp, Logger logger)
+        private static void ExportModel(this NWC_ViewModel nwc_ViewModel, Document document, ref bool isFuckedUp, Logger logger)
         {
             Element view = default;
 
@@ -139,14 +139,14 @@ namespace VLS.BatchExportNet.Views.NWC
 
             if (nwc_ViewModel.ExportScopeView
                 && !nwc_ViewModel.ExportLinks
-                && ModelHelper.IsViewEmpty(document, view))
+                && document.IsViewEmpty(view))
             {
                 logger.Error("Нет геометрии на виде.");
                 isFuckedUp = true;
             }
             else
             {
-                NavisworksExportOptions navisworksExportOptions = NWC_ExportOptions(document, nwc_ViewModel);
+                NavisworksExportOptions navisworksExportOptions = nwc_ViewModel.NWC_ExportOptions(document);
                 string folderPath = nwc_ViewModel.FolderPath;
                 string namePrefix = nwc_ViewModel.NamePrefix;
                 string namePostfix = nwc_ViewModel.NamePostfix;
@@ -157,7 +157,7 @@ namespace VLS.BatchExportNet.Views.NWC
 
                 if (File.Exists(fileName))
                 {
-                    oldHash = ModelHelper.MD5Hash(fileName);
+                    oldHash = fileName.MD5Hash();
                     logger.Hash(oldHash);
                 }
 
@@ -180,7 +180,7 @@ namespace VLS.BatchExportNet.Views.NWC
                 }
                 else
                 {
-                    string newHash = ModelHelper.MD5Hash(fileName);
+                    string newHash = fileName.MD5Hash();
                     logger.Hash(newHash);
 
                     if (newHash == oldHash)
@@ -193,7 +193,7 @@ namespace VLS.BatchExportNet.Views.NWC
                 view?.Dispose();
             }
         }
-        private static NavisworksExportOptions NWC_ExportOptions(Document document, NWC_ViewModel nwc_ViewModel)
+        private static NavisworksExportOptions NWC_ExportOptions(this NWC_ViewModel nwc_ViewModel, Document document)
         {
             NavisworksExportOptions options = new()
             {

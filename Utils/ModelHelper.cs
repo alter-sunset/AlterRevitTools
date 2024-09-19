@@ -12,7 +12,10 @@ namespace VLS.BatchExportNet.Utils
 {
     static class ModelHelper
     {
-        internal static WorksetConfiguration CloseWorksetsWithLinks(ModelPath modelPath, params string[] prefixes)
+        /// <summary>
+        /// Get WorksetConfiguration with closed worksets that match given prefixes
+        /// </summary>
+        internal static WorksetConfiguration CloseWorksetsWithLinks(this ModelPath modelPath, params string[] prefixes)
         {
             WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.OpenAllWorksets);
 
@@ -30,7 +33,13 @@ namespace VLS.BatchExportNet.Utils
             worksetConfiguration.Close(worksetIds);
             return worksetConfiguration;
         }
-        internal static bool IsViewEmpty(Document doc, Element element)
+        /// <summary>
+        /// Checks whether given view has no visible objects 
+        /// </summary>
+        /// <param name="doc"></param>
+        /// <param name="element">View</param>
+        /// <returns>true if view is empty</returns>
+        internal static bool IsViewEmpty(this Document doc, Element element)
         {
             View3D view = element as View3D;
             try
@@ -45,7 +54,11 @@ namespace VLS.BatchExportNet.Utils
                 return true;
             }
         }
-        internal static void FreeTheModel(Document doc)
+        /// <summary>
+        /// Relinquish ownership of all possible elements in the document
+        /// </summary>
+        /// <param name="doc"></param>
+        internal static void FreeTheModel(this Document doc)
         {
             RelinquishOptions relinquishOptions = new(true);
             TransactWithCentralOptions transactWithCentralOptions = new();
@@ -55,10 +68,13 @@ namespace VLS.BatchExportNet.Utils
             }
             catch { }
         }
-        internal static void DeleteAllLinks(Document doc)
+        /// <summary>
+        /// DeleteRevitLinks all possible links from the document 
+        /// </summary>
+        internal static void DeleteAllLinks(this Document doc)
         {
             using Transaction t = new(doc);
-            t.Start("Delete all Links");
+            t.Start("DeleteRevitLinks all Links");
 
             FailureHandlingOptions failOpt = t.GetFailureHandlingOptions();
             failOpt.SetFailuresPreprocessor(new CopyWatchAlertSwallower());
@@ -75,7 +91,10 @@ namespace VLS.BatchExportNet.Utils
             }
             t.Commit();
         }
-        internal static string MD5Hash(string fileName)
+        /// <summary>
+        /// Returns string with MD5 Hash of given file
+        /// </summary>
+        internal static string MD5Hash(this string fileName)
         {
             using MD5 md5 = MD5.Create();
             try
@@ -88,7 +107,13 @@ namespace VLS.BatchExportNet.Utils
                 return null;
             }
         }
-        internal static void Finisher(ViewModelBase viewModel, string id, string msg = "Задание выполнено")
+        /// <summary>
+        /// Default finish method of most plugins,
+        /// that will show final TaskDialog and lock View until TaskDialog is closed
+        /// </summary>
+        /// <param name="id">TaskDialog Id</param>
+        /// <param name="msg">Message to show to user</param>
+        internal static void Finisher(this ViewModelBase viewModel, string id, string msg = "Задание выполнено")
         {
             TaskDialog taskDialog = new("Готово!")
             {

@@ -10,24 +10,24 @@ namespace VLS.BatchExportNet.Utils
 {
     static class ViewModelHelper
     {
-        internal static bool IsEverythingFilled(DetachViewModel detachViewModel)
+        internal static bool IsEverythingFilled(this DetachViewModel detachViewModel)
         {
-            return IsListNotEmpty(detachViewModel) && IsRBModeOK(detachViewModel);
+            return detachViewModel.IsListNotEmpty() && detachViewModel.IsRBModeOK();
         }
-        internal static bool IsEverythingFilled(TransmitViewModel viewModel)
+        internal static bool IsEverythingFilled(this TransmitViewModel viewModel)
         {
-            return IsListNotEmpty(viewModel) && IsFolderPathOK(viewModel);
+            return viewModel.IsListNotEmpty() && viewModel.IsFolderPathOK();
         }
-        internal static bool IsEverythingFilled(ViewModelBase_Extended viewModel)
+        internal static bool IsEverythingFilled(this ViewModelBase_Extended viewModel)
         {
-            return IsListNotEmpty(viewModel) && IsFolderPathOK(viewModel) && IsViewNameOK(viewModel);
+            return viewModel.IsListNotEmpty() && viewModel.IsFolderPathOK() && viewModel.IsViewNameOK();
         }
-        internal static bool IsEverythingFilled(ViewModelBase viewModel)
+        internal static bool IsEverythingFilled(this ViewModelBase viewModel)
         {
-            return IsListNotEmpty(viewModel);
+            return viewModel.IsListNotEmpty();
         }
 
-        private static bool IsListNotEmpty(ViewModelBase viewModel)
+        private static bool IsListNotEmpty(this ViewModelBase viewModel)
         {
             if (viewModel.ListBoxItems.Count == 0)
             {
@@ -36,7 +36,7 @@ namespace VLS.BatchExportNet.Utils
             }
             return true;
         }
-        private static bool IsFolderPathOK(ViewModelBase viewModel)
+        private static bool IsFolderPathOK(this ViewModelBase viewModel)
         {
             string textBoxFolder = viewModel.FolderPath;
             if (string.IsNullOrEmpty(textBoxFolder))
@@ -66,7 +66,7 @@ namespace VLS.BatchExportNet.Utils
             }
             return true;
         }
-        private static bool IsViewNameOK(ViewModelBase_Extended viewModel)
+        private static bool IsViewNameOK(this ViewModelBase_Extended viewModel)
         {
             if (viewModel.ExportScopeView && string.IsNullOrEmpty(viewModel.ViewName))
             {
@@ -75,7 +75,7 @@ namespace VLS.BatchExportNet.Utils
             }
             return true;
         }
-        private static bool IsRBModeOK(DetachViewModel detachViewModel)
+        private static bool IsRBModeOK(this DetachViewModel detachViewModel)
         {
             switch (detachViewModel.RadionButtonMode)
             {

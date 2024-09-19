@@ -16,7 +16,7 @@ namespace VLS.BatchExportNet.Views.IFC
 {
     static class IFCHelper
     {
-        internal static void BatchExportModels(UIApplication uiApp, IFC_ViewModel ifc_ViewModel, ref Logger logger)
+        internal static void BatchExportModels(this IFC_ViewModel ifc_ViewModel, UIApplication uiApp, ref Logger logger)
         {
             using Application application = uiApp.Application;
             List<ListBoxItem> listItems = [.. ifc_ViewModel.ListBoxItems];
@@ -58,14 +58,14 @@ namespace VLS.BatchExportNet.Views.IFC
                             .Select(s => s.Trim())
                             .Where(e => !string.IsNullOrEmpty(e))
                             .ToArray();
-                        WorksetConfiguration worksetConfiguration = ModelHelper.CloseWorksetsWithLinks(modelPath);
-                        document = OpenDocumentHelper.OpenAsIs(application, modelPath, worksetConfiguration);
+                        WorksetConfiguration worksetConfiguration = modelPath.CloseWorksetsWithLinks(prefixes);
+                        document = modelPath.OpenAsIs(application, worksetConfiguration);
                     }
                     else
                     {
                         ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
                         WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.OpenAllWorksets);
-                        document = OpenDocumentHelper.OpenAsIs(application, modelPath, worksetConfiguration);
+                        document = modelPath.OpenAsIs(application, worksetConfiguration);
                     }
                 }
                 catch (Exception ex)
@@ -83,7 +83,7 @@ namespace VLS.BatchExportNet.Views.IFC
 
                 try
                 {
-                    ExportModel(document, ifc_ViewModel, ref isFuckedUp, logger);
+                    ifc_ViewModel.ExportModel(document, ref isFuckedUp, logger);
                 }
                 catch (Exception ex)
                 {
@@ -96,7 +96,7 @@ namespace VLS.BatchExportNet.Views.IFC
                     {
                         try
                         {
-                            ModelHelper.FreeTheModel(document);
+                            document.FreeTheModel();
                         }
                         catch (Exception ex)
                         {
@@ -130,7 +130,7 @@ namespace VLS.BatchExportNet.Views.IFC
             logger.ErrorTotal();
             logger.TimeTotal();
         }
-        private static void ExportModel(Document document, IFC_ViewModel ifc_ViewModel, ref bool isFuckedUp, Logger logger)
+        private static void ExportModel(this IFC_ViewModel ifc_ViewModel, Document document, ref bool isFuckedUp, Logger logger)
         {
             Element view = default;
             using (FilteredElementCollector stuff = new(document))
@@ -139,14 +139,14 @@ namespace VLS.BatchExportNet.Views.IFC
             }
 
             if (ifc_ViewModel.ExportScopeView
-                && ModelHelper.IsViewEmpty(document, view))
+                && document.IsViewEmpty(view))
             {
                 logger.Error("Нет геометрии на виде.");
                 isFuckedUp = true;
             }
             else
             {
-                IFCExportOptions iFCExportOptions = IFC_ExportOptions(document, ifc_ViewModel);
+                IFCExportOptions iFCExportOptions = ifc_ViewModel.IFC_ExportOptions(document);
                 string folder = ifc_ViewModel.FolderPath;
                 string prefix = ifc_ViewModel.NamePrefix;
                 string postfix = ifc_ViewModel.NamePostfix;
@@ -157,7 +157,7 @@ namespace VLS.BatchExportNet.Views.IFC
                 string oldHash = null;
                 if (File.Exists(fileName))
                 {
-                    oldHash = ModelHelper.MD5Hash(fileName);
+                    oldHash = fileName.MD5Hash();
                     logger.Hash(oldHash);
                 }
 
@@ -186,7 +186,7 @@ namespace VLS.BatchExportNet.Views.IFC
                 }
                 else
                 {
-                    string newHash = ModelHelper.MD5Hash(fileName);
+                    string newHash = fileName.MD5Hash();
                     logger.Hash(newHash);
 
                     if (newHash == oldHash)
@@ -199,7 +199,7 @@ namespace VLS.BatchExportNet.Views.IFC
                 view?.Dispose();
             }
         }
-        private static IFCExportOptions IFC_ExportOptions(Document document, IFC_ViewModel ifc_ViewModel)
+        private static IFCExportOptions IFC_ExportOptions(this IFC_ViewModel ifc_ViewModel, Document document)
         {
             IFCExportOptions options = new()
             {

@@ -39,7 +39,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
                 string folder = nwc_ViewModel.FolderPath;
                 Logger logger = new(folder);
 
-                NWCHelper.BatchExportModels(uiApp, nwc_ViewModel, ref logger);
+                nwc_ViewModel.BatchExportModels(uiApp, ref logger);
                 logger.Dispose();
                 Thread.Sleep(1000);
             }

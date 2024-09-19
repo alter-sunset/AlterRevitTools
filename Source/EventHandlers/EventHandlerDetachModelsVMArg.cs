@@ -19,7 +19,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
         public override void Execute(UIApplication uiApp, ViewModelBase viewModelBase)
         {
             DetachViewModel detachViewModel = viewModelBase as DetachViewModel;
-            if (!ViewModelHelper.IsEverythingFilled(detachViewModel))
+            if (!detachViewModel.IsEverythingFilled())
             {
                 return;
             }
@@ -45,7 +45,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
             uiApp.DialogBoxShowing -= new EventHandler<DialogBoxShowingEventArgs>(ErrorSwallowersHelper.TaskDialogBoxShowingEvent);
             application.FailuresProcessing -= new EventHandler<FailuresProcessingEventArgs>(ErrorSwallowersHelper.Application_FailuresProcessing);
 
-            ModelHelper.Finisher(detachViewModel, "DetachModelsFinished");
+            detachViewModel.Finisher("DetachModelsFinished");
         }
         private static void DetachModel(Application application, string filePath, DetachViewModel detachViewModel)
         {
@@ -64,7 +64,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
                 {
                     ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
                     WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.CloseAllWorksets);
-                    document = OpenDocumentHelper.OpenDetached(application, modelPath, worksetConfiguration);
+                    document = modelPath.OpenDetached(application, worksetConfiguration);
                     isWorkshared = true;
                 }
             }
@@ -72,7 +72,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
             {
                 return;
             }
-            ModelHelper.DeleteAllLinks(document);
+            document.DeleteAllLinks();
             string fileDetachedPath = "";
             switch (detachViewModel.RadionButtonMode)
             {
@@ -105,7 +105,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
             try
             {
                 if (isWorkshared)
-                    ModelHelper.FreeTheModel(document);
+                    document.FreeTheModel();
             }
             catch
             {

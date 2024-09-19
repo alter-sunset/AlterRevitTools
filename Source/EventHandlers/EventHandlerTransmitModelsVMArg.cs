@@ -17,7 +17,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
         public override void Execute(UIApplication uiApp, ViewModelBase viewModelBase)
         {
             TransmitViewModel transmitViewModel = viewModelBase as TransmitViewModel;
-            if (!ViewModelHelper.IsEverythingFilled(transmitViewModel))
+            if (!transmitViewModel.IsEverythingFilled())
             {
                 return;
             }
@@ -42,9 +42,9 @@ namespace VLS.BatchExportNet.Source.EventHandlers
                 string transmittedFilePath = folder + "\\" + filePath.Split('\\').Last();
                 File.Copy(filePath, transmittedFilePath, true);
                 ModelPath transmittedModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(transmittedFilePath);
-                RevitLinksHelper.Unload(transmittedModelPath, isSameFolder, folder);
+                transmittedModelPath.UnloadRevitLinks(isSameFolder, folder);
             }
-            ModelHelper.Finisher(transmitViewModel, "TransmitModelsFinished");
+            transmitViewModel.Finisher("TransmitModelsFinished");
         }
     }
 }

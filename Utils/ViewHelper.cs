@@ -14,7 +14,7 @@ namespace VLS.BatchExportNet.Utils
     static class ViewHelper
     {
         private static Window _myForm;
-        internal static void ShowForm(Forms form)
+        internal static void ShowForm(this Forms form)
         {
             if (_myForm != null)
             {
