@@ -2,9 +2,7 @@
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Text.Encodings.Web;
 using System.Text.Json;
-using System.Text.Unicode;
 using VLS.BatchExportNet.Utils;
 
 namespace VLS.BatchExportNet.Views

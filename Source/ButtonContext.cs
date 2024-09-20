@@ -40,11 +40,11 @@ namespace VLS.BatchExportNet.Source
         }
         public PushButtonData GetPushButtonData(string BASE)
         {
+            string location = Assembly.GetExecutingAssembly().Location;
+            string className = BASE + "Source." + ClassName;
             try
             {
-                return new(Name, Text,
-                    Assembly.GetExecutingAssembly().Location,
-                    BASE + "Source." + ClassName)
+                return new(Name, Text, location, className)
                 {
                     ToolTip = ToolTip,
                     Image = GetImage(BASE, true),

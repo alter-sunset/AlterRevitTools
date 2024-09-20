@@ -1,5 +1,4 @@
-﻿using Autodesk.Revit.DB;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
 using VLS.BatchExportNet.Source.EventHandlers;
 

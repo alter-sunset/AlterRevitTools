@@ -50,14 +50,14 @@ namespace VLS.BatchExportNet.Source
             catch { }
             return a.GetRibbonPanels(tabName).FirstOrDefault(p => p.Name == panelName);
         }
-        private ButtonContext[] GetButtonContext()
+        private static ButtonContext[] GetButtonContext()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             Stream stream = assembly.GetManifestResourceStream("VLS.BatchExportNet.Resources.Buttons.json");
             JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
             return JsonSerializer.Deserialize<ButtonContext[]>(stream, options);
         }
-        private void CreateButton(ButtonContext button, IEnumerable<Tuple<RibbonPanel, string>> panels)
+        private static void CreateButton(ButtonContext button, IEnumerable<Tuple<RibbonPanel, string>> panels)
         {
             RibbonPanel ribbonPanel = panels.First(e => e.Item2 == button.Panel).Item1;
             try
