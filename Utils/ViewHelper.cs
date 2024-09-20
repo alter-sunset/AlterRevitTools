@@ -28,28 +28,28 @@ namespace VLS.BatchExportNet.Utils
                 {
                     case Forms.Detach:
                         EventHandlerDetachModelsVMArg evDetachVM = new();
-                        _myForm = new DetachModelsView(evDetachVM) { Height = 550, Width = 800 };
+                        _myForm = new DetachModelsView(evDetachVM);
                         break;
                     case Forms.IFC:
                         EventHandlerIFCExportVMArg evIFCE_VM = new();
-                        _myForm = new IFCExportView(evIFCE_VM) { Height = 700, Width = 800 };
+                        _myForm = new IFCExportView(evIFCE_VM);
                         break;
                     case Forms.NWC:
                         EventHandlerNWCExportVMArg evNWC_VM = new();
                         EventHandlerNWCExportBatchVMArg evBatchNWC_VM = new();
-                        _myForm = new NWCExportView(evNWC_VM, evBatchNWC_VM) { Height = 900, Width = 800 };
+                        _myForm = new NWCExportView(evNWC_VM, evBatchNWC_VM);
                         break;
                     case Forms.Migrate:
                         EventHandlerMigrateModelsVMArg evMigrateVM = new();
-                        _myForm = new MigrateModelsView(evMigrateVM) { Height = 200, Width = 600 };
+                        _myForm = new MigrateModelsView(evMigrateVM);
                         break;
                     case Forms.Transmit:
                         EventHandlerTransmitModelsVMArg evTransmitVM = new();
-                        _myForm = new TransmitModelsView(evTransmitVM) { Height = 500, Width = 800 };
+                        _myForm = new TransmitModelsView(evTransmitVM);
                         break;
                     case Forms.Link:
                         EventHandlerLinkModelsVMArg evLinkVM = new();
-                        _myForm = new LinkModelsView(evLinkVM) { Height = 450, Width = 800 };
+                        _myForm = new LinkModelsView(evLinkVM);
                         break;
                     default:
                         _myForm = null;

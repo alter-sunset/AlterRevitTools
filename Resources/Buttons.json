@@ -1,9 +1,9 @@
 [
   {
-    "Name": "Detach",
-    "Text": "Экспорт\nотсоединённых\nмоделей",
-    "ClassName": "ExportModelsDetached",
-    "ToolTip": "Пакетный экспорт отсоединённых моделей",
+    "Name": "NWC",
+    "Text": "Экспорт\nNWC",
+    "ClassName": "ExportModelsToNWC",
+    "ToolTip": "Пакетный экспорт в NWC",
     "Panel": "Пакетный экспорт",
     "Availability": true
   },
@@ -16,18 +16,10 @@
     "Availability": true
   },
   {
-    "Name": "NWC",
-    "Text": "Экспорт\nNWC",
-    "ClassName": "ExportModelsToNWC",
-    "ToolTip": "Пакетный экспорт в NWC",
-    "Panel": "Пакетный экспорт",
-    "Availability": true
-  },
-  {
-    "Name": "Migrate",
-    "Text": "Миграция\nмоделей",
-    "ClassName": "MigrateModels",
-    "ToolTip": "Пакетная миграция моделей с обновлением связей",
+    "Name": "Detach",
+    "Text": "Экспорт\nотсоединённых\nмоделей",
+    "ClassName": "ExportModelsDetached",
+    "ToolTip": "Пакетный экспорт отсоединённых моделей",
     "Panel": "Пакетный экспорт",
     "Availability": true
   },
@@ -36,6 +28,14 @@
     "Text": "Передача\nмоделей",
     "ClassName": "ExportModelsTransmitted",
     "ToolTip": "Пакетная передача моделей",
+    "Panel": "Пакетный экспорт",
+    "Availability": true
+  },
+  {
+    "Name": "Migrate",
+    "Text": "Миграция\nмоделей",
+    "ClassName": "MigrateModels",
+    "ToolTip": "Пакетная миграция моделей с обновлением связей",
     "Panel": "Пакетный экспорт",
     "Availability": true
   },

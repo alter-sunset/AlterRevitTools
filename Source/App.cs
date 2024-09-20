@@ -5,7 +5,7 @@ using System.Reflection;
 using Autodesk.Revit.UI;
 using System.Text.Json;
 using VLS.BatchExportNet.Utils;
-using System;
+using Panel = System.Tuple<Autodesk.Revit.UI.RibbonPanel, string>;
 
 namespace VLS.BatchExportNet.Source
 {
@@ -27,10 +27,10 @@ namespace VLS.BatchExportNet.Source
             ButtonContext[] buttons = GetButtonContext();
 
             //Create panels from config
-            IEnumerable<Tuple<RibbonPanel, string>> panels = buttons
+            IEnumerable<Panel> panels = buttons
                 .Select(e => e.Panel)
                 .Distinct()
-                .Select(e => new Tuple<RibbonPanel, string>(RibbonPanel(a, TAB_NAME, e), e));
+                .Select(e => new Panel(RibbonPanel(a, TAB_NAME, e), e));
 
             //Create buttons from config
             foreach (ButtonContext button in buttons)
@@ -57,7 +57,7 @@ namespace VLS.BatchExportNet.Source
             JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
             return JsonSerializer.Deserialize<ButtonContext[]>(stream, options);
         }
-        private static void CreateButton(ButtonContext button, IEnumerable<Tuple<RibbonPanel, string>> panels)
+        private static void CreateButton(ButtonContext button, IEnumerable<Panel> panels)
         {
             RibbonPanel ribbonPanel = panels.First(e => e.Item2 == button.Panel).Item1;
             try

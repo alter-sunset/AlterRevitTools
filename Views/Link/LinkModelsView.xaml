@@ -7,7 +7,9 @@
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:VLS.BatchExportNet.Views.Link"
              mc:Ignorable="d" 
-             d:Height="450" d:Width="800"
+             Height="500"
+             Width="800"
+             WindowStartupLocation="CenterScreen"
              ResizeMode="NoResize"
              Title="Пакетное добавление связей"
              IsEnabled="{Binding IsViewEnabled}">
@@ -19,11 +21,11 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="200"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <TextBlock Margin="10,0,10,0"
                    FontSize="14"

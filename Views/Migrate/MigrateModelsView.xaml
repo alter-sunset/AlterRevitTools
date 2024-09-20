@@ -6,7 +6,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:VLS.BatchExportNet.Views.Migrate"
              mc:Ignorable="d" 
-             d:Height="180" d:Width="600"
+             Height="200"
+             Width="600"
+             WindowStartupLocation="CenterScreen"
              ResizeMode="NoResize"
              Title="Пакетная миграция моделей"
              IsEnabled="{Binding IsViewEnabled}">
@@ -18,9 +20,9 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
         <Button Margin="10"
