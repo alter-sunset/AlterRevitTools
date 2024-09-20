@@ -8,7 +8,6 @@
         Detach = 3,
         Transmit = 4,
         Migrate = 5,
-        Link = 10,
-        VLS = 20
+        Link = 10
     }
 }

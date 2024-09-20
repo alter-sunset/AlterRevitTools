@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
+using VLS.BatchExportNet.Utils;
 
 namespace VLS.BatchExportNet.Views
 {
@@ -31,11 +32,7 @@ namespace VLS.BatchExportNet.Views
         {
             Assembly a = Assembly.GetExecutingAssembly();
             Stream s = a.GetManifestResourceStream("VLS.BatchExportNet.Resources.HelpMessages.json");
-            JsonSerializerOptions options = new()
-            {
-                WriteIndented = true,
-                Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic)
-            };
+            JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
             return JsonSerializer.Deserialize<Dictionary<HelpMessages, string>>(s, options);
         }
 

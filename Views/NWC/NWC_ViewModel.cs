@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using VLS.BatchExportNet.Source.EventHandlers;
+using VLS.BatchExportNet.Utils;
 
 namespace VLS.BatchExportNet.Views.NWC
 {
@@ -221,10 +222,7 @@ namespace VLS.BatchExportNet.Views.NWC
                         using FileStream file = File.OpenRead(openFileDialog.FileName);
                         try
                         {
-                            JsonSerializerOptions options = new()
-                            {
-                                WriteIndented = true
-                            };
+                            JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
                             NWCForm form = JsonSerializer.Deserialize<NWCForm>(file, options);
                             NWCFormDeserilaizer(form);
                         }
@@ -296,10 +294,7 @@ namespace VLS.BatchExportNet.Views.NWC
                         File.Delete(fileName);
                         try
                         {
-                            JsonSerializerOptions options = new()
-                            {
-                                WriteIndented = true
-                            };
+                            JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
                             File.WriteAllText(fileName, JsonSerializer.Serialize(form, options));
                         }
                         catch (Exception ex)

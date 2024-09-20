@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
 using VLS.BatchExportNet.Source.EventHandlers;
+using VLS.BatchExportNet.Utils;
 
 namespace VLS.BatchExportNet.Views.IFC
 {
@@ -112,10 +113,7 @@ namespace VLS.BatchExportNet.Views.IFC
                         using FileStream file = File.OpenRead(openFileDialog.FileName);
                         try
                         {
-                            JsonSerializerOptions options = new()
-                            {
-                                WriteIndented = true
-                            };
+                            JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
                             IFCForm form = JsonSerializer.Deserialize<IFCForm>(file, options);
                             IFCFormDeserilaizer(form);
                             form.Dispose();
@@ -182,10 +180,7 @@ namespace VLS.BatchExportNet.Views.IFC
                         File.Delete(fileName);
                         try
                         {
-                            JsonSerializerOptions options = new()
-                            {
-                                WriteIndented = true
-                            };
+                            JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
                             File.WriteAllText(fileName, JsonSerializer.Serialize(form, options));
                         }
                         catch (Exception ex)

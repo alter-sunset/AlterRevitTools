@@ -17,23 +17,23 @@
 		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Remove="Resources\Buttons.json" />
 	  <None Remove="Resources\HelpMessages.json" />
 	</ItemGroup>
 	<ItemGroup>
+		<EmbeddedResource Include="Resources\Buttons.json" />
 		<EmbeddedResource Include="Resources\detach.png" />
 		<EmbeddedResource Include="Resources\detach_16.png" />
 		<EmbeddedResource Include="Resources\migrate.png" />
 		<EmbeddedResource Include="Resources\migrate_16.png" />
-		<EmbeddedResource Include="Resources\navisworks_16.png" />
-		<EmbeddedResource Include="Resources\navisworks.png" />
+		<EmbeddedResource Include="Resources\nwc_16.png" />
+		<EmbeddedResource Include="Resources\nwc.png" />
 		<EmbeddedResource Include="Resources\ifc.png" />
 		<EmbeddedResource Include="Resources\ifc_16.png" />
-		<EmbeddedResource Include="Resources\rvt.png" />
-		<EmbeddedResource Include="Resources\rvt_16.png" />
+		<EmbeddedResource Include="Resources\link.png" />
+		<EmbeddedResource Include="Resources\link_16.png" />
 		<EmbeddedResource Include="Resources\transmit.png" />
 		<EmbeddedResource Include="Resources\transmit_16.png" />
-		<EmbeddedResource Include="Resources\VLS.png" />
-		<EmbeddedResource Include="Resources\VLS_16.png" />
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="System.Text.Json" Version="8.0.4" />

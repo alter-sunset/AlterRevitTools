@@ -1,0 +1,50 @@
+[
+  {
+    "Name": "Detach",
+    "Text": "Экспорт\nотсоединённых\nмоделей",
+    "ClassName": "ExportModelsDetached",
+    "ToolTip": "Пакетный экспорт отсоединённых моделей",
+    "Panel": "Пакетный экспорт",
+    "Availability": true
+  },
+  {
+    "Name": "IFC",
+    "Text": "Экспорт\nIFC",
+    "ClassName": "ExportModelsToIFC",
+    "ToolTip": "Пакетный экспорт в IFC",
+    "Panel": "Пакетный экспорт",
+    "Availability": true
+  },
+  {
+    "Name": "NWC",
+    "Text": "Экспорт\nNWC",
+    "ClassName": "ExportModelsToNWC",
+    "ToolTip": "Пакетный экспорт в NWC",
+    "Panel": "Пакетный экспорт",
+    "Availability": true
+  },
+  {
+    "Name": "Migrate",
+    "Text": "Миграция\nмоделей",
+    "ClassName": "MigrateModels",
+    "ToolTip": "Пакетная миграция моделей с обновлением связей",
+    "Panel": "Пакетный экспорт",
+    "Availability": true
+  },
+  {
+    "Name": "Transmit",
+    "Text": "Передача\nмоделей",
+    "ClassName": "ExportModelsTransmitted",
+    "ToolTip": "Пакетная передача моделей",
+    "Panel": "Пакетный экспорт",
+    "Availability": true
+  },
+  {
+    "Name": "Link",
+    "Text": "Пакетное добавление\nRevit ссылок",
+    "ClassName": "LinkModels",
+    "ToolTip": "Пакетное добавление Revit ссылок в текущую модель",
+    "Panel": "Пакетный импорт",
+    "Availability": false
+  }
+]

@@ -5,8 +5,6 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using Autodesk.Revit.DB;
 using Transaction = Autodesk.Revit.DB.Transaction;
-using VLS.BatchExportNet.Views;
-using Autodesk.Revit.UI;
 
 namespace VLS.BatchExportNet.Utils
 {

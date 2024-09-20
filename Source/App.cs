@@ -4,170 +4,84 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Media.Imaging;
 using Autodesk.Revit.UI;
+using System.Text.Json;
+using VLS.BatchExportNet.Utils;
+using System;
 
 namespace VLS.BatchExportNet.Source
 {
     public class App : IExternalApplication
     {
+        const string BASE = "VLS.BatchExportNet.";
         public Result OnStartup(UIControlledApplication a)
         {
-            RibbonPanel panelExtern = RibbonPanel(a, "Пакетный экспорт");
-            RibbonPanel panelIntern = RibbonPanel(a, "Внутренние штуки");
-
-            //certainly not the best way to add multiple buttons, still looking for smthng better
-            CreateNewPushButton(panelExtern, Forms.NWC);
-            CreateNewPushButton(panelExtern, Forms.IFC);
-            CreateNewPushButton(panelExtern, Forms.Detach);
-            CreateNewPushButton(panelExtern, Forms.Transmit);
-            CreateNewPushButton(panelExtern, Forms.Migrate);
-
-            CreateNewPushButton(panelIntern, Forms.Link);
-
-            return Result.Succeeded;
-        }
-        public Result OnShutdown(UIControlledApplication a) => Result.Succeeded;
-        private static RibbonPanel RibbonPanel(UIControlledApplication a, string panelName)
-        {
             const string TAB_NAME = "VLS";
-            RibbonPanel ribbonPanel = null;
+
+            //Create default tab 
             try
             {
                 a.CreateRibbonTab(TAB_NAME);
             }
             catch { }
+
+            //Get buttons to create from json config
+            ButtonContext[] buttons = GetButtonContext();
+
+            //Create panels from config
+            IEnumerable<Tuple<RibbonPanel, string>> panels = buttons
+                .Select(e => e.Panel)
+                .Distinct()
+                .Select(e => new Tuple<RibbonPanel, string>(RibbonPanel(a, TAB_NAME, e), e));
+
+            //Create buttons from config
+            foreach (ButtonContext button in buttons)
+            {
+                CreateButton(button, panels);
+            }
+
+            return Result.Succeeded;
+        }
+        public Result OnShutdown(UIControlledApplication a) => Result.Succeeded;
+        private static RibbonPanel RibbonPanel(UIControlledApplication a, string tabName, string panelName)
+        {
             try
             {
-                RibbonPanel panel = a.CreateRibbonPanel(TAB_NAME, panelName);
+                RibbonPanel panel = a.CreateRibbonPanel(tabName, panelName);
             }
             catch { }
-            List<RibbonPanel> panels = a.GetRibbonPanels(TAB_NAME);
-            foreach (RibbonPanel p in panels.Where(p => p.Name == panelName))
-            {
-                ribbonPanel = p;
-            }
-            return ribbonPanel;
+            return a.GetRibbonPanels(tabName).FirstOrDefault(p => p.Name == panelName);
         }
-        private void CreateNewPushButton(RibbonPanel ribbonPanel, Forms form)
+        private ButtonContext[] GetButtonContext()
         {
-            const string BASEPATH = "VLS.BatchExportNet.Resources.";
-            ButtonContext buttonContext = GetButtonContext(form);
-            BitmapSource bitmap_32 = GetEmbeddedImage(BASEPATH + buttonContext?.LargeImage);
-            BitmapSource bitmap_16 = GetEmbeddedImage(BASEPATH + buttonContext?.SmallImage);
-
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            Stream stream = assembly.GetManifestResourceStream("VLS.BatchExportNet.Resources.Buttons.json");
+            JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
+            return JsonSerializer.Deserialize<ButtonContext[]>(stream, options);
+        }
+        private void CreateButton(ButtonContext button, IEnumerable<Tuple<RibbonPanel, string>> panels)
+        {
+            BitmapSource bitmap_32 = GetEmbeddedImage(BASE + "Resources." + button.Name.ToLower() + ".png");
+            BitmapSource bitmap_16 = GetEmbeddedImage(BASE + "Resources." + button.Name.ToLower() + "_16.png");
+            RibbonPanel ribbonPanel = panels.First(e => e.Item2 == button.Panel).Item1;
             try
             {
-                PushButton pushButton = ribbonPanel.AddItem(PushButtonDataWrapper(form)) as PushButton;
-                pushButton.ToolTip = buttonContext?.ToolTip;
-                pushButton.Image = bitmap_16;
-                pushButton.LargeImage = bitmap_32;
+                PushButtonData pushButtonData =
+                    new(button.Name,
+                        button.Text,
+                        Assembly.GetExecutingAssembly().Location,
+                        BASE + "Source." + button.ClassName)
+                    {
+                        ToolTip = button.ToolTip,
+                        Image = bitmap_16,
+                        LargeImage = bitmap_32
+                    };
+                if (button.Availability)
+                {
+                    pushButtonData.AvailabilityClassName = BASE + "Source.CommandAvailability";
+                }
+                _ = ribbonPanel.AddItem(pushButtonData) as PushButton;
             }
             catch { }
-        }
-        private static PushButtonData PushButtonDataWrapper(Forms form)
-        {
-            const string BASE = "VLS.BatchExportNet.Source.";
-            string assemblyPath = Assembly.GetExecutingAssembly().Location;
-            string name;
-            string text;
-            string className;
-            switch (form)
-            {
-                case Forms.Detach:
-                    name = "Экспорт отсоединённых моделей";
-                    text = "Экспорт\nотсоединённых\nмоделей";
-                    className = BASE + "ExportModelsDetached";
-                    break;
-
-                case Forms.IFC:
-                    name = "Экспорт IFC";
-                    text = "Экспорт\nIFC";
-                    className = BASE + "ExportModelsToIFC";
-                    break;
-
-                case Forms.NWC:
-                    name = "Экспорт NWC";
-                    text = "Экспорт\nNWC";
-                    className = BASE + "ExportModelsToNWC";
-                    break;
-
-                case Forms.Migrate:
-                    name = "Миграция моделей";
-                    text = "Миграция\nмоделей";
-                    className = BASE + "MigrateModels";
-                    break;
-
-                case Forms.Transmit:
-                    name = "Передача моделей";
-                    text = "Передача\nмоделей";
-                    className = BASE + "ExportModelsTransmitted";
-                    break;
-
-                case Forms.Link:
-                    return new PushButtonData(
-                            "Batch add Revit links",
-                            "Batch add\nRevit Links",
-                            assemblyPath,
-                            BASE + "LinkModels");
-
-                default:
-                    return null;
-            }
-            return new PushButtonData(name, text, assemblyPath, className)
-            {
-                AvailabilityClassName = BASE + "CommandAvailability"
-            };
-        }
-        private static ButtonContext GetButtonContext(Forms form)
-        {
-            ButtonContext buttonContext = new();
-            switch (form)
-            {
-                case Forms.Detach:
-                    buttonContext.ToolTip = "Пакетный экспорт отсоединённых моделей";
-                    buttonContext.SmallImage = "detach_16.png";
-                    buttonContext.LargeImage = "detach.png";
-                    break;
-
-                case Forms.IFC:
-                    buttonContext.ToolTip = "Пакетный экспорт в IFC";
-                    buttonContext.SmallImage = "ifc_16.png";
-                    buttonContext.LargeImage = "ifc.png";
-                    break;
-
-                case Forms.NWC:
-                    buttonContext.ToolTip = "Пакетный экспорт в NWC";
-                    buttonContext.SmallImage = "navisworks_16.png";
-                    buttonContext.LargeImage = "navisworks.png";
-                    break;
-
-                case Forms.Migrate:
-                    buttonContext.ToolTip = "Пакетная миграция моделей с обновлением связей";
-                    buttonContext.SmallImage = "migrate_16.png";
-                    buttonContext.LargeImage = "migrate.png";
-                    break;
-
-                case Forms.Transmit:
-                    buttonContext.ToolTip = "Пакетная передача моделей";
-                    buttonContext.SmallImage = "transmit_16.png";
-                    buttonContext.LargeImage = "transmit.png";
-                    break;
-
-                case Forms.Link:
-                    buttonContext.ToolTip = "Пакетное добавление Revit ссылок";
-                    buttonContext.SmallImage = "rvt_16.png";
-                    buttonContext.LargeImage = "rvt.png";
-                    break;
-
-                case Forms.VLS:
-                    buttonContext.ToolTip = "Велесстрой";
-                    buttonContext.SmallImage = "VLS_16.png";
-                    buttonContext.LargeImage = "VLS.png";
-                    break;
-
-                default:
-                    return null;
-            }
-            return buttonContext;
         }
         private static BitmapFrame GetEmbeddedImage(string name)
         {
