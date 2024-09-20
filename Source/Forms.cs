@@ -2,12 +2,13 @@
 {
     internal enum Forms
     {
-        Detach,
-        IFC,
-        NWC,
-        Migrate,
-        Transmit,
-        Link,
-        VLS
+        None = 0,
+        NWC = 1,
+        IFC = 2,
+        Detach = 3,
+        Transmit = 4,
+        Migrate = 5,
+        Link = 10,
+        VLS = 20
     }
 }

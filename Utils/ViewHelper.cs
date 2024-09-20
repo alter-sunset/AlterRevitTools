@@ -51,6 +51,9 @@ namespace VLS.BatchExportNet.Utils
                         EventHandlerLinkModelsVMArg evLinkVM = new();
                         _myForm = new LinkModelsView(evLinkVM) { Height = 450, Width = 800 };
                         break;
+                    default:
+                        _myForm = null;
+                        return;
                 }
                 _myForm.Show();
             }

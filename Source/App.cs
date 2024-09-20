@@ -55,19 +55,24 @@ namespace VLS.BatchExportNet.Source
         {
             const string BASEPATH = "VLS.BatchExportNet.Resources.";
             ButtonContext buttonContext = GetButtonContext(form);
-            BitmapSource bitmap_32 = GetEmbeddedImage(BASEPATH + buttonContext.LargeImage);
-            BitmapSource bitmap_16 = GetEmbeddedImage(BASEPATH + buttonContext.SmallImage);
-            PushButton pushButton = ribbonPanel.AddItem(PushButtonDataWrapper(form)) as PushButton;
-            pushButton.ToolTip = buttonContext.ToolTip;
-            pushButton.Image = bitmap_16;
-            pushButton.LargeImage = bitmap_32;
+            BitmapSource bitmap_32 = GetEmbeddedImage(BASEPATH + buttonContext?.LargeImage);
+            BitmapSource bitmap_16 = GetEmbeddedImage(BASEPATH + buttonContext?.SmallImage);
+
+            try
+            {
+                PushButton pushButton = ribbonPanel.AddItem(PushButtonDataWrapper(form)) as PushButton;
+                pushButton.ToolTip = buttonContext?.ToolTip;
+                pushButton.Image = bitmap_16;
+                pushButton.LargeImage = bitmap_32;
+            }
+            catch { }
         }
         private PushButtonData PushButtonDataWrapper(Forms form)
         {
             const string BASE = "VLS.BatchExportNet.Source.";
-            string name = "";
-            string text = "";
-            string className = "";
+            string name;
+            string text;
+            string className;
             switch (form)
             {
                 case Forms.Detach:
@@ -106,6 +111,9 @@ namespace VLS.BatchExportNet.Source
                             "Batch add\nRevit Links",
                             _thisAssemblyPath,
                             BASE + "LinkModels");
+
+                default:
+                    return null;
             }
             return new PushButtonData(name, text, _thisAssemblyPath, className)
             {
@@ -121,43 +129,46 @@ namespace VLS.BatchExportNet.Source
                     buttonContext.ToolTip = "Пакетный экспорт отсоединённых моделей";
                     buttonContext.SmallImage = "detach_16.png";
                     buttonContext.LargeImage = "detach.png";
-                    return buttonContext;
+                    break;
 
                 case Forms.IFC:
                     buttonContext.ToolTip = "Пакетный экспорт в IFC";
                     buttonContext.SmallImage = "ifc_16.png";
                     buttonContext.LargeImage = "ifc.png";
-                    return buttonContext;
+                    break;
 
                 case Forms.NWC:
                     buttonContext.ToolTip = "Пакетный экспорт в NWC";
                     buttonContext.SmallImage = "navisworks_16.png";
                     buttonContext.LargeImage = "navisworks.png";
-                    return buttonContext;
+                    break;
 
                 case Forms.Migrate:
                     buttonContext.ToolTip = "Пакетная миграция моделей с обновлением связей";
                     buttonContext.SmallImage = "migrate_16.png";
                     buttonContext.LargeImage = "migrate.png";
-                    return buttonContext;
+                    break;
 
                 case Forms.Transmit:
                     buttonContext.ToolTip = "Пакетная передача моделей";
                     buttonContext.SmallImage = "transmit_16.png";
                     buttonContext.LargeImage = "transmit.png";
-                    return buttonContext;
+                    break;
 
                 case Forms.Link:
                     buttonContext.ToolTip = "Пакетное добавление Revit ссылок";
                     buttonContext.SmallImage = "rvt_16.png";
                     buttonContext.LargeImage = "rvt.png";
-                    return buttonContext;
+                    break;
 
                 case Forms.VLS:
                     buttonContext.ToolTip = "Велесстрой";
                     buttonContext.SmallImage = "VLS_16.png";
                     buttonContext.LargeImage = "VLS.png";
-                    return buttonContext;
+                    break;
+
+                default:
+                    return null;
             }
             return buttonContext;
         }
