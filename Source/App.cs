@@ -82,13 +82,13 @@ namespace VLS.BatchExportNet.Source
                     break;
 
                 case Forms.IFC:
-                    name = "Экспорт IFCHelper";
+                    name = "Экспорт IFC";
                     text = "Экспорт\nIFC";
                     className = BASE + "ExportModelsToIFC";
                     break;
 
                 case Forms.NWC:
-                    name = "Экспорт NWCHelper";
+                    name = "Экспорт NWC";
                     text = "Экспорт\nNWC";
                     className = BASE + "ExportModelsToNWC";
                     break;

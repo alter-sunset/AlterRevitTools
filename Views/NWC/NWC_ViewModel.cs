@@ -15,38 +15,20 @@ namespace VLS.BatchExportNet.Views.NWC
     public class NWC_ViewModel : ViewModelBase_Extended
     {
         private readonly EventHandlerNWCExportBatchVMArg _eventHandlerNWCExportBatchUiArg;
-        private const string HELP_MESSAGE = "\tПлагин предназначен для пакетного экспорта файлов в формат NWC." +
-                 "\n" +
-                 "\tЕсли вы впервые используете плагин, и у вас нет ранее сохранённых файлов конфигурации, то вам необходимо выполнить следующее: " +
-                 "используя кнопку \"Загрузить\" добавьте все модели объекта, которые необходимо экспортировать. " +
-                 "Если случайно были добавлены лишние файлы, выделите их и нажмите кнопку \"Удалить\"" +
-                 "\n" +
-                 "\tДалее укажите папку для сохранения. Прописать путь можно в ручную или же выбрать папку используя кнопку \"Обзор\"." +
-                 "\n" +
-                 "\tЗадайте префикс и постфикс, которые будет необходимо добавить в название файлов. Если такой необходимости нет, то оставьте поля пустыми." +
-                 "\n" +
-                 "\tВыберите необходимые свойства экспорта. По умолчанию стоят стандартные настройки, с которыми чаще всего работают." +
-                 "\n" +
-                 "\tСохраните конфигурацию кнопкой \"Сохранить список\" в формате (.JSON)." +
-                 "\n" +
-                 "\tДалее эту конфигурацию можно будет использовать для повторного экспорта, используя кнопку \"Загрузить список\"." +
-                 "\n\n" +
-                 "\tЗапустите экспорт кнопкой \"ОК\"." +
-                 "\n\n" +
-                 "**********************************************" +
-                 "\n\n" +
-                 "\tЕсли у вас есть несколько сохранённых конфигураций, то можно использовать пакетный экспорт второго уровня." +
-                 "\n" +
-                 "\tКнопкой \"Загрузить конфиги\" загрузите список (.txt) с путями к конфигурациям в формате (.JSON). " +
-                 "Структура списка выглядит следующим образом: \n\tpath\\\\config.json\n\tpath\\\\config2.json\n\tpath\\\\config3.json" +
-                 "\n" +
-                 "\tКнопкой \"Начать\" запустите пакетный экспорт второго уровня, который экспортирует несколько объектов с соответствующими им настройками.";
         public NWC_ViewModel(EventHandlerNWCExportBatchVMArg eventHandlerNWCExportBatchUiArg,
                 EventHandlerNWCExportVMArg eventHandlerNWCExportUiArg)
         {
             _eventHandlerNWCExportBatchUiArg = eventHandlerNWCExportBatchUiArg;
             EventHandlerBaseVMArgs = eventHandlerNWCExportUiArg;
-            HelpMessage = HELP_MESSAGE;
+            Dictionary<HelpMessages, string> help = Help.GetHelpMessages();
+            string _helpMessage = help.GetValueOrDefault(HelpMessages.NWCTitle) +
+                "\n" + help.GetValueOrDefault(HelpMessages.Load) +
+                "\n" + help.GetValueOrDefault(HelpMessages.Folder) +
+                "\n" + help.GetValueOrDefault(HelpMessages.Naming) +
+                "\n" + help.GetValueOrDefault(HelpMessages.Config) +
+                "\n" + help.GetValueOrDefault(HelpMessages.Start) +
+                "\n\n" + help.GetValueOrDefault(HelpMessages.NWCEnd);
+            HelpMessage = _helpMessage;
         }
 
         private bool _convertElementProperties = false;

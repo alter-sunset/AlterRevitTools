@@ -1,27 +1,19 @@
-﻿using System.Windows;
+﻿using System.Collections.Generic;
 using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.Link
 {
     public class LinkViewModel : ViewModelBase
     {
-        const string HELP_MESSAGE = "\tПлагин предназначен для пакетного добавления моделей в качестве Revit ссылок." +
-                  "\n" +
-                  "\tЕсли вы впервые используете плагин, и у вас нет ранее сохранённых списков, то вам необходимо выполнить следующее: " +
-                  "используя кнопку \"Загрузить\" добавьте все модели объекта, которые необходимо передать. " +
-                  "Если случайно были добавлены лишние файлы, выделите их и нажмите кнопку \"Удалить\"" +
-                  "\n" +
-                  "\tДалее укажите папку для сохранения. Прописать путь можно в ручную или же выбрать папку используя кнопку \"Обзор\"." +
-                  "\n" +
-                  "\tСохраните список кнопкой \"Сохранить список\" в формате (.txt)." +
-                  "\n" +
-                  "\tДалее этот список можно будет использовать для повторного добавления данного комплекта, используя кнопку \"Загрузить список\"." +
-                  "\n\n" +
-                  "\tЗапустите добавление кнопкой \"Запуск\".";
         public LinkViewModel(EventHandlerLinkModelsVMArg eventHandlerLinkModelsUiArg)
         {
             EventHandlerBaseVMArgs = eventHandlerLinkModelsUiArg;
-            HelpMessage = HELP_MESSAGE;
+            Dictionary<HelpMessages, string> help = Help.GetHelpMessages();
+            string _helpMessage = help.GetValueOrDefault(HelpMessages.LinkTitle) +
+                "\n" + help.GetValueOrDefault(HelpMessages.Load) +
+                "\n" + help.GetValueOrDefault(HelpMessages.List) +
+                "\n" + help.GetValueOrDefault(HelpMessages.Start);
+            HelpMessage = _helpMessage;
         }
 
         private bool _isCurrentWorkset = true;

@@ -1,23 +1,17 @@
-﻿using System.Windows.Forms;
+﻿using System.Collections.Generic;
+using System.Windows.Forms;
 using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.Migrate
 {
     public class MigrateViewModel : ViewModelBase
     {
-        private const string HELP_MESSAGE = "\tПлагин предназначен для миграции проекта в новое место с сохранением структуры связей, как внутри папок, так и внутри самих моделей." +
-                "\n" +
-                "\tОткройте или вставьте ссылку на Json конфиг, который хранит в себе структуру типа Dictionary<string, string>," +
-                "\n" +
-                "где первый string - текущий путь к файлу, второй - новый путь." +
-                "\n" +
-                "Пример:" +
-                "\n" +
-                "{ \"C:\\oldfile.rvt\": \"C:\\newfile.rvt\",}";
         public MigrateViewModel(EventHandlerMigrateModelsVMArg eventHandlerMigrateModelsUiArg)
         {
             EventHandlerBaseVMArgs = eventHandlerMigrateModelsUiArg;
-            HelpMessage = HELP_MESSAGE;
+            Dictionary<HelpMessages, string> help = Help.GetHelpMessages();
+            string _helpMessage = help.GetValueOrDefault(HelpMessages.Migrate);
+            HelpMessage = _helpMessage;
         }
 
         private string _configPath;

@@ -17,6 +17,9 @@
 		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Remove="Resources\HelpMessages.json" />
+	</ItemGroup>
+	<ItemGroup>
 		<EmbeddedResource Include="Resources\detach.png" />
 		<EmbeddedResource Include="Resources\detach_16.png" />
 		<EmbeddedResource Include="Resources\migrate.png" />
@@ -44,6 +47,9 @@
 			<HintPath>..\..\..\..\..\Program Files\Autodesk\Revit 2025\RevitAPIUI.dll</HintPath>
 			<Private>False</Private>
 		</Reference>
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Include="Resources\HelpMessages.json" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="VLS.BatchExport.addin">

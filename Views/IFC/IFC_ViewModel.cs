@@ -13,27 +13,17 @@ namespace VLS.BatchExportNet.Views.IFC
 {
     public class IFC_ViewModel : ViewModelBase_Extended
     {
-        private const string HELP_MESSAGE = "\tПлагин предназначен для пакетного экспорта файлов в формат IFC." +
-                 "\n" +
-                 "\tЕсли вы впервые используете плагин, и у вас нет ранее сохранённых файлов конфигурации, то вам необходимо выполнить следующее: " +
-                 "используя кнопку \"Загрузить\" добавьте все модели объекта, которые необходимо экспортировать. " +
-                 "Если случайно были добавлены лишние файлы, выделите их и нажмите кнопку \"Удалить\"" +
-                 "\n" +
-                 "\tДалее укажите папку для сохранения. Прописать путь можно в ручную или же выбрать папку используя кнопку \"Обзор\"." +
-                 "\n" +
-                 "\tЗадайте префикс и постфикс, которые будет необходимо добавить в название файлов. Если такой необходимости нет, то оставьте поля пустыми." +
-                 "\n" +
-                 "\tВыберите необходимые свойства экспорта." +
-                 "\n" +
-                 "\tСохраните конфигурацию кнопкой \"Сохранить список\" в формате (.JSON)." +
-                 "\n" +
-                 "\tДалее эту конфигурацию можно будет использовать для повторного экспорта, используя кнопку \"Загрузить список\"." +
-                 "\n\n" +
-                 "\tЗапустите экспорт кнопкой \"ОК\".";
         public IFC_ViewModel(EventHandlerIFCExportVMArg eventHandlerIFCExportUiArg)
         {
             EventHandlerBaseVMArgs = eventHandlerIFCExportUiArg;
-            HelpMessage = HELP_MESSAGE;
+            Dictionary<HelpMessages, string> help = Help.GetHelpMessages();
+            string _helpMessage = help.GetValueOrDefault(HelpMessages.IFCTitle) +
+                "\n" + help.GetValueOrDefault(HelpMessages.Load) +
+                "\n" + help.GetValueOrDefault(HelpMessages.Folder) +
+                "\n" + help.GetValueOrDefault(HelpMessages.Naming) +
+                "\n" + help.GetValueOrDefault(HelpMessages.Config) +
+                "\n" + help.GetValueOrDefault(HelpMessages.Start);
+            HelpMessage = _helpMessage;
         }
 
         private string _mapping = "";

@@ -1,32 +1,21 @@
-﻿using VLS.BatchExportNet.Source.EventHandlers;
+﻿using System.Collections.Generic;
+using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.Detach
 {
     public class DetachViewModel : ViewModelBase
     {
-        const string HELP_MESSAGE = "\tПлагин предназначен для экспорта отсоединённых моделей." +
-                "\n" +
-                "\tЕсли вы впервые используете плагин, и у вас нет ранее сохранённых списков, то вам необходимо выполнить следующее: " +
-                "используя кнопку \"Загрузить\" добавьте все модели объекта, которые необходимо передать. " +
-                "Если случайно были добавлены лишние файлы, выделите их и нажмите кнопку \"Удалить\"" +
-                "\n" +
-                "\tДалее укажите папку для сохранения. Прописать путь можно в ручную или же выбрать папку используя кнопку \"Обзор\"." +
-                "\n" +
-                "\tВыберите режим экспорта:" +
-                "\n" +
-                "1. Все файлы будут помещены в одну папку." +
-                "\n" +
-                "2. Файлы будут помещены в соответствующие папки, то есть будет произведено обновление пути по маске." +
-                "\n" +
-                "\tСохраните список кнопкой \"Сохранить список\" в формате (.txt)." +
-                "\n" +
-                "\tДалее этот список можно будет использовать для повторного экспорта, используя кнопку \"Загрузить список\"." +
-                "\n\n" +
-                "\tЗапустите экспорт кнопкой \"Запуск\".";
         public DetachViewModel(EventHandlerDetachModelsVMArg eventHandlerDetachModelsUiArg)
         {
             EventHandlerBaseVMArgs = eventHandlerDetachModelsUiArg;
-            HelpMessage = HELP_MESSAGE;
+            Dictionary<HelpMessages, string> help = Help.GetHelpMessages();
+            string _helpMessage = help.GetValueOrDefault(HelpMessages.DetachTitle) +
+                "\n" + help.GetValueOrDefault(HelpMessages.Load) +
+                "\n" + help.GetValueOrDefault(HelpMessages.Folder) +
+                "\n" + help.GetValueOrDefault(HelpMessages.DetachMid) +
+                "\n" + help.GetValueOrDefault(HelpMessages.List) +
+                "\n" + help.GetValueOrDefault(HelpMessages.Start);
+            HelpMessage = _helpMessage;
         }
 
         private int _radioButtonMode = 0;
