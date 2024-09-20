@@ -9,10 +9,11 @@ namespace VLS.BatchExportNet.Views.Link
         {
             EventHandlerBaseVMArgs = eventHandlerLinkModelsUiArg;
             Dictionary<HelpMessages, string> help = Help.GetHelpMessages();
-            string _helpMessage = help.GetValueOrDefault(HelpMessages.LinkTitle) +
-                "\n" + help.GetValueOrDefault(HelpMessages.Load) +
-                "\n" + help.GetValueOrDefault(HelpMessages.List) +
-                "\n" + help.GetValueOrDefault(HelpMessages.Start);
+            string _helpMessage =
+                help.GetResultMessage(HelpMessages.LinkTitle,
+                    HelpMessages.Load,
+                    HelpMessages.List,
+                    HelpMessages.Start);
             HelpMessage = _helpMessage;
         }
 

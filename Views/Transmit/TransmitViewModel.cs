@@ -9,11 +9,12 @@ namespace VLS.BatchExportNet.Views.Transmit
         {
             EventHandlerBaseVMArgs = eventHandlerTransmitModelsUiArg;
             Dictionary<HelpMessages, string> help = Help.GetHelpMessages();
-            string _helpMessage = help.GetValueOrDefault(HelpMessages.TransmitTitle) +
-                "\n" + help.GetValueOrDefault(HelpMessages.Load) +
-                "\n" + help.GetValueOrDefault(HelpMessages.Folder) +
-                "\n" + help.GetValueOrDefault(HelpMessages.List) +
-                "\n" + help.GetValueOrDefault(HelpMessages.Start);
+            string _helpMessage =
+                help.GetResultMessage(HelpMessages.TransmitTitle,
+                    HelpMessages.Load,
+                    HelpMessages.Folder,
+                    HelpMessages.List,
+                    HelpMessages.Start);
             HelpMessage = _helpMessage;
         }
 

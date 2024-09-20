@@ -9,12 +9,8 @@ namespace VLS.BatchExportNet.Source
 {
     public class App : IExternalApplication
     {
-        private string _thisAssemblyPath;
-
         public Result OnStartup(UIControlledApplication a)
         {
-            _thisAssemblyPath = Assembly.GetExecutingAssembly().Location;
-
             RibbonPanel panelExtern = RibbonPanel(a, "Пакетный экспорт");
             RibbonPanel panelIntern = RibbonPanel(a, "Внутренние штуки");
 
@@ -67,9 +63,10 @@ namespace VLS.BatchExportNet.Source
             }
             catch { }
         }
-        private PushButtonData PushButtonDataWrapper(Forms form)
+        private static PushButtonData PushButtonDataWrapper(Forms form)
         {
             const string BASE = "VLS.BatchExportNet.Source.";
+            string assemblyPath = Assembly.GetExecutingAssembly().Location;
             string name;
             string text;
             string className;
@@ -109,13 +106,13 @@ namespace VLS.BatchExportNet.Source
                     return new PushButtonData(
                             "Batch add Revit links",
                             "Batch add\nRevit Links",
-                            _thisAssemblyPath,
+                            assemblyPath,
                             BASE + "LinkModels");
 
                 default:
                     return null;
             }
-            return new PushButtonData(name, text, _thisAssemblyPath, className)
+            return new PushButtonData(name, text, assemblyPath, className)
             {
                 AvailabilityClassName = BASE + "CommandAvailability"
             };

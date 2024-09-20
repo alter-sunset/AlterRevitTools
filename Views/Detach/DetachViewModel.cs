@@ -9,12 +9,13 @@ namespace VLS.BatchExportNet.Views.Detach
         {
             EventHandlerBaseVMArgs = eventHandlerDetachModelsUiArg;
             Dictionary<HelpMessages, string> help = Help.GetHelpMessages();
-            string _helpMessage = help.GetValueOrDefault(HelpMessages.DetachTitle) +
-                "\n" + help.GetValueOrDefault(HelpMessages.Load) +
-                "\n" + help.GetValueOrDefault(HelpMessages.Folder) +
-                "\n" + help.GetValueOrDefault(HelpMessages.DetachMid) +
-                "\n" + help.GetValueOrDefault(HelpMessages.List) +
-                "\n" + help.GetValueOrDefault(HelpMessages.Start);
+            string _helpMessage =
+                help.GetResultMessage(HelpMessages.DetachTitle,
+                    HelpMessages.Load,
+                    HelpMessages.Folder,
+                    HelpMessages.DetachMid,
+                    HelpMessages.List,
+                    HelpMessages.Start);
             HelpMessage = _helpMessage;
         }
 

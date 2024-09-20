@@ -10,7 +10,7 @@ namespace VLS.BatchExportNet.Views.Migrate
         {
             EventHandlerBaseVMArgs = eventHandlerMigrateModelsUiArg;
             Dictionary<HelpMessages, string> help = Help.GetHelpMessages();
-            string _helpMessage = help.GetValueOrDefault(HelpMessages.Migrate);
+            string _helpMessage = help.GetResultMessage(HelpMessages.Migrate);
             HelpMessage = _helpMessage;
         }
 

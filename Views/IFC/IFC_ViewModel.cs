@@ -17,12 +17,13 @@ namespace VLS.BatchExportNet.Views.IFC
         {
             EventHandlerBaseVMArgs = eventHandlerIFCExportUiArg;
             Dictionary<HelpMessages, string> help = Help.GetHelpMessages();
-            string _helpMessage = help.GetValueOrDefault(HelpMessages.IFCTitle) +
-                "\n" + help.GetValueOrDefault(HelpMessages.Load) +
-                "\n" + help.GetValueOrDefault(HelpMessages.Folder) +
-                "\n" + help.GetValueOrDefault(HelpMessages.Naming) +
-                "\n" + help.GetValueOrDefault(HelpMessages.Config) +
-                "\n" + help.GetValueOrDefault(HelpMessages.Start);
+            string _helpMessage =
+                help.GetResultMessage(HelpMessages.IFCTitle,
+                    HelpMessages.Load,
+                    HelpMessages.Folder,
+                    HelpMessages.Naming,
+                    HelpMessages.Config,
+                    HelpMessages.Start);
             HelpMessage = _helpMessage;
         }
 

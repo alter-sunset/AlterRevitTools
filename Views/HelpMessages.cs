@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -36,6 +37,12 @@ namespace VLS.BatchExportNet.Views
                 Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic)
             };
             return JsonSerializer.Deserialize<Dictionary<HelpMessages, string>>(s, options);
+        }
+
+        public static string GetResultMessage(this Dictionary<HelpMessages, string> helpDictionary,
+            params HelpMessages[] helpCodes)
+        {
+            return string.Join('\n', helpCodes.Select(e => helpDictionary.GetValueOrDefault(e)));
         }
     }
 }

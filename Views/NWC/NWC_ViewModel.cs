@@ -21,13 +21,14 @@ namespace VLS.BatchExportNet.Views.NWC
             _eventHandlerNWCExportBatchUiArg = eventHandlerNWCExportBatchUiArg;
             EventHandlerBaseVMArgs = eventHandlerNWCExportUiArg;
             Dictionary<HelpMessages, string> help = Help.GetHelpMessages();
-            string _helpMessage = help.GetValueOrDefault(HelpMessages.NWCTitle) +
-                "\n" + help.GetValueOrDefault(HelpMessages.Load) +
-                "\n" + help.GetValueOrDefault(HelpMessages.Folder) +
-                "\n" + help.GetValueOrDefault(HelpMessages.Naming) +
-                "\n" + help.GetValueOrDefault(HelpMessages.Config) +
-                "\n" + help.GetValueOrDefault(HelpMessages.Start) +
-                "\n\n" + help.GetValueOrDefault(HelpMessages.NWCEnd);
+            string _helpMessage =
+                help.GetResultMessage(HelpMessages.NWCTitle,
+                    HelpMessages.Load,
+                    HelpMessages.Folder,
+                    HelpMessages.Naming,
+                    HelpMessages.Config,
+                    HelpMessages.Start,
+                    HelpMessages.NWCEnd);
             HelpMessage = _helpMessage;
         }
 
