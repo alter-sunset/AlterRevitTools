@@ -1,4 +1,4 @@
-﻿<Window x:Name="LinkModels"
+﻿<base:WindowBase x:Name="LinkModels"
              x:Class="VLS.BatchExportNet.Views.Link.LinkModelsView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -6,6 +6,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              xmlns:local="clr-namespace:VLS.BatchExportNet.Views.Link"
+             xmlns:base="clr-namespace:VLS.BatchExportNet.Views"
              mc:Ignorable="d" 
              Height="500"
              Width="800"
@@ -94,4 +95,4 @@
                 Content="Запуск"
                 ToolTip="Запуск пакетного экспорта текущей конфигурации"/>
     </Grid>
-</Window>
+</base:WindowBase>
