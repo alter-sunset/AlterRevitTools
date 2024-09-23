@@ -35,17 +35,6 @@
             }
         }
 
-        private string _viewName = "Navisworks";
-        public string ViewName
-        {
-            get => _viewName;
-            set
-            {
-                _viewName = value.Trim();
-                OnPropertyChanged(nameof(ViewName));
-            }
-        }
-
         private bool _exportScopeView = true;
         public bool ExportScopeView
         {

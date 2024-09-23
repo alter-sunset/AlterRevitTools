@@ -13,15 +13,21 @@ namespace VLS.BatchExportNet.Utils
     {
         internal static bool IsEverythingFilled(this DetachViewModel detachViewModel)
         {
-            return detachViewModel.IsListNotEmpty() && detachViewModel.IsRBModeOK();
+            return detachViewModel.IsListNotEmpty()
+                && detachViewModel.IsRBModeOK()
+                && detachViewModel.IsViewNameOK()
+                && detachViewModel.IsMaskNameOK();
         }
         internal static bool IsEverythingFilled(this TransmitViewModel viewModel)
         {
-            return viewModel.IsListNotEmpty() && viewModel.IsFolderPathOK();
+            return viewModel.IsListNotEmpty()
+                && viewModel.IsFolderPathOK();
         }
         internal static bool IsEverythingFilled(this ViewModelBase_Extended viewModel)
         {
-            return viewModel.IsListNotEmpty() && viewModel.IsFolderPathOK() && viewModel.IsViewNameOK();
+            return viewModel.IsListNotEmpty()
+                && viewModel.IsFolderPathOK()
+                && viewModel.IsViewNameOK();
         }
         internal static bool IsEverythingFilled(this ViewModelBase viewModel)
         {
@@ -76,6 +82,15 @@ namespace VLS.BatchExportNet.Utils
             }
             return true;
         }
+        private static bool IsViewNameOK(this DetachViewModel viewModel)
+        {
+            if (viewModel.CheckForEmpty && string.IsNullOrEmpty(viewModel.ViewName))
+            {
+                MessageBox.Show("Введите имя вида для проверки!");
+                return false;
+            }
+            return true;
+        }
         private static bool IsRBModeOK(this DetachViewModel detachViewModel)
         {
             switch (detachViewModel.RadioButtonMode)
@@ -98,6 +113,15 @@ namespace VLS.BatchExportNet.Utils
                         return false;
                     }
                     break;
+            }
+            return true;
+        }
+        private static bool IsMaskNameOK(this DetachViewModel detachViewModel)
+        {
+            if (detachViewModel.IsToRename && string.IsNullOrEmpty(detachViewModel.MaskInName))
+            {
+                MessageBox.Show("Ведите маски для переименования");
+                return false;
             }
             return true;
         }

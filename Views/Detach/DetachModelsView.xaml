@@ -7,7 +7,7 @@
              xmlns:local="clr-namespace:VLS.BatchExportNet.Views.Detach"
              xmlns:base="clr-namespace:VLS.BatchExportNet.Views"
              mc:Ignorable="d" 
-             Height="550"
+             Height="600"
              Width="800"
              WindowStartupLocation="CenterScreen"
              ResizeMode="NoResize"
@@ -23,6 +23,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
@@ -127,6 +128,7 @@
                  Grid.Row="5"
                  Grid.Column="1"
                  Grid.ColumnSpan="2"
+                 VerticalContentAlignment="Center"
                  Text="{Binding MaskIn}"/>
         <TextBlock Margin="140,0,30,0"
                    FontSize="14"
@@ -138,18 +140,62 @@
                  Grid.Row="5"
                  Grid.Column="2"
                  Grid.ColumnSpan="2"
+                 VerticalContentAlignment="Center"
                  Text="{Binding MaskOut}"/>
 
+        <CheckBox Margin="10,0,0,0"
+                  Grid.Row="6"
+                  Grid.Column="0"
+                  VerticalAlignment="Center"
+                  FontSize="14"
+                  Content="Переименовать файлы"
+                  IsChecked="{Binding IsToRename}"/>
+        <TextBox Margin="10"
+                 Grid.Row="6"
+                 Grid.Column="1"
+                 VerticalContentAlignment="Center"
+                 Text="{Binding MaskInName}"/>
+        <TextBlock Grid.Row="6"
+                   Grid.Column="1"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center"
+                   Text="=>" Grid.ColumnSpan="2" Width="20"/>
+        <TextBox Margin="10"
+                 Grid.Row="6"
+                 Grid.Column="2"
+                 VerticalContentAlignment="Center"
+                 Text="{Binding MaskOutName}"/>
+
+        <CheckBox Margin="10,0,95,0"
+                  Grid.Row="7"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  FontSize="14"
+                  VerticalAlignment="Center"
+                  Content="Проверить модели на ''пустой'' вид"                  
+                  ToolTip="Следует ли проверить вид ''Имя_вида'' на наличие объектов, и если вид пустой - то сохранить файл с префиксом ''EMPTY_''"
+                  IsChecked="{Binding CheckForEmpty}"/>
+        <TextBox Margin="110,10,80,10"
+                 Grid.Row="7"
+                 Grid.Column="1"
+                 Grid.ColumnSpan="2"
+                 VerticalContentAlignment="Center"
+                 Text="{Binding ViewName}"
+                 ToolTip="Имя вида для проверки"/>
+
+
         <Button Margin="10"
-                Grid.Row="7"
+                Grid.Row="8"
                 Grid.Column="2"
                 Command="{Binding EraseCommand}"
                 Content="Очистить список"/>
         <Button Margin="10"
-                Grid.Row="7"
+                Grid.Row="8"
                 Grid.Column="3"
                 Command="{Binding RaiseEventCommand}"
                 Content="Запуск"
                 ToolTip="Запуск пакетного экспорта текущей конфигурации"/>
+
     </Grid>
 </base:WindowBase>

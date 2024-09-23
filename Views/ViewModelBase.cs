@@ -46,6 +46,17 @@ namespace VLS.BatchExportNet.Views
             }
         }
 
+        private string _viewName = "Navisworks";
+        public string ViewName
+        {
+            get => _viewName;
+            set
+            {
+                _viewName = value.Trim();
+                OnPropertyChanged(nameof(ViewName));
+            }
+        }
+
         private RelayCommand _loadListCommand;
         public virtual RelayCommand LoadListCommand
         {
@@ -82,8 +93,8 @@ namespace VLS.BatchExportNet.Views
                         {
                             MessageBox.Show("В текстовом файле не было найдено подходящей информации");
                         }
+                        FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
                     }
-                    FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
                 });
             }
         }

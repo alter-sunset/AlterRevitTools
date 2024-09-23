@@ -70,5 +70,49 @@ namespace VLS.BatchExportNet.Views.Detach
                 OnPropertyChanged(nameof(MaskOut));
             }
         }
+
+        private bool _checkForEmpty = true;
+        public bool CheckForEmpty
+        {
+            get => _checkForEmpty;
+            set
+            {
+                _checkForEmpty = value;
+                OnPropertyChanged(nameof(CheckForEmpty));
+            }
+        }
+
+        private bool _isToRename = false;
+        public bool IsToRename
+        {
+            get => _isToRename;
+            set
+            {
+                _isToRename = value;
+                OnPropertyChanged(nameof(IsToRename));
+            }
+        }
+
+        private string _maskInName = "R21";
+        public string MaskInName
+        {
+            get => _maskInName;
+            set
+            {
+                _maskInName = value;
+                OnPropertyChanged(nameof(MaskInName));
+            }
+        }
+
+        private string _maskOutName = "R25";
+        public string MaskOutName
+        {
+            get => _maskOutName;
+            set
+            {
+                _maskOutName = value;
+                OnPropertyChanged(nameof(MaskOutName));
+            }
+        }
     }
 }

@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using Autodesk.Revit.DB;
 using Transaction = Autodesk.Revit.DB.Transaction;
+using Autodesk.Revit.DB.Electrical;
+using System.Windows.Controls;
+using Autodesk.Revit.UI;
 
 namespace VLS.BatchExportNet.Utils
 {
@@ -104,6 +107,55 @@ namespace VLS.BatchExportNet.Utils
             {
                 return null;
             }
+        }
+        /// <summary>
+        /// Open all worksets in a document in a very crippled way
+        /// </summary>
+        /// <param name="doc"></param>
+        internal static void OpenAllWorksets(this Document doc)
+        {
+            using TransactionGroup tGroup = new(doc);
+            using Transaction t = new(doc);
+            tGroup.Start("Open All Worksets");
+
+            //list of all worksets
+            FilteredWorksetCollector collectorWorksett =
+                new FilteredWorksetCollector(doc).OfKind(WorksetKind.UserWorkset);
+
+            foreach (Workset w in collectorWorksett.ToWorksets())
+            {
+                if (!w.IsOpen)
+                {
+                    t.Start("Open workset");//Creating temporary cable tray
+                    ElementId typeID = new FilteredElementCollector(doc)
+                        .WhereElementIsElementType()
+                        .OfClass(typeof(CableTrayType))
+                        .ToElementIds()
+                        .First();
+                    ElementId levelID = new FilteredElementCollector(doc)
+                        .OfClass(typeof(Level))
+                        .ToElementIds()
+                        .First();
+                    CableTray ct = CableTray.Create(doc, typeID, new XYZ(0, 0, 0), new XYZ(0, 0, 1), levelID);
+                    ElementId elementId = ct.Id;
+
+                    //Changing workset of cable tray to workset which we want to open
+                    Parameter wsparam = ct.get_Parameter(BuiltInParameter.ELEM_PARTITION_PARAM);
+                    if (wsparam != null && !wsparam.IsReadOnly) wsparam.Set(w.Id.IntegerValue);
+
+                    List<ElementId> ids = [elementId];
+
+                    //This command will actualy open workset
+                    UIDocument uiDoc = new(doc);
+                    uiDoc.ShowElements(ids);
+
+                    //Delete temporary cable tray
+                    doc.Delete(elementId);
+
+                    t.Commit();
+                }
+            }
+            tGroup.Assimilate();
         }
     }
 }

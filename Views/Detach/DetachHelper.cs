@@ -1,5 +1,8 @@
 ﻿using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
+using System.IO;
+using System.Linq;
 using VLS.BatchExportNet.Utils;
 
 namespace VLS.BatchExportNet.Views.Detach
@@ -32,18 +35,40 @@ namespace VLS.BatchExportNet.Views.Detach
                 return;
             }
             document.DeleteAllLinks();
+
+            string documentTitle = document.Title.Replace("_detached", "").Replace("_отсоединено", "");
+            if (detachViewModel.IsToRename)
+            {
+                documentTitle = documentTitle.Replace(detachViewModel.MaskInName, detachViewModel.MaskOutName);
+            }
+
             string fileDetachedPath = "";
             switch (detachViewModel.RadioButtonMode)
             {
                 case 1:
                     string folder = detachViewModel.FolderPath;
-                    fileDetachedPath = folder + "\\" + document.Title.Replace("_detached", "").Replace("_отсоединено", "") + ".rvt";
+                    fileDetachedPath = folder + "\\" + documentTitle + ".rvt";
                     break;
                 case 2:
                     string maskIn = detachViewModel.MaskIn;
                     string maskOut = detachViewModel.MaskOut;
                     fileDetachedPath = @filePath.Replace(maskIn, maskOut);
                     break;
+            }
+            if (detachViewModel.CheckForEmpty)
+            {
+                document.OpenAllWorksets();
+                using FilteredElementCollector stuff = new(document);
+                try
+                {
+                    Element view = stuff.OfClass(typeof(View3D))
+                        .FirstOrDefault(e => e.Name == detachViewModel.ViewName && !((View3D)e).IsTemplate);
+
+                    if (view is not null
+                        && document.IsViewEmpty(view))
+                        fileDetachedPath = fileDetachedPath.Replace(documentTitle, $"EMPTY_{documentTitle}");
+                }
+                catch { }
             }
 
             SaveAsOptions saveAsOptions = new()
@@ -70,6 +95,18 @@ namespace VLS.BatchExportNet.Views.Detach
 
             document?.Close();
             document?.Dispose();
+
+            TransmissionData transmissionData = TransmissionData.ReadTransmissionData(modelDetachedPath);
+            if (transmissionData != null)
+            {
+                transmissionData.IsTransmitted = true;
+                TransmissionData.WriteTransmissionData(modelDetachedPath, transmissionData);
+            }
+            try
+            {
+                Directory.Delete(fileDetachedPath.Replace(".rvt", "_backup"), true);
+            }
+            catch { }
         }
     }
 }
