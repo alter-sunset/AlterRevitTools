@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using VLS.BatchExportNet.Source.EventHandlers;
+﻿using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.Transmit
 {
@@ -8,14 +7,13 @@ namespace VLS.BatchExportNet.Views.Transmit
         public TransmitViewModel(EventHandlerTransmitModelsVMArg eventHandlerTransmitModelsUiArg)
         {
             EventHandlerBaseVMArgs = eventHandlerTransmitModelsUiArg;
-            Dictionary<HelpMessages, string> help = Help.GetHelpMessages();
-            string _helpMessage =
-                help.GetResultMessage(HelpMessages.TransmitTitle,
+            HelpMessage =
+                Help.GetHelpDictionary().
+                GetResultMessage(HelpMessages.TransmitTitle,
                     HelpMessages.Load,
                     HelpMessages.Folder,
                     HelpMessages.List,
                     HelpMessages.Start);
-            HelpMessage = _helpMessage;
         }
 
         private bool _isSameFolder;
@@ -25,7 +23,7 @@ namespace VLS.BatchExportNet.Views.Transmit
             set
             {
                 _isSameFolder = value;
-                OnPropertyChanged("IsSameFolder");
+                OnPropertyChanged(nameof(IsSameFolder));
             }
         }
     }

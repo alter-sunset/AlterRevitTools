@@ -78,7 +78,7 @@ namespace VLS.BatchExportNet.Utils
         }
         private static bool IsRBModeOK(this DetachViewModel detachViewModel)
         {
-            switch (detachViewModel.RadionButtonMode)
+            switch (detachViewModel.RadioButtonMode)
             {
                 case 0:
                     MessageBox.Show("Выберите режим выбора пути");

@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using VLS.BatchExportNet.Source.EventHandlers;
+﻿using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.Link
 {
@@ -8,13 +7,12 @@ namespace VLS.BatchExportNet.Views.Link
         public LinkViewModel(EventHandlerLinkModelsVMArg eventHandlerLinkModelsUiArg)
         {
             EventHandlerBaseVMArgs = eventHandlerLinkModelsUiArg;
-            Dictionary<HelpMessages, string> help = Help.GetHelpMessages();
-            string _helpMessage =
-                help.GetResultMessage(HelpMessages.LinkTitle,
+            HelpMessage =
+                Help.GetHelpDictionary().
+                GetResultMessage(HelpMessages.LinkTitle,
                     HelpMessages.Load,
                     HelpMessages.List,
                     HelpMessages.Start);
-            HelpMessage = _helpMessage;
         }
 
         private bool _isCurrentWorkset = true;
@@ -24,7 +22,7 @@ namespace VLS.BatchExportNet.Views.Link
             set
             {
                 _isCurrentWorkset = value;
-                OnPropertyChanged("IsCurrentWorkset");
+                OnPropertyChanged(nameof(IsCurrentWorkset));
             }
         }
     }

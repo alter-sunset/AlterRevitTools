@@ -21,12 +21,17 @@ namespace VLS.BatchExportNet.Source
             string location = Assembly.GetExecutingAssembly().Location;
             try
             {
-                return new(Name, Text, location, ClassName)
+                PushButtonData pbData = new(Name, Text, location, ClassName)
                 {
                     ToolTip = ToolTip,
                     Image = GetImage(ImageSmall),
                     LargeImage = GetImage(ImageLarge)
                 };
+                if (Availability)
+                {
+                    pbData.AvailabilityClassName = "VLS.BatchExportNet.Source.CommandAvailability";
+                }
+                return pbData;
             }
             catch
             {

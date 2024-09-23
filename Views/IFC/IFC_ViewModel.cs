@@ -17,15 +17,14 @@ namespace VLS.BatchExportNet.Views.IFC
         public IFC_ViewModel(EventHandlerIFCExportVMArg eventHandlerIFCExportUiArg)
         {
             EventHandlerBaseVMArgs = eventHandlerIFCExportUiArg;
-            Dictionary<HelpMessages, string> help = Help.GetHelpMessages();
-            string _helpMessage =
-                help.GetResultMessage(HelpMessages.IFCTitle,
+            HelpMessage =
+                Help.GetHelpDictionary().
+                GetResultMessage(HelpMessages.IFCTitle,
                     HelpMessages.Load,
                     HelpMessages.Folder,
                     HelpMessages.Naming,
                     HelpMessages.Config,
                     HelpMessages.Start);
-            HelpMessage = _helpMessage;
         }
 
         private string _mapping = "";
@@ -34,8 +33,8 @@ namespace VLS.BatchExportNet.Views.IFC
             get => _mapping;
             set
             {
-                _mapping = value;
-                OnPropertyChanged("Mapping");
+                _mapping = value.Trim();
+                OnPropertyChanged(nameof(Mapping));
             }
         }
 
@@ -77,7 +76,7 @@ namespace VLS.BatchExportNet.Views.IFC
             set
             {
                 _exportBaseQuantities = value;
-                OnPropertyChanged("ExportBaseQuantities");
+                OnPropertyChanged(nameof(ExportBaseQuantities));
             }
         }
 
@@ -88,7 +87,7 @@ namespace VLS.BatchExportNet.Views.IFC
             set
             {
                 _wallAndColumnSplitting = value;
-                OnPropertyChanged("WallAndColumnSplitting");
+                OnPropertyChanged(nameof(WallAndColumnSplitting));
             }
         }
 
@@ -131,7 +130,7 @@ namespace VLS.BatchExportNet.Views.IFC
             FolderPath = form.DestinationFolder;
             NamePrefix = form.NamePrefix;
             NamePostfix = form.NamePostfix;
-            WorksetPrefix = form.WorksetPrefix;
+            WorksetPrefix = string.Join(';', form.WorksetPrefixes);
             Mapping = form.FamilyMappingFile;
             ExportBaseQuantities = form.ExportBaseQuantities;
             SelectedVersion = _ifcVersions.FirstOrDefault(e => e.Key == form.FileVersion);
@@ -203,7 +202,10 @@ namespace VLS.BatchExportNet.Views.IFC
             DestinationFolder = FolderPath,
             NamePrefix = NamePrefix,
             NamePostfix = NamePostfix,
-            WorksetPrefix = WorksetPrefix,
+            WorksetPrefixes = WorksetPrefix
+                .Split(';')
+                .Select(e => e.Trim())
+                .ToArray(),
             ExportView = ExportScopeView,
             ViewName = ViewName,
 
@@ -226,7 +228,7 @@ namespace VLS.BatchExportNet.Views.IFC
             set
             {
                 _selectedVersion = value;
-                OnPropertyChanged("SelectedVersion");
+                OnPropertyChanged(nameof(SelectedVersion));
             }
         }
 
@@ -244,7 +246,7 @@ namespace VLS.BatchExportNet.Views.IFC
             set
             {
                 _selectedLevel = value;
-                OnPropertyChanged("SelectedLevel");
+                OnPropertyChanged(nameof(SelectedLevel));
             }
         }
     }

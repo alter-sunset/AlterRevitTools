@@ -8,8 +8,8 @@
             get => _namePrefix;
             set
             {
-                _namePrefix = value;
-                OnPropertyChanged("NamePrefix");
+                _namePrefix = value.Trim();
+                OnPropertyChanged(nameof(NamePrefix));
             }
         }
 
@@ -19,8 +19,8 @@
             get => _namePostfix;
             set
             {
-                _namePostfix = value;
-                OnPropertyChanged("NamePostfix");
+                _namePostfix = value.Trim();
+                OnPropertyChanged(nameof(NamePostfix));
             }
         }
 
@@ -30,8 +30,8 @@
             get => _worksetPrefix;
             set
             {
-                _worksetPrefix = value;
-                OnPropertyChanged("WorksetPrefix");
+                _worksetPrefix = value.Trim();
+                OnPropertyChanged(nameof(WorksetPrefix));
             }
         }
 
@@ -41,8 +41,8 @@
             get => _viewName;
             set
             {
-                _viewName = value;
-                OnPropertyChanged("ViewName");
+                _viewName = value.Trim();
+                OnPropertyChanged(nameof(ViewName));
             }
         }
 
@@ -53,8 +53,8 @@
             set
             {
                 _exportScopeView = value;
-                OnPropertyChanged("ExportScopeView");
-                OnPropertyChanged("ExportScopeWhole");
+                OnPropertyChanged(nameof(ExportScopeView));
+                OnPropertyChanged(nameof(ExportScopeWhole));
             }
         }
         public bool ExportScopeWhole
@@ -63,8 +63,8 @@
             set
             {
                 _exportScopeView = !value;
-                OnPropertyChanged("ExportScopeWhole");
-                OnPropertyChanged("ExportScopeView");
+                OnPropertyChanged(nameof(ExportScopeWhole));
+                OnPropertyChanged(nameof(ExportScopeView));
             }
         }
     }

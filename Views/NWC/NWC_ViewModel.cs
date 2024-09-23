@@ -21,16 +21,15 @@ namespace VLS.BatchExportNet.Views.NWC
         {
             _eventHandlerNWCExportBatchUiArg = eventHandlerNWCExportBatchUiArg;
             EventHandlerBaseVMArgs = eventHandlerNWCExportUiArg;
-            Dictionary<HelpMessages, string> help = Help.GetHelpMessages();
-            string _helpMessage =
-                help.GetResultMessage(HelpMessages.NWCTitle,
+            HelpMessage =
+                Help.GetHelpDictionary().
+                GetResultMessage(HelpMessages.NWCTitle,
                     HelpMessages.Load,
                     HelpMessages.Folder,
                     HelpMessages.Naming,
                     HelpMessages.Config,
                     HelpMessages.Start,
                     HelpMessages.NWCEnd);
-            HelpMessage = _helpMessage;
         }
 
         private bool _convertElementProperties = false;
@@ -40,7 +39,7 @@ namespace VLS.BatchExportNet.Views.NWC
             set
             {
                 _convertElementProperties = value;
-                OnPropertyChanged("ConvertElementProperties");
+                OnPropertyChanged(nameof(ConvertElementProperties));
             }
         }
 
@@ -58,7 +57,7 @@ namespace VLS.BatchExportNet.Views.NWC
             set
             {
                 _selectedCoordinates = value;
-                OnPropertyChanged("SelectedCoordinates");
+                OnPropertyChanged(nameof(SelectedCoordinates));
             }
         }
 
@@ -69,7 +68,7 @@ namespace VLS.BatchExportNet.Views.NWC
             set
             {
                 _divideFileIntoLevels = value;
-                OnPropertyChanged("DivideFileIntoLevels");
+                OnPropertyChanged(nameof(DivideFileIntoLevels));
             }
         }
 
@@ -80,7 +79,7 @@ namespace VLS.BatchExportNet.Views.NWC
             set
             {
                 _exportElementIds = value;
-                OnPropertyChanged("ExportElementIds");
+                OnPropertyChanged(nameof(ExportElementIds));
             }
         }
 
@@ -91,7 +90,7 @@ namespace VLS.BatchExportNet.Views.NWC
             set
             {
                 _exportLinks = value;
-                OnPropertyChanged("ExportLinks");
+                OnPropertyChanged(nameof(ExportLinks));
             }
         }
 
@@ -102,7 +101,7 @@ namespace VLS.BatchExportNet.Views.NWC
             set
             {
                 _exportParts = value;
-                OnPropertyChanged("ExportParts");
+                OnPropertyChanged(nameof(ExportParts));
             }
         }
 
@@ -113,7 +112,7 @@ namespace VLS.BatchExportNet.Views.NWC
             set
             {
                 _exportRoomAsAttribute = value;
-                OnPropertyChanged("ExportRoomAsAttribute");
+                OnPropertyChanged(nameof(ExportRoomAsAttribute));
             }
         }
 
@@ -124,7 +123,7 @@ namespace VLS.BatchExportNet.Views.NWC
             set
             {
                 _exportRoomGeometry = value;
-                OnPropertyChanged("ExportRoomGeometry");
+                OnPropertyChanged(nameof(ExportRoomGeometry));
             }
         }
 
@@ -135,7 +134,7 @@ namespace VLS.BatchExportNet.Views.NWC
             set
             {
                 _exportUrls = value;
-                OnPropertyChanged("ExportUrls");
+                OnPropertyChanged(nameof(ExportUrls));
             }
         }
 
@@ -146,7 +145,7 @@ namespace VLS.BatchExportNet.Views.NWC
             set
             {
                 _findMissingMaterials = value;
-                OnPropertyChanged("FindMissingMaterials");
+                OnPropertyChanged(nameof(FindMissingMaterials));
             }
         }
 
@@ -164,7 +163,7 @@ namespace VLS.BatchExportNet.Views.NWC
             set
             {
                 _selectedParameters = value;
-                OnPropertyChanged("SelectedParameters");
+                OnPropertyChanged(nameof(SelectedParameters));
             }
         }
 
@@ -175,7 +174,7 @@ namespace VLS.BatchExportNet.Views.NWC
             set
             {
                 _convertLinkedCADFormats = value;
-                OnPropertyChanged("ConvertLinkedCADFormats");
+                OnPropertyChanged(nameof(ConvertLinkedCADFormats));
             }
         }
 
@@ -186,7 +185,7 @@ namespace VLS.BatchExportNet.Views.NWC
             set
             {
                 _convertLights = value;
-                OnPropertyChanged("ConvertLights");
+                OnPropertyChanged(nameof(ConvertLights));
             }
         }
 
@@ -196,8 +195,8 @@ namespace VLS.BatchExportNet.Views.NWC
             get => _facetingFactor;
             set
             {
-                _facetingFactor = value;
-                OnPropertyChanged("FacetingFactor");
+                _facetingFactor = value.Trim();
+                OnPropertyChanged(nameof(FacetingFactor));
             }
         }
 
@@ -249,7 +248,7 @@ namespace VLS.BatchExportNet.Views.NWC
             FolderPath = form.DestinationFolder;
             NamePrefix = form.NamePrefix;
             NamePostfix = form.NamePostfix;
-            WorksetPrefix = form.WorksetPrefix;
+            WorksetPrefix = string.Join(';', form.WorksetPrefixes);
             ExportScopeView = form.ExportScope == NavisworksExportScope.View;
             ListBoxItems.Clear();
             foreach (string file in form.RVTFiles)
@@ -324,7 +323,10 @@ namespace VLS.BatchExportNet.Views.NWC
             DestinationFolder = FolderPath,
             NamePrefix = NamePrefix,
             NamePostfix = NamePostfix,
-            WorksetPrefix = WorksetPrefix,
+            WorksetPrefixes = WorksetPrefix
+                .Split(';')
+                .Select(e => e.Trim())
+                .ToArray(),
             ConvertLights = ConvertLights,
             ConvertLinkedCADFormats = ConvertLinkedCADFormats,
             FacetingFactor = double.TryParse(FacetingFactor, out double facetingFactor) ? facetingFactor : 1.0,
@@ -341,7 +343,7 @@ namespace VLS.BatchExportNet.Views.NWC
             set
             {
                 _configs = value;
-                OnPropertyChanged("Configs");
+                OnPropertyChanged(nameof(Configs));
             }
         }
 

@@ -31,8 +31,8 @@ namespace VLS.BatchExportNet.Utils
                         _myForm = new DetachModelsView(evDetachVM);
                         break;
                     case Forms.IFC:
-                        EventHandlerIFCExportVMArg evIFCE_VM = new();
-                        _myForm = new IFCExportView(evIFCE_VM);
+                        EventHandlerIFCExportVMArg evIFC_VM = new();
+                        _myForm = new IFCExportView(evIFC_VM);
                         break;
                     case Forms.NWC:
                         EventHandlerNWCExportVMArg evNWC_VM = new();

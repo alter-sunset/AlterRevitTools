@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.Migrate
@@ -9,9 +8,9 @@ namespace VLS.BatchExportNet.Views.Migrate
         public MigrateViewModel(EventHandlerMigrateModelsVMArg eventHandlerMigrateModelsUiArg)
         {
             EventHandlerBaseVMArgs = eventHandlerMigrateModelsUiArg;
-            Dictionary<HelpMessages, string> help = Help.GetHelpMessages();
-            string _helpMessage = help.GetResultMessage(HelpMessages.Migrate);
-            HelpMessage = _helpMessage;
+            HelpMessage =
+                Help.GetHelpDictionary().
+                GetResultMessage(HelpMessages.Migrate);
         }
 
         private string _configPath;
@@ -20,8 +19,8 @@ namespace VLS.BatchExportNet.Views.Migrate
             get => _configPath;
             set
             {
-                _configPath = value;
-                OnPropertyChanged("ConfigPath");
+                _configPath = value.Trim();
+                OnPropertyChanged(nameof(ConfigPath));
             }
         }
 

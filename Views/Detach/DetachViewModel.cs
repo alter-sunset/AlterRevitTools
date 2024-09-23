@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using VLS.BatchExportNet.Source.EventHandlers;
+﻿using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.Detach
 {
@@ -8,25 +7,24 @@ namespace VLS.BatchExportNet.Views.Detach
         public DetachViewModel(EventHandlerDetachModelsVMArg eventHandlerDetachModelsUiArg)
         {
             EventHandlerBaseVMArgs = eventHandlerDetachModelsUiArg;
-            Dictionary<HelpMessages, string> help = Help.GetHelpMessages();
-            string _helpMessage =
-                help.GetResultMessage(HelpMessages.DetachTitle,
+            HelpMessage =
+                Help.GetHelpDictionary().
+                GetResultMessage(HelpMessages.DetachTitle,
                     HelpMessages.Load,
                     HelpMessages.Folder,
                     HelpMessages.DetachMid,
                     HelpMessages.List,
                     HelpMessages.Start);
-            HelpMessage = _helpMessage;
         }
 
         private int _radioButtonMode = 0;
-        public int RadionButtonMode
+        public int RadioButtonMode
         {
             get => _radioButtonMode;
             set
             {
                 _radioButtonMode = value;
-                OnPropertyChanged("RadioButtonMode");
+                OnPropertyChanged(nameof(RadioButtonMode));
             }
         }
 
@@ -57,8 +55,8 @@ namespace VLS.BatchExportNet.Views.Detach
             get => _maskIn;
             set
             {
-                _maskIn = value;
-                OnPropertyChanged("MaskIn");
+                _maskIn = value.Trim();
+                OnPropertyChanged(nameof(MaskIn));
             }
         }
 
@@ -68,8 +66,8 @@ namespace VLS.BatchExportNet.Views.Detach
             get => _maskOut;
             set
             {
-                _maskOut = value;
-                OnPropertyChanged("MaskOut");
+                _maskOut = value.Trim();
+                OnPropertyChanged(nameof(MaskOut));
             }
         }
     }

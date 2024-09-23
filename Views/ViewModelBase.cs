@@ -21,7 +21,7 @@ namespace VLS.BatchExportNet.Views
             set
             {
                 _listBoxItems = value;
-                OnPropertyChanged("ListBoxItems");
+                OnPropertyChanged(nameof(ListBoxItems));
             }
         }
 
@@ -32,7 +32,7 @@ namespace VLS.BatchExportNet.Views
             set
             {
                 _selectedItems = value;
-                OnPropertyChanged("SelectedItems");
+                OnPropertyChanged(nameof(SelectedItems));
             }
         }
         private bool _isViewEnabled = true;
@@ -42,7 +42,7 @@ namespace VLS.BatchExportNet.Views
             set
             {
                 _isViewEnabled = value;
-                OnPropertyChanged("IsViewEnabled");
+                OnPropertyChanged(nameof(IsViewEnabled));
             }
         }
 
@@ -183,8 +183,8 @@ namespace VLS.BatchExportNet.Views
             get => _folderPath;
             set
             {
-                _folderPath = value;
-                OnPropertyChanged("FolderPath");
+                _folderPath = value.Trim();
+                OnPropertyChanged(nameof(FolderPath));
             }
         }
 

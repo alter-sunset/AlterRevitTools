@@ -33,7 +33,7 @@ namespace VLS.BatchExportNet.Views.Detach
             }
             document.DeleteAllLinks();
             string fileDetachedPath = "";
-            switch (detachViewModel.RadionButtonMode)
+            switch (detachViewModel.RadioButtonMode)
             {
                 case 1:
                     string folder = detachViewModel.FolderPath;
