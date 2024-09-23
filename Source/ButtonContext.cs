@@ -11,45 +11,35 @@ namespace VLS.BatchExportNet.Source
         public string Text { get; set; }
         public string ClassName { get; set; }
         public string ToolTip { get; set; }
+        public string ImageLarge { get; set; }
+        public string ImageSmall { get; set; }
         public string Panel { get; set; }
         public bool Availability { get; set; }
 
-        public BitmapFrame GetImage(string BASE, bool isSmall)
+        public PushButtonData GetPushButtonData()
         {
-            string end;
-            if (isSmall)
-            {
-                end = "_16.png";
-            }
-            else
-            {
-                end = ".png";
-            }
-            string name = BASE + "Resources." + Name.ToLower() + end;
-
+            string location = Assembly.GetExecutingAssembly().Location;
             try
             {
-                Assembly a = Assembly.GetExecutingAssembly();
-                Stream s = a.GetManifestResourceStream(name);
-                return BitmapFrame.Create(s);
+                return new(Name, Text, location, ClassName)
+                {
+                    ToolTip = ToolTip,
+                    Image = GetImage(ImageSmall),
+                    LargeImage = GetImage(ImageLarge)
+                };
             }
             catch
             {
                 return null;
             }
         }
-        public PushButtonData GetPushButtonData(string BASE)
+        private static BitmapFrame GetImage(string imagePath)
         {
-            string location = Assembly.GetExecutingAssembly().Location;
-            string className = BASE + "Source." + ClassName;
             try
             {
-                return new(Name, Text, location, className)
-                {
-                    ToolTip = ToolTip,
-                    Image = GetImage(BASE, true),
-                    LargeImage = GetImage(BASE, false)
-                };
+                Assembly a = Assembly.GetExecutingAssembly();
+                Stream s = a.GetManifestResourceStream(imagePath);
+                return BitmapFrame.Create(s);
             }
             catch
             {

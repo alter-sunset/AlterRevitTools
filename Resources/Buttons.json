@@ -2,48 +2,60 @@
   {
     "Name": "NWC",
     "Text": "Экспорт\nNWC",
-    "ClassName": "ExportModelsToNWC",
+    "ClassName": "VLS.BatchExportNet.Source.ExportModelsToNWC",
     "ToolTip": "Пакетный экспорт в NWC",
+    "ImageLarge": "VLS.BatchExportNet.Resources.nwc.png",
+    "ImageSmall": "VLS.BatchExportNet.Resources.nwc_16.png",
     "Panel": "Пакетный экспорт",
     "Availability": true
   },
   {
     "Name": "IFC",
     "Text": "Экспорт\nIFC",
-    "ClassName": "ExportModelsToIFC",
+    "ClassName": "VLS.BatchExportNet.Source.ExportModelsToIFC",
     "ToolTip": "Пакетный экспорт в IFC",
+    "ImageLarge": "VLS.BatchExportNet.Resources.ifc.png",
+    "ImageSmall": "VLS.BatchExportNet.Resources.ifc_16.png",
     "Panel": "Пакетный экспорт",
     "Availability": true
   },
   {
     "Name": "Detach",
     "Text": "Экспорт\nотсоединённых\nмоделей",
-    "ClassName": "ExportModelsDetached",
+    "ClassName": "VLS.BatchExportNet.Source.ExportModelsDetached",
     "ToolTip": "Пакетный экспорт отсоединённых моделей",
+    "ImageLarge": "VLS.BatchExportNet.Resources.detach.png",
+    "ImageSmall": "VLS.BatchExportNet.Resources.detach_16.png",
     "Panel": "Пакетный экспорт",
     "Availability": true
   },
   {
     "Name": "Transmit",
     "Text": "Передача\nмоделей",
-    "ClassName": "ExportModelsTransmitted",
+    "ClassName": "VLS.BatchExportNet.Source.ExportModelsTransmitted",
     "ToolTip": "Пакетная передача моделей",
+    "ImageLarge": "VLS.BatchExportNet.Resources.transmit.png",
+    "ImageSmall": "VLS.BatchExportNet.Resources.transmit_16.png",
     "Panel": "Пакетный экспорт",
     "Availability": true
   },
   {
     "Name": "Migrate",
     "Text": "Миграция\nмоделей",
-    "ClassName": "MigrateModels",
+    "ClassName": "VLS.BatchExportNet.Source.MigrateModels",
     "ToolTip": "Пакетная миграция моделей с обновлением связей",
+    "ImageLarge": "VLS.BatchExportNet.Resources.migrate.png",
+    "ImageSmall": "VLS.BatchExportNet.Resources.migrate_16.png",
     "Panel": "Пакетный экспорт",
     "Availability": true
   },
   {
     "Name": "Link",
     "Text": "Пакетное добавление\nRevit ссылок",
-    "ClassName": "LinkModels",
+    "ClassName": "VLS.BatchExportNet.Source.LinkModels",
     "ToolTip": "Пакетное добавление Revit ссылок в текущую модель",
+    "ImageLarge": "VLS.BatchExportNet.Resources.link.png",
+    "ImageSmall": "VLS.BatchExportNet.Resources.link_16.png",
     "Panel": "Пакетный импорт",
     "Availability": false
   }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text.Json;
 using VLS.BatchExportNet.Utils;
+using Messages = System.Collections.Generic.Dictionary<VLS.BatchExportNet.Views.HelpMessages, string>;
 
 namespace VLS.BatchExportNet.Views
 {
@@ -26,15 +27,15 @@ namespace VLS.BatchExportNet.Views
     }
     public static class Help
     {
-        public static Dictionary<HelpMessages, string> GetHelpMessages()
+        public static Messages GetHelpMessages()
         {
             Assembly a = Assembly.GetExecutingAssembly();
             Stream s = a.GetManifestResourceStream("VLS.BatchExportNet.Resources.HelpMessages.json");
             JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
-            return JsonSerializer.Deserialize<Dictionary<HelpMessages, string>>(s, options);
+            return JsonSerializer.Deserialize<Messages>(s, options);
         }
 
-        public static string GetResultMessage(this Dictionary<HelpMessages, string> helpDictionary,
+        public static string GetResultMessage(this Messages helpDictionary,
             params HelpMessages[] helpCodes)
         {
             return string.Join('\n', helpCodes.Select(e => helpDictionary.GetValueOrDefault(e)));

@@ -11,7 +11,6 @@ namespace VLS.BatchExportNet.Source
 {
     public class App : IExternalApplication
     {
-        const string BASE = "VLS.BatchExportNet.";
         public Result OnStartup(UIControlledApplication a)
         {
             const string TAB_NAME = "VLS";
@@ -24,13 +23,13 @@ namespace VLS.BatchExportNet.Source
             catch { }
 
             //Get buttons to create from json config
-            ButtonContext[] buttons = GetButtonContext();
+            ButtonContext[] buttons = GetButtonsContext();
 
             //Create panels from config
             IEnumerable<Panel> panels = buttons
                 .Select(e => e.Panel)
                 .Distinct()
-                .Select(e => new Panel(RibbonPanel(a, TAB_NAME, e), e));
+                .Select(e => new Panel(GetRibbonPanel(a, TAB_NAME, e), e));
 
             //Create buttons from config
             foreach (ButtonContext button in buttons)
@@ -41,7 +40,7 @@ namespace VLS.BatchExportNet.Source
             return Result.Succeeded;
         }
         public Result OnShutdown(UIControlledApplication a) => Result.Succeeded;
-        private static RibbonPanel RibbonPanel(UIControlledApplication a, string tabName, string panelName)
+        private static RibbonPanel GetRibbonPanel(UIControlledApplication a, string tabName, string panelName)
         {
             try
             {
@@ -50,7 +49,7 @@ namespace VLS.BatchExportNet.Source
             catch { }
             return a.GetRibbonPanels(tabName).FirstOrDefault(p => p.Name == panelName);
         }
-        private static ButtonContext[] GetButtonContext()
+        private static ButtonContext[] GetButtonsContext()
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
             Stream stream = assembly.GetManifestResourceStream("VLS.BatchExportNet.Resources.Buttons.json");
@@ -62,10 +61,10 @@ namespace VLS.BatchExportNet.Source
             RibbonPanel ribbonPanel = panels.First(e => e.Item2 == button.Panel).Item1;
             try
             {
-                PushButtonData pushButtonData = button.GetPushButtonData(BASE);
+                PushButtonData pushButtonData = button.GetPushButtonData();
                 if (button.Availability)
                 {
-                    pushButtonData.AvailabilityClassName = BASE + "Source.CommandAvailability";
+                    pushButtonData.AvailabilityClassName = "VLS.BatchExportNet.Source.CommandAvailability";
                 }
                 _ = ribbonPanel.AddItem(pushButtonData) as PushButton;
             }
