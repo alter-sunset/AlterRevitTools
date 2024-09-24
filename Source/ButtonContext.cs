@@ -2,11 +2,13 @@
 using System.IO;
 using System.Reflection;
 using System.Windows.Media.Imaging;
+using VLS.BatchExportNet.Utils;
 
 namespace VLS.BatchExportNet.Source
 {
     class ButtonContext
     {
+        private const string AvailabilityClassName = "VLS.BatchExportNet.Source.CommandAvailability";
         public string Name { get; set; }
         public string Text { get; set; }
         public string ClassName { get; set; }
@@ -15,6 +17,9 @@ namespace VLS.BatchExportNet.Source
         public string ImageSmall { get; set; }
         public string Panel { get; set; }
         public bool Availability { get; set; }
+
+        public static ButtonContext[] GetButtonsContext() =>
+            JsonHelper<ButtonContext[]>.DeserializeResource("VLS.BatchExportNet.Resources.Buttons.json");
 
         public PushButtonData GetPushButtonData()
         {
@@ -31,7 +36,7 @@ namespace VLS.BatchExportNet.Source
                 };
                 if (Availability)
                 {
-                    pbData.AvailabilityClassName = "VLS.BatchExportNet.Source.CommandAvailability";
+                    pbData.AvailabilityClassName = AvailabilityClassName;
                 }
                 return pbData;
             }

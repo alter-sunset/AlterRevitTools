@@ -2,7 +2,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Controls;
@@ -117,10 +116,7 @@ namespace VLS.BatchExportNet.Views.IFC
                     using FileStream file = File.OpenRead(openFileDialog.FileName);
                     try
                     {
-                        JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
-                        IFCForm form = JsonSerializer.Deserialize<IFCForm>(file, options);
-                        IFCFormDeserilaizer(form);
-                        form.Dispose();
+                        IFCFormDeserilaizer(JsonHelper<IFCForm>.DeserializeConfig(file));
                     }
                     catch (Exception ex)
                     {
@@ -187,8 +183,7 @@ namespace VLS.BatchExportNet.Views.IFC
                     File.Delete(fileName);
                     try
                     {
-                        JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
-                        File.WriteAllText(fileName, JsonSerializer.Serialize(form, options));
+                        JsonHelper<IFCForm>.SerializeConfig(form, fileName);
                     }
                     catch (Exception ex)
                     {

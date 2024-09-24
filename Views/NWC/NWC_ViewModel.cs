@@ -2,7 +2,6 @@
 using System;
 using System.IO;
 using System.Linq;
-using System.Text.Json;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Controls;
@@ -224,9 +223,7 @@ namespace VLS.BatchExportNet.Views.NWC
                     using FileStream file = File.OpenRead(openFileDialog.FileName);
                     try
                     {
-                        JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
-                        NWCForm form = JsonSerializer.Deserialize<NWCForm>(file, options);
-                        NWCFormDeserilaizer(form);
+                        NWCFormDeserilaizer(JsonHelper<NWCForm>.DeserializeConfig(file));
                     }
                     catch (Exception ex)
                     {
@@ -299,8 +296,7 @@ namespace VLS.BatchExportNet.Views.NWC
                     File.Delete(fileName);
                     try
                     {
-                        JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
-                        File.WriteAllText(fileName, JsonSerializer.Serialize(form, options));
+                        JsonHelper<NWCForm>.SerializeConfig(form, fileName);
                     }
                     catch (Exception ex)
                     {

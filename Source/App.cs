@@ -1,10 +1,6 @@
-﻿using System.IO;
+﻿using System.Linq;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
 using Autodesk.Revit.UI;
-using System.Text.Json;
-using VLS.BatchExportNet.Utils;
 using Panel = System.Tuple<Autodesk.Revit.UI.RibbonPanel, string>;
 
 namespace VLS.BatchExportNet.Source
@@ -23,7 +19,7 @@ namespace VLS.BatchExportNet.Source
             catch { }
 
             //Get buttons to create from json config
-            ButtonContext[] buttons = GetButtonsContext();
+            ButtonContext[] buttons = ButtonContext.GetButtonsContext();
 
             //Create panels from config
             IEnumerable<Panel> panels = buttons
@@ -48,13 +44,6 @@ namespace VLS.BatchExportNet.Source
             }
             catch { }
             return uiApp.GetRibbonPanels(tabName).FirstOrDefault(p => p.Name == panelName);
-        }
-        private static ButtonContext[] GetButtonsContext()
-        {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            Stream stream = assembly.GetManifestResourceStream("VLS.BatchExportNet.Resources.Buttons.json");
-            JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
-            return JsonSerializer.Deserialize<ButtonContext[]>(stream, options);
         }
         private static void CreateButton(ButtonContext button, IEnumerable<Panel> panels)
         {
