@@ -23,26 +23,21 @@ namespace VLS.BatchExportNet.Source.EventHandlers
                 return;
             }
 
-            using Application application = uiApp.Application;
             List<ListBoxItem> listItems = [.. detachViewModel.ListBoxItems];
 
-            uiApp.DialogBoxShowing += new EventHandler<DialogBoxShowingEventArgs>(ErrorSwallower.TaskDialogBoxShowingEvent);
-            application.FailuresProcessing += new EventHandler<FailuresProcessingEventArgs>(ErrorSwallower.Application_FailuresProcessing);
+            using Application application = uiApp.Application;
+            using ErrorSwallower errorSwallower = new(uiApp, application);
+
             foreach (ListBoxItem item in listItems)
             {
                 string filePath = item.Content.ToString();
-
                 if (!File.Exists(filePath))
                 {
                     item.Background = Brushes.Red;
                     continue;
                 }
-
                 detachViewModel.DetachModel(application, filePath);
             }
-            uiApp.DialogBoxShowing -= new EventHandler<DialogBoxShowingEventArgs>(ErrorSwallower.TaskDialogBoxShowingEvent);
-            application.FailuresProcessing -= new EventHandler<FailuresProcessingEventArgs>(ErrorSwallower.Application_FailuresProcessing);
-
             detachViewModel.Finisher("DetachModelsFinished");
         }
     }

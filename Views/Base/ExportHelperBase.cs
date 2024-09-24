@@ -38,8 +38,7 @@ namespace VLS.BatchExportNet.Views.Base
                     item.Background = Brushes.Red;
                     continue;
                 }
-                uiApp.DialogBoxShowing += new EventHandler<DialogBoxShowingEventArgs>(ErrorSwallower.TaskDialogBoxShowingEvent);
-                application.FailuresProcessing += new EventHandler<FailuresProcessingEventArgs>(ErrorSwallower.Application_FailuresProcessing);
+                using ErrorSwallower errorSwallower = new(uiApp, application);
 
                 Document document;
                 BasicFileInfo fileInfo;
@@ -118,9 +117,6 @@ namespace VLS.BatchExportNet.Views.Base
                         item.Background = Brushes.Green;
                         logger.Success("Всё ок.");
                     }
-
-                    uiApp.DialogBoxShowing -= new EventHandler<DialogBoxShowingEventArgs>(ErrorSwallower.TaskDialogBoxShowingEvent);
-                    application.FailuresProcessing -= new EventHandler<FailuresProcessingEventArgs>(ErrorSwallower.Application_FailuresProcessing);
 
                     logger.TimeForFile(startTime);
                     Thread.Sleep(500);

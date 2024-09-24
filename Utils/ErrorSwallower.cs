@@ -1,14 +1,30 @@
-﻿using System.Collections.Generic;
+﻿using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Events;
+using System;
+using System.Collections.Generic;
 
 namespace VLS.BatchExportNet.Utils
 {
-    public static class ErrorSwallower
+    public class ErrorSwallower : IDisposable
     {
-        public static void TaskDialogBoxShowingEvent(object sender, DialogBoxShowingEventArgs e)
+        private readonly UIApplication _uiApp;
+        private readonly Application _application;
+        public ErrorSwallower(UIApplication uiApp, Application application)
+        {
+            _uiApp = uiApp;
+            _application = application;
+            _uiApp.DialogBoxShowing += new EventHandler<DialogBoxShowingEventArgs>(TaskDialogBoxShowingEvent);
+            _application.FailuresProcessing += new EventHandler<FailuresProcessingEventArgs>(Application_FailuresProcessing);
+        }
+        public void Dispose()
+        {
+            _uiApp.DialogBoxShowing -= new EventHandler<DialogBoxShowingEventArgs>(TaskDialogBoxShowingEvent);
+            _application.FailuresProcessing -= new EventHandler<FailuresProcessingEventArgs>(Application_FailuresProcessing);
+        }
+        private static void TaskDialogBoxShowingEvent(object sender, DialogBoxShowingEventArgs e)
         {
             TaskDialogShowingEventArgs e2 = e as TaskDialogShowingEventArgs;
 
@@ -32,7 +48,7 @@ namespace VLS.BatchExportNet.Utils
             if (isConfirm)
                 e2.OverrideResult(dialogResult);
         }
-        public static void Application_FailuresProcessing(object sender, FailuresProcessingEventArgs e)
+        private static void Application_FailuresProcessing(object sender, FailuresProcessingEventArgs e)
         {
             FailuresAccessor failuresAccessor = e.GetFailuresAccessor();
             FailureProcessingResult response = PreprocessFailures(failuresAccessor);
@@ -47,9 +63,7 @@ namespace VLS.BatchExportNet.Utils
                 FailureSeverity fseverity = a.GetSeverity();
 
                 if (fseverity == FailureSeverity.Warning)
-                {
                     a.DeleteWarning(f);
-                }
                 else
                 {
                     a.ResolveFailure(f);
