@@ -4,9 +4,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using Autodesk.Revit.DB;
-using Transaction = Autodesk.Revit.DB.Transaction;
 using Autodesk.Revit.DB.Electrical;
-using System.Windows.Controls;
 using Autodesk.Revit.UI;
 
 namespace VLS.BatchExportNet.Utils
@@ -156,6 +154,36 @@ namespace VLS.BatchExportNet.Utils
                 }
             }
             tGroup.Assimilate();
+        }
+        internal static void PurgeAll(this Document doc)
+        {
+            try
+            {
+                int num = 0;
+                for (; ; )
+                {
+                    HashSet<ElementId> hashSet = [];
+                    foreach (ElementId elementId in doc.GetUnusedElements(new HashSet<ElementId>()))
+                    {
+                        Element element = doc.GetElement(elementId);
+                        if (element != null && element is not RevitLinkType)
+                        {
+                            hashSet.Add(elementId);
+                        }
+                    }
+                    if (hashSet.Count != num && hashSet.Count != 0)
+                    {
+                        num = hashSet.Count;
+                        using Transaction transaction = new(doc, "Purge unused");
+                        transaction.Start();
+                        doc.Delete(hashSet);
+                        transaction.Commit();
+                        continue;
+                    }
+                    break;
+                }
+            }
+            catch { }
         }
     }
 }

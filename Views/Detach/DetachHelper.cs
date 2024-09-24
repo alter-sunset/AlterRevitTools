@@ -1,6 +1,5 @@
 ﻿using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
 using System.IO;
 using System.Linq;
 using VLS.BatchExportNet.Utils;
@@ -35,6 +34,11 @@ namespace VLS.BatchExportNet.Views.Detach
                 return;
             }
             document.DeleteAllLinks();
+
+            if (detachViewModel.Purge)
+            {
+                document.PurgeAll();
+            }
 
             string documentTitle = document.Title.Replace("_detached", "").Replace("_отсоединено", "");
             if (detachViewModel.IsToRename)

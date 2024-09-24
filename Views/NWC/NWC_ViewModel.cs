@@ -216,19 +216,21 @@ namespace VLS.BatchExportNet.Views.NWC
 
                     DialogResult result = openFileDialog.ShowDialog();
 
-                    if (result == DialogResult.OK)
+                    if (result != DialogResult.OK)
                     {
-                        using FileStream file = File.OpenRead(openFileDialog.FileName);
-                        try
-                        {
-                            JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
-                            NWCForm form = JsonSerializer.Deserialize<NWCForm>(file, options);
-                            NWCFormDeserilaizer(form);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Неверная схема файла\n{ex.Message}");
-                        }
+                        return;
+                    }
+
+                    using FileStream file = File.OpenRead(openFileDialog.FileName);
+                    try
+                    {
+                        JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
+                        NWCForm form = JsonSerializer.Deserialize<NWCForm>(file, options);
+                        NWCFormDeserilaizer(form);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Неверная схема файла\n{ex.Message}");
                     }
                 });
             }
@@ -287,19 +289,22 @@ namespace VLS.BatchExportNet.Views.NWC
                         Filter = "Файл JSON (.json)|*.json"
                     };
                     DialogResult result = saveFileDialog.ShowDialog();
-                    if (result == DialogResult.OK)
+                    if (result != DialogResult.OK)
                     {
-                        string fileName = saveFileDialog.FileName;
-                        File.Delete(fileName);
-                        try
-                        {
-                            JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
-                            File.WriteAllText(fileName, JsonSerializer.Serialize(form, options));
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Неверная схема файла\n{ex.Message}");
-                        }
+                        form.Dispose();
+                        return;
+                    }
+
+                    string fileName = saveFileDialog.FileName;
+                    File.Delete(fileName);
+                    try
+                    {
+                        JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
+                        File.WriteAllText(fileName, JsonSerializer.Serialize(form, options));
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Неверная схема файла\n{ex.Message}");
                     }
                     form.Dispose();
                 });
@@ -363,16 +368,18 @@ namespace VLS.BatchExportNet.Views.NWC
 
                     DialogResult result = openFileDialog.ShowDialog();
 
-                    if (result == DialogResult.OK)
+                    if (result != DialogResult.OK)
                     {
-                        IEnumerable<string> configs = File.ReadLines(openFileDialog.FileName);
-                        Configs = new ObservableCollection<string>(
-                            configs.Where(e => !Configs.Any(c => c == e) && e.EndsWith(".json")));
+                        return;
+                    }
 
-                        if (Configs.Count.Equals(0))
-                        {
-                            MessageBox.Show("В текстовом файле не было найдено подходящей информации");
-                        }
+                    IEnumerable<string> configs = File.ReadLines(openFileDialog.FileName);
+                    Configs = new ObservableCollection<string>(
+                        configs.Where(e => !Configs.Any(c => c == e) && e.EndsWith(".json")));
+
+                    if (Configs.Count.Equals(0))
+                    {
+                        MessageBox.Show("В текстовом файле не было найдено подходящей информации");
                     }
                 });
             }

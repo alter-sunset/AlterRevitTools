@@ -183,7 +183,14 @@
                  VerticalContentAlignment="Center"
                  Text="{Binding ViewName}"
                  ToolTip="Имя вида для проверки"/>
-
+        <CheckBox Margin="10"
+            Grid.Row="7"
+            Grid.Column="3"
+            FontSize="14"
+            VerticalAlignment="Center"
+            Content="Очистить модели"                  
+            ToolTip="Реализует функционал команды ''Удалить неиспользуемые'' до полной очистки (несколько раз)"
+            IsChecked="{Binding Purge}"/>
 
         <Button Margin="10"
                 Grid.Row="8"

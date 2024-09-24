@@ -70,31 +70,29 @@ namespace VLS.BatchExportNet.Views
                         DefaultExt = ".txt",
                         Filter = "Текстовый файл (.txt)|*.txt"
                     };
-
                     DialogResult result = openFileDialog.ShowDialog();
-
-                    if (result == DialogResult.OK)
+                    if (result != DialogResult.OK)
                     {
-                        ListBoxItems.Clear();
-
-                        IEnumerable listRVTFiles = File.ReadLines(openFileDialog.FileName);
-
-                        foreach (string rVTFile in listRVTFiles)
-                        {
-                            ListBoxItem listBoxItem = new() { Content = rVTFile, Background = Brushes.White };
-                            if (!ListBoxItems.Any(cont => cont.Content.ToString() == rVTFile)
-                                    && rVTFile.EndsWith(".rvt"))
-                            {
-                                ListBoxItems.Add(listBoxItem);
-                            }
-                        }
-
-                        if (ListBoxItems.Count.Equals(0))
-                        {
-                            MessageBox.Show("В текстовом файле не было найдено подходящей информации");
-                        }
-                        FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
+                        return;
                     }
+
+                    ListBoxItems.Clear();
+
+                    IEnumerable listRVTFiles = File.ReadLines(openFileDialog.FileName);
+                    foreach (string rVTFile in listRVTFiles)
+                    {
+                        ListBoxItem listBoxItem = new() { Content = rVTFile, Background = Brushes.White };
+                        if (!ListBoxItems.Any(cont => cont.Content.ToString() == rVTFile)
+                                && rVTFile.EndsWith(".rvt"))
+                        {
+                            ListBoxItems.Add(listBoxItem);
+                        }
+                    }
+                    if (ListBoxItems.Count.Equals(0))
+                    {
+                        MessageBox.Show("В текстовом файле не было найдено подходящей информации");
+                    }
+                    FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
                 });
             }
         }
@@ -115,14 +113,16 @@ namespace VLS.BatchExportNet.Views
 
                     DialogResult result = openFileDialog.ShowDialog();
 
-                    if (result == DialogResult.OK)
+                    if (result != DialogResult.OK)
                     {
-                        foreach (string file in openFileDialog.FileNames)
-                        {
-                            ListBoxItem listBoxItem = new() { Content = file, Background = Brushes.White };
-                            if (!ListBoxItems.Any(cont => cont.Content.ToString() == file))
-                                ListBoxItems.Add(listBoxItem);
-                        }
+                        return;
+                    }
+
+                    foreach (string file in openFileDialog.FileNames)
+                    {
+                        ListBoxItem listBoxItem = new() { Content = file, Background = Brushes.White };
+                        if (!ListBoxItems.Any(cont => cont.Content.ToString() == file))
+                            ListBoxItems.Add(listBoxItem);
                     }
                 });
             }
@@ -144,25 +144,27 @@ namespace VLS.BatchExportNet.Views
 
                     DialogResult result = saveFileDialog.ShowDialog();
 
-                    if (result == DialogResult.OK)
+                    if (result != DialogResult.OK)
                     {
-                        string fileName = saveFileDialog.FileName;
-                        File.Delete(fileName);
-
-                        foreach (string fileRVT in ListBoxItems.Select(cont => cont.Content.ToString()))
-                        {
-                            if (!File.Exists(fileName))
-                            {
-                                File.WriteAllText(fileName, fileRVT);
-                            }
-                            else
-                            {
-                                string toWrite = "\n" + fileRVT;
-                                File.AppendAllText(fileName, toWrite);
-                            }
-                        }
-                        FolderPath = Path.GetDirectoryName(saveFileDialog.FileName);
+                        return;
                     }
+
+                    string fileName = saveFileDialog.FileName;
+                    File.Delete(fileName);
+
+                    foreach (string fileRVT in ListBoxItems.Select(cont => cont.Content.ToString()))
+                    {
+                        if (!File.Exists(fileName))
+                        {
+                            File.WriteAllText(fileName, fileRVT);
+                        }
+                        else
+                        {
+                            string toWrite = "\n" + fileRVT;
+                            File.AppendAllText(fileName, toWrite);
+                        }
+                    }
+                    FolderPath = Path.GetDirectoryName(saveFileDialog.FileName);
                 });
             }
         }

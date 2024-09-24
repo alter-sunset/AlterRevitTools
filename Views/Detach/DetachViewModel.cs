@@ -114,5 +114,16 @@ namespace VLS.BatchExportNet.Views.Detach
                 OnPropertyChanged(nameof(MaskOutName));
             }
         }
+
+        private bool _purge = true;
+        public bool Purge
+        {
+            get => _purge;
+            set
+            {
+                _purge = value;
+                OnPropertyChanged(nameof(Purge));
+            }
+        }
     }
 }

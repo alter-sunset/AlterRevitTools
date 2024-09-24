@@ -54,16 +54,18 @@ namespace VLS.BatchExportNet.Views.IFC
 
                     DialogResult result = openFileDialog.ShowDialog();
 
-                    if (result == DialogResult.OK)
+                    if (result != DialogResult.OK)
                     {
-                        try
-                        {
-                            Mapping = openFileDialog.FileName;
-                        }
-                        catch
-                        {
-                            MessageBox.Show("Неверная схема файла");
-                        }
+                        return;
+                    }
+
+                    try
+                    {
+                        Mapping = openFileDialog.FileName;
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Неверная схема файла");
                     }
                 });
             }
@@ -107,20 +109,22 @@ namespace VLS.BatchExportNet.Views.IFC
 
                     DialogResult result = openFileDialog.ShowDialog();
 
-                    if (result == DialogResult.OK)
+                    if (result != DialogResult.OK)
                     {
-                        using FileStream file = File.OpenRead(openFileDialog.FileName);
-                        try
-                        {
-                            JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
-                            IFCForm form = JsonSerializer.Deserialize<IFCForm>(file, options);
-                            IFCFormDeserilaizer(form);
-                            form.Dispose();
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Неверная схема файла\n{ex.Message}");
-                        }
+                        return;
+                    }
+
+                    using FileStream file = File.OpenRead(openFileDialog.FileName);
+                    try
+                    {
+                        JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
+                        IFCForm form = JsonSerializer.Deserialize<IFCForm>(file, options);
+                        IFCFormDeserilaizer(form);
+                        form.Dispose();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Неверная схема файла\n{ex.Message}");
                     }
                 });
             }
@@ -173,21 +177,23 @@ namespace VLS.BatchExportNet.Views.IFC
 
                     DialogResult result = saveFileDialog.ShowDialog();
 
-                    if (result == DialogResult.OK)
+                    if (result != DialogResult.OK)
                     {
-                        string fileName = saveFileDialog.FileName;
-                        File.Delete(fileName);
-                        try
-                        {
-                            JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
-                            File.WriteAllText(fileName, JsonSerializer.Serialize(form, options));
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show($"Неверная схема файла\n{ex.Message}");
-                        }
+                        form.Dispose();
+                        return;
                     }
 
+                    string fileName = saveFileDialog.FileName;
+                    File.Delete(fileName);
+                    try
+                    {
+                        JsonSerializerOptions options = JsonHelper.GetDefaultOptions();
+                        File.WriteAllText(fileName, JsonSerializer.Serialize(form, options));
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Неверная схема файла\n{ex.Message}");
+                    }
                     form.Dispose();
                 });
             }
