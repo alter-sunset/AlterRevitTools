@@ -8,7 +8,6 @@ namespace VLS.BatchExportNet.Source
 {
     class ButtonContext
     {
-        private const string AvailabilityClassName = "VLS.BatchExportNet.Source.CommandAvailability";
         public string Name { get; set; }
         public string Text { get; set; }
         public string ClassName { get; set; }
@@ -36,7 +35,7 @@ namespace VLS.BatchExportNet.Source
                 };
                 if (Availability)
                 {
-                    pbData.AvailabilityClassName = AvailabilityClassName;
+                    pbData.AvailabilityClassName = typeof(CommandAvailability).FullName;
                 }
                 return pbData;
             }

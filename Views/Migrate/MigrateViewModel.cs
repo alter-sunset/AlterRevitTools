@@ -31,12 +31,7 @@ namespace VLS.BatchExportNet.Views.Migrate
             {
                 return _loadListCommand ??= new RelayCommand(obj =>
                 {
-                    OpenFileDialog openFileDialog = new()
-                    {
-                        Multiselect = false,
-                        DefaultExt = ".json",
-                        Filter = "Файл JSON (.json)|*.json"
-                    };
+                    OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
 
                     DialogResult result = openFileDialog.ShowDialog();
 

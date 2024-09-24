@@ -44,12 +44,7 @@ namespace VLS.BatchExportNet.Views.IFC
             {
                 return _loadMapping ??= new RelayCommand(obj =>
                 {
-                    OpenFileDialog openFileDialog = new()
-                    {
-                        Multiselect = false,
-                        DefaultExt = ".txt",
-                        Filter = "Текстовый файл (.txt)|*.txt"
-                    };
+                    OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
 
                     DialogResult result = openFileDialog.ShowDialog();
 
@@ -99,12 +94,7 @@ namespace VLS.BatchExportNet.Views.IFC
             {
                 return _loadListCommand ??= new RelayCommand(obj =>
                 {
-                    OpenFileDialog openFileDialog = new()
-                    {
-                        Multiselect = false,
-                        DefaultExt = ".json",
-                        Filter = "Файл JSON (.json)|*.json"
-                    };
+                    OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
 
                     DialogResult result = openFileDialog.ShowDialog();
 
@@ -164,12 +154,7 @@ namespace VLS.BatchExportNet.Views.IFC
                 {
                     IFCForm form = IFCFormSerializer();
 
-                    SaveFileDialog saveFileDialog = new()
-                    {
-                        FileName = "ConfigBatchExportIFC",
-                        DefaultExt = ".json",
-                        Filter = "Файл JSON (.json)|*.json"
-                    };
+                    SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
 
                     DialogResult result = saveFileDialog.ShowDialog();
 

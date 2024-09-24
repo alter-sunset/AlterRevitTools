@@ -6,11 +6,11 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Globalization;
-using System.Text.Json;
 using System.Collections.Generic;
 using VLS.BatchExportNet.Utils;
 using VLS.BatchExportNet.Views.Migrate;
 using VLS.BatchExportNet.Views;
+using WasBecome = System.Collections.Generic.Dictionary<string, string>;
 
 namespace VLS.BatchExportNet.Source.EventHandlers
 {
@@ -26,15 +26,15 @@ namespace VLS.BatchExportNet.Source.EventHandlers
                 return;
             }
 
-            Dictionary<string, string> items;
             List<string> movedFiles = [];
             List<string> failedFiles = [];
 
+            WasBecome items;
             using (FileStream file = File.OpenRead(migrateViewModel.ConfigPath))
             {
                 try
                 {
-                    items = JsonSerializer.Deserialize<Dictionary<string, string>>(file);
+                    items = JsonHelper<WasBecome>.DeserializeConfig(file);
                 }
                 catch
                 {

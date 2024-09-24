@@ -44,15 +44,8 @@ namespace VLS.BatchExportNet.Source.EventHandlers
                 Thread.Sleep(1000);
             }
 
-            TaskDialog taskDialog = new("Готово!")
-            {
-                CommonButtons = TaskDialogCommonButtons.Close,
-                Id = "ExportBatchNWCFinished",
-                MainContent = $"Задание выполнено. Всего затрачено времени:{DateTime.Now - timeStart}"
-            };
-            nwc_ViewModel.IsViewEnabled = false;
-            taskDialog.Show();
-            nwc_ViewModel.IsViewEnabled = true;
+            string msg = $"Задание выполнено. Всего затрачено времени:{DateTime.Now - timeStart}";
+            nwc_ViewModel.Finisher("ExportBatchNWCFinished", msg);
         }
     }
 }

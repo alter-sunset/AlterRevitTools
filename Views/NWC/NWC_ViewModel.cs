@@ -206,12 +206,7 @@ namespace VLS.BatchExportNet.Views.NWC
             {
                 return _loadListCommand ??= new RelayCommand(obj =>
                 {
-                    OpenFileDialog openFileDialog = new()
-                    {
-                        Multiselect = false,
-                        DefaultExt = ".json",
-                        Filter = "Файл JSON (.json)|*.json"
-                    };
+                    OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
 
                     DialogResult result = openFileDialog.ShowDialog();
 
@@ -279,12 +274,7 @@ namespace VLS.BatchExportNet.Views.NWC
                 return _saveListCommand ??= new RelayCommand(obj =>
                 {
                     NWCForm form = NWCFormSerializer();
-                    SaveFileDialog saveFileDialog = new()
-                    {
-                        FileName = "ConfigBatchExportNWC",
-                        DefaultExt = ".json",
-                        Filter = "Файл JSON (.json)|*.json"
-                    };
+                    SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
                     DialogResult result = saveFileDialog.ShowDialog();
                     if (result != DialogResult.OK)
                     {
@@ -355,12 +345,7 @@ namespace VLS.BatchExportNet.Views.NWC
             {
                 return _loadConfigsCommand ??= new RelayCommand(obj =>
                 {
-                    OpenFileDialog openFileDialog = new()
-                    {
-                        Multiselect = false,
-                        DefaultExt = ".txt",
-                        Filter = "Текстовый файл (.txt)|*.txt"
-                    };
+                    OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
 
                     DialogResult result = openFileDialog.ShowDialog();
 

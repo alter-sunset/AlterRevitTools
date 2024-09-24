@@ -35,7 +35,6 @@ namespace VLS.BatchExportNet.Utils
         /// <summary>
         /// Checks whether given view has no visible objects 
         /// </summary>
-        /// <param name="doc"></param>
         /// <param name="element">View</param>
         /// <returns>true if view is empty</returns>
         internal static bool IsViewEmpty(this Document doc, Element element)
@@ -56,7 +55,6 @@ namespace VLS.BatchExportNet.Utils
         /// <summary>
         /// Relinquish ownership of all possible elements in the document
         /// </summary>
-        /// <param name="doc"></param>
         internal static void FreeTheModel(this Document doc)
         {
             RelinquishOptions relinquishOptions = new(true);
@@ -109,7 +107,6 @@ namespace VLS.BatchExportNet.Utils
         /// <summary>
         /// Open all worksets in a document in a very crippled way
         /// </summary>
-        /// <param name="doc"></param>
         internal static void OpenAllWorksets(this Document doc)
         {
             using TransactionGroup tGroup = new(doc);
@@ -155,6 +152,9 @@ namespace VLS.BatchExportNet.Utils
             }
             tGroup.Assimilate();
         }
+        /// <summary>
+        /// Purge all unused elements in the Document
+        /// </summary>
         internal static void PurgeAll(this Document doc)
         {
             try
@@ -174,8 +174,8 @@ namespace VLS.BatchExportNet.Utils
                     if (hashSet.Count != num && hashSet.Count != 0)
                     {
                         num = hashSet.Count;
-                        using Transaction transaction = new(doc, "Purge unused");
-                        transaction.Start();
+                        using Transaction transaction = new(doc);
+                        transaction.Start("Purge unused");
                         doc.Delete(hashSet);
                         transaction.Commit();
                         continue;

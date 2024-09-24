@@ -64,12 +64,7 @@ namespace VLS.BatchExportNet.Views
             {
                 return _loadListCommand ??= new RelayCommand(obj =>
                 {
-                    OpenFileDialog openFileDialog = new()
-                    {
-                        Multiselect = false,
-                        DefaultExt = ".txt",
-                        Filter = "Текстовый файл (.txt)|*.txt"
-                    };
+                    OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
                     DialogResult result = openFileDialog.ShowDialog();
                     if (result != DialogResult.OK)
                     {
@@ -104,12 +99,7 @@ namespace VLS.BatchExportNet.Views
             {
                 return _loadCommand ??= new RelayCommand(obj =>
                 {
-                    OpenFileDialog openFileDialog = new()
-                    {
-                        Multiselect = true,
-                        DefaultExt = ".rvt",
-                        Filter = "Revit Files (.rvt)|*.rvt"
-                    };
+                    OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
 
                     DialogResult result = openFileDialog.ShowDialog();
 
@@ -135,12 +125,7 @@ namespace VLS.BatchExportNet.Views
             {
                 return _saveListCommand ??= new RelayCommand(obj =>
                 {
-                    SaveFileDialog saveFileDialog = new()
-                    {
-                        FileName = "ListOfRVTFiles",
-                        DefaultExt = ".txt",
-                        Filter = "Текстовый файл (.txt)|*.txt"
-                    };
+                    SaveFileDialog saveFileDialog = DialogType.RevitList.SaveFileDialog();
 
                     DialogResult result = saveFileDialog.ShowDialog();
 
