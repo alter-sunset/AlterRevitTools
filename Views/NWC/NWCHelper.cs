@@ -10,16 +10,8 @@ namespace VLS.BatchExportNet.Views.NWC
         public override void ExportModel(ViewModelBase_Extended viewModel, Document document, ref bool isFuckedUp, ref Logger logger)
         {
             NWC_ViewModel nwc_ViewModel = viewModel as NWC_ViewModel;
-            Element view = GetView(nwc_ViewModel, document);
-
-            if (nwc_ViewModel.ExportScopeView
-                && !nwc_ViewModel.ExportLinks
-                && document.IsViewEmpty(view))
-            {
-                logger.Error("Нет геометрии на виде.");
-                isFuckedUp = true;
+            if (IsViewEmpty(viewModel, document, ref logger, ref isFuckedUp))
                 return;
-            }
 
             NavisworksExportOptions navisworksExportOptions = NWC_ExportOptions(nwc_ViewModel, document);
 

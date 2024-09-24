@@ -10,15 +10,8 @@ namespace VLS.BatchExportNet.Views.IFC
         public override void ExportModel(ViewModelBase_Extended viewModel, Document document, ref bool isFuckedUp, ref Logger logger)
         {
             IFC_ViewModel ifc_ViewModel = viewModel as IFC_ViewModel;
-            Element view = GetView(ifc_ViewModel, document);
-
-            if (ifc_ViewModel.ExportScopeView
-                && document.IsViewEmpty(view))
-            {
-                logger.Error("Нет геометрии на виде.");
-                isFuckedUp = true;
+            if (IsViewEmpty(viewModel, document, ref logger, ref isFuckedUp))
                 return;
-            }
 
             IFCExportOptions ifcExportOptions = IFC_ExportOptions(ifc_ViewModel, document);
 
@@ -27,22 +20,17 @@ namespace VLS.BatchExportNet.Views.IFC
             Export(viewModel, document, ifcExportOptions, ref logger, ref isFuckedUp);
             transaction.Commit();
         }
-        private static IFCExportOptions IFC_ExportOptions(IFC_ViewModel ifc_ViewModel, Document document)
+        private static IFCExportOptions IFC_ExportOptions(IFC_ViewModel ifc_ViewModel, Document document) => new()
         {
-            IFCExportOptions options = new()
-            {
-                ExportBaseQuantities = ifc_ViewModel.ExportBaseQuantities,
-                FamilyMappingFile = ifc_ViewModel.Mapping,
-                FileVersion = ifc_ViewModel.SelectedVersion.Key,
-                FilterViewId = new FilteredElementCollector(document)
+            ExportBaseQuantities = ifc_ViewModel.ExportBaseQuantities,
+            FamilyMappingFile = ifc_ViewModel.Mapping,
+            FileVersion = ifc_ViewModel.SelectedVersion.Key,
+            FilterViewId = new FilteredElementCollector(document)
                 .OfClass(typeof(View))
                 .FirstOrDefault(e => e.Name == ifc_ViewModel.ViewName)
                 .Id,
-                SpaceBoundaryLevel = ifc_ViewModel.SelectedLevel.Key,
-                WallAndColumnSplitting = ifc_ViewModel.WallAndColumnSplitting
-            };
-
-            return options;
-        }
+            SpaceBoundaryLevel = ifc_ViewModel.SelectedLevel.Key,
+            WallAndColumnSplitting = ifc_ViewModel.WallAndColumnSplitting
+        };
     }
 }

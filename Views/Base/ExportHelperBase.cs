@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Windows.Media;
 using System.Windows.Controls;
 using VLS.BatchExportNet.Utils;
+using VLS.BatchExportNet.Views.NWC;
 
 namespace VLS.BatchExportNet.Views.Base
 {
@@ -132,10 +133,6 @@ namespace VLS.BatchExportNet.Views.Base
         }
 
         public virtual void ExportModel(ViewModelBase_Extended viewModel, Document document, ref bool isFuckedUp, ref Logger logger) { }
-        public static Element GetView(ViewModelBase_Extended viewModel, Document document) =>
-            new FilteredElementCollector(document)
-                .OfClass(typeof(View3D))
-                .FirstOrDefault(e => e.Name == viewModel.ViewName && !((View3D)e).IsTemplate);
         public static void Export(ViewModelBase_Extended viewModel, Document document, object exportOptions, ref Logger logger, ref bool isFuckedUp)
         {
             string folderPath = viewModel.FolderPath;
@@ -145,13 +142,9 @@ namespace VLS.BatchExportNet.Views.Base
             string fileFormat;
 
             if (exportOptions is NavisworksExportOptions)
-            {
                 fileFormat = ".nwc";
-            }
             else
-            {
                 fileFormat = ".ifc";
-            }
 
             string fileName = folderPath + "\\" + fileExportName + fileFormat;
             string oldHash = null;
@@ -195,5 +188,24 @@ namespace VLS.BatchExportNet.Views.Base
                 isFuckedUp = true;
             }
         }
+        public static bool IsViewEmpty(ViewModelBase_Extended viewModel, Document document, ref Logger logger, ref bool isFuckedUp)
+        {
+            if (viewModel is NWC_ViewModel model && model.ExportLinks)
+                return false;
+
+            if (viewModel.ExportScopeView
+                && document.IsViewEmpty(GetView(viewModel, document)))
+            {
+                logger.Error("Нет геометрии на виде.");
+                isFuckedUp = true;
+                return true;
+            }
+
+            return false;
+        }
+        private static Element GetView(ViewModelBase_Extended viewModel, Document document) =>
+            new FilteredElementCollector(document)
+                .OfClass(typeof(View3D))
+                .FirstOrDefault(e => e.Name == viewModel.ViewName && !((View3D)e).IsTemplate);
     }
 }
