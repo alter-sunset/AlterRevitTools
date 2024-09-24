@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace VLS.BatchExportNet.Views
+namespace VLS.BatchExportNet.Views.Base
 {
     public class RelayCommand(Action<object> execute, Func<object, bool> canExecute = null) : ICommand
     {

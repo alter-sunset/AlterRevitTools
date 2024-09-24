@@ -9,8 +9,9 @@ using System.Globalization;
 using System.Collections.Generic;
 using VLS.BatchExportNet.Utils;
 using VLS.BatchExportNet.Views.Migrate;
-using VLS.BatchExportNet.Views;
 using WasBecome = System.Collections.Generic.Dictionary<string, string>;
+using VLS.BatchExportNet.Views.Base;
+using System.Text.Json;
 
 namespace VLS.BatchExportNet.Source.EventHandlers
 {
@@ -34,7 +35,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
             {
                 try
                 {
-                    items = JsonHelper<WasBecome>.DeserializeConfig(file);
+                    items = JsonSerializer.Deserialize<WasBecome>(file);
                 }
                 catch
                 {

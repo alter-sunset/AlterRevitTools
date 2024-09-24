@@ -1,5 +1,6 @@
 ﻿using System.Windows.Forms;
 using VLS.BatchExportNet.Source.EventHandlers;
+using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Views.Migrate
 {
@@ -10,7 +11,7 @@ namespace VLS.BatchExportNet.Views.Migrate
             EventHandlerBaseVMArgs = eventHandlerMigrateModelsUiArg;
             HelpMessage =
                 Help.GetHelpDictionary().
-                GetResultMessage(HelpMessages.Migrate);
+                GetResultMessage(HelpMessageType.Migrate);
         }
 
         private string _configPath;
@@ -32,13 +33,9 @@ namespace VLS.BatchExportNet.Views.Migrate
                 return _loadListCommand ??= new RelayCommand(obj =>
                 {
                     OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
-
                     DialogResult result = openFileDialog.ShowDialog();
-
                     if (result == DialogResult.OK)
-                    {
                         ConfigPath = openFileDialog.FileName;
-                    }
                 });
             }
         }

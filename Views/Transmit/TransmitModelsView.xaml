@@ -5,7 +5,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:VLS.BatchExportNet.Views.Transmit"
-             xmlns:base="clr-namespace:VLS.BatchExportNet.Views"
+             xmlns:base="clr-namespace:VLS.BatchExportNet.Views.Base"
              mc:Ignorable="d" 
              Height="500"
              Width="800"
@@ -50,7 +50,6 @@
                  ItemsSource="{Binding ListBoxItems}"
                  SelectedItem="{Binding Selecteditem}"
                  ToolTip="Список файлов в формате (.rvt)"/>
-
 
         <Button Margin="10"
                 Grid.Column="0"

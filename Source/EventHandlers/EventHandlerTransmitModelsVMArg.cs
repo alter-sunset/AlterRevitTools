@@ -8,7 +8,7 @@ using System.Windows.Controls;
 using System.Collections.Generic;
 using VLS.BatchExportNet.Utils;
 using VLS.BatchExportNet.Views.Transmit;
-using VLS.BatchExportNet.Views;
+using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Source.EventHandlers
 {
@@ -31,7 +31,6 @@ namespace VLS.BatchExportNet.Source.EventHandlers
 
                 if (!File.Exists(filePath))
                 {
-                    string error = $"Файла {filePath} не существует. Ты совсем Туттуру?";
                     item.Background = Brushes.Red;
                     continue;
                 }

@@ -1,6 +1,6 @@
 ﻿using Autodesk.Revit.UI;
 using VLS.BatchExportNet.Utils;
-using VLS.BatchExportNet.Views;
+using VLS.BatchExportNet.Views.Base;
 using VLS.BatchExportNet.Views.IFC;
 
 namespace VLS.BatchExportNet.Source.EventHandlers
@@ -15,7 +15,8 @@ namespace VLS.BatchExportNet.Source.EventHandlers
                 return;
             }
             Logger logger = new(ifc_ViewModel.FolderPath);
-            ifc_ViewModel.BatchExportModels(uiApp, ref logger);
+            IFCHelper ifcHelper = new();
+            ifcHelper.BatchExportModels(ifc_ViewModel, uiApp, ref logger);
 
             string msg = $"В процессе выполнения было {logger.ErrorCount} ошибок из {logger.ErrorCount + logger.SuccessCount} файлов.";
             logger.Dispose();

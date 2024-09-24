@@ -1,4 +1,5 @@
 ﻿using VLS.BatchExportNet.Source.EventHandlers;
+using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Views.Detach
 {
@@ -9,12 +10,12 @@ namespace VLS.BatchExportNet.Views.Detach
             EventHandlerBaseVMArgs = eventHandlerDetachModelsUiArg;
             HelpMessage =
                 Help.GetHelpDictionary().
-                GetResultMessage(HelpMessages.DetachTitle,
-                    HelpMessages.Load,
-                    HelpMessages.Folder,
-                    HelpMessages.DetachMid,
-                    HelpMessages.List,
-                    HelpMessages.Start);
+                GetResultMessage(HelpMessageType.DetachTitle,
+                    HelpMessageType.Load,
+                    HelpMessageType.Folder,
+                    HelpMessageType.DetachMid,
+                    HelpMessageType.List,
+                    HelpMessageType.Start);
         }
 
         private int _radioButtonMode = 0;

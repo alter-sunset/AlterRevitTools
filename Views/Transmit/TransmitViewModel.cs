@@ -1,4 +1,5 @@
 ﻿using VLS.BatchExportNet.Source.EventHandlers;
+using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Views.Transmit
 {
@@ -9,11 +10,11 @@ namespace VLS.BatchExportNet.Views.Transmit
             EventHandlerBaseVMArgs = eventHandlerTransmitModelsUiArg;
             HelpMessage =
                 Help.GetHelpDictionary().
-                GetResultMessage(HelpMessages.TransmitTitle,
-                    HelpMessages.Load,
-                    HelpMessages.Folder,
-                    HelpMessages.List,
-                    HelpMessages.Start);
+                GetResultMessage(HelpMessageType.TransmitTitle,
+                    HelpMessageType.Load,
+                    HelpMessageType.Folder,
+                    HelpMessageType.List,
+                    HelpMessageType.Start);
         }
 
         private bool _isSameFolder;

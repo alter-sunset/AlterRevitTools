@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
+using System.Windows;
 using System.Reflection;
-using System.Text.Encodings.Web;
 using System.Text.Json;
 using System.Text.Unicode;
+using System.Text.Encodings.Web;
 
 namespace VLS.BatchExportNet.Utils
 {
@@ -13,11 +15,30 @@ namespace VLS.BatchExportNet.Utils
                 Assembly.GetExecutingAssembly().GetManifestResourceStream(path),
                 GetDefaultOptions());
 
-        public static T DeserializeConfig(FileStream file) =>
-            JsonSerializer.Deserialize<T>(file, GetDefaultOptions());
+        public static T DeserializeConfig(FileStream file)
+        {
+            try
+            {
+                return JsonSerializer.Deserialize<T>(file, GetDefaultOptions());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Неверная схема файла\n{ex.Message}");
+                return default;
+            }
+        }
 
-        public static void SerializeConfig(T value, string path) =>
-            File.WriteAllText(path, JsonSerializer.Serialize(value, GetDefaultOptions()));
+        public static void SerializeConfig(T value, string path)
+        {
+            try
+            {
+                File.WriteAllText(path, JsonSerializer.Serialize(value, GetDefaultOptions()));
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Неверная схема файла\n{ex.Message}");
+            }
+        }
         private static JsonSerializerOptions GetDefaultOptions() => new()
         {
             WriteIndented = true,

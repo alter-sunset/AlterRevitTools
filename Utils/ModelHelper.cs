@@ -66,12 +66,12 @@ namespace VLS.BatchExportNet.Utils
             catch { }
         }
         /// <summary>
-        /// DeleteRevitLinks all possible links from the document 
+        /// Delete all possible links from the document 
         /// </summary>
         internal static void DeleteAllLinks(this Document doc)
         {
             using Transaction t = new(doc);
-            t.Start("DeleteRevitLinks all Links");
+            t.Start("Delete all Links");
 
             FailureHandlingOptions failOpt = t.GetFailureHandlingOptions();
             failOpt.SetFailuresPreprocessor(new CopyWatchAlertSwallower());

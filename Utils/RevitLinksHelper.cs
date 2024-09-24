@@ -12,7 +12,7 @@ namespace VLS.BatchExportNet.Utils
         internal static void DeleteRevitLinks(this Document document)
         {
             using Transaction transaction = new(document);
-            transaction.Start("DeleteRevitLinks Revit links from model");
+            transaction.Start("Delete Revit links from model");
 
             FailureHandlingOptions failOpt = transaction.GetFailureHandlingOptions();
             failOpt.SetFailuresPreprocessor(new CopyWatchAlertSwallower());

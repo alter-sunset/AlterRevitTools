@@ -5,7 +5,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Windows;
 using VLS.BatchExportNet.Utils;
-using VLS.BatchExportNet.Views;
+using VLS.BatchExportNet.Views.Base;
 using VLS.BatchExportNet.Views.NWC;
 
 namespace VLS.BatchExportNet.Source.EventHandlers
@@ -39,7 +39,9 @@ namespace VLS.BatchExportNet.Source.EventHandlers
                 string folder = nwc_ViewModel.FolderPath;
                 Logger logger = new(folder);
 
-                nwc_ViewModel.BatchExportModels(uiApp, ref logger);
+                NWCHelper nwcHelper = new();
+                nwcHelper.BatchExportModels(nwc_ViewModel, uiApp, ref logger);
+
                 logger.Dispose();
                 Thread.Sleep(1000);
             }

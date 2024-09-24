@@ -1,5 +1,4 @@
 ﻿using Autodesk.Revit.DB;
-using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -9,6 +8,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using VLS.BatchExportNet.Source.EventHandlers;
 using VLS.BatchExportNet.Utils;
+using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Views.NWC
 {
@@ -22,13 +22,13 @@ namespace VLS.BatchExportNet.Views.NWC
             EventHandlerBaseVMArgs = eventHandlerNWCExportUiArg;
             HelpMessage =
                 Help.GetHelpDictionary().
-                GetResultMessage(HelpMessages.NWCTitle,
-                    HelpMessages.Load,
-                    HelpMessages.Folder,
-                    HelpMessages.Naming,
-                    HelpMessages.Config,
-                    HelpMessages.Start,
-                    HelpMessages.NWCEnd);
+                GetResultMessage(HelpMessageType.NWCTitle,
+                    HelpMessageType.Load,
+                    HelpMessageType.Folder,
+                    HelpMessageType.Naming,
+                    HelpMessageType.Config,
+                    HelpMessageType.Start,
+                    HelpMessageType.NWCEnd);
         }
 
         private bool _convertElementProperties = false;
@@ -211,24 +211,18 @@ namespace VLS.BatchExportNet.Views.NWC
                     DialogResult result = openFileDialog.ShowDialog();
 
                     if (result != DialogResult.OK)
-                    {
                         return;
-                    }
 
                     using FileStream file = File.OpenRead(openFileDialog.FileName);
-                    try
-                    {
-                        NWCFormDeserilaizer(JsonHelper<NWCForm>.DeserializeConfig(file));
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Неверная схема файла\n{ex.Message}");
-                    }
+                    NWCFormDeserilaizer(JsonHelper<NWCForm>.DeserializeConfig(file));
                 });
             }
         }
         public void NWCFormDeserilaizer(NWCForm form)
         {
+            if (form is null)
+                return;
+
             ConvertElementProperties = form.ConvertElementProperties;
             DivideFileIntoLevels = form.DivideFileIntoLevels;
             ExportElementIds = form.ExportElementIds;
@@ -248,9 +242,7 @@ namespace VLS.BatchExportNet.Views.NWC
             foreach (string file in form.RVTFiles)
             {
                 if (string.IsNullOrEmpty(file))
-                {
                     continue;
-                }
 
                 ListBoxItem listBoxItem = new() { Content = file, Background = Brushes.White };
                 if (!ListBoxItems.Any(cont => cont.Content.ToString() == file)
@@ -273,7 +265,7 @@ namespace VLS.BatchExportNet.Views.NWC
             {
                 return _saveListCommand ??= new RelayCommand(obj =>
                 {
-                    NWCForm form = NWCFormSerializer();
+                    using NWCForm form = NWCFormSerializer();
                     SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
                     DialogResult result = saveFileDialog.ShowDialog();
                     if (result != DialogResult.OK)
@@ -284,15 +276,8 @@ namespace VLS.BatchExportNet.Views.NWC
 
                     string fileName = saveFileDialog.FileName;
                     File.Delete(fileName);
-                    try
-                    {
-                        JsonHelper<NWCForm>.SerializeConfig(form, fileName);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Неверная схема файла\n{ex.Message}");
-                    }
-                    form.Dispose();
+
+                    JsonHelper<NWCForm>.SerializeConfig(form, fileName);
                 });
             }
         }
@@ -350,18 +335,14 @@ namespace VLS.BatchExportNet.Views.NWC
                     DialogResult result = openFileDialog.ShowDialog();
 
                     if (result != DialogResult.OK)
-                    {
                         return;
-                    }
 
                     IEnumerable<string> configs = File.ReadLines(openFileDialog.FileName);
                     Configs = new ObservableCollection<string>(
                         configs.Where(e => !Configs.Any(c => c == e) && e.EndsWith(".json")));
 
                     if (Configs.Count.Equals(0))
-                    {
                         MessageBox.Show("В текстовом файле не было найдено подходящей информации");
-                    }
                 });
             }
         }

@@ -1,4 +1,5 @@
 ﻿using VLS.BatchExportNet.Source.EventHandlers;
+using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Views.Link
 {
@@ -9,10 +10,10 @@ namespace VLS.BatchExportNet.Views.Link
             EventHandlerBaseVMArgs = eventHandlerLinkModelsUiArg;
             HelpMessage =
                 Help.GetHelpDictionary().
-                GetResultMessage(HelpMessages.LinkTitle,
-                    HelpMessages.Load,
-                    HelpMessages.List,
-                    HelpMessages.Start);
+                GetResultMessage(HelpMessageType.LinkTitle,
+                    HelpMessageType.Load,
+                    HelpMessageType.List,
+                    HelpMessageType.Start);
         }
 
         private bool _isCurrentWorkset = true;

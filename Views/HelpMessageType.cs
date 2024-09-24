@@ -1,6 +1,6 @@
 ﻿namespace VLS.BatchExportNet.Views
 {
-    public enum HelpMessages
+    public enum HelpMessageType
     {
         Load,
         Folder,

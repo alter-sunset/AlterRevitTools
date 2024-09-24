@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 
-namespace VLS.BatchExportNet.Views
+namespace VLS.BatchExportNet.Views.Base
 {
     public class WindowBase : Window
     {

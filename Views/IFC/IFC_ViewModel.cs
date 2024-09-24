@@ -1,5 +1,4 @@
 ﻿using Autodesk.Revit.DB;
-using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -8,6 +7,7 @@ using System.Windows.Controls;
 using System.Collections.Generic;
 using VLS.BatchExportNet.Source.EventHandlers;
 using VLS.BatchExportNet.Utils;
+using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Views.IFC
 {
@@ -18,12 +18,12 @@ namespace VLS.BatchExportNet.Views.IFC
             EventHandlerBaseVMArgs = eventHandlerIFCExportUiArg;
             HelpMessage =
                 Help.GetHelpDictionary().
-                GetResultMessage(HelpMessages.IFCTitle,
-                    HelpMessages.Load,
-                    HelpMessages.Folder,
-                    HelpMessages.Naming,
-                    HelpMessages.Config,
-                    HelpMessages.Start);
+                GetResultMessage(HelpMessageType.IFCTitle,
+                    HelpMessageType.Load,
+                    HelpMessageType.Folder,
+                    HelpMessageType.Naming,
+                    HelpMessageType.Config,
+                    HelpMessageType.Start);
         }
 
         private string _mapping = "";
@@ -49,9 +49,7 @@ namespace VLS.BatchExportNet.Views.IFC
                     DialogResult result = openFileDialog.ShowDialog();
 
                     if (result != DialogResult.OK)
-                    {
                         return;
-                    }
 
                     try
                     {
@@ -99,24 +97,18 @@ namespace VLS.BatchExportNet.Views.IFC
                     DialogResult result = openFileDialog.ShowDialog();
 
                     if (result != DialogResult.OK)
-                    {
                         return;
-                    }
 
                     using FileStream file = File.OpenRead(openFileDialog.FileName);
-                    try
-                    {
-                        IFCFormDeserilaizer(JsonHelper<IFCForm>.DeserializeConfig(file));
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Неверная схема файла\n{ex.Message}");
-                    }
+                    IFCFormDeserilaizer(JsonHelper<IFCForm>.DeserializeConfig(file));
                 });
             }
         }
         private void IFCFormDeserilaizer(IFCForm form)
         {
+            if (form is null)
+                return;
+
             FolderPath = form.DestinationFolder;
             NamePrefix = form.NamePrefix;
             NamePostfix = form.NamePostfix;
@@ -132,9 +124,7 @@ namespace VLS.BatchExportNet.Views.IFC
             foreach (string file in form.RVTFiles)
             {
                 if (string.IsNullOrEmpty(file))
-                {
                     continue;
-                }
 
                 ListBoxItem listBoxItem = new() { Content = file, Background = Brushes.White };
                 if (!ListBoxItems.Any(cont => cont.Content.ToString() == file)
@@ -152,10 +142,8 @@ namespace VLS.BatchExportNet.Views.IFC
             {
                 return _saveListCommand ??= new RelayCommand(obj =>
                 {
-                    IFCForm form = IFCFormSerializer();
-
+                    using IFCForm form = IFCFormSerializer();
                     SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
-
                     DialogResult result = saveFileDialog.ShowDialog();
 
                     if (result != DialogResult.OK)
@@ -166,15 +154,8 @@ namespace VLS.BatchExportNet.Views.IFC
 
                     string fileName = saveFileDialog.FileName;
                     File.Delete(fileName);
-                    try
-                    {
-                        JsonHelper<IFCForm>.SerializeConfig(form, fileName);
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"Неверная схема файла\n{ex.Message}");
-                    }
-                    form.Dispose();
+
+                    JsonHelper<IFCForm>.SerializeConfig(form, fileName);
                 });
             }
         }

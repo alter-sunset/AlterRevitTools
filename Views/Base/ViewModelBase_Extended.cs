@@ -1,4 +1,4 @@
-﻿namespace VLS.BatchExportNet.Views
+﻿namespace VLS.BatchExportNet.Views.Base
 {
     public class ViewModelBase_Extended : ViewModelBase
     {

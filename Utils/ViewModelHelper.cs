@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows;
-using VLS.BatchExportNet.Views;
+using VLS.BatchExportNet.Views.Base;
 using VLS.BatchExportNet.Views.Detach;
 using VLS.BatchExportNet.Views.Transmit;
 

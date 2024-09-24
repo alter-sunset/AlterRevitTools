@@ -10,7 +10,7 @@ using System.Windows.Forms;
 using System.Windows.Media;
 using VLS.BatchExportNet.Source.EventHandlers;
 
-namespace VLS.BatchExportNet.Views
+namespace VLS.BatchExportNet.Views.Base
 {
     public class ViewModelBase() : INotifyPropertyChanged
     {
