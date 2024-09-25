@@ -57,7 +57,7 @@ namespace VLS.BatchExportNet.Views.IFC
                     }
                     catch
                     {
-                        MessageBox.Show("Неверная схема файла");
+                        MessageBox.Show(AlertType.WrongConfig.GetAlert());
                     }
                 });
             }

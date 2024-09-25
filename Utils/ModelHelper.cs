@@ -84,6 +84,8 @@ namespace VLS.BatchExportNet.Utils
         /// </summary>
         internal static string MD5Hash(this string fileName)
         {
+            if (!File.Exists(fileName))
+                return null;
             using MD5 md5 = MD5.Create();
             try
             {
@@ -111,10 +113,9 @@ namespace VLS.BatchExportNet.Utils
             foreach (Workset w in collectorWorkset.ToWorksets())
             {
                 if (w.IsOpen)
-                {
                     continue;
-                }
-                t.Start("Open workset");//Creating temporary cable tray
+
+                t.Start($"Open workset {w.Name}");//Creating temporary cable tray
                 ElementId typeID = new FilteredElementCollector(doc)
                     .WhereElementIsElementType()
                     .OfClass(typeof(CableTrayType))

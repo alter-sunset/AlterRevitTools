@@ -13,6 +13,9 @@
         NoMaskFolder,
         WrongMask,
         NoMaskFile,
-        NoTransData
+        NoTransData,
+        EmptyList,
+        WrongConfig,
+        EmptyConfig
     }
 }

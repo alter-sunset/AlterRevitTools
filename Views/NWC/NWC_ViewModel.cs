@@ -342,7 +342,7 @@ namespace VLS.BatchExportNet.Views.NWC
                         configs.Where(e => !Configs.Any(c => c == e) && e.EndsWith(".json")));
 
                     if (Configs.Count.Equals(0))
-                        MessageBox.Show("В текстовом файле не было найдено подходящей информации");
+                        MessageBox.Show(AlertType.EmptyConfig.GetAlert());
                 });
             }
         }

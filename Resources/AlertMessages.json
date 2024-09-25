@@ -10,5 +10,8 @@
   "NoMaskFolder": "Укажите маску замены пути!",
   "WrongMask": "Несоответсвие входной маски и имён файлов!",
   "NoMaskFile": "Введите маски для переименования файлов!",
-  "NoTransData": "The document does not have any transmission data"
+  "NoTransData": "The document does not have any transmission data",
+  "EmptyList": "В текстовом файле не было найдено подходящей информации",
+  "WrongConfig": "Неверная схема файла",
+  "EmptyConfig": "В текстовом файле не было найдено подходящей информации"
 }

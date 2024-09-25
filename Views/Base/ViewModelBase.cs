@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
 using VLS.BatchExportNet.Source.EventHandlers;
+using VLS.BatchExportNet.Utils;
 
 namespace VLS.BatchExportNet.Views.Base
 {
@@ -85,7 +86,7 @@ namespace VLS.BatchExportNet.Views.Base
                     }
                     if (ListBoxItems.Count.Equals(0))
                     {
-                        MessageBox.Show("В текстовом файле не было найдено подходящей информации");
+                        MessageBox.Show(AlertType.EmptyList.GetAlert());
                     }
                     FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
                 });
