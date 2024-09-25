@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace VLS.BatchExportNet.Utils
 {
-    public class CopyWatchAlertSwallower : IFailuresPreprocessor
+    class CopyWatchAlertSwallower : IFailuresPreprocessor
     {
         public FailureProcessingResult PreprocessFailures(FailuresAccessor a)
         {

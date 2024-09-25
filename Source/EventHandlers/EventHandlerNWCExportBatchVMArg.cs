@@ -47,7 +47,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
             }
 
             string msg = $"Задание выполнено. Всего затрачено времени:{DateTime.Now - timeStart}";
-            nwc_ViewModel.Finisher("ExportBatchNWCFinished", msg);
+            nwc_ViewModel.Finisher(id: "ExportBatchNWCFinished", msg);
         }
     }
 }

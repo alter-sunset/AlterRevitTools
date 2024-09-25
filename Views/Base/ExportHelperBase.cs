@@ -1,7 +1,5 @@
 ﻿using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.UI;
-using Autodesk.Revit.UI.Events;
 using Autodesk.Revit.ApplicationServices;
 using System;
 using System.IO;
@@ -128,8 +126,12 @@ namespace VLS.BatchExportNet.Views.Base
             logger.TimeTotal();
         }
 
-        public virtual void ExportModel(ViewModelBase_Extended viewModel, Document document, ref bool isFuckedUp, ref Logger logger) { }
-        public static void Export(ViewModelBase_Extended viewModel, Document document, object exportOptions, ref Logger logger, ref bool isFuckedUp)
+        public virtual void ExportModel(ViewModelBase_Extended viewModel,
+            Document document, ref bool isFuckedUp, ref Logger logger)
+        { }
+        public static void Export(ViewModelBase_Extended viewModel,
+            Document document, object exportOptions,
+            ref Logger logger, ref bool isFuckedUp)
         {
             string folderPath = viewModel.FolderPath;
             string fileExportName = viewModel.NamePrefix
@@ -153,15 +155,9 @@ namespace VLS.BatchExportNet.Views.Base
             try
             {
                 if (exportOptions is NavisworksExportOptions)
-                {
-                    NavisworksExportOptions navisworksExportOptions = exportOptions as NavisworksExportOptions;
-                    document?.Export(folderPath, fileExportName, navisworksExportOptions);
-                }
+                    document?.Export(folderPath, fileExportName, exportOptions as NavisworksExportOptions);
                 else
-                {
-                    IFCExportOptions iFCExportOptions = exportOptions as IFCExportOptions;
-                    document?.Export(folderPath, fileExportName, iFCExportOptions);
-                }
+                    document?.Export(folderPath, fileExportName, exportOptions as IFCExportOptions);
             }
             catch (Exception ex)
             {

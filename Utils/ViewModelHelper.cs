@@ -132,7 +132,7 @@ namespace VLS.BatchExportNet.Utils
         /// </summary>
         /// <param name="id">TaskDialog Id</param>
         /// <param name="msg">Message to show to user</param>
-        internal static void Finisher(this ViewModelBase viewModel, string id, string msg = "Задание выполнено")
+        public static void Finisher(this ViewModelBase viewModel, string id, string msg = "Задание выполнено")
         {
             TaskDialog taskDialog = new("Готово!")
             {

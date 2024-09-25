@@ -94,7 +94,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
                 ? $"Задание выполнено.\nСледующие файлы не были скопированы:\n{string.Join("\n", failedFiles)}"
                 : "Задание выполнено.";
 
-            migrateViewModel.Finisher("MigrateModelsFinished", msg);
+            migrateViewModel.Finisher(id: "MigrateModelsFinished", msg);
         }
     }
 }

@@ -34,9 +34,8 @@ namespace VLS.BatchExportNet.Source
                     LargeImage = GetImage(ImageLarge)
                 };
                 if (Availability)
-                {
                     pbData.AvailabilityClassName = typeof(CommandAvailability).FullName;
-                }
+
                 return pbData;
             }
             catch

@@ -18,9 +18,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
         {
             TransmitViewModel transmitViewModel = viewModelBase as TransmitViewModel;
             if (!transmitViewModel.IsEverythingFilled())
-            {
                 return;
-            }
 
             using Application application = uiApp.Application;
             List<ListBoxItem> listItems = [.. transmitViewModel.ListBoxItems];
@@ -43,7 +41,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
                 ModelPath transmittedModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(transmittedFilePath);
                 transmittedModelPath.UnloadRevitLinks(isSameFolder, folder);
             }
-            transmitViewModel.Finisher("TransmitModelsFinished");
+            transmitViewModel.Finisher(id: "TransmitModelsFinished");
         }
     }
 }

@@ -14,9 +14,7 @@ namespace VLS.BatchExportNet.Utils
             using Transaction transaction = new(document);
             transaction.Start("Delete Revit links from model");
 
-            FailureHandlingOptions failOpt = transaction.GetFailureHandlingOptions();
-            failOpt.SetFailuresPreprocessor(new CopyWatchAlertSwallower());
-            transaction.SetFailureHandlingOptions(failOpt);
+            transaction.SwallowAlert();
 
             List<Element> links = [.. new FilteredElementCollector(document).OfClass(typeof(RevitLinkType))];
 
@@ -30,70 +28,66 @@ namespace VLS.BatchExportNet.Utils
         {
             TransmissionData transData = TransmissionData.ReadTransmissionData(filePath);
 
-            if (transData != null)
-            {
-                ICollection<ElementId> externalReferences = transData.GetAllExternalFileReferenceIds();
-                foreach (ElementId refId in externalReferences)
-                {
-                    ExternalFileReference extRef = transData.GetLastSavedReferenceData(refId);
-                    if (extRef.ExternalFileReferenceType == ExternalFileReferenceType.RevitLink)
-                    {
-                        string name = extRef.GetPath().CentralServerPath.Split('\\').Last();
-                        if (isSameFolder)
-                        {
-                            FilePath path = new(folder + '\\' + name);
-                            transData.SetDesiredReferenceData(refId, path, PathType.Absolute, false);
-                        }
-                        else
-                        {
-                            transData.SetDesiredReferenceData(refId, extRef.GetPath(), extRef.PathType, false);
-                        }
-                    }
-                }
-                transData.IsTransmitted = true;
-                TransmissionData.WriteTransmissionData(filePath, transData);
-            }
-            else
+            if (transData is null)
             {
                 TaskDialog.Show("Unload Revit links", "The document does not have any transmission data");
+                return;
             }
+            ICollection<ElementId> externalReferences = transData.GetAllExternalFileReferenceIds();
+            foreach (ElementId refId in externalReferences)
+            {
+                ExternalFileReference extRef = transData.GetLastSavedReferenceData(refId);
+                if (extRef.ExternalFileReferenceType is not ExternalFileReferenceType.RevitLink)
+                    continue;
+
+                string name = extRef.GetPath().CentralServerPath.Split('\\').Last();
+                if (isSameFolder)
+                {
+                    FilePath path = new(folder + '\\' + name);
+                    transData.SetDesiredReferenceData(refId, path, PathType.Absolute, false);
+                }
+                else
+                {
+                    transData.SetDesiredReferenceData(refId, extRef.GetPath(), extRef.PathType, false);
+                }
+            }
+            transData.IsTransmitted = true;
+            TransmissionData.WriteTransmissionData(filePath, transData);
         }
         internal static void ReplaceLinks(this ModelPath filePath, Dictionary<string, string> oldNewFilePairs)
         {
             TransmissionData transData = TransmissionData.ReadTransmissionData(filePath);
 
-            if (transData != null)
-            {
-                ICollection<ElementId> externalReferences = transData.GetAllExternalFileReferenceIds();
-
-                foreach (ElementId refId in externalReferences)
-                {
-                    ExternalFileReference extRef = transData.GetLastSavedReferenceData(refId);
-                    ModelPath modelPath = extRef.GetAbsolutePath();
-                    string path = ModelPathUtils.ConvertModelPathToUserVisiblePath(modelPath);
-                    if (extRef.ExternalFileReferenceType == ExternalFileReferenceType.RevitLink && oldNewFilePairs.Any(e => e.Key == path))
-                    {
-                        string newFile = oldNewFilePairs.FirstOrDefault(e => e.Key == path).Value;
-                        ModelPath newPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(newFile);
-                        try
-                        {
-                            transData.SetDesiredReferenceData(refId, newPath, PathType.Absolute, true);
-                        }
-                        catch (Exception ex)
-                        {
-                            MessageBox.Show(ex.ToString());
-                            continue;
-                        }
-                    }
-                }
-
-                transData.IsTransmitted = true;
-                TransmissionData.WriteTransmissionData(filePath, transData);
-            }
-            else
+            if (transData is null)
             {
                 TaskDialog.Show("Replace Links", "The document does not have any transmission data");
+                return;
             }
+            ICollection<ElementId> externalReferences = transData.GetAllExternalFileReferenceIds();
+            foreach (ElementId refId in externalReferences)
+            {
+                ExternalFileReference extRef = transData.GetLastSavedReferenceData(refId);
+                ModelPath modelPath = extRef.GetAbsolutePath();
+                string path = ModelPathUtils.ConvertModelPathToUserVisiblePath(modelPath);
+
+                if (extRef.ExternalFileReferenceType is not ExternalFileReferenceType.RevitLink
+                    || !oldNewFilePairs.Any(e => e.Key == path))
+                    continue;
+
+                string newFile = oldNewFilePairs.FirstOrDefault(e => e.Key == path).Value;
+                ModelPath newPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(newFile);
+                try
+                {
+                    transData.SetDesiredReferenceData(refId, newPath, PathType.Absolute, true);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                    continue;
+                }
+            }
+            transData.IsTransmitted = true;
+            TransmissionData.WriteTransmissionData(filePath, transData);
         }
     }
 }

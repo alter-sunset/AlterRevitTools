@@ -18,16 +18,10 @@ namespace VLS.BatchExportNet.Utils
         {
             WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.OpenAllWorksets);
 
-            IList<WorksetPreview> worksets = WorksharingUtils.GetUserWorksetInfo(modelPath);
-            List<WorksetId> worksetIds = [];
-
-            foreach (WorksetPreview worksetPreview in worksets)
-            {
-                if (prefixes.Any(worksetPreview.Name.StartsWith))
-                {
-                    worksetIds.Add(worksetPreview.Id);
-                }
-            }
+            List<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)
+                .Where(wp => prefixes.Any(wp.Name.StartsWith))
+                .Select(wp => wp.Id)
+                .ToList();
 
             worksetConfiguration.Close(worksetIds);
             return worksetConfiguration;
@@ -72,10 +66,7 @@ namespace VLS.BatchExportNet.Utils
         {
             using Transaction t = new(doc);
             t.Start("Delete all Links");
-
-            FailureHandlingOptions failOpt = t.GetFailureHandlingOptions();
-            failOpt.SetFailuresPreprocessor(new CopyWatchAlertSwallower());
-            t.SetFailureHandlingOptions(failOpt);
+            t.SwallowAlert();
 
             ICollection<ElementId> ids = ExternalFileUtils.GetAllExternalFileReferences(doc);
             foreach (ElementId id in ids)
@@ -114,41 +105,40 @@ namespace VLS.BatchExportNet.Utils
             tGroup.Start("Open All Worksets");
 
             //list of all worksets
-            FilteredWorksetCollector collectorWorksett =
+            FilteredWorksetCollector collectorWorkset =
                 new FilteredWorksetCollector(doc).OfKind(WorksetKind.UserWorkset);
 
-            foreach (Workset w in collectorWorksett.ToWorksets())
+            foreach (Workset w in collectorWorkset.ToWorksets())
             {
-                if (!w.IsOpen)
+                if (w.IsOpen)
                 {
-                    t.Start("Open workset");//Creating temporary cable tray
-                    ElementId typeID = new FilteredElementCollector(doc)
-                        .WhereElementIsElementType()
-                        .OfClass(typeof(CableTrayType))
-                        .ToElementIds()
-                        .First();
-                    ElementId levelID = new FilteredElementCollector(doc)
-                        .OfClass(typeof(Level))
-                        .ToElementIds()
-                        .First();
-                    CableTray ct = CableTray.Create(doc, typeID, new XYZ(0, 0, 0), new XYZ(0, 0, 1), levelID);
-                    ElementId elementId = ct.Id;
-
-                    //Changing workset of cable tray to workset which we want to open
-                    Parameter wsparam = ct.get_Parameter(BuiltInParameter.ELEM_PARTITION_PARAM);
-                    if (wsparam != null && !wsparam.IsReadOnly) wsparam.Set(w.Id.IntegerValue);
-
-                    List<ElementId> ids = [elementId];
-
-                    //This command will actualy open workset
-                    UIDocument uiDoc = new(doc);
-                    uiDoc.ShowElements(ids);
-
-                    //Delete temporary cable tray
-                    doc.Delete(elementId);
-
-                    t.Commit();
+                    continue;
                 }
+                t.Start("Open workset");//Creating temporary cable tray
+                ElementId typeID = new FilteredElementCollector(doc)
+                    .WhereElementIsElementType()
+                    .OfClass(typeof(CableTrayType))
+                    .ToElementIds()
+                    .First();
+                ElementId levelID = new FilteredElementCollector(doc)
+                    .OfClass(typeof(Level))
+                    .ToElementIds()
+                    .First();
+                CableTray ct = CableTray.Create(doc, typeID, new XYZ(0, 0, 0), new XYZ(0, 0, 1), levelID);
+                ElementId elementId = ct.Id;
+
+                //Changing workset of cable tray to workset which we want to open
+                Parameter wsparam = ct.get_Parameter(BuiltInParameter.ELEM_PARTITION_PARAM);
+                if (wsparam != null && !wsparam.IsReadOnly)
+                    wsparam.Set(w.Id.IntegerValue);
+
+                //This command will actualy open workset
+                new UIDocument(doc).ShowElements(elementId);
+
+                //Delete temporary cable tray
+                doc.Delete(elementId);
+
+                t.Commit();
             }
             tGroup.Assimilate();
         }
@@ -162,25 +152,20 @@ namespace VLS.BatchExportNet.Utils
                 int num = 0;
                 for (; ; )
                 {
-                    HashSet<ElementId> hashSet = [];
-                    foreach (ElementId elementId in doc.GetUnusedElements(new HashSet<ElementId>()))
-                    {
-                        Element element = doc.GetElement(elementId);
-                        if (element != null && element is not RevitLinkType)
-                        {
-                            hashSet.Add(elementId);
-                        }
-                    }
-                    if (hashSet.Count != num && hashSet.Count != 0)
-                    {
-                        num = hashSet.Count;
-                        using Transaction transaction = new(doc);
-                        transaction.Start("Purge unused");
-                        doc.Delete(hashSet);
-                        transaction.Commit();
-                        continue;
-                    }
-                    break;
+                    HashSet<ElementId> hashSet = doc.GetUnusedElements(new HashSet<ElementId>())
+                        .Where(el => doc.GetElement(el) is not null
+                            && doc.GetElement(el) is not RevitLinkType)
+                        .ToHashSet();
+
+                    if (hashSet.Count == num || hashSet.Count == 0)
+                        break;
+
+                    num = hashSet.Count;
+                    using Transaction transaction = new(doc);
+                    transaction.Start("Purge unused");
+                    doc.Delete(hashSet);
+                    transaction.Commit();
+                    continue;
                 }
             }
             catch { }

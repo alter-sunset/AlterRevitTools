@@ -36,15 +36,11 @@ namespace VLS.BatchExportNet.Views.Detach
             document.DeleteAllLinks();
 
             if (detachViewModel.Purge)
-            {
                 document.PurgeAll();
-            }
 
             string documentTitle = document.Title.Replace("_detached", "").Replace("_отсоединено", "");
             if (detachViewModel.IsToRename)
-            {
                 documentTitle = documentTitle.Replace(detachViewModel.MaskInName, detachViewModel.MaskOutName);
-            }
 
             string fileDetachedPath = "";
             switch (detachViewModel.RadioButtonMode)
@@ -56,7 +52,8 @@ namespace VLS.BatchExportNet.Views.Detach
                 case 2:
                     string maskIn = detachViewModel.MaskIn;
                     string maskOut = detachViewModel.MaskOut;
-                    fileDetachedPath = @filePath.Replace(maskIn, maskOut);
+                    fileDetachedPath = @filePath.Replace(maskIn, maskOut)
+                        .Replace(detachViewModel.MaskInName, detachViewModel.MaskOutName);
                     break;
             }
             if (detachViewModel.CheckForEmpty)
@@ -90,27 +87,39 @@ namespace VLS.BatchExportNet.Views.Detach
             ModelPath modelDetachedPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(fileDetachedPath);
             document?.SaveAs(modelDetachedPath, saveAsOptions);
 
-            try
+            if (isWorkshared)
             {
-                if (isWorkshared)
+                try
+                {
                     document.FreeTheModel();
+                }
+                catch { }
             }
-            catch { }
 
             document?.Close();
-            document?.Dispose();
 
-            TransmissionData transmissionData = TransmissionData.ReadTransmissionData(modelDetachedPath);
-            if (transmissionData != null)
+            if (isWorkshared)
             {
-                transmissionData.IsTransmitted = true;
-                TransmissionData.WriteTransmissionData(modelDetachedPath, transmissionData);
+                TransmissionData transmissionData = TransmissionData.ReadTransmissionData(modelDetachedPath);
+                if (transmissionData is not null)
+                {
+                    transmissionData.IsTransmitted = true;
+                    TransmissionData.WriteTransmissionData(modelDetachedPath, transmissionData);
+                }
+                try
+                {
+                    Directory.Delete(fileDetachedPath.Replace(".rvt", "_backup"), true);
+                }
+                catch { }
+                return;
             }
+
             try
             {
-                Directory.Delete(fileDetachedPath.Replace(".rvt", "_backup"), true);
+                File.Delete(fileDetachedPath.Replace(".rvt", ".0001.rvt"));
             }
             catch { }
+            return;
         }
     }
 }

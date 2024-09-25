@@ -11,11 +11,10 @@ namespace VLS.BatchExportNet.Source.EventHandlers
         {
             LinkViewModel linkViewModel = viewModelBase as LinkViewModel;
             if (!linkViewModel.IsEverythingFilled())
-            {
                 return;
-            }
+
             linkViewModel.CreateLinks(uiApp);
-            linkViewModel.Finisher("LinkModelsFinished");
+            linkViewModel.Finisher(id: "LinkModelsFinished");
         }
     }
 }

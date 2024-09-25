@@ -100,7 +100,7 @@ namespace VLS.BatchExportNet.Views.Detach
             get => _maskInName;
             set
             {
-                _maskInName = value;
+                _maskInName = value.Trim();
                 OnPropertyChanged(nameof(MaskInName));
             }
         }
@@ -111,7 +111,7 @@ namespace VLS.BatchExportNet.Views.Detach
             get => _maskOutName;
             set
             {
-                _maskOutName = value;
+                _maskOutName = value.Trim();
                 OnPropertyChanged(nameof(MaskOutName));
             }
         }

@@ -40,9 +40,7 @@ namespace VLS.BatchExportNet.Views.Link
                 string filePath = item.Content.ToString();
 
                 if (!File.Exists(filePath))
-                {
                     continue;
-                }
 
                 using Transaction t = new(doc);
                 t.Start($"Link {filePath}");
