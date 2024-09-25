@@ -17,10 +17,12 @@
 		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
 	</PropertyGroup>
 	<ItemGroup>
+	  <None Remove="Resources\AlertMessages.json" />
 	  <None Remove="Resources\Buttons.json" />
 	  <None Remove="Resources\HelpMessages.json" />
 	</ItemGroup>
 	<ItemGroup>
+		<EmbeddedResource Include="Resources\AlertMessages.json" />
 		<EmbeddedResource Include="Resources\Buttons.json" />
 		<EmbeddedResource Include="Resources\detach.png" />
 		<EmbeddedResource Include="Resources\detach_16.png" />
