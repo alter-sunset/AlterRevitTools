@@ -11,9 +11,7 @@ namespace VLS.BatchExportNet.Views
             JsonHelper<Messages>.DeserializeResource("VLS.BatchExportNet.Resources.HelpMessages.json");
 
         public static string GetResultMessage(this Messages helpDictionary,
-            params HelpMessageType[] helpCodes)
-        {
-            return string.Join('\n', helpCodes.Select(e => helpDictionary.GetValueOrDefault(e)));
-        }
+                params HelpMessageType[] helpCodes) =>
+            string.Join('\n', helpCodes.Select(e => helpDictionary.GetValueOrDefault(e)));
     }
 }

@@ -4,6 +4,7 @@ using System.Windows;
 using System.Collections.Generic;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using System.IO;
 
 namespace VLS.BatchExportNet.Utils
 {
@@ -40,10 +41,10 @@ namespace VLS.BatchExportNet.Utils
                 if (extRef.ExternalFileReferenceType is not ExternalFileReferenceType.RevitLink)
                     continue;
 
-                string name = extRef.GetPath().CentralServerPath.Split('\\').Last();
+                string name = Path.GetFileName(extRef.GetPath().CentralServerPath);
                 if (isSameFolder)
                 {
-                    FilePath path = new(folder + '\\' + name);
+                    FilePath path = new(Path.Combine(folder, name));
                     transData.SetDesiredReferenceData(refId, path, PathType.Absolute, false);
                 }
                 else

@@ -1,5 +1,6 @@
 ﻿using Autodesk.Revit.UI;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -38,7 +39,9 @@ namespace VLS.BatchExportNet.Utils
         {
             if (viewModel.ListBoxItems.Count == 0)
             {
-                MessageBox.Show("Добавьте хотя бы один файл для экспорта!");
+                MessageBox.Show(
+                    AlertHelper.GetAlerts()
+                        .GetValueOrDefault(AlertType.NoFiles));
                 return false;
             }
             return true;
@@ -48,18 +51,24 @@ namespace VLS.BatchExportNet.Utils
             string textBoxFolder = viewModel.FolderPath;
             if (string.IsNullOrEmpty(textBoxFolder))
             {
-                MessageBox.Show("Укажите папку для экспорта!");
+                MessageBox.Show(
+                    AlertHelper.GetAlerts()
+                        .GetValueOrDefault(AlertType.NoFolder));
                 return false;
             }
             if (Uri.IsWellFormedUriString(textBoxFolder, UriKind.RelativeOrAbsolute))
             {
-                MessageBox.Show("Укажите корректную папку для экспорта!");
+                MessageBox.Show(
+                    AlertHelper.GetAlerts()
+                        .GetValueOrDefault(AlertType.IncorrectFolder));
                 return false;
             }
             if (!Directory.Exists(textBoxFolder))
             {
-                MessageBoxResult messageBox = MessageBox
-                    .Show("Такой папки не существует.\nСоздать папку?", "Добрый вечер", MessageBoxButton.YesNo);
+                MessageBoxResult messageBox = MessageBox.Show(
+                    AlertHelper.GetAlerts()
+                        .GetValueOrDefault(AlertType.FolderNotExist),
+                    "Добрый вечер", MessageBoxButton.YesNo);
                 switch (messageBox)
                 {
                     case MessageBoxResult.Yes:
@@ -67,7 +76,9 @@ namespace VLS.BatchExportNet.Utils
                         break;
                     case MessageBoxResult.No:
                     case MessageBoxResult.Cancel:
-                        MessageBox.Show("Нет, так нет.\nТогда живи в проклятом мире, который сам и создал.");
+                        MessageBox.Show(
+                            AlertHelper.GetAlerts()
+                                .GetValueOrDefault(AlertType.ToHell));
                         return false;
                 }
             }
@@ -77,7 +88,9 @@ namespace VLS.BatchExportNet.Utils
         {
             if (viewModel.ExportScopeView && string.IsNullOrEmpty(viewModel.ViewName))
             {
-                MessageBox.Show("Введите имя вида для экспорта!");
+                MessageBox.Show(
+                   AlertHelper.GetAlerts()
+                       .GetValueOrDefault(AlertType.NoViewNameToExport));
                 return false;
             }
             return true;
@@ -86,7 +99,9 @@ namespace VLS.BatchExportNet.Utils
         {
             if (viewModel.CheckForEmpty && string.IsNullOrEmpty(viewModel.ViewName))
             {
-                MessageBox.Show("Введите имя вида для проверки!");
+                MessageBox.Show(
+                   AlertHelper.GetAlerts()
+                       .GetValueOrDefault(AlertType.NoViewNameToCheck));
                 return false;
             }
             return true;
@@ -96,20 +111,26 @@ namespace VLS.BatchExportNet.Utils
             switch (detachViewModel.RadioButtonMode)
             {
                 case 0:
-                    MessageBox.Show("Выберите режим выбора пути");
+                    MessageBox.Show(
+                        AlertHelper.GetAlerts()
+                            .GetValueOrDefault(AlertType.NoPathMode));
                     return false;
                 case 1:
                     return IsFolderPathOK(detachViewModel);
                 case 2:
                     if (string.IsNullOrEmpty(detachViewModel.MaskIn) || string.IsNullOrEmpty(detachViewModel.MaskOut))
                     {
-                        MessageBox.Show("Укажите маску замены");
+                        MessageBox.Show(
+                            AlertHelper.GetAlerts()
+                                .GetValueOrDefault(AlertType.NoMaskFolder));
                         return false;
                     }
                     if (!detachViewModel.ListBoxItems.Select(e => e.Content)
                         .All(e => e.ToString().Contains(detachViewModel.MaskIn)))
                     {
-                        MessageBox.Show("Несоответсвие входной маски и имён файлов.");
+                        MessageBox.Show(
+                            AlertHelper.GetAlerts()
+                                .GetValueOrDefault(AlertType.WrongMask));
                         return false;
                     }
                     break;
@@ -120,7 +141,9 @@ namespace VLS.BatchExportNet.Utils
         {
             if (detachViewModel.IsToRename && string.IsNullOrEmpty(detachViewModel.MaskInName))
             {
-                MessageBox.Show("Ведите маски для переименования");
+                MessageBox.Show(
+                   AlertHelper.GetAlerts()
+                       .GetValueOrDefault(AlertType.NoMaskFile));
                 return false;
             }
             return true;

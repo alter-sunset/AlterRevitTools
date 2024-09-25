@@ -137,14 +137,14 @@ namespace VLS.BatchExportNet.Views.Base
             string fileExportName = viewModel.NamePrefix
                 + document.Title.Replace("_отсоединено", "")
                 + viewModel.NamePostfix;
-            string fileFormat;
+            string fileWithExtension = fileExportName;
 
             if (exportOptions is NavisworksExportOptions)
-                fileFormat = ".nwc";
+                fileWithExtension += ".nwc";
             else
-                fileFormat = ".ifc";
+                fileWithExtension += ".ifc";
 
-            string fileName = folderPath + "\\" + fileExportName + fileFormat;
+            string fileName = Path.Combine(folderPath, fileWithExtension);
             string oldHash = null;
             if (File.Exists(fileName))
             {

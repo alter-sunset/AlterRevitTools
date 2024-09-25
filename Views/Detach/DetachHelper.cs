@@ -47,7 +47,8 @@ namespace VLS.BatchExportNet.Views.Detach
             {
                 case 1:
                     string folder = detachViewModel.FolderPath;
-                    fileDetachedPath = folder + "\\" + documentTitle + ".rvt";
+                    string titleWithExtension = documentTitle + ".rvt";
+                    fileDetachedPath = Path.Combine(folder, titleWithExtension);
                     break;
                 case 2:
                     string maskIn = detachViewModel.MaskIn;
@@ -62,12 +63,14 @@ namespace VLS.BatchExportNet.Views.Detach
                 using FilteredElementCollector stuff = new(document);
                 try
                 {
+                    string titleEmpty = Path.GetFileNameWithoutExtension(fileDetachedPath);
+
                     Element view = stuff.OfClass(typeof(View3D))
                         .FirstOrDefault(e => e.Name == detachViewModel.ViewName && !((View3D)e).IsTemplate);
 
                     if (view is not null
                         && document.IsViewEmpty(view))
-                        fileDetachedPath = fileDetachedPath.Replace(documentTitle, $"EMPTY_{documentTitle}");
+                        fileDetachedPath = fileDetachedPath.Replace(titleEmpty, $"EMPTY_{titleEmpty}");
                 }
                 catch { }
             }

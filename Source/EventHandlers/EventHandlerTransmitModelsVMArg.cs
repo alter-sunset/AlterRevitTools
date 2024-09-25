@@ -2,7 +2,6 @@
 using Autodesk.Revit.UI;
 using Autodesk.Revit.ApplicationServices;
 using System.IO;
-using System.Linq;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
@@ -36,7 +35,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
                 string folder = transmitViewModel.FolderPath;
                 bool isSameFolder = transmitViewModel.IsSameFolder;
 
-                string transmittedFilePath = folder + "\\" + filePath.Split('\\').Last();
+                string transmittedFilePath = Path.Combine(folder, Path.GetFileName(filePath));
                 File.Copy(filePath, transmittedFilePath, true);
                 ModelPath transmittedModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(transmittedFilePath);
                 transmittedModelPath.UnloadRevitLinks(isSameFolder, folder);
