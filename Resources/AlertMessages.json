@@ -9,5 +9,6 @@
   "NoPathMode": "Выберите режим выбора пути!",
   "NoMaskFolder": "Укажите маску замены пути!",
   "WrongMask": "Несоответсвие входной маски и имён файлов!",
-  "NoMaskFile": "Введите маски для переименования файлов!"
+  "NoMaskFile": "Введите маски для переименования файлов!",
+  "NoTransData": "The document does not have any transmission data"
 }

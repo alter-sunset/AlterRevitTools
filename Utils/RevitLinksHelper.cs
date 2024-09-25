@@ -31,7 +31,7 @@ namespace VLS.BatchExportNet.Utils
 
             if (transData is null)
             {
-                TaskDialog.Show("Unload Revit links", "The document does not have any transmission data");
+                TaskDialog.Show("Unload Revit links", AlertType.NoTransData.GetAlert());
                 return;
             }
             ICollection<ElementId> externalReferences = transData.GetAllExternalFileReferenceIds();
@@ -61,7 +61,7 @@ namespace VLS.BatchExportNet.Utils
 
             if (transData is null)
             {
-                TaskDialog.Show("Replace Links", "The document does not have any transmission data");
+                TaskDialog.Show("Replace Links", AlertType.NoTransData.GetAlert());
                 return;
             }
             ICollection<ElementId> externalReferences = transData.GetAllExternalFileReferenceIds();

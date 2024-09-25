@@ -1,6 +1,5 @@
 ﻿using Autodesk.Revit.UI;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -39,9 +38,7 @@ namespace VLS.BatchExportNet.Utils
         {
             if (viewModel.ListBoxItems.Count == 0)
             {
-                MessageBox.Show(
-                    AlertHelper.GetAlerts()
-                        .GetValueOrDefault(AlertType.NoFiles));
+                MessageBox.Show(AlertType.NoFiles.GetAlert());
                 return false;
             }
             return true;
@@ -51,23 +48,17 @@ namespace VLS.BatchExportNet.Utils
             string textBoxFolder = viewModel.FolderPath;
             if (string.IsNullOrEmpty(textBoxFolder))
             {
-                MessageBox.Show(
-                    AlertHelper.GetAlerts()
-                        .GetValueOrDefault(AlertType.NoFolder));
+                MessageBox.Show(AlertType.NoFolder.GetAlert());
                 return false;
             }
             if (Uri.IsWellFormedUriString(textBoxFolder, UriKind.RelativeOrAbsolute))
             {
-                MessageBox.Show(
-                    AlertHelper.GetAlerts()
-                        .GetValueOrDefault(AlertType.IncorrectFolder));
+                MessageBox.Show(AlertType.IncorrectFolder.GetAlert());
                 return false;
             }
             if (!Directory.Exists(textBoxFolder))
             {
-                MessageBoxResult messageBox = MessageBox.Show(
-                    AlertHelper.GetAlerts()
-                        .GetValueOrDefault(AlertType.FolderNotExist),
+                MessageBoxResult messageBox = MessageBox.Show(AlertType.FolderNotExist.GetAlert(),
                     "Добрый вечер", MessageBoxButton.YesNo);
                 switch (messageBox)
                 {
@@ -76,9 +67,7 @@ namespace VLS.BatchExportNet.Utils
                         break;
                     case MessageBoxResult.No:
                     case MessageBoxResult.Cancel:
-                        MessageBox.Show(
-                            AlertHelper.GetAlerts()
-                                .GetValueOrDefault(AlertType.ToHell));
+                        MessageBox.Show(AlertType.ToHell.GetAlert());
                         return false;
                 }
             }
@@ -88,9 +77,7 @@ namespace VLS.BatchExportNet.Utils
         {
             if (viewModel.ExportScopeView && string.IsNullOrEmpty(viewModel.ViewName))
             {
-                MessageBox.Show(
-                   AlertHelper.GetAlerts()
-                       .GetValueOrDefault(AlertType.NoViewNameToExport));
+                MessageBox.Show(AlertType.NoViewNameToExport.GetAlert());
                 return false;
             }
             return true;
@@ -99,9 +86,7 @@ namespace VLS.BatchExportNet.Utils
         {
             if (viewModel.CheckForEmpty && string.IsNullOrEmpty(viewModel.ViewName))
             {
-                MessageBox.Show(
-                   AlertHelper.GetAlerts()
-                       .GetValueOrDefault(AlertType.NoViewNameToCheck));
+                MessageBox.Show(AlertType.NoViewNameToCheck.GetAlert());
                 return false;
             }
             return true;
@@ -111,26 +96,20 @@ namespace VLS.BatchExportNet.Utils
             switch (detachViewModel.RadioButtonMode)
             {
                 case 0:
-                    MessageBox.Show(
-                        AlertHelper.GetAlerts()
-                            .GetValueOrDefault(AlertType.NoPathMode));
+                    MessageBox.Show(AlertType.NoPathMode.GetAlert());
                     return false;
                 case 1:
                     return IsFolderPathOK(detachViewModel);
                 case 2:
                     if (string.IsNullOrEmpty(detachViewModel.MaskIn) || string.IsNullOrEmpty(detachViewModel.MaskOut))
                     {
-                        MessageBox.Show(
-                            AlertHelper.GetAlerts()
-                                .GetValueOrDefault(AlertType.NoMaskFolder));
+                        MessageBox.Show(AlertType.NoMaskFolder.GetAlert());
                         return false;
                     }
                     if (!detachViewModel.ListBoxItems.Select(e => e.Content)
                         .All(e => e.ToString().Contains(detachViewModel.MaskIn)))
                     {
-                        MessageBox.Show(
-                            AlertHelper.GetAlerts()
-                                .GetValueOrDefault(AlertType.WrongMask));
+                        MessageBox.Show(AlertType.WrongMask.GetAlert());
                         return false;
                     }
                     break;
@@ -141,9 +120,7 @@ namespace VLS.BatchExportNet.Utils
         {
             if (detachViewModel.IsToRename && string.IsNullOrEmpty(detachViewModel.MaskInName))
             {
-                MessageBox.Show(
-                   AlertHelper.GetAlerts()
-                       .GetValueOrDefault(AlertType.NoMaskFile));
+                MessageBox.Show(AlertType.NoMaskFile.GetAlert());
                 return false;
             }
             return true;

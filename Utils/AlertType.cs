@@ -12,6 +12,7 @@
         NoPathMode,
         NoMaskFolder,
         WrongMask,
-        NoMaskFile
+        NoMaskFile,
+        NoTransData
     }
 }
