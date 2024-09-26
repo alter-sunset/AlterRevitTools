@@ -171,5 +171,24 @@ namespace VLS.BatchExportNet.Utils
             }
             catch { }
         }
+        internal static void RemoveEmptyWorksets(this Document document)
+        {
+            ICollection<WorksetId> worksets = new FilteredWorksetCollector(document)
+                    .OfKind(WorksetKind.UserWorkset)
+                    .ToWorksetIds();
+
+            using Transaction transaction = new(document);
+            transaction.Start("Remove empty worksets");
+            foreach (WorksetId workset in worksets)
+            {
+                int elements = new FilteredElementCollector(document)
+                    .WherePasses(new ElementWorksetFilter(workset))
+                    .Count();
+
+                if (elements == 0)
+                    WorksetTable.DeleteWorkset(document, workset, new DeleteWorksetSettings());
+            }
+            transaction.Commit();
+        }
     }
 }

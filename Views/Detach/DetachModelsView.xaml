@@ -166,6 +166,14 @@
                  Grid.Column="2"
                  VerticalContentAlignment="Center"
                  Text="{Binding MaskOutName}"/>
+        <CheckBox Margin="10"
+            Grid.Row="6"
+            Grid.Column="3"
+            FontSize="14"
+            VerticalAlignment="Center"
+            Content="Очистить модели"                  
+            ToolTip="Реализует функционал команды ''Удалить неиспользуемые'' до полной очистки (несколько раз)"
+            IsChecked="{Binding Purge}"/>
 
         <CheckBox Margin="10,0,95,0"
                   Grid.Row="7"
@@ -175,7 +183,7 @@
                   VerticalAlignment="Center"
                   Content="Проверить модели на ''пустой'' вид"                  
                   ToolTip="Следует ли проверить вид ''Имя_вида'' на наличие объектов, и если вид пустой - то сохранить файл с префиксом ''EMPTY_''"
-                  IsChecked="{Binding CheckForEmpty}"/>
+                  IsChecked="{Binding CheckForEmptyView}"/>
         <TextBox Margin="110,10,80,10"
                  Grid.Row="7"
                  Grid.Column="1"
@@ -183,14 +191,14 @@
                  VerticalContentAlignment="Center"
                  Text="{Binding ViewName}"
                  ToolTip="Имя вида для проверки"/>
-        <CheckBox Margin="10"
-            Grid.Row="7"
-            Grid.Column="3"
-            FontSize="14"
-            VerticalAlignment="Center"
-            Content="Очистить модели"                  
-            ToolTip="Реализует функционал команды ''Удалить неиспользуемые'' до полной очистки (несколько раз)"
-            IsChecked="{Binding Purge}"/>
+        <CheckBox Margin="140,10,10,10"
+                  Grid.Row="7"
+                  Grid.Column="2"
+                  Grid.ColumnSpan="2"
+                  FontSize="14"
+                  VerticalContentAlignment="Center"
+                  Content="Удалить пустые рабочие наборы"
+                  IsChecked="{Binding RemoveEmptyWorksets}"/>
 
         <Button Margin="10"
                 Grid.Row="8"

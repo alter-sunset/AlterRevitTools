@@ -188,7 +188,7 @@ namespace VLS.BatchExportNet.Views.Base
         }
 
         private RelayCommand _browseFolderCommand;
-        public RelayCommand BrowseFolderCommand
+        public virtual RelayCommand BrowseFolderCommand
         {
             get
             {

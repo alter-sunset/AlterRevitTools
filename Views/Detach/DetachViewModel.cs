@@ -1,4 +1,5 @@
-﻿using VLS.BatchExportNet.Source.EventHandlers;
+﻿using System.Windows.Forms;
+using VLS.BatchExportNet.Source.EventHandlers;
 using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Views.Detach
@@ -28,7 +29,6 @@ namespace VLS.BatchExportNet.Views.Detach
                 OnPropertyChanged(nameof(RadioButtonMode));
             }
         }
-
         private RelayCommand _radioButtonCommand;
         public override RelayCommand RadioButtonCommand
         {
@@ -72,14 +72,14 @@ namespace VLS.BatchExportNet.Views.Detach
             }
         }
 
-        private bool _checkForEmpty = true;
-        public bool CheckForEmpty
+        private bool _checkForEmptyView = true;
+        public bool CheckForEmptyView
         {
-            get => _checkForEmpty;
+            get => _checkForEmptyView;
             set
             {
-                _checkForEmpty = value;
-                OnPropertyChanged(nameof(CheckForEmpty));
+                _checkForEmptyView = value;
+                OnPropertyChanged(nameof(CheckForEmptyView));
             }
         }
 
@@ -124,6 +124,17 @@ namespace VLS.BatchExportNet.Views.Detach
             {
                 _purge = value;
                 OnPropertyChanged(nameof(Purge));
+            }
+        }
+
+        private bool _removeEmptyWorksets = false;
+        public bool RemoveEmptyWorksets
+        {
+            get => _removeEmptyWorksets;
+            set
+            {
+                _removeEmptyWorksets = value;
+                OnPropertyChanged(nameof(RemoveEmptyWorksets));
             }
         }
     }

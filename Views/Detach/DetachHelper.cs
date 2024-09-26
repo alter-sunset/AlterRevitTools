@@ -35,6 +35,9 @@ namespace VLS.BatchExportNet.Views.Detach
             }
             document.DeleteAllLinks();
 
+            if (detachViewModel.RemoveEmptyWorksets && isWorkshared)
+                document.RemoveEmptyWorksets();
+
             if (detachViewModel.Purge)
                 document.PurgeAll();
 
@@ -57,7 +60,7 @@ namespace VLS.BatchExportNet.Views.Detach
                         .Replace(detachViewModel.MaskInName, detachViewModel.MaskOutName);
                     break;
             }
-            if (detachViewModel.CheckForEmpty)
+            if (detachViewModel.CheckForEmptyView)
             {
                 document.OpenAllWorksets();
                 using FilteredElementCollector stuff = new(document);

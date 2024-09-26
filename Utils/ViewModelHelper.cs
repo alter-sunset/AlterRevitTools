@@ -84,7 +84,7 @@ namespace VLS.BatchExportNet.Utils
         }
         private static bool IsViewNameOK(this DetachViewModel viewModel)
         {
-            if (viewModel.CheckForEmpty && string.IsNullOrEmpty(viewModel.ViewName))
+            if (viewModel.CheckForEmptyView && string.IsNullOrEmpty(viewModel.ViewName))
             {
                 MessageBox.Show(AlertType.NoViewNameToCheck.GetAlert());
                 return false;
