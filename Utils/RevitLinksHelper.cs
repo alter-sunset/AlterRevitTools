@@ -10,6 +10,8 @@ namespace VLS.BatchExportNet.Utils
 {
     static class RevitLinksHelper
     {
+        private const string NO_TRANS_DATA_ALERT = "The document does not have any transmission data";
+
         internal static void DeleteRevitLinks(this Document document)
         {
             using Transaction transaction = new(document);
@@ -31,7 +33,7 @@ namespace VLS.BatchExportNet.Utils
 
             if (transData is null)
             {
-                TaskDialog.Show("Unload Revit links", AlertType.NoTransData.GetAlert());
+                TaskDialog.Show("Unload Revit links", NO_TRANS_DATA_ALERT);
                 return;
             }
             ICollection<ElementId> externalReferences = transData.GetAllExternalFileReferenceIds();
@@ -61,7 +63,7 @@ namespace VLS.BatchExportNet.Utils
 
             if (transData is null)
             {
-                TaskDialog.Show("Replace Links", AlertType.NoTransData.GetAlert());
+                TaskDialog.Show("Replace Links", NO_TRANS_DATA_ALERT);
                 return;
             }
             ICollection<ElementId> externalReferences = transData.GetAllExternalFileReferenceIds();

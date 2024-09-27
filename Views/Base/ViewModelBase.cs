@@ -86,7 +86,7 @@ namespace VLS.BatchExportNet.Views.Base
                     }
                     if (ListBoxItems.Count.Equals(0))
                     {
-                        MessageBox.Show(AlertType.EmptyList.GetAlert());
+                        MessageBox.Show("В текстовом файле не было найдено подходящей информации");
                     }
                     FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
                 });
@@ -127,9 +127,7 @@ namespace VLS.BatchExportNet.Views.Base
                 return _saveListCommand ??= new RelayCommand(obj =>
                 {
                     SaveFileDialog saveFileDialog = DialogType.RevitList.SaveFileDialog();
-
                     DialogResult result = saveFileDialog.ShowDialog();
-
                     if (result != DialogResult.OK)
                     {
                         return;
@@ -137,19 +135,8 @@ namespace VLS.BatchExportNet.Views.Base
 
                     string fileName = saveFileDialog.FileName;
                     File.Delete(fileName);
+                    File.WriteAllLines(fileName, ListBoxItems.Select(cont => cont.Content.ToString()));
 
-                    foreach (string fileRVT in ListBoxItems.Select(cont => cont.Content.ToString()))
-                    {
-                        if (!File.Exists(fileName))
-                        {
-                            File.WriteAllText(fileName, fileRVT);
-                        }
-                        else
-                        {
-                            string toWrite = "\n" + fileRVT;
-                            File.AppendAllText(fileName, toWrite);
-                        }
-                    }
                     FolderPath = Path.GetDirectoryName(saveFileDialog.FileName);
                 });
             }

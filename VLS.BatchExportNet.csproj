@@ -18,7 +18,6 @@
 	</PropertyGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="Resources\HelpMessages.json" />
-		<EmbeddedResource Include="Resources\AlertMessages.json" />
 		<EmbeddedResource Include="Resources\Buttons.json" />
 		<EmbeddedResource Include="Resources\detach.png" />
 		<EmbeddedResource Include="Resources\detach_16.png" />

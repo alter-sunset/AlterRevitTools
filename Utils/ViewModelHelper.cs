@@ -38,7 +38,7 @@ namespace VLS.BatchExportNet.Utils
         {
             if (viewModel.ListBoxItems.Count == 0)
             {
-                MessageBox.Show(AlertType.NoFiles.GetAlert());
+                MessageBox.Show("Добавьте хотя бы один файл для экспорта!");
                 return false;
             }
             return true;
@@ -48,17 +48,17 @@ namespace VLS.BatchExportNet.Utils
             string textBoxFolder = viewModel.FolderPath;
             if (string.IsNullOrEmpty(textBoxFolder))
             {
-                MessageBox.Show(AlertType.NoFolder.GetAlert());
+                MessageBox.Show("Укажите папку для экспорта!");
                 return false;
             }
             if (Uri.IsWellFormedUriString(textBoxFolder, UriKind.RelativeOrAbsolute))
             {
-                MessageBox.Show(AlertType.IncorrectFolder.GetAlert());
+                MessageBox.Show("Укажите корректную папку для экспорта!");
                 return false;
             }
             if (!Directory.Exists(textBoxFolder))
             {
-                MessageBoxResult messageBox = MessageBox.Show(AlertType.FolderNotExist.GetAlert(),
+                MessageBoxResult messageBox = MessageBox.Show("Такой папки не существует.\nСоздать папку?",
                     "Добрый вечер", MessageBoxButton.YesNo);
                 switch (messageBox)
                 {
@@ -67,7 +67,7 @@ namespace VLS.BatchExportNet.Utils
                         break;
                     case MessageBoxResult.No:
                     case MessageBoxResult.Cancel:
-                        MessageBox.Show(AlertType.ToHell.GetAlert());
+                        MessageBox.Show("Нет, так нет.\nТогда живи в проклятом мире, который сам и создал.");
                         return false;
                 }
             }
@@ -77,7 +77,7 @@ namespace VLS.BatchExportNet.Utils
         {
             if (viewModel.ExportScopeView && string.IsNullOrEmpty(viewModel.ViewName))
             {
-                MessageBox.Show(AlertType.NoViewNameToExport.GetAlert());
+                MessageBox.Show("Введите имя вида для экспорта!");
                 return false;
             }
             return true;
@@ -86,7 +86,7 @@ namespace VLS.BatchExportNet.Utils
         {
             if (viewModel.CheckForEmptyView && string.IsNullOrEmpty(viewModel.ViewName))
             {
-                MessageBox.Show(AlertType.NoViewNameToCheck.GetAlert());
+                MessageBox.Show("Введите имя вида для проверки!");
                 return false;
             }
             return true;
@@ -96,20 +96,20 @@ namespace VLS.BatchExportNet.Utils
             switch (detachViewModel.RadioButtonMode)
             {
                 case 0:
-                    MessageBox.Show(AlertType.NoPathMode.GetAlert());
+                    MessageBox.Show("Выберите режим выбора пути!");
                     return false;
                 case 1:
                     return IsFolderPathOK(detachViewModel);
                 case 2:
                     if (string.IsNullOrEmpty(detachViewModel.MaskIn) || string.IsNullOrEmpty(detachViewModel.MaskOut))
                     {
-                        MessageBox.Show(AlertType.NoMaskFolder.GetAlert());
+                        MessageBox.Show("Укажите маску замены пути!");
                         return false;
                     }
                     if (!detachViewModel.ListBoxItems.Select(e => e.Content)
                         .All(e => e.ToString().Contains(detachViewModel.MaskIn)))
                     {
-                        MessageBox.Show(AlertType.WrongMask.GetAlert());
+                        MessageBox.Show("Несоответсвие входной маски и имён файлов!");
                         return false;
                     }
                     break;
@@ -120,7 +120,7 @@ namespace VLS.BatchExportNet.Utils
         {
             if (detachViewModel.IsToRename && string.IsNullOrEmpty(detachViewModel.MaskInName))
             {
-                MessageBox.Show(AlertType.NoMaskFile.GetAlert());
+                MessageBox.Show("Введите маски для переименования файлов!");
                 return false;
             }
             return true;
