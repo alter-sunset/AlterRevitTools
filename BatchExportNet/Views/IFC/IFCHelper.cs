@@ -5,32 +5,32 @@ using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Views.IFC
 {
-    class IFCHelper : ExportHelperBase
+    public class IFCHelper : ExportHelperBase
     {
         public override void ExportModel(IConfigBase_Extended iConfig, Document document, ref bool isFuckedUp, ref Logger logger)
         {
-            IFC_ViewModel ifc_ViewModel = iConfig as IFC_ViewModel;
+            IConfigIFC configIFC = iConfig as IConfigIFC;
             if (IsViewEmpty(iConfig, document, ref logger, ref isFuckedUp))
                 return;
 
-            IFCExportOptions ifcExportOptions = IFC_ExportOptions(ifc_ViewModel, document);
+            IFCExportOptions ifcExportOptions = IFC_ExportOptions(configIFC, document);
 
             using Transaction transaction = new(document);
             transaction.Start("Экспорт IFC");
             Export(iConfig, document, ifcExportOptions, ref logger, ref isFuckedUp);
             transaction.Commit();
         }
-        private static IFCExportOptions IFC_ExportOptions(IFC_ViewModel ifc_ViewModel, Document document) => new()
+        private static IFCExportOptions IFC_ExportOptions(IConfigIFC configIFC, Document document) => new()
         {
-            ExportBaseQuantities = ifc_ViewModel.ExportBaseQuantities,
-            FamilyMappingFile = ifc_ViewModel.Mapping,
-            FileVersion = ifc_ViewModel.SelectedVersion.Key,
+            ExportBaseQuantities = configIFC.ExportBaseQuantities,
+            FamilyMappingFile = configIFC.FamilyMappingFile,
+            FileVersion = configIFC.FileVersion,
             FilterViewId = new FilteredElementCollector(document)
                 .OfClass(typeof(View))
-                .FirstOrDefault(e => e.Name == ifc_ViewModel.ViewName)
+                .FirstOrDefault(e => e.Name == configIFC.ViewName)
                 .Id,
-            SpaceBoundaryLevel = ifc_ViewModel.SelectedLevel.Key,
-            WallAndColumnSplitting = ifc_ViewModel.WallAndColumnSplitting
+            SpaceBoundaryLevel = configIFC.SpaceBoundaryLevel,
+            WallAndColumnSplitting = configIFC.WallAndColumnSplitting
         };
     }
 }

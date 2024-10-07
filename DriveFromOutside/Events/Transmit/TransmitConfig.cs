@@ -1,6 +1,4 @@
-﻿using VLS.BatchExportNet.Views.Base;
-
-namespace VLS.DriveFromOutside.Events.Transmit
+﻿namespace VLS.DriveFromOutside.Events.Transmit
 {
     public class TransmitConfig
     {

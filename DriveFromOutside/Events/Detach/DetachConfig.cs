@@ -1,5 +1,4 @@
-﻿using VLS.BatchExportNet.Views.Base;
-using VLS.BatchExportNet.Views.Detach;
+﻿using VLS.BatchExportNet.Views.Detach;
 
 namespace VLS.DriveFromOutside.Events.Detach
 {

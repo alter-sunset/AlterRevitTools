@@ -36,6 +36,7 @@ namespace VLS.BatchExportNet.Views.IFC
                 OnPropertyChanged(nameof(Mapping));
             }
         }
+        public string FamilyMappingFile => _mapping;
 
         private RelayCommand _loadMapping;
         public RelayCommand LoadMapping
@@ -109,7 +110,7 @@ namespace VLS.BatchExportNet.Views.IFC
             if (form is null)
                 return;
 
-            FolderPath = form.DestinationFolder;
+            FolderPath = form.FolderPath;
             NamePrefix = form.NamePrefix;
             NamePostfix = form.NamePostfix;
             WorksetPrefix = string.Join(';', form.WorksetPrefixes);
@@ -121,7 +122,7 @@ namespace VLS.BatchExportNet.Views.IFC
             ViewName = form.ViewName;
             SelectedLevel = _spaceBoundaryLevels.FirstOrDefault(e => e.Key == form.SpaceBoundaryLevel);
             ListBoxItems.Clear();
-            foreach (string file in form.RVTFiles)
+            foreach (string file in form.Files)
             {
                 if (string.IsNullOrEmpty(file))
                     continue;
@@ -166,17 +167,14 @@ namespace VLS.BatchExportNet.Views.IFC
             FileVersion = SelectedVersion.Key,
             SpaceBoundaryLevel = SelectedLevel.Key,
             WallAndColumnSplitting = WallAndColumnSplitting,
-            DestinationFolder = FolderPath,
+            FolderPath = FolderPath,
             NamePrefix = NamePrefix,
             NamePostfix = NamePostfix,
-            WorksetPrefixes = WorksetPrefix
-                .Split(';')
-                .Select(e => e.Trim())
-                .ToArray(),
+            WorksetPrefixes = WorksetPrefixes,
             ExportView = ExportScopeView,
             ViewName = ViewName,
 
-            RVTFiles = ListBoxItems
+            Files = ListBoxItems
                 .Select(cont => cont.Content.ToString())
                 .ToList()
         };
@@ -198,6 +196,7 @@ namespace VLS.BatchExportNet.Views.IFC
                 OnPropertyChanged(nameof(SelectedVersion));
             }
         }
+        public IFCVersion FileVersion => _selectedVersion.Key;
 
         private readonly Dictionary<int, string> _spaceBoundaryLevels
             = IFC_Context.SpaceBoundaryLevels;
@@ -216,5 +215,6 @@ namespace VLS.BatchExportNet.Views.IFC
                 OnPropertyChanged(nameof(SelectedLevel));
             }
         }
+        public int SpaceBoundaryLevel => SelectedLevel.Key;
     }
 }

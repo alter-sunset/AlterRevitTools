@@ -5,19 +5,19 @@ namespace VLS.BatchExportNet.Views.IFC
 {
     public class IFCForm : IFCExportOptions
     {
-        private string _destinationFolder;
+        private string _folderPath;
         private string _namePrefix;
         private string _namePostfix;
         private string[] _worksetPrefixes;
-        private List<string> _rvtFiles;
+        private List<string> _files;
         private string _viewName;
         private bool _exportView;
 
-        public string DestinationFolder { get => _destinationFolder; set => _destinationFolder = value; }
+        public string FolderPath { get => _folderPath; set => _folderPath = value; }
         public string NamePrefix { get => _namePrefix; set => _namePrefix = value; }
         public string NamePostfix { get => _namePostfix; set => _namePostfix = value; }
         public string[] WorksetPrefixes { get => _worksetPrefixes; set => _worksetPrefixes = value; }
-        public List<string> RVTFiles { get => _rvtFiles; set => _rvtFiles = value; }
+        public List<string> Files { get => _files; set => _files = value; }
         public string ViewName { get => _viewName; set => _viewName = value; }
         public bool ExportView { get => _exportView; set => _exportView = value; }
         public new bool FilterViewId { get; set; }

@@ -13,5 +13,6 @@
         /// Object with configuration if given event needs one
         /// </summary>
         public object? EventConfig { get; set; }
+        public string FilePath { get; set; }
     }
 }

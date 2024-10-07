@@ -1,16 +1,17 @@
-﻿using System.Text.Json;
-using Autodesk.Revit.ApplicationServices;
+﻿using Autodesk.Revit.ApplicationServices;
+using Autodesk.Revit.UI;
+using System.Text.Json;
 using VLS.DriveFromOutside.Events;
 using VLS.DriveFromOutside.Events.Detach;
+using VLS.DriveFromOutside.Events.IFC;
 using VLS.DriveFromOutside.Events.NWC;
 using VLS.DriveFromOutside.Events.Transmit;
 using VLS.DriveFromOutside.Utils;
 
 namespace VLS.DriveFromOutside
 {
-    public class ExternalTaskHandler(Application application, List<IEventHolder> eventHolders) : IExternalTaskHandler
+    public class ExternalTaskHandler(List<IEventHolder> eventHolders) : IExternalTaskHandler
     {
-        private readonly Application _application = application;
         private readonly List<IEventHolder> _eventHolders = eventHolders;
 
         private static readonly string FOLDER_CONFIGS = Path.Combine(
@@ -56,15 +57,16 @@ namespace VLS.DriveFromOutside
                         .GetProperty("ExternalEvent")
                         .Deserialize<ExternalEvents>(),
 
-                    EventConfig = root.GetProperty("EventConfig")
+                    EventConfig = root.GetProperty("EventConfig"),
+
+                    FilePath = file
                 };
                 configs.Add(taskConfig);
-                File.Delete(file);
             }
             return configs;
         }
 
-        private void RaiseEvent(TaskConfig taskConfig)
+        private async void RaiseEvent(TaskConfig taskConfig)
         {
             IEventHolder? eventHolder = _eventHolders.FirstOrDefault(e => e.ExternalEvent == taskConfig.ExternalEvent);
             switch (taskConfig.ExternalEvent)
@@ -87,9 +89,16 @@ namespace VLS.DriveFromOutside
                     eventHandlerNWC.Raise(nwc_Config);
                     break;
 
+                case ExternalEvents.IFC:
+                    IFC_Config ifc_Config = taskConfig.GetEventConfig<IFC_Config>();
+                    EventHandlerIFC eventHandlerIFC = eventHolder.ExternalEventHandler as EventHandlerIFC;
+                    eventHandlerIFC.Raise(ifc_Config);
+                    break;
+
                 default:
                     return;
             }
+            File.Delete(taskConfig.FilePath);
         }
     }
 }
