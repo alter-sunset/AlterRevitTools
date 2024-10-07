@@ -12,7 +12,7 @@ using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.Base
 {
-    public class ViewModelBase() : INotifyPropertyChanged
+    public class ViewModelBase() : INotifyPropertyChanged, IConfigBase
     {
         private ObservableCollection<ListBoxItem> _listBoxItems = [];
         public virtual ObservableCollection<ListBoxItem> ListBoxItems
@@ -23,6 +23,11 @@ namespace VLS.BatchExportNet.Views.Base
                 _listBoxItems = value;
                 OnPropertyChanged(nameof(ListBoxItems));
             }
+        }
+
+        public List<string> Files
+        {
+            get => _listBoxItems.Select(e => e.Content.ToString()).ToList();
         }
 
         private ListBoxItem _selectedItems;

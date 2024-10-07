@@ -6,9 +6,9 @@ using VLS.BatchExportNet.Utils;
 
 namespace VLS.BatchExportNet.Views.Detach
 {
-    internal static class DetachHelper
+    public static class DetachHelper
     {
-        internal static void DetachModel(this DetachViewModel detachViewModel, Application application, string filePath)
+        public static void DetachModel(this IConfigDetach iConfigDetach, Application application, string filePath)
         {
             Document document;
             BasicFileInfo fileInfo;
@@ -35,32 +35,37 @@ namespace VLS.BatchExportNet.Views.Detach
             }
             document.DeleteAllLinks();
 
-            if (detachViewModel.RemoveEmptyWorksets && isWorkshared)
+            if (iConfigDetach.RemoveEmptyWorksets && isWorkshared)
                 document.RemoveEmptyWorksets();
 
-            if (detachViewModel.Purge)
+            if (iConfigDetach.Purge)
                 document.PurgeAll();
 
             string documentTitle = document.Title.Replace("_detached", "").Replace("_отсоединено", "");
-            if (detachViewModel.IsToRename)
-                documentTitle = documentTitle.Replace(detachViewModel.MaskInName, detachViewModel.MaskOutName);
+            if (iConfigDetach.IsToRename)
+                documentTitle = documentTitle.Replace(iConfigDetach.MaskInName, iConfigDetach.MaskOutName);
 
             string fileDetachedPath = "";
-            switch (detachViewModel.RadioButtonMode)
+
+            if (iConfigDetach is DetachViewModel detachViewModel)
             {
-                case 1:
-                    string folder = detachViewModel.FolderPath;
-                    string titleWithExtension = documentTitle + ".rvt";
-                    fileDetachedPath = Path.Combine(folder, titleWithExtension);
-                    break;
-                case 2:
-                    string maskIn = detachViewModel.MaskIn;
-                    string maskOut = detachViewModel.MaskOut;
-                    fileDetachedPath = @filePath.Replace(maskIn, maskOut)
-                        .Replace(detachViewModel.MaskInName, detachViewModel.MaskOutName);
-                    break;
+                switch (detachViewModel.RadioButtonMode)
+                {
+                    case 1:
+                        string folder = detachViewModel.FolderPath;
+                        string titleWithExtension = documentTitle + ".rvt";
+                        fileDetachedPath = Path.Combine(folder, titleWithExtension);
+                        break;
+                    case 2:
+                        string maskIn = detachViewModel.MaskIn;
+                        string maskOut = detachViewModel.MaskOut;
+                        fileDetachedPath = @filePath.Replace(maskIn, maskOut)
+                            .Replace(detachViewModel.MaskInName, detachViewModel.MaskOutName);
+                        break;
+                }
             }
-            if (detachViewModel.CheckForEmptyView)
+
+            if (iConfigDetach.CheckForEmptyView)
             {
                 document.OpenAllWorksets();
                 using FilteredElementCollector stuff = new(document);
@@ -69,7 +74,7 @@ namespace VLS.BatchExportNet.Views.Detach
                     string titleEmpty = Path.GetFileNameWithoutExtension(fileDetachedPath);
 
                     Element view = stuff.OfClass(typeof(View3D))
-                        .FirstOrDefault(e => e.Name == detachViewModel.ViewName && !((View3D)e).IsTemplate);
+                        .FirstOrDefault(e => e.Name == iConfigDetach.ViewName && !((View3D)e).IsTemplate);
 
                     if (view is not null
                         && document.IsViewEmpty(view))

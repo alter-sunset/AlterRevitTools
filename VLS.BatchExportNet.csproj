@@ -49,5 +49,8 @@
 		<None Update="VLS.BatchExport.addin">
 			<CopyToOutputDirectory>Never</CopyToOutputDirectory>
 		</None>
+		<None Update="VLS.BatchExportNet.addin">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
 </Project>

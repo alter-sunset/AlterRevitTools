@@ -13,7 +13,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
 {
     public class EventHandlerTransmitModelsVMArg : EventHandlerBaseVMArgs
     {
-        public override void Execute(UIApplication uiApp, ViewModelBase viewModelBase)
+        public override void Execute(UIApplication uiApp, IConfigBase viewModelBase)
         {
             TransmitViewModel transmitViewModel = viewModelBase as TransmitViewModel;
             if (!transmitViewModel.IsEverythingFilled())
@@ -38,7 +38,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
                 string transmittedFilePath = Path.Combine(folder, Path.GetFileName(filePath));
                 File.Copy(filePath, transmittedFilePath, true);
                 ModelPath transmittedModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(transmittedFilePath);
-                transmittedModelPath.UnloadRevitLinks(isSameFolder, folder);
+                transmittedModelPath.UnloadRevitLinks(folder, isSameFolder);
             }
             transmitViewModel.Finisher(id: "TransmitModelsFinished");
         }

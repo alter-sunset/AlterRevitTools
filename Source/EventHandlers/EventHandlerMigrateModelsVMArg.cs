@@ -17,7 +17,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
 {
     public class EventHandlerMigrateModelsVMArg : EventHandlerBaseVMArgs
     {
-        public override void Execute(UIApplication uiApp, ViewModelBase viewModelBase)
+        public override void Execute(UIApplication uiApp, IConfigBase viewModelBase)
         {
             MigrateViewModel migrateViewModel = viewModelBase as MigrateViewModel;
             if (string.IsNullOrEmpty(migrateViewModel.ConfigPath)

@@ -3,9 +3,9 @@ using Autodesk.Revit.ApplicationServices;
 
 namespace VLS.BatchExportNet.Utils
 {
-    static class OpenDocumentHelper
+    public static class OpenDocumentHelper
     {
-        internal static Document OpenAsIs(this ModelPath modelPath,
+        public static Document OpenAsIs(this ModelPath modelPath,
             Application application,
             WorksetConfiguration worksetConfiguration)
         {
@@ -15,7 +15,7 @@ namespace VLS.BatchExportNet.Utils
             };
             return modelPath.OpenDocument(openOptions, worksetConfiguration, application);
         }
-        internal static Document OpenDetached(this ModelPath modelPath,
+        public static Document OpenDetached(this ModelPath modelPath,
             Application application,
             WorksetConfiguration worksetConfiguration)
         {
@@ -25,7 +25,7 @@ namespace VLS.BatchExportNet.Utils
             };
             return modelPath.OpenDocument(openOptions, worksetConfiguration, application);
         }
-        internal static Document OpenTransmitted(this ModelPath modelPath, Application application)
+        public static Document OpenTransmitted(this ModelPath modelPath, Application application)
         {
             OpenOptions openOptions = new()
             {

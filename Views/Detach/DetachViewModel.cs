@@ -1,9 +1,10 @@
-﻿using VLS.BatchExportNet.Source.EventHandlers;
+﻿using System.Collections.Generic;
+using VLS.BatchExportNet.Source.EventHandlers;
 using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Views.Detach
 {
-    public class DetachViewModel : ViewModelBase
+    public class DetachViewModel : ViewModelBase, IConfigDetach
     {
         public DetachViewModel(EventHandlerDetachModelsVMArg eventHandlerDetachModelsUiArg)
         {

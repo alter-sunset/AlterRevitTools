@@ -9,12 +9,12 @@ using Autodesk.Revit.UI;
 
 namespace VLS.BatchExportNet.Utils
 {
-    static class ModelHelper
+    public static class ModelHelper
     {
         /// <summary>
         /// Get WorksetConfiguration with closed worksets that match given prefixes
         /// </summary>
-        internal static WorksetConfiguration CloseWorksetsWithLinks(this ModelPath modelPath, params string[] prefixes)
+        public static WorksetConfiguration CloseWorksetsWithLinks(this ModelPath modelPath, params string[] prefixes)
         {
             WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.OpenAllWorksets);
 
@@ -31,7 +31,7 @@ namespace VLS.BatchExportNet.Utils
         /// </summary>
         /// <param name="element">View</param>
         /// <returns>true if view is empty</returns>
-        internal static bool IsViewEmpty(this Document doc, Element element)
+        public static bool IsViewEmpty(this Document doc, Element element)
         {
             View3D view = element as View3D;
             try
@@ -49,7 +49,7 @@ namespace VLS.BatchExportNet.Utils
         /// <summary>
         /// Relinquish ownership of all possible elements in the document
         /// </summary>
-        internal static void FreeTheModel(this Document doc)
+        public static void FreeTheModel(this Document doc)
         {
             RelinquishOptions relinquishOptions = new(true);
             TransactWithCentralOptions transactWithCentralOptions = new();
@@ -62,7 +62,7 @@ namespace VLS.BatchExportNet.Utils
         /// <summary>
         /// Delete all possible links from the document 
         /// </summary>
-        internal static void DeleteAllLinks(this Document doc)
+        public static void DeleteAllLinks(this Document doc)
         {
             using Transaction t = new(doc);
             t.Start("Delete all Links");
@@ -82,7 +82,7 @@ namespace VLS.BatchExportNet.Utils
         /// <summary>
         /// Returns string with MD5 Hash of given file
         /// </summary>
-        internal static string MD5Hash(this string fileName)
+        public static string MD5Hash(this string fileName)
         {
             if (!File.Exists(fileName))
                 return null;
@@ -100,7 +100,7 @@ namespace VLS.BatchExportNet.Utils
         /// <summary>
         /// Open all worksets in a document in a very crippled way
         /// </summary>
-        internal static void OpenAllWorksets(this Document doc)
+        public static void OpenAllWorksets(this Document doc)
         {
             using TransactionGroup tGroup = new(doc);
             using Transaction t = new(doc);
@@ -146,7 +146,7 @@ namespace VLS.BatchExportNet.Utils
         /// <summary>
         /// Purge all unused elements in the Document
         /// </summary>
-        internal static void PurgeAll(this Document doc)
+        public static void PurgeAll(this Document doc)
         {
             try
             {
@@ -171,7 +171,7 @@ namespace VLS.BatchExportNet.Utils
             }
             catch { }
         }
-        internal static void RemoveEmptyWorksets(this Document document)
+        public static void RemoveEmptyWorksets(this Document document)
         {
             ICollection<WorksetId> worksets = new FilteredWorksetCollector(document)
                     .OfKind(WorksetKind.UserWorkset)

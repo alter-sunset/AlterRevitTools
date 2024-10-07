@@ -2,7 +2,7 @@
 
 namespace VLS.BatchExportNet.Utils
 {
-    static class AlertSwallower
+    public static class AlertSwallower
     {
         public static void SwallowAlert(this Transaction transaction)
         {

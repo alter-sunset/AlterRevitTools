@@ -3,8 +3,8 @@ using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Source.EventHandlers
 {
-    public abstract class EventHandlerBaseVMArgs : RevitEventWrapper<ViewModelBase>
+    public abstract class EventHandlerBaseVMArgs : RevitEventWrapper<IConfigBase>
     {
-        public abstract override void Execute(UIApplication app, ViewModelBase args);
+        public abstract override void Execute(UIApplication app, IConfigBase args);
     }
 }

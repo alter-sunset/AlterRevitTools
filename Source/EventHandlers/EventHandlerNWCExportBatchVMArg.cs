@@ -12,7 +12,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
 {
     public class EventHandlerNWCExportBatchVMArg : EventHandlerBaseVMArgs
     {
-        public override void Execute(UIApplication uiApp, ViewModelBase viewModelBase)
+        public override void Execute(UIApplication uiApp, IConfigBase viewModelBase)
         {
             NWC_ViewModel nwc_ViewModel = viewModelBase as NWC_ViewModel;
             if (nwc_ViewModel.Configs.Count == 0)

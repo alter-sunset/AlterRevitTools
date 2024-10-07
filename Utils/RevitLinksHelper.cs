@@ -8,11 +8,11 @@ using System.IO;
 
 namespace VLS.BatchExportNet.Utils
 {
-    static class RevitLinksHelper
+    public static class RevitLinksHelper
     {
         private const string NO_TRANS_DATA_ALERT = "The document does not have any transmission data";
 
-        internal static void DeleteRevitLinks(this Document document)
+        public static void DeleteRevitLinks(this Document document)
         {
             using Transaction transaction = new(document);
             transaction.Start("Delete Revit links from model");
@@ -27,7 +27,7 @@ namespace VLS.BatchExportNet.Utils
             }
             transaction.Commit();
         }
-        internal static void UnloadRevitLinks(this ModelPath filePath, bool isSameFolder, string folder)
+        public static void UnloadRevitLinks(this ModelPath filePath, string folder, bool isSameFolder = true)
         {
             TransmissionData transData = TransmissionData.ReadTransmissionData(filePath);
 
@@ -57,7 +57,7 @@ namespace VLS.BatchExportNet.Utils
             transData.IsTransmitted = true;
             TransmissionData.WriteTransmissionData(filePath, transData);
         }
-        internal static void ReplaceLinks(this ModelPath filePath, Dictionary<string, string> oldNewFilePairs)
+        public static void ReplaceLinks(this ModelPath filePath, Dictionary<string, string> oldNewFilePairs)
         {
             TransmissionData transData = TransmissionData.ReadTransmissionData(filePath);
 

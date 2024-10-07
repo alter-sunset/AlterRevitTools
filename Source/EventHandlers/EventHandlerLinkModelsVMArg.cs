@@ -7,7 +7,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
 {
     public class EventHandlerLinkModelsVMArg : EventHandlerBaseVMArgs
     {
-        public override void Execute(UIApplication uiApp, ViewModelBase viewModelBase)
+        public override void Execute(UIApplication uiApp, IConfigBase viewModelBase)
         {
             LinkViewModel linkViewModel = viewModelBase as LinkViewModel;
             if (!linkViewModel.IsEverythingFilled())

@@ -12,7 +12,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
 {
     public class EventHandlerDetachModelsVMArg : EventHandlerBaseVMArgs
     {
-        public override void Execute(UIApplication uiApp, ViewModelBase viewModelBase)
+        public override void Execute(UIApplication uiApp, IConfigBase viewModelBase)
         {
             DetachViewModel detachViewModel = viewModelBase as DetachViewModel;
             if (!detachViewModel.IsEverythingFilled())
