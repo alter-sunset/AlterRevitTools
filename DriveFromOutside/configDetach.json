@@ -1,0 +1,16 @@
+{
+  "ExternalEvent": 2,
+  "EventConfig": {
+    "Files": [
+      ""
+    ],
+    "FolderPath": "",
+    "MaskInName": "",
+    "MaskOutName": "",
+    "ViewName": "",
+    "RemoveEmptyWorksets": true,
+    "Purge": true,
+    "IsToRename": true,
+    "CheckForEmptyView": true
+  }
+}
