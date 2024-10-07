@@ -1,5 +1,4 @@
-﻿using System.Windows.Forms;
-using VLS.BatchExportNet.Source.EventHandlers;
+﻿using VLS.BatchExportNet.Source.EventHandlers;
 using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Views.Detach

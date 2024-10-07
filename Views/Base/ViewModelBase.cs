@@ -9,7 +9,6 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
 using VLS.BatchExportNet.Source.EventHandlers;
-using VLS.BatchExportNet.Utils;
 
 namespace VLS.BatchExportNet.Views.Base
 {
