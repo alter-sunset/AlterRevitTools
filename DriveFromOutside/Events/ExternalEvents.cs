@@ -7,6 +7,8 @@
     {
         None = 0,
         Transmit,
-        Detach
+        Detach,
+        NWC,
+        IFC
     }
 }

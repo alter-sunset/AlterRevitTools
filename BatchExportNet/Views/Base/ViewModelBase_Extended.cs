@@ -1,6 +1,6 @@
 ﻿namespace VLS.BatchExportNet.Views.Base
 {
-    public class ViewModelBase_Extended : ViewModelBase
+    public class ViewModelBase_Extended : ViewModelBase, IConfigBase_Extended
     {
         private string _namePrefix = "";
         public string NamePrefix
@@ -56,5 +56,7 @@
                 OnPropertyChanged(nameof(ExportScopeView));
             }
         }
+
+        public string[] WorksetPrefixes => _worksetPrefix.Split(';');
     }
 }

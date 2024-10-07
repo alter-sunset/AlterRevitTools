@@ -12,9 +12,9 @@ namespace VLS.BatchExportNet.Source.EventHandlers
 {
     public class EventHandlerNWCExportBatchVMArg : EventHandlerBaseVMArgs
     {
-        public override void Execute(UIApplication uiApp, IConfigBase viewModelBase)
+        public override void Execute(UIApplication uiApp, IConfigBase iConfig)
         {
-            NWC_ViewModel nwc_ViewModel = viewModelBase as NWC_ViewModel;
+            NWC_ViewModel nwc_ViewModel = iConfig as NWC_ViewModel;
             if (nwc_ViewModel.Configs.Count == 0)
             {
                 MessageBox.Show("Загрузите конфиги.");

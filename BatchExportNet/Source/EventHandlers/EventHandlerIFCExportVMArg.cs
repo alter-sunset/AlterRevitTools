@@ -7,9 +7,9 @@ namespace VLS.BatchExportNet.Source.EventHandlers
 {
     public class EventHandlerIFCExportVMArg : EventHandlerBaseVMArgs
     {
-        public override void Execute(UIApplication uiApp, IConfigBase viewModelBase)
+        public override void Execute(UIApplication uiApp, IConfigBase iConfig)
         {
-            IFC_ViewModel ifc_ViewModel = viewModelBase as IFC_ViewModel;
+            IFC_ViewModel ifc_ViewModel = iConfig as IFC_ViewModel;
             if (!ifc_ViewModel.IsEverythingFilled())
                 return;
 

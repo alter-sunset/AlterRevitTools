@@ -16,24 +16,33 @@ namespace VLS.BatchExportNet.Views.Base
     public class ExportHelperBase
     {
         public void BatchExportModels
-            (ViewModelBase_Extended viewModel, UIApplication uiApp, ref Logger logger)
+            (IConfigBase_Extended iConfig, UIApplication uiApp, ref Logger logger)
         {
             using Application application = uiApp.Application;
-            List<ListBoxItem> listItems = [.. viewModel.ListBoxItems];
+            List<string> models = iConfig.Files;
+            List<ListBoxItem> items = [];
 
-            foreach (ListBoxItem item in listItems)
+            bool isVM = iConfig is ViewModelBase_Extended viewModel;
+            if (isVM)
             {
-                string filePath = item.Content.ToString();
+                viewModel = iConfig as ViewModelBase_Extended;
+                items = [.. viewModel.ListBoxItems];
+                models = items.Select(e => e.Content.ToString()).ToList();
+            }
+
+            foreach (string file in models)
+            {
                 bool fileIsWorkshared = true;
 
                 logger.LineBreak();
                 DateTime startTime = DateTime.Now;
-                logger.Start(filePath);
+                logger.Start(file);
 
-                if (!File.Exists(filePath))
+                if (!File.Exists(file))
                 {
-                    logger.Error($"Файла {filePath} не существует. Ты совсем Туттуру?");
-                    item.Background = Brushes.Red;
+                    logger.Error($"Файла {file} не существует. Ты совсем Туттуру?");
+                    if (isVM)
+                        items.FirstOrDefault(e => e.Content.ToString() == file).Background = Brushes.Red;
                     continue;
                 }
                 using ErrorSwallower errorSwallower = new(uiApp, application);
@@ -42,26 +51,22 @@ namespace VLS.BatchExportNet.Views.Base
                 BasicFileInfo fileInfo;
                 try
                 {
-                    fileInfo = BasicFileInfo.Extract(filePath);
+                    fileInfo = BasicFileInfo.Extract(file);
                     if (!fileInfo.IsWorkshared)
                     {
-                        document = application.OpenDocumentFile(filePath);
+                        document = application.OpenDocumentFile(file);
                         fileIsWorkshared = false;
                     }
-                    else if (filePath.Equals(fileInfo.CentralPath))
+                    else if (file.Equals(fileInfo.CentralPath))
                     {
-                        ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
-                        string[] prefixes = viewModel.WorksetPrefix
-                            .Split(';')
-                            .Select(s => s.Trim())
-                            .Where(e => !string.IsNullOrEmpty(e))
-                            .ToArray();
+                        ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(file);
+                        string[] prefixes = iConfig.WorksetPrefixes;
                         WorksetConfiguration worksetConfiguration = modelPath.CloseWorksetsWithLinks(prefixes);
                         document = modelPath.OpenAsIs(application, worksetConfiguration);
                     }
                     else
                     {
-                        ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
+                        ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(file);
                         WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.OpenAllWorksets);
                         document = modelPath.OpenAsIs(application, worksetConfiguration);
                     }
@@ -69,19 +74,21 @@ namespace VLS.BatchExportNet.Views.Base
                 catch (Exception ex)
                 {
                     logger.Error("Файл не открылся. ", ex);
-                    item.Background = Brushes.Red;
+                    if (isVM)
+                        items.FirstOrDefault(e => e.Content.ToString() == file).Background = Brushes.Red;
                     continue;
                 }
 
                 fileInfo.Dispose();
                 logger.FileOpened();
 
-                item.Background = Brushes.Blue;
+                if (isVM)
+                    items.FirstOrDefault(e => e.Content.ToString() == file).Background = Brushes.Blue;
                 bool isFuckedUp = false;
 
                 try
                 {
-                    ExportModel(viewModel, document, ref isFuckedUp, ref logger);
+                    ExportModel(iConfig, document, ref isFuckedUp, ref logger);
                 }
                 catch (Exception ex)
                 {
@@ -108,11 +115,13 @@ namespace VLS.BatchExportNet.Views.Base
 
                     if (isFuckedUp)
                     {
-                        item.Background = Brushes.Red;
+                        if (isVM)
+                            items.FirstOrDefault(e => e.Content.ToString() == file).Background = Brushes.Red;
                     }
                     else
                     {
-                        item.Background = Brushes.Green;
+                        if (isVM)
+                            items.FirstOrDefault(e => e.Content.ToString() == file).Background = Brushes.Green;
                         logger.Success("Всё ок.");
                     }
 
@@ -126,17 +135,17 @@ namespace VLS.BatchExportNet.Views.Base
             logger.TimeTotal();
         }
 
-        public virtual void ExportModel(ViewModelBase_Extended viewModel,
+        public virtual void ExportModel(IConfigBase_Extended iConfig,
             Document document, ref bool isFuckedUp, ref Logger logger)
         { }
-        public static void Export(ViewModelBase_Extended viewModel,
+        public static void Export(IConfigBase_Extended iConfig,
             Document document, object exportOptions,
             ref Logger logger, ref bool isFuckedUp)
         {
-            string folderPath = viewModel.FolderPath;
-            string fileExportName = viewModel.NamePrefix
+            string folderPath = iConfig.FolderPath;
+            string fileExportName = iConfig.NamePrefix
                 + document.Title.Replace("_отсоединено", "")
-                + viewModel.NamePostfix;
+                + iConfig.NamePostfix;
             string fileWithExtension = fileExportName;
 
             if (exportOptions is NavisworksExportOptions)
@@ -180,13 +189,13 @@ namespace VLS.BatchExportNet.Views.Base
                 isFuckedUp = true;
             }
         }
-        public static bool IsViewEmpty(ViewModelBase_Extended viewModel, Document document, ref Logger logger, ref bool isFuckedUp)
+        public static bool IsViewEmpty(IConfigBase_Extended iConfig, Document document, ref Logger logger, ref bool isFuckedUp)
         {
-            if (viewModel is NWC_ViewModel model && model.ExportLinks)
+            if (iConfig is NWC_ViewModel model && model.ExportLinks)
                 return false;
 
-            if (viewModel.ExportScopeView
-                && document.IsViewEmpty(GetView(viewModel, document)))
+            if (iConfig.ExportScopeView
+                && document.IsViewEmpty(GetView(iConfig, document)))
             {
                 logger.Error("Нет геометрии на виде.");
                 isFuckedUp = true;
@@ -195,9 +204,9 @@ namespace VLS.BatchExportNet.Views.Base
 
             return false;
         }
-        private static Element GetView(ViewModelBase_Extended viewModel, Document document) =>
+        private static Element GetView(IConfigBase_Extended iConfig, Document document) =>
             new FilteredElementCollector(document)
                 .OfClass(typeof(View3D))
-                .FirstOrDefault(e => e.Name == viewModel.ViewName && !((View3D)e).IsTemplate);
+                .FirstOrDefault(e => e.Name == iConfig.ViewName && !((View3D)e).IsTemplate);
     }
 }

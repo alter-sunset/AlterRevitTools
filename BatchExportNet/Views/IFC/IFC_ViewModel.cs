@@ -11,7 +11,7 @@ using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Views.IFC
 {
-    public class IFC_ViewModel : ViewModelBase_Extended
+    public class IFC_ViewModel : ViewModelBase_Extended, IConfigIFC
     {
         public IFC_ViewModel(EventHandlerIFCExportVMArg eventHandlerIFCExportUiArg)
         {

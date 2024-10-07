@@ -7,17 +7,17 @@ namespace VLS.BatchExportNet.Views.IFC
 {
     class IFCHelper : ExportHelperBase
     {
-        public override void ExportModel(ViewModelBase_Extended viewModel, Document document, ref bool isFuckedUp, ref Logger logger)
+        public override void ExportModel(IConfigBase_Extended iConfig, Document document, ref bool isFuckedUp, ref Logger logger)
         {
-            IFC_ViewModel ifc_ViewModel = viewModel as IFC_ViewModel;
-            if (IsViewEmpty(viewModel, document, ref logger, ref isFuckedUp))
+            IFC_ViewModel ifc_ViewModel = iConfig as IFC_ViewModel;
+            if (IsViewEmpty(iConfig, document, ref logger, ref isFuckedUp))
                 return;
 
             IFCExportOptions ifcExportOptions = IFC_ExportOptions(ifc_ViewModel, document);
 
             using Transaction transaction = new(document);
             transaction.Start("Экспорт IFC");
-            Export(viewModel, document, ifcExportOptions, ref logger, ref isFuckedUp);
+            Export(iConfig, document, ifcExportOptions, ref logger, ref isFuckedUp);
             transaction.Commit();
         }
         private static IFCExportOptions IFC_ExportOptions(IFC_ViewModel ifc_ViewModel, Document document) => new()

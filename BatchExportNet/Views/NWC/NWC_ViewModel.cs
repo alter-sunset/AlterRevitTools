@@ -12,7 +12,7 @@ using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Views.NWC
 {
-    public class NWC_ViewModel : ViewModelBase_Extended
+    public class NWC_ViewModel : ViewModelBase_Extended, IConfigNWC
     {
         private readonly EventHandlerNWCExportBatchVMArg _eventHandlerNWCExportBatchUiArg;
         public NWC_ViewModel(EventHandlerNWCExportBatchVMArg eventHandlerNWCExportBatchUiArg,
@@ -188,13 +188,13 @@ namespace VLS.BatchExportNet.Views.NWC
             }
         }
 
-        private string _facetingFactor = "1";
-        public string FacetingFactor
+        private double _facetingFactor = 1;
+        public double FacetingFactor
         {
             get => _facetingFactor;
             set
             {
-                _facetingFactor = value.Trim();
+                _facetingFactor = value;
                 OnPropertyChanged(nameof(FacetingFactor));
             }
         }
@@ -233,13 +233,13 @@ namespace VLS.BatchExportNet.Views.NWC
             ExportUrls = form.ExportUrls;
             FindMissingMaterials = form.FindMissingMaterials;
             ViewName = form.ViewName;
-            FolderPath = form.DestinationFolder;
+            FolderPath = form.FolderPath;
             NamePrefix = form.NamePrefix;
             NamePostfix = form.NamePostfix;
             WorksetPrefix = string.Join(';', form.WorksetPrefixes);
             ExportScopeView = form.ExportScope == NavisworksExportScope.View;
             ListBoxItems.Clear();
-            foreach (string file in form.RVTFiles)
+            foreach (string file in form.Files)
             {
                 if (string.IsNullOrEmpty(file))
                     continue;
@@ -253,7 +253,7 @@ namespace VLS.BatchExportNet.Views.NWC
             }
             ConvertLights = form.ConvertLights;
             ConvertLinkedCADFormats = form.ConvertLinkedCADFormats;
-            FacetingFactor = form.FacetingFactor.ToString();
+            FacetingFactor = form.FacetingFactor;
             SelectedCoordinates = _coordinates.FirstOrDefault(e => e.Key == form.Coordinates);
             SelectedParameters = _parameters.FirstOrDefault(e => e.Key == form.Parameters);
         }
@@ -296,7 +296,7 @@ namespace VLS.BatchExportNet.Views.NWC
             Parameters = SelectedParameters.Key,
             ExportScope = ExportScopeView ? NavisworksExportScope.View : NavisworksExportScope.Model,
             ViewName = ViewName,
-            DestinationFolder = FolderPath,
+            FolderPath = FolderPath,
             NamePrefix = NamePrefix,
             NamePostfix = NamePostfix,
             WorksetPrefixes = WorksetPrefix
@@ -305,9 +305,9 @@ namespace VLS.BatchExportNet.Views.NWC
                 .ToArray(),
             ConvertLights = ConvertLights,
             ConvertLinkedCADFormats = ConvertLinkedCADFormats,
-            FacetingFactor = double.TryParse(FacetingFactor, out double facetingFactor) ? facetingFactor : 1.0,
+            FacetingFactor = FacetingFactor,
 
-            RVTFiles = ListBoxItems
+            Files = ListBoxItems
                 .Select(cont => cont.Content.ToString())
                 .ToList()
         };
@@ -357,6 +357,15 @@ namespace VLS.BatchExportNet.Views.NWC
                     _eventHandlerNWCExportBatchUiArg.Raise(this);
                 });
             }
+        }
+
+        NavisworksParameters IConfigNWC.Parameters
+        {
+            get => _selectedParameters.Key;
+        }
+        NavisworksCoordinates IConfigNWC.Coordinates
+        {
+            get => _selectedCoordinates.Key;
         }
     }
 }

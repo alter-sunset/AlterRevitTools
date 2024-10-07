@@ -5,6 +5,7 @@ using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.UI;
 using VLS.DriveFromOutside.Events;
 using VLS.DriveFromOutside.Events.Detach;
+using VLS.DriveFromOutside.Events.NWC;
 using VLS.DriveFromOutside.Events.Transmit;
 
 namespace VLS.DriveFromOutside
@@ -27,6 +28,7 @@ namespace VLS.DriveFromOutside
             List<IEventHolder> events = [];
             events.Add(new TransmitEventHolder());
             events.Add(new DetachEventHolder());
+            events.Add(new NWC_EventHolder());
 
             //Initialize Task Handler and pass Event instances to it
             ExternalTaskHandler externalTaskHandler = new(application, events);

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35219.272
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BatchExportNet", "BatchExportNet\BatchExportNet.csproj", "{679D566E-5AD4-439B-B327-F348BA222406}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "VLS.BatchExportNet", "BatchExportNet\VLS.BatchExportNet.csproj", "{679D566E-5AD4-439B-B327-F348BA222406}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Элементы решения", "Элементы решения", "{8DCACD1D-AF90-44D2-84B0-A04D09370584}"
 	ProjectSection(SolutionItems) = preProject

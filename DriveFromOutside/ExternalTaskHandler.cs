@@ -2,6 +2,7 @@
 using Autodesk.Revit.ApplicationServices;
 using VLS.DriveFromOutside.Events;
 using VLS.DriveFromOutside.Events.Detach;
+using VLS.DriveFromOutside.Events.NWC;
 using VLS.DriveFromOutside.Events.Transmit;
 using VLS.DriveFromOutside.Utils;
 
@@ -78,6 +79,12 @@ namespace VLS.DriveFromOutside
                     DetachConfig detachConfig = taskConfig.GetEventConfig<DetachConfig>();
                     EventHandlerDetach eventHandlerDetach = eventHolder.ExternalEventHandler as EventHandlerDetach;
                     eventHandlerDetach.Raise(detachConfig);
+                    break;
+
+                case ExternalEvents.NWC:
+                    NWC_Config nwc_Config = taskConfig.GetEventConfig<NWC_Config>();
+                    EventHandlerNWC eventHandlerNWC = eventHolder.ExternalEventHandler as EventHandlerNWC;
+                    eventHandlerNWC.Raise(nwc_Config);
                     break;
 
                 default:
