@@ -18,7 +18,7 @@ namespace VLS.BatchExportNet.Source
         public bool Availability { get; set; }
 
         public static ButtonContext[] GetButtonsContext() =>
-            JsonHelper<ButtonContext[]>.DeserializeResource("VLS.BatchExportNet.Resources.Buttons.json");
+            JsonHelper<ButtonContext[]>.DeserializeResource("BatchExportNet.Resources.Buttons.json");
 
         public PushButtonData GetPushButtonData()
         {

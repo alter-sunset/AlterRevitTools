@@ -8,7 +8,7 @@ namespace VLS.BatchExportNet.Views
     public static class Help
     {
         public static Messages GetHelpDictionary() =>
-            JsonHelper<Messages>.DeserializeResource("VLS.BatchExportNet.Resources.HelpMessages.json");
+            JsonHelper<Messages>.DeserializeResource("BatchExportNet.Resources.HelpMessages.json");
 
         public static string GetResultMessage(this Messages helpDictionary,
                 params HelpMessageType[] helpCodes) =>
