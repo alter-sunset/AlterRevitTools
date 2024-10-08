@@ -33,8 +33,8 @@
 		<EmbeddedResource Include="Resources\transmit_16.png" />
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="2025.*" />
-		<PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="2025.*" />
+		<PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="2025.2.0" />
+		<PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="2025.2.0" />
 		<PackageReference Include="System.Text.Json" Version="8.0.4" />
 	</ItemGroup>
 	<ItemGroup>

@@ -3,7 +3,7 @@
 	<AddIn Type="Application">
 		<Name>VLS.DriveFromOutside</Name>
 		<FullClassName>VLS.DriveFromOutside.App</FullClassName>
-		<Assembly>VLS\VLS.DriveFromOutside.dll</Assembly>
+		<Assembly>VLS\DriveFromOutside.dll</Assembly>
 		<AddInId>FC403ACB-1151-4068-A95B-1012AA7DE747</AddInId>
 		<VendorId>VLS</VendorId>
 		<VendorDescription>VLS</VendorDescription>

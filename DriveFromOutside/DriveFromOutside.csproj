@@ -6,11 +6,13 @@
 		<Nullable>enable</Nullable>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="2025.*" />
-		<PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="2025.*" />
+		<PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="2025.2.0" />
+		<PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="2025.2.0" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\BatchExportNet\BatchExportNet.csproj" />
+		<ProjectReference Include="..\BatchExportNet\BatchExportNet.csproj">
+			<Private>False</Private>
+		</ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="VLS.DriveFromOutside.addin">
