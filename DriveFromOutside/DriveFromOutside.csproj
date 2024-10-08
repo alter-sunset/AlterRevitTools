@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="2025.*" />
+		<PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="2025.*" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\BatchExportNet\BatchExportNet.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="VLS.DriveFromOutside.addin">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+
+</Project>
