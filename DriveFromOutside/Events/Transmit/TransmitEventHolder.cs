@@ -1,5 +1,4 @@
 ﻿using Autodesk.Revit.UI;
-using VLS.DriveFromOutside.Events;
 
 namespace VLS.DriveFromOutside.Events.Transmit
 {

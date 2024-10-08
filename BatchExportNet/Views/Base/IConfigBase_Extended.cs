@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace VLS.BatchExportNet.Views.Base
+﻿namespace VLS.BatchExportNet.Views.Base
 {
     public interface IConfigBase_Extended : IConfigBase
     {

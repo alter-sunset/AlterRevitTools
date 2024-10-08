@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using VLS.BatchExportNet.Views.Base;
+﻿using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Views.Detach
 {
