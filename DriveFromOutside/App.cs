@@ -1,5 +1,4 @@
-﻿using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.Attributes;
+﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.UI;
@@ -23,8 +22,6 @@ namespace VLS.DriveFromOutside
 
         private async void OnInitialized(object? sender, ApplicationInitializedEventArgs e)
         {
-            Application? application = sender as Application;
-
             //Initialize all External Events
             List<IEventHolder> events = [];
             events.Add(new TransmitEventHolder());
@@ -36,7 +33,7 @@ namespace VLS.DriveFromOutside
             ExternalTaskHandler externalTaskHandler = new(events);
 
             //Start listener, duh
-            await externalTaskHandler.ListenForNewTasks(TimeSpan.FromMinutes(1));
+            await externalTaskHandler.LookForSingleTask(TimeSpan.FromMinutes(1));
         }
 
         public Result OnShutdown(UIControlledApplication app)

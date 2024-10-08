@@ -1,6 +1,4 @@
-﻿using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.UI;
-using System.Text.Json;
+﻿using System.Text.Json;
 using VLS.DriveFromOutside.Events;
 using VLS.DriveFromOutside.Events.Detach;
 using VLS.DriveFromOutside.Events.IFC;
@@ -10,65 +8,51 @@ using VLS.DriveFromOutside.Utils;
 
 namespace VLS.DriveFromOutside
 {
-    public class ExternalTaskHandler(List<IEventHolder> eventHolders) : IExternalTaskHandler
+    public class ExternalTaskHandler(List<IEventHolder> eventHolders)
     {
         private readonly List<IEventHolder> _eventHolders = eventHolders;
 
         private static readonly string FOLDER_CONFIGS = Path.Combine(
                     Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                     @"RevitListener\Tasks");
-
-        /// <summary>
-        /// Method that will listen for new Tasks and run them accordingly
-        /// </summary>
-        /// <param name="period">Frequency of method execution</param>
-        /// <returns></returns>
-        public async Task ListenForNewTasks(TimeSpan period)
+        public async Task LookForSingleTask(TimeSpan period)
         {
             using PeriodicTimer timer = new(period);
             while (await timer.WaitForNextTickAsync())
             {
-                List<TaskConfig> configs = ReadMessages();
-
-                foreach (TaskConfig config in configs)
-                {
-                    RaiseEvent(config);
-                }
+                TaskConfig taskConfig = GetOldestMessage();
+                if (taskConfig != null)
+                    RaiseEvent(taskConfig);
             }
         }
-        /// <summary>
-        /// Method that will obtain messages
-        /// </summary>
-        public List<TaskConfig> ReadMessages()
+        public static TaskConfig GetOldestMessage()
         {
-            List<TaskConfig> configs = [];
-            string[] files = Directory.GetFiles(FOLDER_CONFIGS);
-            foreach (string file in files)
+            string? file = Directory.GetFiles(FOLDER_CONFIGS)
+                .OrderBy(File.GetLastWriteTime)
+                .FirstOrDefault();
+            if (string.IsNullOrEmpty(file))
+                return null;
+            using FileStream fileStream = File.OpenRead(file);
+            JsonDocument document = JsonDocument.Parse(fileStream);
+            fileStream.Close();
+            fileStream.Dispose();
+            JsonElement root = document.RootElement;
+
+            TaskConfig taskConfig = new()
             {
-                using FileStream fileStream = File.OpenRead(file);
-                JsonDocument document = JsonDocument.Parse(fileStream);
-                fileStream.Close();
-                fileStream.Dispose();
-                JsonElement root = document.RootElement;
-
-                TaskConfig taskConfig = new()
-                {
-                    ExternalEvent = root
-                        .GetProperty("ExternalEvent")
-                        .Deserialize<ExternalEvents>(),
-
-                    EventConfig = root.GetProperty("EventConfig"),
-
-                    FilePath = file
-                };
-                configs.Add(taskConfig);
-            }
-            return configs;
+                ExternalEvent = root
+                    .GetProperty("ExternalEvent")
+                    .Deserialize<ExternalEvents>(),
+                EventConfig = root.GetProperty("EventConfig"),
+                FilePath = file
+            };
+            return taskConfig;
         }
-
-        private async void RaiseEvent(TaskConfig taskConfig)
+        private void RaiseEvent(TaskConfig taskConfig)
         {
-            IEventHolder? eventHolder = _eventHolders.FirstOrDefault(e => e.ExternalEvent == taskConfig.ExternalEvent);
+            IEventHolder eventHolder = _eventHolders.FirstOrDefault(e => e.ExternalEvent == taskConfig.ExternalEvent);
+            if (eventHolder is null)
+                return;
             switch (taskConfig.ExternalEvent)
             {
                 case ExternalEvents.Transmit:

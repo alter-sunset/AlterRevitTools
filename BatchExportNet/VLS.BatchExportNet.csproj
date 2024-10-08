@@ -33,17 +33,9 @@
 		<EmbeddedResource Include="Resources\transmit_16.png" />
 	</ItemGroup>
 	<ItemGroup>
+		<PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="2025.*" />
+		<PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="2025.*" />
 		<PackageReference Include="System.Text.Json" Version="8.0.4" />
-	</ItemGroup>
-	<ItemGroup>
-		<Reference Include="RevitAPI">
-			<HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2025\RevitAPI.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
-		<Reference Include="RevitAPIUI">
-			<HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2025\RevitAPIUI.dll</HintPath>
-			<Private>False</Private>
-		</Reference>
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="VLS.BatchExportNet.addin">
