@@ -20,7 +20,7 @@ namespace VLS.BatchExportNet.Views.Base
         {
             using Application application = uiApp.Application;
             List<string> models = iConfig.Files;
-            List<ListBoxItem> items = [];
+            List<ListBoxItem> items = GetListBoxItems(iConfig);
 
             bool isVM = iConfig is ViewModelBase_Extended viewModel;
             if (isVM)
@@ -32,58 +32,23 @@ namespace VLS.BatchExportNet.Views.Base
 
             foreach (string file in models)
             {
-                bool fileIsWorkshared = true;
-
                 logger.LineBreak();
                 DateTime startTime = DateTime.Now;
                 logger.Start(file);
 
                 if (!File.Exists(file))
                 {
-                    logger.Error($"Файла {file} не существует. Ты совсем Туттуру?");
-                    if (isVM)
-                        items.FirstOrDefault(e => e.Content.ToString() == file).Background = Brushes.Red;
+                    HandleFileNotFound(file, items, logger);
                     continue;
                 }
                 using ErrorSwallower errorSwallower = new(uiApp, application);
 
-                Document document;
-                BasicFileInfo fileInfo;
-                try
-                {
-                    fileInfo = BasicFileInfo.Extract(file);
-                    if (!fileInfo.IsWorkshared)
-                    {
-                        document = application.OpenDocumentFile(file);
-                        fileIsWorkshared = false;
-                    }
-                    else if (file.Equals(fileInfo.CentralPath))
-                    {
-                        ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(file);
-                        string[] prefixes = iConfig.WorksetPrefixes;
-                        WorksetConfiguration worksetConfiguration = modelPath.CloseWorksetsWithLinks(prefixes);
-                        document = modelPath.OpenAsIs(application, worksetConfiguration);
-                    }
-                    else
-                    {
-                        ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(file);
-                        WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.OpenAllWorksets);
-                        document = modelPath.OpenAsIs(application, worksetConfiguration);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    logger.Error("Файл не открылся. ", ex);
-                    if (isVM)
-                        items.FirstOrDefault(e => e.Content.ToString() == file).Background = Brushes.Red;
-                    continue;
-                }
+                Document document = OpenDocument(file, application, iConfig, logger, items);
+                if (document is null) continue;
 
-                fileInfo.Dispose();
                 logger.FileOpened();
+                UpdateItemBackground(items, file, Brushes.Blue);
 
-                if (isVM)
-                    items.FirstOrDefault(e => e.Content.ToString() == file).Background = Brushes.Blue;
                 bool isFuckedUp = false;
 
                 try
@@ -97,34 +62,7 @@ namespace VLS.BatchExportNet.Views.Base
                 }
                 finally
                 {
-                    if (fileIsWorkshared)
-                    {
-                        try
-                        {
-                            document.FreeTheModel();
-                        }
-                        catch (Exception ex)
-                        {
-                            logger.Error("Не смог освободить рабочие наборы. ", ex);
-                            isFuckedUp = true;
-                        }
-                    }
-
-                    document?.Close(false);
-                    document?.Dispose();
-
-                    if (isFuckedUp)
-                    {
-                        if (isVM)
-                            items.FirstOrDefault(e => e.Content.ToString() == file).Background = Brushes.Red;
-                    }
-                    else
-                    {
-                        if (isVM)
-                            items.FirstOrDefault(e => e.Content.ToString() == file).Background = Brushes.Green;
-                        logger.Success("Всё ок.");
-                    }
-
+                    CloseDocument(document, ref isFuckedUp, items, file, logger);
                     logger.TimeForFile(startTime);
                     Thread.Sleep(500);
                 }
@@ -133,6 +71,65 @@ namespace VLS.BatchExportNet.Views.Base
             logger.LineBreak();
             logger.ErrorTotal();
             logger.TimeTotal();
+        }
+        private static List<ListBoxItem> GetListBoxItems(IConfigBase_Extended iConfig) =>
+            iConfig is ViewModelBase_Extended viewModel
+                ? new List<ListBoxItem>(viewModel.ListBoxItems)
+                : [];
+        private static void HandleFileNotFound(string file, List<ListBoxItem> items, Logger logger)
+        {
+            logger.Error($"Файла {file} не существует. Ты совсем Туттуру?");
+            UpdateItemBackground(items, file, Brushes.Red);
+        }
+        private static void UpdateItemBackground(List<ListBoxItem> items, string file, Brush color)
+        {
+            ListBoxItem item = items.FirstOrDefault(e => e.Content.ToString() == file);
+            if (item is not null) item.Background = color;
+        }
+        private static Document OpenDocument(string file, Application application, IConfigBase_Extended iConfig, Logger logger, List<ListBoxItem> items)
+        {
+            BasicFileInfo fileInfo = default;
+            try
+            {
+                fileInfo = BasicFileInfo.Extract(file);
+                ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(file);
+                WorksetConfiguration worksetConfiguration = fileInfo.IsWorkshared
+                    ? (file.Equals(fileInfo.CentralPath) ? modelPath.CloseWorksetsWithLinks(iConfig.WorksetPrefixes) : new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets))
+                    : null;
+
+                return worksetConfiguration == null ? application.OpenDocumentFile(file) : modelPath.OpenAsIs(application, worksetConfiguration);
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Файл не открылся. ", ex);
+                UpdateItemBackground(items, file, Brushes.Red);
+                return null;
+            }
+            finally
+            {
+                fileInfo?.Dispose();
+            }
+        }
+        private static void CloseDocument(Document document, ref bool isFuckedUp, List<ListBoxItem> items, string file, Logger logger)
+        {
+            if (document == null) return;
+
+            try
+            {
+                document.FreeTheModel();
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Не смог освободить рабочие наборы. ", ex);
+                isFuckedUp = true;
+            }
+            finally
+            {
+                document.Close(false);
+                document.Dispose();
+                UpdateItemBackground(items, file, isFuckedUp ? Brushes.Red : Brushes.Green);
+                logger.Success("Всё ок.");
+            }
         }
 
         public virtual void ExportModel(IConfigBase_Extended iConfig,
@@ -143,23 +140,15 @@ namespace VLS.BatchExportNet.Views.Base
             ref Logger logger, ref bool isFuckedUp)
         {
             string folderPath = iConfig.FolderPath;
-            string fileExportName = iConfig.NamePrefix
-                + document.Title.Replace("_отсоединено", "")
-                + iConfig.NamePostfix;
-            string fileWithExtension = fileExportName;
-
-            if (exportOptions is NavisworksExportOptions)
-                fileWithExtension += ".nwc";
-            else
-                fileWithExtension += ".ifc";
-
+            string fileExportName = $"{iConfig.NamePrefix}" +
+                $"{document.Title.Replace("_отсоединено", "").Replace("_detached", "")}" +
+                $"{iConfig.NamePostfix}";
+            string fileWithExtension = $"{fileExportName}" +
+                $"{(exportOptions is NavisworksExportOptions ? ".nwc" : ".ifc")}";
             string fileName = Path.Combine(folderPath, fileWithExtension);
-            string oldHash = null;
-            if (File.Exists(fileName))
-            {
-                oldHash = fileName.MD5Hash();
-                logger.Hash(oldHash);
-            }
+
+            string oldHash = File.Exists(fileName) ? fileName.MD5Hash() : null;
+            if (oldHash is not null) logger.Hash(oldHash);
 
             try
             {
@@ -172,6 +161,7 @@ namespace VLS.BatchExportNet.Views.Base
             {
                 logger.Error("Смотри исключение.", ex);
                 isFuckedUp = true;
+                return;
             }
 
             if (!File.Exists(fileName))
@@ -180,6 +170,7 @@ namespace VLS.BatchExportNet.Views.Base
                 isFuckedUp = true;
                 return;
             }
+
             string newHash = fileName.MD5Hash();
             logger.Hash(newHash);
 

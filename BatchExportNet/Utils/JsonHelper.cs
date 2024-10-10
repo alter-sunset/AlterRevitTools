@@ -15,28 +15,25 @@ namespace VLS.BatchExportNet.Utils
                 Assembly.GetExecutingAssembly().GetManifestResourceStream(path),
                 GetDefaultOptions());
 
-        public static T DeserializeConfig(FileStream file)
+        public static T DeserializeConfig(FileStream file) =>
+            HandleSerialization(() => JsonSerializer.Deserialize<T>(file, GetDefaultOptions()));
+
+        public static void SerializeConfig(T value, string path) =>
+        HandleSerialization(() =>
+        {
+            File.WriteAllText(path, JsonSerializer.Serialize(value, GetDefaultOptions()));
+            return default; // Return a dummy value just to satisfy the Func<T>
+        });
+        private static T HandleSerialization(Func<T> action)
         {
             try
             {
-                return JsonSerializer.Deserialize<T>(file, GetDefaultOptions());
+                return action();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Неверная схема файла\n{ex.Message}");
                 return default;
-            }
-        }
-
-        public static void SerializeConfig(T value, string path)
-        {
-            try
-            {
-                File.WriteAllText(path, JsonSerializer.Serialize(value, GetDefaultOptions()));
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Неверная схема файла\n{ex.Message}");
             }
         }
         private static JsonSerializerOptions GetDefaultOptions() => new()

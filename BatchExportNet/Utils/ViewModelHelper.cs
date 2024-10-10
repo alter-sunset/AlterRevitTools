@@ -34,96 +34,64 @@ namespace VLS.BatchExportNet.Utils
             return viewModel.IsListNotEmpty();
         }
 
-        private static bool IsListNotEmpty(this ViewModelBase viewModel)
-        {
-            if (viewModel.ListBoxItems.Count == 0)
-            {
-                MessageBox.Show("Добавьте хотя бы один файл для экспорта!");
-                return false;
-            }
-            return true;
-        }
+        private static bool IsListNotEmpty(this ViewModelBase viewModel) =>
+            CheckCondition(viewModel.ListBoxItems.Count > 0, "Добавьте хотя бы один файл для экспорта!");
         private static bool IsFolderPathOK(this ViewModelBase viewModel)
         {
-            string textBoxFolder = viewModel.FolderPath;
-            if (string.IsNullOrEmpty(textBoxFolder))
+            string folderPath = viewModel.FolderPath;
+
+            if (string.IsNullOrEmpty(folderPath))
+                return CheckCondition(false, "Укажите папку для экспорта!");
+
+            if (!Uri.IsWellFormedUriString(folderPath, UriKind.RelativeOrAbsolute))
+                return CheckCondition(false, "Укажите корректную папку для экспорта!");
+
+            if (!Directory.Exists(folderPath))
             {
-                MessageBox.Show("Укажите папку для экспорта!");
-                return false;
-            }
-            if (Uri.IsWellFormedUriString(textBoxFolder, UriKind.RelativeOrAbsolute))
-            {
-                MessageBox.Show("Укажите корректную папку для экспорта!");
-                return false;
-            }
-            if (!Directory.Exists(textBoxFolder))
-            {
-                MessageBoxResult messageBox = MessageBox.Show("Такой папки не существует.\nСоздать папку?",
+                MessageBoxResult result = MessageBox.Show("Такой папки не существует.\nСоздать папку?",
                     "Добрый вечер", MessageBoxButton.YesNo);
-                switch (messageBox)
+                if (result is MessageBoxResult.Yes) Directory.CreateDirectory(folderPath);
+
+                else
                 {
-                    case MessageBoxResult.Yes:
-                        Directory.CreateDirectory(textBoxFolder);
-                        break;
-                    case MessageBoxResult.No:
-                    case MessageBoxResult.Cancel:
-                        MessageBox.Show("Нет, так нет.\nТогда живи в проклятом мире, который сам и создал.");
-                        return false;
+                    MessageBox.Show("Нет, так нет.\nТогда живи в проклятом мире, который сам и создал.");
+                    return false;
                 }
             }
             return true;
         }
-        private static bool IsViewNameOK(this ViewModelBase_Extended viewModel)
-        {
-            if (viewModel.ExportScopeView && string.IsNullOrEmpty(viewModel.ViewName))
-            {
-                MessageBox.Show("Введите имя вида для экспорта!");
-                return false;
-            }
-            return true;
-        }
-        private static bool IsViewNameOK(this DetachViewModel viewModel)
-        {
-            if (viewModel.CheckForEmptyView && string.IsNullOrEmpty(viewModel.ViewName))
-            {
-                MessageBox.Show("Введите имя вида для проверки!");
-                return false;
-            }
-            return true;
-        }
+        private static bool IsViewNameOK(this ViewModelBase_Extended viewModel) =>
+            CheckCondition(!viewModel.ExportScopeView || !string.IsNullOrEmpty(viewModel.ViewName),
+                "Введите имя вида для экспорта!");
+        private static bool IsViewNameOK(this DetachViewModel viewModel) =>
+            CheckCondition(!viewModel.CheckForEmptyView || !string.IsNullOrEmpty(viewModel.ViewName),
+                "Введите имя вида для проверки!");
         private static bool IsRBModeOK(this DetachViewModel detachViewModel)
         {
             switch (detachViewModel.RadioButtonMode)
             {
                 case 0:
-                    MessageBox.Show("Выберите режим выбора пути!");
-                    return false;
+                    return CheckCondition(false, "Выберите режим выбора пути!");
                 case 1:
-                    return IsFolderPathOK(detachViewModel);
+                    return detachViewModel.IsFolderPathOK();
                 case 2:
                     if (string.IsNullOrEmpty(detachViewModel.MaskIn) || string.IsNullOrEmpty(detachViewModel.MaskOut))
-                    {
-                        MessageBox.Show("Укажите маску замены пути!");
-                        return false;
-                    }
+                        return CheckCondition(false, "Укажите маску замены пути!");
+
                     if (!detachViewModel.ListBoxItems.Select(e => e.Content)
                         .All(e => e.ToString().Contains(detachViewModel.MaskIn)))
-                    {
-                        MessageBox.Show("Несоответсвие входной маски и имён файлов!");
-                        return false;
-                    }
+                        return CheckCondition(false, "Несоответствие входной маски и имён файлов!");
                     break;
             }
             return true;
         }
-        private static bool IsMaskNameOK(this DetachViewModel detachViewModel)
+        private static bool IsMaskNameOK(this DetachViewModel detachViewModel) =>
+             CheckCondition(!detachViewModel.IsToRename || !string.IsNullOrEmpty(detachViewModel.MaskInName),
+                "Введите маски для переименования файлов!");
+        private static bool CheckCondition(bool condition, string message)
         {
-            if (detachViewModel.IsToRename && string.IsNullOrEmpty(detachViewModel.MaskInName))
-            {
-                MessageBox.Show("Введите маски для переименования файлов!");
-                return false;
-            }
-            return true;
+            if (!condition) MessageBox.Show(message);
+            return condition;
         }
 
         /// <summary>

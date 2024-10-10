@@ -1,5 +1,6 @@
 ﻿using Autodesk.Revit.DB;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace VLS.BatchExportNet.Utils
 {
@@ -7,13 +8,12 @@ namespace VLS.BatchExportNet.Utils
     {
         public FailureProcessingResult PreprocessFailures(FailuresAccessor a)
         {
-            IList<FailureMessageAccessor> failures = a.GetFailureMessages();
+            IEnumerable<FailureMessageAccessor> failures = a.GetFailureMessages()
+                .Where(f => f.GetFailureDefinitionId() ==
+                    BuiltInFailures.CopyMonitorFailures.CopyWatchAlert);
             foreach (FailureMessageAccessor f in failures)
             {
-                FailureDefinitionId id = f.GetFailureDefinitionId();
-
-                if (BuiltInFailures.CopyMonitorFailures.CopyWatchAlert == id)
-                    a.DeleteWarning(f);
+                a.DeleteWarning(f);
             }
             return FailureProcessingResult.Continue;
         }
