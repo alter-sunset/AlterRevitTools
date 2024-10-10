@@ -308,7 +308,7 @@ namespace VLS.BatchExportNet.Views.NWC
             FacetingFactor = FacetingFactor,
 
             Files = ListBoxItems
-                .Select(cont => cont.Content.ToString())
+                .Select(cont => cont.Content.ToString() ?? string.Empty)
                 .ToList()
         };
 

@@ -13,9 +13,7 @@ namespace VLS.BatchExportNet.Utils
                 FailureDefinitionId id = f.GetFailureDefinitionId();
 
                 if (BuiltInFailures.CopyMonitorFailures.CopyWatchAlert == id)
-                {
                     a.DeleteWarning(f);
-                }
             }
             return FailureProcessingResult.Continue;
         }

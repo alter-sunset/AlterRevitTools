@@ -35,7 +35,7 @@
 	<ItemGroup>
 		<PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="2025.2.0" />
 		<PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="2025.2.0" />
-		<PackageReference Include="System.Text.Json" Version="8.0.4" />
+		<PackageReference Include="System.Text.Json" Version="8.0.5" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="VLS.BatchExportNet.addin">

@@ -175,7 +175,7 @@ namespace VLS.BatchExportNet.Views.IFC
             ViewName = ViewName,
 
             Files = ListBoxItems
-                .Select(cont => cont.Content.ToString())
+                .Select(cont => cont.Content.ToString() ?? string.Empty)
                 .ToList()
         };
 

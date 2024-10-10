@@ -64,11 +64,15 @@ namespace VLS.BatchExportNet.Utils
         /// </summary>
         public static void DeleteAllLinks(this Document doc)
         {
-            using Transaction t = new(doc);
-            t.Start("Delete all Links");
+            ICollection<ElementId> ids = ExternalFileUtils.GetAllExternalFileReferences(doc);
+
+            if (ids.Count == 0)
+                return;
+
+            using Transaction t = new(doc, "Delete all Links");
+            t.Start();
             t.SwallowAlert();
 
-            ICollection<ElementId> ids = ExternalFileUtils.GetAllExternalFileReferences(doc);
             foreach (ElementId id in ids)
             {
                 try
@@ -84,7 +88,7 @@ namespace VLS.BatchExportNet.Utils
         /// </summary>
         public static string MD5Hash(this string fileName)
         {
-            if (!File.Exists(fileName))
+            if (string.IsNullOrEmpty(fileName) || !File.Exists(fileName))
                 return null;
             using MD5 md5 = MD5.Create();
             try
@@ -102,46 +106,49 @@ namespace VLS.BatchExportNet.Utils
         /// </summary>
         public static void OpenAllWorksets(this Document doc)
         {
-            using TransactionGroup tGroup = new(doc);
-            using Transaction t = new(doc);
-            tGroup.Start("Open All Worksets");
+            // List of all user worksets
+            IList<Workset> collectorWorkset = new FilteredWorksetCollector(doc)
+                .OfKind(WorksetKind.UserWorkset)
+                .ToWorksets();
 
-            //list of all worksets
-            FilteredWorksetCollector collectorWorkset =
-                new FilteredWorksetCollector(doc).OfKind(WorksetKind.UserWorkset);
+            ElementId typeId = new FilteredElementCollector(doc)
+                .WhereElementIsElementType()
+                .OfClass(typeof(CableTrayType))
+                .ToElementIds()
+                .FirstOrDefault();
 
-            foreach (Workset w in collectorWorkset.ToWorksets())
+            ElementId levelId = new FilteredElementCollector(doc)
+                .OfClass(typeof(Level))
+                .ToElementIds()
+                .FirstOrDefault();
+
+            if (typeId is null || levelId is null)
+                return;
+
+            using Transaction t = new(doc, "Open Worksets");
+            t.Start();
+
+            // Create a temporary cable tray
+            CableTray ct = CableTray.Create(doc, typeId, new XYZ(0, 0, 0), new XYZ(0, 0, 1), levelId);
+
+            foreach (Workset workset in collectorWorkset)
             {
-                if (w.IsOpen)
+                if (workset.IsOpen)
                     continue;
 
-                t.Start($"Open workset {w.Name}");//Creating temporary cable tray
-                ElementId typeID = new FilteredElementCollector(doc)
-                    .WhereElementIsElementType()
-                    .OfClass(typeof(CableTrayType))
-                    .ToElementIds()
-                    .First();
-                ElementId levelID = new FilteredElementCollector(doc)
-                    .OfClass(typeof(Level))
-                    .ToElementIds()
-                    .First();
-                CableTray ct = CableTray.Create(doc, typeID, new XYZ(0, 0, 0), new XYZ(0, 0, 1), levelID);
-                ElementId elementId = ct.Id;
+                // Change the workset of the cable tray
+                Parameter wsParam = ct.get_Parameter(BuiltInParameter.ELEM_PARTITION_PARAM);
+                if (wsParam is not null && !wsParam.IsReadOnly)
+                    wsParam.Set(workset.Id.IntegerValue);
 
-                //Changing workset of cable tray to workset which we want to open
-                Parameter wsparam = ct.get_Parameter(BuiltInParameter.ELEM_PARTITION_PARAM);
-                if (wsparam != null && !wsparam.IsReadOnly)
-                    wsparam.Set(w.Id.IntegerValue);
-
-                //This command will actualy open workset
-                new UIDocument(doc).ShowElements(elementId);
-
-                //Delete temporary cable tray
-                doc.Delete(elementId);
-
-                t.Commit();
+                // Show the cable tray to open the workset
+                new UIDocument(doc).ShowElements(ct.Id);
             }
-            tGroup.Assimilate();
+
+            // Delete the temporary cable tray
+            doc.Delete(ct.Id);
+
+            t.Commit();
         }
         /// <summary>
         /// Purge all unused elements in the Document
@@ -150,24 +157,23 @@ namespace VLS.BatchExportNet.Utils
         {
             try
             {
-                int num = 0;
-                for (; ; )
+                int previousCount;
+                do
                 {
-                    HashSet<ElementId> hashSet = doc.GetUnusedElements(new HashSet<ElementId>())
+                    HashSet<ElementId> unusedElements = doc.GetUnusedElements(new HashSet<ElementId>())
                         .Where(el => doc.GetElement(el) is not null
                             && doc.GetElement(el) is not RevitLinkType)
                         .ToHashSet();
 
-                    if (hashSet.Count == num || hashSet.Count == 0)
-                        break;
+                    previousCount = unusedElements.Count;
 
-                    num = hashSet.Count;
-                    using Transaction transaction = new(doc);
-                    transaction.Start("Purge unused");
-                    doc.Delete(hashSet);
+                    if (previousCount == 0) break;
+
+                    using Transaction transaction = new(doc, "Purge unused");
+                    transaction.Start();
+                    doc.Delete(unusedElements);
                     transaction.Commit();
-                    continue;
-                }
+                } while (previousCount > 0);
             }
             catch { }
         }

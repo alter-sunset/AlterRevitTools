@@ -23,11 +23,13 @@ namespace VLS.DriveFromOutside
         private async void OnInitialized(object? sender, ApplicationInitializedEventArgs e)
         {
             //Initialize all External Events
-            List<IEventHolder> events = [];
-            events.Add(new TransmitEventHolder());
-            events.Add(new DetachEventHolder());
-            events.Add(new NWC_EventHolder());
-            events.Add(new IFC_EventHolder());
+            List<IEventHolder> events =
+            [
+                new TransmitEventHolder(),
+                new DetachEventHolder(),
+                new NWC_EventHolder(),
+                new IFC_EventHolder(),
+            ];
 
             //Initialize Task Handler and pass Event instances to it
             ExternalTaskHandler externalTaskHandler = new(events);

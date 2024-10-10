@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows;
+using System.Collections.Generic;
 using VLS.BatchExportNet.Source;
 using VLS.BatchExportNet.Views.IFC;
 using VLS.BatchExportNet.Views.NWC;
@@ -14,52 +15,46 @@ namespace VLS.BatchExportNet.Utils
     static class ViewHelper
     {
         private static Window _myForm;
+        private static readonly Dictionary<Forms, Func<Window>> _formCreators = new()
+        {
+            { Forms.Detach,
+                () => new DetachModelsView(new EventHandlerDetachModelsVMArg()) },
+            { Forms.IFC,
+                () => new IFCExportView(new EventHandlerIFCExportVMArg()) },
+            { Forms.NWC,
+                () => new NWCExportView(new EventHandlerNWCExportVMArg(), new EventHandlerNWCExportBatchVMArg()) },
+            { Forms.Migrate,
+                () => new MigrateModelsView(new EventHandlerMigrateModelsVMArg()) },
+            { Forms.Transmit,
+                () => new TransmitModelsView(new EventHandlerTransmitModelsVMArg()) },
+            { Forms.Link,
+                () => new LinkModelsView(new EventHandlerLinkModelsVMArg()) },
+        };
+
         internal static void ShowForm(this Forms form)
         {
-            if (_myForm != null)
-            {
-                _myForm.Close();
-                _myForm = null;
-            }
+            CloseCurrentForm();
 
             try
             {
-                switch (form) //might need to rework this aproach if i need multiple views fsr
+                if (_formCreators.TryGetValue(form, out var createForm))
                 {
-                    case Forms.Detach:
-                        EventHandlerDetachModelsVMArg evDetachVM = new();
-                        _myForm = new DetachModelsView(evDetachVM);
-                        break;
-                    case Forms.IFC:
-                        EventHandlerIFCExportVMArg evIFC_VM = new();
-                        _myForm = new IFCExportView(evIFC_VM);
-                        break;
-                    case Forms.NWC:
-                        EventHandlerNWCExportVMArg evNWC_VM = new();
-                        EventHandlerNWCExportBatchVMArg evBatchNWC_VM = new();
-                        _myForm = new NWCExportView(evNWC_VM, evBatchNWC_VM);
-                        break;
-                    case Forms.Migrate:
-                        EventHandlerMigrateModelsVMArg evMigrateVM = new();
-                        _myForm = new MigrateModelsView(evMigrateVM);
-                        break;
-                    case Forms.Transmit:
-                        EventHandlerTransmitModelsVMArg evTransmitVM = new();
-                        _myForm = new TransmitModelsView(evTransmitVM);
-                        break;
-                    case Forms.Link:
-                        EventHandlerLinkModelsVMArg evLinkVM = new();
-                        _myForm = new LinkModelsView(evLinkVM);
-                        break;
-                    default:
-                        _myForm = null;
-                        return;
+                    _myForm = createForm();
+                    _myForm.Show();
                 }
-                _myForm.Show();
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private static void CloseCurrentForm()
+        {
+            if (_myForm is not null)
+            {
+                _myForm.Close();
+                _myForm = null;
             }
         }
     }

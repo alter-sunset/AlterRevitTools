@@ -1,4 +1,6 @@
-﻿using System.Text.Json;
+﻿using Autodesk.Revit.UI;
+using System.Text.Json;
+using VLS.BatchExportNet.Source.EventHandlers;
 using VLS.DriveFromOutside.Events;
 using VLS.DriveFromOutside.Events.Detach;
 using VLS.DriveFromOutside.Events.IFC;
@@ -12,9 +14,13 @@ namespace VLS.DriveFromOutside
     {
         private readonly List<IEventHolder> _eventHolders = eventHolders;
 
-        private static readonly string FOLDER_CONFIGS = Path.Combine(
-                    Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
-                    @"RevitListener\Tasks");
+        private static readonly string FOLDER_CONFIGS = InitializeFolderConfigs();
+        private static string InitializeFolderConfigs()
+        {
+            return Path.Combine(
+                Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
+                @"RevitListener\Tasks");
+        }
         public async Task LookForSingleTask(TimeSpan period)
         {
             using PeriodicTimer timer = new(period);
@@ -27,61 +33,69 @@ namespace VLS.DriveFromOutside
         }
         public static TaskConfig GetOldestMessage()
         {
-            string? file = Directory.GetFiles(FOLDER_CONFIGS)
-                .OrderBy(File.GetLastWriteTime)
-                .FirstOrDefault();
-            if (string.IsNullOrEmpty(file))
+            string[] files = [.. Directory.GetFiles(FOLDER_CONFIGS).OrderBy(File.GetLastWriteTime)];
+
+            if (files.Length == 0)
                 return null;
-            using FileStream fileStream = File.OpenRead(file);
-            JsonDocument document = JsonDocument.Parse(fileStream);
-            fileStream.Close();
-            fileStream.Dispose();
+
+            using FileStream fileStream = File.OpenRead(files[0]);
+            using JsonDocument document = JsonDocument.Parse(fileStream);
             JsonElement root = document.RootElement;
 
-            TaskConfig taskConfig = new()
+            return new TaskConfig
             {
-                ExternalEvent = root
-                    .GetProperty("ExternalEvent")
-                    .Deserialize<ExternalEvents>(),
+                ExternalEvent = root.GetProperty("ExternalEvent").Deserialize<ExternalEvents>(),
                 EventConfig = root.GetProperty("EventConfig"),
-                FilePath = file
+                FilePath = files[0]
             };
-            return taskConfig;
         }
         private void RaiseEvent(TaskConfig taskConfig)
         {
-            IEventHolder eventHolder = _eventHolders.FirstOrDefault(e => e.ExternalEvent == taskConfig.ExternalEvent);
+            IEventHolder eventHolder = _eventHolders
+                .FirstOrDefault(e => e.ExternalEvent == taskConfig.ExternalEvent);
             if (eventHolder is null)
                 return;
-            switch (taskConfig.ExternalEvent)
+
+            // Create a dictionary mapping external events to their handlers
+            Dictionary<ExternalEvents, Action> eventHandlers = new()
             {
-                case ExternalEvents.Transmit:
-                    TransmitConfig transmitConfig = taskConfig.GetEventConfig<TransmitConfig>();
-                    EventHandlerTransmit eventHandlerTransmit = eventHolder.ExternalEventHandler as EventHandlerTransmit;
-                    eventHandlerTransmit.Raise(transmitConfig);
-                    break;
+                { ExternalEvents.Transmit, () =>
+                    {
+                        TransmitConfig transmitConfig = taskConfig.GetEventConfig<TransmitConfig>();
+                        EventHandlerTransmit? handler = eventHolder.ExternalEventHandler as EventHandlerTransmit;
+                        handler?.Raise(transmitConfig);
+                    }
+                },
+                { ExternalEvents.Detach, () =>
+                    {
+                        DetachConfig detachConfig = taskConfig.GetEventConfig<DetachConfig>();
+                        EventHandlerDetach? handler = eventHolder.ExternalEventHandler as EventHandlerDetach;
+                        handler?.Raise(detachConfig);
+                    }
+                },
+                { ExternalEvents.NWC, () =>
+                    {
+                        NWC_Config nwcConfig = taskConfig.GetEventConfig<NWC_Config>();
+                        EventHandlerNWC? handler = eventHolder.ExternalEventHandler as EventHandlerNWC;
+                        handler?.Raise(nwcConfig);
+                    }
+                },
+                { ExternalEvents.IFC, () =>
+                    {
+                        IFC_Config ifcConfig = taskConfig.GetEventConfig<IFC_Config>();
+                        EventHandlerIFC? handler = eventHolder.ExternalEventHandler as EventHandlerIFC;
+                        handler?.Raise(ifcConfig);
+                    }
+                },
+            };
 
-                case ExternalEvents.Detach:
-                    DetachConfig detachConfig = taskConfig.GetEventConfig<DetachConfig>();
-                    EventHandlerDetach eventHandlerDetach = eventHolder.ExternalEventHandler as EventHandlerDetach;
-                    eventHandlerDetach.Raise(detachConfig);
-                    break;
-
-                case ExternalEvents.NWC:
-                    NWC_Config nwc_Config = taskConfig.GetEventConfig<NWC_Config>();
-                    EventHandlerNWC eventHandlerNWC = eventHolder.ExternalEventHandler as EventHandlerNWC;
-                    eventHandlerNWC.Raise(nwc_Config);
-                    break;
-
-                case ExternalEvents.IFC:
-                    IFC_Config ifc_Config = taskConfig.GetEventConfig<IFC_Config>();
-                    EventHandlerIFC eventHandlerIFC = eventHolder.ExternalEventHandler as EventHandlerIFC;
-                    eventHandlerIFC.Raise(ifc_Config);
-                    break;
-
-                default:
-                    return;
+            // Invoke the appropriate event handler if it exists
+            if (eventHandlers.TryGetValue(taskConfig.ExternalEvent, out var raiseEvent))
+            {
+                raiseEvent();
             }
+
+            // Delete the file after raising the event
             File.Delete(taskConfig.FilePath);
         }
     }
