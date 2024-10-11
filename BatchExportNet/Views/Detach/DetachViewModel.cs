@@ -22,20 +22,10 @@ namespace VLS.BatchExportNet.Views.Detach
         public int RadioButtonMode
         {
             get => _radioButtonMode;
-            set
-            {
-                _radioButtonMode = value;
-                OnPropertyChanged(nameof(RadioButtonMode));
-            }
+            set => SetProperty(ref _radioButtonMode, value);
         }
         private RelayCommand _radioButtonCommand;
-        public override RelayCommand RadioButtonCommand
-        {
-            get
-            {
-                return _radioButtonCommand ??= new RelayCommand(RB_Command);
-            }
-        }
+        public override RelayCommand RadioButtonCommand => _radioButtonCommand ??= new RelayCommand(RB_Command);
         private void RB_Command(object parameter)
         {
             switch ((string)parameter)
@@ -53,88 +43,56 @@ namespace VLS.BatchExportNet.Views.Detach
         public string MaskIn
         {
             get => _maskIn;
-            set
-            {
-                _maskIn = value.Trim();
-                OnPropertyChanged(nameof(MaskIn));
-            }
+            set => SetProperty(ref _maskIn, value);
         }
 
         private string _maskOut = @"06_Общие\62_ПД";
         public string MaskOut
         {
             get => _maskOut;
-            set
-            {
-                _maskOut = value.Trim();
-                OnPropertyChanged(nameof(MaskOut));
-            }
+            set => SetProperty(ref _maskOut, value);
         }
 
         private bool _checkForEmptyView = true;
         public bool CheckForEmptyView
         {
             get => _checkForEmptyView;
-            set
-            {
-                _checkForEmptyView = value;
-                OnPropertyChanged(nameof(CheckForEmptyView));
-            }
+            set => SetProperty(ref _checkForEmptyView, value);
         }
 
         private bool _isToRename = false;
         public bool IsToRename
         {
             get => _isToRename;
-            set
-            {
-                _isToRename = value;
-                OnPropertyChanged(nameof(IsToRename));
-            }
+            set => SetProperty(ref _isToRename, value);
         }
 
         private string _maskInName = "R21";
         public string MaskInName
         {
             get => _maskInName;
-            set
-            {
-                _maskInName = value.Trim();
-                OnPropertyChanged(nameof(MaskInName));
-            }
+            set => SetProperty(ref _maskInName, value);
         }
 
         private string _maskOutName = "R25";
         public string MaskOutName
         {
             get => _maskOutName;
-            set
-            {
-                _maskOutName = value.Trim();
-                OnPropertyChanged(nameof(MaskOutName));
-            }
+            set => SetProperty(ref _maskOutName, value);
         }
 
         private bool _purge = true;
         public bool Purge
         {
             get => _purge;
-            set
-            {
-                _purge = value;
-                OnPropertyChanged(nameof(Purge));
-            }
+            set => SetProperty(ref _purge, value);
         }
 
         private bool _removeEmptyWorksets = false;
         public bool RemoveEmptyWorksets
         {
             get => _removeEmptyWorksets;
-            set
-            {
-                _removeEmptyWorksets = value;
-                OnPropertyChanged(nameof(RemoveEmptyWorksets));
-            }
+            set => SetProperty(ref _removeEmptyWorksets, value);
         }
     }
 }

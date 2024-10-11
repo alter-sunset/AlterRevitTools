@@ -30,37 +30,24 @@ namespace VLS.BatchExportNet.Views.IFC
         public string Mapping
         {
             get => _mapping;
-            set
-            {
-                _mapping = value.Trim();
-                OnPropertyChanged(nameof(Mapping));
-            }
+            set => SetProperty(ref _mapping, value);
         }
         public string FamilyMappingFile => _mapping;
 
-        private RelayCommand _loadMapping;
-        public RelayCommand LoadMapping
+        private RelayCommand _loadMappingCommand;
+        public RelayCommand LoadMappingCommand => _loadMappingCommand ??= new RelayCommand(obj => LoadMapping());
+        private void LoadMapping()
         {
-            get
+            OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
+            if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
+
+            try
             {
-                return _loadMapping ??= new RelayCommand(obj =>
-                {
-                    OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
-
-                    DialogResult result = openFileDialog.ShowDialog();
-
-                    if (result != DialogResult.OK)
-                        return;
-
-                    try
-                    {
-                        Mapping = openFileDialog.FileName;
-                    }
-                    catch
-                    {
-                        MessageBox.Show("Неверная схема файла");
-                    }
-                });
+                Mapping = openFileDialog.FileName;
+            }
+            catch
+            {
+                MessageBox.Show("Неверная схема файла");
             }
         }
 
@@ -68,47 +55,29 @@ namespace VLS.BatchExportNet.Views.IFC
         public bool ExportBaseQuantities
         {
             get => _exportBaseQuantities;
-            set
-            {
-                _exportBaseQuantities = value;
-                OnPropertyChanged(nameof(ExportBaseQuantities));
-            }
+            set => SetProperty(ref _exportBaseQuantities, value);
         }
 
         private bool _wallAndColumnSplitting = false;
         public bool WallAndColumnSplitting
         {
             get => _wallAndColumnSplitting;
-            set
-            {
-                _wallAndColumnSplitting = value;
-                OnPropertyChanged(nameof(WallAndColumnSplitting));
-            }
+            set => SetProperty(ref _wallAndColumnSplitting, value);
         }
 
         private RelayCommand _loadListCommand;
-        public override RelayCommand LoadListCommand
+        public override RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(obj => LoadList());
+        private void LoadList()
         {
-            get
-            {
-                return _loadListCommand ??= new RelayCommand(obj =>
-                {
-                    OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
+            OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
+            if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
-                    DialogResult result = openFileDialog.ShowDialog();
-
-                    if (result != DialogResult.OK)
-                        return;
-
-                    using FileStream file = File.OpenRead(openFileDialog.FileName);
-                    IFCFormDeserilaizer(JsonHelper<IFCForm>.DeserializeConfig(file));
-                });
-            }
+            using FileStream file = File.OpenRead(openFileDialog.FileName);
+            IFCFormDeserilaizer(JsonHelper<IFCForm>.DeserializeConfig(file));
         }
         private void IFCFormDeserilaizer(IFCForm form)
         {
-            if (form is null)
-                return;
+            if (form is null) return;
 
             FolderPath = form.FolderPath;
             NamePrefix = form.NamePrefix;
@@ -124,41 +93,31 @@ namespace VLS.BatchExportNet.Views.IFC
             ListBoxItems.Clear();
             foreach (string file in form.Files)
             {
-                if (string.IsNullOrEmpty(file))
-                    continue;
+                if (string.IsNullOrEmpty(file)) continue;
 
-                ListBoxItem listBoxItem = new() { Content = file, Background = Brushes.White };
                 if (!ListBoxItems.Any(cont => cont.Content.ToString() == file)
                     || file.EndsWith(".rvt", true, System.Globalization.CultureInfo.CurrentCulture))
-                {
-                    ListBoxItems.Add(listBoxItem);
-                }
+                    ListBoxItems.Add(new() { Content = file, Background = Brushes.White });
             }
         }
 
         private RelayCommand _saveListCommand;
-        public override RelayCommand SaveListCommand
+        public override RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(obj => SaveList());
+        private void SaveList()
         {
-            get
+            using IFCForm form = IFCFormSerializer();
+            SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
+
+            if (saveFileDialog.ShowDialog() is not DialogResult.OK)
             {
-                return _saveListCommand ??= new RelayCommand(obj =>
-                {
-                    using IFCForm form = IFCFormSerializer();
-                    SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
-                    DialogResult result = saveFileDialog.ShowDialog();
-
-                    if (result != DialogResult.OK)
-                    {
-                        form.Dispose();
-                        return;
-                    }
-
-                    string fileName = saveFileDialog.FileName;
-                    File.Delete(fileName);
-
-                    JsonHelper<IFCForm>.SerializeConfig(form, fileName);
-                });
+                form.Dispose();
+                return;
             }
+
+            string fileName = saveFileDialog.FileName;
+            File.Delete(fileName);
+
+            JsonHelper<IFCForm>.SerializeConfig(form, fileName);
         }
         private IFCForm IFCFormSerializer() => new()
         {
@@ -181,39 +140,27 @@ namespace VLS.BatchExportNet.Views.IFC
 
         private readonly IReadOnlyDictionary<IFCVersion, string> _ifcVersions
             = IFC_Context.IFCVersions;
-        public IReadOnlyDictionary<IFCVersion, string> IFCVersions
-        {
-            get => _ifcVersions;
-        }
+        public IReadOnlyDictionary<IFCVersion, string> IFCVersions => _ifcVersions;
+
         private KeyValuePair<IFCVersion, string> _selectedVersion
             = IFC_Context.IFCVersions.FirstOrDefault(e => e.Key == IFCVersion.Default);
         public KeyValuePair<IFCVersion, string> SelectedVersion
         {
             get => _selectedVersion;
-            set
-            {
-                _selectedVersion = value;
-                OnPropertyChanged(nameof(SelectedVersion));
-            }
+            set => SetProperty(ref _selectedVersion, value);
         }
         public IFCVersion FileVersion => _selectedVersion.Key;
 
         private readonly IReadOnlyDictionary<int, string> _spaceBoundaryLevels
             = IFC_Context.SpaceBoundaryLevels;
-        public IReadOnlyDictionary<int, string> SpaceBoundaryLevels
-        {
-            get => _spaceBoundaryLevels;
-        }
+        public IReadOnlyDictionary<int, string> SpaceBoundaryLevels => _spaceBoundaryLevels;
+
         private KeyValuePair<int, string> _selectedLevel
             = IFC_Context.SpaceBoundaryLevels.FirstOrDefault(e => e.Key == 1);
         public KeyValuePair<int, string> SelectedLevel
         {
             get => _selectedLevel;
-            set
-            {
-                _selectedLevel = value;
-                OnPropertyChanged(nameof(SelectedLevel));
-            }
+            set => SetProperty(ref _selectedLevel, value);
         }
         public int SpaceBoundaryLevel => SelectedLevel.Key;
     }

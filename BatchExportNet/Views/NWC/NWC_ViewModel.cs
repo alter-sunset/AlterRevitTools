@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using VLS.BatchExportNet.Source.EventHandlers;
 using VLS.BatchExportNet.Utils;
 using VLS.BatchExportNet.Views.Base;
+using System;
 
 namespace VLS.BatchExportNet.Views.NWC
 {
@@ -35,193 +36,123 @@ namespace VLS.BatchExportNet.Views.NWC
         public bool ConvertElementProperties
         {
             get => _convertElementProperties;
-            set
-            {
-                _convertElementProperties = value;
-                OnPropertyChanged(nameof(ConvertElementProperties));
-            }
+            set => SetProperty(ref _convertElementProperties, value);
         }
 
-        private readonly Dictionary<NavisworksCoordinates, string> _coordinates
+        private readonly IReadOnlyDictionary<NavisworksCoordinates, string> _coordinates
             = NWC_Context.Coordinates;
-        public Dictionary<NavisworksCoordinates, string> Coordinates
-        {
-            get => _coordinates;
-        }
+        public IReadOnlyDictionary<NavisworksCoordinates, string> Coordinates => _coordinates;
+
         private KeyValuePair<NavisworksCoordinates, string> _selectedCoordinates
             = NWC_Context.Coordinates.FirstOrDefault(e => e.Key == NavisworksCoordinates.Shared);
         public KeyValuePair<NavisworksCoordinates, string> SelectedCoordinates
         {
             get => _selectedCoordinates;
-            set
-            {
-                _selectedCoordinates = value;
-                OnPropertyChanged(nameof(SelectedCoordinates));
-            }
+            set => SetProperty(ref _selectedCoordinates, value);
         }
 
         private bool _divideFileIntoLevels = true;
         public bool DivideFileIntoLevels
         {
             get => _divideFileIntoLevels;
-            set
-            {
-                _divideFileIntoLevels = value;
-                OnPropertyChanged(nameof(DivideFileIntoLevels));
-            }
+            set => SetProperty(ref _divideFileIntoLevels, value);
         }
 
         private bool _exportElementIds = true;
         public bool ExportElementIds
         {
             get => _exportElementIds;
-            set
-            {
-                _exportElementIds = value;
-                OnPropertyChanged(nameof(ExportElementIds));
-            }
+            set => SetProperty(ref _exportElementIds, value);
         }
 
         private bool _exportLinks = false;
         public bool ExportLinks
         {
             get => _exportLinks;
-            set
-            {
-                _exportLinks = value;
-                OnPropertyChanged(nameof(ExportLinks));
-            }
+            set => SetProperty(ref _exportLinks, value);
         }
 
         private bool _exportParts = false;
         public bool ExportParts
         {
             get => _exportParts;
-            set
-            {
-                _exportParts = value;
-                OnPropertyChanged(nameof(ExportParts));
-            }
+            set => SetProperty(ref _exportParts, value);
         }
 
         private bool _exportRoomAsAttribute = true;
         public bool ExportRoomAsAttribute
         {
             get => _exportRoomAsAttribute;
-            set
-            {
-                _exportRoomAsAttribute = value;
-                OnPropertyChanged(nameof(ExportRoomAsAttribute));
-            }
+            set => SetProperty(ref _exportRoomAsAttribute, value);
         }
 
         private bool _exportRoomGeometry = false;
         public bool ExportRoomGeometry
         {
             get => _exportRoomGeometry;
-            set
-            {
-                _exportRoomGeometry = value;
-                OnPropertyChanged(nameof(ExportRoomGeometry));
-            }
+            set => SetProperty(ref _exportRoomGeometry, value);
         }
 
         private bool _exportUrls = false;
         public bool ExportUrls
         {
             get => _exportUrls;
-            set
-            {
-                _exportUrls = value;
-                OnPropertyChanged(nameof(ExportUrls));
-            }
+            set => SetProperty(ref _exportUrls, value);
         }
 
         private bool _findMissingMaterials = false;
         public bool FindMissingMaterials
         {
             get => _findMissingMaterials;
-            set
-            {
-                _findMissingMaterials = value;
-                OnPropertyChanged(nameof(FindMissingMaterials));
-            }
+            set => SetProperty(ref _findMissingMaterials, value);
         }
 
-        private readonly Dictionary<NavisworksParameters, string> _parameters
+        private readonly IReadOnlyDictionary<NavisworksParameters, string> _parameters
             = NWC_Context.Parameters;
-        public Dictionary<NavisworksParameters, string> Parameters
-        {
-            get => _parameters;
-        }
+        public IReadOnlyDictionary<NavisworksParameters, string> Parameters => _parameters;
+
         private KeyValuePair<NavisworksParameters, string> _selectedParameters
             = NWC_Context.Parameters.FirstOrDefault(e => e.Key == NavisworksParameters.All);
         public KeyValuePair<NavisworksParameters, string> SelectedParameters
         {
             get => _selectedParameters;
-            set
-            {
-                _selectedParameters = value;
-                OnPropertyChanged(nameof(SelectedParameters));
-            }
+            set => SetProperty(ref _selectedParameters, value);
         }
 
         private bool _convertLinkedCADFormats = false;
         public bool ConvertLinkedCADFormats
         {
             get => _convertLinkedCADFormats;
-            set
-            {
-                _convertLinkedCADFormats = value;
-                OnPropertyChanged(nameof(ConvertLinkedCADFormats));
-            }
+            set => SetProperty(ref _convertLinkedCADFormats, value);
         }
 
         private bool _convertLights = false;
         public bool ConvertLights
         {
             get => _convertLights;
-            set
-            {
-                _convertLights = value;
-                OnPropertyChanged(nameof(ConvertLights));
-            }
+            set => SetProperty(ref _convertLights, value);
         }
 
         private double _facetingFactor = 1;
         public double FacetingFactor
         {
             get => _facetingFactor;
-            set
-            {
-                _facetingFactor = value;
-                OnPropertyChanged(nameof(FacetingFactor));
-            }
+            set => SetProperty(ref _facetingFactor, value);
         }
 
         private RelayCommand _loadListCommand;
-        public override RelayCommand LoadListCommand
+        public override RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
+        private void LoadList()
         {
-            get
-            {
-                return _loadListCommand ??= new RelayCommand(obj =>
-                {
-                    OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
+            OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
+            if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
-                    DialogResult result = openFileDialog.ShowDialog();
-
-                    if (result != DialogResult.OK)
-                        return;
-
-                    using FileStream file = File.OpenRead(openFileDialog.FileName);
-                    NWCFormDeserilaizer(JsonHelper<NWCForm>.DeserializeConfig(file));
-                });
-            }
+            using FileStream file = File.OpenRead(openFileDialog.FileName);
+            NWCFormDeserilaizer(JsonHelper<NWCForm>.DeserializeConfig(file));
         }
         public void NWCFormDeserilaizer(NWCForm form)
         {
-            if (form is null)
-                return;
+            if (form is null) return;
 
             ConvertElementProperties = form.ConvertElementProperties;
             DivideFileIntoLevels = form.DivideFileIntoLevels;
@@ -241,14 +172,12 @@ namespace VLS.BatchExportNet.Views.NWC
             ListBoxItems.Clear();
             foreach (string file in form.Files)
             {
-                if (string.IsNullOrEmpty(file))
-                    continue;
+                if (string.IsNullOrEmpty(file)) continue;
 
-                ListBoxItem listBoxItem = new() { Content = file, Background = Brushes.White };
                 if (!ListBoxItems.Any(cont => cont.Content.ToString() == file)
-                    || file.EndsWith(".rvt", true, System.Globalization.CultureInfo.CurrentCulture))
+                    || file.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase))
                 {
-                    ListBoxItems.Add(listBoxItem);
+                    ListBoxItems.Add(new ListBoxItem { Content = file, Background = Brushes.White });
                 }
             }
             ConvertLights = form.ConvertLights;
@@ -259,27 +188,17 @@ namespace VLS.BatchExportNet.Views.NWC
         }
 
         private RelayCommand _saveListCommand;
-        public override RelayCommand SaveListCommand
+        public override RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
+        private void SaveList()
         {
-            get
-            {
-                return _saveListCommand ??= new RelayCommand(obj =>
-                {
-                    using NWCForm form = NWCFormSerializer();
-                    SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
-                    DialogResult result = saveFileDialog.ShowDialog();
-                    if (result != DialogResult.OK)
-                    {
-                        form.Dispose();
-                        return;
-                    }
+            using NWCForm form = NWCFormSerializer();
+            using SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
+            if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
 
-                    string fileName = saveFileDialog.FileName;
-                    File.Delete(fileName);
+            string fileName = saveFileDialog.FileName;
+            if (File.Exists(fileName)) File.Delete(fileName);
 
-                    JsonHelper<NWCForm>.SerializeConfig(form, fileName);
-                });
-            }
+            JsonHelper<NWCForm>.SerializeConfig(form, fileName);
         }
         private NWCForm NWCFormSerializer() => new()
         {
@@ -316,56 +235,29 @@ namespace VLS.BatchExportNet.Views.NWC
         public ObservableCollection<string> Configs
         {
             get => _configs;
-            set
-            {
-                _configs = value;
-                OnPropertyChanged(nameof(Configs));
-            }
+            set => SetProperty(ref _configs, value);
         }
 
         private RelayCommand _loadConfigsCommand;
-        public RelayCommand LoadConfigsCommand
+        public RelayCommand LoadConfigsCommand => _loadConfigsCommand ??= new RelayCommand(_ => LoadConfig());
+        private void LoadConfig()
         {
-            get
-            {
-                return _loadConfigsCommand ??= new RelayCommand(obj =>
-                {
-                    OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
+            using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
+            if (openFileDialog.ShowDialog() != DialogResult.OK) return;
 
-                    DialogResult result = openFileDialog.ShowDialog();
+            IEnumerable<string> configs = File.ReadLines(openFileDialog.FileName);
+            Configs = new ObservableCollection<string>(
+                configs.Where(e => !Configs.Any(c => c == e) && e.EndsWith(".json")));
 
-                    if (result != DialogResult.OK)
-                        return;
-
-                    IEnumerable<string> configs = File.ReadLines(openFileDialog.FileName);
-                    Configs = new ObservableCollection<string>(
-                        configs.Where(e => !Configs.Any(c => c == e) && e.EndsWith(".json")));
-
-                    if (Configs.Count.Equals(0))
-                        MessageBox.Show("В текстовом файле не было найдено подходящей информации");
-                });
-            }
+            if (!Configs.Any())
+                MessageBox.Show("В текстовом файле не было найдено подходящей информации");
         }
 
         private RelayCommand _raiseBatchEventCommand;
-        public RelayCommand RaiseBatchEventCommand
-        {
-            get
-            {
-                return _raiseBatchEventCommand ??= new RelayCommand(obj =>
-                {
-                    _eventHandlerNWCExportBatchUiArg.Raise(this);
-                });
-            }
-        }
+        public RelayCommand RaiseBatchEventCommand => _raiseBatchEventCommand ??=
+            new RelayCommand(obj => _eventHandlerNWCExportBatchUiArg.Raise(this));
 
-        NavisworksParameters IConfigNWC.Parameters
-        {
-            get => _selectedParameters.Key;
-        }
-        NavisworksCoordinates IConfigNWC.Coordinates
-        {
-            get => _selectedCoordinates.Key;
-        }
+        NavisworksParameters IConfigNWC.Parameters => _selectedParameters.Key;
+        NavisworksCoordinates IConfigNWC.Coordinates => _selectedCoordinates.Key;
     }
 }

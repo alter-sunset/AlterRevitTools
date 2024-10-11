@@ -140,7 +140,7 @@
         <Button Margin="80,10,10,10"
                 Grid.Column="3"
                 Grid.Row="5"
-                Command="{Binding LoadMapping}"
+                Command="{Binding LoadMappingCommand}"
                 Content="Обзор"/>
 
         <CheckBox Margin="10"

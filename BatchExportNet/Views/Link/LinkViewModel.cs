@@ -20,11 +20,7 @@ namespace VLS.BatchExportNet.Views.Link
         public bool IsCurrentWorkset
         {
             get => _isCurrentWorkset;
-            set
-            {
-                _isCurrentWorkset = value;
-                OnPropertyChanged(nameof(IsCurrentWorkset));
-            }
+            set => SetProperty(ref _isCurrentWorkset, value);
         }
     }
 }

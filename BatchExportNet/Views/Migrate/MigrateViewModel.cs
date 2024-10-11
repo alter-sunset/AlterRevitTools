@@ -18,26 +18,16 @@ namespace VLS.BatchExportNet.Views.Migrate
         public string ConfigPath
         {
             get => _configPath;
-            set
-            {
-                _configPath = value.Trim();
-                OnPropertyChanged(nameof(ConfigPath));
-            }
+            set => SetProperty(ref _configPath, value);
         }
 
         private RelayCommand _loadListCommand;
-        public override RelayCommand LoadListCommand
+        public override RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(obj => LoadList());
+        private void LoadList()
         {
-            get
-            {
-                return _loadListCommand ??= new RelayCommand(obj =>
-                {
-                    OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
-                    DialogResult result = openFileDialog.ShowDialog();
-                    if (result == DialogResult.OK)
-                        ConfigPath = openFileDialog.FileName;
-                });
-            }
+            OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
+            if (openFileDialog.ShowDialog() is DialogResult.OK)
+                ConfigPath = openFileDialog.FileName;
         }
     }
 }

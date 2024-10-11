@@ -21,11 +21,7 @@ namespace VLS.BatchExportNet.Views.Transmit
         public bool IsSameFolder
         {
             get => _isSameFolder;
-            set
-            {
-                _isSameFolder = value;
-                OnPropertyChanged(nameof(IsSameFolder));
-            }
+            set => SetProperty(ref _isSameFolder, value);
         }
     }
 }

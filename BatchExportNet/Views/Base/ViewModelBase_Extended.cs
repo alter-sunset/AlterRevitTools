@@ -6,33 +6,21 @@
         public string NamePrefix
         {
             get => _namePrefix;
-            set
-            {
-                _namePrefix = value.Trim();
-                OnPropertyChanged(nameof(NamePrefix));
-            }
+            set => SetProperty(ref _namePrefix, value);
         }
 
         private string _namePostfix = "";
         public string NamePostfix
         {
             get => _namePostfix;
-            set
-            {
-                _namePostfix = value.Trim();
-                OnPropertyChanged(nameof(NamePostfix));
-            }
+            set => SetProperty(ref _namePostfix, value);
         }
 
         private string _worksetPrefix = "";
         public string WorksetPrefix
         {
             get => _worksetPrefix;
-            set
-            {
-                _worksetPrefix = value.Trim();
-                OnPropertyChanged(nameof(WorksetPrefix));
-            }
+            set => SetProperty(ref _worksetPrefix, value);
         }
 
         private bool _exportScopeView = true;

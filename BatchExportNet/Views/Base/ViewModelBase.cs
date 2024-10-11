@@ -18,11 +18,7 @@ namespace VLS.BatchExportNet.Views.Base
         public virtual ObservableCollection<ListBoxItem> ListBoxItems
         {
             get => _listBoxItems;
-            set
-            {
-                _listBoxItems = value;
-                OnPropertyChanged(nameof(ListBoxItems));
-            }
+            set => SetProperty(ref _listBoxItems, value);
         }
 
         public List<string> Files
@@ -34,116 +30,69 @@ namespace VLS.BatchExportNet.Views.Base
         public ListBoxItem SelectedItems
         {
             get => _selectedItems;
-            set
-            {
-                _selectedItems = value;
-                OnPropertyChanged(nameof(SelectedItems));
-            }
+            set => SetProperty(ref _selectedItems, value);
         }
         private bool _isViewEnabled = true;
         public bool IsViewEnabled
         {
             get => _isViewEnabled;
-            set
-            {
-                _isViewEnabled = value;
-                OnPropertyChanged(nameof(IsViewEnabled));
-            }
+            set => SetProperty(ref _isViewEnabled, value);
         }
 
         private string _viewName = "Navisworks";
         public string ViewName
         {
             get => _viewName;
-            set
-            {
-                _viewName = value.Trim();
-                OnPropertyChanged(nameof(ViewName));
-            }
+            set => SetProperty(ref _viewName, value);
         }
 
         private RelayCommand _loadListCommand;
-        public virtual RelayCommand LoadListCommand
+        public virtual RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
+        private void LoadList()
         {
-            get
+            OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
+            if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+            ListBoxItems.Clear();
+
+            IEnumerable listRVTFiles = File.ReadLines(openFileDialog.FileName);
+            foreach (string rVTFile in listRVTFiles)
             {
-                return _loadListCommand ??= new RelayCommand(obj =>
-                {
-                    OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
-                    DialogResult result = openFileDialog.ShowDialog();
-                    if (result != DialogResult.OK)
-                    {
-                        return;
-                    }
-
-                    ListBoxItems.Clear();
-
-                    IEnumerable listRVTFiles = File.ReadLines(openFileDialog.FileName);
-                    foreach (string rVTFile in listRVTFiles)
-                    {
-                        ListBoxItem listBoxItem = new() { Content = rVTFile, Background = Brushes.White };
-                        if (!ListBoxItems.Any(cont => cont.Content.ToString() == rVTFile)
-                                && rVTFile.EndsWith(".rvt"))
-                        {
-                            ListBoxItems.Add(listBoxItem);
-                        }
-                    }
-                    if (ListBoxItems.Count.Equals(0))
-                    {
-                        MessageBox.Show("В текстовом файле не было найдено подходящей информации");
-                    }
-                    FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
-                });
+                if (!ListBoxItems.Any(cont => cont.Content.ToString() == rVTFile)
+                        && rVTFile.EndsWith(".rvt"))
+                    ListBoxItems.Add(new() { Content = rVTFile, Background = Brushes.White });
             }
+            if (!ListBoxItems.Any())
+                MessageBox.Show("В текстовом файле не было найдено подходящей информации");
+
+            FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
         }
 
         private RelayCommand _loadCommand;
-        public RelayCommand LoadCommand
+        public RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
+        private void Load()
         {
-            get
+            OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
+            if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+
+            foreach (string file in openFileDialog.FileNames)
             {
-                return _loadCommand ??= new RelayCommand(obj =>
-                {
-                    OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
-
-                    DialogResult result = openFileDialog.ShowDialog();
-
-                    if (result != DialogResult.OK)
-                    {
-                        return;
-                    }
-
-                    foreach (string file in openFileDialog.FileNames)
-                    {
-                        ListBoxItem listBoxItem = new() { Content = file, Background = Brushes.White };
-                        if (!ListBoxItems.Any(cont => cont.Content.ToString() == file))
-                            ListBoxItems.Add(listBoxItem);
-                    }
-                });
+                if (!ListBoxItems.Any(cont => cont.Content.ToString() == file))
+                    ListBoxItems.Add(new() { Content = file, Background = Brushes.White });
             }
         }
 
         private RelayCommand _saveListCommand;
-        public virtual RelayCommand SaveListCommand
+        public virtual RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
+        private void SaveList()
         {
-            get
-            {
-                return _saveListCommand ??= new RelayCommand(obj =>
-                {
-                    SaveFileDialog saveFileDialog = DialogType.RevitList.SaveFileDialog();
-                    DialogResult result = saveFileDialog.ShowDialog();
-                    if (result != DialogResult.OK)
-                    {
-                        return;
-                    }
+            SaveFileDialog saveFileDialog = DialogType.RevitList.SaveFileDialog();
+            if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
 
-                    string fileName = saveFileDialog.FileName;
-                    File.Delete(fileName);
-                    File.WriteAllLines(fileName, ListBoxItems.Select(cont => cont.Content.ToString()));
+            string fileName = saveFileDialog.FileName;
+            File.Delete(fileName);
+            File.WriteAllLines(fileName, ListBoxItems.Select(cont => cont.Content.ToString()));
 
-                    FolderPath = Path.GetDirectoryName(saveFileDialog.FileName);
-                });
-            }
+            FolderPath = Path.GetDirectoryName(saveFileDialog.FileName);
         }
 
         private RelayCommand _deleteCommand;
@@ -156,42 +105,25 @@ namespace VLS.BatchExportNet.Views.Base
         }
 
         private RelayCommand _eraseCommand;
-        public RelayCommand EraseCommand
-        {
-            get
-            {
-                return _eraseCommand ??= new RelayCommand(obj =>
-                {
-                    ListBoxItems.Clear();
-                });
-            }
-        }
+        public RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(obj => ListBoxItems.Clear());
 
         private string _folderPath;
         public string FolderPath
         {
             get => _folderPath;
-            set
-            {
-                _folderPath = value.Trim();
-                OnPropertyChanged(nameof(FolderPath));
-            }
+            set => SetProperty(ref _folderPath, value);
         }
 
         private RelayCommand _browseFolderCommand;
-        public virtual RelayCommand BrowseFolderCommand
+        public virtual RelayCommand BrowseFolderCommand => _browseFolderCommand ??=
+            new RelayCommand(obj => BrowseFolder());
+        private void BrowseFolder()
         {
-            get
-            {
-                return _browseFolderCommand ??= new RelayCommand(obj =>
-                {
-                    FolderBrowserDialog folderBrowserDialog = new() { SelectedPath = FolderPath };
-                    DialogResult result = folderBrowserDialog.ShowDialog();
-                    string folderPath = folderBrowserDialog.SelectedPath;
+            FolderBrowserDialog folderBrowserDialog = new() { SelectedPath = FolderPath };
+            DialogResult result = folderBrowserDialog.ShowDialog();
+            string folderPath = folderBrowserDialog.SelectedPath;
 
-                    if (result is DialogResult.OK) FolderPath = folderPath;
-                });
-            }
+            if (result is DialogResult.OK) FolderPath = folderPath;
         }
         private string _helpMessage;
         public string HelpMessage
@@ -200,16 +132,8 @@ namespace VLS.BatchExportNet.Views.Base
             set => _helpMessage = value;
         }
         private RelayCommand _helpCommand;
-        public virtual RelayCommand HelpCommand
-        {
-            get
-            {
-                return _helpCommand ??= new RelayCommand(obj =>
-                {
-                    MessageBox.Show(HelpMessage, "Справка");
-                });
-            }
-        }
+        public virtual RelayCommand HelpCommand => _helpCommand ??=
+            new RelayCommand(obj => MessageBox.Show(HelpMessage, "Справка"));
 
         private EventHandlerBaseVMArgs _eventHandlerBaseVMArgs;
         public EventHandlerBaseVMArgs EventHandlerBaseVMArgs
@@ -218,16 +142,8 @@ namespace VLS.BatchExportNet.Views.Base
             set => _eventHandlerBaseVMArgs = value;
         }
         private RelayCommand _raiseEventCommand;
-        public RelayCommand RaiseEventCommand
-        {
-            get
-            {
-                return _raiseEventCommand ??= new RelayCommand(obj =>
-                {
-                    _eventHandlerBaseVMArgs.Raise(this);
-                });
-            }
-        }
+        public RelayCommand RaiseEventCommand => _raiseEventCommand ??=
+            new RelayCommand(obj => _eventHandlerBaseVMArgs.Raise(this));
         public virtual RelayCommand RadioButtonCommand { get; }
 
         private void DeleteSelectedItems(object parameter)
@@ -243,6 +159,15 @@ namespace VLS.BatchExportNet.Views.Base
         public void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
+        public void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+        {
+            if (!EqualityComparer<T>.Default.Equals(field, value))
+            {
+                field = value;
+                OnPropertyChanged(propertyName);
+            }
         }
     }
 }
