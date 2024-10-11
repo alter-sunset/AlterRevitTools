@@ -55,14 +55,12 @@ namespace VLS.BatchExportNet.Views.Link
                 {
                     LinkLoadResult linkLoadResult = RevitLinkType.Create(doc, linkPath, options);
                     RevitLinkInstance revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, ImportPlacement.Shared);
+                    t.Commit();
                 }
                 catch
                 {
                     t.RollBack();
-                    continue;
                 }
-
-                t.Commit();
             }
         }
     }

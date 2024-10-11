@@ -1,5 +1,4 @@
 ﻿using Autodesk.Revit.UI;
-using VLS.DriveFromOutside.Events;
 
 namespace VLS.DriveFromOutside.Events.Detach
 {
@@ -7,7 +6,7 @@ namespace VLS.DriveFromOutside.Events.Detach
     {
         private readonly EventHandlerDetach _eventHandlerDetach = new();
         private readonly ExternalEvents _externalEventDetach = ExternalEvents.Detach;
-        public ExternalEvents ExternalEvent { get => _externalEventDetach; }
-        public IExternalEventHandler ExternalEventHandler { get => _eventHandlerDetach; }
+        public ExternalEvents ExternalEvent => _externalEventDetach;
+        public IExternalEventHandler ExternalEventHandler => _eventHandlerDetach;
     }
 }

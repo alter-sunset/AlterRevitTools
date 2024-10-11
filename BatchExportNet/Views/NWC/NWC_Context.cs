@@ -11,10 +11,7 @@ namespace VLS.BatchExportNet.Views.NWC
             { NavisworksCoordinates.Shared, "Общие" },
             { NavisworksCoordinates.Internal, "Внутренние для проекта" }
         };
-        public static IReadOnlyDictionary<NavisworksCoordinates, string> Coordinates
-        {
-            get => _coordinates;
-        }
+        public static IReadOnlyDictionary<NavisworksCoordinates, string> Coordinates => _coordinates;
 
         private static readonly IReadOnlyDictionary<NavisworksParameters, string> _parameters
             = new Dictionary<NavisworksParameters, string>()
@@ -23,9 +20,6 @@ namespace VLS.BatchExportNet.Views.NWC
             { NavisworksParameters.Elements, "Объекты" },
             { NavisworksParameters.None, "Нет" }
         };
-        public static IReadOnlyDictionary<NavisworksParameters, string> Parameters
-        {
-            get => _parameters;
-        }
+        public static IReadOnlyDictionary<NavisworksParameters, string> Parameters => _parameters;
     }
 }

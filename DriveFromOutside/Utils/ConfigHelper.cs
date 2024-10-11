@@ -6,8 +6,6 @@ namespace VLS.DriveFromOutside.Utils
     public static class ConfigHelper
     {
         public static T GetEventConfig<T>(this TaskConfig taskConfig)
-        {
-            return ((JsonElement)taskConfig.EventConfig).Deserialize<T>();
-        }
+            => ((JsonElement)taskConfig.EventConfig).Deserialize<T>();
     }
 }

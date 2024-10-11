@@ -10,8 +10,7 @@ namespace VLS.BatchExportNet.Views.NWC
         public override void ExportModel(IConfigBase_Extended iConfig, Document document, ref bool isFuckedUp, ref Logger logger)
         {
             IConfigNWC configNWC = iConfig as IConfigNWC;
-            if (IsViewEmpty(iConfig, document, ref logger, ref isFuckedUp))
-                return;
+            if (IsViewEmpty(iConfig, document, ref logger, ref isFuckedUp)) return;
 
             NavisworksExportOptions navisworksExportOptions = NWC_ExportOptions(configNWC, document);
 
