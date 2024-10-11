@@ -2,7 +2,6 @@
 {
     public enum DialogType
     {
-        None,
         SingleText,
         SingleJson,
         MultiRevit,

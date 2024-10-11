@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 
 namespace VLS.BatchExportNet.Views
 {
@@ -6,31 +7,17 @@ namespace VLS.BatchExportNet.Views
     {
         private const string EXT_TXT = ".txt";
         private const string EXT_JSON = ".json";
+        private const string EXT_RVT = ".rvt";
         private const string FILTER_TXT = "Текстовый файл (.txt)|*.txt";
         private const string FILTER_JSON = "Файл JSON (.json)|*.json";
+        private const string FILTER_RVT = "Revit Files (*.rvt)|*.rvt";
+        private const string DEFAULT_FILE_NAME_JSON = "ConfigBatchExport";
+        private const string DEFAULT_FILE_NAME_TXT = "ListOfRVTFiles";
+        private const string EXCEPTION = "Unsupported dialog type";
+
         public static OpenFileDialog OpenFileDialog(this DialogType dialogType)
         {
-            bool multiselect = false;
-            string defaultExt;
-            string filter;
-            switch (dialogType)
-            {
-                case DialogType.SingleText:
-                    defaultExt = EXT_TXT;
-                    filter = FILTER_TXT;
-                    break;
-                case DialogType.SingleJson:
-                    defaultExt = EXT_JSON;
-                    filter = FILTER_JSON;
-                    break;
-                case DialogType.MultiRevit:
-                    multiselect = true;
-                    defaultExt = ".rvt";
-                    filter = "Revit Files (.rvt)|*.rvt";
-                    break;
-                default:
-                    return null;
-            }
+            (string defaultExt, string filter, bool multiselect) = GetOpenFileDialogSettings(dialogType);
             return new()
             {
                 Multiselect = multiselect,
@@ -38,26 +25,10 @@ namespace VLS.BatchExportNet.Views
                 Filter = filter
             };
         }
+
         public static SaveFileDialog SaveFileDialog(this DialogType dialogType)
         {
-            string fileName;
-            string defaultExt;
-            string filter;
-            switch (dialogType)
-            {
-                case DialogType.SingleJson:
-                    fileName = "ConfigBatchExport";
-                    defaultExt = EXT_JSON;
-                    filter = FILTER_JSON;
-                    break;
-                case DialogType.RevitList:
-                    fileName = "ListOfRVTFiles";
-                    defaultExt = EXT_TXT;
-                    filter = FILTER_TXT;
-                    break;
-                default:
-                    return null;
-            }
+            (string defaultExt, string filter, string fileName) = GetSaveFileDialogSettings(dialogType);
             return new()
             {
                 FileName = fileName,
@@ -65,5 +36,24 @@ namespace VLS.BatchExportNet.Views
                 Filter = filter
             };
         }
+
+        private static (string defaultExt, string filter, bool multiselect)
+            GetOpenFileDialogSettings(DialogType dialogType) => dialogType
+            switch
+            {
+                DialogType.SingleText => (EXT_TXT, FILTER_TXT, false),
+                DialogType.SingleJson => (EXT_JSON, FILTER_JSON, false),
+                DialogType.MultiRevit => (EXT_RVT, FILTER_RVT, true),
+                _ => throw new ArgumentOutOfRangeException(nameof(dialogType), EXCEPTION)
+            };
+
+        private static (string defaultExt, string filter, string fileName)
+            GetSaveFileDialogSettings(DialogType dialogType) => dialogType
+            switch
+            {
+                DialogType.SingleJson => (EXT_JSON, FILTER_JSON, DEFAULT_FILE_NAME_JSON),
+                DialogType.RevitList => (EXT_TXT, FILTER_TXT, DEFAULT_FILE_NAME_TXT),
+                _ => throw new ArgumentOutOfRangeException(nameof(dialogType), EXCEPTION)
+            };
     }
 }

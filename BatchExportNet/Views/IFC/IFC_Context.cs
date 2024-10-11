@@ -5,7 +5,8 @@ namespace VLS.BatchExportNet.Views.IFC
 {
     internal static class IFC_Context
     {
-        private static readonly Dictionary<IFCVersion, string> _ifcVersions = new()
+        private static readonly IReadOnlyDictionary<IFCVersion, string> _ifcVersions
+            = new Dictionary<IFCVersion, string>()
         {
             { IFCVersion.Default, "По умолчанию" },
             { IFCVersion.IFCBCA, "IFC 2x2 Singapore BCA e-Plan Check" },
@@ -21,17 +22,18 @@ namespace VLS.BatchExportNet.Views.IFC
             { IFCVersion.IFC4x3, "IFC 4x3" },
             { IFCVersion.IFCSG, "IFC-SG Regulatory Requirements View" }
         };
-        public static Dictionary<IFCVersion, string> IFCVersions
+        public static IReadOnlyDictionary<IFCVersion, string> IFCVersions
         {
             get => _ifcVersions;
         }
-        private static readonly Dictionary<int, string> _spaceBoundaryLevels = new()
+        private static readonly IReadOnlyDictionary<int, string> _spaceBoundaryLevels
+            = new Dictionary<int, string>()
         {
             { 0, "Нет" },
             { 1, "Первый уровень" },
             { 2, "Второй уровень" }
         };
-        public static Dictionary<int, string> SpaceBoundaryLevels
+        public static IReadOnlyDictionary<int, string> SpaceBoundaryLevels
         {
             get => _spaceBoundaryLevels;
         }

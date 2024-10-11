@@ -1,9 +1,6 @@
-﻿using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
+﻿using Autodesk.Revit.UI;
 using Application = Autodesk.Revit.ApplicationServices.Application;
-using System;
 using System.IO;
-using System.Linq;
 using System.Windows;
 using System.Globalization;
 using System.Collections.Generic;
@@ -11,7 +8,6 @@ using VLS.BatchExportNet.Utils;
 using VLS.BatchExportNet.Views.Migrate;
 using WasBecome = System.Collections.Generic.Dictionary<string, string>;
 using VLS.BatchExportNet.Views.Base;
-using System.Text.Json;
 
 namespace VLS.BatchExportNet.Source.EventHandlers
 {
@@ -31,17 +27,14 @@ namespace VLS.BatchExportNet.Source.EventHandlers
             List<string> failedFiles = [];
 
             WasBecome items;
-            using (FileStream file = File.OpenRead(migrateViewModel.ConfigPath))
+            try
             {
-                try
-                {
-                    items = JsonSerializer.Deserialize<WasBecome>(file);
-                }
-                catch
-                {
-                    MessageBox.Show("Неверная схема файла");
-                    return;
-                }
+                items = MigrateHelper.LoadMigrationConfig(migrateViewModel.ConfigPath);
+            }
+            catch
+            {
+                MessageBox.Show("Неверная схема файла");
+                return;
             }
 
             using Application application = uiApp.Application;
@@ -54,41 +47,21 @@ namespace VLS.BatchExportNet.Source.EventHandlers
                     continue;
                 }
 
-                string newFile = items.FirstOrDefault(e => e.Key == oldFile).Value;
+                string newFile = items[oldFile];
 
                 try
                 {
-                    Directory.CreateDirectory(Path.GetDirectoryName(newFile));
+                    MigrateHelper.CreateDirectoryForFile(newFile);
                     File.Copy(oldFile, newFile, true);
+                    movedFiles.Add(newFile);
                 }
-                catch (Exception ex)
+                catch
                 {
-                    MessageBox.Show(ex.Message);
                     failedFiles.Add(oldFile);
-                    continue;
                 }
-
-                movedFiles.Add(newFile);
             }
 
-            foreach (string newFile in movedFiles)
-            {
-                ModelPath newFilePath = ModelPathUtils.ConvertUserVisiblePathToModelPath(newFile);
-                newFilePath.ReplaceLinks(items);
-
-                using Document document = newFilePath.OpenTransmitted(application);
-
-                try
-                {
-                    document.FreeTheModel();
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-
-                document.Close();
-            }
+            MigrateHelper.ProcessMovedFiles(movedFiles, items, application);
 
             string msg = failedFiles.Count > 0
                 ? $"Задание выполнено.\nСледующие файлы не были скопированы:\n{string.Join("\n", failedFiles)}"

@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.ApplicationServices;
+using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using VLS.BatchExportNet.Source.EventHandlers;
 using VLS.BatchExportNet.Utils;
@@ -16,6 +17,7 @@ namespace VLS.DriveFromOutside.Events.Detach
             foreach (string file in files)
             {
                 using ErrorSwallower errorSwallower = new(uiApp, application);
+                if (!File.Exists(file)) continue;
                 iDetachConfig.DetachModel(application, file);
             }
         }

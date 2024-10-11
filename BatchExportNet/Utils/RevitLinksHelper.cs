@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Windows;
 using System.Collections.Generic;
 using Autodesk.Revit.DB;
@@ -16,7 +15,6 @@ namespace VLS.BatchExportNet.Utils
         {
             using Transaction transaction = new(document);
             transaction.Start("Delete Revit links from model");
-
             transaction.SwallowAlert();
 
             List<Element> links = [.. new FilteredElementCollector(document).OfClass(typeof(RevitLinkType))];
@@ -29,55 +27,39 @@ namespace VLS.BatchExportNet.Utils
         }
         public static void UnloadRevitLinks(this ModelPath filePath, string folder, bool isSameFolder = true)
         {
-            TransmissionData transData = TransmissionData.ReadTransmissionData(filePath);
+            if (!TryGetTransmissionData(filePath, out TransmissionData transData)) return;
 
-            if (transData is null)
-            {
-                TaskDialog.Show("Unload Revit links", NO_TRANS_DATA_ALERT);
-                return;
-            }
             ICollection<ElementId> externalReferences = transData.GetAllExternalFileReferenceIds();
             foreach (ElementId refId in externalReferences)
             {
                 ExternalFileReference extRef = transData.GetLastSavedReferenceData(refId);
-                if (extRef.ExternalFileReferenceType is not ExternalFileReferenceType.RevitLink)
-                    continue;
+                if (extRef.ExternalFileReferenceType is not ExternalFileReferenceType.RevitLink) continue;
 
                 string name = Path.GetFileName(extRef.GetPath().CentralServerPath);
-                if (isSameFolder)
-                {
-                    FilePath path = new(Path.Combine(folder, name));
-                    transData.SetDesiredReferenceData(refId, path, PathType.Absolute, false);
-                }
-                else
-                {
-                    transData.SetDesiredReferenceData(refId, extRef.GetPath(), extRef.PathType, false);
-                }
+
+                (ModelPath path, PathType pathType) = isSameFolder
+                    ? (new FilePath(Path.Combine(folder, name)), PathType.Absolute)
+                    : (extRef.GetPath(), extRef.PathType);
+
+                transData.SetDesiredReferenceData(refId, path, pathType, false);
             }
             transData.IsTransmitted = true;
             TransmissionData.WriteTransmissionData(filePath, transData);
         }
         public static void ReplaceLinks(this ModelPath filePath, Dictionary<string, string> oldNewFilePairs)
         {
-            TransmissionData transData = TransmissionData.ReadTransmissionData(filePath);
+            if (!TryGetTransmissionData(filePath, out TransmissionData transData)) return;
 
-            if (transData is null)
-            {
-                TaskDialog.Show("Replace Links", NO_TRANS_DATA_ALERT);
-                return;
-            }
             ICollection<ElementId> externalReferences = transData.GetAllExternalFileReferenceIds();
             foreach (ElementId refId in externalReferences)
             {
                 ExternalFileReference extRef = transData.GetLastSavedReferenceData(refId);
+                if (extRef.ExternalFileReferenceType != ExternalFileReferenceType.RevitLink) continue;
+
                 ModelPath modelPath = extRef.GetAbsolutePath();
                 string path = ModelPathUtils.ConvertModelPathToUserVisiblePath(modelPath);
+                if (!oldNewFilePairs.TryGetValue(path, out var newFile)) continue;
 
-                if (extRef.ExternalFileReferenceType is not ExternalFileReferenceType.RevitLink
-                    || !oldNewFilePairs.Any(e => e.Key == path))
-                    continue;
-
-                string newFile = oldNewFilePairs.FirstOrDefault(e => e.Key == path).Value;
                 ModelPath newPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(newFile);
                 try
                 {
@@ -91,6 +73,16 @@ namespace VLS.BatchExportNet.Utils
             }
             transData.IsTransmitted = true;
             TransmissionData.WriteTransmissionData(filePath, transData);
+        }
+        private static bool TryGetTransmissionData(ModelPath filePath, out TransmissionData transData)
+        {
+            transData = TransmissionData.ReadTransmissionData(filePath);
+            if (transData is null)
+            {
+                TaskDialog.Show("Operation Error", NO_TRANS_DATA_ALERT);
+                return false;
+            }
+            return true;
         }
     }
 }

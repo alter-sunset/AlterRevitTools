@@ -10,8 +10,7 @@ namespace VLS.BatchExportNet.Views.IFC
         public override void ExportModel(IConfigBase_Extended iConfig, Document document, ref bool isFuckedUp, ref Logger logger)
         {
             IConfigIFC configIFC = iConfig as IConfigIFC;
-            if (IsViewEmpty(iConfig, document, ref logger, ref isFuckedUp))
-                return;
+            if (IsViewEmpty(iConfig, document, ref logger, ref isFuckedUp)) return;
 
             IFCExportOptions ifcExportOptions = IFC_ExportOptions(configIFC, document);
 

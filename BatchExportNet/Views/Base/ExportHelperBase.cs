@@ -22,10 +22,8 @@ namespace VLS.BatchExportNet.Views.Base
             List<string> models = iConfig.Files;
             List<ListBoxItem> items = GetListBoxItems(iConfig);
 
-            bool isVM = iConfig is ViewModelBase_Extended viewModel;
-            if (isVM)
+            if (iConfig is ViewModelBase_Extended viewModel)
             {
-                viewModel = iConfig as ViewModelBase_Extended;
                 items = [.. viewModel.ListBoxItems];
                 models = items.Select(e => e.Content.ToString()).ToList();
             }
@@ -88,16 +86,20 @@ namespace VLS.BatchExportNet.Views.Base
         }
         private static Document OpenDocument(string file, Application application, IConfigBase_Extended iConfig, Logger logger, List<ListBoxItem> items)
         {
-            BasicFileInfo fileInfo = default;
             try
             {
-                fileInfo = BasicFileInfo.Extract(file);
+                BasicFileInfo fileInfo = BasicFileInfo.Extract(file);
                 ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(file);
+
                 WorksetConfiguration worksetConfiguration = fileInfo.IsWorkshared
-                    ? (file.Equals(fileInfo.CentralPath) ? modelPath.CloseWorksetsWithLinks(iConfig.WorksetPrefixes) : new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets))
+                    ? (file.Equals(fileInfo.CentralPath)
+                        ? modelPath.CloseWorksetsWithLinks(iConfig.WorksetPrefixes)
+                        : new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets))
                     : null;
 
-                return worksetConfiguration == null ? application.OpenDocumentFile(file) : modelPath.OpenAsIs(application, worksetConfiguration);
+                return worksetConfiguration is null
+                    ? application.OpenDocumentFile(file)
+                    : modelPath.OpenAsIs(application, worksetConfiguration);
             }
             catch (Exception ex)
             {
@@ -105,14 +107,10 @@ namespace VLS.BatchExportNet.Views.Base
                 UpdateItemBackground(items, file, Brushes.Red);
                 return null;
             }
-            finally
-            {
-                fileInfo?.Dispose();
-            }
         }
         private static void CloseDocument(Document document, ref bool isFuckedUp, List<ListBoxItem> items, string file, Logger logger)
         {
-            if (document == null) return;
+            if (document is null) return;
 
             try
             {

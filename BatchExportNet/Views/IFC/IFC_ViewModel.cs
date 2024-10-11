@@ -179,9 +179,9 @@ namespace VLS.BatchExportNet.Views.IFC
                 .ToList()
         };
 
-        private readonly Dictionary<IFCVersion, string> _ifcVersions
+        private readonly IReadOnlyDictionary<IFCVersion, string> _ifcVersions
             = IFC_Context.IFCVersions;
-        public Dictionary<IFCVersion, string> IFCVersions
+        public IReadOnlyDictionary<IFCVersion, string> IFCVersions
         {
             get => _ifcVersions;
         }
@@ -198,9 +198,9 @@ namespace VLS.BatchExportNet.Views.IFC
         }
         public IFCVersion FileVersion => _selectedVersion.Key;
 
-        private readonly Dictionary<int, string> _spaceBoundaryLevels
+        private readonly IReadOnlyDictionary<int, string> _spaceBoundaryLevels
             = IFC_Context.SpaceBoundaryLevels;
-        public Dictionary<int, string> SpaceBoundaryLevels
+        public IReadOnlyDictionary<int, string> SpaceBoundaryLevels
         {
             get => _spaceBoundaryLevels;
         }

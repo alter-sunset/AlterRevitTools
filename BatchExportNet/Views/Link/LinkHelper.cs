@@ -39,15 +39,14 @@ namespace VLS.BatchExportNet.Views.Link
             {
                 string filePath = item.Content.ToString();
 
-                if (!File.Exists(filePath))
-                    continue;
+                if (!File.Exists(filePath)) continue;
 
                 using Transaction t = new(doc);
                 t.Start($"Link {filePath}");
 
                 if (!isCurrentWorkset && worksets is not null && worksetTable is not null)
                 {
-                    WorksetId worksetId = worksets.FirstOrDefault(e => filePath.Contains(e.Name.Split('_')[0])).Id;
+                    WorksetId worksetId = worksets.FirstOrDefault(e => filePath.Contains(e.Name.Split('_')[0]))?.Id;
                     worksetTable.SetActiveWorksetId(worksetId);
                 }
 

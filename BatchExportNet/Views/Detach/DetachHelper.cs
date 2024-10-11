@@ -13,7 +13,7 @@ namespace VLS.BatchExportNet.Views.Detach
             try
             {
                 (Document document, bool isWorkshared) = OpenDocument(application, filePath);
-                if (document == null) return;
+                if (document is null) return;
 
                 ProcessDocument(document, iConfigDetach);
                 string fileDetachedPath = GetDetachedFilePath(iConfigDetach, document, filePath);
