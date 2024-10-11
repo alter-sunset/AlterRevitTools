@@ -43,7 +43,7 @@ namespace VLS.BatchExportNet.Utils
             if (string.IsNullOrEmpty(folderPath))
                 return CheckCondition(false, "Укажите папку для экспорта!");
 
-            if (!Uri.IsWellFormedUriString(folderPath, UriKind.RelativeOrAbsolute))
+            if (Uri.IsWellFormedUriString(folderPath, UriKind.RelativeOrAbsolute))
                 return CheckCondition(false, "Укажите корректную папку для экспорта!");
 
             if (!Directory.Exists(folderPath))

@@ -1,6 +1,5 @@
 ﻿using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
-using System;
 using System.IO;
 using System.Linq;
 using VLS.BatchExportNet.Utils;
@@ -123,22 +122,21 @@ namespace VLS.BatchExportNet.Views.Detach
         {
             try
             {
-                if (isWorkshared)
-                {
-                    document.FreeTheModel();
-                    ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(fileDetachedPath);
-                    UpdateTransmissionData(modelPath);
-                    Directory.Delete(fileDetachedPath.Replace(".rvt", "_backup"), true);
-                }
-                else
-                {
-                    File.Delete(fileDetachedPath.Replace(".rvt", ".0001.rvt"));
-                }
+                document.FreeTheModel();
             }
             catch { }
-            finally
+            document?.Close();
+            if (isWorkshared)
             {
-                document?.Close();
+                ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(fileDetachedPath);
+                UpdateTransmissionData(modelPath);
+                Directory.Delete(fileDetachedPath.Replace(".rvt", "_backup"), true);
+            }
+            else
+            {
+                File.Delete(fileDetachedPath.Replace(".rvt", ".0001.rvt"));
+                File.Delete(fileDetachedPath.Replace(".rvt", ".0002.rvt"));
+                File.Delete(fileDetachedPath.Replace(".rvt", ".0003.rvt"));
             }
         }
         private static void UpdateTransmissionData(ModelPath modelPath)

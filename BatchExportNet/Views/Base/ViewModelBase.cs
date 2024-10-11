@@ -189,10 +189,7 @@ namespace VLS.BatchExportNet.Views.Base
                     DialogResult result = folderBrowserDialog.ShowDialog();
                     string folderPath = folderBrowserDialog.SelectedPath;
 
-                    if (result == DialogResult.OK)
-                    {
-                        FolderPath = folderPath;
-                    }
+                    if (result is DialogResult.OK) FolderPath = folderPath;
                 });
             }
         }
