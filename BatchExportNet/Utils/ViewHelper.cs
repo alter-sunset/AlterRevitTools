@@ -18,17 +18,17 @@ namespace VLS.BatchExportNet.Utils
         private static readonly Dictionary<Forms, Func<Window>> _formCreators = new()
         {
             { Forms.Detach,
-                () => new DetachModelsView(new EventHandlerDetachModelsVMArg()) },
+                () => new DetachModelsView(new EventHandlerDetach()) },
             { Forms.IFC,
-                () => new IFCExportView(new EventHandlerIFCExportVMArg()) },
+                () => new IFCExportView(new EventHandlerIFC()) },
             { Forms.NWC,
-                () => new NWCExportView(new EventHandlerNWCExportVMArg(), new EventHandlerNWCExportBatchVMArg()) },
+                () => new NWCExportView(new EventHandlerNWC(), new EventHandlerNWC_Batch()) },
             { Forms.Migrate,
-                () => new MigrateModelsView(new EventHandlerMigrateModelsVMArg()) },
+                () => new MigrateModelsView(new EventHandlerMigrate()) },
             { Forms.Transmit,
-                () => new TransmitModelsView(new EventHandlerTransmitModelsVMArg()) },
+                () => new TransmitModelsView(new EventHandlerTransmit()) },
             { Forms.Link,
-                () => new LinkModelsView(new EventHandlerLinkModelsVMArg()) },
+                () => new LinkModelsView(new EventHandlerLink()) },
         };
 
         internal static void ShowForm(this Forms form)
@@ -51,11 +51,9 @@ namespace VLS.BatchExportNet.Utils
 
         private static void CloseCurrentForm()
         {
-            if (_myForm is not null)
-            {
-                _myForm.Close();
-                _myForm = null;
-            }
+            if (_myForm is null) return;
+            _myForm.Close();
+            _myForm = null;
         }
     }
 }

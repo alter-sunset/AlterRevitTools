@@ -10,7 +10,7 @@ using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Source.EventHandlers
 {
-    public class EventHandlerDetachModelsVMArg : EventHandlerBaseVMArgs
+    public class EventHandlerDetach : EventHandlerBase
     {
         public override void Execute(UIApplication uiApp, IConfigBase viewModelBase)
         {

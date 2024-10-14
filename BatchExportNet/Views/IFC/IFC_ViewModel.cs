@@ -13,9 +13,9 @@ namespace VLS.BatchExportNet.Views.IFC
 {
     public class IFC_ViewModel : ViewModelBase_Extended, IConfigIFC
     {
-        public IFC_ViewModel(EventHandlerIFCExportVMArg eventHandlerIFCExportUiArg)
+        public IFC_ViewModel(EventHandlerIFC eventHandlerIFC)
         {
-            EventHandlerBaseVMArgs = eventHandlerIFCExportUiArg;
+            EventHandlerBase = eventHandlerIFC;
             HelpMessage =
                 Help.GetHelpDictionary().
                 GetResultMessage(HelpMessageType.IFCTitle,

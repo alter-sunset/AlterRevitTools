@@ -5,9 +5,9 @@ namespace VLS.BatchExportNet.Views.Transmit
 {
     public class TransmitViewModel : ViewModelBase
     {
-        public TransmitViewModel(EventHandlerTransmitModelsVMArg eventHandlerTransmitModelsUiArg)
+        public TransmitViewModel(EventHandlerTransmit eventHandlerTransmit)
         {
-            EventHandlerBaseVMArgs = eventHandlerTransmitModelsUiArg;
+            EventHandlerBase = eventHandlerTransmit;
             HelpMessage =
                 Help.GetHelpDictionary().
                 GetResultMessage(HelpMessageType.TransmitTitle,

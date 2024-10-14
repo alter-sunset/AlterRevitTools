@@ -8,10 +8,10 @@ namespace VLS.BatchExportNet.Views.Migrate
     /// </summary>
     public partial class MigrateModelsView : WindowBase
     {
-        public MigrateModelsView(EventHandlerMigrateModelsVMArg eventHandlerMigrateModelsVMArg)
+        public MigrateModelsView(EventHandlerMigrate eventHandlerMigrate)
         {
             InitializeComponent();
-            DataContext = new MigrateViewModel(eventHandlerMigrateModelsVMArg);
+            DataContext = new MigrateViewModel(eventHandlerMigrate);
         }
     }
 }

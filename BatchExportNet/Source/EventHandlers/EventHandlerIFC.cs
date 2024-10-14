@@ -5,7 +5,7 @@ using VLS.BatchExportNet.Views.IFC;
 
 namespace VLS.BatchExportNet.Source.EventHandlers
 {
-    public class EventHandlerIFCExportVMArg : EventHandlerBaseVMArgs
+    public class EventHandlerIFC : EventHandlerBase
     {
         public override void Execute(UIApplication uiApp, IConfigBase iConfig)
         {

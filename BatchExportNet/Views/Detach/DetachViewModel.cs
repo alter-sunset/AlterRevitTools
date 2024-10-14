@@ -5,9 +5,9 @@ namespace VLS.BatchExportNet.Views.Detach
 {
     public class DetachViewModel : ViewModelBase, IConfigDetach
     {
-        public DetachViewModel(EventHandlerDetachModelsVMArg eventHandlerDetachModelsUiArg)
+        public DetachViewModel(EventHandlerDetach eventHandlerDetach)
         {
-            EventHandlerBaseVMArgs = eventHandlerDetachModelsUiArg;
+            EventHandlerBase = eventHandlerDetach;
             HelpMessage =
                 Help.GetHelpDictionary().
                 GetResultMessage(HelpMessageType.DetachTitle,

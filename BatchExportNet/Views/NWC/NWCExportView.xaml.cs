@@ -8,10 +8,10 @@ namespace VLS.BatchExportNet.Views.NWC
     /// </summary>
     public partial class NWCExportView : WindowBase
     {
-        public NWCExportView(EventHandlerNWCExportVMArg eventHandlerNWCExportVMArg, EventHandlerNWCExportBatchVMArg eventHandlerNWCExportBatchVMArg)
+        public NWCExportView(EventHandlerNWC eventHandlerNWC, EventHandlerNWC_Batch eventHandlerNWC_Batch)
         {
             InitializeComponent();
-            DataContext = new NWC_ViewModel(eventHandlerNWCExportBatchVMArg, eventHandlerNWCExportVMArg);
+            DataContext = new NWC_ViewModel(eventHandlerNWC_Batch, eventHandlerNWC);
         }
     }
 }

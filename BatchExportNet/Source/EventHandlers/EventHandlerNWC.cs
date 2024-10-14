@@ -5,7 +5,7 @@ using VLS.BatchExportNet.Views.NWC;
 
 namespace VLS.BatchExportNet.Source.EventHandlers
 {
-    public class EventHandlerNWCExportVMArg : EventHandlerBaseVMArgs
+    public class EventHandlerNWC : EventHandlerBase
     {
         public override void Execute(UIApplication uiApp, IConfigBase iConfig)
         {

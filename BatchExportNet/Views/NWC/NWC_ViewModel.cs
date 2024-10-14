@@ -15,12 +15,12 @@ namespace VLS.BatchExportNet.Views.NWC
 {
     public class NWC_ViewModel : ViewModelBase_Extended, IConfigNWC
     {
-        private readonly EventHandlerNWCExportBatchVMArg _eventHandlerNWCExportBatchUiArg;
-        public NWC_ViewModel(EventHandlerNWCExportBatchVMArg eventHandlerNWCExportBatchUiArg,
-                EventHandlerNWCExportVMArg eventHandlerNWCExportUiArg)
+        private readonly EventHandlerNWC_Batch _eventHandlerNWC_Batch;
+        public NWC_ViewModel(EventHandlerNWC_Batch eventHandlerNWC_Batch,
+                EventHandlerNWC eventHandlerNWC)
         {
-            _eventHandlerNWCExportBatchUiArg = eventHandlerNWCExportBatchUiArg;
-            EventHandlerBaseVMArgs = eventHandlerNWCExportUiArg;
+            _eventHandlerNWC_Batch = eventHandlerNWC_Batch;
+            EventHandlerBase = eventHandlerNWC;
             HelpMessage =
                 Help.GetHelpDictionary().
                 GetResultMessage(HelpMessageType.NWCTitle,
@@ -255,7 +255,7 @@ namespace VLS.BatchExportNet.Views.NWC
 
         private RelayCommand _raiseBatchEventCommand;
         public RelayCommand RaiseBatchEventCommand => _raiseBatchEventCommand ??=
-            new RelayCommand(obj => _eventHandlerNWCExportBatchUiArg.Raise(this));
+            new RelayCommand(obj => _eventHandlerNWC_Batch.Raise(this));
 
         NavisworksParameters IConfigNWC.Parameters => _selectedParameters.Key;
         NavisworksCoordinates IConfigNWC.Coordinates => _selectedCoordinates.Key;

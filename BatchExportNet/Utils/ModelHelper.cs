@@ -65,9 +65,7 @@ namespace VLS.BatchExportNet.Utils
         public static void DeleteAllLinks(this Document doc)
         {
             ICollection<ElementId> ids = ExternalFileUtils.GetAllExternalFileReferences(doc);
-
-            if (ids.Count == 0)
-                return;
+            if (ids.Count == 0) return;
 
             using Transaction t = new(doc, "Delete all Links");
             t.Start();

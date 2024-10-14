@@ -8,10 +8,10 @@ namespace VLS.BatchExportNet.Views.Detach
     /// </summary>
     public partial class DetachModelsView : WindowBase
     {
-        public DetachModelsView(EventHandlerDetachModelsVMArg eventHandlerDetachModelsVMArg)
+        public DetachModelsView(EventHandlerDetach eventHandlerDetach)
         {
             InitializeComponent();
-            DataContext = new DetachViewModel(eventHandlerDetachModelsVMArg);
+            DataContext = new DetachViewModel(eventHandlerDetach);
         }
     }
 }

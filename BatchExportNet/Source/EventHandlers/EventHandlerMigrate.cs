@@ -11,7 +11,7 @@ using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Source.EventHandlers
 {
-    public class EventHandlerMigrateModelsVMArg : EventHandlerBaseVMArgs
+    public class EventHandlerMigrate : EventHandlerBase
     {
         public override void Execute(UIApplication uiApp, IConfigBase viewModelBase)
         {

@@ -11,13 +11,12 @@ using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Source.EventHandlers
 {
-    public class EventHandlerTransmitModelsVMArg : EventHandlerBaseVMArgs
+    public class EventHandlerTransmit : EventHandlerBase
     {
         public override void Execute(UIApplication uiApp, IConfigBase viewModelBase)
         {
             TransmitViewModel transmitViewModel = viewModelBase as TransmitViewModel;
-            if (!transmitViewModel.IsEverythingFilled())
-                return;
+            if (!transmitViewModel.IsEverythingFilled()) return;
 
             using Application application = uiApp.Application;
             List<ListBoxItem> listItems = [.. transmitViewModel.ListBoxItems];

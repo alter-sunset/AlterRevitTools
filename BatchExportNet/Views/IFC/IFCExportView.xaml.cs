@@ -8,10 +8,10 @@ namespace VLS.BatchExportNet.Views.IFC
     /// </summary>
     public partial class IFCExportView : WindowBase
     {
-        public IFCExportView(EventHandlerIFCExportVMArg eventHandlerIFCExportVMArg)
+        public IFCExportView(EventHandlerIFC eventHandlerIFC)
         {
             InitializeComponent();
-            DataContext = new IFC_ViewModel(eventHandlerIFCExportVMArg);
+            DataContext = new IFC_ViewModel(eventHandlerIFC);
         }
     }
 }

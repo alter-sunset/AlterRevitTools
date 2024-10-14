@@ -135,15 +135,15 @@ namespace VLS.BatchExportNet.Views.Base
         public virtual RelayCommand HelpCommand => _helpCommand ??=
             new RelayCommand(obj => MessageBox.Show(HelpMessage, "Справка"));
 
-        private EventHandlerBaseVMArgs _eventHandlerBaseVMArgs;
-        public EventHandlerBaseVMArgs EventHandlerBaseVMArgs
+        private EventHandlerBase _eventHandlerBase;
+        public EventHandlerBase EventHandlerBase
         {
-            get => _eventHandlerBaseVMArgs;
-            set => _eventHandlerBaseVMArgs = value;
+            get => _eventHandlerBase;
+            set => _eventHandlerBase = value;
         }
         private RelayCommand _raiseEventCommand;
         public RelayCommand RaiseEventCommand => _raiseEventCommand ??=
-            new RelayCommand(obj => _eventHandlerBaseVMArgs.Raise(this));
+            new RelayCommand(obj => _eventHandlerBase.Raise(this));
         public virtual RelayCommand RadioButtonCommand { get; }
 
         private void DeleteSelectedItems(object parameter)

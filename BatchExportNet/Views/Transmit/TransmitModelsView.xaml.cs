@@ -8,10 +8,10 @@ namespace VLS.BatchExportNet.Views.Transmit
     /// </summary>
     public partial class TransmitModelsView : WindowBase
     {
-        public TransmitModelsView(EventHandlerTransmitModelsVMArg eventHandlerTransmitModelsVMArg)
+        public TransmitModelsView(EventHandlerTransmit eventHandlerTransmit)
         {
             InitializeComponent();
-            DataContext = new TransmitViewModel(eventHandlerTransmitModelsVMArg);
+            DataContext = new TransmitViewModel(eventHandlerTransmit);
         }
     }
 }

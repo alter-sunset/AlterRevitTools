@@ -5,9 +5,9 @@ namespace VLS.BatchExportNet.Views.Link
 {
     public class LinkViewModel : ViewModelBase
     {
-        public LinkViewModel(EventHandlerLinkModelsVMArg eventHandlerLinkModelsUiArg)
+        public LinkViewModel(EventHandlerLink eventHandlerLink)
         {
-            EventHandlerBaseVMArgs = eventHandlerLinkModelsUiArg;
+            EventHandlerBase = eventHandlerLink;
             HelpMessage =
                 Help.GetHelpDictionary().
                 GetResultMessage(HelpMessageType.LinkTitle,

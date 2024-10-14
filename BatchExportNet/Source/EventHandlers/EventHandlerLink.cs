@@ -5,7 +5,7 @@ using VLS.BatchExportNet.Views.Link;
 
 namespace VLS.BatchExportNet.Source.EventHandlers
 {
-    public class EventHandlerLinkModelsVMArg : EventHandlerBaseVMArgs
+    public class EventHandlerLink : EventHandlerBase
     {
         public override void Execute(UIApplication uiApp, IConfigBase viewModelBase)
         {

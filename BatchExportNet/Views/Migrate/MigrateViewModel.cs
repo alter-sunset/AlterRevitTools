@@ -6,9 +6,9 @@ namespace VLS.BatchExportNet.Views.Migrate
 {
     public class MigrateViewModel : ViewModelBase
     {
-        public MigrateViewModel(EventHandlerMigrateModelsVMArg eventHandlerMigrateModelsUiArg)
+        public MigrateViewModel(EventHandlerMigrate eventHandlerMigrate)
         {
-            EventHandlerBaseVMArgs = eventHandlerMigrateModelsUiArg;
+            EventHandlerBase = eventHandlerMigrate;
             HelpMessage =
                 Help.GetHelpDictionary().
                 GetResultMessage(HelpMessageType.Migrate);

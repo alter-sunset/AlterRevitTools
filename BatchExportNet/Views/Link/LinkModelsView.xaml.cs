@@ -8,10 +8,10 @@ namespace VLS.BatchExportNet.Views.Link
     /// </summary>
     public partial class LinkModelsView : WindowBase
     {
-        public LinkModelsView(EventHandlerLinkModelsVMArg eventHandlerLinkModelsVMArg)
+        public LinkModelsView(EventHandlerLink eventHandlerLink)
         {
             InitializeComponent();
-            DataContext = new LinkViewModel(eventHandlerLinkModelsVMArg);
+            DataContext = new LinkViewModel(eventHandlerLink);
         }
     }
 }
