@@ -86,8 +86,7 @@ namespace VLS.BatchExportNet.Utils
         /// </summary>
         public static string MD5Hash(this string fileName)
         {
-            if (string.IsNullOrEmpty(fileName) || !File.Exists(fileName))
-                return null;
+            if (string.IsNullOrEmpty(fileName) || !File.Exists(fileName)) return null;
             using MD5 md5 = MD5.Create();
             try
             {
@@ -120,8 +119,7 @@ namespace VLS.BatchExportNet.Utils
                 .ToElementIds()
                 .FirstOrDefault();
 
-            if (typeId is null || levelId is null)
-                return;
+            if (typeId is null || levelId is null) return;
 
             using Transaction t = new(doc, "Open Worksets");
             t.Start();
@@ -131,8 +129,7 @@ namespace VLS.BatchExportNet.Utils
 
             foreach (Workset workset in collectorWorkset)
             {
-                if (workset.IsOpen)
-                    continue;
+                if (workset.IsOpen) continue;
 
                 // Change the workset of the cable tray
                 Parameter wsParam = ct.get_Parameter(BuiltInParameter.ELEM_PARTITION_PARAM);

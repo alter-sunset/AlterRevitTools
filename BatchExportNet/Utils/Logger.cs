@@ -6,22 +6,19 @@ namespace VLS.BatchExportNet.Utils
 {
     public class Logger : IDisposable
     {
+        private const string BASE_ERROR = "Произошла срань.";
+        private readonly DateTime _startTime = DateTime.Now;
+        private int _successCount = 0;
+        private int _errorCount = 0;
         private string _path;
-        private DateTime _startTime;
         private string _fileName;
         private string _filePath;
-        private int _errorCount;
-        private int _successCount;
-        private const string BASE_ERROR = "Произошла срань.";
         public string Path { get => _path; set => _path = value; }
         public int ErrorCount { get => _errorCount; set => _errorCount = value; }
         public int SuccessCount { get => _successCount; set => _successCount = value; }
         public Logger(string path)
         {
             Path = path;
-            _startTime = DateTime.Now;
-            ErrorCount = 0;
-            SuccessCount = 0;
             _fileName = $"Log_{_startTime:yy-MM-dd_HH-mm-ss}.log";
             _filePath = $@"{Path}\{_fileName}";
             WriteLine($"Initial launch at {_startTime}.");
@@ -62,7 +59,6 @@ namespace VLS.BatchExportNet.Utils
         }
         public void Dispose()
         {
-            // Clean up if necessary, but for now just clear properties
             _path = null;
             _fileName = null;
             _filePath = null;

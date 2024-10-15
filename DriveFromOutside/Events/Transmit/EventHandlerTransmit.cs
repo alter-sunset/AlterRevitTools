@@ -14,8 +14,7 @@ namespace VLS.DriveFromOutside.Events.Transmit
 
             foreach (string file in transmitConfig.Files)
             {
-                if (!File.Exists(file))
-                    continue;
+                if (!File.Exists(file)) continue;
 
                 string folder = transmitConfig.FolderPath;
 

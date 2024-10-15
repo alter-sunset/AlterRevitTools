@@ -10,8 +10,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
         public override void Execute(UIApplication uiApp, IConfigBase iConfig)
         {
             IFC_ViewModel ifc_ViewModel = iConfig as IFC_ViewModel;
-            if (!ifc_ViewModel.IsEverythingFilled())
-                return;
+            if (!ifc_ViewModel.IsEverythingFilled()) return;
 
             Logger logger = new(ifc_ViewModel.FolderPath);
             IFCHelper ifcHelper = new();

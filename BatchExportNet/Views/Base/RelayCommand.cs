@@ -17,17 +17,8 @@ namespace VLS.BatchExportNet.Views.Base
             add { CommandManager.RequerySuggested += value; }
             remove { CommandManager.RequerySuggested -= value; }
         }
-        public bool CanExecute(object parameter)
-        {
-            return _canExecute == null || _canExecute(parameter);
-        }
-        public void Execute(object parameter)
-        {
-            _execute(parameter);
-        }
-        public static void RaiseCanExecuteChanged()
-        {
-            CommandManager.InvalidateRequerySuggested();
-        }
+        public bool CanExecute(object parameter) => _canExecute is null || _canExecute(parameter);
+        public void Execute(object parameter) => _execute(parameter);
+        public static void RaiseCanExecuteChanged() => CommandManager.InvalidateRequerySuggested();
     }
 }

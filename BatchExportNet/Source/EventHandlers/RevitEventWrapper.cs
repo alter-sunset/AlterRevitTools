@@ -8,18 +8,14 @@ namespace VLS.BatchExportNet.Source.EventHandlers
     /// <typeparam name="TType">The Class type being wrapped for the External Event Handler.</typeparam>
     public abstract class RevitEventWrapper<TType> : IExternalEventHandler
     {
-        private readonly object _lock;
+        private readonly object _lock = new();
         private TType _savedArgs;
         private readonly ExternalEvent _revitEvent;
 
         /// <summary>
         /// Class for wrapping methods for execution within a "valid" Revit API context.
         /// </summary>
-        protected RevitEventWrapper()
-        {
-            _revitEvent = ExternalEvent.Create(this);
-            _lock = new object();
-        }
+        protected RevitEventWrapper() => _revitEvent = ExternalEvent.Create(this);
 
         /// <summary>
         /// Wraps the "Execution" method in a valid Revit API context.

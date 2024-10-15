@@ -50,8 +50,20 @@ namespace VLS.DriveFromOutside
                 .FirstOrDefault(e => e.ExternalEvent == taskConfig.ExternalEvent);
             if (eventHolder is null) return;
 
-            // Create a dictionary mapping external events to their handlers
-            Dictionary<ExternalEvents, Action> eventHandlers = new()
+            Dictionary<ExternalEvents, Action> eventHandlers = GetEventHandlers(taskConfig, eventHolder);
+
+            // Invoke the appropriate event handler if it exists
+            if (eventHandlers.TryGetValue(taskConfig.ExternalEvent, out var raiseEvent))
+                raiseEvent();
+
+            // Delete the file after raising the event
+            File.Delete(taskConfig.FilePath);
+        }
+
+        private static Dictionary<ExternalEvents, Action> GetEventHandlers(TaskConfig taskConfig,
+            IEventHolder eventHolder)
+        {
+            return new()
             {
                 { ExternalEvents.Transmit, () =>
                     {
@@ -82,13 +94,6 @@ namespace VLS.DriveFromOutside
                     }
                 },
             };
-
-            // Invoke the appropriate event handler if it exists
-            if (eventHandlers.TryGetValue(taskConfig.ExternalEvent, out var raiseEvent))
-                raiseEvent();
-
-            // Delete the file after raising the event
-            File.Delete(taskConfig.FilePath);
         }
     }
 }

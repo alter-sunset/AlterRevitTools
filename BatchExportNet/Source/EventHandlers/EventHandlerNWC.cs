@@ -10,8 +10,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
         public override void Execute(UIApplication uiApp, IConfigBase iConfig)
         {
             NWC_ViewModel nwc_ViewModel = iConfig as NWC_ViewModel;
-            if (!nwc_ViewModel.IsEverythingFilled())
-                return;
+            if (!nwc_ViewModel.IsEverythingFilled()) return;
 
             Logger logger = new(nwc_ViewModel.FolderPath);
             NWCHelper nwcHelper = new();

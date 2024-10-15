@@ -17,12 +17,12 @@ namespace VLS.BatchExportNet.Utils
             _uiApp = uiApp;
             _application = application;
             _uiApp.DialogBoxShowing += TaskDialogBoxShowingEvent;
-            _application.FailuresProcessing += Application_FailuresProcessing;
+            _application.FailuresProcessing += ApplicationFailuresProcessing;
         }
         public void Dispose()
         {
             _uiApp.DialogBoxShowing -= TaskDialogBoxShowingEvent;
-            _application.FailuresProcessing -= Application_FailuresProcessing;
+            _application.FailuresProcessing -= ApplicationFailuresProcessing;
         }
         private static void TaskDialogBoxShowingEvent(object sender, DialogBoxShowingEventArgs e)
         {
@@ -39,7 +39,7 @@ namespace VLS.BatchExportNet.Utils
                 dialogArgs.OverrideResult(dialogResult);
             }
         }
-        private static void Application_FailuresProcessing(object sender, FailuresProcessingEventArgs e)
+        private static void ApplicationFailuresProcessing(object sender, FailuresProcessingEventArgs e)
         {
             FailuresAccessor failuresAccessor = e.GetFailuresAccessor();
             FailureProcessingResult response = PreprocessFailures(failuresAccessor);

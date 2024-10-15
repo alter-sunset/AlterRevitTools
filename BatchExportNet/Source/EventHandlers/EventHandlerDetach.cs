@@ -15,8 +15,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
         public override void Execute(UIApplication uiApp, IConfigBase viewModelBase)
         {
             DetachViewModel detachViewModel = viewModelBase as DetachViewModel;
-            if (!detachViewModel.IsEverythingFilled())
-                return;
+            if (!detachViewModel.IsEverythingFilled()) return;
 
             List<ListBoxItem> listItems = [.. detachViewModel.ListBoxItems];
 

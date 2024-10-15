@@ -21,10 +21,7 @@ namespace VLS.BatchExportNet.Views.Base
             set => SetProperty(ref _listBoxItems, value);
         }
 
-        public List<string> Files
-        {
-            get => _listBoxItems.Select(e => e.Content.ToString()).ToList();
-        }
+        public List<string> Files => _listBoxItems.Select(e => e.Content.ToString()).ToList();
 
         private ListBoxItem _selectedItems;
         public ListBoxItem SelectedItems
@@ -96,13 +93,7 @@ namespace VLS.BatchExportNet.Views.Base
         }
 
         private RelayCommand _deleteCommand;
-        public RelayCommand DeleteCommand
-        {
-            get
-            {
-                return _deleteCommand ??= new RelayCommand(DeleteSelectedItems);
-            }
-        }
+        public RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(DeleteSelectedItems);
 
         private RelayCommand _eraseCommand;
         public RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(obj => ListBoxItems.Clear());
@@ -123,7 +114,8 @@ namespace VLS.BatchExportNet.Views.Base
             DialogResult result = folderBrowserDialog.ShowDialog();
             string folderPath = folderBrowserDialog.SelectedPath;
 
-            if (result is DialogResult.OK) FolderPath = folderPath;
+            if (result is DialogResult.OK)
+                FolderPath = folderPath;
         }
         private string _helpMessage;
         public string HelpMessage
@@ -156,10 +148,8 @@ namespace VLS.BatchExportNet.Views.Base
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "")
-        {
+        public void OnPropertyChanged([CallerMemberName] string prop = "") =>
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-        }
 
         public void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {

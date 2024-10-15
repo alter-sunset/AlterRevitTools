@@ -22,7 +22,7 @@ namespace VLS.BatchExportNet.Utils
         HandleSerialization(() =>
         {
             File.WriteAllText(path, JsonSerializer.Serialize(value, GetDefaultOptions()));
-            return default; // Return a dummy value just to satisfy the Func<T>
+            return default;
         });
         private static T HandleSerialization(Func<T> action)
         {

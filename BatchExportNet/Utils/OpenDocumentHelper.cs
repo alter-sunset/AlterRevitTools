@@ -12,6 +12,7 @@ namespace VLS.BatchExportNet.Utils
             OpenOptions openOptions = CreateOpenOptions(DetachFromCentralOption.DoNotDetach);
             return modelPath.OpenDocument(openOptions, worksetConfiguration, application);
         }
+
         public static Document OpenDetached(this ModelPath modelPath,
             Application application,
             WorksetConfiguration worksetConfiguration)
@@ -19,19 +20,17 @@ namespace VLS.BatchExportNet.Utils
             OpenOptions openOptions = CreateOpenOptions(DetachFromCentralOption.DetachAndPreserveWorksets);
             return modelPath.OpenDocument(openOptions, worksetConfiguration, application);
         }
+
         public static Document OpenTransmitted(this ModelPath modelPath, Application application)
         {
             OpenOptions openOptions = CreateOpenOptions(DetachFromCentralOption.ClearTransmittedSaveAsNewCentral);
             WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.CloseAllWorksets);
             return modelPath.OpenDocument(openOptions, worksetConfiguration, application);
         }
-        private static OpenOptions CreateOpenOptions(DetachFromCentralOption detachOption)
-        {
-            return new OpenOptions
-            {
-                DetachFromCentralOption = detachOption
-            };
-        }
+
+        private static OpenOptions CreateOpenOptions(DetachFromCentralOption detachOption) =>
+            new() { DetachFromCentralOption = detachOption };
+
         private static Document OpenDocument(this ModelPath modelPath,
             OpenOptions openOptions,
             WorksetConfiguration worksetConfiguration,

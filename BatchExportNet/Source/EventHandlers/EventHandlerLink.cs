@@ -10,8 +10,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
         public override void Execute(UIApplication uiApp, IConfigBase viewModelBase)
         {
             LinkViewModel linkViewModel = viewModelBase as LinkViewModel;
-            if (!linkViewModel.IsEverythingFilled())
-                return;
+            if (!linkViewModel.IsEverythingFilled()) return;
 
             linkViewModel.CreateLinks(uiApp);
             linkViewModel.Finisher(id: "LinkModelsFinished");

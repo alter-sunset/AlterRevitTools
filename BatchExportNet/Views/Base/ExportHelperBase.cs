@@ -180,8 +180,7 @@ namespace VLS.BatchExportNet.Views.Base
         }
         public static bool IsViewEmpty(IConfigBase_Extended iConfig, Document document, ref Logger logger, ref bool isFuckedUp)
         {
-            if (iConfig is NWC_ViewModel model && model.ExportLinks)
-                return false;
+            if (iConfig is NWC_ViewModel model && model.ExportLinks) return false;
 
             if (iConfig.ExportScopeView
                 && document.IsViewEmpty(GetView(iConfig, document)))
