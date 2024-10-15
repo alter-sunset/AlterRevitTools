@@ -8,8 +8,7 @@ namespace VLS.DriveFromOutside.Events.Transmit
     public class TransmitEventHolder : IEventHolder
     {
         private readonly EventHandlerTransmit _eventHandlerTransmit = new();
-        private readonly ExternalEvents _externalEventTransmit = ExternalEvents.Transmit;
-        public ExternalEvents ExternalEvent => _externalEventTransmit;
+        public ExternalEvents ExternalEvent => ExternalEvents.Transmit;
         public IExternalEventHandler ExternalEventHandler => _eventHandlerTransmit;
     }
 }

@@ -169,17 +169,13 @@ namespace VLS.BatchExportNet.Views.NWC
             NamePostfix = form.NamePostfix;
             WorksetPrefix = string.Join(';', form.WorksetPrefixes);
             ExportScopeView = form.ExportScope == NavisworksExportScope.View;
-            ListBoxItems.Clear();
-            foreach (string file in form.Files)
-            {
-                if (string.IsNullOrEmpty(file)) continue;
 
-                if (!ListBoxItems.Any(cont => cont.Content.ToString() == file)
-                    || file.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase))
-                {
-                    ListBoxItems.Add(new ListBoxItem { Content = file, Background = Brushes.White });
-                }
-            }
+            IEnumerable<string> files = form.Files
+                .Where(f => !string.IsNullOrWhiteSpace(f) &&
+                    !f.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase));
+
+            ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultComboBoxItem));
+
             ConvertLights = form.ConvertLights;
             ConvertLinkedCADFormats = form.ConvertLinkedCADFormats;
             FacetingFactor = form.FacetingFactor;

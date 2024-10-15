@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -47,17 +48,16 @@ namespace VLS.BatchExportNet.Views.Base
         public virtual RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
         private void LoadList()
         {
-            OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
-            if (openFileDialog.ShowDialog() != DialogResult.OK) return;
-            ListBoxItems.Clear();
+            using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
+            if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
-            IEnumerable listRVTFiles = File.ReadLines(openFileDialog.FileName);
-            foreach (string rVTFile in listRVTFiles)
-            {
-                if (!ListBoxItems.Any(cont => cont.Content.ToString() == rVTFile)
-                        && rVTFile.EndsWith(".rvt"))
-                    ListBoxItems.Add(new() { Content = rVTFile, Background = Brushes.White });
-            }
+            IEnumerable<string> files = File.ReadLines(openFileDialog.FileName)
+                .Distinct()
+                .Where(f => !string.IsNullOrWhiteSpace(f) &&
+                    !f.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase));
+
+            ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultComboBoxItem));
+
             if (!ListBoxItems.Any())
                 MessageBox.Show("В текстовом файле не было найдено подходящей информации");
 
@@ -68,13 +68,18 @@ namespace VLS.BatchExportNet.Views.Base
         public RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
         private void Load()
         {
-            OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
-            if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+            using OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
+            if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
-            foreach (string file in openFileDialog.FileNames)
+            HashSet<string> existingFiles = new(ListBoxItems.Select(item => item.Content.ToString()));
+
+            IEnumerable<string> files = openFileDialog.FileNames
+                .Distinct()
+                .Where(f => !existingFiles.Contains(f));
+
+            foreach (string file in files)
             {
-                if (!ListBoxItems.Any(cont => cont.Content.ToString() == file))
-                    ListBoxItems.Add(new() { Content = file, Background = Brushes.White });
+                ListBoxItems.Add(DefaultComboBoxItem(file));
             }
         }
 
@@ -159,5 +164,12 @@ namespace VLS.BatchExportNet.Views.Base
                 OnPropertyChanged(propertyName);
             }
         }
+
+        public ComboBoxItem DefaultComboBoxItem(string content) =>
+            new()
+            {
+                Content = content,
+                Background = Brushes.White,
+            };
     }
 }

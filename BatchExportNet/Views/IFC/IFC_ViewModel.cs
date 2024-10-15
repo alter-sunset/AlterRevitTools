@@ -1,13 +1,15 @@
 ﻿using Autodesk.Revit.DB;
+using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
-using VLS.BatchExportNet.Source.EventHandlers;
+using System.Collections.ObjectModel;
 using VLS.BatchExportNet.Utils;
 using VLS.BatchExportNet.Views.Base;
+using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.IFC
 {
@@ -38,7 +40,7 @@ namespace VLS.BatchExportNet.Views.IFC
         public RelayCommand LoadMappingCommand => _loadMappingCommand ??= new RelayCommand(obj => LoadMapping());
         private void LoadMapping()
         {
-            OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
+            using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
             if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
             try
@@ -90,15 +92,12 @@ namespace VLS.BatchExportNet.Views.IFC
             ExportScopeView = form.ExportView;
             ViewName = form.ViewName;
             SelectedLevel = _spaceBoundaryLevels.FirstOrDefault(e => e.Key == form.SpaceBoundaryLevel);
-            ListBoxItems.Clear();
-            foreach (string file in form.Files)
-            {
-                if (string.IsNullOrEmpty(file)) continue;
 
-                if (!ListBoxItems.Any(cont => cont.Content.ToString() == file)
-                    || file.EndsWith(".rvt", true, System.Globalization.CultureInfo.CurrentCulture))
-                    ListBoxItems.Add(new() { Content = file, Background = Brushes.White });
-            }
+            IEnumerable<string> files = form.Files
+                .Where(f => !string.IsNullOrWhiteSpace(f) &&
+                    !f.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase));
+
+            ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultComboBoxItem));
         }
 
         private RelayCommand _saveListCommand;
