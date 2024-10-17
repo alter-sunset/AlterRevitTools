@@ -17,7 +17,6 @@ namespace VLS.BatchExportNet.Source.EventHandlers
             nwcHelper.BatchExportModels(nwc_ViewModel, uiApp, ref logger);
 
             string msg = $"В процессе выполнения было {logger.ErrorCount} ошибок из {logger.ErrorCount + logger.SuccessCount} файлов.";
-            logger.Dispose();
             nwc_ViewModel.Finisher(id: "ExportNWCFinished", msg);
         }
     }

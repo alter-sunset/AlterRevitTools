@@ -36,13 +36,11 @@ namespace VLS.BatchExportNet.Source.EventHandlers
                     continue;
                 }
 
-                string folder = nwc_ViewModel.FolderPath;
-                Logger logger = new(folder);
+                Logger logger = new(nwc_ViewModel.FolderPath);
 
                 NWCHelper nwcHelper = new();
                 nwcHelper.BatchExportModels(nwc_ViewModel, uiApp, ref logger);
 
-                logger.Dispose();
                 Thread.Sleep(1000);
             }
 

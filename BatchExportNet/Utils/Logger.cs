@@ -4,23 +4,22 @@ using System.Windows.Forms;
 
 namespace VLS.BatchExportNet.Utils
 {
-    public class Logger : IDisposable
+    public class Logger
     {
         private const string BASE_ERROR = "Произошла срань.";
         private readonly DateTime _startTime = DateTime.Now;
+        private readonly string _path;
+        private readonly string _fileName;
+        private readonly string _filePath;
         private int _successCount = 0;
         private int _errorCount = 0;
-        private string _path;
-        private string _fileName;
-        private string _filePath;
-        public string Path { get => _path; set => _path = value; }
         public int ErrorCount { get => _errorCount; set => _errorCount = value; }
         public int SuccessCount { get => _successCount; set => _successCount = value; }
         public Logger(string path)
         {
-            Path = path;
+            _path = path;
             _fileName = $"Log_{_startTime:yy-MM-dd_HH-mm-ss}.log";
-            _filePath = $@"{Path}\{_fileName}";
+            _filePath = $@"{_path}\{_fileName}";
             WriteLine($"Initial launch at {_startTime}.");
         }
         public void Error(string error, Exception ex = null)
@@ -56,14 +55,6 @@ namespace VLS.BatchExportNet.Utils
             {
                 MessageBox.Show("Проблемы с файлом логов");
             }
-        }
-        public void Dispose()
-        {
-            _path = null;
-            _fileName = null;
-            _filePath = null;
-            ErrorCount = 0;
-            SuccessCount = 0;
         }
     }
 }

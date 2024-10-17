@@ -17,7 +17,6 @@ namespace VLS.BatchExportNet.Source.EventHandlers
             ifcHelper.BatchExportModels(ifc_ViewModel, uiApp, ref logger);
 
             string msg = $"В процессе выполнения было {logger.ErrorCount} ошибок из {logger.ErrorCount + logger.SuccessCount} файлов.";
-            logger.Dispose();
             ifc_ViewModel.Finisher(id: "ExportIFCFinished", msg);
         }
     }

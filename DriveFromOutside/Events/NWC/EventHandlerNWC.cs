@@ -12,7 +12,6 @@ namespace VLS.DriveFromOutside.Events.NWC
             Logger logger = new(nwc_Config.FolderPath);
             NWCHelper nwcHelper = new();
             nwcHelper.BatchExportModels(nwc_Config, uiApp, ref logger);
-            logger.Dispose();
         }
     }
 }

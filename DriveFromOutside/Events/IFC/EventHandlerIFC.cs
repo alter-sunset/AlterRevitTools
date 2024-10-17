@@ -12,7 +12,6 @@ namespace VLS.DriveFromOutside.Events.IFC
             Logger logger = new(ifc_Config.FolderPath);
             IFCHelper ifcHelper = new();
             ifcHelper.BatchExportModels(ifc_Config, uiApp, ref logger);
-            logger.Dispose();
         }
     }
 }
