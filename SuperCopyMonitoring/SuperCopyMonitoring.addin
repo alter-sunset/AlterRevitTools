@@ -1,0 +1,11 @@
+﻿<RevitAddIns>
+    <AddIn Type="Application">
+        <Name>SuperCopyMonitoring</Name>
+        <Assembly>SuperCopyMonitoring/SuperCopyMonitoring.dll</Assembly>
+        <AddInId>EC0580E1-818B-4320-9987-360D14926700</AddInId>
+        <FullClassName>SuperCopyMonitoring.Application</FullClassName>
+        <VendorId>Development</VendorId>
+        <VendorDescription></VendorDescription>
+        <VendorEmail></VendorEmail>
+    </AddIn>
+</RevitAddIns>
