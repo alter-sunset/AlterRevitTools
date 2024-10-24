@@ -174,7 +174,7 @@ namespace VLS.BatchExportNet.Views.NWC
                 .Where(f => !string.IsNullOrWhiteSpace(f) &&
                     !f.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase));
 
-            ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultComboBoxItem));
+            ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
 
             ConvertLights = form.ConvertLights;
             ConvertLinkedCADFormats = form.ConvertLinkedCADFormats;

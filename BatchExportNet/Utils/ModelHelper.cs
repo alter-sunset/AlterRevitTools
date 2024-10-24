@@ -17,13 +17,15 @@ namespace VLS.BatchExportNet.Utils
         public static WorksetConfiguration CloseWorksetsWithLinks(this ModelPath modelPath, params string[] prefixes)
         {
             WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.OpenAllWorksets);
+            if (prefixes.Length == 0) return worksetConfiguration;
 
             List<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)
                 .Where(wp => prefixes.Any(wp.Name.StartsWith))
                 .Select(wp => wp.Id)
                 .ToList();
 
-            worksetConfiguration.Close(worksetIds);
+            if (worksetIds.Count != 0)
+                worksetConfiguration.Close(worksetIds);
             return worksetConfiguration;
         }
         /// <summary>

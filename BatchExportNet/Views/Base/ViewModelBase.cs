@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -24,11 +23,11 @@ namespace VLS.BatchExportNet.Views.Base
 
         public List<string> Files => _listBoxItems.Select(e => e.Content.ToString()).ToList();
 
-        private ListBoxItem _selectedItems;
-        public ListBoxItem SelectedItems
+        private ListBoxItem _selectedItem;
+        public ListBoxItem SelectedItem
         {
-            get => _selectedItems;
-            set => SetProperty(ref _selectedItems, value);
+            get => _selectedItem;
+            set => SetProperty(ref _selectedItem, value);
         }
         private bool _isViewEnabled = true;
         public bool IsViewEnabled
@@ -56,7 +55,7 @@ namespace VLS.BatchExportNet.Views.Base
                 .Where(f => !string.IsNullOrWhiteSpace(f) &&
                     !f.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase));
 
-            ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultComboBoxItem));
+            ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
 
             if (!ListBoxItems.Any())
                 MessageBox.Show("В текстовом файле не было найдено подходящей информации");
@@ -71,7 +70,7 @@ namespace VLS.BatchExportNet.Views.Base
             using OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
             if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
-            HashSet<string> existingFiles = new(ListBoxItems.Select(item => item.Content.ToString()));
+            HashSet<string> existingFiles = new(Files);
 
             IEnumerable<string> files = openFileDialog.FileNames
                 .Distinct()
@@ -79,7 +78,7 @@ namespace VLS.BatchExportNet.Views.Base
 
             foreach (string file in files)
             {
-                ListBoxItems.Add(DefaultComboBoxItem(file));
+                ListBoxItems.Add(DefaultListBoxItem(file));
             }
         }
 
@@ -92,7 +91,7 @@ namespace VLS.BatchExportNet.Views.Base
 
             string fileName = saveFileDialog.FileName;
             File.Delete(fileName);
-            File.WriteAllLines(fileName, ListBoxItems.Select(cont => cont.Content.ToString()));
+            File.WriteAllLines(fileName, Files);
 
             FolderPath = Path.GetDirectoryName(saveFileDialog.FileName);
         }
@@ -158,6 +157,9 @@ namespace VLS.BatchExportNet.Views.Base
 
         public void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
+            if (value is string stringValue)
+                value = (T)(object)stringValue.Trim();
+
             if (!EqualityComparer<T>.Default.Equals(field, value))
             {
                 field = value;
@@ -165,11 +167,11 @@ namespace VLS.BatchExportNet.Views.Base
             }
         }
 
-        public ComboBoxItem DefaultComboBoxItem(string content) =>
+        public static ListBoxItem DefaultListBoxItem(string content) =>
             new()
             {
                 Content = content,
-                Background = Brushes.White,
+                Background = Brushes.White
             };
     }
 }

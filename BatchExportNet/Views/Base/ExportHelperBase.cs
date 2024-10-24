@@ -91,8 +91,11 @@ namespace VLS.BatchExportNet.Views.Base
                 BasicFileInfo fileInfo = BasicFileInfo.Extract(file);
                 ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(file);
 
+                using TransmissionData trData = TransmissionData.ReadTransmissionData(modelPath);
+                bool transmitted = trData is not null && trData.IsTransmitted;
+
                 WorksetConfiguration worksetConfiguration = fileInfo.IsWorkshared
-                    ? (file.Equals(fileInfo.CentralPath)
+                    ? (file.Equals(fileInfo.CentralPath) && !transmitted
                         ? modelPath.CloseWorksetsWithLinks(iConfig.WorksetPrefixes)
                         : new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets))
                     : null;
@@ -115,6 +118,7 @@ namespace VLS.BatchExportNet.Views.Base
             try
             {
                 document.FreeTheModel();
+                logger.Success("Всё ок.");
             }
             catch (Exception ex)
             {
@@ -126,7 +130,6 @@ namespace VLS.BatchExportNet.Views.Base
                 document.Close(false);
                 document.Dispose();
                 UpdateItemBackground(items, file, isFuckedUp ? Brushes.Red : Brushes.Green);
-                logger.Success("Всё ок.");
             }
         }
 

@@ -34,6 +34,8 @@ namespace VLS.BatchExportNet.Views.Link
                 }
             }
             RevitLinkOptions options = new(false);
+            //check for share coordinates
+            //if (doc.ActiveView)
 
             foreach (ListBoxItem item in listItems)
             {

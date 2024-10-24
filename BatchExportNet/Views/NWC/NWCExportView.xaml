@@ -1,17 +1,16 @@
 ﻿<base:WindowBase x:Name="Пакетный_экспорт_NWC" x:Class="VLS.BatchExportNet.Views.NWC.NWCExportView"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:VLS.BatchExportNet.Views.NWC"
-             xmlns:base="clr-namespace:VLS.BatchExportNet.Views.Base"
-             mc:Ignorable="d" 
-             Height="950"
-             Width="800"
-             WindowStartupLocation="CenterScreen"
-             ResizeMode="NoResize"
-             Title="Пакетный экспорт NWC"
-             IsEnabled="{Binding IsViewEnabled}">
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:local="clr-namespace:VLS.BatchExportNet.Views.NWC"
+                 xmlns:base="clr-namespace:VLS.BatchExportNet.Views.Base"
+                 Height="950"
+                 Width="800"
+                 WindowStartupLocation="CenterScreen"
+                 ResizeMode="NoResize"
+                 Title="Пакетный экспорт NWC"
+                 IsEnabled="{Binding IsViewEnabled}"
+                 Topmost="True"
+                 ShowInTaskbar="False">
     <Grid Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -55,7 +54,7 @@
                  Margin="10"
                  SelectionMode="Extended"
                  ItemsSource="{Binding ListBoxItems}"
-                 SelectedItem="{Binding Selecteditem}"
+                 SelectedItem="{Binding SelectedItem}"
                  ToolTip="Список файлов в формате (.rvt)"/>
 
         <Button Margin="10"

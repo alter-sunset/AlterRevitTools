@@ -97,7 +97,7 @@ namespace VLS.BatchExportNet.Views.IFC
                 .Where(f => !string.IsNullOrWhiteSpace(f) &&
                     !f.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase));
 
-            ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultComboBoxItem));
+            ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
         }
 
         private RelayCommand _saveListCommand;
