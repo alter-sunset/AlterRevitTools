@@ -1,6 +1,7 @@
 ﻿using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using BatchExportNet.Views.Link;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace VLS.BatchExportNet.Views.Link
             UIDocument uiDoc = uiApp.ActiveUIDocument;
             Document doc = uiDoc.Document;
             bool isCurrentWorkset = linkViewModel.IsCurrentWorkset;
-            List<ListBoxItem> listItems = [.. linkViewModel.ListBoxItems];
+            List<Entry> listItems = [.. linkViewModel.Entries];
 
             ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(doc.PathName);
             IList<WorksetPreview> worksets = null;
@@ -37,9 +38,9 @@ namespace VLS.BatchExportNet.Views.Link
             //check for share coordinates
             //if (doc.ActiveView)
 
-            foreach (ListBoxItem item in listItems)
+            foreach (Entry item in listItems)
             {
-                string filePath = item.Content.ToString();
+                string filePath = item.Name;
 
                 if (!File.Exists(filePath)) continue;
 
@@ -56,7 +57,7 @@ namespace VLS.BatchExportNet.Views.Link
                 try
                 {
                     LinkLoadResult linkLoadResult = RevitLinkType.Create(doc, linkPath, options);
-                    RevitLinkInstance revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, ImportPlacement.Shared);
+                    RevitLinkInstance revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, item.SelectedOptionalValue);
                     t.Commit();
                 }
                 catch

@@ -21,7 +21,7 @@ namespace VLS.BatchExportNet.Views.Base
             set => SetProperty(ref _listBoxItems, value);
         }
 
-        public List<string> Files => _listBoxItems.Select(e => e.Content.ToString()).ToList();
+        public virtual List<string> Files => _listBoxItems.Select(e => e.Content.ToString()).ToList();
 
         private ListBoxItem _selectedItem;
         public ListBoxItem SelectedItem
@@ -64,7 +64,7 @@ namespace VLS.BatchExportNet.Views.Base
         }
 
         private RelayCommand _loadCommand;
-        public RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
+        public virtual RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
         private void Load()
         {
             using OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
@@ -97,10 +97,10 @@ namespace VLS.BatchExportNet.Views.Base
         }
 
         private RelayCommand _deleteCommand;
-        public RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(DeleteSelectedItems);
+        public virtual RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(DeleteSelectedItems);
 
         private RelayCommand _eraseCommand;
-        public RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(obj => ListBoxItems.Clear());
+        public virtual RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(obj => ListBoxItems.Clear());
 
         private string _folderPath;
         public string FolderPath

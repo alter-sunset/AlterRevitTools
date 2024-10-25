@@ -44,9 +44,27 @@
                  Grid.ColumnSpan="4"
                  Margin="10"
                  SelectionMode="Extended"
-                 ItemsSource="{Binding ListBoxItems}"
-                 SelectedItem="{Binding SelectedItem}"
-                 ToolTip="Список файлов в формате (.rvt)"/>
+                 ItemsSource="{Binding Entries}"
+                 SelectedItem="{Binding SelectedEntry}"
+                 SelectionChanged="ListBox_SelectionChanged"
+                 ToolTip="Список файлов в формате (.rvt)">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="600" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Name}" Grid.Column="0"/>
+                        <ComboBox
+                            Width="100"
+                            SelectedItem="{Binding SelectedOptionalValue, Mode=TwoWay}"
+                            ItemsSource="{Binding OptionalValues}"
+                            Grid.Column="1"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <Button Margin="10"
                 Grid.Column="0"
