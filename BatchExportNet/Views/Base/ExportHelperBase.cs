@@ -118,7 +118,8 @@ namespace VLS.BatchExportNet.Views.Base
             try
             {
                 document.FreeTheModel();
-                logger.Success("Всё ок.");
+                if (!isFuckedUp)
+                    logger.Success("Всё ок.");
             }
             catch (Exception ex)
             {

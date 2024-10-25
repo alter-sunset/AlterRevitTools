@@ -160,11 +160,10 @@ namespace VLS.BatchExportNet.Views.Base
             if (value is string stringValue)
                 value = (T)(object)stringValue.Trim();
 
-            if (!EqualityComparer<T>.Default.Equals(field, value))
-            {
-                field = value;
-                OnPropertyChanged(propertyName);
-            }
+            if (EqualityComparer<T>.Default.Equals(field, value)) return;
+
+            field = value;
+            OnPropertyChanged(propertyName);
         }
 
         public static ListBoxItem DefaultListBoxItem(string content) =>

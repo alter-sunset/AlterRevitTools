@@ -4,6 +4,7 @@
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
+		<Configurations>Debug;Release;Release R25;Debug R25</Configurations>
 	</PropertyGroup>
 	<ItemGroup>
 		<PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="2025.2.0" />
