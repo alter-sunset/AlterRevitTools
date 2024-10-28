@@ -1,5 +1,4 @@
-﻿using BatchExportNet.Views.Base;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -14,7 +13,7 @@ namespace VLS.BatchExportNet.Views.Base
         }
         public void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (sender is ListBox listBox)
+            if (sender is ListBox)
             {
                 if (e.RemovedItems.Count != 0 && e.RemovedItems[0] is not IEntry) return;
                 // Unselect previously selected entries

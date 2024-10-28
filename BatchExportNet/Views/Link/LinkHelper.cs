@@ -1,11 +1,10 @@
 ﻿using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using BatchExportNet.Views.Link;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Controls;
+using System.Collections.Generic;
+using Autodesk.Revit.Exceptions;
 
 namespace VLS.BatchExportNet.Views.Link
 {
@@ -52,13 +51,30 @@ namespace VLS.BatchExportNet.Views.Link
                     WorksetId worksetId = worksets.FirstOrDefault(e => filePath.Contains(e.Name.Split('_')[0]))?.Id;
                     worksetTable.SetActiveWorksetId(worksetId);
                 }
-
+                LinkLoadResult linkLoadResult = null;
                 ModelPath linkPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
                 try
                 {
-                    LinkLoadResult linkLoadResult = RevitLinkType.Create(doc, linkPath, options);
+                    linkLoadResult = RevitLinkType.Create(doc, linkPath, options);
                     RevitLinkInstance revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, item.SelectedOptionalValue);
                     t.Commit();
+                }
+                catch (InvalidOperationException ex)
+                {
+                    string title = "Ошибка";
+                    string message = "Обнаружено различие систем координат. Выполнить получение коордианат из файла?";
+
+                    TaskDialogResult result = TaskDialog.Show(title, message, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
+
+                    if (result is not TaskDialogResult.Yes)
+                    {
+                        t.RollBack();
+                        continue;
+                    }
+                    RevitLinkInstance revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, ImportPlacement.Origin);
+                    doc.AcquireCoordinates(revitLinkInstance.Id);
+                    t.Commit();
+
                 }
                 catch
                 {

@@ -1,4 +1,4 @@
-﻿namespace BatchExportNet.Views.Base
+﻿namespace VLS.BatchExportNet.Views.Base
 {
     public interface IEntry
     {

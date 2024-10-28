@@ -1,9 +1,10 @@
 ﻿using Autodesk.Revit.DB;
-using BatchExportNet.Views.Base;
 using System.ComponentModel;
-using VLS.BatchExportNet.Views.Link;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
+using VLS.BatchExportNet.Views.Base;
 
-namespace BatchExportNet.Views.Link
+namespace VLS.BatchExportNet.Views.Link
 {
     public class Entry : IEntry, INotifyPropertyChanged
     {
@@ -15,28 +16,14 @@ namespace BatchExportNet.Views.Link
         public string Name
         {
             get => _name;
-            set
-            {
-                if (_name != value)
-                {
-                    _name = value;
-                    OnPropertyChanged(nameof(Name));
-                }
-            }
+            set => SetProperty(ref _name, value);
         }
 
         private bool _isSelected;
         public bool IsSelected
         {
             get => _isSelected;
-            set
-            {
-                if (_isSelected != value)
-                {
-                    _isSelected = value;
-                    OnPropertyChanged(nameof(IsSelected));
-                }
-            }
+            set => SetProperty(ref _isSelected, value);
         }
 
         public ImportPlacement SelectedOptionalValue
@@ -46,9 +33,7 @@ namespace BatchExportNet.Views.Link
             {
                 if (_selectedOptionalValue != value)
                 {
-                    _selectedOptionalValue = value;
-                    OnPropertyChanged(nameof(SelectedOptionalValue));
-
+                    SetProperty(ref _selectedOptionalValue, value);
                     if (IsSelected)
                         _viewModel.UpdateSelectedEntries(this);
                 }
@@ -68,12 +53,18 @@ namespace BatchExportNet.Views.Link
         {
             _viewModel = viewModel;
             OptionalValues = viewModel.OptionalValues;
+            SelectedOptionalValue = ImportPlacement.Shared;
             Name = name;
         }
-
-        public void SetIsUpdating(bool isUpdating)
+        public void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
-            IsUpdating = isUpdating;
+            if (value is string stringValue)
+                value = (T)(object)stringValue.Trim();
+
+            if (EqualityComparer<T>.Default.Equals(field, value)) return;
+
+            field = value;
+            OnPropertyChanged(propertyName);
         }
     }
 }

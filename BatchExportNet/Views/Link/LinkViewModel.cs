@@ -1,10 +1,8 @@
 ﻿using Autodesk.Revit.DB;
-using BatchExportNet.Views.Link;
 using System.Collections.Generic;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using VLS.BatchExportNet.Source.EventHandlers;
 using VLS.BatchExportNet.Views.Base;
@@ -35,10 +33,8 @@ namespace VLS.BatchExportNet.Views.Link
 
         public readonly ImportPlacement[] OptionalValues =
             [
-            ImportPlacement.Site,
-            ImportPlacement.Origin,
-            ImportPlacement.Centered,
-            ImportPlacement.Shared
+                ImportPlacement.Origin,
+                ImportPlacement.Shared
             ];
 
         private ObservableCollection<Entry> _entries = [];
@@ -56,9 +52,9 @@ namespace VLS.BatchExportNet.Views.Link
         }
         public void UpdateSelectedEntries(Entry sourceEntry)
         {
-            var newValue = sourceEntry.SelectedOptionalValue;
+            ImportPlacement newValue = sourceEntry.SelectedOptionalValue;
 
-            foreach (var entry in Entries.Where(e => e != sourceEntry && e.IsSelected))
+            foreach (Entry entry in Entries.Where(e => e != sourceEntry && e.IsSelected))
             {
                 entry.SelectedOptionalValue = newValue;
             }

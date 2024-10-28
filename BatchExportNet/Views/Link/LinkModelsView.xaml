@@ -52,12 +52,12 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="600" />
-                            <ColumnDefinition Width="100" />
+                            <ColumnDefinition Width="660" />
+                            <ColumnDefinition Width="70" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{Binding Name}" Grid.Column="0"/>
                         <ComboBox
-                            Width="100"
+                            Width="70"
                             SelectedItem="{Binding SelectedOptionalValue, Mode=TwoWay}"
                             ItemsSource="{Binding OptionalValues}"
                             Grid.Column="1"/>

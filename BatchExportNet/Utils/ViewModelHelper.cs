@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using VLS.BatchExportNet.Views.Base;
 using VLS.BatchExportNet.Views.Detach;
+using VLS.BatchExportNet.Views.Link;
 using VLS.BatchExportNet.Views.Transmit;
 
 namespace VLS.BatchExportNet.Utils
@@ -29,11 +30,13 @@ namespace VLS.BatchExportNet.Utils
                 && viewModel.IsFolderPathOK()
                 && viewModel.IsViewNameOK();
         }
-        internal static bool IsEverythingFilled(this ViewModelBase viewModel)
+        internal static bool IsEverythingFilled(this LinkViewModel viewModel)
         {
             return viewModel.IsListNotEmpty();
         }
 
+        private static bool IsListNotEmpty(this LinkViewModel viewModel) =>
+            CheckCondition(viewModel.Entries.Count > 0, "Добавьте хотя бы один файл для экспорта!");
         private static bool IsListNotEmpty(this ViewModelBase viewModel) =>
             CheckCondition(viewModel.ListBoxItems.Count > 0, "Добавьте хотя бы один файл для экспорта!");
         private static bool IsFolderPathOK(this ViewModelBase viewModel)
