@@ -1,12 +1,12 @@
 ﻿using Autodesk.Revit.DB;
-using System.Collections.Generic;
 using System;
-using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using VLS.BatchExportNet.Source.EventHandlers;
 using VLS.BatchExportNet.Views.Base;
-using System.IO;
 
 namespace VLS.BatchExportNet.Views.Link
 {
@@ -31,7 +31,7 @@ namespace VLS.BatchExportNet.Views.Link
         }
         public override List<string> Files => Entries.Select(e => e.Name).ToList();
 
-        public readonly ImportPlacement[] OptionalValues =
+        public static readonly ImportPlacement[] ImportPlacements =
             [
                 ImportPlacement.Origin,
                 ImportPlacement.Shared
@@ -52,11 +52,11 @@ namespace VLS.BatchExportNet.Views.Link
         }
         public void UpdateSelectedEntries(Entry sourceEntry)
         {
-            ImportPlacement newValue = sourceEntry.SelectedOptionalValue;
+            ImportPlacement newValue = sourceEntry.SelectedImportPlacement;
 
             foreach (Entry entry in Entries.Where(e => e != sourceEntry && e.IsSelected))
             {
-                entry.SelectedOptionalValue = newValue;
+                entry.SelectedImportPlacement = newValue;
             }
         }
         private RelayCommand _loadListCommand;
@@ -69,7 +69,7 @@ namespace VLS.BatchExportNet.Views.Link
             IEnumerable<string> files = File.ReadLines(openFileDialog.FileName)
                 .Distinct()
                 .Where(f => !string.IsNullOrWhiteSpace(f) &&
-                    !f.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase));
+                    f.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase));
 
             Entries = new ObservableCollection<Entry>(files.Select(e => new Entry(this, e)));
 
@@ -116,7 +116,7 @@ namespace VLS.BatchExportNet.Views.Link
         public override RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(DeleteSelectedItems);
         private void DeleteSelectedItems(object parameter)
         {
-            List<Entry> selectedItems = Entries.Where(e => e.IsSelected).ToList();
+            Entry[] selectedItems = Entries.Where(e => e.IsSelected).ToArray();
             foreach (Entry item in selectedItems)
             {
                 Entries.Remove(item);

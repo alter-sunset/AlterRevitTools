@@ -13,21 +13,19 @@ namespace VLS.BatchExportNet.Views.Base
         }
         public void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (sender is ListBox)
+            if (sender is not ListBox) return;
+            if (e.RemovedItems.Count != 0 && e.RemovedItems[0] is not ISelectableEntry) return;
+            // Unselect previously selected entries
+            foreach (ISelectableEntry entry in e.RemovedItems)
             {
-                if (e.RemovedItems.Count != 0 && e.RemovedItems[0] is not IEntry) return;
-                // Unselect previously selected entries
-                foreach (IEntry entry in e.RemovedItems)
-                {
-                    entry.IsSelected = false; // Set IsSelected to false for unselected entries
-                }
+                entry.IsSelected = false; // Set IsSelected to false for unselected entries
+            }
 
-                if (e.AddedItems.Count != 0 && e.AddedItems[0] is not IEntry) return;
-                // Select newly selected entries
-                foreach (IEntry entry in e.AddedItems)
-                {
-                    entry.IsSelected = true; // Set IsSelected to true for newly selected entries
-                }
+            if (e.AddedItems.Count != 0 && e.AddedItems[0] is not ISelectableEntry) return;
+            // Select newly selected entries
+            foreach (ISelectableEntry entry in e.AddedItems)
+            {
+                entry.IsSelected = true; // Set IsSelected to true for newly selected entries
             }
         }
     }

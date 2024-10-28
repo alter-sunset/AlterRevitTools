@@ -53,7 +53,7 @@ namespace VLS.BatchExportNet.Views.Base
             IEnumerable<string> files = File.ReadLines(openFileDialog.FileName)
                 .Distinct()
                 .Where(f => !string.IsNullOrWhiteSpace(f) &&
-                    !f.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase));
+                    f.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase));
 
             ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
 

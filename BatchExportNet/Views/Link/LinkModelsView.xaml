@@ -58,8 +58,8 @@
                         <TextBlock Text="{Binding Name}" Grid.Column="0"/>
                         <ComboBox
                             Width="70"
-                            SelectedItem="{Binding SelectedOptionalValue, Mode=TwoWay}"
-                            ItemsSource="{Binding OptionalValues}"
+                            SelectedItem="{Binding SelectedImportPlacement, Mode=TwoWay}"
+                            ItemsSource="{Binding ImportPlacements}"
                             Grid.Column="1"/>
                     </Grid>
                 </DataTemplate>

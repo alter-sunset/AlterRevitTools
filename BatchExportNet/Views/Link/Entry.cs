@@ -6,10 +6,10 @@ using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Views.Link
 {
-    public class Entry : IEntry, INotifyPropertyChanged
+    public class Entry : ISelectableEntry, INotifyPropertyChanged
     {
         private string _name;
-        private ImportPlacement _selectedOptionalValue;
+        private ImportPlacement _selectedImportPlacement;
         private readonly LinkViewModel _viewModel;
         public bool IsUpdating;
 
@@ -26,21 +26,20 @@ namespace VLS.BatchExportNet.Views.Link
             set => SetProperty(ref _isSelected, value);
         }
 
-        public ImportPlacement SelectedOptionalValue
+        public ImportPlacement SelectedImportPlacement
         {
-            get => _selectedOptionalValue;
+            get => _selectedImportPlacement;
             set
             {
-                if (_selectedOptionalValue != value)
-                {
-                    SetProperty(ref _selectedOptionalValue, value);
-                    if (IsSelected)
-                        _viewModel.UpdateSelectedEntries(this);
-                }
+                if (_selectedImportPlacement == value) return;
+
+                SetProperty(ref _selectedImportPlacement, value);
+                if (IsSelected)
+                    _viewModel.UpdateSelectedEntries(this);
             }
         }
 
-        public ImportPlacement[] OptionalValues { get; set; }
+        public ImportPlacement[] ImportPlacements { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -52,8 +51,8 @@ namespace VLS.BatchExportNet.Views.Link
         public Entry(LinkViewModel viewModel, string name)
         {
             _viewModel = viewModel;
-            OptionalValues = viewModel.OptionalValues;
-            SelectedOptionalValue = ImportPlacement.Shared;
+            ImportPlacements = LinkViewModel.ImportPlacements;
+            SelectedImportPlacement = ImportPlacement.Shared;
             Name = name;
         }
         public void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)

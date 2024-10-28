@@ -16,7 +16,7 @@ namespace VLS.BatchExportNet.Views.Link
             UIDocument uiDoc = uiApp.ActiveUIDocument;
             Document doc = uiDoc.Document;
             bool isCurrentWorkset = linkViewModel.IsCurrentWorkset;
-            List<Entry> listItems = [.. linkViewModel.Entries];
+            List<Entry> entries = [.. linkViewModel.Entries];
 
             ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(doc.PathName);
             IList<WorksetPreview> worksets = null;
@@ -34,12 +34,10 @@ namespace VLS.BatchExportNet.Views.Link
                 }
             }
             RevitLinkOptions options = new(false);
-            //check for share coordinates
-            //if (doc.ActiveView)
 
-            foreach (Entry item in listItems)
+            foreach (Entry entry in entries)
             {
-                string filePath = item.Name;
+                string filePath = entry.Name;
 
                 if (!File.Exists(filePath)) continue;
 
@@ -56,25 +54,20 @@ namespace VLS.BatchExportNet.Views.Link
                 try
                 {
                     linkLoadResult = RevitLinkType.Create(doc, linkPath, options);
-                    RevitLinkInstance revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, item.SelectedOptionalValue);
+                    RevitLinkInstance revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, entry.SelectedImportPlacement);
                     t.Commit();
                 }
                 catch (InvalidOperationException ex)
                 {
+                    RevitLinkInstance revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, ImportPlacement.Origin);
+
                     string title = "Ошибка";
                     string message = "Обнаружено различие систем координат. Выполнить получение коордианат из файла?";
-
                     TaskDialogResult result = TaskDialog.Show(title, message, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
+                    if (result is TaskDialogResult.Yes)
+                        doc.AcquireCoordinates(revitLinkInstance.Id);
 
-                    if (result is not TaskDialogResult.Yes)
-                    {
-                        t.RollBack();
-                        continue;
-                    }
-                    RevitLinkInstance revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, ImportPlacement.Origin);
-                    doc.AcquireCoordinates(revitLinkInstance.Id);
                     t.Commit();
-
                 }
                 catch
                 {
