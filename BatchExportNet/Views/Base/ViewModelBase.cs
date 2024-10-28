@@ -14,6 +14,7 @@ namespace VLS.BatchExportNet.Views.Base
 {
     public class ViewModelBase() : INotifyPropertyChanged, IConfigBase
     {
+        public const string NO_FILES = "В текстовом файле не было найдено подходящей информации";
         private ObservableCollection<ListBoxItem> _listBoxItems = [];
         public virtual ObservableCollection<ListBoxItem> ListBoxItems
         {
@@ -58,7 +59,7 @@ namespace VLS.BatchExportNet.Views.Base
             ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
 
             if (!ListBoxItems.Any())
-                MessageBox.Show("В текстовом файле не было найдено подходящей информации");
+                MessageBox.Show(NO_FILES);
 
             FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
         }
@@ -110,8 +111,7 @@ namespace VLS.BatchExportNet.Views.Base
         }
 
         private RelayCommand _browseFolderCommand;
-        public virtual RelayCommand BrowseFolderCommand => _browseFolderCommand ??=
-            new RelayCommand(obj => BrowseFolder());
+        public virtual RelayCommand BrowseFolderCommand => _browseFolderCommand ??= new RelayCommand(obj => BrowseFolder());
         private void BrowseFolder()
         {
             FolderBrowserDialog folderBrowserDialog = new() { SelectedPath = FolderPath };
@@ -128,8 +128,7 @@ namespace VLS.BatchExportNet.Views.Base
             set => _helpMessage = value;
         }
         private RelayCommand _helpCommand;
-        public virtual RelayCommand HelpCommand => _helpCommand ??=
-            new RelayCommand(obj => MessageBox.Show(HelpMessage, "Справка"));
+        public virtual RelayCommand HelpCommand => _helpCommand ??= new RelayCommand(obj => MessageBox.Show(HelpMessage, "Справка"));
 
         private EventHandlerBase _eventHandlerBase;
         public EventHandlerBase EventHandlerBase
@@ -138,13 +137,12 @@ namespace VLS.BatchExportNet.Views.Base
             set => _eventHandlerBase = value;
         }
         private RelayCommand _raiseEventCommand;
-        public RelayCommand RaiseEventCommand => _raiseEventCommand ??=
-            new RelayCommand(obj => _eventHandlerBase.Raise(this));
+        public RelayCommand RaiseEventCommand => _raiseEventCommand ??= new RelayCommand(obj => _eventHandlerBase.Raise(this));
         public virtual RelayCommand RadioButtonCommand { get; }
 
         private void DeleteSelectedItems(object parameter)
         {
-            List<ListBoxItem> selectedItems = ListBoxItems.Where(e => e.IsSelected).ToList();
+            ListBoxItem[] selectedItems = ListBoxItems.Where(e => e.IsSelected).ToArray();
             foreach (ListBoxItem item in selectedItems)
             {
                 ListBoxItems.Remove(item);

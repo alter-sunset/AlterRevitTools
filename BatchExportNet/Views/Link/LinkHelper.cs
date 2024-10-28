@@ -5,11 +5,13 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using Autodesk.Revit.Exceptions;
+using VLS.BatchExportNet.Utils;
 
 namespace VLS.BatchExportNet.Views.Link
 {
     internal static class LinkHelper
     {
+        private const string DIFF_COORD = "Обнаружено различие систем координат. Выполнить получение коордианат из файла?";
         internal static void CreateLinks(this LinkViewModel linkViewModel, UIApplication uiApp)
         {
             using Application application = uiApp.Application;
@@ -61,11 +63,7 @@ namespace VLS.BatchExportNet.Views.Link
                 {
                     RevitLinkInstance revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, ImportPlacement.Origin);
 
-                    string title = "Ошибка";
-                    string message = "Обнаружено различие систем координат. Выполнить получение коордианат из файла?";
-                    TaskDialogResult result = TaskDialog.Show(title, message, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
-                    if (result is TaskDialogResult.Yes)
-                        doc.AcquireCoordinates(revitLinkInstance.Id);
+                    ModelHelper.YesNoTaskDialog(DIFF_COORD, () => doc.AcquireCoordinates(revitLinkInstance.Id));
 
                     t.Commit();
                 }

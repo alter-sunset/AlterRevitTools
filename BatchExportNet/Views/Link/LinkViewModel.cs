@@ -52,11 +52,9 @@ namespace VLS.BatchExportNet.Views.Link
         }
         public void UpdateSelectedEntries(Entry sourceEntry)
         {
-            ImportPlacement newValue = sourceEntry.SelectedImportPlacement;
-
             foreach (Entry entry in Entries.Where(e => e != sourceEntry && e.IsSelected))
             {
-                entry.SelectedImportPlacement = newValue;
+                entry.SelectedImportPlacement = sourceEntry.SelectedImportPlacement;
             }
         }
         private RelayCommand _loadListCommand;
@@ -74,7 +72,7 @@ namespace VLS.BatchExportNet.Views.Link
             Entries = new ObservableCollection<Entry>(files.Select(e => new Entry(this, e)));
 
             if (!Entries.Any())
-                MessageBox.Show("В текстовом файле не было найдено подходящей информации");
+                MessageBox.Show(NO_FILES);
 
             FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
         }
@@ -88,13 +86,14 @@ namespace VLS.BatchExportNet.Views.Link
 
             HashSet<string> existingFiles = new(Files);
 
-            IEnumerable<string> files = openFileDialog.FileNames
+            IEnumerable<Entry> files = openFileDialog.FileNames
+                .Where(f => !existingFiles.Contains(f))
                 .Distinct()
-                .Where(f => !existingFiles.Contains(f));
+                .Select(f => new Entry(this, f));
 
-            foreach (string file in files)
+            foreach (Entry file in files)
             {
-                Entries.Add(new Entry(this, file));
+                Entries.Add(file);
             }
         }
 

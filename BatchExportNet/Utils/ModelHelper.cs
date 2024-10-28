@@ -6,11 +6,13 @@ using System.Security.Cryptography;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Electrical;
 using Autodesk.Revit.UI;
+using System.Windows.Controls;
 
 namespace VLS.BatchExportNet.Utils
 {
     public static class ModelHelper
     {
+        private const string ERR = "Ошибка";
         /// <summary>
         /// Get WorksetConfiguration with closed worksets that match given prefixes
         /// </summary>
@@ -192,6 +194,13 @@ namespace VLS.BatchExportNet.Utils
                     WorksetTable.DeleteWorkset(document, workset, new DeleteWorksetSettings());
             }
             transaction.Commit();
+        }
+
+        public static void YesNoTaskDialog(string message, Action action)
+        {
+            TaskDialogResult result = TaskDialog.Show(ERR, message, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
+            if (result is TaskDialogResult.Yes)
+                action?.Invoke();
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
-using VLS.BatchExportNet.Source.EventHandlers;
 using VLS.BatchExportNet.Views.Base;
+using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.Migrate
 {

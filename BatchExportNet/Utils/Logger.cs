@@ -29,22 +29,14 @@ namespace VLS.BatchExportNet.Utils
             WriteLine(lineToWrite);
             ErrorCount++;
         }
-        public void Success(string message)
-            => WriteLine($"Success at {DateTime.Now}. {message}");
-        public void FileOpened()
-            => WriteLine("File successfully opened.");
-        public void Start(string file)
-            => WriteLine($"Started work at {DateTime.Now} on {file}");
-        public void LineBreak()
-            => WriteLine("--||--");
-        public void TimeForFile(DateTime startTime)
-            => WriteLine($"Time spent for file {DateTime.Now - startTime}");
-        public void TimeTotal()
-            => WriteLine($"Total time spent {DateTime.Now - _startTime}");
-        public void Hash(string hash)
-            => WriteLine($"MD5 Hash of file is: {hash} at {DateTime.Now}");
-        public void ErrorTotal()
-            => WriteLine($"Done! There were {ErrorCount} errors out of {ErrorCount + SuccessCount} files.");
+        public void Success(string message) => WriteLine($"Success at {DateTime.Now}. {message}");
+        public void FileOpened() => WriteLine("File successfully opened.");
+        public void Start(string file) => WriteLine($"Started work at {DateTime.Now} on {file}");
+        public void LineBreak() => WriteLine("--||--");
+        public void TimeForFile(DateTime startTime) => WriteLine($"Time spent for file {DateTime.Now - startTime}");
+        public void TimeTotal() => WriteLine($"Total time spent {DateTime.Now - _startTime}");
+        public void Hash(string hash) => WriteLine($"MD5 Hash of file is: {hash} at {DateTime.Now}");
+        public void ErrorTotal() => WriteLine($"Done! There were {ErrorCount} errors out of {ErrorCount + SuccessCount} files.");
         private void WriteLine(string lineToWrite)
         {
             try

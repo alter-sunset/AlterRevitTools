@@ -95,7 +95,8 @@ namespace VLS.BatchExportNet.Views.IFC
 
             IEnumerable<string> files = form.Files
                 .Where(f => !string.IsNullOrWhiteSpace(f) &&
-                    !f.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase));
+                    f.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase))
+                .Distinct();
 
             ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
         }
@@ -137,12 +138,9 @@ namespace VLS.BatchExportNet.Views.IFC
                 .ToList()
         };
 
-        private readonly IReadOnlyDictionary<IFCVersion, string> _ifcVersions
-            = IFC_Context.IFCVersions;
+        private readonly IReadOnlyDictionary<IFCVersion, string> _ifcVersions = IFC_Context.IFCVersions;
+        private KeyValuePair<IFCVersion, string> _selectedVersion = IFC_Context.IFCVersions.FirstOrDefault(e => e.Key == IFCVersion.Default);
         public IReadOnlyDictionary<IFCVersion, string> IFCVersions => _ifcVersions;
-
-        private KeyValuePair<IFCVersion, string> _selectedVersion
-            = IFC_Context.IFCVersions.FirstOrDefault(e => e.Key == IFCVersion.Default);
         public KeyValuePair<IFCVersion, string> SelectedVersion
         {
             get => _selectedVersion;
@@ -150,12 +148,9 @@ namespace VLS.BatchExportNet.Views.IFC
         }
         public IFCVersion FileVersion => _selectedVersion.Key;
 
-        private readonly IReadOnlyDictionary<int, string> _spaceBoundaryLevels
-            = IFC_Context.SpaceBoundaryLevels;
+        private readonly IReadOnlyDictionary<int, string> _spaceBoundaryLevels = IFC_Context.SpaceBoundaryLevels;
+        private KeyValuePair<int, string> _selectedLevel = IFC_Context.SpaceBoundaryLevels.FirstOrDefault(e => e.Key == 1);
         public IReadOnlyDictionary<int, string> SpaceBoundaryLevels => _spaceBoundaryLevels;
-
-        private KeyValuePair<int, string> _selectedLevel
-            = IFC_Context.SpaceBoundaryLevels.FirstOrDefault(e => e.Key == 1);
         public KeyValuePair<int, string> SelectedLevel
         {
             get => _selectedLevel;
