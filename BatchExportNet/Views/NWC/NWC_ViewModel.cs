@@ -15,8 +15,7 @@ namespace VLS.BatchExportNet.Views.NWC
     public class NWC_ViewModel : ViewModelBase_Extended, IConfigNWC
     {
         private readonly EventHandlerNWC_Batch _eventHandlerNWC_Batch;
-        public NWC_ViewModel(EventHandlerNWC_Batch eventHandlerNWC_Batch,
-                EventHandlerNWC eventHandlerNWC)
+        public NWC_ViewModel(EventHandlerNWC_Batch eventHandlerNWC_Batch, EventHandlerNWC eventHandlerNWC)
         {
             _eventHandlerNWC_Batch = eventHandlerNWC_Batch;
             EventHandlerBase = eventHandlerNWC;
@@ -209,8 +208,7 @@ namespace VLS.BatchExportNet.Views.NWC
             FolderPath = FolderPath,
             NamePrefix = NamePrefix,
             NamePostfix = NamePostfix,
-            WorksetPrefixes = WorksetPrefix
-                .Split(';')
+            WorksetPrefixes = WorksetPrefix.Split(';')
                 .Select(e => e.Trim())
                 .ToArray(),
             ConvertLights = ConvertLights,
@@ -219,7 +217,7 @@ namespace VLS.BatchExportNet.Views.NWC
 
             Files = ListBoxItems
                 .Select(cont => cont.Content.ToString() ?? string.Empty)
-                .ToList()
+                .ToArray()
         };
 
         private ObservableCollection<string> _configs = [];

@@ -13,7 +13,7 @@ namespace VLS.DriveFromOutside.Events.Detach
         {
             using Application application = uiApp.Application;
 
-            List<string> files = iDetachConfig.Files;
+            string[] files = iDetachConfig.Files;
             foreach (string file in files)
             {
                 using ErrorSwallower errorSwallower = new(uiApp, application);

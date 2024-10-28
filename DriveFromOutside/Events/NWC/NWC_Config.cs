@@ -24,7 +24,7 @@ namespace VLS.DriveFromOutside.Events.NWC
         public string[] WorksetPrefixes { get; set; }
         public bool ExportScopeView { get; set; }
         public bool ExportScopeWhole { get; set; }
-        public List<string> Files { get; set; }
+        public string[] Files { get; set; }
         public string ViewName { get; set; }
         public string FolderPath { get; set; }
     }

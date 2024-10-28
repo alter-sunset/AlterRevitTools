@@ -29,7 +29,7 @@ namespace VLS.BatchExportNet.Views.Link
             get => _isCurrentWorkset;
             set => SetProperty(ref _isCurrentWorkset, value);
         }
-        public override List<string> Files => Entries.Select(e => e.Name).ToList();
+        public override string[] Files => Entries.Select(e => e.Name).ToArray();
 
         public static readonly ImportPlacement[] ImportPlacements =
             [

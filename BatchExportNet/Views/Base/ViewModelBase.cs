@@ -22,7 +22,7 @@ namespace VLS.BatchExportNet.Views.Base
             set => SetProperty(ref _listBoxItems, value);
         }
 
-        public virtual List<string> Files => _listBoxItems.Select(e => e.Content.ToString()).ToList();
+        public virtual string[] Files => _listBoxItems.Select(e => e.Content.ToString()).ToArray();
 
         private ListBoxItem _selectedItem;
         public ListBoxItem SelectedItem

@@ -3,7 +3,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -135,7 +134,7 @@ namespace VLS.BatchExportNet.Views.IFC
 
             Files = ListBoxItems
                 .Select(cont => cont.Content.ToString() ?? string.Empty)
-                .ToList()
+                .ToArray()
         };
 
         private readonly IReadOnlyDictionary<IFCVersion, string> _ifcVersions = IFC_Context.IFCVersions;
