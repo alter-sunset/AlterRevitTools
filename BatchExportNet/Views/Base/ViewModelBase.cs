@@ -138,14 +138,10 @@ namespace VLS.BatchExportNet.Views.Base
         public RelayCommand RaiseEventCommand => _raiseEventCommand ??= new RelayCommand(obj => _eventHandlerBase.Raise(this));
         public virtual RelayCommand RadioButtonCommand { get; }
 
-        private void DeleteSelectedItems(object parameter)
-        {
-            ListBoxItem[] selectedItems = ListBoxItems.Where(e => e.IsSelected).ToArray();
-            foreach (ListBoxItem item in selectedItems)
-            {
-                ListBoxItems.Remove(item);
-            }
-        }
+        private void DeleteSelectedItems(object parameter) => ListBoxItems
+            .Where(e => e.IsSelected)
+            .ToList()
+            .ForEach(item => ListBoxItems.Remove(item));
 
         public static ListBoxItem DefaultListBoxItem(string content) =>
             new()

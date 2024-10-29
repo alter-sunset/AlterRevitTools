@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using System.IO;
+using System.Linq;
 
 namespace VLS.BatchExportNet.Utils
 {
@@ -17,12 +18,12 @@ namespace VLS.BatchExportNet.Utils
             transaction.Start("Delete Revit links from model");
             transaction.SwallowAlert();
 
-            List<Element> links = [.. new FilteredElementCollector(document).OfClass(typeof(RevitLinkType))];
+            List<Element> links = new FilteredElementCollector(document)
+                .OfClass(typeof(RevitLinkType))
+                .ToList();
 
-            foreach (Element link in links)
-            {
-                document.Delete(link.Id);
-            }
+            links.ForEach(link => document.Delete(link.Id));
+
             transaction.Commit();
         }
         public static void UnloadRevitLinks(this ModelPath filePath, string folder, bool isSameFolder = true)
@@ -77,12 +78,10 @@ namespace VLS.BatchExportNet.Utils
         private static bool TryGetTransmissionData(ModelPath filePath, out TransmissionData transData)
         {
             transData = TransmissionData.ReadTransmissionData(filePath);
-            if (transData is null)
-            {
-                TaskDialog.Show("Operation Error", NO_TRANS_DATA_ALERT);
-                return false;
-            }
-            return true;
+            if (transData is not null) return true;
+
+            TaskDialog.Show("Operation Error", NO_TRANS_DATA_ALERT);
+            return false;
         }
     }
 }

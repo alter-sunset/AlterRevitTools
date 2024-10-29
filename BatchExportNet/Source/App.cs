@@ -7,6 +7,7 @@ namespace VLS.BatchExportNet.Source
 {
     public class App : IExternalApplication
     {
+        private Panel[] Panels;
         public Result OnStartup(UIControlledApplication uiApp)
         {
             const string TAB_NAME = "VLS";
@@ -19,19 +20,16 @@ namespace VLS.BatchExportNet.Source
             catch { }
 
             //Get buttons to create from json config
-            ButtonContext[] buttons = ButtonContext.GetButtonsContext();
+            List<ButtonContext> buttons = ButtonContext.GetButtonsContext();
 
             //Create panels from config
-            IEnumerable<Panel> panels = buttons
+            Panels = buttons
                 .Select(button => button.Panel)
                 .Distinct()
-                .Select(panelName => new Panel(GetRibbonPanel(uiApp, TAB_NAME, panelName), panelName));
+                .Select(panelName => new Panel(GetRibbonPanel(uiApp, TAB_NAME, panelName), panelName))
+                .ToArray();
 
-            //Create buttons from config
-            foreach (ButtonContext button in buttons)
-            {
-                CreateButton(button, panels);
-            }
+            buttons.ForEach(CreateButton);
 
             return Result.Succeeded;
         }
@@ -45,9 +43,9 @@ namespace VLS.BatchExportNet.Source
             catch { }
             return uiApp.GetRibbonPanels(tabName).FirstOrDefault(p => p.Name == panelName);
         }
-        private static void CreateButton(ButtonContext button, IEnumerable<Panel> panels)
+        private void CreateButton(ButtonContext button)
         {
-            RibbonPanel ribbonPanel = panels.First(e => e.Item2 == button.Panel).Item1;
+            RibbonPanel ribbonPanel = Panels.First(e => e.Item2 == button.Panel).Item1;
             try
             {
                 ribbonPanel.AddItem(button.GetPushButtonData());

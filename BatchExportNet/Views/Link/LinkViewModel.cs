@@ -91,15 +91,12 @@ namespace VLS.BatchExportNet.Views.Link
 
             HashSet<string> existingFiles = new(Files);
 
-            IEnumerable<Entry> files = openFileDialog.FileNames
+            openFileDialog.FileNames
                 .Where(f => !existingFiles.Contains(f))
                 .Distinct()
-                .Select(f => new Entry(this, f));
-
-            foreach (Entry file in files)
-            {
-                Entries.Add(file);
-            }
+                .Select(f => new Entry(this, f))
+                .ToList()
+                .ForEach(Entries.Add);
         }
 
         private RelayCommand _saveListCommand;
@@ -118,14 +115,10 @@ namespace VLS.BatchExportNet.Views.Link
 
         private RelayCommand _deleteCommand;
         public override RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(DeleteSelectedItems);
-        private void DeleteSelectedItems(object parameter)
-        {
-            Entry[] selectedItems = Entries.Where(e => e.IsSelected).ToArray();
-            foreach (Entry item in selectedItems)
-            {
-                Entries.Remove(item);
-            }
-        }
+        private void DeleteSelectedItems(object parameter) => Entries
+            .Where(e => e.IsSelected)
+            .ToList()
+            .ForEach(item => Entries.Remove(item));
 
         private RelayCommand _eraseCommand;
         public override RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(obj => Entries.Clear());

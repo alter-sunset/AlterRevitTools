@@ -15,7 +15,7 @@ namespace VLS.BatchExportNet.Views.Base
         {
             if (sender is not ListBox) return;
             if (e.RemovedItems.Count != 0 && e.RemovedItems[0] is not ISelectable) return;
-            // Unselect previously selected entries
+            // Unselect previously selected entries            
             foreach (ISelectable entry in e.RemovedItems)
             {
                 entry.IsSelected = false; // Set IsSelected to false for unselected entries

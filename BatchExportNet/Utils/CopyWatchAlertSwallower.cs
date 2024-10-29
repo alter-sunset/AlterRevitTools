@@ -8,13 +8,12 @@ namespace VLS.BatchExportNet.Utils
     {
         public FailureProcessingResult PreprocessFailures(FailuresAccessor a)
         {
-            IEnumerable<FailureMessageAccessor> failures = a.GetFailureMessages()
+            List<FailureMessageAccessor> failures = a.GetFailureMessages()
                 .Where(f => f.GetFailureDefinitionId() ==
-                    BuiltInFailures.CopyMonitorFailures.CopyWatchAlert);
-            foreach (FailureMessageAccessor f in failures)
-            {
-                a.DeleteWarning(f);
-            }
+                    BuiltInFailures.CopyMonitorFailures.CopyWatchAlert)
+                .ToList();
+
+            failures.ForEach(a.DeleteWarning);
             return FailureProcessingResult.Continue;
         }
     }

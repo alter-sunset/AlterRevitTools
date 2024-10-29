@@ -1,5 +1,4 @@
 ﻿using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using VLS.BatchExportNet.Source.EventHandlers;
 using VLS.BatchExportNet.Utils;

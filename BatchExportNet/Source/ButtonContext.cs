@@ -1,4 +1,5 @@
 ﻿using Autodesk.Revit.UI;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Windows.Media.Imaging;
@@ -17,8 +18,8 @@ namespace VLS.BatchExportNet.Source
         public string Panel { get; set; }
         public bool Availability { get; set; }
 
-        public static ButtonContext[] GetButtonsContext() =>
-            JsonHelper<ButtonContext[]>.DeserializeResource("BatchExportNet.Resources.Buttons.json");
+        public static List<ButtonContext> GetButtonsContext() =>
+            JsonHelper<List<ButtonContext>>.DeserializeResource("BatchExportNet.Resources.Buttons.json");
 
         public PushButtonData GetPushButtonData()
         {
