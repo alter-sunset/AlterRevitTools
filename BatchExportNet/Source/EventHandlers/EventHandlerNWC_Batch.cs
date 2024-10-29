@@ -14,8 +14,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
     {
         public override void Execute(UIApplication uiApp, IConfigBase iConfig)
         {
-            NWC_ViewModel nwc_ViewModel = iConfig as NWC_ViewModel;
-            if (nwc_ViewModel.Configs.Count == 0)
+            if (iConfig is not NWC_ViewModel nwcViewModel || nwcViewModel.Configs.Count == 0)
             {
                 MessageBox.Show("Загрузите конфиги.");
                 return;
@@ -23,29 +22,29 @@ namespace VLS.BatchExportNet.Source.EventHandlers
 
             DateTime timeStart = DateTime.Now;
 
-            foreach (string config in nwc_ViewModel.Configs)
+            foreach (string config in nwcViewModel.Configs)
             {
                 try
                 {
                     using FileStream file = File.OpenRead(config);
                     NWCForm form = JsonSerializer.Deserialize<NWCForm>(file);
-                    nwc_ViewModel.NWCFormDeserilaizer(form);
+                    nwcViewModel.NWCFormDeserilaizer(form);
                 }
                 catch
                 {
                     continue;
                 }
-
-                Logger logger = new(nwc_ViewModel.FolderPath);
+                Logger logger = new(nwcViewModel.FolderPath);
 
                 NWCHelper nwcHelper = new();
-                nwcHelper.BatchExportModels(nwc_ViewModel, uiApp, ref logger);
+                nwcHelper.BatchExportModels(nwcViewModel, uiApp, ref logger);
 
                 Thread.Sleep(1000);
+
             }
 
             string msg = $"Задание выполнено. Всего затрачено времени:{DateTime.Now - timeStart}";
-            nwc_ViewModel.Finisher(id: "ExportBatchNWCFinished", msg);
+            nwcViewModel.Finisher(id: "ExportBatchNWCFinished", msg);
         }
     }
 }

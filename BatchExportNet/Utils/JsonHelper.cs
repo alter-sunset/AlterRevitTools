@@ -19,11 +19,11 @@ namespace VLS.BatchExportNet.Utils
             HandleSerialization(() => JsonSerializer.Deserialize<T>(file, GetDefaultOptions()));
 
         public static void SerializeConfig(T value, string path) =>
-        HandleSerialization(() =>
-        {
-            File.WriteAllText(path, JsonSerializer.Serialize(value, GetDefaultOptions()));
-            return default;
-        });
+            HandleSerialization(() =>
+            {
+                File.WriteAllText(path, JsonSerializer.Serialize(value, GetDefaultOptions()));
+                return default;
+            });
         private static T HandleSerialization(Func<T> action)
         {
             try

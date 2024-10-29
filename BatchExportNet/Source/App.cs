@@ -8,11 +8,9 @@ namespace VLS.BatchExportNet.Source
     public class App : IExternalApplication
     {
         private Panel[] Panels;
+        private const string TAB_NAME = "VLS";
         public Result OnStartup(UIControlledApplication uiApp)
         {
-            const string TAB_NAME = "VLS";
-
-            //Create default tab 
             try
             {
                 uiApp.CreateRibbonTab(TAB_NAME);

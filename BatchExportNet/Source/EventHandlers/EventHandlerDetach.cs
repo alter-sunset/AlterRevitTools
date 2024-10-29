@@ -14,8 +14,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
     {
         public override void Execute(UIApplication uiApp, IConfigBase viewModelBase)
         {
-            DetachViewModel detachViewModel = viewModelBase as DetachViewModel;
-            if (!detachViewModel.IsEverythingFilled()) return;
+            if (viewModelBase is not DetachViewModel detachViewModel || !detachViewModel.IsEverythingFilled()) return;
 
             List<ListBoxItem> listItems = [.. detachViewModel.ListBoxItems];
 
@@ -24,7 +23,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
             foreach (ListBoxItem item in listItems)
             {
                 using ErrorSwallower errorSwallower = new(uiApp, application);
-                string filePath = item.Content.ToString();
+                string filePath = item.Content?.ToString();
                 if (!File.Exists(filePath))
                 {
                     item.Background = Brushes.Red;

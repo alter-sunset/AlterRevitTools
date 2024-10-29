@@ -1,12 +1,11 @@
-﻿using System;
+﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.DB.Electrical;
+using Autodesk.Revit.UI;
+using System;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using System.Security.Cryptography;
-using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.Electrical;
-using Autodesk.Revit.UI;
-using System.Windows.Controls;
 
 namespace VLS.BatchExportNet.Utils
 {
@@ -184,17 +183,17 @@ namespace VLS.BatchExportNet.Utils
 
             using Transaction transaction = new(document);
             transaction.Start("Remove empty worksets");
-            foreach (WorksetId workset in worksets)
-            {
-                int elements = new FilteredElementCollector(document)
-                    .WherePasses(new ElementWorksetFilter(workset))
-                    .Count();
+            DeleteWorksetSettings settings = new();
 
-                if (elements == 0)
-                    WorksetTable.DeleteWorkset(document, workset, new DeleteWorksetSettings());
-            }
+            worksets.Where(document.NoElementsInWorkset)
+                .ToList()
+                .ForEach(workset => WorksetTable.DeleteWorkset(document, workset, settings));
             transaction.Commit();
         }
+        private static bool NoElementsInWorkset(this Document document, WorksetId workset) =>
+            !new FilteredElementCollector(document)
+                .WherePasses(new ElementWorksetFilter(workset)).Any();
+
 
         public static void YesNoTaskDialog(string message, Action action)
         {

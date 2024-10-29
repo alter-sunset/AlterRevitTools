@@ -9,15 +9,14 @@ namespace VLS.BatchExportNet.Source.EventHandlers
     {
         public override void Execute(UIApplication uiApp, IConfigBase iConfig)
         {
-            IFC_ViewModel ifc_ViewModel = iConfig as IFC_ViewModel;
-            if (!ifc_ViewModel.IsEverythingFilled()) return;
+            if (iConfig is not IFC_ViewModel ifcViewModel || !ifcViewModel.IsEverythingFilled()) return;
 
-            Logger logger = new(ifc_ViewModel.FolderPath);
+            Logger logger = new(ifcViewModel.FolderPath);
             IFCHelper ifcHelper = new();
-            ifcHelper.BatchExportModels(ifc_ViewModel, uiApp, ref logger);
+            ifcHelper.BatchExportModels(ifcViewModel, uiApp, ref logger);
 
             string msg = $"В процессе выполнения было {logger.ErrorCount} ошибок из {logger.ErrorCount + logger.SuccessCount} файлов.";
-            ifc_ViewModel.Finisher(id: "ExportIFCFinished", msg);
+            ifcViewModel.Finisher(id: "ExportIFCFinished", msg);
         }
     }
 }

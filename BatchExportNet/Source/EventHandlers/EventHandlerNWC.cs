@@ -9,15 +9,16 @@ namespace VLS.BatchExportNet.Source.EventHandlers
     {
         public override void Execute(UIApplication uiApp, IConfigBase iConfig)
         {
-            NWC_ViewModel nwc_ViewModel = iConfig as NWC_ViewModel;
-            if (!nwc_ViewModel.IsEverythingFilled()) return;
+            if (iConfig is not NWC_ViewModel nwcViewModel || !nwcViewModel.IsEverythingFilled()) return;
 
-            Logger logger = new(nwc_ViewModel.FolderPath);
+            Logger logger = new(nwcViewModel.FolderPath);
             NWCHelper nwcHelper = new();
-            nwcHelper.BatchExportModels(nwc_ViewModel, uiApp, ref logger);
 
-            string msg = $"В процессе выполнения было {logger.ErrorCount} ошибок из {logger.ErrorCount + logger.SuccessCount} файлов.";
-            nwc_ViewModel.Finisher(id: "ExportNWCFinished", msg);
+            nwcHelper.BatchExportModels(nwcViewModel, uiApp, ref logger);
+
+            int totalFiles = logger.ErrorCount + logger.SuccessCount;
+            string msg = $"В процессе выполнения было {logger.ErrorCount} ошибок из {totalFiles} файлов.";
+            nwcViewModel.Finisher("ExportNWCFinished", msg);
         }
     }
 }
