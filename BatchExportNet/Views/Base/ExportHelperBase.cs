@@ -5,7 +5,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Collections.Generic;
 using System.Windows.Media;
 using System.Windows.Controls;
 using VLS.BatchExportNet.Utils;
@@ -19,13 +18,14 @@ namespace VLS.BatchExportNet.Views.Base
             (IConfigBase_Extended iConfig, UIApplication uiApp, ref Logger logger)
         {
             using Application application = uiApp.Application;
-            List<string> models = iConfig.Files;
-            List<ListBoxItem> items = GetListBoxItems(iConfig);
+            string[] models = iConfig.Files;
+            ListBoxItem[] items = GetListBoxItems(iConfig);
 
             if (iConfig is ViewModelBase_Extended viewModel)
             {
+                if (items is null) return;
                 items = [.. viewModel.ListBoxItems];
-                models = items.Select(e => e.Content.ToString()).ToList();
+                models = items.Select(e => e.Content.ToString()).ToArray();
             }
 
             foreach (string file in models)
@@ -70,29 +70,31 @@ namespace VLS.BatchExportNet.Views.Base
             logger.ErrorTotal();
             logger.TimeTotal();
         }
-        private static List<ListBoxItem> GetListBoxItems(IConfigBase_Extended iConfig) =>
+        private static ListBoxItem[] GetListBoxItems(IConfigBase_Extended iConfig) =>
             iConfig is ViewModelBase_Extended viewModel
-                ? new List<ListBoxItem>(viewModel.ListBoxItems)
-                : [];
-        private static void HandleFileNotFound(string file, List<ListBoxItem> items, Logger logger)
+                ? viewModel.ListBoxItems.ToArray() : null;
+        private static void HandleFileNotFound(string file, ListBoxItem[] items, Logger logger)
         {
             logger.Error($"Файла {file} не существует. Ты совсем Туттуру?");
             UpdateItemBackground(items, file, Brushes.Red);
         }
-        private static void UpdateItemBackground(List<ListBoxItem> items, string file, Brush color)
+        private static void UpdateItemBackground(ListBoxItem[] items, string file, Brush color)
         {
             ListBoxItem item = items.FirstOrDefault(e => e.Content.ToString() == file);
             if (item is not null) item.Background = color;
         }
-        private static Document OpenDocument(string file, Application application, IConfigBase_Extended iConfig, Logger logger, List<ListBoxItem> items)
+        private static Document OpenDocument(string file, Application application, IConfigBase_Extended iConfig, Logger logger, ListBoxItem[] items)
         {
             try
             {
                 BasicFileInfo fileInfo = BasicFileInfo.Extract(file);
                 ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(file);
 
+                using TransmissionData trData = TransmissionData.ReadTransmissionData(modelPath);
+                bool transmitted = trData is not null && trData.IsTransmitted;
+
                 WorksetConfiguration worksetConfiguration = fileInfo.IsWorkshared
-                    ? (file.Equals(fileInfo.CentralPath)
+                    ? (file.Equals(fileInfo.CentralPath) && !transmitted
                         ? modelPath.CloseWorksetsWithLinks(iConfig.WorksetPrefixes)
                         : new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets))
                     : null;
@@ -108,13 +110,15 @@ namespace VLS.BatchExportNet.Views.Base
                 return null;
             }
         }
-        private static void CloseDocument(Document document, ref bool isFuckedUp, List<ListBoxItem> items, string file, Logger logger)
+        private static void CloseDocument(Document document, ref bool isFuckedUp, ListBoxItem[] items, string file, Logger logger)
         {
             if (document is null) return;
 
             try
             {
                 document.FreeTheModel();
+                if (!isFuckedUp)
+                    logger.Success("Всё ок.");
             }
             catch (Exception ex)
             {
@@ -126,7 +130,6 @@ namespace VLS.BatchExportNet.Views.Base
                 document.Close(false);
                 document.Dispose();
                 UpdateItemBackground(items, file, isFuckedUp ? Brushes.Red : Brushes.Green);
-                logger.Success("Всё ок.");
             }
         }
 

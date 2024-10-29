@@ -9,12 +9,16 @@ using VLS.BatchExportNet.Views.Detach;
 using VLS.BatchExportNet.Views.Migrate;
 using VLS.BatchExportNet.Views.Transmit;
 using VLS.BatchExportNet.Source.EventHandlers;
+using Autodesk.Revit.UI;
+using Autodesk.Revit.DB;
+using System.Linq;
 
 namespace VLS.BatchExportNet.Utils
 {
     static class ViewHelper
     {
         private static Window _myForm;
+        private static UIApplication _uiApp;
         private static readonly Dictionary<Forms, Func<Window>> _formCreators = new()
         {
             { Forms.Detach,
@@ -28,12 +32,13 @@ namespace VLS.BatchExportNet.Utils
             { Forms.Transmit,
                 () => new TransmitModelsView(new EventHandlerTransmit()) },
             { Forms.Link,
-                () => new LinkModelsView(new EventHandlerLink()) },
+                () => new LinkModelsView(new EventHandlerLink(), GetWorksets()) },
         };
 
-        internal static void ShowForm(this Forms form)
+        internal static void ShowForm(this Forms form, UIApplication uiApp)
         {
             CloseCurrentForm();
+            _uiApp = uiApp;
 
             try
             {
@@ -48,6 +53,12 @@ namespace VLS.BatchExportNet.Utils
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private static Workset[] GetWorksets() =>
+            new FilteredWorksetCollector(_uiApp.ActiveUIDocument.Document)
+                .OfKind(WorksetKind.UserWorkset)
+                .ToWorksets()
+                .ToArray();
 
         private static void CloseCurrentForm()
         {

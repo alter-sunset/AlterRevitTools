@@ -1,66 +1,78 @@
-﻿using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.DB;
+﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using System.Collections.Generic;
+using Autodesk.Revit.Exceptions;
 using System.IO;
 using System.Linq;
-using System.Windows.Controls;
+using VLS.BatchExportNet.Utils;
 
 namespace VLS.BatchExportNet.Views.Link
 {
     internal static class LinkHelper
     {
+        private const string DIFF_COORD = "Обнаружено различие систем координат. Выполнить получение коордианат из файла?";
         internal static void CreateLinks(this LinkViewModel linkViewModel, UIApplication uiApp)
         {
-            using Application application = uiApp.Application;
-            UIDocument uiDoc = uiApp.ActiveUIDocument;
-            Document doc = uiDoc.Document;
+            Document doc = uiApp.ActiveUIDocument.Document;
             bool isCurrentWorkset = linkViewModel.IsCurrentWorkset;
-            List<ListBoxItem> listItems = [.. linkViewModel.ListBoxItems];
+            Entry[] entries = linkViewModel.Entries
+                .OrderBy(e => e.SelectedWorkset.Name)
+                .ToArray();
 
             ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(doc.PathName);
-            IList<WorksetPreview> worksets = null;
-            WorksetTable worksetTable = null;
-            if (!isCurrentWorkset)
-            {
-                try
-                {
-                    worksets = WorksharingUtils.GetUserWorksetInfo(modelPath);
-                    worksetTable = doc.GetWorksetTable();
-                }
-                catch
-                {
-                    isCurrentWorkset = false;
-                }
-            }
+            WorksetTable worksetTable = !isCurrentWorkset ? GetWorksetTable(doc, ref isCurrentWorkset) : null;
+
             RevitLinkOptions options = new(false);
+            bool setWorksetId = !isCurrentWorkset && linkViewModel.Worksets.Length > 0;
 
-            foreach (ListBoxItem item in listItems)
+            foreach (Entry entry in entries)
             {
-                string filePath = item.Content.ToString();
-
-                if (!File.Exists(filePath)) continue;
+                if (!File.Exists(entry.Name)) continue;
 
                 using Transaction t = new(doc);
-                t.Start($"Link {filePath}");
+                t.Start($"Link {entry.Name}");
 
-                if (!isCurrentWorkset && worksets is not null && worksetTable is not null)
-                {
-                    WorksetId worksetId = worksets.FirstOrDefault(e => filePath.Contains(e.Name.Split('_')[0]))?.Id;
-                    worksetTable.SetActiveWorksetId(worksetId);
-                }
+                if (setWorksetId)
+                    worksetTable.SetActiveWorksetId(entry.SelectedWorkset.Id);
 
-                ModelPath linkPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
-                try
-                {
-                    LinkLoadResult linkLoadResult = RevitLinkType.Create(doc, linkPath, options);
-                    RevitLinkInstance revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, ImportPlacement.Shared);
-                    t.Commit();
-                }
-                catch
-                {
+                if (!TryCreateLink(doc, entry, options, t))
                     t.RollBack();
-                }
+            }
+        }
+        private static WorksetTable GetWorksetTable(Document doc, ref bool isCurrentWorkset)
+        {
+            try
+            {
+                return doc.GetWorksetTable();
+            }
+            catch
+            {
+                isCurrentWorkset = false;
+                return null;
+            }
+        }
+        private static bool TryCreateLink(Document doc, Entry entry, RevitLinkOptions options, Transaction t)
+        {
+            RevitLinkInstance revitLinkInstance;
+            LinkLoadResult linkLoadResult = default;
+            ModelPath linkPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(entry.Name);
+
+            try
+            {
+                linkLoadResult = RevitLinkType.Create(doc, linkPath, options);
+                _ = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, entry.SelectedImportPlacement);
+                t.Commit();
+                return true;
+            }
+            catch (InvalidOperationException)
+            {
+                revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, ImportPlacement.Origin);
+                ModelHelper.YesNoTaskDialog(DIFF_COORD, () => doc.AcquireCoordinates(revitLinkInstance.Id));
+                t.Commit();
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
     }

@@ -5,35 +5,32 @@ using System.Linq;
 using System.Windows;
 using VLS.BatchExportNet.Views.Base;
 using VLS.BatchExportNet.Views.Detach;
+using VLS.BatchExportNet.Views.Link;
 using VLS.BatchExportNet.Views.Transmit;
 
 namespace VLS.BatchExportNet.Utils
 {
     static class ViewModelHelper
     {
-        internal static bool IsEverythingFilled(this DetachViewModel detachViewModel)
-        {
-            return detachViewModel.IsListNotEmpty()
-                && detachViewModel.IsRBModeOK()
-                && detachViewModel.IsViewNameOK()
-                && detachViewModel.IsMaskNameOK();
-        }
-        internal static bool IsEverythingFilled(this TransmitViewModel viewModel)
-        {
-            return viewModel.IsListNotEmpty()
-                && viewModel.IsFolderPathOK();
-        }
-        internal static bool IsEverythingFilled(this ViewModelBase_Extended viewModel)
-        {
-            return viewModel.IsListNotEmpty()
-                && viewModel.IsFolderPathOK()
-                && viewModel.IsViewNameOK();
-        }
-        internal static bool IsEverythingFilled(this ViewModelBase viewModel)
-        {
-            return viewModel.IsListNotEmpty();
-        }
+        internal static bool IsEverythingFilled(this DetachViewModel detachViewModel) =>
+            detachViewModel.IsListNotEmpty() &&
+            detachViewModel.IsRBModeOK() &&
+            detachViewModel.IsViewNameOK() &&
+            detachViewModel.IsMaskNameOK();
 
+        internal static bool IsEverythingFilled(this TransmitViewModel viewModel) =>
+            viewModel.IsListNotEmpty() &&
+            viewModel.IsFolderPathOK();
+
+        internal static bool IsEverythingFilled(this ViewModelBase_Extended viewModel) =>
+            viewModel.IsListNotEmpty() &&
+            viewModel.IsFolderPathOK() &&
+            viewModel.IsViewNameOK();
+
+        internal static bool IsEverythingFilled(this LinkViewModel viewModel) => viewModel.IsListNotEmpty();
+
+        private static bool IsListNotEmpty(this LinkViewModel viewModel) =>
+            CheckCondition(viewModel.Entries.Count > 0, "Добавьте хотя бы один файл для экспорта!");
         private static bool IsListNotEmpty(this ViewModelBase viewModel) =>
             CheckCondition(viewModel.ListBoxItems.Count > 0, "Добавьте хотя бы один файл для экспорта!");
         private static bool IsFolderPathOK(this ViewModelBase viewModel)
@@ -61,11 +58,9 @@ namespace VLS.BatchExportNet.Utils
             return true;
         }
         private static bool IsViewNameOK(this ViewModelBase_Extended viewModel) =>
-            CheckCondition(!viewModel.ExportScopeView || !string.IsNullOrEmpty(viewModel.ViewName),
-                "Введите имя вида для экспорта!");
+            CheckCondition(!viewModel.ExportScopeView || !string.IsNullOrEmpty(viewModel.ViewName), "Введите имя вида для экспорта!");
         private static bool IsViewNameOK(this DetachViewModel viewModel) =>
-            CheckCondition(!viewModel.CheckForEmptyView || !string.IsNullOrEmpty(viewModel.ViewName),
-                "Введите имя вида для проверки!");
+            CheckCondition(!viewModel.CheckForEmptyView || !string.IsNullOrEmpty(viewModel.ViewName), "Введите имя вида для проверки!");
         private static bool IsRBModeOK(this DetachViewModel detachViewModel)
         {
             switch (detachViewModel.RadioButtonMode)
@@ -86,8 +81,7 @@ namespace VLS.BatchExportNet.Utils
             return true;
         }
         private static bool IsMaskNameOK(this DetachViewModel detachViewModel) =>
-             CheckCondition(!detachViewModel.IsToRename || !string.IsNullOrEmpty(detachViewModel.MaskInName),
-                "Введите маски для переименования файлов!");
+             CheckCondition(!detachViewModel.IsToRename || !string.IsNullOrEmpty(detachViewModel.MaskInName), "Введите маски для переименования файлов!");
         private static bool CheckCondition(bool condition, string message)
         {
             if (!condition) MessageBox.Show(message);

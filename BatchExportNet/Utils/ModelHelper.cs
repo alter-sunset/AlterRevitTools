@@ -6,24 +6,28 @@ using System.Security.Cryptography;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Electrical;
 using Autodesk.Revit.UI;
+using System.Windows.Controls;
 
 namespace VLS.BatchExportNet.Utils
 {
     public static class ModelHelper
     {
+        private const string ERR = "Ошибка";
         /// <summary>
         /// Get WorksetConfiguration with closed worksets that match given prefixes
         /// </summary>
         public static WorksetConfiguration CloseWorksetsWithLinks(this ModelPath modelPath, params string[] prefixes)
         {
             WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.OpenAllWorksets);
+            if (prefixes.Length == 0) return worksetConfiguration;
 
             List<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)
                 .Where(wp => prefixes.Any(wp.Name.StartsWith))
                 .Select(wp => wp.Id)
                 .ToList();
 
-            worksetConfiguration.Close(worksetIds);
+            if (worksetIds.Count != 0)
+                worksetConfiguration.Close(worksetIds);
             return worksetConfiguration;
         }
         /// <summary>
@@ -121,7 +125,7 @@ namespace VLS.BatchExportNet.Utils
 
             if (typeId is null || levelId is null) return;
 
-            using Transaction t = new(doc, "Open Worksets");
+            using Transaction t = new(doc, "Open _worksets");
             t.Start();
 
             // Create a temporary cable tray
@@ -190,6 +194,13 @@ namespace VLS.BatchExportNet.Utils
                     WorksetTable.DeleteWorkset(document, workset, new DeleteWorksetSettings());
             }
             transaction.Commit();
+        }
+
+        public static void YesNoTaskDialog(string message, Action action)
+        {
+            TaskDialogResult result = TaskDialog.Show(ERR, message, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
+            if (result is TaskDialogResult.Yes)
+                action?.Invoke();
         }
     }
 }

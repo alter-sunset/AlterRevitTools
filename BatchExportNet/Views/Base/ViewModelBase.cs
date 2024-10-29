@@ -1,20 +1,18 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
+using System.Windows.Controls;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.Base
 {
-    public class ViewModelBase() : INotifyPropertyChanged, IConfigBase
+    public class ViewModelBase() : NotifyPropertyChanged, IConfigBase
     {
+        public const string NO_FILES = "В текстовом файле не было найдено подходящей информации";
         private ObservableCollection<ListBoxItem> _listBoxItems = [];
         public virtual ObservableCollection<ListBoxItem> ListBoxItems
         {
@@ -22,13 +20,13 @@ namespace VLS.BatchExportNet.Views.Base
             set => SetProperty(ref _listBoxItems, value);
         }
 
-        public List<string> Files => _listBoxItems.Select(e => e.Content.ToString()).ToList();
+        public virtual string[] Files => _listBoxItems.Select(e => e.Content.ToString()).ToArray();
 
-        private ListBoxItem _selectedItems;
-        public ListBoxItem SelectedItems
+        private ListBoxItem _selectedItem;
+        public ListBoxItem SelectedItem
         {
-            get => _selectedItems;
-            set => SetProperty(ref _selectedItems, value);
+            get => _selectedItem;
+            set => SetProperty(ref _selectedItem, value);
         }
         private bool _isViewEnabled = true;
         public bool IsViewEnabled
@@ -54,24 +52,24 @@ namespace VLS.BatchExportNet.Views.Base
             IEnumerable<string> files = File.ReadLines(openFileDialog.FileName)
                 .Distinct()
                 .Where(f => !string.IsNullOrWhiteSpace(f) &&
-                    !f.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase));
+                    f.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase));
 
-            ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultComboBoxItem));
+            ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
 
             if (!ListBoxItems.Any())
-                MessageBox.Show("В текстовом файле не было найдено подходящей информации");
+                MessageBox.Show(NO_FILES);
 
             FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
         }
 
         private RelayCommand _loadCommand;
-        public RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
+        public virtual RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
         private void Load()
         {
             using OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
             if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
-            HashSet<string> existingFiles = new(ListBoxItems.Select(item => item.Content.ToString()));
+            HashSet<string> existingFiles = new(Files);
 
             IEnumerable<string> files = openFileDialog.FileNames
                 .Distinct()
@@ -79,7 +77,7 @@ namespace VLS.BatchExportNet.Views.Base
 
             foreach (string file in files)
             {
-                ListBoxItems.Add(DefaultComboBoxItem(file));
+                ListBoxItems.Add(DefaultListBoxItem(file));
             }
         }
 
@@ -92,16 +90,16 @@ namespace VLS.BatchExportNet.Views.Base
 
             string fileName = saveFileDialog.FileName;
             File.Delete(fileName);
-            File.WriteAllLines(fileName, ListBoxItems.Select(cont => cont.Content.ToString()));
+            File.WriteAllLines(fileName, Files);
 
             FolderPath = Path.GetDirectoryName(saveFileDialog.FileName);
         }
 
         private RelayCommand _deleteCommand;
-        public RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(DeleteSelectedItems);
+        public virtual RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(DeleteSelectedItems);
 
         private RelayCommand _eraseCommand;
-        public RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(obj => ListBoxItems.Clear());
+        public virtual RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(obj => ListBoxItems.Clear());
 
         private string _folderPath;
         public string FolderPath
@@ -111,8 +109,7 @@ namespace VLS.BatchExportNet.Views.Base
         }
 
         private RelayCommand _browseFolderCommand;
-        public virtual RelayCommand BrowseFolderCommand => _browseFolderCommand ??=
-            new RelayCommand(obj => BrowseFolder());
+        public virtual RelayCommand BrowseFolderCommand => _browseFolderCommand ??= new RelayCommand(obj => BrowseFolder());
         private void BrowseFolder()
         {
             FolderBrowserDialog folderBrowserDialog = new() { SelectedPath = FolderPath };
@@ -129,8 +126,7 @@ namespace VLS.BatchExportNet.Views.Base
             set => _helpMessage = value;
         }
         private RelayCommand _helpCommand;
-        public virtual RelayCommand HelpCommand => _helpCommand ??=
-            new RelayCommand(obj => MessageBox.Show(HelpMessage, "Справка"));
+        public virtual RelayCommand HelpCommand => _helpCommand ??= new RelayCommand(obj => MessageBox.Show(HelpMessage, "Справка"));
 
         private EventHandlerBase _eventHandlerBase;
         public EventHandlerBase EventHandlerBase
@@ -139,37 +135,23 @@ namespace VLS.BatchExportNet.Views.Base
             set => _eventHandlerBase = value;
         }
         private RelayCommand _raiseEventCommand;
-        public RelayCommand RaiseEventCommand => _raiseEventCommand ??=
-            new RelayCommand(obj => _eventHandlerBase.Raise(this));
+        public RelayCommand RaiseEventCommand => _raiseEventCommand ??= new RelayCommand(obj => _eventHandlerBase.Raise(this));
         public virtual RelayCommand RadioButtonCommand { get; }
 
         private void DeleteSelectedItems(object parameter)
         {
-            List<ListBoxItem> selectedItems = ListBoxItems.Where(e => e.IsSelected).ToList();
+            ListBoxItem[] selectedItems = ListBoxItems.Where(e => e.IsSelected).ToArray();
             foreach (ListBoxItem item in selectedItems)
             {
                 ListBoxItems.Remove(item);
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "") =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-
-        public void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (!EqualityComparer<T>.Default.Equals(field, value))
-            {
-                field = value;
-                OnPropertyChanged(propertyName);
-            }
-        }
-
-        public ComboBoxItem DefaultComboBoxItem(string content) =>
+        public static ListBoxItem DefaultListBoxItem(string content) =>
             new()
             {
                 Content = content,
-                Background = Brushes.White,
+                Background = Brushes.White
             };
     }
 }

@@ -1,23 +1,21 @@
 ﻿using Autodesk.Revit.DB;
+using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using VLS.BatchExportNet.Source.EventHandlers;
 using VLS.BatchExportNet.Utils;
 using VLS.BatchExportNet.Views.Base;
-using System;
+using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.NWC
 {
     public class NWC_ViewModel : ViewModelBase_Extended, IConfigNWC
     {
         private readonly EventHandlerNWC_Batch _eventHandlerNWC_Batch;
-        public NWC_ViewModel(EventHandlerNWC_Batch eventHandlerNWC_Batch,
-                EventHandlerNWC eventHandlerNWC)
+        public NWC_ViewModel(EventHandlerNWC_Batch eventHandlerNWC_Batch, EventHandlerNWC eventHandlerNWC)
         {
             _eventHandlerNWC_Batch = eventHandlerNWC_Batch;
             EventHandlerBase = eventHandlerNWC;
@@ -39,12 +37,10 @@ namespace VLS.BatchExportNet.Views.NWC
             set => SetProperty(ref _convertElementProperties, value);
         }
 
-        private readonly IReadOnlyDictionary<NavisworksCoordinates, string> _coordinates
-            = NWC_Context.Coordinates;
+        private readonly IReadOnlyDictionary<NavisworksCoordinates, string> _coordinates = NWC_Context.Coordinates;
         public IReadOnlyDictionary<NavisworksCoordinates, string> Coordinates => _coordinates;
 
-        private KeyValuePair<NavisworksCoordinates, string> _selectedCoordinates
-            = NWC_Context.Coordinates.FirstOrDefault(e => e.Key == NavisworksCoordinates.Shared);
+        private KeyValuePair<NavisworksCoordinates, string> _selectedCoordinates = NWC_Context.Coordinates.FirstOrDefault(e => e.Key == NavisworksCoordinates.Shared);
         public KeyValuePair<NavisworksCoordinates, string> SelectedCoordinates
         {
             get => _selectedCoordinates;
@@ -107,12 +103,9 @@ namespace VLS.BatchExportNet.Views.NWC
             set => SetProperty(ref _findMissingMaterials, value);
         }
 
-        private readonly IReadOnlyDictionary<NavisworksParameters, string> _parameters
-            = NWC_Context.Parameters;
+        private readonly IReadOnlyDictionary<NavisworksParameters, string> _parameters = NWC_Context.Parameters;
+        private KeyValuePair<NavisworksParameters, string> _selectedParameters = NWC_Context.Parameters.FirstOrDefault(e => e.Key == NavisworksParameters.All);
         public IReadOnlyDictionary<NavisworksParameters, string> Parameters => _parameters;
-
-        private KeyValuePair<NavisworksParameters, string> _selectedParameters
-            = NWC_Context.Parameters.FirstOrDefault(e => e.Key == NavisworksParameters.All);
         public KeyValuePair<NavisworksParameters, string> SelectedParameters
         {
             get => _selectedParameters;
@@ -172,9 +165,10 @@ namespace VLS.BatchExportNet.Views.NWC
 
             IEnumerable<string> files = form.Files
                 .Where(f => !string.IsNullOrWhiteSpace(f) &&
-                    !f.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase));
+                    f.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase))
+                .Distinct();
 
-            ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultComboBoxItem));
+            ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
 
             ConvertLights = form.ConvertLights;
             ConvertLinkedCADFormats = form.ConvertLinkedCADFormats;
@@ -214,8 +208,7 @@ namespace VLS.BatchExportNet.Views.NWC
             FolderPath = FolderPath,
             NamePrefix = NamePrefix,
             NamePostfix = NamePostfix,
-            WorksetPrefixes = WorksetPrefix
-                .Split(';')
+            WorksetPrefixes = WorksetPrefix.Split(';')
                 .Select(e => e.Trim())
                 .ToArray(),
             ConvertLights = ConvertLights,
@@ -224,7 +217,7 @@ namespace VLS.BatchExportNet.Views.NWC
 
             Files = ListBoxItems
                 .Select(cont => cont.Content.ToString() ?? string.Empty)
-                .ToList()
+                .ToArray()
         };
 
         private ObservableCollection<string> _configs = [];
@@ -246,12 +239,11 @@ namespace VLS.BatchExportNet.Views.NWC
                 configs.Where(e => !Configs.Any(c => c == e) && e.EndsWith(".json")));
 
             if (!Configs.Any())
-                MessageBox.Show("В текстовом файле не было найдено подходящей информации");
+                MessageBox.Show(NO_FILES);
         }
 
         private RelayCommand _raiseBatchEventCommand;
-        public RelayCommand RaiseBatchEventCommand => _raiseBatchEventCommand ??=
-            new RelayCommand(obj => _eventHandlerNWC_Batch.Raise(this));
+        public RelayCommand RaiseBatchEventCommand => _raiseBatchEventCommand ??= new RelayCommand(obj => _eventHandlerNWC_Batch.Raise(this));
 
         NavisworksParameters IConfigNWC.Parameters => _selectedParameters.Key;
         NavisworksCoordinates IConfigNWC.Coordinates => _selectedCoordinates.Key;
