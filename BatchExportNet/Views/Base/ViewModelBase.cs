@@ -97,6 +97,10 @@ namespace VLS.BatchExportNet.Views.Base
 
         private RelayCommand _deleteCommand;
         public virtual RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(DeleteSelectedItems);
+        private void DeleteSelectedItems(object parameter) => ListBoxItems
+            .Where(e => e.IsSelected)
+            .ToList()
+            .ForEach(item => ListBoxItems.Remove(item));
 
         private RelayCommand _eraseCommand;
         public virtual RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(obj => ListBoxItems.Clear());
@@ -137,11 +141,6 @@ namespace VLS.BatchExportNet.Views.Base
         private RelayCommand _raiseEventCommand;
         public RelayCommand RaiseEventCommand => _raiseEventCommand ??= new RelayCommand(obj => _eventHandlerBase.Raise(this));
         public virtual RelayCommand RadioButtonCommand { get; }
-
-        private void DeleteSelectedItems(object parameter) => ListBoxItems
-            .Where(e => e.IsSelected)
-            .ToList()
-            .ForEach(item => ListBoxItems.Remove(item));
 
         public static ListBoxItem DefaultListBoxItem(string content) =>
             new()

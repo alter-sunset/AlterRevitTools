@@ -22,11 +22,11 @@ namespace VLS.BatchExportNet.Source.EventHandlers
 
             DateTime timeStart = DateTime.Now;
 
-            foreach (string config in nwcViewModel.Configs)
+            foreach (Config config in nwcViewModel.Configs)
             {
                 try
                 {
-                    using FileStream file = File.OpenRead(config);
+                    using FileStream file = File.OpenRead(config.Name);
                     NWCForm form = JsonSerializer.Deserialize<NWCForm>(file);
                     nwcViewModel.NWCFormDeserilaizer(form);
                 }

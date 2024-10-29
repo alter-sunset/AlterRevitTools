@@ -220,8 +220,8 @@ namespace VLS.BatchExportNet.Views.NWC
                 .ToArray()
         };
 
-        private ObservableCollection<string> _configs = [];
-        public ObservableCollection<string> Configs
+        private ObservableCollection<Config> _configs = [];
+        public ObservableCollection<Config> Configs
         {
             get => _configs;
             set => SetProperty(ref _configs, value);
@@ -235,8 +235,9 @@ namespace VLS.BatchExportNet.Views.NWC
             if (openFileDialog.ShowDialog() != DialogResult.OK) return;
 
             IEnumerable<string> configs = File.ReadLines(openFileDialog.FileName);
-            Configs = new ObservableCollection<string>(
-                configs.Where(e => !Configs.Any(c => c == e) && e.EndsWith(".json")));
+            Configs = new ObservableCollection<Config>(
+                configs.Where(e => e.EndsWith(".json") && File.Exists(e))
+                .Select(e => new Config(e)));
 
             if (!Configs.Any())
                 MessageBox.Show(NO_FILES);
@@ -247,5 +248,32 @@ namespace VLS.BatchExportNet.Views.NWC
 
         NavisworksParameters IConfigNWC.Parameters => _selectedParameters.Key;
         NavisworksCoordinates IConfigNWC.Coordinates => _selectedCoordinates.Key;
+
+        private RelayCommand _deleteCommand;
+        public override RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(DeleteSelectedItems);
+        private void DeleteSelectedItems(object parameter)
+        {
+            ListBoxItems
+                .Where(e => e.IsSelected)
+                .ToList()
+                .ForEach(item => ListBoxItems.Remove(item));
+            Configs
+                .Where(e => e.IsSelected)
+                .ToList()
+                .ForEach(e => Configs.Remove(e));
+        }
+    }
+
+    public class Config(string name) : NotifyPropertyChanged, ISelectable
+    {
+        private readonly string _name = name;
+        public string Name => _name;
+
+        private bool _isSelected;
+        public bool IsSelected
+        {
+            get => _isSelected;
+            set => SetProperty(ref _isSelected, value);
+        }
     }
 }

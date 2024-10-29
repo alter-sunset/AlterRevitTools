@@ -329,8 +329,10 @@
                  Grid.Column="1"
                  Grid.ColumnSpan="3"
                  ToolTip="Список файлов конфигураций"
-                 ItemsSource="{Binding Configs}">
-        </ListBox>
+                 SelectionMode="Extended"
+                 SelectionChanged="ListBox_SelectionChanged"
+                 ItemsSource="{Binding Configs}"
+                 DisplayMemberPath="Name"/>
         <Button Margin="10"
                 Grid.Row="13"
                 Grid.Column="0"

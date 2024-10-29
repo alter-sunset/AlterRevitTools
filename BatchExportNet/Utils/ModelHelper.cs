@@ -11,7 +11,6 @@ namespace VLS.BatchExportNet.Utils
 {
     public static class ModelHelper
     {
-        private const string ERR = "Ошибка";
         /// <summary>
         /// Get WorksetConfiguration with closed worksets that match given prefixes
         /// </summary>
@@ -25,7 +24,7 @@ namespace VLS.BatchExportNet.Utils
                 .Select(wp => wp.Id)
                 .ToList();
 
-            if (worksetIds.Count != 0)
+            if (worksetIds.Count > 0)
                 worksetConfiguration.Close(worksetIds);
             return worksetConfiguration;
         }
@@ -164,12 +163,13 @@ namespace VLS.BatchExportNet.Utils
                         .ToHashSet();
 
                     previousCount = unusedElements.Count;
-
                     if (previousCount == 0) break;
 
                     using Transaction transaction = new(doc, "Purge unused");
                     transaction.Start();
+
                     doc.Delete(unusedElements);
+
                     transaction.Commit();
                 } while (previousCount > 0);
             }
@@ -177,27 +177,27 @@ namespace VLS.BatchExportNet.Utils
         }
         public static void RemoveEmptyWorksets(this Document document)
         {
-            ICollection<WorksetId> worksets = new FilteredWorksetCollector(document)
-                    .OfKind(WorksetKind.UserWorkset)
-                    .ToWorksetIds();
+            DeleteWorksetSettings settings = new();
+            List<WorksetId> worksets = new FilteredWorksetCollector(document)
+                .OfKind(WorksetKind.UserWorkset)
+                .ToWorksetIds()
+                .Where(document.IsWorksetEmpty)
+                .ToList();
 
             using Transaction transaction = new(document);
             transaction.Start("Remove empty worksets");
-            DeleteWorksetSettings settings = new();
 
-            worksets.Where(document.NoElementsInWorkset)
-                .ToList()
-                .ForEach(workset => WorksetTable.DeleteWorkset(document, workset, settings));
+            worksets.ForEach(workset => WorksetTable.DeleteWorkset(document, workset, settings));
+
             transaction.Commit();
         }
-        private static bool NoElementsInWorkset(this Document document, WorksetId workset) =>
+        private static bool IsWorksetEmpty(this Document document, WorksetId workset) =>
             !new FilteredElementCollector(document)
                 .WherePasses(new ElementWorksetFilter(workset)).Any();
 
-
         public static void YesNoTaskDialog(string message, Action action)
         {
-            TaskDialogResult result = TaskDialog.Show(ERR, message, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
+            TaskDialogResult result = TaskDialog.Show("Ошибка", message, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
             if (result is TaskDialogResult.Yes)
                 action?.Invoke();
         }
