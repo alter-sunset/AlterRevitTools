@@ -52,15 +52,22 @@
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="660" />
+                            <ColumnDefinition Width="510" />
+                            <ColumnDefinition Width="150"/>
                             <ColumnDefinition Width="70" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{Binding Name}" Grid.Column="0"/>
                         <ComboBox
+                            Margin="10,0,10,0"
+                            Grid.Column="1"
+                            SelectedItem="{Binding SelectedWorkset, Mode=TwoWay}"
+                            ItemsSource="{Binding Worksets}"
+                            DisplayMemberPath="Name"/>
+                        <ComboBox
                             Width="70"
                             SelectedItem="{Binding SelectedImportPlacement, Mode=TwoWay}"
                             ItemsSource="{Binding ImportPlacements}"
-                            Grid.Column="1"/>
+                            Grid.Column="2"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>

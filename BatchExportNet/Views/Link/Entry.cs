@@ -1,23 +1,24 @@
 ﻿using Autodesk.Revit.DB;
-using System.ComponentModel;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Linq;
 using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Views.Link
 {
-    public class Entry : ISelectableEntry, INotifyPropertyChanged
+    public class Entry : NotifyPropertyChanged, ISelectable
     {
-        private string _name;
-        private ImportPlacement _selectedImportPlacement;
         private readonly LinkViewModel _viewModel;
-        public bool IsUpdating;
-
-        public string Name
+        public Entry(LinkViewModel viewModel, string name)
         {
-            get => _name;
-            set => SetProperty(ref _name, value);
+            _viewModel = viewModel;
+            ImportPlacements = LinkViewModel.ImportPlacements;
+            SelectedImportPlacement = ImportPlacement.Shared;
+            Worksets = _viewModel.Worksets;
+            SelectedWorkset = Worksets.FirstOrDefault();
+            _name = name;
         }
+
+        private readonly string _name;
+        public string Name => _name;
 
         private bool _isSelected;
         public bool IsSelected
@@ -26,6 +27,8 @@ namespace VLS.BatchExportNet.Views.Link
             set => SetProperty(ref _isSelected, value);
         }
 
+        public ImportPlacement[] ImportPlacements { get; set; }
+        private ImportPlacement _selectedImportPlacement;
         public ImportPlacement SelectedImportPlacement
         {
             get => _selectedImportPlacement;
@@ -35,35 +38,23 @@ namespace VLS.BatchExportNet.Views.Link
 
                 SetProperty(ref _selectedImportPlacement, value);
                 if (IsSelected)
-                    _viewModel.UpdateSelectedEntries(this);
+                    _viewModel.UpdateSelectedEntries(this, false);
             }
         }
 
-        public ImportPlacement[] ImportPlacements { get; set; }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string propertyName)
+        public Workset[] Worksets { get; set; }
+        private Workset _selectedWorkset;
+        public Workset SelectedWorkset
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+            get => _selectedWorkset;
+            set
+            {
+                if (_selectedWorkset == value) return;
 
-        public Entry(LinkViewModel viewModel, string name)
-        {
-            _viewModel = viewModel;
-            ImportPlacements = LinkViewModel.ImportPlacements;
-            SelectedImportPlacement = ImportPlacement.Shared;
-            Name = name;
-        }
-        public void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (value is string stringValue)
-                value = (T)(object)stringValue.Trim();
-
-            if (EqualityComparer<T>.Default.Equals(field, value)) return;
-
-            field = value;
-            OnPropertyChanged(propertyName);
+                SetProperty(ref _selectedWorkset, value);
+                if (IsSelected)
+                    _viewModel.UpdateSelectedEntries(this, true);
+            }
         }
     }
 }

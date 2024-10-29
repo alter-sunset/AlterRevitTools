@@ -1,6 +1,6 @@
 ﻿namespace VLS.BatchExportNet.Views.Base
 {
-    public interface ISelectableEntry
+    public interface ISelectable
     {
         public bool IsSelected { get; set; }
     }

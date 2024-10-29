@@ -12,11 +12,11 @@ namespace VLS.BatchExportNet.Source
     }
     static class ExternalCommandWrapper
     {
-        internal static Result Execute(ref string message, Forms form)
+        internal static Result Execute(ref string message, Forms form, UIApplication uiApp = null)
         {
             try
             {
-                form.ShowForm();
+                form.ShowForm(uiApp);
                 return Result.Succeeded;
             }
             catch (Exception ex)
@@ -65,6 +65,6 @@ namespace VLS.BatchExportNet.Source
     public class LinkModels : IExternalCommand
     {
         public virtual Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements) =>
-            ExternalCommandWrapper.Execute(ref message, Forms.Link);
+            ExternalCommandWrapper.Execute(ref message, Forms.Link, commandData.Application);
     }
 }

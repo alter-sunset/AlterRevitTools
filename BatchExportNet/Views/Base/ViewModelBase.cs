@@ -1,18 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Media;
+using System.Windows.Controls;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using VLS.BatchExportNet.Source.EventHandlers;
 
 namespace VLS.BatchExportNet.Views.Base
 {
-    public class ViewModelBase() : INotifyPropertyChanged, IConfigBase
+    public class ViewModelBase() : NotifyPropertyChanged, IConfigBase
     {
         public const string NO_FILES = "В текстовом файле не было найдено подходящей информации";
         private ObservableCollection<ListBoxItem> _listBoxItems = [];
@@ -147,21 +145,6 @@ namespace VLS.BatchExportNet.Views.Base
             {
                 ListBoxItems.Remove(item);
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        public void OnPropertyChanged([CallerMemberName] string prop = "") =>
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
-
-        public void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (value is string stringValue)
-                value = (T)(object)stringValue.Trim();
-
-            if (EqualityComparer<T>.Default.Equals(field, value)) return;
-
-            field = value;
-            OnPropertyChanged(propertyName);
         }
 
         public static ListBoxItem DefaultListBoxItem(string content) =>

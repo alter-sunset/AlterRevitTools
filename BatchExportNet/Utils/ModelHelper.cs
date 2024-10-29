@@ -125,7 +125,7 @@ namespace VLS.BatchExportNet.Utils
 
             if (typeId is null || levelId is null) return;
 
-            using Transaction t = new(doc, "Open Worksets");
+            using Transaction t = new(doc, "Open _worksets");
             t.Start();
 
             // Create a temporary cable tray

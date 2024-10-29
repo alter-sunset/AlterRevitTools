@@ -12,8 +12,9 @@ namespace VLS.BatchExportNet.Views.Link
 {
     public class LinkViewModel : ViewModelBase
     {
-        public LinkViewModel(EventHandlerLink eventHandlerLink)
+        public LinkViewModel(EventHandlerLink eventHandlerLink, Workset[] worksets)
         {
+            Worksets = worksets;
             EventHandlerBase = eventHandlerLink;
             HelpMessage =
                 Help.GetHelpDictionary().
@@ -23,7 +24,7 @@ namespace VLS.BatchExportNet.Views.Link
                     HelpMessageType.Start);
         }
 
-        private bool _isCurrentWorkset = true;
+        private bool _isCurrentWorkset = false;
         public bool IsCurrentWorkset
         {
             get => _isCurrentWorkset;
@@ -36,6 +37,7 @@ namespace VLS.BatchExportNet.Views.Link
                 ImportPlacement.Origin,
                 ImportPlacement.Shared
             ];
+        public readonly Workset[] Worksets;
 
         private ObservableCollection<Entry> _entries = [];
         public ObservableCollection<Entry> Entries
@@ -50,11 +52,14 @@ namespace VLS.BatchExportNet.Views.Link
             get => _selectedEntry;
             set => SetProperty(ref _selectedEntry, value);
         }
-        public void UpdateSelectedEntries(Entry sourceEntry)
+        public void UpdateSelectedEntries(Entry sourceEntry, bool isWorkset)
         {
             foreach (Entry entry in Entries.Where(e => e != sourceEntry && e.IsSelected))
             {
-                entry.SelectedImportPlacement = sourceEntry.SelectedImportPlacement;
+                if (isWorkset)
+                    entry.SelectedWorkset = sourceEntry.SelectedWorkset;
+                else
+                    entry.SelectedImportPlacement = sourceEntry.SelectedImportPlacement;
             }
         }
         private RelayCommand _loadListCommand;
