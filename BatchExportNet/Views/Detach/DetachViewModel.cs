@@ -25,7 +25,8 @@ namespace VLS.BatchExportNet.Views.Detach
             set => SetProperty(ref _radioButtonMode, value);
         }
         private RelayCommand _radioButtonCommand;
-        public override RelayCommand RadioButtonCommand => _radioButtonCommand ??= new RelayCommand(RB_Command);
+        public override RelayCommand RadioButtonCommand =>
+            _radioButtonCommand ??= new RelayCommand(RB_Command);
         private void RB_Command(object parameter)
         {
             switch ((string)parameter)

@@ -1,5 +1,5 @@
-﻿using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.DB;
+﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.ApplicationServices;
 using System.IO;
 using System.Linq;
 using VLS.BatchExportNet.Utils;
@@ -8,23 +8,23 @@ namespace VLS.BatchExportNet.Views.Detach
 {
     public static class DetachHelper
     {
-        public static void DetachModel(this IConfigDetach iConfigDetach, Application application, string filePath)
+        public static void DetachModel(this IConfigDetach iConfigDetach, Application app, string filePath)
         {
             try
             {
-                (Document document, bool isWorkshared) = OpenDocument(application, filePath);
-                if (document is null) return;
+                (Document doc, bool isWorkshared) = OpenDocument(app, filePath);
+                if (doc is null) return;
 
-                ProcessDocument(document, iConfigDetach);
-                string fileDetachedPath = GetDetachedFilePath(iConfigDetach, document, filePath);
-                SaveDocument(document, fileDetachedPath, isWorkshared);
-                Cleanup(document, fileDetachedPath, isWorkshared);
+                ProcessDocument(doc, iConfigDetach);
+                string fileDetachedPath = GetDetachedFilePath(iConfigDetach, doc, filePath);
+                SaveDocument(doc, fileDetachedPath, isWorkshared);
+                Cleanup(doc, fileDetachedPath, isWorkshared);
             }
             catch { }
         }
-        private static (Document, bool) OpenDocument(Application application, string filePath)
+        private static (Document, bool) OpenDocument(Application app, string filePath)
         {
-            Document document = null;
+            Document doc = null;
             bool isWorkshared = false;
 
             try
@@ -32,37 +32,37 @@ namespace VLS.BatchExportNet.Views.Detach
                 BasicFileInfo fileInfo = BasicFileInfo.Extract(filePath);
                 if (!fileInfo.IsWorkshared)
                 {
-                    document = application.OpenDocumentFile(filePath);
+                    doc = app.OpenDocumentFile(filePath);
                 }
                 else
                 {
                     ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
                     WorksetConfiguration worksetConfig = new(WorksetConfigurationOption.CloseAllWorksets);
-                    document = modelPath.OpenDetached(application, worksetConfig);
+                    doc = modelPath.OpenDetached(app, worksetConfig);
                     isWorkshared = true;
                 }
             }
             catch { }
 
-            return (document, isWorkshared);
+            return (doc, isWorkshared);
         }
-        private static void ProcessDocument(Document document, IConfigDetach iConfigDetach)
+        private static void ProcessDocument(Document doc, IConfigDetach iConfigDetach)
         {
-            document.DeleteAllLinks();
+            doc.DeleteAllLinks();
 
-            if (iConfigDetach.RemoveEmptyWorksets && document.IsWorkshared)
-                document.RemoveEmptyWorksets();
+            if (iConfigDetach.RemoveEmptyWorksets && doc.IsWorkshared)
+                doc.RemoveEmptyWorksets();
 
             if (iConfigDetach.Purge)
-                document.PurgeAll();
+                doc.PurgeAll();
         }
-        private static string GetDetachedFilePath(IConfigDetach iConfigDetach, Document document, string originalFilePath)
+        private static string GetDetachedFilePath(IConfigDetach iConfigDetach, Document doc, string originalFilePath)
         {
-            string documentTitle = document.Title
+            string docTitle = doc.Title
                 .Replace("_detached", "")
                 .Replace("_отсоединено", "");
 
-            string fileDetachedPath = Path.Combine(iConfigDetach.FolderPath, $"{documentTitle}.rvt");
+            string fileDetachedPath = Path.Combine(iConfigDetach.FolderPath, $"{docTitle}.rvt");
 
             if (iConfigDetach is DetachViewModel detachViewModel && detachViewModel.RadioButtonMode == 2)
                 fileDetachedPath = RenamePath(originalFilePath,
@@ -75,29 +75,29 @@ namespace VLS.BatchExportNet.Views.Detach
                     iConfigDetach.MaskInName, iConfigDetach.MaskOutName);
 
             if (iConfigDetach.CheckForEmptyView)
-                CheckAndModifyForEmptyView(document, iConfigDetach, ref fileDetachedPath);
+                CheckAndModifyForEmptyView(doc, iConfigDetach, ref fileDetachedPath);
 
             return fileDetachedPath;
         }
 
-        private static void CheckAndModifyForEmptyView(Document document, IConfigDetach iConfigDetach, ref string fileDetachedPath)
+        private static void CheckAndModifyForEmptyView(Document doc, IConfigDetach iConfigDetach, ref string fileDetachedPath)
         {
-            document.OpenAllWorksets();
+            doc.OpenAllWorksets();
             try
             {
                 string onlyTitle = Path.GetFileNameWithoutExtension(fileDetachedPath);
                 string folder = Path.GetDirectoryName(fileDetachedPath);
                 string extension = Path.GetExtension(fileDetachedPath);
-                Element view = new FilteredElementCollector(document)
+                Element view = new FilteredElementCollector(doc)
                     .OfClass(typeof(View3D))
                     .FirstOrDefault(e => e.Name == iConfigDetach.ViewName && !((View3D)e).IsTemplate);
 
-                if (view is not null && document.IsViewEmpty(view))
+                if (view is not null && doc.IsViewEmpty(view))
                     fileDetachedPath = RenamePath(fileDetachedPath, RenameType.Empty);
             }
             catch { }
         }
-        private static void SaveDocument(Document document, string fileDetachedPath, bool isWorkshared)
+        private static void SaveDocument(Document doc, string fileDetachedPath, bool isWorkshared)
         {
             SaveAsOptions saveOptions = new()
             {
@@ -114,18 +114,18 @@ namespace VLS.BatchExportNet.Views.Detach
             try
             {
                 ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(fileDetachedPath);
-                document.SaveAs(modelPath, saveOptions);
+                doc.SaveAs(modelPath, saveOptions);
             }
             catch { }
         }
-        private static void Cleanup(Document document, string fileDetachedPath, bool isWorkshared)
+        private static void Cleanup(Document doc, string fileDetachedPath, bool isWorkshared)
         {
             try
             {
-                document.FreeTheModel();
+                doc.FreeTheModel();
             }
             catch { }
-            document?.Close();
+            doc?.Close();
             if (isWorkshared)
             {
                 ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(fileDetachedPath);
@@ -141,11 +141,11 @@ namespace VLS.BatchExportNet.Views.Detach
         }
         private static void UpdateTransmissionData(ModelPath modelPath)
         {
-            TransmissionData transmissionData = TransmissionData.ReadTransmissionData(modelPath);
-            if (transmissionData is not null)
+            TransmissionData transData = TransmissionData.ReadTransmissionData(modelPath);
+            if (transData is not null)
             {
-                transmissionData.IsTransmitted = true;
-                TransmissionData.WriteTransmissionData(modelPath, transmissionData);
+                transData.IsTransmitted = true;
+                TransmissionData.WriteTransmissionData(modelPath, transData);
             }
         }
         private static string RenamePath(string filePath, RenameType renameType, string maskIn = "", string maskOut = "")

@@ -9,9 +9,9 @@ namespace VLS.DriveFromOutside.Events.NWC
     {
         public override void Execute(UIApplication uiApp, NWC_Config nwc_Config)
         {
-            Logger logger = new(nwc_Config.FolderPath);
+            Logger log = new(nwc_Config.FolderPath);
             NWCHelper nwcHelper = new();
-            nwcHelper.BatchExportModels(nwc_Config, uiApp, ref logger);
+            nwcHelper.BatchExportModels(nwc_Config, uiApp, ref log);
         }
     }
 }

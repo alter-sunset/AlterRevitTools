@@ -1,5 +1,4 @@
 ﻿using Autodesk.Revit.DB;
-using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -36,7 +35,8 @@ namespace VLS.BatchExportNet.Views.IFC
         public string FamilyMappingFile => _mapping;
 
         private RelayCommand _loadMappingCommand;
-        public RelayCommand LoadMappingCommand => _loadMappingCommand ??= new RelayCommand(obj => LoadMapping());
+        public RelayCommand LoadMappingCommand =>
+            _loadMappingCommand ??= new RelayCommand(obj => LoadMapping());
         private void LoadMapping()
         {
             using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
@@ -67,7 +67,8 @@ namespace VLS.BatchExportNet.Views.IFC
         }
 
         private RelayCommand _loadListCommand;
-        public override RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(obj => LoadList());
+        public override RelayCommand LoadListCommand =>
+            _loadListCommand ??= new RelayCommand(obj => LoadList());
         private void LoadList()
         {
             OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
@@ -92,16 +93,14 @@ namespace VLS.BatchExportNet.Views.IFC
             ViewName = form.ViewName;
             SelectedLevel = _spaceBoundaryLevels.FirstOrDefault(e => e.Key == form.SpaceBoundaryLevel);
 
-            IEnumerable<string> files = form.Files
-                .Where(f => !string.IsNullOrWhiteSpace(f) &&
-                    f.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase))
-                .Distinct();
+            IEnumerable<string> files = form.Files.FilterRevitFiles();
 
             ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
         }
 
         private RelayCommand _saveListCommand;
-        public override RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(obj => SaveList());
+        public override RelayCommand SaveListCommand =>
+            _saveListCommand ??= new RelayCommand(obj => SaveList());
         private void SaveList()
         {
             using IFCForm form = IFCFormSerializer();

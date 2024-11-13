@@ -1,9 +1,9 @@
 ﻿using Autodesk.Revit.UI;
 using System;
 using System.IO;
-using System.Text.Json;
-using System.Threading;
 using System.Windows;
+using System.Threading;
+using System.Text.Json;
 using VLS.BatchExportNet.Utils;
 using VLS.BatchExportNet.Views.Base;
 using VLS.BatchExportNet.Views.NWC;
@@ -34,10 +34,10 @@ namespace VLS.BatchExportNet.Source.EventHandlers
                 {
                     continue;
                 }
-                Logger logger = new(nwcViewModel.FolderPath);
+                Logger log = new(nwcViewModel.FolderPath);
 
                 NWCHelper nwcHelper = new();
-                nwcHelper.BatchExportModels(nwcViewModel, uiApp, ref logger);
+                nwcHelper.BatchExportModels(nwcViewModel, uiApp, ref log);
 
                 Thread.Sleep(1000);
 

@@ -10,7 +10,7 @@ namespace VLS.DriveFromOutside.Events.Transmit
     {
         public override void Execute(UIApplication uiApp, TransmitConfig transmitConfig)
         {
-            using Application application = uiApp.Application;
+            using Application app = uiApp.Application;
 
             foreach (string file in transmitConfig.Files)
             {

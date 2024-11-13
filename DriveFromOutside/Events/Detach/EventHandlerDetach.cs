@@ -10,14 +10,14 @@ namespace VLS.DriveFromOutside.Events.Detach
     {
         public override void Execute(UIApplication uiApp, IConfigDetach iDetachConfig)
         {
-            using Application application = uiApp.Application;
+            using Application app = uiApp.Application;
 
             string[] files = iDetachConfig.Files;
             foreach (string file in files)
             {
-                using ErrorSwallower errorSwallower = new(uiApp, application);
+                using ErrorSwallower errorSwallower = new(uiApp, app);
                 if (!File.Exists(file)) continue;
-                iDetachConfig.DetachModel(application, file);
+                iDetachConfig.DetachModel(app, file);
             }
         }
     }

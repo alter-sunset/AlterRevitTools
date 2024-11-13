@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
-using VLS.BatchExportNet.Views.Base;
 using VLS.BatchExportNet.Source.EventHandlers;
+using VLS.BatchExportNet.Views.Base;
 
 namespace VLS.BatchExportNet.Views.Migrate
 {
@@ -22,7 +22,8 @@ namespace VLS.BatchExportNet.Views.Migrate
         }
 
         private RelayCommand _loadListCommand;
-        public override RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(obj => LoadList());
+        public override RelayCommand LoadListCommand =>
+            _loadListCommand ??= new RelayCommand(obj => LoadList());
         private void LoadList()
         {
             OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();

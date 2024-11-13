@@ -10,8 +10,8 @@ namespace VLS.BatchExportNet.Views.Link
 {
     internal static class LinkHelper
     {
-        public static RevitLinkOptions RevitLinkOptions => new(false);
         private const string DIFF_COORD = "Обнаружено различие систем координат. Выполнить получение коордианат из файла?";
+        public static RevitLinkOptions RevitLinkOptions => new(false);
         internal static void CreateLinks(this LinkViewModel linkViewModel, UIApplication uiApp)
         {
             Document doc = uiApp.ActiveUIDocument.Document;

@@ -1,17 +1,17 @@
-﻿using System;
+﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
+using System;
+using System.Linq;
 using System.Windows;
 using System.Collections.Generic;
 using VLS.BatchExportNet.Source;
+using VLS.BatchExportNet.Source.EventHandlers;
 using VLS.BatchExportNet.Views.IFC;
 using VLS.BatchExportNet.Views.NWC;
 using VLS.BatchExportNet.Views.Link;
 using VLS.BatchExportNet.Views.Detach;
 using VLS.BatchExportNet.Views.Migrate;
 using VLS.BatchExportNet.Views.Transmit;
-using VLS.BatchExportNet.Source.EventHandlers;
-using Autodesk.Revit.UI;
-using Autodesk.Revit.DB;
-using System.Linq;
 
 namespace VLS.BatchExportNet.Utils
 {

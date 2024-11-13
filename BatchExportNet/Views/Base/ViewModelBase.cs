@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using System.Windows.Media;
@@ -7,6 +6,7 @@ using System.Windows.Controls;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using VLS.BatchExportNet.Source.EventHandlers;
+using VLS.BatchExportNet.Utils;
 
 namespace VLS.BatchExportNet.Views.Base
 {
@@ -49,10 +49,7 @@ namespace VLS.BatchExportNet.Views.Base
             using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
             if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
-            IEnumerable<string> files = File.ReadLines(openFileDialog.FileName)
-                .Distinct()
-                .Where(f => !string.IsNullOrWhiteSpace(f) &&
-                    f.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase));
+            IEnumerable<string> files = File.ReadLines(openFileDialog.FileName).FilterRevitFiles();
 
             ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
 
@@ -96,14 +93,16 @@ namespace VLS.BatchExportNet.Views.Base
         }
 
         private RelayCommand _deleteCommand;
-        public virtual RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(DeleteSelectedItems);
+        public virtual RelayCommand DeleteCommand =>
+            _deleteCommand ??= new RelayCommand(DeleteSelectedItems);
         private void DeleteSelectedItems(object parameter) => ListBoxItems
             .Where(e => e.IsSelected)
             .ToList()
             .ForEach(item => ListBoxItems.Remove(item));
 
         private RelayCommand _eraseCommand;
-        public virtual RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(obj => ListBoxItems.Clear());
+        public virtual RelayCommand EraseCommand =>
+            _eraseCommand ??= new RelayCommand(obj => ListBoxItems.Clear());
 
         private string _folderPath;
         public string FolderPath
@@ -113,7 +112,8 @@ namespace VLS.BatchExportNet.Views.Base
         }
 
         private RelayCommand _browseFolderCommand;
-        public virtual RelayCommand BrowseFolderCommand => _browseFolderCommand ??= new RelayCommand(obj => BrowseFolder());
+        public virtual RelayCommand BrowseFolderCommand =>
+            _browseFolderCommand ??= new RelayCommand(obj => BrowseFolder());
         private void BrowseFolder()
         {
             FolderBrowserDialog folderBrowserDialog = new() { SelectedPath = FolderPath };
@@ -130,7 +130,8 @@ namespace VLS.BatchExportNet.Views.Base
             set => _helpMessage = value;
         }
         private RelayCommand _helpCommand;
-        public virtual RelayCommand HelpCommand => _helpCommand ??= new RelayCommand(obj => MessageBox.Show(HelpMessage, "Справка"));
+        public virtual RelayCommand HelpCommand =>
+            _helpCommand ??= new RelayCommand(obj => MessageBox.Show(HelpMessage, "Справка"));
 
         private EventHandlerBase _eventHandlerBase;
         public EventHandlerBase EventHandlerBase
@@ -139,7 +140,8 @@ namespace VLS.BatchExportNet.Views.Base
             set => _eventHandlerBase = value;
         }
         private RelayCommand _raiseEventCommand;
-        public RelayCommand RaiseEventCommand => _raiseEventCommand ??= new RelayCommand(obj => _eventHandlerBase.Raise(this));
+        public RelayCommand RaiseEventCommand =>
+            _raiseEventCommand ??= new RelayCommand(obj => _eventHandlerBase.Raise(this));
         public virtual RelayCommand RadioButtonCommand { get; }
 
         public static ListBoxItem DefaultListBoxItem(string content) =>

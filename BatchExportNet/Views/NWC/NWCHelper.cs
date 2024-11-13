@@ -7,16 +7,16 @@ namespace VLS.BatchExportNet.Views.NWC
 {
     public class NWCHelper : ExportHelperBase
     {
-        public override void ExportModel(IConfigBase_Extended iConfig, Document document, ref bool isFuckedUp, ref Logger logger)
+        public override void ExportModel(IConfigBase_Extended iConfig, Document doc, ref bool isFuckedUp, ref Logger log)
         {
             IConfigNWC configNWC = iConfig as IConfigNWC;
-            if (IsViewEmpty(iConfig, document, ref logger, ref isFuckedUp)) return;
+            if (IsViewEmpty(iConfig, doc, ref log, ref isFuckedUp)) return;
 
-            NavisworksExportOptions navisworksExportOptions = NWC_ExportOptions(configNWC, document);
+            NavisworksExportOptions navisExportOptions = NWC_ExportOptions(configNWC, doc);
 
-            Export(iConfig, document, navisworksExportOptions, ref logger, ref isFuckedUp);
+            Export(iConfig, doc, navisExportOptions, ref log, ref isFuckedUp);
         }
-        private static NavisworksExportOptions NWC_ExportOptions(IConfigNWC configNWC, Document document)
+        private static NavisworksExportOptions NWC_ExportOptions(IConfigNWC configNWC, Document doc)
         {
             NavisworksExportOptions options = new()
             {
@@ -40,7 +40,7 @@ namespace VLS.BatchExportNet.Views.NWC
 
             };
             if (configNWC.ExportScopeView)
-                options.ViewId = new FilteredElementCollector(document)
+                options.ViewId = new FilteredElementCollector(doc)
                         .OfClass(typeof(View3D))
                         .FirstOrDefault(e => e.Name == configNWC.ViewName
                             && !((View3D)e).IsTemplate)

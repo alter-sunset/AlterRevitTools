@@ -1,10 +1,10 @@
 ﻿using System.Text.Json;
+using VLS.DriveFromOutside.Utils;
 using VLS.DriveFromOutside.Events;
-using VLS.DriveFromOutside.Events.Detach;
 using VLS.DriveFromOutside.Events.IFC;
 using VLS.DriveFromOutside.Events.NWC;
+using VLS.DriveFromOutside.Events.Detach;
 using VLS.DriveFromOutside.Events.Transmit;
-using VLS.DriveFromOutside.Utils;
 
 namespace VLS.DriveFromOutside
 {
@@ -29,13 +29,15 @@ namespace VLS.DriveFromOutside
         }
         public static TaskConfig GetOldestMessage()
         {
-            string[] files = [.. Directory.GetFiles(FOLDER_CONFIGS).OrderBy(File.GetLastWriteTime)];
+            string[] files = Directory.GetFiles(FOLDER_CONFIGS)
+                .OrderBy(File.GetLastWriteTime)
+                .ToArray();
 
             if (files.Length == 0) return null;
 
             using FileStream fileStream = File.OpenRead(files[0]);
-            using JsonDocument document = JsonDocument.Parse(fileStream);
-            JsonElement root = document.RootElement;
+            using JsonDocument jsonDoc = JsonDocument.Parse(fileStream);
+            JsonElement root = jsonDoc.RootElement;
 
             return new TaskConfig
             {

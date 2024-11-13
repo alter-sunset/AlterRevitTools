@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Autodesk.Revit.DB;
+﻿using Autodesk.Revit.DB;
 
 namespace VLS.BatchExportNet.Views.NWC
 {

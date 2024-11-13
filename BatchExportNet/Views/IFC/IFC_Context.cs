@@ -26,11 +26,11 @@ namespace VLS.BatchExportNet.Views.IFC
 
         private static readonly IReadOnlyDictionary<int, string> _spaceBoundaryLevels
             = new Dictionary<int, string>()
-        {
-            { 0, "Нет" },
-            { 1, "Первый уровень" },
-            { 2, "Второй уровень" }
-        };
+            {
+                { 0, "Нет" },
+                { 1, "Первый уровень" },
+                { 2, "Второй уровень" }
+            };
         public static IReadOnlyDictionary<int, string> SpaceBoundaryLevels => _spaceBoundaryLevels;
     }
 }

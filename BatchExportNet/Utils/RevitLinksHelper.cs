@@ -1,30 +1,30 @@
-﻿using System;
-using System.Windows;
-using System.Collections.Generic;
-using Autodesk.Revit.DB;
+﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using System;
 using System.IO;
 using System.Linq;
+using System.Windows;
+using System.Collections.Generic;
 
 namespace VLS.BatchExportNet.Utils
 {
     public static class RevitLinksHelper
     {
-        private const string NO_TRANS_DATA_ALERT = "The document does not have any transmission data";
+        private const string NO_TRANS_DATA_ALERT = "The document doesn't have any transmission data";
 
-        public static void DeleteRevitLinks(this Document document)
+        public static void DeleteRevitLinks(this Document doc)
         {
-            using Transaction transaction = new(document);
-            transaction.Start("Delete Revit links from model");
-            transaction.SwallowAlert();
+            using Transaction t = new(doc);
+            t.Start("Delete Revit links from model");
+            t.SwallowAlert();
 
-            List<Element> links = new FilteredElementCollector(document)
+            List<Element> links = new FilteredElementCollector(doc)
                 .OfClass(typeof(RevitLinkType))
                 .ToList();
 
-            links.ForEach(link => document.Delete(link.Id));
+            links.ForEach(link => doc.Delete(link.Id));
 
-            transaction.Commit();
+            t.Commit();
         }
         public static void UnloadRevitLinks(this ModelPath filePath, string folder, bool isSameFolder = true)
         {

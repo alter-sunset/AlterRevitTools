@@ -11,13 +11,13 @@ namespace VLS.BatchExportNet.Source.EventHandlers
         {
             if (iConfig is not NWC_ViewModel nwcViewModel || !nwcViewModel.IsEverythingFilled()) return;
 
-            Logger logger = new(nwcViewModel.FolderPath);
+            Logger log = new(nwcViewModel.FolderPath);
             NWCHelper nwcHelper = new();
 
-            nwcHelper.BatchExportModels(nwcViewModel, uiApp, ref logger);
+            nwcHelper.BatchExportModels(nwcViewModel, uiApp, ref log);
 
-            int totalFiles = logger.ErrorCount + logger.SuccessCount;
-            string msg = $"В процессе выполнения было {logger.ErrorCount} ошибок из {totalFiles} файлов.";
+            int totalFiles = log.ErrorCount + log.SuccessCount;
+            string msg = $"В процессе выполнения было {log.ErrorCount} ошибок из {totalFiles} файлов.";
             nwcViewModel.Finisher("ExportNWCFinished", msg);
         }
     }

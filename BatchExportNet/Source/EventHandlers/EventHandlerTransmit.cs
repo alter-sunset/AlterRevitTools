@@ -1,13 +1,11 @@
 ﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using Autodesk.Revit.ApplicationServices;
 using System.IO;
 using System.Windows.Media;
 using System.Windows.Controls;
-using System.Collections.Generic;
 using VLS.BatchExportNet.Utils;
-using VLS.BatchExportNet.Views.Transmit;
 using VLS.BatchExportNet.Views.Base;
+using VLS.BatchExportNet.Views.Transmit;
 
 namespace VLS.BatchExportNet.Source.EventHandlers
 {
@@ -17,7 +15,6 @@ namespace VLS.BatchExportNet.Source.EventHandlers
         {
             if (viewModelBase is not TransmitViewModel transmitViewModel || !transmitViewModel.IsEverythingFilled()) return;
 
-            using Application application = uiApp.Application;
             string folderPath = transmitViewModel.FolderPath;
             bool isSameFolder = transmitViewModel.IsSameFolder;
 

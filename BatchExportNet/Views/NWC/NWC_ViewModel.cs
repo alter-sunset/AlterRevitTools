@@ -1,5 +1,4 @@
 ﻿using Autodesk.Revit.DB;
-using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -134,7 +133,8 @@ namespace VLS.BatchExportNet.Views.NWC
         }
 
         private RelayCommand _loadListCommand;
-        public override RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
+        public override RelayCommand LoadListCommand =>
+            _loadListCommand ??= new RelayCommand(_ => LoadList());
         private void LoadList()
         {
             OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
@@ -163,10 +163,7 @@ namespace VLS.BatchExportNet.Views.NWC
             WorksetPrefix = string.Join(';', form.WorksetPrefixes);
             ExportScopeView = form.ExportScope == NavisworksExportScope.View;
 
-            IEnumerable<string> files = form.Files
-                .Where(f => !string.IsNullOrWhiteSpace(f) &&
-                    f.EndsWith(".rvt", StringComparison.OrdinalIgnoreCase))
-                .Distinct();
+            IEnumerable<string> files = form.Files.FilterRevitFiles();
 
             ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
 
@@ -178,7 +175,8 @@ namespace VLS.BatchExportNet.Views.NWC
         }
 
         private RelayCommand _saveListCommand;
-        public override RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
+        public override RelayCommand SaveListCommand =>
+            _saveListCommand ??= new RelayCommand(_ => SaveList());
         private void SaveList()
         {
             using NWCForm form = NWCFormSerializer();
@@ -228,7 +226,8 @@ namespace VLS.BatchExportNet.Views.NWC
         }
 
         private RelayCommand _loadConfigsCommand;
-        public RelayCommand LoadConfigsCommand => _loadConfigsCommand ??= new RelayCommand(_ => LoadConfig());
+        public RelayCommand LoadConfigsCommand =>
+            _loadConfigsCommand ??= new RelayCommand(_ => LoadConfig());
         private void LoadConfig()
         {
             using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
@@ -244,13 +243,15 @@ namespace VLS.BatchExportNet.Views.NWC
         }
 
         private RelayCommand _raiseBatchEventCommand;
-        public RelayCommand RaiseBatchEventCommand => _raiseBatchEventCommand ??= new RelayCommand(obj => _eventHandlerNWC_Batch.Raise(this));
+        public RelayCommand RaiseBatchEventCommand =>
+            _raiseBatchEventCommand ??= new RelayCommand(obj => _eventHandlerNWC_Batch.Raise(this));
 
         NavisworksParameters IConfigNWC.Parameters => _selectedParameters.Key;
         NavisworksCoordinates IConfigNWC.Coordinates => _selectedCoordinates.Key;
 
         private RelayCommand _deleteCommand;
-        public override RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(DeleteSelectedItems);
+        public override RelayCommand DeleteCommand =>
+            _deleteCommand ??= new RelayCommand(DeleteSelectedItems);
         private void DeleteSelectedItems(object parameter)
         {
             ListBoxItems

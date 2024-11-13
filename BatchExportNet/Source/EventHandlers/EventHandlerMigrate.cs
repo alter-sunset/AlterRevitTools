@@ -2,8 +2,8 @@
 using System.Windows;
 using System.Collections.Generic;
 using VLS.BatchExportNet.Utils;
-using VLS.BatchExportNet.Views.Migrate;
 using VLS.BatchExportNet.Views.Base;
+using VLS.BatchExportNet.Views.Migrate;
 
 namespace VLS.BatchExportNet.Source.EventHandlers
 {

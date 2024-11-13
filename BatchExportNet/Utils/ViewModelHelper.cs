@@ -3,9 +3,10 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Collections.Generic;
 using VLS.BatchExportNet.Views.Base;
-using VLS.BatchExportNet.Views.Detach;
 using VLS.BatchExportNet.Views.Link;
+using VLS.BatchExportNet.Views.Detach;
 using VLS.BatchExportNet.Views.Transmit;
 
 namespace VLS.BatchExportNet.Utils
@@ -106,5 +107,9 @@ namespace VLS.BatchExportNet.Utils
             taskDialog.Show();
             viewModel.IsViewEnabled = true;
         }
+        /// <returns>Unique files with .rvt extension</returns>
+        public static IEnumerable<string> FilterRevitFiles(this IEnumerable<string> files)
+            => files.Distinct()
+                .Where(f => !string.IsNullOrWhiteSpace(f) && Path.GetExtension(f) == ".rvt");
     }
 }

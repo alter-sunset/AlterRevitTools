@@ -24,7 +24,7 @@ namespace VLS.BatchExportNet.Views.Base
             if (iConfig is ViewModelBase_Extended viewModel)
             {
                 if (items is null) return;
-                items = [.. viewModel.ListBoxItems];
+                items = viewModel.ListBoxItems.ToArray();
                 models = items.Select(e => e.Content.ToString()).ToArray();
             }
 

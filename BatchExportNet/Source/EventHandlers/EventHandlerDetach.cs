@@ -1,6 +1,7 @@
 ﻿using Autodesk.Revit.UI;
 using Autodesk.Revit.ApplicationServices;
 using System.IO;
+using System.Linq;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
@@ -16,20 +17,20 @@ namespace VLS.BatchExportNet.Source.EventHandlers
         {
             if (viewModelBase is not DetachViewModel detachViewModel || !detachViewModel.IsEverythingFilled()) return;
 
-            List<ListBoxItem> listItems = [.. detachViewModel.ListBoxItems];
+            List<ListBoxItem> listItems = detachViewModel.ListBoxItems.ToList();
 
-            using Application application = uiApp.Application;
+            using Application app = uiApp.Application;
 
             foreach (ListBoxItem item in listItems)
             {
-                using ErrorSwallower errorSwallower = new(uiApp, application);
+                using ErrorSwallower errorSwallower = new(uiApp, app);
                 string filePath = item.Content?.ToString();
                 if (!File.Exists(filePath))
                 {
                     item.Background = Brushes.Red;
                     continue;
                 }
-                detachViewModel.DetachModel(application, filePath);
+                detachViewModel.DetachModel(app, filePath);
             }
             detachViewModel.Finisher(id: "DetachModelsFinished");
         }
