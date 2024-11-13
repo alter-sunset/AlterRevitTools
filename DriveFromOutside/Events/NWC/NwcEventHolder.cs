@@ -2,7 +2,7 @@
 
 namespace VLS.DriveFromOutside.Events.NWC
 {
-    public class NWC_EventHolder : IEventHolder
+    public class NwcEventHolder : IEventHolder
     {
         private readonly EventHandlerNWC _eventHandlerNWC = new();
         public ExternalEvents ExternalEvent => ExternalEvents.NWC;

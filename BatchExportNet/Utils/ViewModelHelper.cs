@@ -13,79 +13,93 @@ namespace VLS.BatchExportNet.Utils
 {
     static class ViewModelHelper
     {
-        internal static bool IsEverythingFilled(this DetachViewModel detachViewModel) =>
-            detachViewModel.IsListNotEmpty() &&
-            detachViewModel.IsRBModeOK() &&
-            detachViewModel.IsViewNameOK() &&
-            detachViewModel.IsMaskNameOK();
+        private const string NO_FOLDER = "Укажите папку для экспорта!";
+        private const string SHIT_FOLDER = "Укажите корректную папку для экспорта!";
+        private const string CREATE_FOLDER = "Такой папки не существует.\nСоздать папку?";
+        private const string FUCK_YOU = "Нет, так нет.\nТогда живи в проклятом мире, который сам и создал.";
+        private const string NO_FILES = "Добавьте хотя бы один файл для экспорта!";
+        private const string NO_VIEW_NAME = "Введите имя вида!";
+        private const string NO_PATH_MODE = "Выберите режим выбора пути!";
+        private const string NO_MASK_PATH = "Укажите маску замены пути!";
+        private const string SHIT_MASK = "Несоответствие входной маски и имён файлов!";
+        private const string NO_MASK_FILE = "Введите маску для переименования файлов!";
 
-        internal static bool IsEverythingFilled(this TransmitViewModel viewModel) =>
-            viewModel.IsListNotEmpty() &&
-            viewModel.IsFolderPathOK();
+        internal static bool IsEverythingFilled(this DetachViewModel detachVM) =>
+            detachVM.IsListNotEmpty()
+            && detachVM.IsRBModeOK()
+            && detachVM.IsViewNameOK()
+            && detachVM.IsMaskNameOK();
 
-        internal static bool IsEverythingFilled(this ViewModelBase_Extended viewModel) =>
-            viewModel.IsListNotEmpty() &&
-            viewModel.IsFolderPathOK() &&
-            viewModel.IsViewNameOK();
+        internal static bool IsEverythingFilled(this TransmitViewModel transmitVM) =>
+            transmitVM.IsListNotEmpty()
+            && transmitVM.IsFolderPathOK();
 
-        internal static bool IsEverythingFilled(this LinkViewModel viewModel) => viewModel.IsListNotEmpty();
+        internal static bool IsEverythingFilled(this ViewModelBase_Extended vmBaseExt) =>
+            vmBaseExt.IsListNotEmpty()
+            && vmBaseExt.IsFolderPathOK()
+            && vmBaseExt.IsViewNameOK();
 
-        private static bool IsListNotEmpty(this LinkViewModel viewModel) =>
-            CheckCondition(viewModel.Entries.Count > 0, "Добавьте хотя бы один файл для экспорта!");
-        private static bool IsListNotEmpty(this ViewModelBase viewModel) =>
-            CheckCondition(viewModel.ListBoxItems.Count > 0, "Добавьте хотя бы один файл для экспорта!");
-        private static bool IsFolderPathOK(this ViewModelBase viewModel)
+        internal static bool IsEverythingFilled(this LinkViewModel linkVM) => linkVM.IsListNotEmpty();
+
+        private static bool IsListNotEmpty(this LinkViewModel linkVM) =>
+            CheckCondition(linkVM.Entries.Count > 0, NO_FILES);
+        private static bool IsListNotEmpty(this ViewModelBase vmBase) =>
+            CheckCondition(vmBase.ListBoxItems.Count > 0, NO_FILES);
+        private static bool IsFolderPathOK(this ViewModelBase vmBase)
         {
-            string folderPath = viewModel.FolderPath;
+            string folderPath = vmBase.FolderPath;
 
             if (string.IsNullOrEmpty(folderPath))
-                return CheckCondition(false, "Укажите папку для экспорта!");
+                return CheckCondition(false, NO_FOLDER);
 
             if (Uri.IsWellFormedUriString(folderPath, UriKind.RelativeOrAbsolute))
-                return CheckCondition(false, "Укажите корректную папку для экспорта!");
+                return CheckCondition(false, SHIT_FOLDER);
 
             if (!Directory.Exists(folderPath))
             {
-                MessageBoxResult result = MessageBox.Show("Такой папки не существует.\nСоздать папку?",
+                MessageBoxResult result = MessageBox.Show(CREATE_FOLDER,
                     "Добрый вечер", MessageBoxButton.YesNo);
                 if (result is MessageBoxResult.Yes) Directory.CreateDirectory(folderPath);
 
                 else
                 {
-                    MessageBox.Show("Нет, так нет.\nТогда живи в проклятом мире, который сам и создал.");
+                    MessageBox.Show(FUCK_YOU);
                     return false;
                 }
             }
             return true;
         }
-        private static bool IsViewNameOK(this ViewModelBase_Extended viewModel) =>
-            CheckCondition(!viewModel.ExportScopeView || !string.IsNullOrEmpty(viewModel.ViewName), "Введите имя вида для экспорта!");
-        private static bool IsViewNameOK(this DetachViewModel viewModel) =>
-            CheckCondition(!viewModel.CheckForEmptyView || !string.IsNullOrEmpty(viewModel.ViewName), "Введите имя вида для проверки!");
-        private static bool IsRBModeOK(this DetachViewModel detachViewModel)
+        private static bool IsViewNameOK(this ViewModelBase_Extended vmBaseExt) =>
+            CheckCondition(!vmBaseExt.ExportScopeView
+                || !string.IsNullOrEmpty(vmBaseExt.ViewName), NO_VIEW_NAME);
+        private static bool IsViewNameOK(this DetachViewModel detachVM) =>
+            CheckCondition(!detachVM.CheckForEmptyView
+                || !string.IsNullOrEmpty(detachVM.ViewName), NO_VIEW_NAME);
+        private static bool IsRBModeOK(this DetachViewModel detachVM)
         {
-            switch (detachViewModel.RadioButtonMode)
+            switch (detachVM.RadioButtonMode)
             {
                 case 0:
-                    return CheckCondition(false, "Выберите режим выбора пути!");
+                    return CheckCondition(false, NO_PATH_MODE);
                 case 1:
-                    return detachViewModel.IsFolderPathOK();
+                    return detachVM.IsFolderPathOK();
                 case 2:
-                    if (string.IsNullOrEmpty(detachViewModel.MaskIn) || string.IsNullOrEmpty(detachViewModel.MaskOut))
-                        return CheckCondition(false, "Укажите маску замены пути!");
+                    if (string.IsNullOrEmpty(detachVM.MaskIn) || string.IsNullOrEmpty(detachVM.MaskOut))
+                        return CheckCondition(false, NO_MASK_PATH);
 
-                    if (!detachViewModel.ListBoxItems.Select(e => e.Content)
-                        .All(e => e.ToString().Contains(detachViewModel.MaskIn)))
-                        return CheckCondition(false, "Несоответствие входной маски и имён файлов!");
+                    if (!detachVM.ListBoxItems.Select(e => e.Content)
+                        .All(e => e.ToString().Contains(detachVM.MaskIn)))
+                        return CheckCondition(false, SHIT_MASK);
                     break;
             }
             return true;
         }
-        private static bool IsMaskNameOK(this DetachViewModel detachViewModel) =>
-             CheckCondition(!detachViewModel.IsToRename || !string.IsNullOrEmpty(detachViewModel.MaskInName), "Введите маски для переименования файлов!");
-        private static bool CheckCondition(bool condition, string message)
+        private static bool IsMaskNameOK(this DetachViewModel detachVM) =>
+             CheckCondition(!detachVM.IsToRename
+                 || !string.IsNullOrEmpty(detachVM.MaskInName), NO_MASK_FILE);
+        private static bool CheckCondition(bool condition, string msg)
         {
-            if (!condition) MessageBox.Show(message);
+            if (!condition) MessageBox.Show(msg);
             return condition;
         }
 
@@ -95,7 +109,7 @@ namespace VLS.BatchExportNet.Utils
         /// </summary>
         /// <param name="id">TaskDialog Id</param>
         /// <param name="msg">Message to show to user</param>
-        public static void Finisher(this ViewModelBase viewModel, string id, string msg = "Задание выполнено")
+        public static void Finisher(this ViewModelBase vmBase, string id, string msg = "Задание выполнено")
         {
             TaskDialog taskDialog = new("Готово!")
             {
@@ -103,13 +117,14 @@ namespace VLS.BatchExportNet.Utils
                 Id = id,
                 MainContent = msg
             };
-            viewModel.IsViewEnabled = false;
+            vmBase.IsViewEnabled = false;
             taskDialog.Show();
-            viewModel.IsViewEnabled = true;
+            vmBase.IsViewEnabled = true;
         }
         /// <returns>Unique files with .rvt extension</returns>
         public static IEnumerable<string> FilterRevitFiles(this IEnumerable<string> files)
             => files.Distinct()
-                .Where(f => !string.IsNullOrWhiteSpace(f) && Path.GetExtension(f) == ".rvt");
+                .Where(f => !string.IsNullOrWhiteSpace(f)
+                    && Path.GetExtension(f) == ".rvt");
     }
 }

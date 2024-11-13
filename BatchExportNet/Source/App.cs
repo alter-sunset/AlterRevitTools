@@ -24,7 +24,7 @@ namespace VLS.BatchExportNet.Source
             Panels = buttons
                 .Select(button => button.Panel)
                 .Distinct()
-                .Select(panelName => new Panel(GetRibbonPanel(uiApp, TAB_NAME, panelName), panelName))
+                .Select(panelName => new Panel(GetRibbonPanel(uiApp, panelName), panelName))
                 .ToArray();
 
             buttons.ForEach(CreateButton);
@@ -32,14 +32,14 @@ namespace VLS.BatchExportNet.Source
             return Result.Succeeded;
         }
         public Result OnShutdown(UIControlledApplication a) => Result.Succeeded;
-        private static RibbonPanel GetRibbonPanel(UIControlledApplication uiApp, string tabName, string panelName)
+        private static RibbonPanel GetRibbonPanel(UIControlledApplication uiApp, string panelName)
         {
             try
             {
-                RibbonPanel panel = uiApp.CreateRibbonPanel(tabName, panelName);
+                RibbonPanel panel = uiApp.CreateRibbonPanel(TAB_NAME, panelName);
             }
             catch { }
-            return uiApp.GetRibbonPanels(tabName).FirstOrDefault(p => p.Name == panelName);
+            return uiApp.GetRibbonPanels(TAB_NAME).FirstOrDefault(p => p.Name == panelName);
         }
         private void CreateButton(ButtonContext button)
         {

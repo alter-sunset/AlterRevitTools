@@ -7,12 +7,12 @@ namespace VLS.BatchExportNet.Source.EventHandlers
 {
     public class EventHandlerLink : EventHandlerBase
     {
-        public override void Execute(UIApplication uiApp, IConfigBase viewModelBase)
+        public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (viewModelBase is not LinkViewModel linkViewModel || !linkViewModel.IsEverythingFilled()) return;
+            if (iConfigBase is not LinkViewModel linkVM || !linkVM.IsEverythingFilled()) return;
 
-            linkViewModel.CreateLinks(uiApp);
-            linkViewModel.Finisher(id: "LinkModelsFinished");
+            linkVM.CreateLinks(uiApp);
+            linkVM.Finisher(id: "LinkModelsFinished");
         }
     }
 }

@@ -12,7 +12,7 @@ namespace VLS.BatchExportNet.Source
     }
     static class ExternalCommandWrapper
     {
-        internal static Result Execute(ref string message, Forms form, UIApplication uiApp = null)
+        internal static Result Execute(ref string msg, Forms form, UIApplication uiApp = null)
         {
             try
             {
@@ -21,7 +21,7 @@ namespace VLS.BatchExportNet.Source
             }
             catch (Exception ex)
             {
-                message = ex.Message;
+                msg = ex.Message;
                 return Result.Failed;
             }
         }
@@ -30,41 +30,41 @@ namespace VLS.BatchExportNet.Source
     [Transaction(TransactionMode.Manual)]
     public class ExportModelsToNWC : IExternalCommand
     {
-        public virtual Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements) =>
-            ExternalCommandWrapper.Execute(ref message, Forms.NWC);
+        public virtual Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements) =>
+            ExternalCommandWrapper.Execute(ref msg, Forms.NWC);
     }
 
     [Transaction(TransactionMode.Manual)]
     public class ExportModelsToIFC : IExternalCommand
     {
-        public virtual Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements) =>
-            ExternalCommandWrapper.Execute(ref message, Forms.IFC);
+        public virtual Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements) =>
+            ExternalCommandWrapper.Execute(ref msg, Forms.IFC);
     }
 
     [Transaction(TransactionMode.Manual)]
     public class ExportModelsDetached : IExternalCommand
     {
-        public virtual Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements) =>
-            ExternalCommandWrapper.Execute(ref message, Forms.Detach);
+        public virtual Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements) =>
+            ExternalCommandWrapper.Execute(ref msg, Forms.Detach);
     }
 
     [Transaction(TransactionMode.Manual)]
     public class ExportModelsTransmitted : IExternalCommand
     {
-        public virtual Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements) =>
-            ExternalCommandWrapper.Execute(ref message, Forms.Transmit);
+        public virtual Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements) =>
+            ExternalCommandWrapper.Execute(ref msg, Forms.Transmit);
     }
 
     [Transaction(TransactionMode.Manual)]
     public class MigrateModels : IExternalCommand
     {
-        public virtual Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements) =>
-            ExternalCommandWrapper.Execute(ref message, Forms.Migrate);
+        public virtual Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements) =>
+            ExternalCommandWrapper.Execute(ref msg, Forms.Migrate);
     }
     [Transaction(TransactionMode.Manual)]
     public class LinkModels : IExternalCommand
     {
-        public virtual Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements) =>
-            ExternalCommandWrapper.Execute(ref message, Forms.Link, commandData.Application);
+        public virtual Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements) =>
+            ExternalCommandWrapper.Execute(ref msg, Forms.Link, commandData.Application);
     }
 }

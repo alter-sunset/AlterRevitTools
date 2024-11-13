@@ -15,7 +15,7 @@
 		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
 		<Optimize>True</Optimize>
 		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-		<Configurations>Debug;Release;Release R25;Debug R25</Configurations>
+		<Configurations>Release R25;Debug R25</Configurations>
 	</PropertyGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="Resources\HelpMessages.json" />

@@ -11,7 +11,7 @@ namespace VLS.BatchExportNet.Views.Migrate
             EventHandlerBase = eventHandlerMigrate;
             HelpMessage =
                 Help.GetHelpDictionary().
-                GetResultMessage(HelpMessageType.Migrate);
+                    GetResultMessage(HelpMessageType.Migrate);
         }
 
         private string _configPath;

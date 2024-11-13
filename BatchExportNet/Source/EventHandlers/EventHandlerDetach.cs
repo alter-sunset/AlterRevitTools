@@ -13,26 +13,26 @@ namespace VLS.BatchExportNet.Source.EventHandlers
 {
     public class EventHandlerDetach : EventHandlerBase
     {
-        public override void Execute(UIApplication uiApp, IConfigBase viewModelBase)
+        public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (viewModelBase is not DetachViewModel detachViewModel || !detachViewModel.IsEverythingFilled()) return;
+            if (iConfigBase is not DetachViewModel detachVM || !detachVM.IsEverythingFilled()) return;
 
-            List<ListBoxItem> listItems = detachViewModel.ListBoxItems.ToList();
+            List<ListBoxItem> listItems = detachVM.ListBoxItems.ToList();
 
             using Application app = uiApp.Application;
 
             foreach (ListBoxItem item in listItems)
             {
-                using ErrorSwallower errorSwallower = new(uiApp, app);
+                using ErrorSwallower errorSwallower = new(uiApp);
                 string filePath = item.Content?.ToString();
                 if (!File.Exists(filePath))
                 {
                     item.Background = Brushes.Red;
                     continue;
                 }
-                detachViewModel.DetachModel(app, filePath);
+                detachVM.DetachModel(app, filePath);
             }
-            detachViewModel.Finisher(id: "DetachModelsFinished");
+            detachVM.Finisher(id: "DetachModelsFinished");
         }
     }
 }

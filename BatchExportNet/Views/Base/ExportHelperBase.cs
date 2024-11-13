@@ -15,9 +15,9 @@ namespace VLS.BatchExportNet.Views.Base
     public class ExportHelperBase
     {
         public void BatchExportModels
-            (IConfigBase_Extended iConfig, UIApplication uiApp, ref Logger logger)
+            (IConfigBase_Extended iConfig, UIApplication uiApp, ref Logger log)
         {
-            using Application application = uiApp.Application;
+            using Application app = uiApp.Application;
             string[] models = iConfig.Files;
             ListBoxItem[] items = GetListBoxItems(iConfig);
 
@@ -30,52 +30,52 @@ namespace VLS.BatchExportNet.Views.Base
 
             foreach (string file in models)
             {
-                logger.LineBreak();
+                log.LineBreak();
                 DateTime startTime = DateTime.Now;
-                logger.Start(file);
+                log.Start(file);
 
                 if (!File.Exists(file))
                 {
-                    HandleFileNotFound(file, items, logger);
+                    HandleFileNotFound(file, items, log);
                     continue;
                 }
-                using ErrorSwallower errorSwallower = new(uiApp, application);
+                using ErrorSwallower errorSwallower = new(uiApp);
 
-                Document document = OpenDocument(file, application, iConfig, logger, items);
-                if (document is null) continue;
+                Document doc = OpenDocument(file, app, iConfig, log, items);
+                if (doc is null) continue;
 
-                logger.FileOpened();
+                log.FileOpened();
                 UpdateItemBackground(items, file, Brushes.Blue);
 
                 bool isFuckedUp = false;
 
                 try
                 {
-                    ExportModel(iConfig, document, ref isFuckedUp, ref logger);
+                    ExportModel(iConfig, doc, ref isFuckedUp, ref log);
                 }
                 catch (Exception ex)
                 {
-                    logger.Error("Ля, я хз даже. Смотри, что в исключении написано: ", ex);
+                    log.Error("Ля, я хз даже. Смотри, что в исключении написано: ", ex);
                     isFuckedUp = true;
                 }
                 finally
                 {
-                    CloseDocument(document, ref isFuckedUp, items, file, logger);
-                    logger.TimeForFile(startTime);
+                    CloseDocument(doc, ref isFuckedUp, items, file, log);
+                    log.TimeForFile(startTime);
                     Thread.Sleep(500);
                 }
             }
 
-            logger.LineBreak();
-            logger.ErrorTotal();
-            logger.TimeTotal();
+            log.LineBreak();
+            log.ErrorTotal();
+            log.TimeTotal();
         }
         private static ListBoxItem[] GetListBoxItems(IConfigBase_Extended iConfig) =>
             iConfig is ViewModelBase_Extended viewModel
                 ? viewModel.ListBoxItems.ToArray() : null;
-        private static void HandleFileNotFound(string file, ListBoxItem[] items, Logger logger)
+        private static void HandleFileNotFound(string file, ListBoxItem[] items, Logger log)
         {
-            logger.Error($"Файла {file} не существует. Ты совсем Туттуру?");
+            log.Error($"Файла {file} не существует. Ты совсем Туттуру?");
             UpdateItemBackground(items, file, Brushes.Red);
         }
         private static void UpdateItemBackground(ListBoxItem[] items, string file, Brush color)
@@ -83,7 +83,7 @@ namespace VLS.BatchExportNet.Views.Base
             ListBoxItem item = items.FirstOrDefault(e => e.Content.ToString() == file);
             if (item is not null) item.Background = color;
         }
-        private static Document OpenDocument(string file, Application application, IConfigBase_Extended iConfig, Logger logger, ListBoxItem[] items)
+        private static Document OpenDocument(string file, Application app, IConfigBase_Extended iConfig, Logger log, ListBoxItem[] items)
         {
             try
             {
@@ -100,103 +100,103 @@ namespace VLS.BatchExportNet.Views.Base
                     : null;
 
                 return worksetConfiguration is null
-                    ? application.OpenDocumentFile(file)
-                    : modelPath.OpenAsIs(application, worksetConfiguration);
+                    ? app.OpenDocumentFile(file)
+                    : modelPath.OpenAsIs(app, worksetConfiguration);
             }
             catch (Exception ex)
             {
-                logger.Error("Файл не открылся. ", ex);
+                log.Error("Файл не открылся. ", ex);
                 UpdateItemBackground(items, file, Brushes.Red);
                 return null;
             }
         }
-        private static void CloseDocument(Document document, ref bool isFuckedUp, ListBoxItem[] items, string file, Logger logger)
+        private static void CloseDocument(Document doc, ref bool isFuckedUp, ListBoxItem[] items, string file, Logger log)
         {
-            if (document is null) return;
+            if (doc is null) return;
 
             try
             {
-                document.FreeTheModel();
+                doc.FreeTheModel();
                 if (!isFuckedUp)
-                    logger.Success("Всё ок.");
+                    log.Success("Всё ок.");
             }
             catch (Exception ex)
             {
-                logger.Error("Не смог освободить рабочие наборы. ", ex);
+                log.Error("Не смог освободить рабочие наборы. ", ex);
                 isFuckedUp = true;
             }
             finally
             {
-                document.Close(false);
-                document.Dispose();
+                doc.Close(false);
+                doc.Dispose();
                 UpdateItemBackground(items, file, isFuckedUp ? Brushes.Red : Brushes.Green);
             }
         }
 
         public virtual void ExportModel(IConfigBase_Extended iConfig,
-            Document document, ref bool isFuckedUp, ref Logger logger)
+            Document doc, ref bool isFuckedUp, ref Logger log)
         { }
         public static void Export(IConfigBase_Extended iConfig,
-            Document document, object exportOptions,
-            ref Logger logger, ref bool isFuckedUp)
+            Document doc, object options,
+            ref Logger log, ref bool isFuckedUp)
         {
             string folderPath = iConfig.FolderPath;
             string fileExportName = $"{iConfig.NamePrefix}" +
-                $"{document.Title.Replace("_отсоединено", "").Replace("_detached", "")}" +
+                $"{doc.Title.Replace("_отсоединено", "").Replace("_detached", "")}" +
                 $"{iConfig.NamePostfix}";
             string fileWithExtension = $"{fileExportName}" +
-                $"{(exportOptions is NavisworksExportOptions ? ".nwc" : ".ifc")}";
+                $"{(options is NavisworksExportOptions ? ".nwc" : ".ifc")}";
             string fileName = Path.Combine(folderPath, fileWithExtension);
 
             string oldHash = File.Exists(fileName) ? fileName.MD5Hash() : null;
-            if (oldHash is not null) logger.Hash(oldHash);
+            if (oldHash is not null) log.Hash(oldHash);
 
             try
             {
-                if (exportOptions is NavisworksExportOptions)
-                    document?.Export(folderPath, fileExportName, exportOptions as NavisworksExportOptions);
+                if (options is NavisworksExportOptions navisOptions)
+                    doc?.Export(folderPath, fileExportName, navisOptions);
                 else
-                    document?.Export(folderPath, fileExportName, exportOptions as IFCExportOptions);
+                    doc?.Export(folderPath, fileExportName, options as IFCExportOptions);
             }
             catch (Exception ex)
             {
-                logger.Error("Смотри исключение.", ex);
+                log.Error("Смотри исключение.", ex);
                 isFuckedUp = true;
                 return;
             }
 
             if (!File.Exists(fileName))
             {
-                logger.Error("Файл не был создан. Скорее всего нет геометрии на виде.");
+                log.Error("Файл не был создан. Скорее всего нет геометрии на виде.");
                 isFuckedUp = true;
                 return;
             }
 
             string newHash = fileName.MD5Hash();
-            logger.Hash(newHash);
+            log.Hash(newHash);
 
             if (newHash == oldHash)
             {
-                logger.Error("Файл не был обновлён. Хэш сумма не изменилась.");
+                log.Error("Файл не был обновлён. Хэш сумма не изменилась.");
                 isFuckedUp = true;
             }
         }
-        public static bool IsViewEmpty(IConfigBase_Extended iConfig, Document document, ref Logger logger, ref bool isFuckedUp)
+        public static bool IsViewEmpty(IConfigBase_Extended iConfig, Document doc, ref Logger log, ref bool isFuckedUp)
         {
             if (iConfig is NWC_ViewModel model && model.ExportLinks) return false;
 
             if (iConfig.ExportScopeView
-                && document.IsViewEmpty(GetView(iConfig, document)))
+                && doc.IsViewEmpty(GetView(iConfig, doc)))
             {
-                logger.Error("Нет геометрии на виде.");
+                log.Error("Нет геометрии на виде.");
                 isFuckedUp = true;
                 return true;
             }
 
             return false;
         }
-        private static Element GetView(IConfigBase_Extended iConfig, Document document) =>
-            new FilteredElementCollector(document)
+        private static Element GetView(IConfigBase_Extended iConfig, Document doc) =>
+            new FilteredElementCollector(doc)
                 .OfClass(typeof(View3D))
                 .FirstOrDefault(e => e.Name == iConfig.ViewName && !((View3D)e).IsTemplate);
     }

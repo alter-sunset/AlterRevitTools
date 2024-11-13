@@ -49,7 +49,7 @@ namespace VLS.BatchExportNet.Utils
             }
         }
         /// <summary>
-        /// Relinquish ownership of all possible elements in the document
+        /// Relinquish ownership of all possible elements in the doc
         /// </summary>
         public static void FreeTheModel(this Document doc)
         {
@@ -62,7 +62,7 @@ namespace VLS.BatchExportNet.Utils
             catch { }
         }
         /// <summary>
-        /// Delete all possible links from the document 
+        /// Delete all possible links from the doc 
         /// </summary>
         public static void DeleteAllLinks(this Document doc)
         {
@@ -101,7 +101,7 @@ namespace VLS.BatchExportNet.Utils
             }
         }
         /// <summary>
-        /// Open all worksets in a document in a very crippled way
+        /// Open all worksets in a doc in a very crippled way
         /// </summary>
         public static void OpenAllWorksets(this Document doc)
         {
@@ -123,7 +123,7 @@ namespace VLS.BatchExportNet.Utils
 
             if (typeId is null || levelId is null) return;
 
-            using Transaction t = new(doc, "Open _worksets");
+            using Transaction t = new(doc, "Open worksets");
             t.Start();
 
             // Create a temporary cable tray
@@ -175,31 +175,37 @@ namespace VLS.BatchExportNet.Utils
             }
             catch { }
         }
-        public static void RemoveEmptyWorksets(this Document document)
+        public static void RemoveEmptyWorksets(this Document doc)
         {
             DeleteWorksetSettings settings = new();
-            List<WorksetId> worksets = new FilteredWorksetCollector(document)
+            List<WorksetId> worksets = new FilteredWorksetCollector(doc)
                 .OfKind(WorksetKind.UserWorkset)
                 .ToWorksetIds()
-                .Where(document.IsWorksetEmpty)
+                .Where(doc.IsWorksetEmpty)
                 .ToList();
 
-            using Transaction transaction = new(document);
-            transaction.Start("Remove empty worksets");
+            using Transaction t = new(doc);
+            t.Start("Remove empty worksets");
 
-            worksets.ForEach(workset => WorksetTable.DeleteWorkset(document, workset, settings));
+            worksets.ForEach(workset => WorksetTable.DeleteWorkset(doc, workset, settings));
 
-            transaction.Commit();
+            t.Commit();
         }
-        private static bool IsWorksetEmpty(this Document document, WorksetId workset) =>
-            !new FilteredElementCollector(document)
+        private static bool IsWorksetEmpty(this Document doc, WorksetId workset) =>
+            !new FilteredElementCollector(doc)
                 .WherePasses(new ElementWorksetFilter(workset)).Any();
 
-        public static void YesNoTaskDialog(string message, Action action)
+        public static void YesNoTaskDialog(string msg, Action action)
         {
-            TaskDialogResult result = TaskDialog.Show("Ошибка", message, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
+            TaskDialogResult result = TaskDialog.Show("Ошибка", msg, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
             if (result is TaskDialogResult.Yes)
                 action?.Invoke();
+        }
+        private static void SwallowAlert(this Transaction t)
+        {
+            FailureHandlingOptions failOpt = t.GetFailureHandlingOptions();
+            failOpt.SetFailuresPreprocessor(new CopyWatchAlertSwallower());
+            t.SetFailureHandlingOptions(failOpt);
         }
     }
 }

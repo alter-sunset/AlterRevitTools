@@ -20,8 +20,8 @@ namespace VLS.BatchExportNet.Source.EventHandlers
         /// <summary>
         /// Wraps the "Execution" method in a valid Revit API context.
         /// </summary>
-        /// <param name="app">Revit UI Application to use as the "wrapper" API context.</param>
-        public void Execute(UIApplication app)
+        /// <param name="uiApp">Revit UI Application to use as the "wrapper" API context.</param>
+        public void Execute(UIApplication uiApp)
         {
             TType args;
             lock (_lock)
@@ -29,7 +29,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
                 args = _savedArgs;
                 _savedArgs = default;
             }
-            Execute(app, args);
+            Execute(uiApp, args);
         }
 
         /// <summary>
@@ -54,8 +54,8 @@ namespace VLS.BatchExportNet.Source.EventHandlers
         /// <summary>
         /// Override void which wraps the "Execution" method in a valid Revit API context.
         /// </summary>
-        /// <param name="app">Revit UI Application to use as the "wrapper" API context.</param>
+        /// <param name="uiApp">Revit UI Application to use as the "wrapper" API context.</param>
         /// <param name="args">Arguments that could be passed to the execution method.</param>
-        public abstract void Execute(UIApplication app, TType args);
+        public abstract void Execute(UIApplication uiApp, TType args);
     }
 }

@@ -7,18 +7,18 @@ namespace VLS.BatchExportNet.Source.EventHandlers
 {
     public class EventHandlerNWC : EventHandlerBase
     {
-        public override void Execute(UIApplication uiApp, IConfigBase iConfig)
+        public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfig is not NWC_ViewModel nwcViewModel || !nwcViewModel.IsEverythingFilled()) return;
+            if (iConfigBase is not NWC_ViewModel nwcVM || !nwcVM.IsEverythingFilled()) return;
 
-            Logger log = new(nwcViewModel.FolderPath);
+            Logger log = new(nwcVM.FolderPath);
             NWCHelper nwcHelper = new();
 
-            nwcHelper.BatchExportModels(nwcViewModel, uiApp, ref log);
+            nwcHelper.BatchExportModels(nwcVM, uiApp, ref log);
 
             int totalFiles = log.ErrorCount + log.SuccessCount;
             string msg = $"В процессе выполнения было {log.ErrorCount} ошибок из {totalFiles} файлов.";
-            nwcViewModel.Finisher("ExportNWCFinished", msg);
+            nwcVM.Finisher("ExportNWCFinished", msg);
         }
     }
 }

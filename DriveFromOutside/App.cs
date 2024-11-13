@@ -27,8 +27,8 @@ namespace VLS.DriveFromOutside
             [
                 new TransmitEventHolder(),
                 new DetachEventHolder(),
-                new NWC_EventHolder(),
-                new IFC_EventHolder(),
+                new NwcEventHolder(),
+                new IfcEventHolder(),
             ];
 
             //Initialize Task Handler and pass Event instances to it

@@ -11,14 +11,14 @@ namespace VLS.BatchExportNet.Source.EventHandlers
 {
     public class EventHandlerTransmit : EventHandlerBase
     {
-        public override void Execute(UIApplication uiApp, IConfigBase viewModelBase)
+        public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (viewModelBase is not TransmitViewModel transmitViewModel || !transmitViewModel.IsEverythingFilled()) return;
+            if (iConfigBase is not TransmitViewModel transmitVM || !transmitVM.IsEverythingFilled()) return;
 
-            string folderPath = transmitViewModel.FolderPath;
-            bool isSameFolder = transmitViewModel.IsSameFolder;
+            string folderPath = transmitVM.FolderPath;
+            bool isSameFolder = transmitVM.IsSameFolder;
 
-            foreach (ListBoxItem item in transmitViewModel.ListBoxItems)
+            foreach (ListBoxItem item in transmitVM.ListBoxItems)
             {
                 string filePath = item.Content.ToString();
 
@@ -34,7 +34,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
                 ModelPath transmittedModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(transmittedFilePath);
                 transmittedModelPath.UnloadRevitLinks(folderPath, isSameFolder);
             }
-            transmitViewModel.Finisher(id: "TransmitModelsFinished");
+            transmitVM.Finisher(id: "TransmitModelsFinished");
         }
     }
 }

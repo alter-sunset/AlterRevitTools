@@ -5,13 +5,13 @@ using VLS.BatchExportNet.Views.NWC;
 
 namespace VLS.DriveFromOutside.Events.NWC
 {
-    public class EventHandlerNWC : RevitEventWrapper<NWC_Config>
+    public class EventHandlerNWC : RevitEventWrapper<NwcConfig>
     {
-        public override void Execute(UIApplication uiApp, NWC_Config nwc_Config)
+        public override void Execute(UIApplication uiApp, NwcConfig nwcConfig)
         {
-            Logger log = new(nwc_Config.FolderPath);
+            Logger log = new(nwcConfig.FolderPath);
             NWCHelper nwcHelper = new();
-            nwcHelper.BatchExportModels(nwc_Config, uiApp, ref log);
+            nwcHelper.BatchExportModels(nwcConfig, uiApp, ref log);
         }
     }
 }

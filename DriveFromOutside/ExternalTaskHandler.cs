@@ -22,12 +22,12 @@ namespace VLS.DriveFromOutside
             using PeriodicTimer timer = new(period);
             while (await timer.WaitForNextTickAsync())
             {
-                TaskConfig taskConfig = GetOldestMessage();
+                TaskConfig? taskConfig = GetOldestMessage();
                 if (taskConfig is not null)
                     RaiseEvent(taskConfig);
             }
         }
-        public static TaskConfig GetOldestMessage()
+        public static TaskConfig? GetOldestMessage()
         {
             string[] files = Directory.GetFiles(FOLDER_CONFIGS)
                 .OrderBy(File.GetLastWriteTime)
@@ -48,7 +48,8 @@ namespace VLS.DriveFromOutside
         }
         private void RaiseEvent(TaskConfig taskConfig)
         {
-            IEventHolder eventHolder = _eventHolders
+            if (taskConfig is null || taskConfig.FilePath is null) return;
+            IEventHolder? eventHolder = _eventHolders
                 .FirstOrDefault(e => e.ExternalEvent == taskConfig.ExternalEvent);
             if (eventHolder is null) return;
 
@@ -83,14 +84,14 @@ namespace VLS.DriveFromOutside
                 },
                 { ExternalEvents.NWC, () =>
                     {
-                        NWC_Config nwcConfig = taskConfig.GetEventConfig<NWC_Config>();
+                        NwcConfig nwcConfig = taskConfig.GetEventConfig<NwcConfig>();
                         EventHandlerNWC? handler = eventHolder.ExternalEventHandler as EventHandlerNWC;
                         handler?.Raise(nwcConfig);
                     }
                 },
                 { ExternalEvents.IFC, () =>
                     {
-                        IFC_Config ifcConfig = taskConfig.GetEventConfig<IFC_Config>();
+                        IfcConfig ifcConfig = taskConfig.GetEventConfig<IfcConfig>();
                         EventHandlerIFC? handler = eventHolder.ExternalEventHandler as EventHandlerIFC;
                         handler?.Raise(ifcConfig);
                     }

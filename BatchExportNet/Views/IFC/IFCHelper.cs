@@ -9,27 +9,27 @@ namespace VLS.BatchExportNet.Views.IFC
     {
         public override void ExportModel(IConfigBase_Extended iConfig, Document doc, ref bool isFuckedUp, ref Logger log)
         {
-            IConfigIFC configIFC = iConfig as IConfigIFC;
-            if (IsViewEmpty(iConfig, doc, ref log, ref isFuckedUp)) return;
+            if (iConfig is not IConfigIFC configIfc
+                || IsViewEmpty(iConfig, doc, ref log, ref isFuckedUp)) return;
 
-            IFCExportOptions ifcExportOptions = IFC_ExportOptions(configIFC, doc);
+            IFCExportOptions options = IFC_ExportOptions(configIfc, doc);
 
             using Transaction t = new(doc);
             t.Start("Экспорт IFC");
-            Export(iConfig, doc, ifcExportOptions, ref log, ref isFuckedUp);
+            Export(iConfig, doc, options, ref log, ref isFuckedUp);
             t.Commit();
         }
-        private static IFCExportOptions IFC_ExportOptions(IConfigIFC configIFC, Document doc) => new()
+        private static IFCExportOptions IFC_ExportOptions(IConfigIFC config, Document doc) => new()
         {
-            ExportBaseQuantities = configIFC.ExportBaseQuantities,
-            FamilyMappingFile = configIFC.FamilyMappingFile,
-            FileVersion = configIFC.FileVersion,
+            ExportBaseQuantities = config.ExportBaseQuantities,
+            FamilyMappingFile = config.FamilyMappingFile,
+            FileVersion = config.FileVersion,
             FilterViewId = new FilteredElementCollector(doc)
                 .OfClass(typeof(View))
-                .FirstOrDefault(e => e.Name == configIFC.ViewName)
+                .FirstOrDefault(e => e.Name == config.ViewName)
                 .Id,
-            SpaceBoundaryLevel = configIFC.SpaceBoundaryLevel,
-            WallAndColumnSplitting = configIFC.WallAndColumnSplitting
+            SpaceBoundaryLevel = config.SpaceBoundaryLevel,
+            WallAndColumnSplitting = config.WallAndColumnSplitting
         };
     }
 }

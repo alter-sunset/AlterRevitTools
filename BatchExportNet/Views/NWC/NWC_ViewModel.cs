@@ -134,7 +134,7 @@ namespace VLS.BatchExportNet.Views.NWC
 
         private RelayCommand _loadListCommand;
         public override RelayCommand LoadListCommand =>
-            _loadListCommand ??= new RelayCommand(_ => LoadList());
+            _loadListCommand ??= new RelayCommand(obj => LoadList());
         private void LoadList()
         {
             OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
@@ -176,7 +176,7 @@ namespace VLS.BatchExportNet.Views.NWC
 
         private RelayCommand _saveListCommand;
         public override RelayCommand SaveListCommand =>
-            _saveListCommand ??= new RelayCommand(_ => SaveList());
+            _saveListCommand ??= new RelayCommand(obj => SaveList());
         private void SaveList()
         {
             using NWCForm form = NWCFormSerializer();
@@ -227,7 +227,7 @@ namespace VLS.BatchExportNet.Views.NWC
 
         private RelayCommand _loadConfigsCommand;
         public RelayCommand LoadConfigsCommand =>
-            _loadConfigsCommand ??= new RelayCommand(_ => LoadConfig());
+            _loadConfigsCommand ??= new RelayCommand(obj => LoadConfig());
         private void LoadConfig()
         {
             using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
@@ -251,8 +251,8 @@ namespace VLS.BatchExportNet.Views.NWC
 
         private RelayCommand _deleteCommand;
         public override RelayCommand DeleteCommand =>
-            _deleteCommand ??= new RelayCommand(DeleteSelectedItems);
-        private void DeleteSelectedItems(object parameter)
+            _deleteCommand ??= new RelayCommand(obj => DeleteSelectedItems());
+        private void DeleteSelectedItems()
         {
             ListBoxItems
                 .Where(e => e.IsSelected)

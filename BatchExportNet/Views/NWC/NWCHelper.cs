@@ -9,40 +9,40 @@ namespace VLS.BatchExportNet.Views.NWC
     {
         public override void ExportModel(IConfigBase_Extended iConfig, Document doc, ref bool isFuckedUp, ref Logger log)
         {
-            IConfigNWC configNWC = iConfig as IConfigNWC;
-            if (IsViewEmpty(iConfig, doc, ref log, ref isFuckedUp)) return;
+            if (iConfig is not IConfigNWC configNwc
+                || IsViewEmpty(iConfig, doc, ref log, ref isFuckedUp)) return;
 
-            NavisworksExportOptions navisExportOptions = NWC_ExportOptions(configNWC, doc);
+            NavisworksExportOptions options = NWC_ExportOptions(configNwc, doc);
 
-            Export(iConfig, doc, navisExportOptions, ref log, ref isFuckedUp);
+            Export(iConfig, doc, options, ref log, ref isFuckedUp);
         }
-        private static NavisworksExportOptions NWC_ExportOptions(IConfigNWC configNWC, Document doc)
+        private static NavisworksExportOptions NWC_ExportOptions(IConfigNWC config, Document doc)
         {
             NavisworksExportOptions options = new()
             {
-                ConvertElementProperties = configNWC.ConvertElementProperties,
-                DivideFileIntoLevels = configNWC.DivideFileIntoLevels,
-                ExportElementIds = configNWC.ExportElementIds,
-                ExportLinks = configNWC.ExportLinks,
-                ExportParts = configNWC.ExportParts,
-                ExportRoomAsAttribute = configNWC.ExportRoomAsAttribute,
-                ExportRoomGeometry = configNWC.ExportRoomGeometry,
-                ExportUrls = configNWC.ExportUrls,
-                FindMissingMaterials = configNWC.FindMissingMaterials,
-                ConvertLights = configNWC.ConvertLights,
-                ConvertLinkedCADFormats = configNWC.ConvertLinkedCADFormats,
-                Coordinates = configNWC.Coordinates,
-                Parameters = configNWC.Parameters,
-                FacetingFactor = configNWC.FacetingFactor,
-                ExportScope = configNWC.ExportScopeView
+                ConvertElementProperties = config.ConvertElementProperties,
+                DivideFileIntoLevels = config.DivideFileIntoLevels,
+                ExportElementIds = config.ExportElementIds,
+                ExportLinks = config.ExportLinks,
+                ExportParts = config.ExportParts,
+                ExportRoomAsAttribute = config.ExportRoomAsAttribute,
+                ExportRoomGeometry = config.ExportRoomGeometry,
+                ExportUrls = config.ExportUrls,
+                FindMissingMaterials = config.FindMissingMaterials,
+                ConvertLights = config.ConvertLights,
+                ConvertLinkedCADFormats = config.ConvertLinkedCADFormats,
+                Coordinates = config.Coordinates,
+                Parameters = config.Parameters,
+                FacetingFactor = config.FacetingFactor,
+                ExportScope = config.ExportScopeView
                     ? NavisworksExportScope.View
                     : NavisworksExportScope.Model
 
             };
-            if (configNWC.ExportScopeView)
+            if (config.ExportScopeView)
                 options.ViewId = new FilteredElementCollector(doc)
                         .OfClass(typeof(View3D))
-                        .FirstOrDefault(e => e.Name == configNWC.ViewName
+                        .FirstOrDefault(e => e.Name == config.ViewName
                             && !((View3D)e).IsTemplate)
                         .Id;
             return options;

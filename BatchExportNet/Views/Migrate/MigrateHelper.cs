@@ -1,7 +1,6 @@
 ﻿using Autodesk.Revit.DB;
 using System;
 using System.IO;
-using System.Globalization;
 using System.Text.Json;
 using System.Windows.Forms;
 using System.Collections.Generic;
@@ -13,14 +12,15 @@ namespace VLS.BatchExportNet.Views.Migrate
 {
     public static class MigrateHelper
     {
-        public static bool IsConfigPathValid(string configPath) => !string.IsNullOrEmpty(configPath)
-            && configPath.EndsWith(".json", true, CultureInfo.InvariantCulture);
+        private const string WRONG_SCHEME = "Неверная схема файла";
+        public static bool IsConfigPathValid(string configPath) =>
+            !string.IsNullOrEmpty(configPath) && Path.GetExtension(configPath) == ".json";
         public static WasBecome LoadMigrationConfig(string configPath)
         {
             using FileStream fileStream = File.OpenRead(configPath);
             WasBecome items = JsonSerializer.Deserialize<WasBecome>(fileStream);
             return items is null
-                ? throw new InvalidOperationException("Неверная схема файла")
+                ? throw new InvalidOperationException(WRONG_SCHEME)
                 : items;
         }
         public static void CreateDirectoryForFile(string filePath)
@@ -39,7 +39,7 @@ namespace VLS.BatchExportNet.Views.Migrate
             }
             catch (Exception)
             {
-                MessageBox.Show("Неверная схема файла");
+                MessageBox.Show(WRONG_SCHEME);
                 return [];
             }
 

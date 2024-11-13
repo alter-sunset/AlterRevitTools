@@ -43,7 +43,8 @@ namespace VLS.BatchExportNet.Views.Base
         }
 
         private RelayCommand _loadListCommand;
-        public virtual RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
+        public virtual RelayCommand LoadListCommand =>
+            _loadListCommand ??= new RelayCommand(obj => LoadList());
         private void LoadList()
         {
             using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
@@ -60,7 +61,8 @@ namespace VLS.BatchExportNet.Views.Base
         }
 
         private RelayCommand _loadCommand;
-        public virtual RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
+        public virtual RelayCommand LoadCommand =>
+            _loadCommand ??= new RelayCommand(obj => Load());
         private void Load()
         {
             using OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
@@ -79,7 +81,8 @@ namespace VLS.BatchExportNet.Views.Base
         }
 
         private RelayCommand _saveListCommand;
-        public virtual RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
+        public virtual RelayCommand SaveListCommand =>
+            _saveListCommand ??= new RelayCommand(obj => SaveList());
         private void SaveList()
         {
             SaveFileDialog saveFileDialog = DialogType.RevitList.SaveFileDialog();
@@ -94,8 +97,8 @@ namespace VLS.BatchExportNet.Views.Base
 
         private RelayCommand _deleteCommand;
         public virtual RelayCommand DeleteCommand =>
-            _deleteCommand ??= new RelayCommand(DeleteSelectedItems);
-        private void DeleteSelectedItems(object parameter) => ListBoxItems
+            _deleteCommand ??= new RelayCommand(obj => DeleteSelectedItems());
+        private void DeleteSelectedItems() => ListBoxItems
             .Where(e => e.IsSelected)
             .ToList()
             .ForEach(item => ListBoxItems.Remove(item));

@@ -5,13 +5,13 @@ using VLS.BatchExportNet.Views.IFC;
 
 namespace VLS.DriveFromOutside.Events.IFC
 {
-    public class EventHandlerIFC : RevitEventWrapper<IFC_Config>
+    public class EventHandlerIFC : RevitEventWrapper<IfcConfig>
     {
-        public override void Execute(UIApplication uiApp, IFC_Config ifc_Config)
+        public override void Execute(UIApplication uiApp, IfcConfig ifcConfig)
         {
-            Logger logger = new(ifc_Config.FolderPath);
+            Logger log = new(ifcConfig.FolderPath);
             IFCHelper ifcHelper = new();
-            ifcHelper.BatchExportModels(ifc_Config, uiApp, ref logger);
+            ifcHelper.BatchExportModels(ifcConfig, uiApp, ref log);
         }
     }
 }

@@ -3,7 +3,7 @@ using VLS.BatchExportNet.Views.NWC;
 
 namespace VLS.DriveFromOutside.Events.NWC
 {
-    public class NWC_Config : IConfigNWC
+    public class NwcConfig : IConfigNWC
     {
         public bool ConvertElementProperties { get; set; }
         public bool DivideFileIntoLevels { get; set; }

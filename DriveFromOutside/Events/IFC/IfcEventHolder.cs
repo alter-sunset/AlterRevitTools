@@ -2,7 +2,7 @@
 
 namespace VLS.DriveFromOutside.Events.IFC
 {
-    public class IFC_EventHolder : IEventHolder
+    public class IfcEventHolder : IEventHolder
     {
         private readonly EventHandlerIFC _eventHandlerIFC = new();
         public ExternalEvents ExternalEvent => ExternalEvents.IFC;

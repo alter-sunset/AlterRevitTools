@@ -11,8 +11,8 @@ namespace VLS.BatchExportNet.Views
         private const string FILTER_TXT = "Текстовый файл (.txt)|*.txt";
         private const string FILTER_JSON = "Файл JSON (.json)|*.json";
         private const string FILTER_RVT = "Revit Files (*.rvt)|*.rvt";
-        private const string DEFAULT_FILE_NAME_JSON = "ConfigBatchExport";
         private const string DEFAULT_FILE_NAME_TXT = "ListOfRVTFiles";
+        private const string DEFAULT_FILE_NAME_JSON = "ConfigBatchExport";
         private const string EXCEPTION = "Unsupported dialog type";
 
         public static OpenFileDialog OpenFileDialog(this DialogType dialogType)

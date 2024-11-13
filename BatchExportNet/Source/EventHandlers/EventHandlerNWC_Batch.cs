@@ -12,9 +12,9 @@ namespace VLS.BatchExportNet.Source.EventHandlers
 {
     public class EventHandlerNWC_Batch : EventHandlerBase
     {
-        public override void Execute(UIApplication uiApp, IConfigBase iConfig)
+        public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfig is not NWC_ViewModel nwcViewModel || nwcViewModel.Configs.Count == 0)
+            if (iConfigBase is not NWC_ViewModel nwcVM || nwcVM.Configs.Count == 0)
             {
                 MessageBox.Show("Загрузите конфиги.");
                 return;
@@ -22,29 +22,29 @@ namespace VLS.BatchExportNet.Source.EventHandlers
 
             DateTime timeStart = DateTime.Now;
 
-            foreach (Config config in nwcViewModel.Configs)
+            foreach (Config config in nwcVM.Configs)
             {
                 try
                 {
                     using FileStream file = File.OpenRead(config.Name);
                     NWCForm form = JsonSerializer.Deserialize<NWCForm>(file);
-                    nwcViewModel.NWCFormDeserilaizer(form);
+                    nwcVM.NWCFormDeserilaizer(form);
                 }
                 catch
                 {
                     continue;
                 }
-                Logger log = new(nwcViewModel.FolderPath);
+                Logger log = new(nwcVM.FolderPath);
 
                 NWCHelper nwcHelper = new();
-                nwcHelper.BatchExportModels(nwcViewModel, uiApp, ref log);
+                nwcHelper.BatchExportModels(nwcVM, uiApp, ref log);
 
                 Thread.Sleep(1000);
 
             }
 
             string msg = $"Задание выполнено. Всего затрачено времени:{DateTime.Now - timeStart}";
-            nwcViewModel.Finisher(id: "ExportBatchNWCFinished", msg);
+            nwcVM.Finisher(id: "ExportBatchNWCFinished", msg);
         }
     }
 }

@@ -3,7 +3,7 @@ using VLS.BatchExportNet.Views.IFC;
 
 namespace VLS.DriveFromOutside.Events.IFC
 {
-    public class IFC_Config : IConfigIFC
+    public class IfcConfig : IConfigIFC
     {
         public string FamilyMappingFile { get; set; }
         public bool ExportBaseQuantities { get; set; }

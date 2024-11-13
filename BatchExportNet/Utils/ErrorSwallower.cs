@@ -1,8 +1,8 @@
-﻿using Autodesk.Revit.DB;
+﻿using Autodesk.Revit.ApplicationServices;
+using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Events;
-using Autodesk.Revit.ApplicationServices;
 using System;
 using System.Collections.Generic;
 
@@ -11,18 +11,18 @@ namespace VLS.BatchExportNet.Utils
     public class ErrorSwallower : IDisposable
     {
         private readonly UIApplication _uiApp;
-        private readonly Application _application;
-        public ErrorSwallower(UIApplication uiApp, Application application)
+        private readonly Application _app;
+        public ErrorSwallower(UIApplication uiApp)
         {
             _uiApp = uiApp;
-            _application = application;
+            _app = uiApp.Application;
             _uiApp.DialogBoxShowing += TaskDialogBoxShowingEvent;
-            _application.FailuresProcessing += ApplicationFailuresProcessing;
+            _app.FailuresProcessing += ApplicationFailuresProcessing;
         }
         public void Dispose()
         {
             _uiApp.DialogBoxShowing -= TaskDialogBoxShowingEvent;
-            _application.FailuresProcessing -= ApplicationFailuresProcessing;
+            _app.FailuresProcessing -= ApplicationFailuresProcessing;
         }
         private static void TaskDialogBoxShowingEvent(object sender, DialogBoxShowingEventArgs e)
         {
@@ -41,9 +41,9 @@ namespace VLS.BatchExportNet.Utils
         }
         private static void ApplicationFailuresProcessing(object sender, FailuresProcessingEventArgs e)
         {
-            FailuresAccessor failuresAccessor = e.GetFailuresAccessor();
-            FailureProcessingResult response = PreprocessFailures(failuresAccessor);
-            e.SetProcessingResult(response);
+            FailuresAccessor a = e.GetFailuresAccessor();
+            FailureProcessingResult result = PreprocessFailures(a);
+            e.SetProcessingResult(result);
         }
         private static FailureProcessingResult PreprocessFailures(FailuresAccessor a)
         {

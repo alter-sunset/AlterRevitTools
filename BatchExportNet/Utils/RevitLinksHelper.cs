@@ -11,21 +11,6 @@ namespace VLS.BatchExportNet.Utils
     public static class RevitLinksHelper
     {
         private const string NO_TRANS_DATA_ALERT = "The document doesn't have any transmission data";
-
-        public static void DeleteRevitLinks(this Document doc)
-        {
-            using Transaction t = new(doc);
-            t.Start("Delete Revit links from model");
-            t.SwallowAlert();
-
-            List<Element> links = new FilteredElementCollector(doc)
-                .OfClass(typeof(RevitLinkType))
-                .ToList();
-
-            links.ForEach(link => doc.Delete(link.Id));
-
-            t.Commit();
-        }
         public static void UnloadRevitLinks(this ModelPath filePath, string folder, bool isSameFolder = true)
         {
             if (!TryGetTransmissionData(filePath, out TransmissionData transData)) return;
