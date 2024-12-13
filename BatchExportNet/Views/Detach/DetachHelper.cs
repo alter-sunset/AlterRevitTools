@@ -118,33 +118,32 @@ namespace VLS.BatchExportNet.Views.Detach
         }
         private static void Cleanup(Document doc, string fileDetachedPath, bool isWorkshared)
         {
-            try
-            {
-                doc.FreeTheModel();
-            }
+            try { doc.FreeTheModel(); }
             catch { }
-            doc?.Close();
+            finally { doc?.Close(); }
+
             if (isWorkshared)
             {
                 ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(fileDetachedPath);
                 UpdateTransmissionData(modelPath);
-                Directory.Delete(fileDetachedPath.Replace(".rvt", "_backup"), true);
+                string backupFolderPath = fileDetachedPath.Replace(".rvt", "_backup");
+                if (Directory.Exists(backupFolderPath))
+                    Directory.Delete(backupFolderPath, true);
+                return;
             }
-            else
+            for (int i = 1; i <= 3; i++)
             {
-                File.Delete(fileDetachedPath.Replace(".rvt", ".0001.rvt"));
-                File.Delete(fileDetachedPath.Replace(".rvt", ".0002.rvt"));
-                File.Delete(fileDetachedPath.Replace(".rvt", ".0003.rvt"));
+                string versionedFilePath = fileDetachedPath.Replace(".rvt", $".{i:D4}.rvt");
+                if (File.Exists(versionedFilePath))
+                    File.Delete(versionedFilePath);
             }
         }
         private static void UpdateTransmissionData(ModelPath modelPath)
         {
             TransmissionData transData = TransmissionData.ReadTransmissionData(modelPath);
-            if (transData is not null)
-            {
-                transData.IsTransmitted = true;
-                TransmissionData.WriteTransmissionData(modelPath, transData);
-            }
+            if (transData is null) return;
+            transData.IsTransmitted = true;
+            TransmissionData.WriteTransmissionData(modelPath, transData);
         }
         private static string RenamePath(string filePath, RenameType renameType, string maskIn = "", string maskOut = "")
         {
@@ -168,7 +167,6 @@ namespace VLS.BatchExportNet.Views.Detach
             return Path.Combine(folder, $"{title}{extension}");
         }
     }
-
     public enum RenameType
     {
         Folder,

@@ -7,8 +7,8 @@
 		<Configurations>Release R25;Debug R25</Configurations>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="2025.2.0" />
-		<PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="2025.2.0" />
+		<PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="2025.3.0" />
+		<PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="2025.3.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<ProjectReference Include="..\BatchExportNet\BatchExportNet.csproj">

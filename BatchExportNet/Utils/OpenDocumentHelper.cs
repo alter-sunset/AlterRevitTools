@@ -7,35 +7,33 @@ namespace VLS.BatchExportNet.Utils
     {
         public static Document OpenAsIs(this ModelPath modelPath,
             Application app,
-            WorksetConfiguration worksetConfiguration)
-        {
-            OpenOptions openOptions = CreateOpenOptions(DetachFromCentralOption.DoNotDetach);
-            return modelPath.OpenDocument(openOptions, worksetConfiguration, app);
-        }
+            WorksetConfiguration worksetConfiguration) =>
+            modelPath.OpenDocumentWithOptions(
+                DetachFromCentralOption.DoNotDetach,
+                worksetConfiguration,
+                app);
 
         public static Document OpenDetached(this ModelPath modelPath,
             Application app,
-            WorksetConfiguration worksetConfiguration)
-        {
-            OpenOptions openOptions = CreateOpenOptions(DetachFromCentralOption.DetachAndPreserveWorksets);
-            return modelPath.OpenDocument(openOptions, worksetConfiguration, app);
-        }
+            WorksetConfiguration worksetConfiguration) =>
+            modelPath.OpenDocumentWithOptions(
+                DetachFromCentralOption.DetachAndPreserveWorksets,
+                worksetConfiguration,
+                app);
 
-        public static Document OpenTransmitted(this ModelPath modelPath, Application app)
-        {
-            OpenOptions openOptions = CreateOpenOptions(DetachFromCentralOption.ClearTransmittedSaveAsNewCentral);
-            WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.CloseAllWorksets);
-            return modelPath.OpenDocument(openOptions, worksetConfiguration, app);
-        }
+        public static Document OpenTransmitted(this ModelPath modelPath, Application app) =>
+            modelPath.OpenDocumentWithOptions(
+                DetachFromCentralOption.ClearTransmittedSaveAsNewCentral,
+                new WorksetConfiguration(WorksetConfigurationOption.CloseAllWorksets),
+                app);
 
-        private static OpenOptions CreateOpenOptions(DetachFromCentralOption detachOption) =>
-            new() { DetachFromCentralOption = detachOption };
-
-        private static Document OpenDocument(this ModelPath modelPath,
-            OpenOptions openOptions,
+        private static Document OpenDocumentWithOptions(
+            this ModelPath modelPath,
+            DetachFromCentralOption detachOption,
             WorksetConfiguration worksetConfiguration,
             Application app)
         {
+            OpenOptions openOptions = new() { DetachFromCentralOption = detachOption };
             openOptions.SetOpenWorksetsConfiguration(worksetConfiguration);
             return app.OpenDocumentFile(modelPath, openOptions);
         }
