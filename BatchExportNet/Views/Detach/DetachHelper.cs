@@ -58,9 +58,7 @@ namespace VLS.BatchExportNet.Views.Detach
         }
         private static string GetDetachedFilePath(IConfigDetach iConfigDetach, Document doc, string originalFilePath)
         {
-            string docTitle = doc.Title
-                .Replace("_detached", "")
-                .Replace("_отсоединено", "");
+            string docTitle = doc.Title.RemoveDetach();
 
             string fileDetachedPath = Path.Combine(iConfigDetach.FolderPath, $"{docTitle}.rvt");
 

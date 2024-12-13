@@ -142,7 +142,7 @@ namespace VLS.BatchExportNet.Views.Base
         {
             string folderPath = iConfig.FolderPath;
             string fileExportName = $"{iConfig.NamePrefix}" +
-                $"{doc.Title.Replace("_отсоединено", "").Replace("_detached", "")}" +
+                $"{doc.Title.RemoveDetach()}" +
                 $"{iConfig.NamePostfix}";
             string fileWithExtension = $"{fileExportName}" +
                 $"{(options is NavisworksExportOptions ? ".nwc" : ".ifc")}";
