@@ -26,18 +26,12 @@ namespace VLS.BatchExportNet.Utils
         }
         private static void TaskDialogBoxShowingEvent(object sender, DialogBoxShowingEventArgs e)
         {
-            if (e is TaskDialogShowingEventArgs dialogArgs)
-            {
-                string dialogId = dialogArgs.DialogId;
-                int dialogResult = dialogId switch
-                {
-                    "TaskDialog_Missing_Third_Party_Updaters" => (int)TaskDialogResult.CommandLink1,
-                    "TaskDialog_Missing_Third_Party_Updater" => (int)TaskDialogResult.CommandLink1,
-                    _ => (int)TaskDialogResult.Close
-                };
-
-                dialogArgs.OverrideResult(dialogResult);
-            }
+            if (e is not TaskDialogShowingEventArgs dialogArgs) return;
+            string dialogId = dialogArgs.DialogId;
+            int dialogResult = dialogId.StartsWith("TaskDialog_Missing_Third_Party_Updater")
+                ? (int)TaskDialogResult.CommandLink1
+                : (int)TaskDialogResult.Close;
+            dialogArgs.OverrideResult(dialogResult);
         }
         private static void ApplicationFailuresProcessing(object sender, FailuresProcessingEventArgs e)
         {

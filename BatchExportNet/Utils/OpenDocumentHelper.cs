@@ -5,17 +5,13 @@ namespace VLS.BatchExportNet.Utils
 {
     public static class OpenDocumentHelper
     {
-        public static Document OpenAsIs(this ModelPath modelPath,
-            Application app,
-            WorksetConfiguration worksetConfiguration) =>
+        public static Document OpenAsIs(this ModelPath modelPath, Application app, WorksetConfiguration worksetConfiguration) =>
             modelPath.OpenDocumentWithOptions(
                 DetachFromCentralOption.DoNotDetach,
                 worksetConfiguration,
                 app);
 
-        public static Document OpenDetached(this ModelPath modelPath,
-            Application app,
-            WorksetConfiguration worksetConfiguration) =>
+        public static Document OpenDetached(this ModelPath modelPath, Application app, WorksetConfiguration worksetConfiguration) =>
             modelPath.OpenDocumentWithOptions(
                 DetachFromCentralOption.DetachAndPreserveWorksets,
                 worksetConfiguration,
@@ -27,8 +23,7 @@ namespace VLS.BatchExportNet.Utils
                 new WorksetConfiguration(WorksetConfigurationOption.CloseAllWorksets),
                 app);
 
-        private static Document OpenDocumentWithOptions(
-            this ModelPath modelPath,
+        private static Document OpenDocumentWithOptions(this ModelPath modelPath,
             DetachFromCentralOption detachOption,
             WorksetConfiguration worksetConfiguration,
             Application app)
