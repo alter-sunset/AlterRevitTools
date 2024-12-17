@@ -1,0 +1,62 @@
+[
+  {
+    "Name": "NWC",
+    "Text": "Экспорт\nNWC",
+    "ClassName": "VLS.BatchExport.Source.ExportModelsToNWC",
+    "ToolTip": "Пакетный экспорт в NWC",
+    "ImageLarge": "BatchExport.Resources.nwc.png",
+    "ImageSmall": "BatchExport.Resources.nwc_16.png",
+    "Panel": "Пакетный экспорт",
+    "Availability": true
+  },
+  {
+    "Name": "IFC",
+    "Text": "Экспорт\nIFC",
+    "ClassName": "VLS.BatchExport.Source.ExportModelsToIFC",
+    "ToolTip": "Пакетный экспорт в IFC",
+    "ImageLarge": "BatchExport.Resources.ifc.png",
+    "ImageSmall": "BatchExport.Resources.ifc_16.png",
+    "Panel": "Пакетный экспорт",
+    "Availability": true
+  },
+  {
+    "Name": "Detach",
+    "Text": "Экспорт\nотсоединённых\nмоделей",
+    "ClassName": "VLS.BatchExport.Source.ExportModelsDetached",
+    "ToolTip": "Пакетный экспорт отсоединённых моделей",
+    "ImageLarge": "BatchExport.Resources.detach.png",
+    "ImageSmall": "BatchExport.Resources.detach_16.png",
+    "Panel": "Пакетный экспорт",
+    "Availability": true
+  },
+  {
+    "Name": "Transmit",
+    "Text": "Передача\nмоделей",
+    "ClassName": "VLS.BatchExport.Source.ExportModelsTransmitted",
+    "ToolTip": "Пакетная передача моделей",
+    "ImageLarge": "BatchExport.Resources.transmit.png",
+    "ImageSmall": "BatchExport.Resources.transmit_16.png",
+    "Panel": "Пакетный экспорт",
+    "Availability": true
+  },
+  {
+    "Name": "Migrate",
+    "Text": "Миграция\nмоделей",
+    "ClassName": "VLS.BatchExport.Source.MigrateModels",
+    "ToolTip": "Пакетная миграция моделей с обновлением связей",
+    "ImageLarge": "BatchExport.Resources.migrate.png",
+    "ImageSmall": "BatchExport.Resources.migrate_16.png",
+    "Panel": "Пакетный экспорт",
+    "Availability": true
+  },
+  {
+    "Name": "Link",
+    "Text": "Пакетное добавление\nRevit ссылок",
+    "ClassName": "VLS.BatchExport.Source.LinkModels",
+    "ToolTip": "Пакетное добавление Revit ссылок в текущую модель",
+    "ImageLarge": "BatchExport.Resources.link.png",
+    "ImageSmall": "BatchExport.Resources.link_16.png",
+    "Panel": "Пакетный импорт",
+    "Availability": false
+  }
+]

@@ -1,0 +1,75 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net48</TargetFramework>
+		<OutputType>Library</OutputType>
+		<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+		<UseWindowsForms>true</UseWindowsForms>
+		<UseWPF>true</UseWPF>
+		<ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+		<PlatformTarget>AnyCPU</PlatformTarget>
+		<GenerateDocumentationFile>False</GenerateDocumentationFile>
+		<SignAssembly>False</SignAssembly>
+		<ErrorReport>none</ErrorReport>
+		<IncludeSymbols>False</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+		<EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+		<Optimize>True</Optimize>
+		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+		<Configurations>Release R19;Release R20;Release R21;Release R22;Release R23;Release R24</Configurations>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.Contains('R19'))">
+		<RevitVersion>2019</RevitVersion>
+		<OutputPath>bin\R2019\</OutputPath>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.Contains('R20'))">
+		<RevitVersion>2020</RevitVersion>
+		<OutputPath>bin\R2020\</OutputPath>
+		<DefineConstants>R20_OR_GREATER</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.Contains('R21'))">
+		<RevitVersion>2021</RevitVersion>
+		<OutputPath>bin\R2021\</OutputPath>
+		<DefineConstants>R20_OR_GREATER</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.Contains('R22'))">
+		<RevitVersion>2022</RevitVersion>
+		<OutputPath>bin\R2022\</OutputPath>
+		<DefineConstants>R20_OR_GREATER</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.Contains('R23'))">
+		<RevitVersion>2023</RevitVersion>
+		<OutputPath>bin\R2023\</OutputPath>
+		<DefineConstants>R20_OR_GREATER</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.Contains('R24'))">
+		<RevitVersion>2024</RevitVersion>
+		<OutputPath>bin\R2024\</OutputPath>
+		<DefineConstants>R20_OR_GREATER;R24</DefineConstants>
+	</PropertyGroup>
+	<ItemGroup>
+		<EmbeddedResource Include="Resources\HelpMessages.json" />
+		<EmbeddedResource Include="Resources\Buttons.json" />
+		<EmbeddedResource Include="Resources\detach.png" />
+		<EmbeddedResource Include="Resources\detach_16.png" />
+		<EmbeddedResource Include="Resources\migrate.png" />
+		<EmbeddedResource Include="Resources\migrate_16.png" />
+		<EmbeddedResource Include="Resources\nwc_16.png" />
+		<EmbeddedResource Include="Resources\nwc.png" />
+		<EmbeddedResource Include="Resources\ifc.png" />
+		<EmbeddedResource Include="Resources\ifc_16.png" />
+		<EmbeddedResource Include="Resources\link.png" />
+		<EmbeddedResource Include="Resources\link_16.png" />
+		<EmbeddedResource Include="Resources\transmit.png" />
+		<EmbeddedResource Include="Resources\transmit_16.png" />
+	</ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*" />
+		<PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*" />
+	</ItemGroup>
+	<ItemGroup>
+		<None Update="VLS.BatchExport.addin">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
+</Project>

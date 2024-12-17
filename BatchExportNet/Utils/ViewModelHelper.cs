@@ -126,5 +126,8 @@ namespace VLS.BatchExportNet.Utils
             => files.Distinct()
                 .Where(f => !string.IsNullOrWhiteSpace(f)
                     && Path.GetExtension(f) == ".rvt");
+
+        public static string RemoveDetach(this string name) =>
+            name.Replace("_detached", "").Replace("_отсоединено", "");
     }
 }

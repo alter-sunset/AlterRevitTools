@@ -1,0 +1,199 @@
+﻿<base:WindowBase x:Name="BatchExportDetach"
+                 x:Class="VLS.BatchExport.Views.Detach.DetachModelsView"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:local="clr-namespace:VLS.BatchExport.Views.Detach"
+                 xmlns:base="clr-namespace:VLS.BatchExport.Views.Base"
+                 Height="600"
+                 Width="800"
+                 WindowStartupLocation="CenterScreen"
+                 ResizeMode="NoResize"
+                 Title="Пакетный экспорт отсоединённых моделей"
+                 IsEnabled="{Binding IsViewEnabled}"
+                 Topmost="True"
+                 ShowInTaskbar="False">
+    <Grid Background="WhiteSmoke">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Margin="10,0,10,0"
+                   FontSize="14"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   VerticalAlignment="Center"
+                   Text="Список RVT файлов для экспорта"/>
+
+        <Button Margin="10"
+                Grid.Column="3"
+                Grid.Row="0"
+                Command="{Binding HelpCommand}"
+                ToolTip="Справка по работе с плагином"
+                Content="Справка"/>
+        <ListBox Grid.Row="1"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="4"
+                 Margin="10"
+                 SelectionMode="Extended"                 
+                 ItemsSource="{Binding ListBoxItems}"
+                 SelectedItem="{Binding SelectedItem}"
+                 ToolTip="Список файлов в формате (.rvt)"/>
+
+        <Button Margin="10"
+                Grid.Column="0"
+                Grid.Row="2"
+                Command="{Binding LoadCommand}"
+                Content="Загрузить"
+                ToolTip="Загрузить файлы в формате (.rvt)"/>
+        <Button Margin="10"
+                Grid.Column="1"
+                Grid.Row="2"
+                Command="{Binding LoadListCommand}"
+                Content="Загрузить список"
+                ToolTip="Загрузить сохранённый ранее файл конфигурации в формате (.JSON)"/>
+        <Button Margin="10"
+                Grid.Column="2"
+                Grid.Row="2"
+                Command="{Binding SaveListCommand}"
+                Content="Сохранить список"
+                ToolTip="Сохранить файл конфигурации в формате (.JSON)"/>
+        <Button Margin="10"
+                Grid.Column="3"
+                Grid.Row="2"
+                Command="{Binding DeleteCommand}"
+                Content="Удалить"
+                ToolTip="Удалить выбранные файлы из списка"/>
+
+        <TextBlock Margin="10,10,10,10"
+                   FontSize="16"
+                   Grid.Row="3"
+                   VerticalAlignment="Center"
+                   Text="Как сохранять файлы"/>
+
+        <RadioButton Margin="10,10,10,10"
+                   FontSize="14"
+                   Grid.Row="4"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   GroupName="SavingPathMode"
+                   Name="rbFolder"
+                   Command="{Binding RadioButtonCommand}"
+                   CommandParameter="{Binding ElementName=rbFolder, Path=Tag}"
+                   Content="Папка для сохранения"
+                   Tag="Folder"/>
+        <TextBox Margin="10,10,135,10"
+                 VerticalContentAlignment="Center"
+                 Grid.Row="4"
+                 Grid.Column="1"
+                 Grid.ColumnSpan="3"
+                 Text="{Binding FolderPath}"/>
+        <Button Margin="80,10,10,10"
+                Grid.Column="3"
+                Grid.Row="4"
+                Command="{Binding BrowseFolderCommand}"
+                Content="Обзор"/>
+
+        <RadioButton Margin="10,10,10,10"
+                     FontSize="14"
+                     Grid.Row="5"
+                     Grid.Column="0"
+                     VerticalAlignment="Center"
+                     GroupName="SavingPathMode"
+                     Content="Маска"
+                     Name="rbMask"
+                     Command="{Binding RadioButtonCommand}"
+                     CommandParameter="{Binding ElementName=rbMask, Path=Tag}"
+                     Tag="Mask"/>
+        <TextBlock Margin="10,0,100,0"
+                   FontSize="14"
+                   Grid.Row="5"
+                   Grid.Column="1"
+                   VerticalAlignment="Center"
+                   Text="Заменить"/>
+        <TextBox Margin="110,10,80,10"
+                 Grid.Row="5"
+                 Grid.Column="1"
+                 Grid.ColumnSpan="2"
+                 VerticalContentAlignment="Center"
+                 Text="{Binding MaskIn}"/>
+        <TextBlock Margin="140,0,30,0"
+                   FontSize="14"
+                   Grid.Row="5"
+                   Grid.Column="2"
+                   VerticalAlignment="Center"
+                   Text="На"/>
+        <TextBox Margin="180,10,10,10"
+                 Grid.Row="5"
+                 Grid.Column="2"
+                 Grid.ColumnSpan="2"
+                 VerticalContentAlignment="Center"
+                 Text="{Binding MaskOut}"/>
+
+        <CheckBox Margin="10,0,0,0"
+                  Grid.Row="6"
+                  Grid.Column="0"
+                  VerticalAlignment="Center"
+                  FontSize="14"
+                  Content="Переименовать файлы"
+                  IsChecked="{Binding IsToRename}"/>
+        <TextBox Margin="10"
+                 Grid.Row="6"
+                 Grid.Column="1"
+                 VerticalContentAlignment="Center"
+                 Text="{Binding MaskInName}"/>
+        <TextBlock Grid.Row="6"
+                   Grid.Column="1"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   TextAlignment="Center"
+                   Text="=>" Grid.ColumnSpan="2" Width="20"/>
+        <TextBox Margin="10"
+                 Grid.Row="6"
+                 Grid.Column="2"
+                 VerticalContentAlignment="Center"
+                 Text="{Binding MaskOutName}"/>
+
+        <CheckBox Margin="10,0,95,0"
+                  Grid.Row="7"
+                  Grid.Column="0"
+                  Grid.ColumnSpan="2"
+                  FontSize="14"
+                  VerticalAlignment="Center"
+                  Content="Проверить модели на ''пустой'' вид"                  
+                  ToolTip="Следует ли проверить вид ''Имя_вида'' на наличие объектов, и если вид пустой - то сохранить файл с префиксом ''EMPTY_''"
+                  IsChecked="{Binding CheckForEmptyView}"/>
+        <TextBox Margin="110,10,80,10"
+                 Grid.Row="7"
+                 Grid.Column="1"
+                 Grid.ColumnSpan="2"
+                 VerticalContentAlignment="Center"
+                 Text="{Binding ViewName}"
+                 ToolTip="Имя вида для проверки"/>
+
+        <Button Margin="10"
+                Grid.Row="8"
+                Grid.Column="2"
+                Command="{Binding EraseCommand}"
+                Content="Очистить список"/>
+        <Button Margin="10"
+                Grid.Row="8"
+                Grid.Column="3"
+                Command="{Binding RaiseEventCommand}"
+                Content="Запуск"
+                ToolTip="Запуск пакетного экспорта текущей конфигурации"/>
+
+    </Grid>
+</base:WindowBase>
