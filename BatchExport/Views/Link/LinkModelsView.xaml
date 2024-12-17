@@ -1,0 +1,121 @@
+﻿<base:WindowBase x:Name="LinkModels"
+                 x:Class="VLS.BatchExport.Views.Link.LinkModelsView"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:local="clr-namespace:VLS.BatchExport.Views.Link"
+                 xmlns:base="clr-namespace:VLS.BatchExport.Views.Base"
+                 Height="500"
+                 Width="800"
+                 WindowStartupLocation="CenterScreen"
+                 ResizeMode="NoResize"
+                 Title="Пакетное добавление связей"
+                 IsEnabled="{Binding IsViewEnabled}"
+                 Topmost="True"
+                 ShowInTaskbar="False">
+    <Grid Background="WhiteSmoke">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Margin="10,0,10,0"
+                   FontSize="14"
+                   Grid.Column="0"
+                   Grid.ColumnSpan="2"
+                   VerticalAlignment="Center"
+                   Text="Список RVT файлов для добавления"/>
+
+        <Button Margin="10"
+                Grid.Column="3"
+                Grid.Row="0"
+                Command="{Binding HelpCommand}"
+                ToolTip="Справка по работе с плагином"
+                Content="Справка"/>
+        <ListBox Grid.Row="1"
+                 Grid.Column="0"
+                 Grid.ColumnSpan="4"
+                 Margin="10"
+                 SelectionMode="Extended"
+                 ItemsSource="{Binding Entries}"
+                 SelectedItem="{Binding SelectedEntry}"
+                 SelectionChanged="ListBox_SelectionChanged"
+                 ToolTip="Список файлов в формате (.rvt)">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="510" />
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="70" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Name}" Grid.Column="0"/>
+                        <ComboBox
+                            Margin="10,0,10,0"
+                            Grid.Column="1"
+                            SelectedItem="{Binding SelectedWorkset, Mode=TwoWay}"
+                            ItemsSource="{Binding Worksets}"
+                            DisplayMemberPath="Name"/>
+                        <ComboBox
+                            Width="70"
+                            SelectedItem="{Binding SelectedImportPlacement, Mode=TwoWay}"
+                            ItemsSource="{Binding ImportPlacements}"
+                            Grid.Column="2"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button Margin="10"
+                Grid.Column="0"
+                Grid.Row="2"
+                Command="{Binding LoadCommand}"
+                ToolTip="Загрузить файлы в формате (.rvt)"
+                Content="Загрузить"/>
+        <Button Margin="10"
+                Grid.Column="1"
+                Grid.Row="2"
+                Command="{Binding LoadListCommand}"
+                ToolTip="Загрузить сохранённый ранее файл конфигурации в формате (.JSON)"
+                Content="Загрузить список"/>
+        <Button Margin="10"
+                Grid.Column="2"
+                Grid.Row="2"
+                Command="{Binding SaveListCommand}"
+                ToolTip="Сохранить файл конфигурации в формате (.txt)"
+                Content="Сохранить список"/>
+        <Button Margin="10"
+                Grid.Column="3"
+                Grid.Row="2"
+                Command="{Binding DeleteCommand}"
+                ToolTip="Удалить выбранные файлы из списка"
+                Content="Удалить"/>
+
+        <CheckBox Margin="10,0,100,0"
+                  Grid.Column="0"
+                  Grid.Row="4"
+                  VerticalAlignment="Center"
+                  Content="Добавить в текущий рабочий набор"
+                  Grid.ColumnSpan="2"
+                  IsChecked="{Binding IsCurrentWorkset}"/>
+
+        <Button Margin="10"
+                Grid.Row="4"
+                Grid.Column="2"
+                Command="{Binding EraseCommand}"
+                Content="Очистить список"/>
+        <Button Margin="10"
+                Grid.Row="4"
+                Grid.Column="3"
+                Command="{Binding RaiseEventCommand}"
+                Content="Запуск"
+                ToolTip="Запуск пакетного экспорта текущей конфигурации"/>
+    </Grid>
+</base:WindowBase>
