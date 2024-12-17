@@ -2,28 +2,26 @@
 using System.IO;
 using System.Windows;
 using System.Reflection;
-using System.Text.Json;
-using System.Text.Unicode;
-using System.Text.Encodings.Web;
+using Newtonsoft.Json;
 
-namespace VLS.BatchExportNet.Utils
+namespace VLS.BatchExport.Utils
 {
     public static class JsonHelper<T>
     {
         public static T DeserializeResource(string path) =>
-            JsonSerializer.Deserialize<T>(
-                Assembly.GetExecutingAssembly().GetManifestResourceStream(path),
-                GetDefaultOptions());
+            JsonConvert.DeserializeObject<T>(
+                new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(path)).ReadToEnd());
 
         public static T DeserializeConfig(FileStream file) =>
-            HandleSerialization(() => JsonSerializer.Deserialize<T>(file, GetDefaultOptions()));
+            HandleSerialization(() => JsonConvert.DeserializeObject<T>(new StreamReader(file).ReadToEnd()));
 
         public static void SerializeConfig(T value, string path) =>
             HandleSerialization(() =>
             {
-                File.WriteAllText(path, JsonSerializer.Serialize(value, GetDefaultOptions()));
+                File.WriteAllText(path, JsonConvert.SerializeObject(value, Formatting.Indented));
                 return default;
             });
+
         private static T HandleSerialization(Func<T> action)
         {
             try
@@ -36,10 +34,5 @@ namespace VLS.BatchExportNet.Utils
                 return default;
             }
         }
-        private static JsonSerializerOptions GetDefaultOptions() => new()
-        {
-            WriteIndented = true,
-            Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic)
-        };
     }
 }

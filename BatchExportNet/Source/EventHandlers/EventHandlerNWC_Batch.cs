@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Windows;
 using System.Threading;
-using System.Text.Json;
+using Newtonsoft.Json;
 using VLS.BatchExportNet.Utils;
 using VLS.BatchExportNet.Views.Base;
 using VLS.BatchExportNet.Views.NWC;
@@ -27,7 +27,7 @@ namespace VLS.BatchExportNet.Source.EventHandlers
                 try
                 {
                     using FileStream file = File.OpenRead(config.Name);
-                    NWCForm form = JsonSerializer.Deserialize<NWCForm>(file);
+                    NWCForm form = JsonConvert.DeserializeObject<NWCForm>(new StreamReader(file).ReadToEnd());
                     nwcVM.NWCFormDeserilaizer(form);
                 }
                 catch

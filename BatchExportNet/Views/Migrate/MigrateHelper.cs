@@ -1,9 +1,9 @@
 ﻿using Autodesk.Revit.DB;
 using System;
 using System.IO;
-using System.Text.Json;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 using VLS.BatchExportNet.Utils;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 using WasBecome = System.Collections.Generic.Dictionary<string, string>;
@@ -18,7 +18,7 @@ namespace VLS.BatchExportNet.Views.Migrate
         public static WasBecome LoadMigrationConfig(string configPath)
         {
             using FileStream fileStream = File.OpenRead(configPath);
-            WasBecome items = JsonSerializer.Deserialize<WasBecome>(fileStream);
+            WasBecome items = JsonConvert.DeserializeObject<WasBecome>(new StreamReader(fileStream).ReadToEnd());
             return items is null
                 ? throw new InvalidOperationException(WRONG_SCHEME)
                 : items;

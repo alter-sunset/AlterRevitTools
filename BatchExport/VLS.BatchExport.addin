@@ -3,7 +3,7 @@
 	<AddIn Type="Application">
 		<Name>VLS.BatchExport</Name>
 		<FullClassName>VLS.BatchExport.Source.App</FullClassName>
-		<Assembly>BatchExport.dll</Assembly>
+		<Assembly>VLS\BatchExport.dll</Assembly>
 		<AddInId>23972D44-95D5-4147-9C4E-2517ABAF4780</AddInId>
 		<VendorId>VLS</VendorId>
 		<VendorDescription>VLS</VendorDescription>
