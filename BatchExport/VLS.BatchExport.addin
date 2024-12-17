@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RevitAddIns>
 	<AddIn Type="Application">
-		<Name>VLS.BatchExportNet</Name>
-		<FullClassName>VLS.BatchExportNet.Source.App</FullClassName>
-		<Assembly>VLS\BatchExportNet.dll</Assembly>
+		<Name>VLS.BatchExport</Name>
+		<FullClassName>VLS.BatchExport.Source.App</FullClassName>
+		<Assembly>BatchExport.dll</Assembly>
 		<AddInId>23972D44-95D5-4147-9C4E-2517ABAF4780</AddInId>
 		<VendorId>VLS</VendorId>
 		<VendorDescription>VLS</VendorDescription>
