@@ -96,14 +96,14 @@ namespace VLS.BatchExport.Views.Detach
             get => _maskOutName;
             set => SetProperty(ref _maskOutName, value);
         }
-
+        
         private bool _removeLinks = true;
         public bool RemoveLinks
         {
             get => _removeLinks;
             set => SetProperty(ref _removeLinks, value);
         }
-
+        
         private bool _removeEmptyWorksets = false;
         public bool RemoveEmptyWorksets
         {
