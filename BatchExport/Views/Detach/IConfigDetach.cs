@@ -6,6 +6,7 @@ namespace VLS.BatchExport.Views.Detach
     {
         string MaskInName { get; set; }
         string MaskOutName { get; set; }
+        bool RemoveLinks { get; set; }
         bool IsToRename { get; set; }
         bool CheckForEmptyView { get; set; }
 #if R23 || R24

@@ -7,6 +7,7 @@
     "FolderPath": "",
     "MaskInName": "",
     "MaskOutName": "",
+    "RemoveLinks": true,
     "ViewName": "",
     "RemoveEmptyWorksets": true,
     "Purge": true,
