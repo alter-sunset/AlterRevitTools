@@ -166,13 +166,13 @@
                  VerticalContentAlignment="Center"
                  Text="{Binding MaskOutName}"/>
         <CheckBox Margin="10"
-            Grid.Row="6"
-            Grid.Column="3"
-            FontSize="14"
-            VerticalAlignment="Center"
-            Content="Очистить модели"                  
-            ToolTip="Реализует функционал команды ''Удалить неиспользуемые'' до полной очистки (несколько раз)"
-            IsChecked="{Binding Purge}"/>
+                  Grid.Row="6"
+                  Grid.Column="3"
+                  FontSize="14"
+                  VerticalAlignment="Center"
+                  Content="Очистить модели"
+                  ToolTip="Реализует функционал команды ''Удалить неиспользуемые'' до полной очистки (несколько раз)"
+                  IsChecked="{Binding Purge}"/>
 
         <CheckBox Margin="10,0,95,0"
                   Grid.Row="7"

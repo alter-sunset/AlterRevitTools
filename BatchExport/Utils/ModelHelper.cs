@@ -169,5 +169,53 @@ namespace VLS.BatchExport.Utils
             failOpt.SetFailuresPreprocessor(new CopyWatchAlertSwallower());
             t.SetFailureHandlingOptions(failOpt);
         }
+#if R24
+        public static void PurgeAll(this Document doc)
+        {
+            try
+            {
+                int previousCount;
+                do
+                {
+                    HashSet<ElementId> unusedElements = doc.GetUnusedElements(new HashSet<ElementId>())
+                        .Where(el => !(doc.GetElement(el) is null)
+                            && !(doc.GetElement(el) is RevitLinkType))
+                        .ToHashSet();
+
+                    previousCount = unusedElements.Count;
+                    if (previousCount == 0) break;
+
+                    using (Transaction t = new Transaction(doc, "Purge unused"))
+                    {
+                        t.Start();
+                        doc.Delete(unusedElements);
+                        t.Commit();
+                    }
+                } while (previousCount > 0);
+            }
+            catch { }
+        }
+#endif
+#if R23 || R24
+        public static void RemoveEmptyWorksets(this Document doc)
+        {
+            DeleteWorksetSettings settings = new DeleteWorksetSettings();
+            List<WorksetId> worksets = new FilteredWorksetCollector(doc)
+                .OfKind(WorksetKind.UserWorkset)
+                .ToWorksetIds()
+                .Where(doc.IsWorksetEmpty)
+                .ToList();
+
+            using (Transaction t = new Transaction(doc))
+            {
+                t.Start("Remove empty worksets");
+                worksets.ForEach(workset => WorksetTable.DeleteWorkset(doc, workset, settings));
+                t.Commit();
+            }
+        }
+        private static bool IsWorksetEmpty(this Document doc, WorksetId workset) =>
+            !new FilteredElementCollector(doc)
+                .WherePasses(new ElementWorksetFilter(workset)).Any();
+#endif
     }
 }
