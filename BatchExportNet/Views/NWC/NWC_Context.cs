@@ -1,7 +1,7 @@
 ﻿using Autodesk.Revit.DB;
 using System.Collections.Generic;
 
-namespace VLS.BatchExportNet.Views.NWC
+namespace AlterTools.BatchExportNet.Views.NWC
 {
     internal static class NWC_Context
     {

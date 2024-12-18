@@ -4,7 +4,7 @@ using System.Windows;
 using System.Reflection;
 using Newtonsoft.Json;
 
-namespace VLS.BatchExportNet.Utils
+namespace AlterTools.BatchExportNet.Utils
 {
     public static class JsonHelper<T>
     {

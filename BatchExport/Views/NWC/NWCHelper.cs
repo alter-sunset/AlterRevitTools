@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using Autodesk.Revit.DB;
-using VLS.BatchExport.Utils;
-using VLS.BatchExport.Views.Base;
+using AlterTools.BatchExport.Utils;
+using AlterTools.BatchExport.Views.Base;
 
-namespace VLS.BatchExport.Views.NWC
+namespace AlterTools.BatchExport.Views.NWC
 {
     public class NWCHelper : ExportHelperBase
     {

@@ -1,6 +1,6 @@
 ﻿using Autodesk.Revit.DB;
 
-namespace VLS.BatchExport.Views.Link
+namespace AlterTools.BatchExport.Views.Link
 {
     public class LinkProps
     {

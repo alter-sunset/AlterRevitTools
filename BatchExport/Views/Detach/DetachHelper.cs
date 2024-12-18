@@ -2,9 +2,9 @@
 using Autodesk.Revit.ApplicationServices;
 using System.IO;
 using System.Linq;
-using VLS.BatchExport.Utils;
+using AlterTools.BatchExport.Utils;
 
-namespace VLS.BatchExport.Views.Detach
+namespace AlterTools.BatchExport.Views.Detach
 {
     public static class DetachHelper
     {

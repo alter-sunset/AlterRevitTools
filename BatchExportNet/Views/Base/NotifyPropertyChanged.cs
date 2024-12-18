@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 
-namespace VLS.BatchExportNet.Views.Base
+namespace AlterTools.BatchExportNet.Views.Base
 {
     public class NotifyPropertyChanged : INotifyPropertyChanged
     {

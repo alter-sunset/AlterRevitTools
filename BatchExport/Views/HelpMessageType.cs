@@ -1,4 +1,4 @@
-﻿namespace VLS.BatchExport.Views
+﻿namespace AlterTools.BatchExport.Views
 {
     public enum HelpMessageType
     {

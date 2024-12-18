@@ -1,4 +1,4 @@
-﻿namespace VLS.BatchExport.Source
+﻿namespace AlterTools.BatchExport.Source
 {
     internal enum Forms
     {

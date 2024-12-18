@@ -68,7 +68,7 @@
 		<PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*" />
 	</ItemGroup>
 	<ItemGroup>
-		<None Update="VLS.BatchExport.addin">
+		<None Update="AlterTools.BatchExport.addin">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>

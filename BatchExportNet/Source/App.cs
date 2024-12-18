@@ -3,12 +3,12 @@ using System.Linq;
 using System.Collections.Generic;
 using Panel = System.Tuple<Autodesk.Revit.UI.RibbonPanel, string>;
 
-namespace VLS.BatchExportNet.Source
+namespace AlterTools.BatchExportNet.Source
 {
     public class App : IExternalApplication
     {
         private Panel[] Panels;
-        private const string TAB_NAME = "VLS";
+        private const string TAB_NAME = "AlterTools";
         public Result OnStartup(UIControlledApplication uiApp)
         {
             try

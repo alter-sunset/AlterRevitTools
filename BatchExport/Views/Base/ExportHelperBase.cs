@@ -7,10 +7,10 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Media;
 using System.Windows.Controls;
-using VLS.BatchExport.Utils;
-using VLS.BatchExport.Views.NWC;
+using AlterTools.BatchExport.Utils;
+using AlterTools.BatchExport.Views.NWC;
 
-namespace VLS.BatchExport.Views.Base
+namespace AlterTools.BatchExport.Views.Base
 {
     public class ExportHelperBase
     {

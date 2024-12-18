@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace VLS.BatchExport.Views
+namespace AlterTools.BatchExport.Views
 {
     public static class DialogHelper
     {

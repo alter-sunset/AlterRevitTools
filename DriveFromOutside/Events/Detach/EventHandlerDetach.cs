@@ -1,10 +1,10 @@
 ﻿using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.UI;
-using VLS.BatchExportNet.Source.EventHandlers;
-using VLS.BatchExportNet.Utils;
-using VLS.BatchExportNet.Views.Detach;
+using AlterTools.BatchExportNet.Source.EventHandlers;
+using AlterTools.BatchExportNet.Utils;
+using AlterTools.BatchExportNet.Views.Detach;
 
-namespace VLS.DriveFromOutside.Events.Detach
+namespace AlterTools.DriveFromOutside.Events.Detach
 {
     public class EventHandlerDetach : RevitEventWrapper<IConfigDetach>
     {

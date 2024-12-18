@@ -1,6 +1,6 @@
 ﻿using Autodesk.Revit.UI;
 
-namespace VLS.DriveFromOutside.Events.Detach
+namespace AlterTools.DriveFromOutside.Events.Detach
 {
     public class DetachEventHolder : IEventHolder
     {

@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
-using VLS.DriveFromOutside.Events;
+using AlterTools.DriveFromOutside.Events;
 
-namespace VLS.DriveFromOutside.Utils
+namespace AlterTools.DriveFromOutside.Utils
 {
     public static class ConfigHelper
     {

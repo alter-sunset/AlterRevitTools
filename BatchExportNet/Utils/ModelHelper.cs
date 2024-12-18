@@ -7,7 +7,7 @@ using System.Linq;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 
-namespace VLS.BatchExportNet.Utils
+namespace AlterTools.BatchExportNet.Utils
 {
     public static class ModelHelper
     {

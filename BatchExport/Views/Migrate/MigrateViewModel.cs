@@ -1,8 +1,8 @@
 ﻿using System.Windows.Forms;
-using VLS.BatchExport.Source.EventHandlers;
-using VLS.BatchExport.Views.Base;
+using AlterTools.BatchExport.Source.EventHandlers;
+using AlterTools.BatchExport.Views.Base;
 
-namespace VLS.BatchExport.Views.Migrate
+namespace AlterTools.BatchExport.Views.Migrate
 {
     public class MigrateViewModel : ViewModelBase
     {

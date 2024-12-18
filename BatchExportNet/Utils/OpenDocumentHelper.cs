@@ -1,7 +1,7 @@
 ﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.ApplicationServices;
 
-namespace VLS.BatchExportNet.Utils
+namespace AlterTools.BatchExportNet.Utils
 {
     public static class OpenDocumentHelper
     {

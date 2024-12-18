@@ -1,4 +1,4 @@
-﻿namespace VLS.BatchExportNet.Views.Base
+﻿namespace AlterTools.BatchExportNet.Views.Base
 {
     public interface IConfigBase_Extended : IConfigBase
     {

@@ -4,11 +4,11 @@ using System.IO;
 using System.Windows;
 using System.Threading;
 using Newtonsoft.Json;
-using VLS.BatchExport.Utils;
-using VLS.BatchExport.Views.Base;
-using VLS.BatchExport.Views.NWC;
+using AlterTools.BatchExport.Utils;
+using AlterTools.BatchExport.Views.Base;
+using AlterTools.BatchExport.Views.NWC;
 
-namespace VLS.BatchExport.Source.EventHandlers
+namespace AlterTools.BatchExport.Source.EventHandlers
 {
     public class EventHandlerNWC_Batch : EventHandlerBase
     {

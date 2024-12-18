@@ -1,7 +1,7 @@
 ﻿using Autodesk.Revit.DB;
 using System.Collections.Generic;
 
-namespace VLS.BatchExportNet.Views.IFC
+namespace AlterTools.BatchExportNet.Views.IFC
 {
     internal static class IFC_Context
     {

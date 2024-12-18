@@ -1,7 +1,7 @@
-﻿using VLS.BatchExport.Source.EventHandlers;
-using VLS.BatchExport.Views.Base;
+﻿using AlterTools.BatchExport.Source.EventHandlers;
+using AlterTools.BatchExport.Views.Base;
 
-namespace VLS.BatchExport.Views.IFC
+namespace AlterTools.BatchExport.Views.IFC
 {
     /// <summary>
     /// Interaction logic for NWCExportView.xaml

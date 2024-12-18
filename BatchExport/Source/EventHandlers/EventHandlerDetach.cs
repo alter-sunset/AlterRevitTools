@@ -5,11 +5,11 @@ using System.Linq;
 using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
-using VLS.BatchExport.Utils;
-using VLS.BatchExport.Views.Detach;
-using VLS.BatchExport.Views.Base;
+using AlterTools.BatchExport.Utils;
+using AlterTools.BatchExport.Views.Detach;
+using AlterTools.BatchExport.Views.Base;
 
-namespace VLS.BatchExport.Source.EventHandlers
+namespace AlterTools.BatchExport.Source.EventHandlers
 {
     public class EventHandlerDetach : EventHandlerBase
     {

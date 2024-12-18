@@ -4,12 +4,12 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using System.Collections.Generic;
-using VLS.BatchExport.Views.Base;
-using VLS.BatchExport.Views.Link;
-using VLS.BatchExport.Views.Detach;
-using VLS.BatchExport.Views.Transmit;
+using AlterTools.BatchExport.Views.Base;
+using AlterTools.BatchExport.Views.Link;
+using AlterTools.BatchExport.Views.Detach;
+using AlterTools.BatchExport.Views.Transmit;
 
-namespace VLS.BatchExport.Utils
+namespace AlterTools.BatchExport.Utils
 {
     static class ViewModelHelper
     {

@@ -1,6 +1,6 @@
 ﻿using Autodesk.Revit.DB;
 
-namespace VLS.BatchExport.Views.NWC
+namespace AlterTools.BatchExport.Views.NWC
 {
     public class NWCForm : NavisworksExportOptions
     {

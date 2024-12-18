@@ -1,6 +1,6 @@
 ﻿using Autodesk.Revit.UI;
 
-namespace VLS.DriveFromOutside.Events
+namespace AlterTools.DriveFromOutside.Events
 {
     public interface IEventHolder
     {

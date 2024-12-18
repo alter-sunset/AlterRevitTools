@@ -1,8 +1,8 @@
 ﻿using Autodesk.Revit.DB;
 using System.Linq;
-using VLS.BatchExport.Views.Base;
+using AlterTools.BatchExport.Views.Base;
 
-namespace VLS.BatchExport.Views.Link
+namespace AlterTools.BatchExport.Views.Link
 {
     public class Entry : NotifyPropertyChanged, ISelectable
     {

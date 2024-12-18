@@ -1,6 +1,6 @@
 ﻿using Autodesk.Revit.DB;
 
-namespace VLS.BatchExportNet.Views.IFC
+namespace AlterTools.BatchExportNet.Views.IFC
 {
     public class IFCForm : IFCExportOptions
     {

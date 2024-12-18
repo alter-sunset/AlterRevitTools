@@ -1,7 +1,7 @@
 ﻿using Autodesk.Revit.DB;
-using VLS.BatchExportNet.Views.IFC;
+using AlterTools.BatchExportNet.Views.IFC;
 
-namespace VLS.DriveFromOutside.Events.IFC
+namespace AlterTools.DriveFromOutside.Events.IFC
 {
     public class IfcConfig : IConfigIFC
     {

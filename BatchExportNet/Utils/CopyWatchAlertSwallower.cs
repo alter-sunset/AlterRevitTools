@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 
-namespace VLS.BatchExportNet.Utils
+namespace AlterTools.BatchExportNet.Utils
 {
     public class CopyWatchAlertSwallower : IFailuresPreprocessor
     {

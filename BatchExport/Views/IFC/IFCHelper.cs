@@ -1,9 +1,9 @@
 ﻿using Autodesk.Revit.DB;
 using System.Linq;
-using VLS.BatchExport.Utils;
-using VLS.BatchExport.Views.Base;
+using AlterTools.BatchExport.Utils;
+using AlterTools.BatchExport.Views.Base;
 
-namespace VLS.BatchExport.Views.IFC
+namespace AlterTools.BatchExport.Views.IFC
 {
     public class IFCHelper : ExportHelperBase
     {

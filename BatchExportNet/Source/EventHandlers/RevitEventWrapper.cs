@@ -1,6 +1,6 @@
 ﻿using Autodesk.Revit.UI;
 
-namespace VLS.BatchExportNet.Source.EventHandlers
+namespace AlterTools.BatchExportNet.Source.EventHandlers
 {
     /// <summary>
     /// Class for creating Argument (Wrapped) External Events

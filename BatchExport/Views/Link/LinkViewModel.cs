@@ -4,11 +4,11 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using VLS.BatchExport.Source.EventHandlers;
-using VLS.BatchExport.Views.Base;
-using VLS.BatchExport.Utils;
+using AlterTools.BatchExport.Source.EventHandlers;
+using AlterTools.BatchExport.Views.Base;
+using AlterTools.BatchExport.Utils;
 
-namespace VLS.BatchExport.Views.Link
+namespace AlterTools.BatchExport.Views.Link
 {
     public class LinkViewModel : ViewModelBase
     {

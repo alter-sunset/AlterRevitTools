@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Collections.Generic;
-using VLS.BatchExportNet.Utils;
-using Messages = System.Collections.Generic.Dictionary<VLS.BatchExportNet.Views.HelpMessageType, string>;
+using AlterTools.BatchExportNet.Utils;
+using Messages = System.Collections.Generic.Dictionary<AlterTools.BatchExportNet.Views.HelpMessageType, string>;
 
-namespace VLS.BatchExportNet.Views
+namespace AlterTools.BatchExportNet.Views
 {
     public static class Help
     {

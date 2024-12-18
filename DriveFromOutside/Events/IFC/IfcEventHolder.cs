@@ -1,6 +1,6 @@
 ﻿using Autodesk.Revit.UI;
 
-namespace VLS.DriveFromOutside.Events.IFC
+namespace AlterTools.DriveFromOutside.Events.IFC
 {
     public class IfcEventHolder : IEventHolder
     {

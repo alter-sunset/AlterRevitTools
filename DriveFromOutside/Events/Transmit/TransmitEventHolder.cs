@@ -1,6 +1,6 @@
 ﻿using Autodesk.Revit.UI;
 
-namespace VLS.DriveFromOutside.Events.Transmit
+namespace AlterTools.DriveFromOutside.Events.Transmit
 {
     /// <summary>
     /// Class that will hold Transmit Event

@@ -1,4 +1,4 @@
-﻿namespace VLS.BatchExport.Views.Base
+﻿namespace AlterTools.BatchExport.Views.Base
 {
     public class ViewModelBase_Extended : ViewModelBase, IConfigBase_Extended
     {

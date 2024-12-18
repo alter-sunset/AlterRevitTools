@@ -16,7 +16,7 @@
 		</ProjectReference>
 	</ItemGroup>
 	<ItemGroup>
-		<None Update="VLS.DriveFromOutside.addin">
+		<None Update="AlterTools.DriveFromOutside.addin">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>

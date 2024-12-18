@@ -1,7 +1,7 @@
 ﻿using Autodesk.Revit.DB;
-using VLS.BatchExport.Views.Base;
+using AlterTools.BatchExport.Views.Base;
 
-namespace VLS.BatchExport.Views.NWC
+namespace AlterTools.BatchExport.Views.NWC
 {
     public interface IConfigNWC : IConfigBase_Extended
     {

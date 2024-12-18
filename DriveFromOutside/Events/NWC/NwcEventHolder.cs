@@ -1,6 +1,6 @@
 ﻿using Autodesk.Revit.UI;
 
-namespace VLS.DriveFromOutside.Events.NWC
+namespace AlterTools.DriveFromOutside.Events.NWC
 {
     public class NwcEventHolder : IEventHolder
     {

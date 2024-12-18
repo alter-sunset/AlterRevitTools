@@ -1,7 +1,7 @@
-﻿using VLS.BatchExport.Source.EventHandlers;
-using VLS.BatchExport.Views.Base;
+﻿using AlterTools.BatchExport.Source.EventHandlers;
+using AlterTools.BatchExport.Views.Base;
 
-namespace VLS.BatchExport.Views.Transmit
+namespace AlterTools.BatchExport.Views.Transmit
 {
     /// <summary>
     /// Interaction logic for DetachModelsView.xaml

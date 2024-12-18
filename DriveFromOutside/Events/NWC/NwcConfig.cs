@@ -1,7 +1,7 @@
 ﻿using Autodesk.Revit.DB;
-using VLS.BatchExportNet.Views.NWC;
+using AlterTools.BatchExportNet.Views.NWC;
 
-namespace VLS.DriveFromOutside.Events.NWC
+namespace AlterTools.DriveFromOutside.Events.NWC
 {
     public class NwcConfig : IConfigNWC
     {

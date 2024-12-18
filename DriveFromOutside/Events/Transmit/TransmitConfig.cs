@@ -1,4 +1,4 @@
-﻿namespace VLS.DriveFromOutside.Events.Transmit
+﻿namespace AlterTools.DriveFromOutside.Events.Transmit
 {
     public class TransmitConfig
     {
