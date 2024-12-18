@@ -21,9 +21,7 @@ namespace VLS.BatchExport.Utils
                 using (FileStream stream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None))
                 {
                     using (StreamWriter writer = new StreamWriter(stream))
-                    {
                         writer.Write(JsonConvert.SerializeObject(value, Formatting.Indented));
-                    }
                 }
                 return default;
             });

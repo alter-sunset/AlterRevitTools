@@ -165,12 +165,12 @@ namespace VLS.BatchExportNet.Utils
                     previousCount = unusedElements.Count;
                     if (previousCount == 0) break;
 
-                    using Transaction transaction = new(doc, "Purge unused");
-                    transaction.Start();
+                    using Transaction t = new(doc, "Purge unused");
+                    t.Start();
 
                     doc.Delete(unusedElements);
 
-                    transaction.Commit();
+                    t.Commit();
                 } while (previousCount > 0);
             }
             catch { }

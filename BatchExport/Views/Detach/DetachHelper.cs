@@ -49,6 +49,14 @@ namespace VLS.BatchExport.Views.Detach
         private static void ProcessDocument(Document doc, IConfigDetach iConfigDetach)
         {
             doc.DeleteAllLinks();
+#if R23 || R24
+            if (iConfigDetach.RemoveEmptyWorksets && doc.IsWorkshared)
+                doc.RemoveEmptyWorksets();
+#endif
+#if R24
+            if (iConfigDetach.Purge)
+                doc.PurgeAll();
+#endif
         }
         private static string GetDetachedFilePath(IConfigDetach iConfigDetach, Document doc, string originalFilePath)
         {

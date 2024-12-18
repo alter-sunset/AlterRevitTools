@@ -39,7 +39,7 @@
 	<PropertyGroup Condition="$(Configuration.Contains('R23'))">
 		<RevitVersion>2023</RevitVersion>
 		<OutputPath>bin\R2023\</OutputPath>
-		<DefineConstants>R20_OR_GREATER</DefineConstants>
+		<DefineConstants>R20_OR_GREATER;R23</DefineConstants>
 	</PropertyGroup>
 	<PropertyGroup Condition="$(Configuration.Contains('R24'))">
 		<RevitVersion>2024</RevitVersion>

@@ -7,6 +7,14 @@ namespace VLS.BatchExport.Views.Detach
     {
         public DetachViewModel(EventHandlerDetach eventHandlerDetach)
         {
+#if R23 || R24
+            _isWorksetRemoverEnabled = true;
+            _removeEmptyWorksets = true;
+#endif
+#if R24
+            _isPurgeEnabled = true;
+            _purge = true;
+#endif
             EventHandlerBase = eventHandlerDetach;
             HelpMessage =
                 Help.GetHelpDictionary().
@@ -75,18 +83,34 @@ namespace VLS.BatchExport.Views.Detach
             set => SetProperty(ref _isToRename, value);
         }
 
-        private string _maskInName = "R21";
+        private string _maskInName = "R18";
         public string MaskInName
         {
             get => _maskInName;
             set => SetProperty(ref _maskInName, value);
         }
 
-        private string _maskOutName = "R25";
+        private string _maskOutName = "R24";
         public string MaskOutName
         {
             get => _maskOutName;
             set => SetProperty(ref _maskOutName, value);
         }
+        private bool _removeEmptyWorksets = false;
+        public bool RemoveEmptyWorksets
+        {
+            get => _removeEmptyWorksets;
+            set => SetProperty(ref _removeEmptyWorksets, value);
+        }
+        private bool _purge = false;
+        public bool Purge
+        {
+            get => _purge;
+            set => SetProperty(ref _purge, value);
+        }
+        private readonly bool _isPurgeEnabled = false;
+        public bool IsPurgeEnabled => _isPurgeEnabled;
+        private readonly bool _isWorksetRemoverEnabled = false;
+        public bool IsWorksetRemoverEnabled => _isWorksetRemoverEnabled;
     }
 }
