@@ -13,5 +13,6 @@ namespace VLS.DriveFromOutside.Events.Detach
         public bool Purge { get; set; }
         public bool IsToRename { get; set; }
         public bool CheckForEmptyView { get; set; }
+        public bool RemoveLinks { get; set; }
     }
 }

@@ -199,6 +199,14 @@
                   Content="Удалить пустые рабочие наборы"
                   IsChecked="{Binding RemoveEmptyWorksets}"/>
 
+        <CheckBox Margin="10,0,0,0"
+                  Grid.Row="8"
+                  Grid.Column="0"
+                  VerticalAlignment="Center"
+                  FontSize="14"
+                  Content="Удалить связи"
+                  IsChecked="{Binding RemoveLinks}"/>
+
         <Button Margin="10"
                 Grid.Row="8"
                 Grid.Column="2"

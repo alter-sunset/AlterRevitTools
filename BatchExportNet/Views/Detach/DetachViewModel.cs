@@ -82,6 +82,13 @@ namespace VLS.BatchExportNet.Views.Detach
             set => SetProperty(ref _maskOutName, value);
         }
 
+        private bool _removeLinks = true;
+        public bool RemoveLinks
+        {
+            get => _removeLinks;
+            set => SetProperty(ref _removeLinks, value);
+        }
+
         private bool _purge = true;
         public bool Purge
         {

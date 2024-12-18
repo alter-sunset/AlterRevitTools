@@ -48,7 +48,8 @@ namespace VLS.BatchExportNet.Views.Detach
         }
         private static void ProcessDocument(Document doc, IConfigDetach iConfigDetach)
         {
-            doc.DeleteAllLinks();
+            if (iConfigDetach.RemoveLinks)
+                doc.DeleteAllLinks();
 
             if (iConfigDetach.RemoveEmptyWorksets && doc.IsWorkshared)
                 doc.RemoveEmptyWorksets();
