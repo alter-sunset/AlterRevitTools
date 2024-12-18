@@ -2,7 +2,7 @@
 using System.IO;
 using System.Windows.Forms;
 
-namespace VLS.BatchExportNet.Utils
+namespace AlterTools.BatchExportNet.Utils
 {
     public class Logger
     {

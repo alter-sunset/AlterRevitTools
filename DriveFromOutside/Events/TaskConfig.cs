@@ -1,4 +1,4 @@
-﻿namespace VLS.DriveFromOutside.Events
+﻿namespace AlterTools.DriveFromOutside.Events
 {
     /// <summary>
     /// Object that will hold configuration obtained from message

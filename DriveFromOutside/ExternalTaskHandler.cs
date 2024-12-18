@@ -1,12 +1,12 @@
 ﻿using System.Text.Json;
-using VLS.DriveFromOutside.Utils;
-using VLS.DriveFromOutside.Events;
-using VLS.DriveFromOutside.Events.IFC;
-using VLS.DriveFromOutside.Events.NWC;
-using VLS.DriveFromOutside.Events.Detach;
-using VLS.DriveFromOutside.Events.Transmit;
+using AlterTools.DriveFromOutside.Utils;
+using AlterTools.DriveFromOutside.Events;
+using AlterTools.DriveFromOutside.Events.IFC;
+using AlterTools.DriveFromOutside.Events.NWC;
+using AlterTools.DriveFromOutside.Events.Detach;
+using AlterTools.DriveFromOutside.Events.Transmit;
 
-namespace VLS.DriveFromOutside
+namespace AlterTools.DriveFromOutside
 {
     public class ExternalTaskHandler(List<IEventHolder> eventHolders)
     {

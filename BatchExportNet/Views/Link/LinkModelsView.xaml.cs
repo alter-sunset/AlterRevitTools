@@ -1,8 +1,8 @@
 ﻿using Autodesk.Revit.DB;
-using VLS.BatchExportNet.Source.EventHandlers;
-using VLS.BatchExportNet.Views.Base;
+using AlterTools.BatchExportNet.Source.EventHandlers;
+using AlterTools.BatchExportNet.Views.Base;
 
-namespace VLS.BatchExportNet.Views.Link
+namespace AlterTools.BatchExportNet.Views.Link
 {
     /// <summary>
     /// Interaction logic for DetachModelsView.xaml

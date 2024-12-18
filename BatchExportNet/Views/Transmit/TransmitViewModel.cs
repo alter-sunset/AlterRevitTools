@@ -1,7 +1,7 @@
-﻿using VLS.BatchExportNet.Source.EventHandlers;
-using VLS.BatchExportNet.Views.Base;
+﻿using AlterTools.BatchExportNet.Source.EventHandlers;
+using AlterTools.BatchExportNet.Views.Base;
 
-namespace VLS.BatchExportNet.Views.Transmit
+namespace AlterTools.BatchExportNet.Views.Transmit
 {
     public class TransmitViewModel : ViewModelBase
     {

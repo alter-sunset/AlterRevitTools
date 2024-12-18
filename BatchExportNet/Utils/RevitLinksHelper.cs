@@ -6,7 +6,7 @@ using System.Linq;
 using System.Windows;
 using System.Collections.Generic;
 
-namespace VLS.BatchExportNet.Utils
+namespace AlterTools.BatchExportNet.Utils
 {
     public static class RevitLinksHelper
     {

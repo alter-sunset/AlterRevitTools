@@ -1,6 +1,6 @@
-﻿using VLS.BatchExport.Views.Base;
+﻿using AlterTools.BatchExport.Views.Base;
 
-namespace VLS.BatchExport.Views.Detach
+namespace AlterTools.BatchExport.Views.Detach
 {
     public interface IConfigDetach : IConfigBase
     {

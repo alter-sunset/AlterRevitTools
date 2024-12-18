@@ -4,16 +4,16 @@ using System;
 using System.Linq;
 using System.Windows;
 using System.Collections.Generic;
-using VLS.BatchExport.Source;
-using VLS.BatchExport.Source.EventHandlers;
-using VLS.BatchExport.Views.IFC;
-using VLS.BatchExport.Views.NWC;
-using VLS.BatchExport.Views.Link;
-using VLS.BatchExport.Views.Detach;
-using VLS.BatchExport.Views.Migrate;
-using VLS.BatchExport.Views.Transmit;
+using AlterTools.BatchExport.Source;
+using AlterTools.BatchExport.Source.EventHandlers;
+using AlterTools.BatchExport.Views.IFC;
+using AlterTools.BatchExport.Views.NWC;
+using AlterTools.BatchExport.Views.Link;
+using AlterTools.BatchExport.Views.Detach;
+using AlterTools.BatchExport.Views.Migrate;
+using AlterTools.BatchExport.Views.Transmit;
 
-namespace VLS.BatchExport.Utils
+namespace AlterTools.BatchExport.Utils
 {
     static class ViewHelper
     {

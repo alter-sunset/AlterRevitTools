@@ -4,9 +4,9 @@ using Autodesk.Revit.Exceptions;
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-using VLS.BatchExportNet.Utils;
+using AlterTools.BatchExportNet.Utils;
 
-namespace VLS.BatchExportNet.Views.Link
+namespace AlterTools.BatchExportNet.Views.Link
 {
     internal static class LinkHelper
     {

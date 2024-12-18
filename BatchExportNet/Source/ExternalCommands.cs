@@ -2,9 +2,9 @@
 using Autodesk.Revit.UI;
 using Autodesk.Revit.Attributes;
 using System;
-using VLS.BatchExportNet.Utils;
+using AlterTools.BatchExportNet.Utils;
 
-namespace VLS.BatchExportNet.Source
+namespace AlterTools.BatchExportNet.Source
 {
     public class CommandAvailability : IExternalCommandAvailability
     {

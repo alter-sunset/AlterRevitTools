@@ -5,11 +5,11 @@ using System.Windows.Forms;
 using System.Windows.Controls;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using VLS.BatchExportNet.Utils;
-using VLS.BatchExportNet.Views.Base;
-using VLS.BatchExportNet.Source.EventHandlers;
+using AlterTools.BatchExportNet.Utils;
+using AlterTools.BatchExportNet.Views.Base;
+using AlterTools.BatchExportNet.Source.EventHandlers;
 
-namespace VLS.BatchExportNet.Views.IFC
+namespace AlterTools.BatchExportNet.Views.IFC
 {
     public class IFC_ViewModel : ViewModelBase_Extended, IConfigIFC
     {

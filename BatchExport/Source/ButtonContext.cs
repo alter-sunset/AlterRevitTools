@@ -3,9 +3,9 @@ using System.IO;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Windows.Media.Imaging;
-using VLS.BatchExport.Utils;
+using AlterTools.BatchExport.Utils;
 
-namespace VLS.BatchExport.Source
+namespace AlterTools.BatchExport.Source
 {
     class ButtonContext
     {

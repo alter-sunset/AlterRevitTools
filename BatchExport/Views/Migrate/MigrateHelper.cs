@@ -4,11 +4,11 @@ using System.IO;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using Newtonsoft.Json;
-using VLS.BatchExport.Utils;
+using AlterTools.BatchExport.Utils;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 using WasBecome = System.Collections.Generic.Dictionary<string, string>;
 
-namespace VLS.BatchExport.Views.Migrate
+namespace AlterTools.BatchExport.Views.Migrate
 {
     public static class MigrateHelper
     {

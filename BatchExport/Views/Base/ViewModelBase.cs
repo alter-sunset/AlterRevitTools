@@ -5,10 +5,10 @@ using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using VLS.BatchExport.Source.EventHandlers;
-using VLS.BatchExport.Utils;
+using AlterTools.BatchExport.Source.EventHandlers;
+using AlterTools.BatchExport.Utils;
 
-namespace VLS.BatchExport.Views.Base
+namespace AlterTools.BatchExport.Views.Base
 {
     public class ViewModelBase : NotifyPropertyChanged, IConfigBase
     {

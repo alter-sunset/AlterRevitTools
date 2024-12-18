@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 
-namespace VLS.BatchExportNet.Views.Base
+namespace AlterTools.BatchExportNet.Views.Base
 {
     public class WindowBase : Window
     {

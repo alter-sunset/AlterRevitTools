@@ -1,4 +1,4 @@
-﻿namespace VLS.BatchExportNet.Views
+﻿namespace AlterTools.BatchExportNet.Views
 {
     public enum DialogType
     {

@@ -6,7 +6,7 @@ using Autodesk.Revit.UI.Events;
 using System;
 using System.Collections.Generic;
 
-namespace VLS.BatchExportNet.Utils
+namespace AlterTools.BatchExportNet.Utils
 {
     public class ErrorSwallower : IDisposable
     {

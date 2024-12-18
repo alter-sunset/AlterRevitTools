@@ -1,6 +1,6 @@
-﻿using VLS.BatchExportNet.Views.Detach;
+﻿using AlterTools.BatchExportNet.Views.Detach;
 
-namespace VLS.DriveFromOutside.Events.Detach
+namespace AlterTools.DriveFromOutside.Events.Detach
 {
     public class DetachConfig : IConfigDetach
     {

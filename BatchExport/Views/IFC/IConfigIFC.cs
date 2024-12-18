@@ -1,7 +1,7 @@
 ﻿using Autodesk.Revit.DB;
-using VLS.BatchExport.Views.Base;
+using AlterTools.BatchExport.Views.Base;
 
-namespace VLS.BatchExport.Views.IFC
+namespace AlterTools.BatchExport.Views.IFC
 {
     public interface IConfigIFC : IConfigBase_Extended
     {
