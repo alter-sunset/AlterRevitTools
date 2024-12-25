@@ -39,29 +39,22 @@ namespace AlterTools.BatchExport.Views
 
         private static (string defaultExt, string filter, bool multiselect) GetOpenFileDialogSettings(DialogType dialogType)
         {
-            switch (dialogType)
+            return dialogType switch
             {
-                case DialogType.SingleText:
-                    return (EXT_TXT, FILTER_TXT, false);
-                case DialogType.SingleJson:
-                    return (EXT_JSON, FILTER_JSON, false);
-                case DialogType.MultiRevit:
-                    return (EXT_RVT, FILTER_RVT, true);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(dialogType), EXCEPTION);
-            }
+                DialogType.SingleText => (EXT_TXT, FILTER_TXT, false),
+                DialogType.SingleJson => (EXT_JSON, FILTER_JSON, false),
+                DialogType.MultiRevit => (EXT_RVT, FILTER_RVT, true),
+                _ => throw new ArgumentOutOfRangeException(nameof(dialogType), EXCEPTION),
+            };
         }
         private static (string defaultExt, string filter, string fileName) GetSaveFileDialogSettings(DialogType dialogType)
         {
-            switch (dialogType)
+            return dialogType switch
             {
-                case DialogType.SingleJson:
-                    return (EXT_JSON, FILTER_JSON, DEFAULT_FILE_NAME_JSON);
-                case DialogType.RevitList:
-                    return (EXT_TXT, FILTER_TXT, DEFAULT_FILE_NAME_TXT);
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(dialogType), EXCEPTION);
-            }
+                DialogType.SingleJson => (EXT_JSON, FILTER_JSON, DEFAULT_FILE_NAME_JSON),
+                DialogType.RevitList => (EXT_TXT, FILTER_TXT, DEFAULT_FILE_NAME_TXT),
+                _ => throw new ArgumentOutOfRangeException(nameof(dialogType), EXCEPTION),
+            };
         }
     }
 }

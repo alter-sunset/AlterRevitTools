@@ -13,7 +13,7 @@ namespace AlterTools.BatchExport.Source.EventHandlers
     {
         public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (!(iConfigBase is TransmitViewModel transmitVM) || !transmitVM.IsEverythingFilled()) return;
+            if (iConfigBase is not TransmitViewModel transmitVM || !transmitVM.IsEverythingFilled()) return;
 
             string folderPath = transmitVM.FolderPath;
             bool isSameFolder = transmitVM.IsSameFolder;

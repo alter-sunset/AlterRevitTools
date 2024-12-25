@@ -1,17 +1,59 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net8.0-windows</TargetFramework>
+		<LangVersion>12</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<Configurations>Release R25;Debug R25</Configurations>
+		<Configurations>Release R19;Release R20;Release R21;Release R22;Release R23;Release R24;Release R25</Configurations>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.Contains('R19'))">
+		<TargetFramework>net48</TargetFramework>
+		<RevitVersion>2019</RevitVersion>
+		<OutputPath>bin\R2019\</OutputPath>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.Contains('R20'))">
+		<TargetFramework>net48</TargetFramework>
+		<RevitVersion>2020</RevitVersion>
+		<OutputPath>bin\R2020\</OutputPath>
+		<DefineConstants>R20_OR_GREATER</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.Contains('R21'))">
+		<TargetFramework>net48</TargetFramework>
+		<RevitVersion>2021</RevitVersion>
+		<OutputPath>bin\R2021\</OutputPath>
+		<DefineConstants>R20_OR_GREATER</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.Contains('R22'))">
+		<TargetFramework>net48</TargetFramework>
+		<RevitVersion>2022</RevitVersion>
+		<OutputPath>bin\R2022\</OutputPath>
+		<DefineConstants>R20_OR_GREATER</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.Contains('R23'))">
+		<TargetFramework>net48</TargetFramework>
+		<RevitVersion>2023</RevitVersion>
+		<OutputPath>bin\R2023\</OutputPath>
+		<DefineConstants>R20_OR_GREATER;R23_OR_GREATER</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.Contains('R24'))">
+		<TargetFramework>net48</TargetFramework>
+		<RevitVersion>2024</RevitVersion>
+		<OutputPath>bin\R2024\</OutputPath>
+		<DefineConstants>R20_OR_GREATER;R23_OR_GREATER;R24_OR_GREATER</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.Contains('R25'))">
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<RevitVersion>2025</RevitVersion>
+		<OutputPath>bin\R2025\</OutputPath>
+		<DefineConstants>R20_OR_GREATER;R23_OR_GREATER;R24_OR_GREATER;R25_OR_GREATER</DefineConstants>
 	</PropertyGroup>
 	<ItemGroup>
-		<PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="2025.3.0" />
-		<PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="2025.3.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*" />
+		<PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*" />
 	</ItemGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\BatchExportNet\BatchExportNet.csproj">
+		<ProjectReference Include="..\BatchExport\BatchExport.csproj">
 			<Private>False</Private>
 		</ProjectReference>
 	</ItemGroup>

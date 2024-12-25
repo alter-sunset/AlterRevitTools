@@ -50,11 +50,11 @@ namespace AlterTools.BatchExport.Views.Detach
         {
             if (iConfigDetach.RemoveLinks)
                 doc.DeleteAllLinks();
-#if R23 || R24
+#if R23_OR_GREATER
             if (iConfigDetach.RemoveEmptyWorksets && doc.IsWorkshared)
                 doc.RemoveEmptyWorksets();
 #endif
-#if R24
+#if R24_OR_GREATER
             if (iConfigDetach.Purge)
                 doc.PurgeAll();
 #endif
@@ -93,14 +93,14 @@ namespace AlterTools.BatchExport.Views.Detach
                     .OfClass(typeof(View3D))
                     .FirstOrDefault(e => e.Name == iConfigDetach.ViewName && !((View3D)e).IsTemplate);
 
-                if (!(view is null) && doc.IsViewEmpty(view))
+                if (view is not null && doc.IsViewEmpty(view))
                     fileDetachedPath = RenamePath(fileDetachedPath, RenameType.Empty);
             }
             catch { }
         }
         private static void SaveDocument(Document doc, string fileDetachedPath, bool isWorkshared)
         {
-            SaveAsOptions saveOptions = new SaveAsOptions()
+            SaveAsOptions saveOptions = new()
             {
                 OverwriteExistingFile = true,
                 MaximumBackups = 1
@@ -108,7 +108,7 @@ namespace AlterTools.BatchExport.Views.Detach
 
             if (isWorkshared)
             {
-                WorksharingSaveAsOptions worksharingOptions = new WorksharingSaveAsOptions() { SaveAsCentral = true };
+                WorksharingSaveAsOptions worksharingOptions = new() { SaveAsCentral = true };
                 saveOptions.SetWorksharingOptions(worksharingOptions);
             }
 

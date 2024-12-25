@@ -13,15 +13,15 @@ namespace AlterTools.BatchExport.Views.Base
         }
         public void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (!(sender is ListBox)) return;
-            if (e.RemovedItems.Count != 0 && !(e.RemovedItems[0] is ISelectable)) return;
+            if (sender is not ListBox) return;
+            if (e.RemovedItems.Count != 0 && e.RemovedItems[0] is not ISelectable) return;
             // Unselect previously selected entries            
             foreach (ISelectable entry in e.RemovedItems)
             {
                 entry.IsSelected = false; // Set IsSelected to false for unselected entries
             }
 
-            if (e.AddedItems.Count != 0 && !(e.AddedItems[0] is ISelectable)) return;
+            if (e.AddedItems.Count != 0 && e.AddedItems[0] is not ISelectable) return;
             // Select newly selected entries
             foreach (ISelectable entry in e.AddedItems)
             {

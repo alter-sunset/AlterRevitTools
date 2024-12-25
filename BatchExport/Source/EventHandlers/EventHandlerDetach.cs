@@ -15,27 +15,23 @@ namespace AlterTools.BatchExport.Source.EventHandlers
     {
         public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (!(iConfigBase is DetachViewModel detachVM) || !detachVM.IsEverythingFilled()) return;
+            if (iConfigBase is not DetachViewModel detachVM || !detachVM.IsEverythingFilled()) return;
 
             List<ListBoxItem> listItems = detachVM.ListBoxItems.ToList();
 
-            using (Application app = uiApp.Application)
+            using Application app = uiApp.Application;
+            foreach (ListBoxItem item in listItems)
             {
-                foreach (ListBoxItem item in listItems)
+                using ErrorSwallower errorSwallower = new ErrorSwallower(uiApp);
+                string filePath = item.Content?.ToString();
+                if (!File.Exists(filePath))
                 {
-                    using (ErrorSwallower errorSwallower = new ErrorSwallower(uiApp))
-                    {
-                        string filePath = item.Content?.ToString();
-                        if (!File.Exists(filePath))
-                        {
-                            item.Background = Brushes.Red;
-                            continue;
-                        }
-                        detachVM.DetachModel(app, filePath);
-                    }
+                    item.Background = Brushes.Red;
+                    continue;
                 }
-                detachVM.Finisher(id: "DetachModelsFinished");
+                detachVM.DetachModel(app, filePath);
             }
+            detachVM.Finisher(id: "DetachModelsFinished");
         }
     }
 }

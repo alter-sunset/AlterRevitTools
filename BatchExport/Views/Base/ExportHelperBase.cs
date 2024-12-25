@@ -17,64 +17,60 @@ namespace AlterTools.BatchExport.Views.Base
         public void BatchExportModels
             (IConfigBase_Extended iConfig, UIApplication uiApp, ref Logger log)
         {
-            using (Application app = uiApp.Application)
+            using Application app = uiApp.Application;
+            string[] models = iConfig.Files;
+            ListBoxItem[] items = GetListBoxItems(iConfig);
+
+            if (iConfig is ViewModelBase_Extended viewModel)
             {
-                string[] models = iConfig.Files;
-                ListBoxItem[] items = GetListBoxItems(iConfig);
-
-                if (iConfig is ViewModelBase_Extended viewModel)
-                {
-                    if (items is null) return;
-                    items = viewModel.ListBoxItems.ToArray();
-                    models = items.Select(e => e.Content.ToString()).ToArray();
-                }
-
-                foreach (string file in models)
-                {
-                    log.LineBreak();
-                    DateTime startTime = DateTime.Now;
-                    log.Start(file);
-
-                    if (!File.Exists(file))
-                    {
-                        HandleFileNotFound(file, items, log);
-                        continue;
-                    }
-                    using (ErrorSwallower errorSwallower = new ErrorSwallower(uiApp))
-                    {
-                        Document doc = OpenDocument(file, app, iConfig, log, items);
-                        if (doc is null) continue;
-
-                        log.FileOpened();
-                        UpdateItemBackground(items, file, Brushes.Blue);
-
-                        bool isFuckedUp = false;
-
-                        try
-                        {
-                            ExportModel(iConfig, doc, ref isFuckedUp, ref log);
-                        }
-                        catch (Exception ex)
-                        {
-                            log.Error("Ля, я хз даже. Смотри, что в исключении написано: ", ex);
-                            isFuckedUp = true;
-                        }
-                        finally
-                        {
-                            CloseDocument(doc, ref isFuckedUp, items, file, log);
-                            log.TimeForFile(startTime);
-                            Thread.Sleep(500);
-                        }
-                    }
-                }
-
-                log.LineBreak();
-                log.ErrorTotal();
-                log.TimeTotal();
+                if (items is null) return;
+                items = viewModel.ListBoxItems.ToArray();
+                models = items.Select(e => e.Content.ToString()).ToArray();
             }
+
+            foreach (string file in models)
+            {
+                log.LineBreak();
+                DateTime startTime = DateTime.Now;
+                log.Start(file);
+
+                if (!File.Exists(file))
+                {
+                    HandleFileNotFound(file, items, log);
+                    continue;
+                }
+                using ErrorSwallower errorSwallower = new(uiApp);
+                Document doc = OpenDocument(file, app, iConfig, log, items);
+                if (doc is null) continue;
+
+                log.FileOpened();
+                UpdateItemBackground(items, file, Brushes.Blue);
+
+                bool isFuckedUp = false;
+
+                try
+                {
+                    ExportModel(iConfig, doc, ref isFuckedUp, ref log);
+                }
+                catch (Exception ex)
+                {
+                    log.Error("Ля, я хз даже. Смотри, что в исключении написано: ", ex);
+                    isFuckedUp = true;
+                }
+                finally
+                {
+                    CloseDocument(doc, ref isFuckedUp, items, file, log);
+                    log.TimeForFile(startTime);
+                    Thread.Sleep(500);
+                }
+            }
+
+            log.LineBreak();
+            log.ErrorTotal();
+            log.TimeTotal();
         }
-        private static ListBoxItem[] GetListBoxItems(IConfigBase_Extended iConfig) =>
-            iConfig is ViewModelBase_Extended viewModel
+        private static ListBoxItem[] GetListBoxItems(IConfigBase_Extended iConfig)
+            => iConfig is ViewModelBase_Extended viewModel
                 ? viewModel.ListBoxItems.ToArray() : null;
         private static void HandleFileNotFound(string file, ListBoxItem[] items, Logger log)
         {
@@ -84,7 +80,7 @@ namespace AlterTools.BatchExport.Views.Base
         private static void UpdateItemBackground(ListBoxItem[] items, string file, Brush color)
         {
             ListBoxItem item = items.FirstOrDefault(e => e.Content.ToString() == file);
-            if (!(item is null)) item.Background = color;
+            if (item is not null) item.Background = color;
         }
         private static Document OpenDocument(string file, Application app, IConfigBase_Extended iConfig, Logger log, ListBoxItem[] items)
         {
@@ -93,20 +89,18 @@ namespace AlterTools.BatchExport.Views.Base
                 BasicFileInfo fileInfo = BasicFileInfo.Extract(file);
                 ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(file);
 
-                using (TransmissionData trData = TransmissionData.ReadTransmissionData(modelPath))
-                {
-                    bool transmitted = !(trData is null) && trData.IsTransmitted;
+                using TransmissionData trData = TransmissionData.ReadTransmissionData(modelPath);
+                bool transmitted = trData is not null && trData.IsTransmitted;
 
-                    WorksetConfiguration worksetConfiguration = fileInfo.IsWorkshared
-                        ? (file.Equals(fileInfo.CentralPath) && !transmitted
-                            ? modelPath.CloseWorksetsWithLinks(iConfig.WorksetPrefixes)
-                            : new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets))
-                        : null;
+                WorksetConfiguration worksetConfiguration = fileInfo.IsWorkshared
+                    ? (file.Equals(fileInfo.CentralPath) && !transmitted
+                        ? modelPath.CloseWorksetsWithLinks(iConfig.WorksetPrefixes)
+                        : new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets))
+                    : null;
 
-                    return worksetConfiguration is null
-                        ? app.OpenDocumentFile(file)
-                        : modelPath.OpenAsIs(app, worksetConfiguration);
-                }
+                return worksetConfiguration is null
+                    ? app.OpenDocumentFile(file)
+                    : modelPath.OpenAsIs(app, worksetConfiguration);
             }
             catch (Exception ex)
             {
@@ -138,9 +132,7 @@ namespace AlterTools.BatchExport.Views.Base
             }
         }
 
-        public virtual void ExportModel(IConfigBase_Extended iConfig,
-            Document doc, ref bool isFuckedUp, ref Logger log)
-        { }
+        public virtual void ExportModel(IConfigBase_Extended iConfig, Document doc, ref bool isFuckedUp, ref Logger log) { }
         public static void Export(IConfigBase_Extended iConfig,
             Document doc, object options,
             ref Logger log, ref bool isFuckedUp)
@@ -154,7 +146,7 @@ namespace AlterTools.BatchExport.Views.Base
             string fileName = Path.Combine(folderPath, fileWithExtension);
 
             string oldHash = File.Exists(fileName) ? fileName.MD5Hash() : null;
-            if (!(oldHash is null)) log.Hash(oldHash);
+            if (oldHash is not null) log.Hash(oldHash);
 
             try
             {
@@ -200,8 +192,8 @@ namespace AlterTools.BatchExport.Views.Base
 
             return false;
         }
-        private static Element GetView(IConfigBase_Extended iConfig, Document doc) =>
-            new FilteredElementCollector(doc)
+        private static Element GetView(IConfigBase_Extended iConfig, Document doc)
+            => new FilteredElementCollector(doc)
                 .OfClass(typeof(View3D))
                 .FirstOrDefault(e => e.Name == iConfig.ViewName && !((View3D)e).IsTemplate);
     }

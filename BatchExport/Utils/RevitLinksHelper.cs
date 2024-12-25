@@ -18,7 +18,7 @@ namespace AlterTools.BatchExport.Utils
             foreach (ElementId refId in externalReferences)
             {
                 ExternalFileReference extRef = transData.GetLastSavedReferenceData(refId);
-                if (!(extRef.ExternalFileReferenceType is ExternalFileReferenceType.RevitLink)) continue;
+                if (extRef.ExternalFileReferenceType is not ExternalFileReferenceType.RevitLink) continue;
 
                 string name = Path.GetFileName(extRef.GetPath().CentralServerPath);
 
@@ -62,7 +62,7 @@ namespace AlterTools.BatchExport.Utils
         private static bool TryGetTransmissionData(ModelPath filePath, out TransmissionData transData)
         {
             transData = TransmissionData.ReadTransmissionData(filePath);
-            if (!(transData is null)) return true;
+            if (transData is not null) return true;
 
             TaskDialog.Show("Operation Error", NO_TRANS_DATA_ALERT);
             return false;

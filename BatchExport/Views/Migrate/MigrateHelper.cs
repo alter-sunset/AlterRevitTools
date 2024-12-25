@@ -13,22 +13,20 @@ namespace AlterTools.BatchExport.Views.Migrate
     public static class MigrateHelper
     {
         private const string WRONG_SCHEME = "Неверная схема файла";
-        public static bool IsConfigPathValid(string configPath) =>
-            !string.IsNullOrEmpty(configPath) && Path.GetExtension(configPath) == ".json";
+        public static bool IsConfigPathValid(string configPath)
+            => !string.IsNullOrEmpty(configPath) && Path.GetExtension(configPath) == ".json";
         public static WasBecome LoadMigrationConfig(string configPath)
         {
-            using (FileStream fileStream = File.OpenRead(configPath))
-            {
-                WasBecome items = JsonConvert.DeserializeObject<WasBecome>(new StreamReader(fileStream).ReadToEnd());
-                return items is null
-                    ? throw new InvalidOperationException(WRONG_SCHEME)
-                    : items;
-            }
+            using FileStream fileStream = File.OpenRead(configPath);
+            WasBecome items = JsonConvert.DeserializeObject<WasBecome>(new StreamReader(fileStream).ReadToEnd());
+            return items is null
+                ? throw new InvalidOperationException(WRONG_SCHEME)
+                : items;
         }
         public static void CreateDirectoryForFile(string filePath)
         {
             string dir = Path.GetDirectoryName(filePath);
-            if (!(dir is null) && !Directory.Exists(dir))
+            if (dir is not null && !Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
         }
         public static List<string> ProcessFiles(string configPath, Application app)
@@ -45,8 +43,8 @@ namespace AlterTools.BatchExport.Views.Migrate
                 return new List<string>();
             }
 
-            List<string> failedFiles = new List<string>(items.Count);
-            List<string> movedFiles = new List<string>(items.Count);
+            List<string> failedFiles = new(items.Count);
+            List<string> movedFiles = new(items.Count);
 
             foreach (KeyValuePair<string, string> item in items)
             {
@@ -79,15 +77,13 @@ namespace AlterTools.BatchExport.Views.Migrate
             ModelPath newFilePath = ModelPathUtils.ConvertUserVisiblePathToModelPath(newFile);
             newFilePath.ReplaceLinks(items);
 
-            using (Document doc = newFilePath.OpenTransmitted(app))
+            using Document doc = newFilePath.OpenTransmitted(app);
+            try
             {
-                try
-                {
-                    doc.FreeTheModel();
-                }
-                catch { }
-                doc.Close();
+                doc.FreeTheModel();
             }
+            catch { }
+            doc.Close();
         }
     }
 }

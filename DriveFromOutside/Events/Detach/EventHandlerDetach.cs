@@ -1,8 +1,8 @@
 ﻿using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.UI;
-using AlterTools.BatchExportNet.Source.EventHandlers;
-using AlterTools.BatchExportNet.Utils;
-using AlterTools.BatchExportNet.Views.Detach;
+using AlterTools.BatchExport.Source.EventHandlers;
+using AlterTools.BatchExport.Utils;
+using AlterTools.BatchExport.Views.Detach;
 
 namespace AlterTools.DriveFromOutside.Events.Detach
 {

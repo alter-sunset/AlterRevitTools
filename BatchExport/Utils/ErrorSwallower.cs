@@ -26,7 +26,7 @@ namespace AlterTools.BatchExport.Utils
         }
         private static void TaskDialogBoxShowingEvent(object sender, DialogBoxShowingEventArgs e)
         {
-            if (!(e is TaskDialogShowingEventArgs dialogArgs)) return;
+            if (e is not TaskDialogShowingEventArgs dialogArgs) return;
             string dialogId = dialogArgs.DialogId;
             int dialogResult = dialogId.StartsWith("TaskDialog_Missing_Third_Party_Updater")
                 ? (int)TaskDialogResult.CommandLink1

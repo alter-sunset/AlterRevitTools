@@ -5,20 +5,20 @@ namespace AlterTools.BatchExport.Utils
 {
     public static class OpenDocumentHelper
     {
-        public static Document OpenAsIs(this ModelPath modelPath, Application app, WorksetConfiguration worksetConfiguration) =>
-            modelPath.OpenDocumentWithOptions(
+        public static Document OpenAsIs(this ModelPath modelPath, Application app, WorksetConfiguration worksetConfiguration)
+            => modelPath.OpenDocumentWithOptions(
                 DetachFromCentralOption.DoNotDetach,
                 worksetConfiguration,
                 app);
 
-        public static Document OpenDetached(this ModelPath modelPath, Application app, WorksetConfiguration worksetConfiguration) =>
-            modelPath.OpenDocumentWithOptions(
+        public static Document OpenDetached(this ModelPath modelPath, Application app, WorksetConfiguration worksetConfiguration)
+            => modelPath.OpenDocumentWithOptions(
                 DetachFromCentralOption.DetachAndPreserveWorksets,
                 worksetConfiguration,
                 app);
 
-        public static Document OpenTransmitted(this ModelPath modelPath, Application app) =>
-            modelPath.OpenDocumentWithOptions(
+        public static Document OpenTransmitted(this ModelPath modelPath, Application app)
+            => modelPath.OpenDocumentWithOptions(
                 DetachFromCentralOption.ClearTransmittedSaveAsNewCentral,
                 new WorksetConfiguration(WorksetConfigurationOption.CloseAllWorksets),
                 app);
@@ -28,7 +28,7 @@ namespace AlterTools.BatchExport.Utils
             WorksetConfiguration worksetConfiguration,
             Application app)
         {
-            OpenOptions openOptions = new OpenOptions() { DetachFromCentralOption = detachOption };
+            OpenOptions openOptions = new() { DetachFromCentralOption = detachOption };
             openOptions.SetOpenWorksetsConfiguration(worksetConfiguration);
             return app.OpenDocumentFile(modelPath, openOptions);
         }

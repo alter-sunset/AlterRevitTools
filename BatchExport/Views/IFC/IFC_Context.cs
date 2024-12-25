@@ -19,7 +19,7 @@ namespace AlterTools.BatchExport.Views.IFC
                 { IFCVersion.IFC4, "IFC 4" },
                 { IFCVersion.IFC4RV, "IFC 4 Reference View" },
                 { IFCVersion.IFC4DTV, "IFC 4 Design Transfer View" },
-#if R24
+#if R24_OR_GREATER
                 { IFCVersion.IFC4x3, "IFC 4x3" },
                 { IFCVersion.IFCSG, "IFC-SG Regulatory Requirements View" }
 #endif

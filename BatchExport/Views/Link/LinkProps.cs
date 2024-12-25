@@ -2,14 +2,9 @@
 
 namespace AlterTools.BatchExport.Views.Link
 {
-    public class LinkProps
+    public class LinkProps(WorksetTable table, bool setWorksetId)
     {
-        public LinkProps(WorksetTable table, bool setWorksetId)
-        {
-            WorksetTable = table;
-            SetWorksetId = setWorksetId;
-        }
-        public WorksetTable WorksetTable { get; set; }
-        public bool SetWorksetId { get; set; }
+        public WorksetTable WorksetTable { get; set; } = table;
+        public bool SetWorksetId { get; set; } = setWorksetId;
     }
 }

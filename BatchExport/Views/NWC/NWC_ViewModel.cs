@@ -133,24 +133,14 @@ namespace AlterTools.BatchExport.Views.NWC
         }
 
         private RelayCommand _loadListCommand;
-        public override RelayCommand LoadListCommand
-        {
-            get
-            {
-                if (_loadListCommand is null)
-                    _loadListCommand = new RelayCommand(obj => LoadList());
-                return _loadListCommand;
-            }
-        }
+        public override RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(obj => LoadList());
         private void LoadList()
         {
             OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
-            if (!(openFileDialog.ShowDialog() is DialogResult.OK)) return;
+            if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
-            using (FileStream file = File.OpenRead(openFileDialog.FileName))
-            {
-                NWCFormDeserilaizer(JsonHelper<NWCForm>.DeserializeConfig(file));
-            }
+            using FileStream file = File.OpenRead(openFileDialog.FileName);
+            NWCFormDeserilaizer(JsonHelper<NWCForm>.DeserializeConfig(file));
         }
         public void NWCFormDeserilaizer(NWCForm form)
         {
@@ -170,7 +160,7 @@ namespace AlterTools.BatchExport.Views.NWC
             NamePrefix = form.NamePrefix;
             NamePostfix = form.NamePostfix;
             WorksetPrefix = string.Join(";", form.WorksetPrefixes);
-            ExportScopeView = form.ExportScope == NavisworksExportScope.View;
+            ExportScopeView = form.ExportScope is NavisworksExportScope.View;
 
             IEnumerable<string> files = form.Files.FilterRevitFiles();
 
@@ -184,31 +174,19 @@ namespace AlterTools.BatchExport.Views.NWC
         }
 
         private RelayCommand _saveListCommand;
-        public override RelayCommand SaveListCommand
-        {
-            get
-            {
-                if (_saveListCommand is null)
-                    _saveListCommand = new RelayCommand(obj => SaveList());
-                return _saveListCommand;
-            }
-        }
+        public override RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(obj => SaveList());
         private void SaveList()
         {
-            using (NWCForm form = NWCFormSerializer())
-            {
-                using (SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog())
-                {
-                    if (!(saveFileDialog.ShowDialog() is DialogResult.OK)) return;
+            using NWCForm form = NWCFormSerializer();
+            using SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
+            if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
 
-                    string fileName = saveFileDialog.FileName;
-                    if (File.Exists(fileName)) File.Delete(fileName);
+            string fileName = saveFileDialog.FileName;
+            if (File.Exists(fileName)) File.Delete(fileName);
 
-                    JsonHelper<NWCForm>.SerializeConfig(form, fileName);
-                }
-            }
+            JsonHelper<NWCForm>.SerializeConfig(form, fileName);
         }
-        private NWCForm NWCFormSerializer() => new NWCForm()
+        private NWCForm NWCFormSerializer() => new()
         {
             ConvertElementProperties = ConvertElementProperties,
             DivideFileIntoLevels = DivideFileIntoLevels,
@@ -238,7 +216,7 @@ namespace AlterTools.BatchExport.Views.NWC
                 .ToArray()
         };
 
-        private ObservableCollection<Config> _configs = new ObservableCollection<Config>();
+        private ObservableCollection<Config> _configs = [];
         public ObservableCollection<Config> Configs
         {
             get => _configs;
@@ -246,55 +224,29 @@ namespace AlterTools.BatchExport.Views.NWC
         }
 
         private RelayCommand _loadConfigsCommand;
-        public RelayCommand LoadConfigsCommand
-        {
-            get
-            {
-                if (_loadConfigsCommand is null)
-                    _loadConfigsCommand = new RelayCommand(obj => LoadConfig());
-                return _loadConfigsCommand;
-            }
-        }
+        public RelayCommand LoadConfigsCommand => _loadConfigsCommand ??= new RelayCommand(obj => LoadConfig());
         private void LoadConfig()
         {
-            using (OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog())
-            {
-                if (openFileDialog.ShowDialog() != DialogResult.OK) return;
+            using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
+            if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
-                IEnumerable<string> configs = File.ReadLines(openFileDialog.FileName);
-                Configs = new ObservableCollection<Config>(
-                    configs.Where(e => e.EndsWith(".json") && File.Exists(e))
-                    .Select(e => new Config(e)));
+            IEnumerable<string> configs = File.ReadLines(openFileDialog.FileName);
+            Configs = new ObservableCollection<Config>(
+                configs.Where(e => e.EndsWith(".json") && File.Exists(e))
+                .Select(e => new Config(e)));
 
-                if (!Configs.Any())
-                    MessageBox.Show(NO_FILES);
-            }
+            if (!Configs.Any())
+                MessageBox.Show(NO_FILES);
         }
 
         private RelayCommand _raiseBatchEventCommand;
-        public RelayCommand RaiseBatchEventCommand
-        {
-            get
-            {
-                if (_raiseBatchEventCommand is null)
-                    _raiseBatchEventCommand = new RelayCommand(obj => _eventHandlerNWC_Batch.Raise(this));
-                return _raiseBatchEventCommand;
-            }
-        }
+        public RelayCommand RaiseBatchEventCommand => _raiseBatchEventCommand ??= new RelayCommand(obj => _eventHandlerNWC_Batch.Raise(this));
 
         NavisworksParameters IConfigNWC.Parameters => _selectedParameters.Key;
         NavisworksCoordinates IConfigNWC.Coordinates => _selectedCoordinates.Key;
 
         private RelayCommand _deleteCommand;
-        public override RelayCommand DeleteCommand
-        {
-            get
-            {
-                if (_deleteCommand is null)
-                    _deleteCommand = new RelayCommand(obj => DeleteSelectedItems());
-                return _deleteCommand;
-            }
-        }
+        public override RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(obj => DeleteSelectedItems());
         private void DeleteSelectedItems()
         {
             ListBoxItems
@@ -308,13 +260,9 @@ namespace AlterTools.BatchExport.Views.NWC
         }
     }
 
-    public class Config : NotifyPropertyChanged, ISelectable
+    public class Config(string name) : NotifyPropertyChanged, ISelectable
     {
-        public Config(string name)
-        {
-            _name = name;
-        }
-        private readonly string _name;
+        private readonly string _name = name;
         public string Name => _name;
 
         private bool _isSelected;

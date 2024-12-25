@@ -19,7 +19,7 @@ namespace AlterTools.BatchExport.Utils
     {
         private static Window _myForm;
         private static UIApplication _uiApp;
-        private static readonly Dictionary<Forms, Func<Window>> _formCreators = new Dictionary<Forms, Func<Window>>()
+        private static readonly Dictionary<Forms, Func<Window>> _formCreators = new()
         {
             { Forms.Detach,
                 () => new DetachModelsView(new EventHandlerDetach()) },
@@ -54,8 +54,8 @@ namespace AlterTools.BatchExport.Utils
             }
         }
 
-        private static Workset[] GetWorksets() =>
-            new FilteredWorksetCollector(_uiApp.ActiveUIDocument.Document)
+        private static Workset[] GetWorksets()
+            => new FilteredWorksetCollector(_uiApp.ActiveUIDocument.Document)
                 .OfKind(WorksetKind.UserWorkset)
                 .ToWorksets()
                 .ToArray();
