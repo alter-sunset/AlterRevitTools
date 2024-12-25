@@ -184,7 +184,7 @@ namespace AlterTools.BatchExport.Utils
             catch { }
         }
 #endif
-#if R23_OR_GREATER
+#if R22_OR_GREATER
         public static void RemoveEmptyWorksets(this Document doc)
         {
             DeleteWorksetSettings settings = new();

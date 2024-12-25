@@ -7,7 +7,7 @@ namespace AlterTools.BatchExport.Views.Detach
     {
         public DetachViewModel(EventHandlerDetach eventHandlerDetach)
         {
-#if R23_OR_GREATER
+#if R22_OR_GREATER
             _isWorksetRemoverEnabled = true;
             _removeEmptyWorksets = true;
 #endif
