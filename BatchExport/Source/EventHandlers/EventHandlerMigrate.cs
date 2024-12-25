@@ -11,7 +11,7 @@ namespace AlterTools.BatchExport.Source.EventHandlers
     {
         public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (!(iConfigBase is MigrateViewModel migrateVM) || !MigrateHelper.IsConfigPathValid(migrateVM.ConfigPath))
+            if (iConfigBase is not MigrateViewModel migrateVM || !MigrateHelper.IsConfigPathValid(migrateVM.ConfigPath))
             {
                 MessageBox.Show("Предоставьте ссылку на конфиг");
                 return;

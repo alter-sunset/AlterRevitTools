@@ -16,7 +16,7 @@ namespace AlterTools.BatchExport.Utils
         /// </summary>
         public static WorksetConfiguration CloseWorksetsWithLinks(this ModelPath modelPath, params string[] prefixes)
         {
-            WorksetConfiguration worksetConfiguration = new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
+            WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.OpenAllWorksets);
             if (prefixes.Length == 0) return worksetConfiguration;
 
             List<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)
@@ -38,12 +38,10 @@ namespace AlterTools.BatchExport.Utils
             View3D view = element as View3D;
             try
             {
-                using (FilteredElementCollector collector = new FilteredElementCollector(doc, view.Id))
-                {
-                    return !collector.Where(e => e.Category != null
-                            && e.GetType() != typeof(RevitLinkInstance))
-                        .Any(e => e.CanBeHidden(view));
-                }
+                using FilteredElementCollector collector = new FilteredElementCollector(doc, view.Id);
+                return !collector.Where(e => e.Category != null
+                        && e.GetType() != typeof(RevitLinkInstance))
+                    .Any(e => e.CanBeHidden(view));
             }
             catch
             {
@@ -55,8 +53,8 @@ namespace AlterTools.BatchExport.Utils
         /// </summary>
         public static void FreeTheModel(this Document doc)
         {
-            RelinquishOptions relinquishOptions = new RelinquishOptions(true);
-            TransactWithCentralOptions transactWithCentralOptions = new TransactWithCentralOptions();
+            RelinquishOptions relinquishOptions = new(true);
+            TransactWithCentralOptions transactWithCentralOptions = new();
             try
             {
                 WorksharingUtils.RelinquishOwnership(doc, relinquishOptions, transactWithCentralOptions);
@@ -71,21 +69,19 @@ namespace AlterTools.BatchExport.Utils
             ICollection<ElementId> ids = ExternalFileUtils.GetAllExternalFileReferences(doc);
             if (ids.Count == 0) return;
 
-            using (Transaction t = new Transaction(doc, "Delete all Links"))
-            {
-                t.Start();
-                t.SwallowAlert();
+            using Transaction t = new(doc, "Delete all Links");
+            t.Start();
+            t.SwallowAlert();
 
-                foreach (ElementId id in ids)
+            foreach (ElementId id in ids)
+            {
+                try
                 {
-                    try
-                    {
-                        doc.Delete(id);
-                    }
-                    catch { }
+                    doc.Delete(id);
                 }
-                t.Commit();
+                catch { }
             }
+            t.Commit();
         }
         /// <summary>
         /// Returns string with MD5 Hash of given file
@@ -93,19 +89,15 @@ namespace AlterTools.BatchExport.Utils
         public static string MD5Hash(this string fileName)
         {
             if (string.IsNullOrEmpty(fileName) || !File.Exists(fileName)) return null;
-            using (MD5 md5 = MD5.Create())
+            using MD5 md5 = MD5.Create();
+            try
             {
-                try
-                {
-                    using (FileStream stream = File.OpenRead(fileName))
-                    {
-                        return Convert.ToBase64String(md5.ComputeHash(stream));
-                    }
-                }
-                catch
-                {
-                    return null;
-                }
+                using FileStream stream = File.OpenRead(fileName);
+                return Convert.ToBase64String(md5.ComputeHash(stream));
+            }
+            catch
+            {
+                return null;
             }
         }
         /// <summary>
@@ -131,31 +123,29 @@ namespace AlterTools.BatchExport.Utils
 
             if (typeId is null || levelId is null) return;
 
-            using (Transaction t = new Transaction(doc, "Open worksets"))
+            using Transaction t = new(doc, "Open worksets");
+            t.Start();
+
+            // Create a temporary cable tray
+            CableTray ct = CableTray.Create(doc, typeId, new XYZ(0, 0, 0), new XYZ(0, 0, 1), levelId);
+
+            foreach (Workset workset in collectorWorkset)
             {
-                t.Start();
+                if (workset.IsOpen) continue;
 
-                // Create a temporary cable tray
-                CableTray ct = CableTray.Create(doc, typeId, new XYZ(0, 0, 0), new XYZ(0, 0, 1), levelId);
+                // Change the workset of the cable tray
+                Parameter wsParam = ct.get_Parameter(BuiltInParameter.ELEM_PARTITION_PARAM);
+                if (wsParam is not null && !wsParam.IsReadOnly)
+                    wsParam.Set(workset.Id.IntegerValue);
 
-                foreach (Workset workset in collectorWorkset)
-                {
-                    if (workset.IsOpen) continue;
-
-                    // Change the workset of the cable tray
-                    Parameter wsParam = ct.get_Parameter(BuiltInParameter.ELEM_PARTITION_PARAM);
-                    if (!(wsParam is null) && !wsParam.IsReadOnly)
-                        wsParam.Set(workset.Id.IntegerValue);
-
-                    // Show the cable tray to open the workset
-                    new UIDocument(doc).ShowElements(ct.Id);
-                }
-
-                // Delete the temporary cable tray
-                doc.Delete(ct.Id);
-
-                t.Commit();
+                // Show the cable tray to open the workset
+                new UIDocument(doc).ShowElements(ct.Id);
             }
+
+            // Delete the temporary cable tray
+            doc.Delete(ct.Id);
+
+            t.Commit();
         }
         public static void YesNoTaskDialog(string msg, Action action)
         {
@@ -169,7 +159,7 @@ namespace AlterTools.BatchExport.Utils
             failOpt.SetFailuresPreprocessor(new CopyWatchAlertSwallower());
             t.SetFailureHandlingOptions(failOpt);
         }
-#if R24
+#if R24_OR_GREATER
         public static void PurgeAll(this Document doc)
         {
             try
@@ -178,43 +168,39 @@ namespace AlterTools.BatchExport.Utils
                 do
                 {
                     HashSet<ElementId> unusedElements = doc.GetUnusedElements(new HashSet<ElementId>())
-                        .Where(el => !(doc.GetElement(el) is null)
-                            && !(doc.GetElement(el) is RevitLinkType))
+                        .Where(el => doc.GetElement(el) is not null
+                            && doc.GetElement(el) is not RevitLinkType)
                         .ToHashSet();
 
                     previousCount = unusedElements.Count;
                     if (previousCount == 0) break;
 
-                    using (Transaction t = new Transaction(doc, "Purge unused"))
-                    {
-                        t.Start();
-                        doc.Delete(unusedElements);
-                        t.Commit();
-                    }
+                    using Transaction t = new(doc, "Purge unused");
+                    t.Start();
+                    doc.Delete(unusedElements);
+                    t.Commit();
                 } while (previousCount > 0);
             }
             catch { }
         }
 #endif
-#if R23 || R24
+#if R23_OR_GREATER
         public static void RemoveEmptyWorksets(this Document doc)
         {
-            DeleteWorksetSettings settings = new DeleteWorksetSettings();
+            DeleteWorksetSettings settings = new();
             List<WorksetId> worksets = new FilteredWorksetCollector(doc)
                 .OfKind(WorksetKind.UserWorkset)
                 .ToWorksetIds()
                 .Where(doc.IsWorksetEmpty)
                 .ToList();
 
-            using (Transaction t = new Transaction(doc))
-            {
-                t.Start("Remove empty worksets");
-                worksets.ForEach(workset => WorksetTable.DeleteWorkset(doc, workset, settings));
-                t.Commit();
-            }
+            using Transaction t = new(doc);
+            t.Start("Remove empty worksets");
+            worksets.ForEach(workset => WorksetTable.DeleteWorkset(doc, workset, settings));
+            t.Commit();
         }
-        private static bool IsWorksetEmpty(this Document doc, WorksetId workset) =>
-            !new FilteredElementCollector(doc)
+        private static bool IsWorksetEmpty(this Document doc, WorksetId workset)
+            => !new FilteredElementCollector(doc)
                 .WherePasses(new ElementWorksetFilter(workset)).Any();
 #endif
     }

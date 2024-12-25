@@ -18,14 +18,14 @@ namespace AlterTools.BatchExport.Source
         public string Panel { get; set; }
         public bool Availability { get; set; }
 
-        public static List<ButtonContext> GetButtonsContext() =>
-            JsonHelper<List<ButtonContext>>.DeserializeResource("BatchExport.Resources.Buttons.json");
+        public static List<ButtonContext> GetButtonsContext()
+            => JsonHelper<List<ButtonContext>>.DeserializeResource("BatchExport.Resources.Buttons.json");
 
         public PushButtonData GetPushButtonData()
         {
             try
             {
-                PushButtonData pbData = new PushButtonData(name: Name,
+                PushButtonData pbData = new(name: Name,
                     text: Text,
                     assemblyName: Assembly.GetExecutingAssembly().Location,
                     className: ClassName)

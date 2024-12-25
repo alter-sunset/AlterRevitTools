@@ -1,4 +1,4 @@
-﻿using AlterTools.BatchExportNet.Views.Detach;
+﻿using AlterTools.BatchExport.Views.Detach;
 
 namespace AlterTools.DriveFromOutside.Events.Detach
 {

@@ -9,10 +9,10 @@ namespace AlterTools.BatchExport.Source.EventHandlers
     {
         public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (!(iConfigBase is NWC_ViewModel nwcVM) || !nwcVM.IsEverythingFilled()) return;
+            if (iConfigBase is not NWC_ViewModel nwcVM || !nwcVM.IsEverythingFilled()) return;
 
-            Logger log = new Logger(nwcVM.FolderPath);
-            NWCHelper nwcHelper = new NWCHelper();
+            Logger log = new(nwcVM.FolderPath);
+            NWCHelper nwcHelper = new();
 
             nwcHelper.BatchExportModels(nwcVM, uiApp, ref log);
 

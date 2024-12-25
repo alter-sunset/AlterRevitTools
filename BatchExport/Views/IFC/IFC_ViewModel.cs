@@ -35,29 +35,19 @@ namespace AlterTools.BatchExport.Views.IFC
         public string FamilyMappingFile => _mapping;
 
         private RelayCommand _loadMappingCommand;
-        public RelayCommand LoadMappingCommand
-        {
-            get
-            {
-                if (_loadMappingCommand is null)
-                    _loadMappingCommand = new RelayCommand(obj => LoadMapping());
-                return _loadMappingCommand;
-            }
-        }
+        public RelayCommand LoadMappingCommand => _loadMappingCommand ??= new RelayCommand(obj => LoadMapping());
         private void LoadMapping()
         {
-            using (OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog())
-            {
-                if (!(openFileDialog.ShowDialog() is DialogResult.OK)) return;
+            using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
+            if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
-                try
-                {
-                    Mapping = openFileDialog.FileName;
-                }
-                catch
-                {
-                    MessageBox.Show("Неверная схема файла");
-                }
+            try
+            {
+                Mapping = openFileDialog.FileName;
+            }
+            catch
+            {
+                MessageBox.Show("Неверная схема файла");
             }
         }
 
@@ -76,24 +66,14 @@ namespace AlterTools.BatchExport.Views.IFC
         }
 
         private RelayCommand _loadListCommand;
-        public override RelayCommand LoadListCommand
-        {
-            get
-            {
-                if (_loadListCommand is null)
-                    _loadListCommand = new RelayCommand(obj => LoadList());
-                return _loadListCommand;
-            }
-        }
+        public override RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(obj => LoadList());
         private void LoadList()
         {
             OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
-            if (!(openFileDialog.ShowDialog() is DialogResult.OK)) return;
+            if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
-            using (FileStream file = File.OpenRead(openFileDialog.FileName))
-            {
-                IFCFormDeserilaizer(JsonHelper<IFCForm>.DeserializeConfig(file));
-            }
+            using FileStream file = File.OpenRead(openFileDialog.FileName);
+            IFCFormDeserilaizer(JsonHelper<IFCForm>.DeserializeConfig(file));
         }
         private void IFCFormDeserilaizer(IFCForm form)
         {
@@ -117,34 +97,24 @@ namespace AlterTools.BatchExport.Views.IFC
         }
 
         private RelayCommand _saveListCommand;
-        public override RelayCommand SaveListCommand
-        {
-            get
-            {
-                if (_saveListCommand is null)
-                    _saveListCommand = new RelayCommand(obj => SaveList());
-                return _saveListCommand;
-            }
-        }
+        public override RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(obj => SaveList());
         private void SaveList()
         {
-            using (IFCForm form = IFCFormSerializer())
+            using IFCForm form = IFCFormSerializer();
+            SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
+
+            if (saveFileDialog.ShowDialog() is not DialogResult.OK)
             {
-                SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
-
-                if (!(saveFileDialog.ShowDialog() is DialogResult.OK))
-                {
-                    form.Dispose();
-                    return;
-                }
-
-                string fileName = saveFileDialog.FileName;
-                File.Delete(fileName);
-
-                JsonHelper<IFCForm>.SerializeConfig(form, fileName);
+                form.Dispose();
+                return;
             }
+
+            string fileName = saveFileDialog.FileName;
+            File.Delete(fileName);
+
+            JsonHelper<IFCForm>.SerializeConfig(form, fileName);
         }
-        private IFCForm IFCFormSerializer() => new IFCForm()
+        private IFCForm IFCFormSerializer() => new()
         {
             ExportBaseQuantities = ExportBaseQuantities,
             FamilyMappingFile = Mapping,

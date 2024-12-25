@@ -7,11 +7,11 @@ namespace AlterTools.BatchExport.Views.Detach
     {
         public DetachViewModel(EventHandlerDetach eventHandlerDetach)
         {
-#if R23 || R24
+#if R23_OR_GREATER
             _isWorksetRemoverEnabled = true;
             _removeEmptyWorksets = true;
 #endif
-#if R24
+#if R24_OR_GREATER
             _isPurgeEnabled = true;
             _purge = true;
 #endif
@@ -96,14 +96,14 @@ namespace AlterTools.BatchExport.Views.Detach
             get => _maskOutName;
             set => SetProperty(ref _maskOutName, value);
         }
-        
+
         private bool _removeLinks = true;
         public bool RemoveLinks
         {
             get => _removeLinks;
             set => SetProperty(ref _removeLinks, value);
         }
-        
+
         private bool _removeEmptyWorksets = false;
         public bool RemoveEmptyWorksets
         {

@@ -24,27 +24,25 @@ namespace AlterTools.BatchExport.Utils
         private const string SHIT_MASK = "Несоответствие входной маски и имён файлов!";
         private const string NO_MASK_FILE = "Введите маску для переименования файлов!";
 
-        internal static bool IsEverythingFilled(this DetachViewModel detachVM) =>
-            detachVM.IsListNotEmpty()
+        internal static bool IsEverythingFilled(this DetachViewModel detachVM)
+            => detachVM.IsListNotEmpty()
             && detachVM.IsRBModeOK()
             && detachVM.IsViewNameOK()
             && detachVM.IsMaskNameOK();
 
-        internal static bool IsEverythingFilled(this TransmitViewModel transmitVM) =>
-            transmitVM.IsListNotEmpty()
+        internal static bool IsEverythingFilled(this TransmitViewModel transmitVM)
+            => transmitVM.IsListNotEmpty()
             && transmitVM.IsFolderPathOK();
 
-        internal static bool IsEverythingFilled(this ViewModelBase_Extended vmBaseExt) =>
-            vmBaseExt.IsListNotEmpty()
+        internal static bool IsEverythingFilled(this ViewModelBase_Extended vmBaseExt)
+            => vmBaseExt.IsListNotEmpty()
             && vmBaseExt.IsFolderPathOK()
             && vmBaseExt.IsViewNameOK();
 
         internal static bool IsEverythingFilled(this LinkViewModel linkVM) => linkVM.IsListNotEmpty();
 
-        private static bool IsListNotEmpty(this LinkViewModel linkVM) =>
-            CheckCondition(linkVM.Entries.Count > 0, NO_FILES);
-        private static bool IsListNotEmpty(this ViewModelBase vmBase) =>
-            CheckCondition(vmBase.ListBoxItems.Count > 0, NO_FILES);
+        private static bool IsListNotEmpty(this LinkViewModel linkVM) => CheckCondition(linkVM.Entries.Count > 0, NO_FILES);
+        private static bool IsListNotEmpty(this ViewModelBase vmBase) => CheckCondition(vmBase.ListBoxItems.Count > 0, NO_FILES);
         private static bool IsFolderPathOK(this ViewModelBase vmBase)
         {
             string folderPath = vmBase.FolderPath;
@@ -69,11 +67,11 @@ namespace AlterTools.BatchExport.Utils
             }
             return true;
         }
-        private static bool IsViewNameOK(this ViewModelBase_Extended vmBaseExt) =>
-            CheckCondition(!vmBaseExt.ExportScopeView
+        private static bool IsViewNameOK(this ViewModelBase_Extended vmBaseExt)
+            => CheckCondition(!vmBaseExt.ExportScopeView
                 || !string.IsNullOrEmpty(vmBaseExt.ViewName), NO_VIEW_NAME);
-        private static bool IsViewNameOK(this DetachViewModel detachVM) =>
-            CheckCondition(!detachVM.CheckForEmptyView
+        private static bool IsViewNameOK(this DetachViewModel detachVM)
+            => CheckCondition(!detachVM.CheckForEmptyView
                 || !string.IsNullOrEmpty(detachVM.ViewName), NO_VIEW_NAME);
         private static bool IsRBModeOK(this DetachViewModel detachVM)
         {
@@ -94,8 +92,8 @@ namespace AlterTools.BatchExport.Utils
             }
             return true;
         }
-        private static bool IsMaskNameOK(this DetachViewModel detachVM) =>
-             CheckCondition(!detachVM.IsToRename
+        private static bool IsMaskNameOK(this DetachViewModel detachVM)
+            => CheckCondition(!detachVM.IsToRename
                  || !string.IsNullOrEmpty(detachVM.MaskInName), NO_MASK_FILE);
         private static bool CheckCondition(bool condition, string msg)
         {
@@ -127,7 +125,6 @@ namespace AlterTools.BatchExport.Utils
                 .Where(f => !string.IsNullOrWhiteSpace(f)
                     && Path.GetExtension(f) == ".rvt");
 
-        public static string RemoveDetach(this string name) =>
-            name.Replace("_detached", "").Replace("_отсоединено", "");
+        public static string RemoveDetach(this string name) => name.Replace("_detached", "").Replace("_отсоединено", "");
     }
 }

@@ -1,10 +1,11 @@
-﻿using System.Text.Json;
+﻿using Newtonsoft.Json;
 using AlterTools.DriveFromOutside.Utils;
 using AlterTools.DriveFromOutside.Events;
 using AlterTools.DriveFromOutside.Events.IFC;
 using AlterTools.DriveFromOutside.Events.NWC;
 using AlterTools.DriveFromOutside.Events.Detach;
 using AlterTools.DriveFromOutside.Events.Transmit;
+using Newtonsoft.Json.Linq;
 
 namespace AlterTools.DriveFromOutside
 {
@@ -17,6 +18,7 @@ namespace AlterTools.DriveFromOutside
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 @"RevitListener\Tasks");
 
+#if R25_OR_GREATER
         public async Task LookForSingleTask(TimeSpan period)
         {
             using PeriodicTimer timer = new(period);
@@ -27,7 +29,22 @@ namespace AlterTools.DriveFromOutside
                     RaiseEvent(taskConfig);
             }
         }
-        public static TaskConfig? GetOldestMessage()
+#else
+        public void LookForSingleTask(TimeSpan period)
+        {
+            Timer timer = null;
+
+            timer = new Timer(_ =>
+            {
+                TaskConfig taskConfig = GetOldestMessage();
+                if (taskConfig is not null)
+                    RaiseEvent(taskConfig);
+            },
+            null, TimeSpan.Zero, period);
+        }
+
+#endif
+        public static TaskConfig GetOldestMessage()
         {
             string[] files = Directory.GetFiles(FOLDER_CONFIGS)
                 .OrderBy(File.GetLastWriteTime)
@@ -35,17 +52,18 @@ namespace AlterTools.DriveFromOutside
 
             if (files.Length == 0) return null;
 
-            using FileStream fileStream = File.OpenRead(files[0]);
-            using JsonDocument jsonDoc = JsonDocument.Parse(fileStream);
-            JsonElement root = jsonDoc.RootElement;
+            using StreamReader fileStream = File.OpenText(files[0]);
+            using JsonTextReader reader = new(fileStream);
+            JObject jsonObject = JObject.Load(reader);
 
             return new TaskConfig
             {
-                ExternalEvent = root.GetProperty("ExternalEvent").Deserialize<ExternalEvents>(),
-                EventConfig = root.GetProperty("EventConfig"),
+                ExternalEvent = jsonObject["ExternalEvent"].ToObject<ExternalEvents>(),
+                EventConfig = jsonObject["EventConfig"],
                 FilePath = files[0]
             };
         }
+
         private void RaiseEvent(TaskConfig taskConfig)
         {
             if (taskConfig is null || taskConfig.FilePath is null) return;

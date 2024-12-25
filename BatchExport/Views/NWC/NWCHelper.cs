@@ -9,7 +9,7 @@ namespace AlterTools.BatchExport.Views.NWC
     {
         public override void ExportModel(IConfigBase_Extended iConfig, Document doc, ref bool isFuckedUp, ref Logger log)
         {
-            if (!(iConfig is IConfigNWC configNwc)
+            if (iConfig is not IConfigNWC configNwc
                 || IsViewEmpty(iConfig, doc, ref log, ref isFuckedUp)) return;
 
             NavisworksExportOptions options = NWC_ExportOptions(configNwc, doc);
@@ -18,7 +18,7 @@ namespace AlterTools.BatchExport.Views.NWC
         }
         private static NavisworksExportOptions NWC_ExportOptions(IConfigNWC config, Document doc)
         {
-            NavisworksExportOptions options = new NavisworksExportOptions()
+            NavisworksExportOptions options = new()
             {
                 ConvertElementProperties = config.ConvertElementProperties,
                 DivideFileIntoLevels = config.DivideFileIntoLevels,
