@@ -50,7 +50,7 @@ namespace AlterTools.BatchExport.Views.Detach
         {
             if (iConfigDetach.RemoveLinks)
                 doc.DeleteAllLinks();
-#if R23_OR_GREATER
+#if R22_OR_GREATER
             if (iConfigDetach.RemoveEmptyWorksets && doc.IsWorkshared)
                 doc.RemoveEmptyWorksets();
 #endif

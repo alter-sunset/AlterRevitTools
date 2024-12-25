@@ -9,7 +9,7 @@ namespace AlterTools.BatchExport.Views.Detach
         bool RemoveLinks { get; set; }
         bool IsToRename { get; set; }
         bool CheckForEmptyView { get; set; }
-#if R23_OR_GREATER
+#if R22_OR_GREATER
         bool RemoveEmptyWorksets { get; set; }
 #endif
 #if R24_OR_GREATER

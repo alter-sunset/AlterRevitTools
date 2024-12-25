@@ -38,25 +38,25 @@
 		<TargetFramework>net48</TargetFramework>
 		<RevitVersion>2022</RevitVersion>
 		<OutputPath>bin\R2022\</OutputPath>
-		<DefineConstants>R20_OR_GREATER</DefineConstants>
+		<DefineConstants>R20_OR_GREATER;R22_OR_GREATER</DefineConstants>
 	</PropertyGroup>
 	<PropertyGroup Condition="$(Configuration.Contains('R23'))">
 		<TargetFramework>net48</TargetFramework>
 		<RevitVersion>2023</RevitVersion>
 		<OutputPath>bin\R2023\</OutputPath>
-		<DefineConstants>R20_OR_GREATER;R23_OR_GREATER</DefineConstants>
+		<DefineConstants>R20_OR_GREATER;R22_OR_GREATER</DefineConstants>
 	</PropertyGroup>
 	<PropertyGroup Condition="$(Configuration.Contains('R24'))">
 		<TargetFramework>net48</TargetFramework>
 		<RevitVersion>2024</RevitVersion>
 		<OutputPath>bin\R2024\</OutputPath>
-		<DefineConstants>R20_OR_GREATER;R23_OR_GREATER;R24_OR_GREATER</DefineConstants>
+		<DefineConstants>R20_OR_GREATER;R22_OR_GREATER;R24_OR_GREATER</DefineConstants>
 	</PropertyGroup>
 	<PropertyGroup Condition="$(Configuration.Contains('R25'))">
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<RevitVersion>2025</RevitVersion>
 		<OutputPath>bin\R2025\</OutputPath>
-		<DefineConstants>R20_OR_GREATER;R23_OR_GREATER;R24_OR_GREATER;R25_OR_GREATER</DefineConstants>
+		<DefineConstants>R20_OR_GREATER;R22_OR_GREATER;R24_OR_GREATER;R25_OR_GREATER</DefineConstants>
 	</PropertyGroup>
 	<ItemGroup>
 		<EmbeddedResource Include="Resources\HelpMessages.json" />

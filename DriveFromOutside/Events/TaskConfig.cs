@@ -22,5 +22,4 @@ namespace AlterTools.DriveFromOutside.Events
         /// </summary>
         public string FilePath { get; set; }
     }
-
 }
