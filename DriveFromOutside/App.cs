@@ -35,10 +35,12 @@ namespace AlterTools.DriveFromOutside
             ExternalTaskHandler externalTaskHandler = new(events);
 
             //Start listener, duh
+            TimeSpan timeSpan = TimeSpan.FromMinutes(1);
+
 #if R25_OR_GREATER
-            await externalTaskHandler.LookForSingleTask(TimeSpan.FromMinutes(1));
+            await externalTaskHandler.LookForSingleTask(timeSpan);
 #else
-            externalTaskHandler.LookForSingleTask(TimeSpan.FromMinutes(1));
+            externalTaskHandler.LookForSingleTask(timeSpan);
 #endif
         }
 
