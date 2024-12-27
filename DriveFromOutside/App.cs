@@ -13,7 +13,7 @@ namespace AlterTools.DriveFromOutside
     [Transaction(TransactionMode.Manual)]
     [Regeneration(RegenerationOption.Manual)]
     class App : IExternalApplication
-    {
+    {//TODO: add support for building and running .cs scripts into tasks
         public Result OnStartup(UIControlledApplication app)
         {
             app.ControlledApplication.ApplicationInitialized += OnInitialized;

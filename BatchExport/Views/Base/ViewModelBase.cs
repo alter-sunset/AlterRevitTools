@@ -113,7 +113,7 @@ namespace AlterTools.BatchExport.Views.Base
         public virtual RelayCommand BrowseFolderCommand => _browseFolderCommand ??= new RelayCommand(obj => BrowseFolder());
         private void BrowseFolder()
         {
-            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog() { SelectedPath = FolderPath };
+            FolderBrowserDialog folderBrowserDialog = new() { SelectedPath = FolderPath };
             DialogResult result = folderBrowserDialog.ShowDialog();
             string folderPath = folderBrowserDialog.SelectedPath;
 
