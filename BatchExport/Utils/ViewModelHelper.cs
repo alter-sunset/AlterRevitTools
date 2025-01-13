@@ -109,7 +109,7 @@ namespace AlterTools.BatchExport.Utils
         /// <param name="msg">Message to show to user</param>
         public static void Finisher(this ViewModelBase vmBase, string id, string msg = "Задание выполнено")
         {
-            TaskDialog taskDialog = new TaskDialog("Готово!")
+            TaskDialog taskDialog = new("Готово!")
             {
                 CommonButtons = TaskDialogCommonButtons.Close,
                 Id = id,
@@ -118,6 +118,8 @@ namespace AlterTools.BatchExport.Utils
             vmBase.IsViewEnabled = false;
             taskDialog.Show();
             vmBase.IsViewEnabled = true;
+            //TODO: Rework this 
+            //Process.Start("shutdown", "/s /t 10");
         }
         /// <returns>Unique files with .rvt extension</returns>
         public static IEnumerable<string> FilterRevitFiles(this IEnumerable<string> files)
