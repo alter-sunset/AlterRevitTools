@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
-using AlterTools.BatchExport.Source.EventHandlers;
+using AlterTools.BatchExport.Core.EventHandlers;
 
 namespace AlterTools.BatchExport.Views.NWC
 {
@@ -103,7 +103,7 @@ namespace AlterTools.BatchExport.Views.NWC
         }
 
         private readonly IReadOnlyDictionary<NavisworksParameters, string> _parameters = NWC_Context.Parameters;
-        private KeyValuePair<NavisworksParameters, string> _selectedParameters = NWC_Context.Parameters.FirstOrDefault(e => e.Key == NavisworksParameters.All);
+        private KeyValuePair<NavisworksParameters, string> _selectedParameters = NWC_Context.Parameters.FirstOrDefault(e => e.Key is NavisworksParameters.All);
         public IReadOnlyDictionary<NavisworksParameters, string> Parameters => _parameters;
         public KeyValuePair<NavisworksParameters, string> SelectedParameters
         {

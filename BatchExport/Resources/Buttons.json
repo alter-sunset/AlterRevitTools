@@ -2,7 +2,7 @@
   {
     "Name": "NWC",
     "Text": "Экспорт\nNWC",
-    "ClassName": "AlterTools.BatchExport.Source.ExportModelsToNWC",
+    "ClassName": "AlterTools.BatchExport.Core.ExportModelsToNWC",
     "ToolTip": "Пакетный экспорт в NWC",
     "ImageLarge": "BatchExport.Resources.nwc.png",
     "ImageSmall": "BatchExport.Resources.nwc_16.png",
@@ -12,7 +12,7 @@
   {
     "Name": "IFC",
     "Text": "Экспорт\nIFC",
-    "ClassName": "AlterTools.BatchExport.Source.ExportModelsToIFC",
+    "ClassName": "AlterTools.BatchExport.Core.ExportModelsToIFC",
     "ToolTip": "Пакетный экспорт в IFC",
     "ImageLarge": "BatchExport.Resources.ifc.png",
     "ImageSmall": "BatchExport.Resources.ifc_16.png",
@@ -22,7 +22,7 @@
   {
     "Name": "Detach",
     "Text": "Экспорт\nотсоединённых\nмоделей",
-    "ClassName": "AlterTools.BatchExport.Source.ExportModelsDetached",
+    "ClassName": "AlterTools.BatchExport.Core.ExportModelsDetached",
     "ToolTip": "Пакетный экспорт отсоединённых моделей",
     "ImageLarge": "BatchExport.Resources.detach.png",
     "ImageSmall": "BatchExport.Resources.detach_16.png",
@@ -32,7 +32,7 @@
   {
     "Name": "Transmit",
     "Text": "Передача\nмоделей",
-    "ClassName": "AlterTools.BatchExport.Source.ExportModelsTransmitted",
+    "ClassName": "AlterTools.BatchExport.Core.ExportModelsTransmitted",
     "ToolTip": "Пакетная передача моделей",
     "ImageLarge": "BatchExport.Resources.transmit.png",
     "ImageSmall": "BatchExport.Resources.transmit_16.png",
@@ -42,7 +42,7 @@
   {
     "Name": "Migrate",
     "Text": "Миграция\nмоделей",
-    "ClassName": "AlterTools.BatchExport.Source.MigrateModels",
+    "ClassName": "AlterTools.BatchExport.Core.MigrateModels",
     "ToolTip": "Пакетная миграция моделей с обновлением связей",
     "ImageLarge": "BatchExport.Resources.migrate.png",
     "ImageSmall": "BatchExport.Resources.migrate_16.png",
@@ -52,7 +52,7 @@
   {
     "Name": "Link",
     "Text": "Пакетное добавление\nRevit ссылок",
-    "ClassName": "AlterTools.BatchExport.Source.LinkModels",
+    "ClassName": "AlterTools.BatchExport.Core.LinkModels",
     "ToolTip": "Пакетное добавление Revit ссылок в текущую модель",
     "ImageLarge": "BatchExport.Resources.link.png",
     "ImageSmall": "BatchExport.Resources.link_16.png",

@@ -29,13 +29,11 @@ namespace AlterTools.BatchExport.Views.NWC
                 ExportRoomGeometry = config.ExportRoomGeometry,
                 ExportUrls = config.ExportUrls,
                 FindMissingMaterials = config.FindMissingMaterials,
-
 #if R20_OR_GREATER
                 ConvertLights = config.ConvertLights,
                 ConvertLinkedCADFormats = config.ConvertLinkedCADFormats,
                 FacetingFactor = config.FacetingFactor,
 #endif
-
                 Coordinates = config.Coordinates,
                 Parameters = config.Parameters,
                 ExportScope = config.ExportScopeView

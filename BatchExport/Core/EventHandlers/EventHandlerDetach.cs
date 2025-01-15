@@ -9,7 +9,7 @@ using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Detach;
 using AlterTools.BatchExport.Views.Base;
 
-namespace AlterTools.BatchExport.Source.EventHandlers
+namespace AlterTools.BatchExport.Core.EventHandlers
 {
     public class EventHandlerDetach : EventHandlerBase
     {

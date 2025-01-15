@@ -8,7 +8,7 @@ using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.NWC;
 
-namespace AlterTools.BatchExport.Source.EventHandlers
+namespace AlterTools.BatchExport.Core.EventHandlers
 {
     public class EventHandlerNWC_Batch : EventHandlerBase
     {

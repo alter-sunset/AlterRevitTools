@@ -20,7 +20,7 @@ namespace AlterTools.BatchExport.Views.NWC
         public string[] WorksetPrefixes { get => _worksetPrefixes; set => _worksetPrefixes = value; }
         public string[] Files { get => _files; set => _files = value; }
         public string ViewName { get => _viewName; set => _viewName = value; }
-        public new bool ConvertLights { get => _convertLights; set => _convertLights = value; } //version control
+        public new bool ConvertLights { get => _convertLights; set => _convertLights = value; }
         public new bool ConvertLinkedCADFormats { get => _convertLinkedCADFormats; set => _convertLinkedCADFormats = value; }
         public new double FacetingFactor { get => _facetingFactor; set => _facetingFactor = value; }
         public new bool ViewId { get; set; }

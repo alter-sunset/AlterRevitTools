@@ -42,8 +42,8 @@ namespace AlterTools.DriveFromOutside
             },
             null, TimeSpan.Zero, period);
         }
-
 #endif
+
         public static TaskConfig GetOldestMessage()
         {
             string[] files = Directory.GetFiles(FOLDER_CONFIGS)

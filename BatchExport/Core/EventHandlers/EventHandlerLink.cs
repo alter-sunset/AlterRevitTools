@@ -3,7 +3,7 @@ using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.Link;
 
-namespace AlterTools.BatchExport.Source.EventHandlers
+namespace AlterTools.BatchExport.Core.EventHandlers
 {
     public class EventHandlerLink : EventHandlerBase
     {

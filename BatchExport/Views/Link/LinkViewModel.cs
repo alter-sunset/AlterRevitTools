@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using AlterTools.BatchExport.Source.EventHandlers;
+using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Utils;
 
