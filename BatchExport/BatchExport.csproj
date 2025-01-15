@@ -16,6 +16,7 @@
 		<Optimize>True</Optimize>
 		<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
 		<Configurations>Release R19;Release R20;Release R21;Release R22;Release R23;Release R24;Release R25;Debug R25</Configurations>
+		<RootNamespace>$(SolutionName).$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 	</PropertyGroup>
 	<PropertyGroup Condition="$(Configuration.Contains('R19'))">
 		<TargetFramework>net48</TargetFramework>
