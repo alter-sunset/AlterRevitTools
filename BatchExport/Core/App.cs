@@ -3,7 +3,7 @@ using System.Linq;
 using System.Collections.Generic;
 using Panel = System.Tuple<Autodesk.Revit.UI.RibbonPanel, string>;
 
-namespace AlterTools.BatchExport.Source
+namespace AlterTools.BatchExport.Core
 {//TODO: Add RevitServerViewer
     public class App : IExternalApplication
     {

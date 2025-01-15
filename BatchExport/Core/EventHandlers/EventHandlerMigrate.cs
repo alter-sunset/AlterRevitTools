@@ -5,7 +5,7 @@ using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.Migrate;
 
-namespace AlterTools.BatchExport.Source.EventHandlers
+namespace AlterTools.BatchExport.Core.EventHandlers
 {
     public class EventHandlerMigrate : EventHandlerBase
     {

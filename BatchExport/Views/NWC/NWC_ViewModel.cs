@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
-using AlterTools.BatchExport.Source.EventHandlers;
+using AlterTools.BatchExport.Core.EventHandlers;
 
 namespace AlterTools.BatchExport.Views.NWC
 {

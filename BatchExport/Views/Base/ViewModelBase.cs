@@ -5,7 +5,7 @@ using System.Windows.Media;
 using System.Windows.Controls;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using AlterTools.BatchExport.Source.EventHandlers;
+using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Utils;
 
 namespace AlterTools.BatchExport.Views.Base

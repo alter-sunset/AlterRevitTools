@@ -1,7 +1,7 @@
 ﻿using Autodesk.Revit.UI;
 using AlterTools.BatchExport.Views.Base;
 
-namespace AlterTools.BatchExport.Source.EventHandlers
+namespace AlterTools.BatchExport.Core.EventHandlers
 {
     public abstract class EventHandlerBase : RevitEventWrapper<IConfigBase>
     {

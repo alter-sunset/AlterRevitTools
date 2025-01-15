@@ -4,7 +4,7 @@ using Autodesk.Revit.Attributes;
 using System;
 using AlterTools.BatchExport.Utils;
 
-namespace AlterTools.BatchExport.Source
+namespace AlterTools.BatchExport.Core
 {
     public class CommandAvailability : IExternalCommandAvailability
     {

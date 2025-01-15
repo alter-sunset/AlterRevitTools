@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 using AlterTools.BatchExport.Utils;
 
-namespace AlterTools.BatchExport.Source
+namespace AlterTools.BatchExport.Core
 {
     class ButtonContext
     {
