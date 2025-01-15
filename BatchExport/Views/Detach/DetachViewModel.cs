@@ -33,15 +33,7 @@ namespace AlterTools.BatchExport.Views.Detach
             set => SetProperty(ref _radioButtonMode, value);
         }
         private RelayCommand _radioButtonCommand;
-        public override RelayCommand RadioButtonCommand
-        {
-            get
-            {
-                if (_radioButtonCommand is null)
-                    _radioButtonCommand = new RelayCommand(RB_Command);
-                return _radioButtonCommand;
-            }
-        }
+        public override RelayCommand RadioButtonCommand => _radioButtonCommand ??= new RelayCommand(RB_Command);
         private void RB_Command(object parameter)
         {
             switch ((string)parameter)
