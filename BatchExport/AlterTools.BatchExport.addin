@@ -2,7 +2,7 @@
 <RevitAddIns>
 	<AddIn Type="Application">
 		<Name>AlterTools.BatchExport</Name>
-		<FullClassName>AlterTools.BatchExport.Source.App</FullClassName>
+		<FullClassName>AlterTools.BatchExport.Core.App</FullClassName>
 		<Assembly>AlterTools\BatchExport.dll</Assembly>
 		<AddInId>23972D44-95D5-4147-9C4E-2517ABAF4780</AddInId>
 		<VendorId>ALTR</VendorId>
