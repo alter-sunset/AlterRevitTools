@@ -19,7 +19,7 @@ namespace AlterTools.BatchExport.Core
         public bool Availability { get; set; }
 
         public static List<ButtonContext> GetButtonsContext()
-            => JsonHelper<List<ButtonContext>>.DeserializeResource("BatchExport.Resources.Buttons.json");
+            => JsonHelper<List<ButtonContext>>.DeserializeResource("AlterTools.BatchExport.Resources.Buttons.json");
 
         public PushButtonData GetPushButtonData()
         {

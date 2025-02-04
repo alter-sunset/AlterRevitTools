@@ -37,7 +37,7 @@ namespace AlterTools.BatchExport.Views.Detach
                 else
                 {
                     ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
-                    WorksetConfiguration worksetConfig = new WorksetConfiguration(WorksetConfigurationOption.CloseAllWorksets);
+                    WorksetConfiguration worksetConfig = new(WorksetConfigurationOption.CloseAllWorksets);
                     doc = modelPath.OpenDetached(app, worksetConfig);
                     isWorkshared = true;
                 }

@@ -7,7 +7,7 @@ namespace AlterTools.BatchExport.Views
     public static class Help
     {
         public static Messages GetHelpDictionary()
-            => JsonHelper<Messages>.DeserializeResource("BatchExport.Resources.HelpMessages.json");
+            => JsonHelper<Messages>.DeserializeResource("AlterTools.BatchExport.Resources.HelpMessages.json");
 
         public static string GetResultMessage(this Messages helpDictionary, params HelpMessageType[] helpCodes)
             => string.Join("\n", helpCodes.Select(code

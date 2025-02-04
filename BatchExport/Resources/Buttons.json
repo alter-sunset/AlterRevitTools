@@ -4,8 +4,8 @@
     "Text": "Экспорт\nNWC",
     "ClassName": "AlterTools.BatchExport.Core.ExportModelsToNWC",
     "ToolTip": "Пакетный экспорт в NWC",
-    "ImageLarge": "BatchExport.Resources.nwc.png",
-    "ImageSmall": "BatchExport.Resources.nwc_16.png",
+    "ImageLarge": "AlterTools.BatchExport.Resources.nwc.png",
+    "ImageSmall": "AlterTools.BatchExport.Resources.nwc_16.png",
     "Panel": "Пакетный экспорт",
     "Availability": true
   },
@@ -14,8 +14,8 @@
     "Text": "Экспорт\nIFC",
     "ClassName": "AlterTools.BatchExport.Core.ExportModelsToIFC",
     "ToolTip": "Пакетный экспорт в IFC",
-    "ImageLarge": "BatchExport.Resources.ifc.png",
-    "ImageSmall": "BatchExport.Resources.ifc_16.png",
+    "ImageLarge": "AlterTools.BatchExport.Resources.ifc.png",
+    "ImageSmall": "AlterTools.BatchExport.Resources.ifc_16.png",
     "Panel": "Пакетный экспорт",
     "Availability": true
   },
@@ -24,8 +24,8 @@
     "Text": "Экспорт\nотсоединённых\nмоделей",
     "ClassName": "AlterTools.BatchExport.Core.ExportModelsDetached",
     "ToolTip": "Пакетный экспорт отсоединённых моделей",
-    "ImageLarge": "BatchExport.Resources.detach.png",
-    "ImageSmall": "BatchExport.Resources.detach_16.png",
+    "ImageLarge": "AlterTools.BatchExport.Resources.detach.png",
+    "ImageSmall": "AlterTools.BatchExport.Resources.detach_16.png",
     "Panel": "Пакетный экспорт",
     "Availability": true
   },
@@ -34,8 +34,8 @@
     "Text": "Передача\nмоделей",
     "ClassName": "AlterTools.BatchExport.Core.ExportModelsTransmitted",
     "ToolTip": "Пакетная передача моделей",
-    "ImageLarge": "BatchExport.Resources.transmit.png",
-    "ImageSmall": "BatchExport.Resources.transmit_16.png",
+    "ImageLarge": "AlterTools.BatchExport.Resources.transmit.png",
+    "ImageSmall": "AlterTools.BatchExport.Resources.transmit_16.png",
     "Panel": "Пакетный экспорт",
     "Availability": true
   },
@@ -44,8 +44,8 @@
     "Text": "Миграция\nмоделей",
     "ClassName": "AlterTools.BatchExport.Core.MigrateModels",
     "ToolTip": "Пакетная миграция моделей с обновлением связей",
-    "ImageLarge": "BatchExport.Resources.migrate.png",
-    "ImageSmall": "BatchExport.Resources.migrate_16.png",
+    "ImageLarge": "AlterTools.BatchExport.Resources.migrate.png",
+    "ImageSmall": "AlterTools.BatchExport.Resources.migrate_16.png",
     "Panel": "Пакетный экспорт",
     "Availability": true
   },
@@ -54,8 +54,8 @@
     "Text": "Пакетное добавление\nRevit ссылок",
     "ClassName": "AlterTools.BatchExport.Core.LinkModels",
     "ToolTip": "Пакетное добавление Revit ссылок в текущую модель",
-    "ImageLarge": "BatchExport.Resources.link.png",
-    "ImageSmall": "BatchExport.Resources.link_16.png",
+    "ImageLarge": "AlterTools.BatchExport.Resources.link.png",
+    "ImageSmall": "AlterTools.BatchExport.Resources.link_16.png",
     "Panel": "Пакетный импорт",
     "Availability": false
   }
