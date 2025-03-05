@@ -89,7 +89,9 @@ namespace AlterTools.BatchExport.Views.Base
                 BasicFileInfo fileInfo = BasicFileInfo.Extract(file);
                 ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(file);
 
-                using TransmissionData trData = TransmissionData.ReadTransmissionData(modelPath);
+                TransmissionData trData = File.Exists(fileInfo.CentralPath) //ensures that central model exists and reachable
+                    ? TransmissionData.ReadTransmissionData(modelPath)
+                    : null;
                 bool transmitted = trData is not null && trData.IsTransmitted;
 
                 WorksetConfiguration worksetConfiguration = fileInfo.IsWorkshared
@@ -100,7 +102,7 @@ namespace AlterTools.BatchExport.Views.Base
 
                 return worksetConfiguration is null
                     ? app.OpenDocumentFile(file)
-                    : modelPath.OpenAsIs(app, worksetConfiguration);
+                    : modelPath.OpenDetached(app, worksetConfiguration);
             }
             catch (Exception ex)
             {

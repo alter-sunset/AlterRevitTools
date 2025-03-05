@@ -12,6 +12,7 @@ namespace AlterTools.DriveFromOutside.Events.NWC
             Logger log = new(nwcConfig.FolderPath);
             NWCHelper nwcHelper = new();
             nwcHelper.BatchExportModels(nwcConfig, uiApp, ref log);
+            log.Dispose();
         }
     }
 }

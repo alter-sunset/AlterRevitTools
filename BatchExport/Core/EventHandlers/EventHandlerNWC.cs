@@ -18,6 +18,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 
             int totalFiles = log.ErrorCount + log.SuccessCount;
             string msg = $"В процессе выполнения было {log.ErrorCount} ошибок из {totalFiles} файлов.";
+            log.Dispose();
             nwcVM.Finisher("ExportNWCFinished", msg);
         }
     }

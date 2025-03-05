@@ -16,6 +16,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
             ifcHelper.BatchExportModels(ifcVM, uiApp, ref log);
 
             string msg = $"В процессе выполнения было {log.ErrorCount} ошибок из {log.ErrorCount + log.SuccessCount} файлов.";
+            log.Dispose();
             ifcVM.Finisher(id: "ExportIFCFinished", msg);
         }
     }
