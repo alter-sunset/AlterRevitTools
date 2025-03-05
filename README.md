@@ -1,67 +1,68 @@
-# Плагины для пакетной работы с файлами в Revit
+# Plugins for Batch Processing Files in Revit
 
-***На данный момент поддерживаются версии 2019-2025***
+<a href="README.ru-RU.md">Русский</a> | <a href="README.md">English</a>
 
-  **Плагин содержит 6 модулей:**
-  - 5 для экспорта
-  - 1 для импорта
+***Currently supports versions 2019-2025***
 
- ### Экспорт:
-  - [Экспорт NWC (Кэш Navisworks)](#экспорт-nwc)
-  - [Экспорт IFC (Industry Foundation Classes)](#экспорт-ifc)
-  - [Экспорт отсоединённых моделей](#экспорт-отсоединённых-моделей)
-  - [Передача моделей (***Возможно будет упразднён в будущем***)](#передача-моделей)
-  - [Миграция моделей](#миграция-моделей)
+  **The plugin includes 6 modules:**
+  - 5 for export
+  - 1 for import
 
-###  Импорт:
-  - [Импорт RVT](#импорт-rvt)
+ ### Export:
+  - [Export NWC (Navisworks Cache)](#export-nwc)
+  - [Export IFC (Industry Foundation Classes)](#export-ifc)
+  - [Export Detached Models](#export-detached-models)
+  - [Transmit Models (***May be deprecated in the future***)](#transmit-models)
+  - [Migrate Models](#migrate-models)
 
-## Экспорт NWC
-Модуль позволяет экспортировать пакет моделей в кэш Navisworks (.nwc) с заранее установленными настройками.
+### Import:
+  - [Import RVT](#import-rvt)
 
-  **Важные моменты:**
-  - Конфигурацию экспорта можно сохранить в файл формата .json для дальнейшего повторного экспорта.
-  - Можно собрать в список адреса нескольких конфигураций для экспорта нескольких пакетов. *(Несколько объектов, разные настройки для разных целей и т.д.)*
+## Export NWC
+This module allows batch exporting models to Navisworks cache (.nwc) with predefined settings.
+
+  **Key features:**
+  - Export configurations can be saved to a .json file for reuse.
+  - Multiple configurations can be added to a list to export multiple batches. *(Different objects, settings for various purposes, etc.)*
 
 ![nwc](https://github.com/user-attachments/assets/8a78ce83-3c0b-4ac0-9242-01cb7607a750)
 
-## Экспорт IFC
-Модуль позволяет экспортировать пакет моделей в файлы формата .ifc с заранее установленными настройками.
+## Export IFC
+This module allows batch exporting models to .ifc files with predefined settings.
 
- **Важные моменты:**
-  - Конфигурацию экспорта можно сохранить в файл формата .json для дальнейшего повторного экспорта.
+ **Key features:**
+  - Export configurations can be saved to a .json file for reuse.
 
 ![ifc](https://github.com/user-attachments/assets/4fc70ff8-7b1b-4d70-8e90-ede45c8cc59c)
 
-## Экспорт отсоединённых моделей
-Модуль позволяет экспортировать пакет моделей для передачи их вне организации.<br>
-Реализует схожий функционал с *eTransmit*, но работает быстрее, т.к. не выполняет поиск вложенных связей.<br>
-Также модуль удобно использовать для быстрой подготовки моделей, полученных от подрядчика.
+## Export Detached Models
+This module allows batch exporting models for sharing outside the organization.<br>
+It implements functionality similar to *eTransmit* but works faster by skipping nested link searches.<br>
+It is also useful for quickly preparing models received from contractors.
 
-  **Важные моменты:**
-  - Список моделей можно сохранить в текстовый файл для дальнейшего повторного экспорта.
-  - Файлы могут быть перемещены по маске. *(Например, если вы хотите сохранить некоторую структуру папок.)*
-  - Файлы также могут быть автоматически переименованы по маске.
-  - Файлы будут автоматически обновлены до используемой версии Revit.
-  - Все ссылки могут быть удалены из модели.
-  - Модели могут быть проверены на "пустой вид", чтобы отсечь пустые модели, полученные от сторонних организаций.
-  - Модели могут быть очищены от пустых рабочих наборов. *(Начиная с версии **2022**)*
-  - Модели могут быть очищены от всех неиспользуемых элементов. *(Начиная с версии **2024**)*
+  **Key features:**
+  - The model list can be saved to a text file for reuse.
+  - Files can be relocated using masks. *(e.g., preserving folder structures.)*
+  - Files can be automatically renamed using masks.
+  - Files are automatically upgraded to the active Revit version.
+  - All links can be removed from the model.
+  - Models can be checked for "empty views" to filter out empty files from third parties.
+  - Models can be purged of empty worksets. *(Available from version **2022**)*
+  - Models can be purged of all unused elements. *(Available from version **2024**)*
   
 ![detach](https://github.com/user-attachments/assets/fc7e8ebe-9ac9-4068-83c8-ff91a0c64e9c)
 
-## Передача моделей
-***Так как функционал дублирован в модуле Detach, в дальнейшем модуль может будет упразднён.*** <br>
+## Transmit Models
+***This module may be deprecated as its functionality overlaps with the Detach module.*** <br>
 
-Модуль позволяет экспортировать пакет моделей для передачи их вне организации. <br>
-Реализует схожий функционал с *eTransmit*, но работает быстрее, т.к. не выполняет поиск вложенных связей. <br>
+This module exports batches of models for sharing outside the organization. <br>
+It mimics *eTransmit* but skips nested link searches for faster performance. <br>
 
-*Технически плагин лишь копирует файлы и прописывает им флаг **IsTransmitted = true**, поэтому его основное предназначение - быстро передать модели, чтобы при открытии не было ошибки.
-Если же необходимо почистить модели или обновить их до определённой версии, рекомендуется использовать модуль Detach.*
+*Technically, the plugin copies files and sets the **IsTransmitted = true** flag. Its primary purpose is to quickly share models without triggering errors on opening. For cleaning or upgrading models, use the Detach module instead.*
 
-## Миграция моделей
-Модуль предназначен для миграции проекта в новое место с сохранением структуры связей. Например при переходе от стадии П к стадии Р. <br>
-В модуль загружается файл .json, содержащий *Dictionary<string, string>*, где ключ - полный путь исходного файла, а значение - полный путь итогового файла.
+## Migrate Models
+This module migrates projects to new locations while preserving link structures. For example, moving from design stage "P" to stage "R". <br>
+It uses a .json file containing *Dictionary<string, string>*, where the key is the source file path and the value is the target path.
 
-## Импорт RVT
-Модуль позволяет пакетно добавить несколько связей rvt одним действием.
+## Import RVT
+This module allows batch importing multiple RVT links in a single action.
