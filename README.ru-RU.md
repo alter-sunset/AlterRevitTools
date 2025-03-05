@@ -1,6 +1,6 @@
 # Плагины для пакетной работы с файлами в Revit
 
-<a href="README.md">Русский</a> | <a href="README.en-EN.md">English</a>
+<a href="README.ru-RU.md">Русский</a> | <a href="README.md">English</a>
 
 ***На данный момент поддерживаются версии 2019-2025***
 
