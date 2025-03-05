@@ -38,7 +38,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 
                 NWCHelper nwcHelper = new();
                 nwcHelper.BatchExportModels(nwcVM, uiApp, ref log);
-
+                log.Dispose();
                 Thread.Sleep(1000);
             }
 
