@@ -1,6 +1,6 @@
 # Plugins for Batch Processing Files in Revit
 
-<a href="README.md">Русский</a> | <a href="README.en-EN.md">English</a>
+<a href="README.ru-RU.md">Русский</a> | <a href="README.md">English</a>
 
 ***Currently supports versions 2019-2025***
 
