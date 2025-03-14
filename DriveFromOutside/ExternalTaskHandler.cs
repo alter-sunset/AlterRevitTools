@@ -17,24 +17,9 @@ namespace AlterTools.DriveFromOutside
         private static string InitializeFolderConfigs() =>
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 @"RevitListener\Tasks");
-
-#if R25_OR_GREATER
-        public async Task LookForSingleTask(TimeSpan period)
-        {
-            using PeriodicTimer timer = new(period);
-            while (await timer.WaitForNextTickAsync())
-            {
-                TaskConfig? taskConfig = GetOldestMessage();
-                if (taskConfig is not null)
-                    RaiseEvent(taskConfig);
-            }
-        }
-#else
         public void LookForSingleTask(TimeSpan period)
         {
-            Timer timer = null;
-
-            timer = new Timer(_ =>
+            Timer timer = new(_ =>
             {
                 TaskConfig taskConfig = GetOldestMessage();
                 if (taskConfig is not null)
@@ -42,9 +27,8 @@ namespace AlterTools.DriveFromOutside
             },
             null, TimeSpan.Zero, period);
         }
-#endif
 
-        public static TaskConfig GetOldestMessage()
+        public static TaskConfig? GetOldestMessage()
         {
             string[] files = Directory.GetFiles(FOLDER_CONFIGS)
                 .OrderBy(File.GetLastWriteTime)

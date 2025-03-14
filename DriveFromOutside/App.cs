@@ -3,9 +3,9 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.UI;
 using AlterTools.DriveFromOutside.Events;
-using AlterTools.DriveFromOutside.Events.Detach;
 using AlterTools.DriveFromOutside.Events.IFC;
 using AlterTools.DriveFromOutside.Events.NWC;
+using AlterTools.DriveFromOutside.Events.Detach;
 using AlterTools.DriveFromOutside.Events.Transmit;
 
 namespace AlterTools.DriveFromOutside
@@ -19,6 +19,9 @@ namespace AlterTools.DriveFromOutside
             app.ControlledApplication.ApplicationInitialized += OnInitialized;
             return Result.Succeeded;
         }
+
+        //TODO: replace IExternalApplication with IExternalCommand that will run from journal
+        //Important note: journal, manifest.addin and plugin.dll must be in the same folder (can be any folder actually)
 
         private async void OnInitialized(object? sender, ApplicationInitializedEventArgs e)
         {
