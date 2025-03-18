@@ -11,21 +11,21 @@ namespace DriveFromOutsideServer.Controllers
         private readonly AssignmentContext _db = db;
 
         [HttpPost]
-        public IActionResult PostNewAssignment(Emperor emperor) //add some object as an argument that describes task
+        public IActionResult PostNewAssignment(Assignment assignment)
         {
-            if (emperor is null) return BadRequest("Null reference");
+            if (assignment is null) return BadRequest("Null reference");
             _db.Database.EnsureCreated();
 
-            EmperorAssignment emp = new(emperor)
+            EmperorAssignment emperor = new(assignment)
             {
                 IssueTime = DateTime.Now,
                 Status = AssignmentStatus.New
             };
 
-            _db.Emperors.Add(emp);
+            _db.Emperors.Add(emperor);
             _db.SaveChanges();
 
-            return Ok($"Assignment added at {emp.IssueTime}");
+            return Ok($"Assignment added at {emperor.IssueTime}");
         }
     }
 }
