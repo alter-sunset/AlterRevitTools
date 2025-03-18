@@ -1,6 +1,4 @@
-﻿using Autodesk.Revit.DB;
-
-namespace DriveFromOutsideServer.Configs
+﻿namespace DriveFromOutsideServer.Configs
 {
     public class NwcConfigBase
     {
@@ -33,5 +31,16 @@ namespace DriveFromOutsideServer.Configs
     public class NwcConfigKing : NwcConfigBase
     {
         public string File { get; set; }
+    }
+    public enum NavisworksParameters
+    {
+        None,
+        Elements,
+        All
+    }
+    public enum NavisworksCoordinates
+    {
+        Internal,
+        Shared
     }
 }

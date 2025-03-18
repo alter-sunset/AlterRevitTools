@@ -34,11 +34,7 @@ namespace DriveFromOutsideServer.DB
                     .HasMaxLength(10);
                 entity.Property(e => e.IssueTime).HasColumnName("issue_time");
                 entity.Property(e => e.Config)
-                    .HasColumnName("config")
-                    .HasConversion(
-                        v => v.ToString(Newtonsoft.Json.Formatting.None),
-                        v => JObject.Parse(v))
-                    .HasColumnType("TEXT");
+                    .HasColumnName("config");
                 entity.Property(e => e.Status)
                     .HasColumnName("status")
                     .HasConversion<string>()
@@ -67,11 +63,7 @@ namespace DriveFromOutsideServer.DB
                     .HasMaxLength(10);
                 entity.Property(e => e.IssueTime).HasColumnName("issue_time");
                 entity.Property(e => e.Config)
-                    .HasColumnName("config")
-                    .HasConversion(
-                        v => v.ToString(Newtonsoft.Json.Formatting.None),
-                        v => JObject.Parse(v))
-                    .HasColumnType("TEXT");
+                    .HasColumnName("config");
                 entity.Property(e => e.OpenTime).HasColumnName("open_time");
                 entity.Property(e => e.CloseTime).HasColumnName("close_time");
                 entity.Property(e => e.Status)

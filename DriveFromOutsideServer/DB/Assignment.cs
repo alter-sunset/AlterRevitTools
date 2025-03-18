@@ -1,11 +1,9 @@
-﻿using Newtonsoft.Json.Linq;
-
-namespace DriveFromOutsideServer.DB
+﻿namespace DriveFromOutsideServer.DB
 {
     public class Assignment
     {
         public AssignmentType Type { get; set; }
-        public JObject Config { get; set; }
+        public string Config { get; set; }
     }
     public class EmperorAssignment : Assignment
     {
