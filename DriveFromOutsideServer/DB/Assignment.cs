@@ -32,4 +32,20 @@ namespace DriveFromOutsideServer.DB
         public int? KingId { get; set; }
         public KingAssignment? King { get; set; }
     }
+    public enum AssignmentType
+    {
+        None = 0,
+        Transmit = 1,
+        Detach = 2,
+        NWC = 3,
+        IFC = 4,
+        Migrate = 5,
+        Update = 6
+    }
+    public enum AssignmentStatus
+    {
+        New = 0,
+        Open = 1,
+        Closed = 2
+    }
 }
