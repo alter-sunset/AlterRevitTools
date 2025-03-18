@@ -1,6 +1,6 @@
 ﻿namespace DriveFromOutsideServer.Configs
 {
-    public class DetachConfigBase
+    public class DetachConfigBase : IConfigBase
     {
         public string FolderPath { get; set; }
         public string MaskInName { get; set; }
@@ -12,11 +12,11 @@
         public bool CheckForEmptyView { get; set; }
         public bool RemoveLinks { get; set; }
     }
-    public class DetachConfigEmperor : DetachConfigBase
+    public class DetachConfigEmperor : DetachConfigBase, IConfigEmperor
     {
         public string[] Files { get; set; }
     }
-    public class DetachConfigKing : DetachConfigBase
+    public class DetachConfigKing : DetachConfigBase, IConfigKing
     {
         public string File { get; set; }
     }

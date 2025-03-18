@@ -1,6 +1,6 @@
 ﻿namespace DriveFromOutsideServer.Configs
 {
-    public class MigrateConfig
+    public class MigrateConfig : IConfigBase
     {
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace DriveFromOutsideServer.Configs
 {
-    public class IfcConfigBase
+    public class IfcConfigBase : IConfigBase
     {
         public string FamilyMappingFile { get; set; }
         public bool ExportBaseQuantities { get; set; }
@@ -15,11 +15,11 @@
         public string ViewName { get; set; }
         public string FolderPath { get; set; }
     }
-    public class IfcConfigEmperor : IfcConfigBase
+    public class IfcConfigEmperor : IfcConfigBase, IConfigEmperor
     {
         public string[] Files { get; set; }
     }
-    public class IfcConfigKing : IfcConfigBase
+    public class IfcConfigKing : IfcConfigBase, IConfigKing
     {
         public string File { get; set; }
     }

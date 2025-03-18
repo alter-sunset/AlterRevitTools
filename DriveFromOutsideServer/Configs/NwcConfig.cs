@@ -1,6 +1,6 @@
 ﻿namespace DriveFromOutsideServer.Configs
 {
-    public class NwcConfigBase
+    public class NwcConfigBase : IConfigBase
     {
         public bool ConvertElementProperties { get; set; }
         public bool DivideFileIntoLevels { get; set; }
@@ -24,11 +24,11 @@
         public string ViewName { get; set; }
         public string FolderPath { get; set; }
     }
-    public class NwcConfigEmperor : NwcConfigBase
+    public class NwcConfigEmperor : NwcConfigBase, IConfigEmperor
     {
         public string[] Files { get; set; }
     }
-    public class NwcConfigKing : NwcConfigBase
+    public class NwcConfigKing : NwcConfigBase, IConfigKing
     {
         public string File { get; set; }
     }
