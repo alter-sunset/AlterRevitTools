@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace DriveFromOutsideServer.DB
@@ -29,6 +30,7 @@ namespace DriveFromOutsideServer.DB
                 entity.Property(e => e.Type)
                     .HasColumnName("type")
                     .HasConversion<string>()
+                    .HasColumnType("TEXT")
                     .HasMaxLength(10);
                 entity.Property(e => e.IssueTime).HasColumnName("issue_time");
                 entity.Property(e => e.Config)
@@ -53,9 +55,9 @@ namespace DriveFromOutsideServer.DB
                     .WithMany(e => e.Kings)
                     .HasForeignKey(e => e.EmperorId);
 
-                entity.HasOne(e => e.King)
-                    .WithMany()
-                    .HasForeignKey(e => e.KingId);
+                //entity.HasOne(e => e.King)
+                //    .WithMany()
+                //    .HasForeignKey(e => e.KingId);
 
                 entity.Property(e => e.Id).HasColumnName("id");
                 entity.Property(e => e.Version).HasColumnName("version");
@@ -77,7 +79,7 @@ namespace DriveFromOutsideServer.DB
                     .HasConversion<string>()
                     .HasMaxLength(10);
                 entity.Property(e => e.EmperorId).HasColumnName("emperor_id");
-                entity.Property(e => e.KingId).HasColumnName("king_id");
+                //entity.Property(e => e.KingId).HasColumnName("king_id");
             });
         }
 

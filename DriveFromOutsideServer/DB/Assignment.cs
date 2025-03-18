@@ -9,10 +9,11 @@ namespace DriveFromOutsideServer.DB
     }
     public class EmperorAssignment : Assignment
     {
-        public EmperorAssignment(Assignment emperor)
+        public EmperorAssignment() { }
+        public EmperorAssignment(Assignment assignment)
         {
-            this.Type = emperor.Type;
-            this.Config = emperor.Config;
+            Type = assignment.Type;
+            Config = assignment.Config;
         }
         public int Id { get; set; }
         public DateTime IssueTime { get; set; }
@@ -21,6 +22,7 @@ namespace DriveFromOutsideServer.DB
     }
     public class KingAssignment : Assignment
     {
+        public KingAssignment() { }
         public int Id { get; set; }
         public int Version { get; set; }
         public DateTime IssueTime { get; set; }
@@ -29,8 +31,8 @@ namespace DriveFromOutsideServer.DB
         public AssignmentStatus Status { get; set; }
         public int EmperorId { get; set; }
         public EmperorAssignment Emperor { get; set; }
-        public int? KingId { get; set; }
-        public KingAssignment? King { get; set; }
+        //public int? KingId { get; set; }
+        //public KingAssignment? King { get; set; }
     }
     public enum AssignmentType
     {

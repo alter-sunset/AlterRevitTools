@@ -20,6 +20,7 @@ namespace DriveFromOutsideServer
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "RevitAssignments", Version = "v1" });
             });
             builder.Services.AddDbContext<AssignmentContext>(options => options.UseSqlite("Data Source=assignments.db;"));
+            builder.Services.AddControllers().AddNewtonsoftJson();
 
             WebApplication app = builder.Build();
 

@@ -7,7 +7,8 @@
         {
             while (!stoppingToken.IsCancellationRequested)
             {
-
+                //get kings
+                //
             }
             return Task.CompletedTask;
         }
