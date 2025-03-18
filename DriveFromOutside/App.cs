@@ -40,11 +40,7 @@ namespace AlterTools.DriveFromOutside
             //Start listener, duh
             TimeSpan timeSpan = TimeSpan.FromMinutes(1);
 
-#if R25_OR_GREATER
-            await externalTaskHandler.LookForSingleTask(timeSpan);
-#else
             externalTaskHandler.LookForSingleTask(timeSpan);
-#endif
         }
 
         public Result OnShutdown(UIControlledApplication app)
