@@ -52,16 +52,16 @@ namespace DriveFromOutsideServer.Services
                 }
                 _db.SaveChanges();
 
-                await Task.Delay(30000, stoppingToken);
+                await Task.Delay(TimeSpan.FromSeconds(30), stoppingToken);
             }
         }
 
         private static string CreateKingConfig(AssignmentType assignmentType, string emperorConfig, string file)
             => assignmentType switch
             {
-                AssignmentType.Detach => CreateConfig<DetachConfigEmperor, DetachConfigKing>(emperorConfig, file),
-                AssignmentType.IFC => CreateConfig<IfcConfigEmperor, IfcConfigKing>(emperorConfig, file),
                 AssignmentType.NWC => CreateConfig<NwcConfigEmperor, NwcConfigKing>(emperorConfig, file),
+                AssignmentType.IFC => CreateConfig<IfcConfigEmperor, IfcConfigKing>(emperorConfig, file),
+                AssignmentType.Detach => CreateConfig<DetachConfigEmperor, DetachConfigKing>(emperorConfig, file),
                 AssignmentType.Update => CreateConfig<UpdateConfigEmperor, UpdateConfigKing>(emperorConfig, file),
                 _ => throw new InvalidOperationException()
             };
