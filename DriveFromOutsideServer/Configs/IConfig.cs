@@ -10,5 +10,6 @@
     public interface IConfigKing : IConfigBase
     {
         public string File { get; set; }
+        void InheritFromEmperor(IConfigEmperor emperor);
     }
 }

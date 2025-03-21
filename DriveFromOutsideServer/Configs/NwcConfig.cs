@@ -31,6 +31,35 @@
     public class NwcConfigKing : NwcConfigBase, IConfigKing
     {
         public string File { get; set; }
+
+        public void InheritFromEmperor(IConfigEmperor emperor)
+        {
+            if (emperor is null) throw new NullReferenceException();
+
+            NwcConfigEmperor emp = (NwcConfigEmperor)emperor;
+
+            ConvertElementProperties = emp.ConvertElementProperties;
+            DivideFileIntoLevels = emp.DivideFileIntoLevels;
+            ExportElementIds = emp.ExportElementIds;
+            ExportLinks = emp.ExportLinks;
+            ExportParts = emp.ExportParts;
+            ExportRoomAsAttribute = emp.ExportRoomAsAttribute;
+            ExportRoomGeometry = emp.ExportRoomGeometry;
+            ExportUrls = emp.ExportUrls;
+            FindMissingMaterials = emp.FindMissingMaterials;
+            ConvertLinkedCADFormats = emp.ConvertLinkedCADFormats;
+            ConvertLights = emp.ConvertLights;
+            FacetingFactor = emp.FacetingFactor;
+            Parameters = emp.Parameters;
+            Coordinates = emp.Coordinates;
+            NamePrefix = emp.NamePrefix;
+            NamePostfix = emp.NamePostfix;
+            WorksetPrefixes = emp.WorksetPrefixes;
+            ExportScopeView = emp.ExportScopeView;
+            ExportScopeWhole = emp.ExportScopeWhole;
+            ViewName = emp.ViewName;
+            FolderPath = emp.FolderPath;
+        }
     }
     public enum NavisworksParameters
     {

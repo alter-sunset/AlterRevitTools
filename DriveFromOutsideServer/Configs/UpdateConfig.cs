@@ -12,5 +12,15 @@
     public class UpdateConfigKing : UpdateConfigBase, IConfigKing
     {
         public string File { get; set; }
+
+        public void InheritFromEmperor(IConfigEmperor emperor)
+        {
+            if (emperor is null) throw new NullReferenceException();
+
+            UpdateConfigEmperor emp = (UpdateConfigEmperor)emperor;
+
+            FolderPath = emp.FolderPath;
+            VersionEnd = emp.VersionEnd;
+        }
     }
 }

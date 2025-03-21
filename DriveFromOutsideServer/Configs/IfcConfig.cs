@@ -22,6 +22,26 @@
     public class IfcConfigKing : IfcConfigBase, IConfigKing
     {
         public string File { get; set; }
+
+        public void InheritFromEmperor(IConfigEmperor emperor)
+        {
+            if (emperor is null) throw new NullReferenceException();
+
+            IfcConfigEmperor emp = (IfcConfigEmperor)emperor;
+
+            FamilyMappingFile = emp.FamilyMappingFile;
+            ExportBaseQuantities = emp.ExportBaseQuantities;
+            WallAndColumnSplitting = emp.WallAndColumnSplitting;
+            FileVersion = emp.FileVersion;
+            SpaceBoundaryLevel = emp.SpaceBoundaryLevel;
+            NamePrefix = emp.NamePrefix;
+            NamePostfix = emp.NamePostfix;
+            WorksetPrefixes = emp.WorksetPrefixes;
+            ExportScopeView = emp.ExportScopeView;
+            ExportScopeWhole = emp.ExportScopeWhole;
+            ViewName = emp.ViewName;
+            FolderPath = emp.FolderPath;
+        }
     }
     public enum IFCVersion
     {

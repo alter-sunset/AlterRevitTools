@@ -19,5 +19,22 @@
     public class DetachConfigKing : DetachConfigBase, IConfigKing
     {
         public string File { get; set; }
+
+        public void InheritFromEmperor(IConfigEmperor emperor)
+        {
+            if (emperor is null) throw new NullReferenceException();
+
+            DetachConfigEmperor emp = (DetachConfigEmperor)emperor;
+
+            FolderPath = emp.FolderPath;
+            MaskInName = emp.MaskInName;
+            MaskOutName = emp.MaskOutName;
+            ViewName = emp.ViewName;
+            RemoveEmptyWorksets = emp.RemoveEmptyWorksets;
+            Purge = emp.Purge;
+            IsToRename = emp.IsToRename;
+            CheckForEmptyView = emp.CheckForEmptyView;
+            RemoveLinks = emp.RemoveLinks;
+        }
     }
 }

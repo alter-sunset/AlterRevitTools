@@ -1,5 +1,6 @@
 ﻿using DriveFromOutsideServer.Configs;
 using DriveFromOutsideServer.DB;
+using Microsoft.Extensions.Configuration.Json;
 using Newtonsoft.Json;
 
 namespace DriveFromOutsideServer.Services
@@ -17,23 +18,26 @@ namespace DriveFromOutsideServer.Services
 
                 foreach (EmperorAssignment emperor in emperors)
                 {
+                    emperor.Status = AssignmentStatus.Open;
+
+                    if (emperor.Type is AssignmentType.Transmit)
+                    {
+                        //do stuff
+                        continue;
+                    }
+
                     string[] files = JsonConvert.DeserializeObject<IConfigEmperor>(emperor.Config).Files;
 
-                    //deserialize config, replace files with file, serialize back
-                    string newConfig = null;
-
-                    IEnumerable<KingAssignment> kings = files.Select(e => new KingAssignment
+                    IEnumerable<KingAssignment> kings = files.Select(file => new KingAssignment
                     {
                         Type = emperor.Type,
                         IssueTime = emperor.IssueTime,
                         Status = emperor.Status,
                         EmperorId = emperor.Id,
                         Version = emperor.Version,
-                        //put method here
-                        Config = newConfig
+                        Config = CreateKingConfig(emperor.Type, emperor.Config, file)
                     });
 
-                    emperor.Status = AssignmentStatus.Open;
 
                     _db.AddRange(kings);
                 }
@@ -43,9 +47,25 @@ namespace DriveFromOutsideServer.Services
             }
         }
 
-        private string GetConfigForSingleFile(string config, AssignmentType type, string file)
-        {
+        private static string CreateKingConfig(AssignmentType assignmentType,
+            string emperorConfig,
+            string file) => assignmentType switch
+            {
+                AssignmentType.Detach => CreateConfig<DetachConfigEmperor, DetachConfigKing>(emperorConfig, file),
+                AssignmentType.IFC => CreateConfig<IfcConfigEmperor, IfcConfigKing>(emperorConfig, file),
+                AssignmentType.NWC => CreateConfig<NwcConfigEmperor, NwcConfigKing>(emperorConfig, file),
+                AssignmentType.Update => CreateConfig<UpdateConfigEmperor, UpdateConfigKing>(emperorConfig, file),
+                _ => throw new InvalidOperationException()
+            };
 
+        private static string CreateConfig<TEmperor, TKing>(string emperorConfig, string file)
+            where TEmperor : IConfigEmperor, new()
+            where TKing : IConfigKing, new()
+        {
+            TEmperor emperor = JsonConvert.DeserializeObject<TEmperor>(emperorConfig);
+            TKing king = new() { File = file };
+            king.InheritFromEmperor(emperor);
+            return JsonConvert.SerializeObject(king);
         }
     }
 }
