@@ -4,6 +4,7 @@
     {
         public AssignmentType Type { get; set; }
         public string Config { get; set; }
+        public int Version { get; set; }
     }
     public class EmperorAssignment : Assignment
     {
@@ -22,7 +23,6 @@
     {
         public KingAssignment() { }
         public int Id { get; set; }
-        public int Version { get; set; }
         public DateTime IssueTime { get; set; }
         public DateTime? OpenTime { get; set; }
         public DateTime? CloseTime { get; set; }

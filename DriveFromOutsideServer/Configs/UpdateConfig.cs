@@ -3,7 +3,6 @@
     public class UpdateConfigBase : IConfigBase
     {
         public string FolderPath { get; set; }
-        public int VersionStart { get; set; }
         public int VersionEnd { get; set; }
     }
     public class UpdateConfigEmperor : UpdateConfigBase, IConfigEmperor

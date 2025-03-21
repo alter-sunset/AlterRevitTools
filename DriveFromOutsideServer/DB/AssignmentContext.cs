@@ -27,6 +27,7 @@ namespace DriveFromOutsideServer.DB
                 entity.HasKey(e => e.Id);
 
                 entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Version).HasColumnName("version");
                 entity.Property(e => e.Type)
                     .HasColumnName("type")
                     .HasConversion<string>()
