@@ -15,9 +15,7 @@
 
         public void InheritFromEmperor(IConfigEmperor emperor)
         {
-            if (emperor is null) throw new NullReferenceException();
-
-            UpdateConfigEmperor emp = (UpdateConfigEmperor)emperor;
+            if (emperor is null || emperor is not UpdateConfigEmperor emp) throw new NullReferenceException();
 
             FolderPath = emp.FolderPath;
             VersionEnd = emp.VersionEnd;

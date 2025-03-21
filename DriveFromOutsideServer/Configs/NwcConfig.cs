@@ -34,9 +34,7 @@
 
         public void InheritFromEmperor(IConfigEmperor emperor)
         {
-            if (emperor is null) throw new NullReferenceException();
-
-            NwcConfigEmperor emp = (NwcConfigEmperor)emperor;
+            if (emperor is null || emperor is not NwcConfigEmperor emp) throw new NullReferenceException();
 
             ConvertElementProperties = emp.ConvertElementProperties;
             DivideFileIntoLevels = emp.DivideFileIntoLevels;

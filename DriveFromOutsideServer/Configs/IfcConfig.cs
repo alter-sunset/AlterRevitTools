@@ -25,9 +25,7 @@
 
         public void InheritFromEmperor(IConfigEmperor emperor)
         {
-            if (emperor is null) throw new NullReferenceException();
-
-            IfcConfigEmperor emp = (IfcConfigEmperor)emperor;
+            if (emperor is null || emperor is not IfcConfigEmperor emp) throw new NullReferenceException();
 
             FamilyMappingFile = emp.FamilyMappingFile;
             ExportBaseQuantities = emp.ExportBaseQuantities;

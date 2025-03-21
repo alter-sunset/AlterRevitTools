@@ -22,9 +22,7 @@
 
         public void InheritFromEmperor(IConfigEmperor emperor)
         {
-            if (emperor is null) throw new NullReferenceException();
-
-            DetachConfigEmperor emp = (DetachConfigEmperor)emperor;
+            if (emperor is null || emperor is not DetachConfigEmperor emp) throw new NullReferenceException();
 
             FolderPath = emp.FolderPath;
             MaskInName = emp.MaskInName;

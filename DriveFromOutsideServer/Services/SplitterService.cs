@@ -1,6 +1,5 @@
 ﻿using DriveFromOutsideServer.Configs;
 using DriveFromOutsideServer.DB;
-using Microsoft.Extensions.Configuration.Json;
 using Newtonsoft.Json;
 
 namespace DriveFromOutsideServer.Services
@@ -22,9 +21,20 @@ namespace DriveFromOutsideServer.Services
 
                     if (emperor.Type is AssignmentType.Transmit)
                     {
-                        //do stuff
+                        KingAssignment king = new()
+                        {
+                            EmperorId = emperor.Id,
+                            Config = emperor.Config,
+                            IssueTime = emperor.IssueTime,
+                            Status = AssignmentStatus.New,
+                            Type = emperor.Type,
+                            Version = emperor.Version,
+                        };
+                        _db.Add(king);
                         continue;
                     }
+
+                    //TODO: migrate case
 
                     string[] files = JsonConvert.DeserializeObject<IConfigEmperor>(emperor.Config).Files;
 
@@ -38,7 +48,6 @@ namespace DriveFromOutsideServer.Services
                         Config = CreateKingConfig(emperor.Type, emperor.Config, file)
                     });
 
-
                     _db.AddRange(kings);
                 }
                 _db.SaveChanges();
@@ -47,9 +56,8 @@ namespace DriveFromOutsideServer.Services
             }
         }
 
-        private static string CreateKingConfig(AssignmentType assignmentType,
-            string emperorConfig,
-            string file) => assignmentType switch
+        private static string CreateKingConfig(AssignmentType assignmentType, string emperorConfig, string file)
+            => assignmentType switch
             {
                 AssignmentType.Detach => CreateConfig<DetachConfigEmperor, DetachConfigKing>(emperorConfig, file),
                 AssignmentType.IFC => CreateConfig<IfcConfigEmperor, IfcConfigKing>(emperorConfig, file),
