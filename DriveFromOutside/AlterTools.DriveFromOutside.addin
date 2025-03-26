@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RevitAddIns>
-	<AddIn Type="Application">
-		<Name>AlterTools.DriveFromOutside</Name>
-		<FullClassName>AlterTools.DriveFromOutside.App</FullClassName>
-		<Assembly>AlterTools\DriveFromOutside.dll</Assembly>
-		<AddInId>FC403ACB-1151-4068-A95B-1012AA7DE747</AddInId>
+	<AddIn Type="Command">
+		<Text>AlterTools.DriveFromOutside</Text>
+		<FullClassName>AlterTools.DriveFromOutside.ExternalCommand</FullClassName>
+		<Assembly>DriveFromOutside.dll</Assembly>
+		<ClientId>FC403ACB-1151-4068-A95B-1012AA7DE747</ClientId>
 		<VendorId>ALTR</VendorId>
 		<VendorDescription>alter sunset</VendorDescription>
 	</AddIn>

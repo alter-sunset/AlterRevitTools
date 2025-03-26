@@ -1,9 +1,4 @@
-﻿using AlterTools.DriveFromOutside.Events.Detach;
-using AlterTools.DriveFromOutside.Events.IFC;
-using AlterTools.DriveFromOutside.Events.NWC;
-using AlterTools.DriveFromOutside.Events.Transmit;
-using AlterTools.DriveFromOutside.Events;
-using Autodesk.Revit.Attributes;
+﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
@@ -21,21 +16,32 @@ namespace AlterTools.DriveFromOutside
 
         private void InitializeListener()
         {
-            //Initialize all External Events
-            List<IEventHolder> events =
-            [
-                new TransmitEventHolder(),
-                new DetachEventHolder(),
-                new NwcEventHolder(),
-                new IfcEventHolder(),
-            ];
+            Task.Run(async () =>
+            {
+                await SignalRService.Instance.StartAsync("https://localhost:5050/RevitHub");
+            }).ContinueWith(t =>
+            {
+                if (t.Exception != null)
+                {
+                    TaskDialog.Show("Error", $"SignalR Connection Failed: {t.Exception}");
+                }
+            });
 
-            //Initialize Task Handler and pass Event instances to it
-            ExternalTaskHandler externalTaskHandler = new(events);
+            ////Initialize all External Events
+            //List<IEventHolder> events =
+            //[
+            //    new TransmitEventHolder(),
+            //    new DetachEventHolder(),
+            //    new NwcEventHolder(),
+            //    new IfcEventHolder(),
+            //];
 
-            //Start listener, duh
-            TimeSpan timeSpan = TimeSpan.FromMinutes(1);
-            externalTaskHandler.LookForSingleTask(timeSpan);
+            ////Initialize Task Handler and pass Event instances to it
+            //ExternalTaskHandler externalTaskHandler = new(events);
+
+            ////Start listener, duh
+            //TimeSpan timeSpan = TimeSpan.FromMinutes(1);
+            //externalTaskHandler.LookForSingleTask(timeSpan);
         }
     }
 }
