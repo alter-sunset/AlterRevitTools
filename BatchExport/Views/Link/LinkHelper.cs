@@ -16,6 +16,7 @@ namespace AlterTools.BatchExport.Views.Link
         {
             Document doc = uiApp.ActiveUIDocument.Document;
             bool isCurrentWorkset = linkViewModel.IsCurrentWorkset;
+            bool pinLinks = linkViewModel.PinLinks;
             List<Entry> entries = linkViewModel.Entries
                 .Where(e => !string.IsNullOrEmpty(e.Name) && File.Exists(e.Name))
                 .OrderBy(e => e.SelectedWorkset?.Name ?? string.Empty)
@@ -24,9 +25,9 @@ namespace AlterTools.BatchExport.Views.Link
             bool setWorksetId = !isCurrentWorkset && linkViewModel.Worksets.Length > 0;
             LinkProps props = new(doc.GetWorksetTable(), setWorksetId);
 
-            entries.ForEach(entry => TryCreateLink(doc, entry, props));
+            entries.ForEach(entry => TryCreateLink(doc, entry, props, pinLinks));
         }
-        private static void TryCreateLink(Document doc, Entry entry, LinkProps props)
+        private static void TryCreateLink(Document doc, Entry entry, LinkProps props, bool pinLinks)
         {
             using Transaction t = new(doc);
             t.Start($"Link {entry.Name}");
@@ -41,13 +42,15 @@ namespace AlterTools.BatchExport.Views.Link
             try
             {
                 linkLoadResult = RevitLinkType.Create(doc, linkPath, RevitLinkOptions);
-                _ = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, entry.SelectedImportPlacement);
+                revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, entry.SelectedImportPlacement);
+                revitLinkInstance.Pinned = pinLinks;
                 t.Commit();
             }
             catch (InvalidOperationException)
             {
                 revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, ImportPlacement.Origin);
                 ModelHelper.YesNoTaskDialog(DIFF_COORD, () => doc.AcquireCoordinates(revitLinkInstance.Id));
+                revitLinkInstance.Pinned = pinLinks;
                 t.Commit();
             }
             catch

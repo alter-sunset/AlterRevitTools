@@ -30,6 +30,14 @@ namespace AlterTools.BatchExport.Views.Link
             get => _isCurrentWorkset;
             set => SetProperty(ref _isCurrentWorkset, value);
         }
+
+        private bool _pinLinks = true;
+        public bool PinLinks
+        {
+            get => _pinLinks;
+            set => SetProperty(ref _pinLinks, value);
+        }
+
         public override string[] Files => Entries.Select(e => e.Name).ToArray();
 
         public static readonly ImportPlacement[] ImportPlacements = new ImportPlacement[]
