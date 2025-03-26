@@ -127,5 +127,17 @@ namespace AlterTools.BatchExport.Views.Link
 
         private RelayCommand _eraseCommand;
         public override RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(obj => Entries.Clear());
+
+        private string _worksetPrefix = "";
+        public string WorksetPrefix
+        {
+            get => _worksetPrefix;
+            set => SetProperty(ref _worksetPrefix, value);
+        }
+        public string[] WorksetPrefixes => WorksetPrefix.Split(';')
+            .Select(e => e.Trim())
+            .Distinct()
+            .Where(e => !string.IsNullOrWhiteSpace(e))
+            .ToArray();
     }
 }
