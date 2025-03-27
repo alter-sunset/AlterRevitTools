@@ -1,4 +1,6 @@
-﻿namespace AlterTools.BatchExport.Views.Base
+﻿using System.Linq;
+
+namespace AlterTools.BatchExport.Views.Base
 {
     public class ViewModelBase_Extended : ViewModelBase, IConfigBase_Extended
     {
@@ -45,6 +47,10 @@
             }
         }
 
-        public string[] WorksetPrefixes => _worksetPrefix.Split(';');
+        public string[] WorksetPrefixes => _worksetPrefix.Split(';')
+            .Select(e => e.Trim())
+            .Distinct()
+            .Where(e => !string.IsNullOrWhiteSpace(e))
+            .ToArray();
     }
 }

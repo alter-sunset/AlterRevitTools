@@ -95,9 +95,9 @@ namespace AlterTools.BatchExport.Views.Base
                 bool transmitted = trData is not null && trData.IsTransmitted;
 
                 WorksetConfiguration worksetConfiguration = fileInfo.IsWorkshared
-                    ? (file.Equals(fileInfo.CentralPath) && !transmitted
+                    ? (file.Equals(fileInfo.CentralPath) && !transmitted && iConfig.WorksetPrefixes.Length != 0
                         ? modelPath.CloseWorksetsWithLinks(iConfig.WorksetPrefixes)
-                        : new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets))
+                        : new WorksetConfiguration())
                     : null;
 
                 return worksetConfiguration is null
