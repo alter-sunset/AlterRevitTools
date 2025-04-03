@@ -2,7 +2,7 @@
 
 <a href="README.ru-RU.md">Русский</a> | <a href="README.md">English</a>
 
-***Currently supports versions 2019-2025***
+***Currently supports versions 2019-2026***
 
   **The plugin includes 6 modules:**
   - 5 for export
