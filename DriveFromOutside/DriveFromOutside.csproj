@@ -4,7 +4,7 @@
 		<LangVersion>12</LangVersion>
 		<ImplicitUsings>enable</ImplicitUsings>
 		<Nullable>enable</Nullable>
-		<Configurations>Release R19;Release R20;Release R21;Release R22;Release R23;Release R24;Release R25;Debug R25</Configurations>
+		<Configurations>Release R19;Release R20;Release R21;Release R22;Release R23;Release R24;Release R25;Debug R25;Release R26</Configurations>
 		<AssemblyName>$(MSBuildProjectName)</AssemblyName>
 		<RootNamespace>$(SolutionName).$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 	</PropertyGroup>
@@ -47,6 +47,12 @@
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<RevitVersion>2025</RevitVersion>
 		<OutputPath>bin\R2025\</OutputPath>
+		<DefineConstants>R20_OR_GREATER;R22_OR_GREATER;R24_OR_GREATER;R25_OR_GREATER</DefineConstants>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(Configuration.Contains('R26'))">
+		<TargetFramework>net8.0-windows</TargetFramework>
+		<RevitVersion>2026</RevitVersion>
+		<OutputPath>bin\R2026\</OutputPath>
 		<DefineConstants>R20_OR_GREATER;R22_OR_GREATER;R24_OR_GREATER;R25_OR_GREATER</DefineConstants>
 	</PropertyGroup>
 	<ItemGroup>

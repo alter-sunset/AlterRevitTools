@@ -3,8 +3,8 @@ using System.Linq;
 using System.Collections.Generic;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using Autodesk.Revit.Exceptions;
 using AlterTools.BatchExport.Utils;
+using Autodesk.Revit.Exceptions;
 
 namespace AlterTools.BatchExport.Views.Link
 {
@@ -68,6 +68,7 @@ namespace AlterTools.BatchExport.Views.Link
             WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.CloseAllWorksets);
             if (prefixes.Length == 0) return worksetConfiguration;
 
+            //problem occurs if centralModel can't be found
             IList<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)
                 .Where(wp => !prefixes.Any(wp.Name.StartsWith))
                 .Select(wp => wp.Id)
