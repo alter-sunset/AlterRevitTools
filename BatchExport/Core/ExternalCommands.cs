@@ -67,4 +67,10 @@ namespace AlterTools.BatchExport.Core
         public virtual Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements)
             => ExternalCommandWrapper.Execute(ref msg, Forms.Link, commandData.Application);
     }
+    [Transaction(TransactionMode.Manual)]
+    public class ExportParametersMap : IExternalCommand
+    {
+        public virtual Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements)
+            => ExternalCommandWrapper.Execute(ref msg, Forms.Params);
+    }
 }

@@ -8,6 +8,7 @@
         Detach = 3,
         Transmit = 4,
         Migrate = 5,
+        Params = 6,
         Link = 10
     }
 }
