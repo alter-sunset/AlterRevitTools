@@ -1,6 +1,5 @@
 ﻿using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Views.Base;
-using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
@@ -39,7 +38,7 @@ namespace AlterTools.BatchExport.Views.Params
         {
             SaveFileDialog saveFileDialog = DialogType.SingleCsv.SaveFileDialog();
             if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
-            CsvPath = Path.GetDirectoryName(saveFileDialog.FileName);
+            CsvPath = saveFileDialog.FileName;
         }
     }
 }

@@ -203,5 +203,8 @@ namespace AlterTools.BatchExport.Utils
             => !new FilteredElementCollector(doc)
                 .WherePasses(new ElementWorksetFilter(workset)).Any();
 #endif
+
+        public static string GetValueString(this Parameter param)
+            => param is null ? "" : param.AsValueString();
     }
 }

@@ -106,7 +106,7 @@
                  Grid.ColumnSpan="4"
                  VerticalContentAlignment="Center"
                  Text="{Binding ParamsNames}"
-                 ToolTip="Укажите через точку-запятую (;) имена параметров, которые необходимо экспортировать." TextChanged="TextBox_TextChanged"/>
+                 ToolTip="Укажите через точку-запятую (;) имена параметров, которые необходимо экспортировать."/>
 
         <Button Margin="10"
                 Grid.Row="5"
