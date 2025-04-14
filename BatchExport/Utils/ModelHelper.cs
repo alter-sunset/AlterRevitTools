@@ -214,8 +214,11 @@ namespace AlterTools.BatchExport.Utils
             if (e.Category is null) return false;
             if (e.ViewSpecific) return false;
             // exclude specific unwanted categories
+#if R24_OR_GREATER
+            if (((BuiltInCategory)e.Category.Id.Value) == BuiltInCategory.OST_HVAC_Zones) return false;
+#else
             if (((BuiltInCategory)e.Category.Id.IntegerValue) == BuiltInCategory.OST_HVAC_Zones) return false;
-
+#endif
             return e.Category.CategoryType == CategoryType.Model && e.Category.CanAddSubcategory;
         }
     }
