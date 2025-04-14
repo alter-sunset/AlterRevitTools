@@ -211,8 +211,7 @@ namespace AlterTools.BatchExport.Utils
 
         public static bool IsPhysicalElement(this Element e)
         {
-            if (e.Category is null) return false;
-            if (e.ViewSpecific) return false;
+            if (e.Category is null || e.ViewSpecific) return false;
             // exclude specific unwanted categories
 #if R24_OR_GREATER
             if (((BuiltInCategory)e.Category.Id.Value) == BuiltInCategory.OST_HVAC_Zones) return false;

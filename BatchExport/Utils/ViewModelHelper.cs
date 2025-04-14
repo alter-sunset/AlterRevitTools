@@ -8,21 +8,24 @@ using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.Link;
 using AlterTools.BatchExport.Views.Detach;
 using AlterTools.BatchExport.Views.Transmit;
+using AlterTools.BatchExport.Views.Params;
 
 namespace AlterTools.BatchExport.Utils
 {
     static class ViewModelHelper
     {
         private const string NO_FOLDER = "Укажите папку для экспорта!";
-        private const string SHIT_FOLDER = "Укажите корректную папку для экспорта!";
+        private const string WRONG_FOLDER = "Укажите корректную папку для экспорта!";
         private const string CREATE_FOLDER = "Такой папки не существует.\nСоздать папку?";
-        private const string FUCK_YOU = "Нет, так нет.\nТогда живи в проклятом мире, который сам и создал.";
+        private const string TO_HELL = "Нет, так нет.\nТогда живи в проклятом мире, который сам и создал.";
         private const string NO_FILES = "Добавьте хотя бы один файл для экспорта!";
         private const string NO_VIEW_NAME = "Введите имя вида!";
         private const string NO_PATH_MODE = "Выберите режим выбора пути!";
         private const string NO_MASK_PATH = "Укажите маску замены пути!";
-        private const string SHIT_MASK = "Несоответствие входной маски и имён файлов!";
+        private const string WRONG_MASK = "Несоответствие входной маски и имён файлов!";
         private const string NO_MASK_FILE = "Введите маску для переименования файлов!";
+        private const string NO_CSV = "Укажите корректный путь к выходному файлу!";
+        private const string NO_PARAMETERS = "Укажите хотя бы один параметр для экспорта!";
 
         internal static bool IsEverythingFilled(this DetachViewModel detachVM)
             => detachVM.IsListNotEmpty()
@@ -33,6 +36,11 @@ namespace AlterTools.BatchExport.Utils
         internal static bool IsEverythingFilled(this TransmitViewModel transmitVM)
             => transmitVM.IsListNotEmpty()
             && transmitVM.IsFolderPathOK();
+
+        internal static bool IsEverythingFilled(this ParamsViewModel paramsVM)
+            => paramsVM.IsListNotEmpty()
+            && paramsVM.IsCsvPathNotEmpty()
+            && paramsVM.AreThereAnyParameters();
 
         internal static bool IsEverythingFilled(this ViewModelBase_Extended vmBaseExt)
             => vmBaseExt.IsListNotEmpty()
@@ -51,7 +59,7 @@ namespace AlterTools.BatchExport.Utils
                 return CheckCondition(false, NO_FOLDER);
 
             if (Uri.IsWellFormedUriString(folderPath, UriKind.RelativeOrAbsolute))
-                return CheckCondition(false, SHIT_FOLDER);
+                return CheckCondition(false, WRONG_FOLDER);
 
             if (!Directory.Exists(folderPath))
             {
@@ -61,7 +69,7 @@ namespace AlterTools.BatchExport.Utils
 
                 else
                 {
-                    MessageBox.Show(FUCK_YOU);
+                    MessageBox.Show(TO_HELL);
                     return false;
                 }
             }
@@ -87,7 +95,7 @@ namespace AlterTools.BatchExport.Utils
 
                     if (!detachVM.ListBoxItems.Select(e => e.Content)
                         .All(e => e.ToString().Contains(detachVM.MaskIn)))
-                        return CheckCondition(false, SHIT_MASK);
+                        return CheckCondition(false, WRONG_MASK);
                     break;
             }
             return true;
@@ -95,6 +103,18 @@ namespace AlterTools.BatchExport.Utils
         private static bool IsMaskNameOK(this DetachViewModel detachVM)
             => CheckCondition(!detachVM.IsToRename
                  || !string.IsNullOrEmpty(detachVM.MaskInName), NO_MASK_FILE);
+        private static bool IsCsvPathNotEmpty(this ParamsViewModel paramsVM)
+        {
+            string csvPath = paramsVM.CsvPath;
+
+            if (string.IsNullOrWhiteSpace(csvPath)
+                || Uri.IsWellFormedUriString(csvPath, UriKind.Absolute)
+                || !csvPath.EndsWith(".csv")) return CheckCondition(false, NO_CSV);
+            return true;
+        }
+        private static bool AreThereAnyParameters(this ParamsViewModel paramsVM)
+            => CheckCondition(paramsVM.ParametersNames.Length > 0, NO_PARAMETERS);
+
         private static bool CheckCondition(bool condition, string msg)
         {
             if (!condition) MessageBox.Show(msg);

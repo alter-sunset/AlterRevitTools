@@ -16,7 +16,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
     {
         public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not ParamsViewModel paramsVM) return;
+            if (iConfigBase is not ParamsViewModel paramsVM || !paramsVM.IsEverythingFilled()) return;
 
             List<ListBoxItem> listItems = paramsVM.ListBoxItems.ToList();
             using CsvHelper csvHelper = new(paramsVM.CsvPath, paramsVM.ParametersNames);
@@ -63,6 +63,6 @@ namespace AlterTools.BatchExport.Core.EventHandlers
             paramsVM.Finisher(id: "ExportParametersFinished");
         }
         private static Dictionary<string, string> GetParametersSet(Element element, string[] parametersNames)
-            => parametersNames.ToDictionary(e => e, e => element.LookupParameter(e).GetValueString());
+            => parametersNames.ToDictionary(p => p, p => element.LookupParameter(p).GetValueString());
     }
 }
