@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using AlterTools.BatchExport.Utils;
+using System.Linq;
 
 namespace AlterTools.BatchExport.Views.Base
 {
@@ -47,10 +48,6 @@ namespace AlterTools.BatchExport.Views.Base
             }
         }
 
-        public string[] WorksetPrefixes => _worksetPrefix.Split(';')
-            .Select(e => e.Trim())
-            .Distinct()
-            .Where(e => !string.IsNullOrWhiteSpace(e))
-            .ToArray();
+        public string[] WorksetPrefixes => _worksetPrefix.SplitBySemicolon();
     }
 }

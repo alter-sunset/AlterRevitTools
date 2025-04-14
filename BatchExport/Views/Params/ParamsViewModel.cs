@@ -28,11 +28,7 @@ namespace AlterTools.BatchExport.Views.Params
             get => _paramsNames;
             set => SetProperty(ref _paramsNames, value);
         }
-        public string[] ParametersNames => ParamsNames.Split(';')
-            .Select(e => e.Trim())
-            .Distinct()
-            .Where(e => !string.IsNullOrWhiteSpace(e))
-            .ToArray();
+        public string[] ParametersNames => _paramsNames.SplitBySemicolon();
 
         private string _csvPath = string.Empty;
         public string CsvPath

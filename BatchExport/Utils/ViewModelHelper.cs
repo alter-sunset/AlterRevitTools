@@ -128,5 +128,11 @@ namespace AlterTools.BatchExport.Utils
                     && Path.GetExtension(f) == ".rvt");
 
         public static string RemoveDetach(this string name) => name.Replace("_detached", "").Replace("_отсоединено", "");
+
+        public static string[] SplitBySemicolon(this string line) => line.Split(';')
+            .Select(e => e.Trim())
+            .Distinct()
+            .Where(e => !string.IsNullOrWhiteSpace(e))
+            .ToArray();
     }
 }
