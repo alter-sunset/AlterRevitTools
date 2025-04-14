@@ -5,6 +5,7 @@
         SingleText,
         SingleJson,
         MultiRevit,
-        RevitList
+        RevitList,
+        SingleCsv
     }
 }

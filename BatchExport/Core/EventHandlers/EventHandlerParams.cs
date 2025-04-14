@@ -19,7 +19,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
             if (iConfigBase is not ParamsViewModel paramsVM) return;
 
             List<ListBoxItem> listItems = paramsVM.ListBoxItems.ToList();
-
+            CsvHelper csvHelper = new("", paramsVM.ParametersNames); // add csvPath field in view
             using Application app = uiApp.Application;
             foreach (ListBoxItem item in listItems)
             {
@@ -44,6 +44,11 @@ namespace AlterTools.BatchExport.Core.EventHandlers
                             ElementId = e.Id.IntegerValue,
                             Parameters = GetParametersSet(e, paramsVM.ParametersNames)
                         });
+
+                    foreach (ParametersTable table in elements)
+                    {
+                        csvHelper.WriteElement(table);
+                    }
                 }
                 catch { }
             }
@@ -74,12 +79,5 @@ namespace AlterTools.BatchExport.Core.EventHandlers
         private static Dictionary<string, string> GetParametersSet(Element element, string[] parametersNames)
             => parametersNames.ToDictionary(e => e, e => element.LookupParameter(e).AsValueString());
 
-    }
-
-    public class ParametersTable
-    {
-        public string ModelName { get; set; }
-        public int ElementId { get; set; }
-        public Dictionary<string, string> Parameters { get; set; }
     }
 }
