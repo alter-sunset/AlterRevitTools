@@ -12,7 +12,6 @@ namespace AlterTools.BatchExport.Views.Params
 {
     public class ParamsViewModel : ViewModelBase, IConfigParams
     {
-        // TODO: save config as JSON
         public ParamsViewModel(EventHandlerParams eventHandlerParams)
         {
             EventHandlerBase = eventHandlerParams;

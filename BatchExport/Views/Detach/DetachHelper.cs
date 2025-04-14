@@ -12,7 +12,7 @@ namespace AlterTools.BatchExport.Views.Detach
         {
             try
             {
-                (Document doc, bool isWorkshared) = OpenDocument(app, filePath);
+                Document doc = OpenDocumentHelper.OpenDocument(app, filePath, out bool isWorkshared);
                 if (doc is null) return;
 
                 ProcessDocument(doc, iConfigDetach);
@@ -21,30 +21,6 @@ namespace AlterTools.BatchExport.Views.Detach
                 Cleanup(doc, fileDetachedPath, isWorkshared);
             }
             catch { }
-        }
-        private static (Document, bool) OpenDocument(Application app, string filePath)
-        {
-            Document doc = null;
-            bool isWorkshared = false;
-
-            try
-            {
-                BasicFileInfo fileInfo = BasicFileInfo.Extract(filePath);
-                if (!fileInfo.IsWorkshared)
-                {
-                    doc = app.OpenDocumentFile(filePath);
-                }
-                else
-                {
-                    ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
-                    WorksetConfiguration worksetConfig = new(WorksetConfigurationOption.CloseAllWorksets);
-                    doc = modelPath.OpenDetached(app, worksetConfig);
-                    isWorkshared = true;
-                }
-            }
-            catch { }
-
-            return (doc, isWorkshared);
         }
         private static void ProcessDocument(Document doc, IConfigDetach iConfigDetach)
         {
