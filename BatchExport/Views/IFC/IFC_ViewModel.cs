@@ -26,7 +26,7 @@ namespace AlterTools.BatchExport.Views.IFC
                     HelpMessageType.Start);
         }
 
-        private string _mapping = "";
+        private string _mapping = string.Empty;
         public string Mapping
         {
             get => _mapping;

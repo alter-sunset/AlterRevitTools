@@ -207,7 +207,7 @@ namespace AlterTools.BatchExport.Utils
         /// Return parameter value as string with correct null check
         /// </summary>
         public static string GetValueString(this Parameter param)
-            => param is null ? "" : param.AsValueString();
+            => param is null ? string.Empty : param.AsValueString();
 
         public static bool IsPhysicalElement(this Element e)
         {
