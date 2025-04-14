@@ -22,7 +22,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
             using Application app = uiApp.Application;
             foreach (ListBoxItem item in listItems)
             {
-                using ErrorSwallower errorSwallower = new ErrorSwallower(uiApp);
+                using ErrorSwallower errorSwallower = new(uiApp);
                 string filePath = item.Content?.ToString();
                 if (!File.Exists(filePath))
                 {

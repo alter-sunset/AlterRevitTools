@@ -12,6 +12,7 @@ using AlterTools.BatchExport.Views.Link;
 using AlterTools.BatchExport.Views.Detach;
 using AlterTools.BatchExport.Views.Migrate;
 using AlterTools.BatchExport.Views.Transmit;
+using AlterTools.BatchExport.Views.Params;
 
 namespace AlterTools.BatchExport.Utils
 {
@@ -33,6 +34,8 @@ namespace AlterTools.BatchExport.Utils
                 () => new TransmitModelsView(new EventHandlerTransmit()) },
             { Forms.Link,
                 () => new LinkModelsView(new EventHandlerLink(), GetWorksets()) },
+            { Forms.Params,
+                () => new ExportParamsView(new EventHandlerParams()) }
         };
 
         internal static void ShowForm(this Forms form, UIApplication uiApp)

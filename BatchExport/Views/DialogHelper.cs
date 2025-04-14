@@ -8,11 +8,14 @@ namespace AlterTools.BatchExport.Views
         private const string EXT_TXT = ".txt";
         private const string EXT_JSON = ".json";
         private const string EXT_RVT = ".rvt";
+        private const string EXT_CSV = ".csv";
         private const string FILTER_TXT = "Текстовый файл (.txt)|*.txt";
         private const string FILTER_JSON = "Файл JSON (.json)|*.json";
-        private const string FILTER_RVT = "Revit Files (*.rvt)|*.rvt";
+        private const string FILTER_RVT = "Revit Files (.rvt)|*.rvt";
+        private const string FILTER_CSV = "(CSV) разделитель точка с запятой (.csv)|*.csv";
         private const string DEFAULT_FILE_NAME_TXT = "ListOfRVTFiles";
         private const string DEFAULT_FILE_NAME_JSON = "ConfigBatchExport";
+        private const string DEFAULT_FILE_NAME_CSV = "ParametersExport";
         private const string EXCEPTION = "Unsupported dialog type";
 
         public static OpenFileDialog OpenFileDialog(this DialogType dialogType)
@@ -53,6 +56,7 @@ namespace AlterTools.BatchExport.Views
             {
                 DialogType.SingleJson => (EXT_JSON, FILTER_JSON, DEFAULT_FILE_NAME_JSON),
                 DialogType.RevitList => (EXT_TXT, FILTER_TXT, DEFAULT_FILE_NAME_TXT),
+                DialogType.SingleCsv => (EXT_CSV, FILTER_CSV, DEFAULT_FILE_NAME_CSV),
                 _ => throw new ArgumentOutOfRangeException(nameof(dialogType), EXCEPTION),
             };
         }

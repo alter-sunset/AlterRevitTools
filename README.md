@@ -2,10 +2,10 @@
 
 <a href="README.ru-RU.md">Русский</a> | <a href="README.md">English</a>
 
-***Currently supports versions 2019-2026***
+***Supports versions 2019-2026***
 
-  **The plugin includes 6 modules:**
-  - 5 for export
+  **The plugin includes 7 modules:**
+  - 6 for export
   - 1 for import
 
  ### Export:
@@ -14,6 +14,7 @@
   - [Export Detached Models](#export-detached-models)
   - [Transmit Models (***May be deprecated in the future***)](#transmit-models)
   - [Migrate Models](#migrate-models)
+  - [Export Parameters](#export-parameters)
 
 ### Import:
   - [Import RVT](#import-rvt)
@@ -63,6 +64,11 @@ It mimics *eTransmit* but skips nested link searches for faster performance. <br
 ## Migrate Models
 This module migrates projects to new locations while preserving link structures. For example, moving from design stage "P" to stage "R". <br>
 It uses a .json file containing *Dictionary<string, string>*, where the key is the source file path and the value is the target path.
+
+## Export parameters
+This module exports defined parameters from provided models to single CSV file.
+
+![params](https://github.com/user-attachments/assets/dbcdfd0d-9e75-4925-acb3-c456b5f4592e)
 
 ## Import RVT
 This module allows batch importing multiple RVT links in a single action.

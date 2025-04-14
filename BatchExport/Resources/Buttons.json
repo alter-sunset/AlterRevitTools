@@ -50,6 +50,16 @@
     "Availability": true
   },
   {
+    "Name": "Params",
+    "Text": "Экспорт\nпараметров",
+    "ClassName": "AlterTools.BatchExport.Core.ExportParametersMap",
+    "ToolTip": "Пакетный экспорт параметров из моделей",
+    "ImageLarge": "AlterTools.BatchExport.Resources.params.png",
+    "ImageSmall": "AlterTools.BatchExport.Resources.params_16.png",
+    "Panel": "Пакетный экспорт",
+    "Availability": true
+  },
+  {
     "Name": "Link",
     "Text": "Пакетное добавление\nRevit ссылок",
     "ClassName": "AlterTools.BatchExport.Core.LinkModels",

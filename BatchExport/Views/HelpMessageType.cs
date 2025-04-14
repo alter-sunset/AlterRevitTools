@@ -15,6 +15,7 @@
         Migrate,
         NWCTitle,
         NWCEnd,
-        TransmitTitle
+        TransmitTitle,
+        ParamsTitle
     }
 }
