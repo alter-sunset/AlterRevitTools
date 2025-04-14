@@ -42,7 +42,11 @@ namespace AlterTools.BatchExport.Core.EventHandlers
                         .Select(e => new ParametersTable()
                         {
                             ModelName = fileName,
+#if R24_OR_GREATER
+                            ElementId = e.Id.Value,
+#else
                             ElementId = e.Id.IntegerValue,
+#endif
                             Parameters = GetParametersSet(e, paramsVM.ParametersNames)
                         });
 
