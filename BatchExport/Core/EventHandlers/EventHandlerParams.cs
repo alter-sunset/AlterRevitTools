@@ -38,6 +38,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 
                     IEnumerable<ParametersTable> elements = new FilteredElementCollector(doc)
                         .WhereElementIsNotElementType()
+                        .Where(e => e.IsPhysicalElement())
                         .Select(e => new ParametersTable()
                         {
                             ModelName = fileName,

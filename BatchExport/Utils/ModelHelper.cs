@@ -203,8 +203,20 @@ namespace AlterTools.BatchExport.Utils
             => !new FilteredElementCollector(doc)
                 .WherePasses(new ElementWorksetFilter(workset)).Any();
 #endif
-
+        /// <summary>
+        /// Return parameter value as string with correct null check
+        /// </summary>
         public static string GetValueString(this Parameter param)
             => param is null ? "" : param.AsValueString();
+
+        public static bool IsPhysicalElement(this Element e)
+        {
+            if (e.Category is null) return false;
+            if (e.ViewSpecific) return false;
+            // exclude specific unwanted categories
+            if (((BuiltInCategory)e.Category.Id.IntegerValue) == BuiltInCategory.OST_HVAC_Zones) return false;
+
+            return e.Category.CategoryType == CategoryType.Model && e.Category.CanAddSubcategory;
+        }
     }
 }
