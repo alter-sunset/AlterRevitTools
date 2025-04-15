@@ -16,10 +16,10 @@ namespace AlterTools.BatchExport.Core.EventHandlers
     {
         public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not ParamsViewModel paramsVM) return;
+            if (iConfigBase is not ParamsViewModel paramsVM || !paramsVM.IsEverythingFilled()) return;
 
             List<ListBoxItem> listItems = paramsVM.ListBoxItems.ToList();
-            using CsvHelper csvHelper = new(paramsVM.CsvPath, paramsVM.ParametersNames); // add csvPath field in view
+            using CsvHelper csvHelper = new(paramsVM.CsvPath, paramsVM.ParametersNames);
             using Application app = uiApp.Application;
             foreach (ListBoxItem item in listItems)
             {
@@ -31,9 +31,10 @@ namespace AlterTools.BatchExport.Core.EventHandlers
                     item.Background = Brushes.Red;
                     continue;
                 }
+                item.Background = Brushes.Blue;
                 try
                 {
-                    Document doc = OpenDocument(app, filePath);
+                    Document doc = OpenDocumentHelper.OpenDocument(app, filePath, out bool _);
                     if (doc is null) return;
 
                     IEnumerable<ParametersTable> elements = new FilteredElementCollector(doc)
@@ -56,33 +57,12 @@ namespace AlterTools.BatchExport.Core.EventHandlers
                     }
                 }
                 catch { }
+                item.Background = Brushes.Green;
             }
             csvHelper.Dispose();
             paramsVM.Finisher(id: "ExportParametersFinished");
         }
-        private static Document OpenDocument(Application app, string filePath)
-        {
-            Document doc = null;
-
-            try
-            {
-                BasicFileInfo fileInfo = BasicFileInfo.Extract(filePath);
-                if (!fileInfo.IsWorkshared)
-                {
-                    doc = app.OpenDocumentFile(filePath);
-                }
-                else
-                {
-                    ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
-                    WorksetConfiguration worksetConfig = new(WorksetConfigurationOption.CloseAllWorksets);
-                    doc = modelPath.OpenDetached(app, worksetConfig);
-                }
-            }
-            catch { }
-
-            return doc;
-        }
         private static Dictionary<string, string> GetParametersSet(Element element, string[] parametersNames)
-            => parametersNames.ToDictionary(e => e, e => element.LookupParameter(e).GetValueString());
+            => parametersNames.ToDictionary(p => p, p => element.LookupParameter(p).GetValueString());
     }
 }

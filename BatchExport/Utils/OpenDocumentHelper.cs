@@ -32,5 +32,30 @@ namespace AlterTools.BatchExport.Utils
             openOptions.SetOpenWorksetsConfiguration(worksetConfiguration);
             return app.OpenDocumentFile(modelPath, openOptions);
         }
+
+        public static Document OpenDocument(Application app, string filePath, out bool isWorkshared)
+        {
+            Document doc = null;
+            isWorkshared = false;
+
+            try
+            {
+                BasicFileInfo fileInfo = BasicFileInfo.Extract(filePath);
+                if (!fileInfo.IsWorkshared)
+                {
+                    doc = app.OpenDocumentFile(filePath);
+                }
+                else
+                {
+                    ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
+                    WorksetConfiguration worksetConfig = new(WorksetConfigurationOption.CloseAllWorksets);
+                    doc = modelPath.OpenDetached(app, worksetConfig);
+                    isWorkshared = true;
+                }
+            }
+            catch { }
+
+            return doc;
+        }
     }
 }

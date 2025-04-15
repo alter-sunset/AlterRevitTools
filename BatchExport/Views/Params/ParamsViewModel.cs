@@ -1,7 +1,6 @@
 ﻿using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -12,7 +11,6 @@ namespace AlterTools.BatchExport.Views.Params
 {
     public class ParamsViewModel : ViewModelBase, IConfigParams
     {
-        // TODO: save config as JSON
         public ParamsViewModel(EventHandlerParams eventHandlerParams)
         {
             EventHandlerBase = eventHandlerParams;
@@ -30,14 +28,9 @@ namespace AlterTools.BatchExport.Views.Params
             get => _paramsNames;
             set => SetProperty(ref _paramsNames, value);
         }
-        public string[] ParametersNames => ParamsNames.Split(';')
-            .Select(e => e.Trim())
-            .Distinct()
-            .Where(e => !string.IsNullOrWhiteSpace(e))
-            .ToArray();
+        public string[] ParametersNames => _paramsNames.SplitBySemicolon();
 
-
-        private string _csvPath = "";
+        private string _csvPath = string.Empty;
         public string CsvPath
         {
             get => _csvPath;
@@ -69,10 +62,9 @@ namespace AlterTools.BatchExport.Views.Params
 
             ParamsNames = string.Join(";", form.ParametersNames);
             CsvPath = form.CsvPath;
-
-            IEnumerable<string> files = form.Files.FilterRevitFiles();
-
-            ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
+            ListBoxItems = new ObservableCollection<ListBoxItem>(form.Files
+                .FilterRevitFiles()
+                .Select(DefaultListBoxItem));
         }
 
         private RelayCommand _saveListCommand;
@@ -93,7 +85,6 @@ namespace AlterTools.BatchExport.Views.Params
         {
             CsvPath = CsvPath,
             ParametersNames = ParametersNames,
-
             Files = ListBoxItems
                 .Select(cont => cont.Content.ToString() ?? string.Empty)
                 .ToArray()

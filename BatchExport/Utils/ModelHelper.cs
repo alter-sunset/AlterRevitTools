@@ -207,12 +207,11 @@ namespace AlterTools.BatchExport.Utils
         /// Return parameter value as string with correct null check
         /// </summary>
         public static string GetValueString(this Parameter param)
-            => param is null ? "" : param.AsValueString();
+            => param is null ? string.Empty : param.AsValueString();
 
         public static bool IsPhysicalElement(this Element e)
         {
-            if (e.Category is null) return false;
-            if (e.ViewSpecific) return false;
+            if (e.Category is null || e.ViewSpecific) return false;
             // exclude specific unwanted categories
 #if R24_OR_GREATER
             if (((BuiltInCategory)e.Category.Id.Value) == BuiltInCategory.OST_HVAC_Zones) return false;
