@@ -26,7 +26,7 @@ namespace AlterTools.BatchExport.Views.Params
                 using Document doc = OpenDocumentHelper.OpenDocument(app, filePath, out bool _);
                 if (doc is null) return;
 
-                IEnumerable<ParametersTable> elements = new FilteredElementCollector(doc)
+                IEnumerable<ParametersTable> paramTables = new FilteredElementCollector(doc)
                     .WhereElementIsNotElementType()
                     .Where(e => e.IsPhysicalElement())
                     .Select(e => new ParametersTable()
@@ -40,7 +40,7 @@ namespace AlterTools.BatchExport.Views.Params
                         Parameters = e.GetParametersSet(paramsVM.ParametersNames)
                     });
 
-                foreach (ParametersTable table in elements)
+                foreach (ParametersTable table in paramTables)
                 {
                     csvHelper.WriteElement(table);
                 }
