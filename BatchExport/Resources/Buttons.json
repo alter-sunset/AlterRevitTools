@@ -60,6 +60,16 @@
     "Availability": true
   },
   {
+    "Name": "WorksetsExtract",
+    "Text": "Экспорт\nрабочих наборов",
+    "ClassName": "AlterTools.BatchExport.Core.ExtractWorkset",
+    "ToolTip": "Пакетный экспорт рабочих наборов из моделей",
+    "ImageLarge": "",
+    "ImageSmall": "",
+    "Panel": "Пакетный экспорт",
+    "Availability": true
+  },
+  {
     "Name": "Link",
     "Text": "Пакетное добавление\nRevit ссылок",
     "ClassName": "AlterTools.BatchExport.Core.LinkModels",

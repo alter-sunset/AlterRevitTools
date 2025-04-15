@@ -3,6 +3,7 @@ using Autodesk.Revit.UI;
 using Autodesk.Revit.Attributes;
 using System;
 using AlterTools.BatchExport.Utils;
+using AlterTools.BatchExport.Core.Commands;
 
 namespace AlterTools.BatchExport.Core
 {
@@ -72,5 +73,11 @@ namespace AlterTools.BatchExport.Core
     {
         public virtual Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements)
             => ExternalCommandWrapper.Execute(ref msg, Forms.Params);
+    }
+    [Transaction(TransactionMode.ReadOnly)]
+    public class ExtractWorkset : IExternalCommand
+    {
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
+            => ExtractWorksetsCommand.Execute();
     }
 }
