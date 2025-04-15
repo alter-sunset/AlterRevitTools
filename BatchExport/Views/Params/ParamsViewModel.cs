@@ -89,5 +89,15 @@ namespace AlterTools.BatchExport.Views.Params
                 .Select(cont => cont.Content.ToString() ?? string.Empty)
                 .ToArray()
         };
+
+        private RelayCommand _eraseCommand;
+        public override RelayCommand EraseCommand
+            => _eraseCommand ??= new RelayCommand(
+                obj =>
+                {
+                    ListBoxItems.Clear();
+                    ParamsNames = "ADSK_Этаж;ADSK_Номер здания;ADSK_Комплект чертежей;";
+                    CsvPath = string.Empty;
+                });
     }
 }
