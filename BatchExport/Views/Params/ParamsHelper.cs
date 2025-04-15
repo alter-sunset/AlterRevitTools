@@ -14,6 +14,7 @@ namespace AlterTools.BatchExport.Views.Params
         public static void ExportParameters(this ListBoxItem item, Application app, ParamsViewModel paramsVM, CsvHelper csvHelper)
         {
             string filePath = item.Content?.ToString();
+            string fileName = Path.GetFileName(filePath);
             if (!File.Exists(filePath))
             {
                 item.Background = Brushes.Red;
@@ -22,8 +23,7 @@ namespace AlterTools.BatchExport.Views.Params
             item.Background = Brushes.Blue;
             try
             {
-                string fileName = Path.GetFileName(filePath);
-                Document doc = OpenDocumentHelper.OpenDocument(app, filePath, out bool _);
+                using Document doc = OpenDocumentHelper.OpenDocument(app, filePath, out bool _);
                 if (doc is null) return;
 
                 IEnumerable<ParametersTable> elements = new FilteredElementCollector(doc)
