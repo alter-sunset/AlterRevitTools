@@ -63,6 +63,6 @@ namespace AlterTools.BatchExport.Core.EventHandlers
             paramsVM.Finisher(id: "ExportParametersFinished");
         }
         private static Dictionary<string, string> GetParametersSet(Element element, string[] parametersNames)
-            => parametersNames.ToDictionary(p => p, p => element.LookupParameter(p).GetValueString().Trim());
+            => parametersNames.ToDictionary(p => p, p => element.LookupParameter(p).GetValueString());
     }
 }
