@@ -38,7 +38,7 @@ namespace AlterTools.BatchExport.Utils
             View3D view = element as View3D;
             try
             {
-                using FilteredElementCollector collector = new FilteredElementCollector(doc, view.Id);
+                using FilteredElementCollector collector = new(doc, view.Id);
                 return !collector.Where(e => e.Category != null
                         && e.GetType() != typeof(RevitLinkInstance))
                     .Any(e => e.CanBeHidden(view));

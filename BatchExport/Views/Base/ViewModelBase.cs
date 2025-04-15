@@ -114,11 +114,9 @@ namespace AlterTools.BatchExport.Views.Base
         private void BrowseFolder()
         {
             FolderBrowserDialog folderBrowserDialog = new() { SelectedPath = FolderPath };
-            DialogResult result = folderBrowserDialog.ShowDialog();
-            string folderPath = folderBrowserDialog.SelectedPath;
 
-            if (result is DialogResult.OK)
-                FolderPath = folderPath;
+            if (folderBrowserDialog.ShowDialog() is DialogResult.OK)
+                FolderPath = folderBrowserDialog.SelectedPath;
         }
         private string _helpMessage;
         public string HelpMessage

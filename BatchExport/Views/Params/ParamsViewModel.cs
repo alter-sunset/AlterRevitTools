@@ -11,6 +11,7 @@ namespace AlterTools.BatchExport.Views.Params
 {
     public class ParamsViewModel : ViewModelBase, IConfigParams
     {
+        private const string DEFAULT_PARAMS = "ADSK_Этаж;ADSK_Номер здания;ADSK_Комплект чертежей;";
         public ParamsViewModel(EventHandlerParams eventHandlerParams)
         {
             EventHandlerBase = eventHandlerParams;
@@ -20,9 +21,10 @@ namespace AlterTools.BatchExport.Views.Params
                     HelpMessageType.Load,
                     HelpMessageType.Config,
                     HelpMessageType.Start);
+            ParamsNames = DEFAULT_PARAMS;
         }
 
-        private string _paramsNames = "ADSK_Этаж;ADSK_Номер здания;ADSK_Комплект чертежей;";
+        private string _paramsNames;
         public string ParamsNames
         {
             get => _paramsNames;
@@ -96,7 +98,7 @@ namespace AlterTools.BatchExport.Views.Params
                 obj =>
                 {
                     ListBoxItems.Clear();
-                    ParamsNames = "ADSK_Этаж;ADSK_Номер здания;ADSK_Комплект чертежей;";
+                    ParamsNames = DEFAULT_PARAMS;
                     CsvPath = string.Empty;
                 });
     }

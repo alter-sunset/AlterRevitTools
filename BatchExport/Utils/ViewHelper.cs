@@ -61,6 +61,7 @@ namespace AlterTools.BatchExport.Utils
             => new FilteredWorksetCollector(_uiApp.ActiveUIDocument.Document)
                 .OfKind(WorksetKind.UserWorkset)
                 .ToWorksets()
+                .OrderBy(w => w.Name)
                 .ToArray();
 
         private static void CloseCurrentForm()
