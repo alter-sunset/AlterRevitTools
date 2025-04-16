@@ -9,9 +9,11 @@ namespace AlterTools.BatchExport.Core.EventHandlers
     {
         public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not LinkViewModel linkVM || !linkVM.IsEverythingFilled()) return;
+            if (iConfigBase is not LinkViewModel linkVM) return;
+            if (!linkVM.IsEverythingFilled()) return;
 
             linkVM.CreateLinks(uiApp);
+
             linkVM.Finisher(id: "LinkModelsFinished");
         }
     }

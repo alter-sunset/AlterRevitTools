@@ -39,7 +39,7 @@ namespace AlterTools.BatchExport.Views.Base
                     HandleFileNotFound(file, items, log);
                     continue;
                 }
-                using ErrorSwallower errorSwallower = new(uiApp);
+                using ErrorSuppressor errorSuppressor = new(uiApp);
                 Document doc = OpenDocument(file, app, iConfig, log, items);
                 if (doc is null) continue;
 

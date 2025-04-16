@@ -51,6 +51,7 @@ namespace AlterTools.BatchExport.Utils
 
         private static bool IsListNotEmpty(this LinkViewModel linkVM) => CheckCondition(linkVM.Entries.Count > 0, NO_FILES);
         private static bool IsListNotEmpty(this ViewModelBase vmBase) => CheckCondition(vmBase.ListBoxItems.Count > 0, NO_FILES);
+
         private static bool IsFolderPathOK(this ViewModelBase vmBase)
         {
             string folderPath = vmBase.FolderPath;
@@ -65,6 +66,7 @@ namespace AlterTools.BatchExport.Utils
             {
                 MessageBoxResult result = MessageBox.Show(CREATE_FOLDER,
                     "Добрый вечер", MessageBoxButton.YesNo);
+
                 if (result is MessageBoxResult.Yes) Directory.CreateDirectory(folderPath);
 
                 else
@@ -73,22 +75,27 @@ namespace AlterTools.BatchExport.Utils
                     return false;
                 }
             }
+
             return true;
         }
+
         private static bool IsViewNameOK(this ViewModelBase_Extended vmBaseExt)
             => CheckCondition(!vmBaseExt.ExportScopeView
                 || !string.IsNullOrEmpty(vmBaseExt.ViewName), NO_VIEW_NAME);
         private static bool IsViewNameOK(this DetachViewModel detachVM)
             => CheckCondition(!detachVM.CheckForEmptyView
                 || !string.IsNullOrEmpty(detachVM.ViewName), NO_VIEW_NAME);
+
         private static bool IsRBModeOK(this DetachViewModel detachVM)
         {
             switch (detachVM.RadioButtonMode)
             {
                 case 0:
                     return CheckCondition(false, NO_PATH_MODE);
+
                 case 1:
                     return detachVM.IsFolderPathOK();
+
                 case 2:
                     if (string.IsNullOrEmpty(detachVM.MaskIn) || string.IsNullOrEmpty(detachVM.MaskOut))
                         return CheckCondition(false, NO_MASK_PATH);
@@ -96,10 +103,13 @@ namespace AlterTools.BatchExport.Utils
                     if (!detachVM.ListBoxItems.Select(e => e.Content)
                         .All(e => e.ToString().Contains(detachVM.MaskIn)))
                         return CheckCondition(false, WRONG_MASK);
+
                     break;
             }
+
             return true;
         }
+
         private static bool IsMaskNameOK(this DetachViewModel detachVM)
             => CheckCondition(!detachVM.IsToRename
                  || !string.IsNullOrEmpty(detachVM.MaskInName), NO_MASK_FILE);
@@ -135,12 +145,14 @@ namespace AlterTools.BatchExport.Utils
                 Id = id,
                 MainContent = msg
             };
+
             vmBase.IsViewEnabled = false;
             taskDialog.Show();
             vmBase.IsViewEnabled = true;
             //TODO: Rework this 
             //Process.Start("shutdown", "/s /t 10");
         }
+
         /// <returns>Unique files with .rvt extension</returns>
         public static IEnumerable<string> FilterRevitFiles(this IEnumerable<string> files)
             => files.Distinct()

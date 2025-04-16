@@ -1,4 +1,4 @@
-﻿namespace AlterTools.BatchExport.Core
+﻿namespace AlterTools.BatchExport.Core.Commands
 {
     internal enum Forms
     {

@@ -4,16 +4,16 @@ using System.Collections.Generic;
 
 namespace AlterTools.BatchExport.Utils
 {
-    public class CopyWatchAlertSwallower : IFailuresPreprocessor
+    public class CopyWatchAlertSuppressor : IFailuresPreprocessor
     {
         public FailureProcessingResult PreprocessFailures(FailuresAccessor a)
         {
             List<FailureMessageAccessor> failures = a.GetFailureMessages()
-                .Where(f => f.GetFailureDefinitionId() ==
-                    BuiltInFailures.CopyMonitorFailures.CopyWatchAlert)
+                .Where(f => f.GetFailureDefinitionId() == BuiltInFailures.CopyMonitorFailures.CopyWatchAlert)
                 .ToList();
 
             failures.ForEach(a.DeleteWarning);
+
             return FailureProcessingResult.Continue;
         }
     }

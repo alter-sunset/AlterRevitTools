@@ -4,7 +4,6 @@ using System;
 using System.Linq;
 using System.Windows;
 using System.Collections.Generic;
-using AlterTools.BatchExport.Core;
 using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Views.IFC;
 using AlterTools.BatchExport.Views.NWC;
@@ -13,13 +12,15 @@ using AlterTools.BatchExport.Views.Detach;
 using AlterTools.BatchExport.Views.Migrate;
 using AlterTools.BatchExport.Views.Transmit;
 using AlterTools.BatchExport.Views.Params;
+using AlterTools.BatchExport.Core.Commands;
 
 namespace AlterTools.BatchExport.Utils
 {
     static class ViewHelper
     {
-        private static Window _myForm;
         private static UIApplication _uiApp;
+        private static Window _myForm;
+
         private static readonly Dictionary<Forms, Func<Window>> _formCreators = new()
         {
             { Forms.Detach,
@@ -41,6 +42,7 @@ namespace AlterTools.BatchExport.Utils
         internal static void ShowForm(this Forms form, UIApplication uiApp)
         {
             CloseCurrentForm();
+
             _uiApp = uiApp;
 
             try
@@ -61,7 +63,6 @@ namespace AlterTools.BatchExport.Utils
             => new FilteredWorksetCollector(_uiApp.ActiveUIDocument.Document)
                 .OfKind(WorksetKind.UserWorkset)
                 .ToWorksets()
-                .OrderBy(w => w.Name)
                 .ToArray();
 
         private static void CloseCurrentForm()
