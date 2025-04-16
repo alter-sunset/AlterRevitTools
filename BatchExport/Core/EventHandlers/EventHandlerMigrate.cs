@@ -12,6 +12,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
         public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
             if (iConfigBase is not MigrateViewModel migrateVM) return;
+
             if (!MigrateHelper.IsConfigPathValid(migrateVM.ConfigPath))
             {
                 MessageBox.Show("Предоставьте ссылку на конфиг");
@@ -21,8 +22,8 @@ namespace AlterTools.BatchExport.Core.EventHandlers
             List<string> failedFiles = MigrateHelper.ProcessFiles(migrateVM.ConfigPath, uiApp.Application);
 
             string msg = failedFiles.Count > 0
-                ? $"Задание выполнено.\nСледующие файлы не были скопированы:\n{string.Join("\n", failedFiles)}"
-                : "Задание выполнено.";
+                            ? $"Задание выполнено.\nСледующие файлы не были скопированы:\n{string.Join("\n", failedFiles)}"
+                            : "Задание выполнено.";
 
             migrateVM.Finisher(id: "MigrateModelsFinished", msg);
         }

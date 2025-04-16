@@ -15,6 +15,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
         public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
             if (iConfigBase is not NWC_ViewModel nwcVM) return;
+
             if (nwcVM.Configs.Count == 0)
             {
                 MessageBox.Show("Загрузите конфиги.");

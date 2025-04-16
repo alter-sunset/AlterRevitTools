@@ -25,7 +25,7 @@ namespace AlterTools.BatchExport.Utils
         public void Error(string error, Exception ex = null)
         {
             string lineToWrite = $"Error at {DateTime.Now}. {BASE_ERROR} {error}" +
-                          (ex != null ? $" {ex.Message}" : string.Empty);
+                                 (ex != null ? $" {ex.Message}" : string.Empty);
             _stream.WriteLine(lineToWrite);
             ErrorCount++;
         }

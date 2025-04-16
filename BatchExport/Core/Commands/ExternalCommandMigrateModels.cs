@@ -8,6 +8,8 @@ namespace AlterTools.BatchExport.Core.Commands
     public class ExternalCommandMigrateModels : IExternalCommand
     {
         public virtual Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements)
-            => CommandWrapper.Execute(ref msg, Forms.Migrate);
+        {
+            return CommandWrapper.Execute(ref msg, Forms.Migrate);
+        }
     }
 }

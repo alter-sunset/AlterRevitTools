@@ -20,23 +20,25 @@ namespace AlterTools.BatchExport.Core
         public bool Availability { get; set; }
 
         public static List<ButtonContext> GetButtonsContext()
-            => JsonHelper<List<ButtonContext>>.DeserializeResource("AlterTools.BatchExport.Resources.Buttons.json");
+        {
+            return JsonHelper<List<ButtonContext>>.DeserializeResource("AlterTools.BatchExport.Resources.Buttons.json");
+        }
 
         public PushButtonData GetPushButtonData()
         {
             try
             {
                 PushButtonData pbData = new(name: Name,
-                    text: Text,
-                    assemblyName: Assembly.GetExecutingAssembly().Location,
-                    className: ClassName)
+                                            text: Text,
+                                            assemblyName: Assembly.GetExecutingAssembly().Location,
+                                            className: ClassName)
                 {
                     ToolTip = ToolTip,
                     Image = GetImage(ImageSmall),
                     LargeImage = GetImage(ImageLarge)
                 };
-                if (Availability)
-                    pbData.AvailabilityClassName = typeof(CommandAvailability).FullName;
+
+                if (Availability) pbData.AvailabilityClassName = typeof(CommandAvailability).FullName;
 
                 return pbData;
             }

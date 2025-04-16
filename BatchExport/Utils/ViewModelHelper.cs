@@ -28,24 +28,32 @@ namespace AlterTools.BatchExport.Utils
         private const string NO_PARAMETERS = "Укажите хотя бы один параметр для экспорта!";
 
         internal static bool IsEverythingFilled(this DetachViewModel detachVM)
-            => detachVM.IsListNotEmpty()
-            && detachVM.IsRBModeOK()
-            && detachVM.IsViewNameOK()
-            && detachVM.IsMaskNameOK();
+        {
+            return detachVM.IsListNotEmpty()
+                && detachVM.IsRBModeOK()
+                && detachVM.IsViewNameOK()
+                && detachVM.IsMaskNameOK();
+        }
 
         internal static bool IsEverythingFilled(this TransmitViewModel transmitVM)
-            => transmitVM.IsListNotEmpty()
-            && transmitVM.IsFolderPathOK();
+        {
+            return transmitVM.IsListNotEmpty()
+                && transmitVM.IsFolderPathOK();
+        }
 
         internal static bool IsEverythingFilled(this ParamsViewModel paramsVM)
-            => paramsVM.IsListNotEmpty()
-            && paramsVM.IsCsvPathNotEmpty()
-            && paramsVM.AreThereAnyParameters();
+        {
+            return paramsVM.IsListNotEmpty()
+                && paramsVM.IsCsvPathNotEmpty()
+                && paramsVM.AreThereAnyParameters();
+        }
 
         internal static bool IsEverythingFilled(this ViewModelBase_Extended vmBaseExt)
-            => vmBaseExt.IsListNotEmpty()
-            && vmBaseExt.IsFolderPathOK()
-            && vmBaseExt.IsViewNameOK();
+        {
+            return vmBaseExt.IsListNotEmpty()
+                && vmBaseExt.IsFolderPathOK()
+                && vmBaseExt.IsViewNameOK();
+        }
 
         internal static bool IsEverythingFilled(this LinkViewModel linkVM) => linkVM.IsListNotEmpty();
 
@@ -56,19 +64,18 @@ namespace AlterTools.BatchExport.Utils
         {
             string folderPath = vmBase.FolderPath;
 
-            if (string.IsNullOrEmpty(folderPath))
-                return CheckCondition(false, NO_FOLDER);
+            if (string.IsNullOrEmpty(folderPath)) return CheckCondition(false, NO_FOLDER);
 
-            if (Uri.IsWellFormedUriString(folderPath, UriKind.RelativeOrAbsolute))
-                return CheckCondition(false, WRONG_FOLDER);
+            if (Uri.IsWellFormedUriString(folderPath, UriKind.RelativeOrAbsolute)) return CheckCondition(false, WRONG_FOLDER);
 
             if (!Directory.Exists(folderPath))
             {
-                MessageBoxResult result = MessageBox.Show(CREATE_FOLDER,
-                    "Добрый вечер", MessageBoxButton.YesNo);
+                MessageBoxResult result = MessageBox.Show(CREATE_FOLDER, "Добрый вечер", MessageBoxButton.YesNo);
 
-                if (result is MessageBoxResult.Yes) Directory.CreateDirectory(folderPath);
-
+                if (result is MessageBoxResult.Yes)
+                {
+                    Directory.CreateDirectory(folderPath);
+                }
                 else
                 {
                     MessageBox.Show(TO_HELL);
@@ -80,11 +87,15 @@ namespace AlterTools.BatchExport.Utils
         }
 
         private static bool IsViewNameOK(this ViewModelBase_Extended vmBaseExt)
-            => CheckCondition(!vmBaseExt.ExportScopeView
-                || !string.IsNullOrEmpty(vmBaseExt.ViewName), NO_VIEW_NAME);
+        {
+            return CheckCondition(!vmBaseExt.ExportScopeView
+                                  || !string.IsNullOrEmpty(vmBaseExt.ViewName), NO_VIEW_NAME);
+        }
         private static bool IsViewNameOK(this DetachViewModel detachVM)
-            => CheckCondition(!detachVM.CheckForEmptyView
-                || !string.IsNullOrEmpty(detachVM.ViewName), NO_VIEW_NAME);
+        {
+            return CheckCondition(!detachVM.CheckForEmptyView
+                                  || !string.IsNullOrEmpty(detachVM.ViewName), NO_VIEW_NAME);
+        }
 
         private static bool IsRBModeOK(this DetachViewModel detachVM)
         {
@@ -98,11 +109,15 @@ namespace AlterTools.BatchExport.Utils
 
                 case 2:
                     if (string.IsNullOrEmpty(detachVM.MaskIn) || string.IsNullOrEmpty(detachVM.MaskOut))
+                    {
                         return CheckCondition(false, NO_MASK_PATH);
+                    }
 
                     if (!detachVM.ListBoxItems.Select(e => e.Content)
-                        .All(e => e.ToString().Contains(detachVM.MaskIn)))
+                                              .All(e => e.ToString().Contains(detachVM.MaskIn)))
+                    {
                         return CheckCondition(false, WRONG_MASK);
+                    }
 
                     break;
             }
@@ -111,23 +126,31 @@ namespace AlterTools.BatchExport.Utils
         }
 
         private static bool IsMaskNameOK(this DetachViewModel detachVM)
-            => CheckCondition(!detachVM.IsToRename
-                 || !string.IsNullOrEmpty(detachVM.MaskInName), NO_MASK_FILE);
+        {
+            return CheckCondition(!detachVM.IsToRename
+                                  || !string.IsNullOrEmpty(detachVM.MaskInName), NO_MASK_FILE);
+        }
+
         private static bool IsCsvPathNotEmpty(this ParamsViewModel paramsVM)
         {
             string csvPath = paramsVM.CsvPath;
 
             if (string.IsNullOrWhiteSpace(csvPath)
                 || Uri.IsWellFormedUriString(csvPath, UriKind.Absolute)
-                || !csvPath.EndsWith(".csv")) return CheckCondition(false, NO_CSV);
+                || !csvPath.EndsWith(".csv"))
+            {
+                return CheckCondition(false, NO_CSV);
+            }
+
             return true;
+
         }
-        private static bool AreThereAnyParameters(this ParamsViewModel paramsVM)
-            => CheckCondition(paramsVM.ParametersNames.Length > 0, NO_PARAMETERS);
+        private static bool AreThereAnyParameters(this ParamsViewModel paramsVM) => CheckCondition(paramsVM.ParametersNames.Length > 0, NO_PARAMETERS);
 
         private static bool CheckCondition(bool condition, string msg)
         {
             if (!condition) MessageBox.Show(msg);
+
             return condition;
         }
 
@@ -155,16 +178,25 @@ namespace AlterTools.BatchExport.Utils
 
         /// <returns>Unique files with .rvt extension</returns>
         public static IEnumerable<string> FilterRevitFiles(this IEnumerable<string> files)
-            => files.Distinct()
-                .Where(f => !string.IsNullOrWhiteSpace(f)
-                    && Path.GetExtension(f) == ".rvt");
+        {
+            return files.Distinct()
+                        .Where(f => !string.IsNullOrWhiteSpace(f)
+                                    && Path.GetExtension(f) == ".rvt");
+        }
 
-        public static string RemoveDetach(this string name) => name.Replace("_detached", "").Replace("_отсоединено", "");
+        public static string RemoveDetach(this string name)
+        {
+            return name.Replace("_detached", "")
+                       .Replace("_отсоединено", "");
+        }
 
-        public static string[] SplitBySemicolon(this string line) => line.Split(';')
-            .Select(e => e.Trim())
-            .Distinct()
-            .Where(e => !string.IsNullOrWhiteSpace(e))
-            .ToArray();
+        public static string[] SplitBySemicolon(this string line)
+        {
+            return line.Split(';')
+                       .Select(e => e.Trim())
+                       .Distinct()
+                       .Where(e => !string.IsNullOrWhiteSpace(e))
+                       .ToArray();
+        }
     }
 }

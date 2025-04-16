@@ -21,12 +21,11 @@ namespace AlterTools.BatchExport.Utils
             if (prefixes.Length == 0) return worksetConfiguration;
 
             List<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)
-                .Where(wp => prefixes.Any(wp.Name.StartsWith))
-                .Select(wp => wp.Id)
-                .ToList();
+                                                         .Where(wp => prefixes.Any(wp.Name.StartsWith))
+                                                         .Select(wp => wp.Id)
+                                                         .ToList();
 
-            if (worksetIds.Count > 0)
-                worksetConfiguration.Close(worksetIds);
+            if (worksetIds.Count > 0) worksetConfiguration.Close(worksetIds);
 
             return worksetConfiguration;
         }
@@ -45,8 +44,8 @@ namespace AlterTools.BatchExport.Utils
                 using FilteredElementCollector collector = new(doc, view.Id);
 
                 return !collector.Where(e => e.Category != null
-                        && e.GetType() != typeof(RevitLinkInstance))
-                    .Any(e => e.CanBeHidden(view));
+                                          && e.GetType() != typeof(RevitLinkInstance))
+                                 .Any(e => e.CanBeHidden(view));
             }
             catch
             {
@@ -120,19 +119,19 @@ namespace AlterTools.BatchExport.Utils
         {
             // List of all user worksets
             IList<Workset> collectorWorkset = new FilteredWorksetCollector(doc)
-                .OfKind(WorksetKind.UserWorkset)
-                .ToWorksets();
+                                                  .OfKind(WorksetKind.UserWorkset)
+                                                  .ToWorksets();
 
             ElementId typeId = new FilteredElementCollector(doc)
-                .WhereElementIsElementType()
-                .OfClass(typeof(CableTrayType))
-                .ToElementIds()
-                .FirstOrDefault();
+                                   .WhereElementIsElementType()
+                                   .OfClass(typeof(CableTrayType))
+                                   .ToElementIds()
+                                   .FirstOrDefault();
 
             ElementId levelId = new FilteredElementCollector(doc)
-                .OfClass(typeof(Level))
-                .ToElementIds()
-                .FirstOrDefault();
+                                    .OfClass(typeof(Level))
+                                    .ToElementIds()
+                                    .FirstOrDefault();
 
             if (typeId is null) return;
             if (levelId is null) return;
@@ -151,8 +150,7 @@ namespace AlterTools.BatchExport.Utils
                 // Change the workset of the cable tray
                 Parameter wsParam = ct.get_Parameter(BuiltInParameter.ELEM_PARTITION_PARAM);
 
-                if (wsParam is not null && !wsParam.IsReadOnly)
-                    wsParam.Set(workset.Id.IntegerValue);
+                if (wsParam is not null && !wsParam.IsReadOnly) wsParam.Set(workset.Id.IntegerValue);
 
                 // Show the cable tray to open the workset
                 new UIDocument(doc).ShowElements(ct.Id);
@@ -165,8 +163,8 @@ namespace AlterTools.BatchExport.Utils
         }
         public static void YesNoTaskDialog(string msg, Action action)
         {
-            if (TaskDialog.Show("Ошибка", msg, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No) is TaskDialogResult.Yes)
-                action?.Invoke();
+            TaskDialogResult result = TaskDialog.Show("Ошибка", msg, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
+            if (result is TaskDialogResult.Yes) action?.Invoke();
         }
         private static void SuppressAlert(this Transaction t)
         {
@@ -185,9 +183,9 @@ namespace AlterTools.BatchExport.Utils
                 do
                 {
                     HashSet<ElementId> unusedElements = doc.GetUnusedElements(new HashSet<ElementId>())
-                        .Where(el => doc.GetElement(el) is not null
-                            && doc.GetElement(el) is not RevitLinkType)
-                        .ToHashSet();
+                                                           .Where(el => doc.GetElement(el) is not null
+                                                                     && doc.GetElement(el) is not RevitLinkType)
+                                                           .ToHashSet();
 
                     previousCount = unusedElements.Count;
 
@@ -211,10 +209,10 @@ namespace AlterTools.BatchExport.Utils
         public static void RemoveEmptyWorksets(this Document doc)
         {
             List<WorksetId> worksets = new FilteredWorksetCollector(doc)
-                .OfKind(WorksetKind.UserWorkset)
-                .ToWorksetIds()
-                .Where(doc.IsWorksetEmpty)
-                .ToList();
+                                           .OfKind(WorksetKind.UserWorkset)
+                                           .ToWorksetIds()
+                                           .Where(doc.IsWorksetEmpty)
+                                           .ToList();
 
             using (Transaction t = new(doc))
             {
@@ -227,17 +225,22 @@ namespace AlterTools.BatchExport.Utils
         }
 
         private static bool IsWorksetEmpty(this Document doc, WorksetId workset)
-            => !new FilteredElementCollector(doc)
-                .WherePasses(new ElementWorksetFilter(workset)).Any();
+        {
+            return !new FilteredElementCollector(doc)
+                        .WherePasses(new ElementWorksetFilter(workset))
+                        .Any();
+        }
 #endif
 
         /// <summary>
         /// Return parameter value as string with correct null check
         /// </summary>
         public static string GetValueString(this Parameter param)
-            => param is null || param.AsValueString() is null
+        {
+            return param is null || param.AsValueString() is null
                 ? string.Empty
                 : param.AsValueString().Trim();
+        }
 
         public static bool IsPhysicalElement(this Element e)
         {

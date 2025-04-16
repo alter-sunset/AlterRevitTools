@@ -14,8 +14,7 @@ namespace AlterTools.BatchExport.Views.Base
 {
     public class ExportHelperBase
     {
-        public void BatchExportModels
-            (IConfigBase_Extended iConfig, UIApplication uiApp, ref Logger log)
+        public void BatchExportModels(IConfigBase_Extended iConfig, UIApplication uiApp, ref Logger log)
         {
             using Application app = uiApp.Application;
             string[] models = iConfig.Files;
