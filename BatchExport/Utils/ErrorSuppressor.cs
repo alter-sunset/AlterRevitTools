@@ -27,8 +27,8 @@ namespace AlterTools.BatchExport.Utils
             if (e is not TaskDialogShowingEventArgs dialogArgs) return;
 
             int dialogResult = dialogArgs.DialogId.StartsWith("TaskDialog_Missing_Third_Party_Updater")
-                ? (int)TaskDialogResult.CommandLink1
-                : (int)TaskDialogResult.Close;
+                                ? (int)TaskDialogResult.CommandLink1
+                                : (int)TaskDialogResult.Close;
 
             dialogArgs.OverrideResult(dialogResult);
         }

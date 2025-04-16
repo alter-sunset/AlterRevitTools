@@ -9,12 +9,13 @@ namespace AlterTools.BatchExport.Views.Base
         public event PropertyChangedEventHandler PropertyChanged;
 
         public void OnPropertyChanged([CallerMemberName] string propertyName = "")
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
 
         public void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
-            if (value is string stringValue)
-                value = (T)(object)stringValue.Trim();
+            if (value is string stringValue) value = (T)(object)stringValue.Trim();
 
             if (EqualityComparer<T>.Default.Equals(field, value)) return;
 

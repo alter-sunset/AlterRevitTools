@@ -8,13 +8,12 @@ namespace AlterTools.BatchExport.Views.Transmit
         public TransmitViewModel(EventHandlerTransmit eventHandlerTransmit)
         {
             EventHandlerBase = eventHandlerTransmit;
-            HelpMessage =
-                Help.GetHelpDictionary().
-                GetResultMessage(HelpMessageType.TransmitTitle,
-                    HelpMessageType.Load,
-                    HelpMessageType.Folder,
-                    HelpMessageType.List,
-                    HelpMessageType.Start);
+            HelpMessage = Help.GetHelpDictionary()
+                              .GetResultMessage(HelpMessageType.TransmitTitle,
+                                                HelpMessageType.Load,
+                                                HelpMessageType.Folder,
+                                                HelpMessageType.List,
+                                                HelpMessageType.Start);
         }
 
         private bool _isSameFolder;

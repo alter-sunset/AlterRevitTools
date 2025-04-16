@@ -22,9 +22,11 @@ namespace AlterTools.BatchExport.Core.EventHandlers
             using ErrorSuppressor errorSuppressor = new(uiApp);
 
             List<ListBoxItem> listItems = detachVM.ListBoxItems.ToList();
+
             foreach (ListBoxItem item in listItems)
             {
                 string filePath = item.Content?.ToString();
+
                 if (!File.Exists(filePath))
                 {
                     item.Background = Brushes.Red;

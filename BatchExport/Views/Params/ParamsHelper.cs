@@ -15,30 +15,34 @@ namespace AlterTools.BatchExport.Views.Params
         {
             string filePath = item.Content?.ToString();
             string fileName = Path.GetFileName(filePath);
+
             if (!File.Exists(filePath))
             {
                 item.Background = Brushes.Red;
                 return;
             }
+
             item.Background = Brushes.Blue;
+
             try
             {
                 using Document doc = OpenDocumentHelper.OpenDocument(app, filePath, out bool _);
                 if (doc is null) return;
 
                 IEnumerable<ParametersTable> paramTables = new FilteredElementCollector(doc)
-                    .WhereElementIsNotElementType()
-                    .Where(e => e.IsPhysicalElement())
-                    .Select(e => new ParametersTable()
-                    {
-                        ModelName = fileName,
+                                                               .WhereElementIsNotElementType()
+                                                               .Where(e => e.IsPhysicalElement())
+                                                               .Select(e => new ParametersTable()
+                                                               {
+                                                                   ModelName = fileName,
+                                                                   Parameters = e.GetParametersSet(paramsVM.ParametersNames),
+
 #if R24_OR_GREATER
-                        ElementId = e.Id.Value,
+                                                                   ElementId = e.Id.Value,
 #else
-                        ElementId = e.Id.IntegerValue,
+                                                                   ElementId = e.Id.IntegerValue,
 #endif
-                        Parameters = e.GetParametersSet(paramsVM.ParametersNames)
-                    });
+                                                               });
 
                 foreach (ParametersTable table in paramTables)
                 {
@@ -46,10 +50,13 @@ namespace AlterTools.BatchExport.Views.Params
                 }
             }
             catch { }
+
             item.Background = Brushes.Green;
         }
 
         private static Dictionary<string, string> GetParametersSet(this Element element, string[] parametersNames)
-            => parametersNames.ToDictionary(p => p, p => element.LookupParameter(p).GetValueString());
+        {
+            return parametersNames.ToDictionary(p => p, p => element.LookupParameter(p).GetValueString());
+        }
     }
 }

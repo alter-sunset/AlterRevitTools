@@ -13,7 +13,9 @@ namespace AlterTools.BatchExport.Views.Base
     public class ViewModelBase : NotifyPropertyChanged, IConfigBase
     {
         public const string NO_FILES = "В текстовом файле не было найдено подходящей информации";
+
         private ObservableCollection<ListBoxItem> _listBoxItems = [];
+
         public virtual ObservableCollection<ListBoxItem> ListBoxItems
         {
             get => _listBoxItems;
@@ -47,6 +49,7 @@ namespace AlterTools.BatchExport.Views.Base
         private void LoadList()
         {
             using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
+
             if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
             IEnumerable<string> files = File.ReadLines(openFileDialog.FileName).FilterRevitFiles();
@@ -54,7 +57,9 @@ namespace AlterTools.BatchExport.Views.Base
             ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
 
             if (!ListBoxItems.Any())
+            {
                 MessageBox.Show(NO_FILES);
+            }
 
             FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
         }
@@ -64,13 +69,13 @@ namespace AlterTools.BatchExport.Views.Base
         private void Load()
         {
             using OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
+
             if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
             HashSet<string> existingFiles = new(Files);
 
-            IEnumerable<string> files = openFileDialog.FileNames
-                .Distinct()
-                .Where(f => !existingFiles.Contains(f));
+            IEnumerable<string> files = openFileDialog.FileNames.Distinct()
+                                                                .Where(f => !existingFiles.Contains(f));
 
             foreach (string file in files)
             {
@@ -94,10 +99,12 @@ namespace AlterTools.BatchExport.Views.Base
 
         private RelayCommand _deleteCommand;
         public virtual RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(obj => DeleteSelectedItems());
-        private void DeleteSelectedItems() => ListBoxItems
-            .Where(e => e.IsSelected)
-            .ToList()
-            .ForEach(item => ListBoxItems.Remove(item));
+        private void DeleteSelectedItems()
+        {
+            ListBoxItems.Where(e => e.IsSelected)
+                        .ToList()
+                        .ForEach(item => ListBoxItems.Remove(item));
+        }
 
         private RelayCommand _eraseCommand;
         public virtual RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(obj => ListBoxItems.Clear());
@@ -116,7 +123,9 @@ namespace AlterTools.BatchExport.Views.Base
             FolderBrowserDialog folderBrowserDialog = new() { SelectedPath = FolderPath };
 
             if (folderBrowserDialog.ShowDialog() is DialogResult.OK)
+            {
                 FolderPath = folderBrowserDialog.SelectedPath;
+            }
         }
         private string _helpMessage;
         public string HelpMessage

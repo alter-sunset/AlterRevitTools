@@ -9,8 +9,8 @@ namespace AlterTools.BatchExport.Utils
         public FailureProcessingResult PreprocessFailures(FailuresAccessor a)
         {
             List<FailureMessageAccessor> failures = a.GetFailureMessages()
-                .Where(f => f.GetFailureDefinitionId() == BuiltInFailures.CopyMonitorFailures.CopyWatchAlert)
-                .ToList();
+                                                     .Where(f => f.GetFailureDefinitionId() == BuiltInFailures.CopyMonitorFailures.CopyWatchAlert)
+                                                     .ToList();
 
             failures.ForEach(a.DeleteWarning);
 

@@ -9,12 +9,13 @@ namespace AlterTools.BatchExport.Views.Link
         private readonly LinkViewModel _viewModel;
         public Entry(LinkViewModel viewModel, string name)
         {
+            _name = name;
             _viewModel = viewModel;
+
             ImportPlacements = LinkViewModel.ImportPlacements;
             SelectedImportPlacement = ImportPlacement.Shared;
             Worksets = _viewModel.Worksets;
             SelectedWorkset = Worksets.FirstOrDefault();
-            _name = name;
         }
 
         private readonly string _name;
@@ -37,8 +38,11 @@ namespace AlterTools.BatchExport.Views.Link
                 if (_selectedImportPlacement == value) return;
 
                 SetProperty(ref _selectedImportPlacement, value);
+
                 if (IsSelected)
+                {
                     _viewModel.UpdateSelectedEntries(this, false);
+                }
             }
         }
 
@@ -52,8 +56,11 @@ namespace AlterTools.BatchExport.Views.Link
                 if (_selectedWorkset == value) return;
 
                 SetProperty(ref _selectedWorkset, value);
+
                 if (IsSelected)
+                {
                     _viewModel.UpdateSelectedEntries(this, true);
+                }
             }
         }
     }

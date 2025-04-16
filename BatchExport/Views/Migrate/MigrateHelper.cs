@@ -13,22 +13,32 @@ namespace AlterTools.BatchExport.Views.Migrate
     public static class MigrateHelper
     {
         private const string WRONG_SCHEME = "Неверная схема файла";
+
         public static bool IsConfigPathValid(string configPath)
-            => !string.IsNullOrEmpty(configPath) && Path.GetExtension(configPath) == ".json";
+        {
+            return !string.IsNullOrEmpty(configPath) && Path.GetExtension(configPath) == ".json";
+        }
+
         public static WasBecome LoadMigrationConfig(string configPath)
         {
             using FileStream fileStream = File.OpenRead(configPath);
+
             WasBecome items = JsonConvert.DeserializeObject<WasBecome>(new StreamReader(fileStream).ReadToEnd());
+
             return items is null
                 ? throw new InvalidOperationException(WRONG_SCHEME)
                 : items;
         }
+
         public static void CreateDirectoryForFile(string filePath)
         {
             string dir = Path.GetDirectoryName(filePath);
             if (dir is not null && !Directory.Exists(dir))
+            {
                 Directory.CreateDirectory(dir);
+            }
         }
+
         public static List<string> ProcessFiles(string configPath, Application app)
         {
             WasBecome items;
@@ -70,19 +80,23 @@ namespace AlterTools.BatchExport.Views.Migrate
             }
 
             movedFiles.ForEach(movedFile => ProcessMovedFile(movedFile, items, app));
+
             return failedFiles;
         }
+
         private static void ProcessMovedFile(string newFile, WasBecome items, Application app)
         {
             ModelPath newFilePath = ModelPathUtils.ConvertUserVisiblePathToModelPath(newFile);
             newFilePath.ReplaceLinks(items);
 
             using Document doc = newFilePath.OpenTransmitted(app);
+
             try
             {
                 doc.FreeTheModel();
             }
             catch { }
+
             doc.Close();
         }
     }

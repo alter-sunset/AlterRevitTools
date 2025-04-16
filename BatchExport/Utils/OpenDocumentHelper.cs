@@ -6,30 +6,34 @@ namespace AlterTools.BatchExport.Utils
     public static class OpenDocumentHelper
     {
         public static Document OpenAsIs(this ModelPath modelPath, Application app, WorksetConfiguration worksetConfiguration)
-            => modelPath.OpenDocumentWithOptions(
-                DetachFromCentralOption.DoNotDetach,
-                worksetConfiguration,
-                app);
+        {
+            return modelPath.OpenDocumentWithOptions(DetachFromCentralOption.DoNotDetach,
+                                                     worksetConfiguration,
+                                                     app);
+        }
 
         public static Document OpenDetached(this ModelPath modelPath, Application app, WorksetConfiguration worksetConfiguration)
-            => modelPath.OpenDocumentWithOptions(
-                DetachFromCentralOption.DetachAndPreserveWorksets,
-                worksetConfiguration,
-                app);
+        {
+            return modelPath.OpenDocumentWithOptions(DetachFromCentralOption.DetachAndPreserveWorksets,
+                                                     worksetConfiguration,
+                                                     app);
+        }
 
         public static Document OpenTransmitted(this ModelPath modelPath, Application app)
-            => modelPath.OpenDocumentWithOptions(
-                DetachFromCentralOption.ClearTransmittedSaveAsNewCentral,
-                new WorksetConfiguration(WorksetConfigurationOption.CloseAllWorksets),
-                app);
+        {
+            return modelPath.OpenDocumentWithOptions(DetachFromCentralOption.ClearTransmittedSaveAsNewCentral,
+                                                     new WorksetConfiguration(WorksetConfigurationOption.CloseAllWorksets),
+                                                     app);
+        }
 
         private static Document OpenDocumentWithOptions(this ModelPath modelPath,
-            DetachFromCentralOption detachOption,
-            WorksetConfiguration worksetConfiguration,
-            Application app)
+                                                        DetachFromCentralOption detachOption,
+                                                        WorksetConfiguration worksetConfiguration,
+                                                        Application app)
         {
             OpenOptions openOptions = new() { DetachFromCentralOption = detachOption };
             openOptions.SetOpenWorksetsConfiguration(worksetConfiguration);
+
             return app.OpenDocumentFile(modelPath, openOptions);
         }
 
@@ -48,8 +52,10 @@ namespace AlterTools.BatchExport.Utils
                 else
                 {
                     ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
-                    WorksetConfiguration worksetConfig = new(WorksetConfigurationOption.CloseAllWorksets);
-                    doc = modelPath.OpenDetached(app, worksetConfig);
+
+                    doc = modelPath.OpenDetached(app,
+                                                 new WorksetConfiguration(WorksetConfigurationOption.CloseAllWorksets));
+
                     isWorkshared = true;
                 }
             }

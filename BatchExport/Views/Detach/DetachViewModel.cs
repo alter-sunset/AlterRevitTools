@@ -7,23 +7,24 @@ namespace AlterTools.BatchExport.Views.Detach
     {
         public DetachViewModel(EventHandlerDetach eventHandlerDetach)
         {
+            EventHandlerBase = eventHandlerDetach;
+            HelpMessage = Help.GetHelpDictionary()
+                              .GetResultMessage(HelpMessageType.DetachTitle,
+                                                HelpMessageType.Load,
+                                                HelpMessageType.Folder,
+                                                HelpMessageType.DetachMid,
+                                                HelpMessageType.List,
+                                                HelpMessageType.Start);
+
 #if R22_OR_GREATER
             _isWorksetRemoverEnabled = true;
             _removeEmptyWorksets = true;
 #endif
+
 #if R24_OR_GREATER
             _isPurgeEnabled = true;
             _purge = true;
 #endif
-            EventHandlerBase = eventHandlerDetach;
-            HelpMessage =
-                Help.GetHelpDictionary().
-                GetResultMessage(HelpMessageType.DetachTitle,
-                    HelpMessageType.Load,
-                    HelpMessageType.Folder,
-                    HelpMessageType.DetachMid,
-                    HelpMessageType.List,
-                    HelpMessageType.Start);
         }
 
         private int _radioButtonMode = 0;
@@ -41,6 +42,7 @@ namespace AlterTools.BatchExport.Views.Detach
                 case "Folder":
                     _radioButtonMode = 1;
                     break;
+
                 case "Mask":
                     _radioButtonMode = 2;
                     break;
@@ -102,14 +104,17 @@ namespace AlterTools.BatchExport.Views.Detach
             get => _removeEmptyWorksets;
             set => SetProperty(ref _removeEmptyWorksets, value);
         }
+
         private bool _purge = false;
         public bool Purge
         {
             get => _purge;
             set => SetProperty(ref _purge, value);
         }
+
         private readonly bool _isPurgeEnabled = false;
         public bool IsPurgeEnabled => _isPurgeEnabled;
+
         private readonly bool _isWorksetRemoverEnabled = false;
         public bool IsWorksetRemoverEnabled => _isWorksetRemoverEnabled;
     }

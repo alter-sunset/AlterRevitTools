@@ -14,19 +14,19 @@ namespace AlterTools.BatchExport.Views.NWC
     public class NWC_ViewModel : ViewModelBase_Extended, IConfigNWC
     {
         private readonly EventHandlerNWC_Batch _eventHandlerNWC_Batch;
+
         public NWC_ViewModel(EventHandlerNWC_Batch eventHandlerNWC_Batch, EventHandlerNWC eventHandlerNWC)
         {
             _eventHandlerNWC_Batch = eventHandlerNWC_Batch;
             EventHandlerBase = eventHandlerNWC;
-            HelpMessage =
-                Help.GetHelpDictionary().
-                GetResultMessage(HelpMessageType.NWCTitle,
-                    HelpMessageType.Load,
-                    HelpMessageType.Folder,
-                    HelpMessageType.Naming,
-                    HelpMessageType.Config,
-                    HelpMessageType.Start,
-                    HelpMessageType.NWCEnd);
+            HelpMessage = Help.GetHelpDictionary()
+                              .GetResultMessage(HelpMessageType.NWCTitle,
+                                                HelpMessageType.Load,
+                                                HelpMessageType.Folder,
+                                                HelpMessageType.Naming,
+                                                HelpMessageType.Config,
+                                                HelpMessageType.Start,
+                                                HelpMessageType.NWCEnd);
         }
 
         private bool _convertElementProperties = false;
@@ -137,9 +137,11 @@ namespace AlterTools.BatchExport.Views.NWC
         private void LoadList()
         {
             OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
+
             if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
             using FileStream file = File.OpenRead(openFileDialog.FileName);
+
             NWCFormDeserilaizer(JsonHelper<NWCForm>.DeserializeConfig(file));
         }
         public void NWCFormDeserilaizer(NWCForm form)
@@ -179,10 +181,15 @@ namespace AlterTools.BatchExport.Views.NWC
         {
             using NWCForm form = NWCFormSerializer();
             using SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
+
             if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
 
             string fileName = saveFileDialog.FileName;
-            if (File.Exists(fileName)) File.Delete(fileName);
+
+            if (File.Exists(fileName))
+            {
+                File.Delete(fileName);
+            }
 
             JsonHelper<NWCForm>.SerializeConfig(form, fileName);
         }
@@ -204,16 +211,17 @@ namespace AlterTools.BatchExport.Views.NWC
             FolderPath = FolderPath,
             NamePrefix = NamePrefix,
             NamePostfix = NamePostfix,
+
             WorksetPrefixes = WorksetPrefix.Split(';')
-                .Select(e => e.Trim())
-                .ToArray(),
+                                           .Select(e => e.Trim())
+                                           .ToArray(),
+
             ConvertLights = ConvertLights,
             ConvertLinkedCADFormats = ConvertLinkedCADFormats,
             FacetingFactor = FacetingFactor,
 
-            Files = ListBoxItems
-                .Select(cont => cont.Content.ToString() ?? string.Empty)
-                .ToArray()
+            Files = ListBoxItems.Select(cont => cont.Content.ToString() ?? string.Empty)
+                                .ToArray()
         };
 
         private ObservableCollection<Config> _configs = [];
@@ -228,15 +236,18 @@ namespace AlterTools.BatchExport.Views.NWC
         private void LoadConfig()
         {
             using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
+
             if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
             IEnumerable<string> configs = File.ReadLines(openFileDialog.FileName);
-            Configs = new ObservableCollection<Config>(
-                configs.Where(e => e.EndsWith(".json") && File.Exists(e))
-                .Select(e => new Config(e)));
+
+            Configs = new ObservableCollection<Config>(configs.Where(e => e.EndsWith(".json") && File.Exists(e))
+                                                              .Select(e => new Config(e)));
 
             if (!Configs.Any())
+            {
                 MessageBox.Show(NO_FILES);
+            }
         }
 
         private RelayCommand _raiseBatchEventCommand;
@@ -249,27 +260,13 @@ namespace AlterTools.BatchExport.Views.NWC
         public override RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(obj => DeleteSelectedItems());
         private void DeleteSelectedItems()
         {
-            ListBoxItems
-                .Where(e => e.IsSelected)
-                .ToList()
-                .ForEach(item => ListBoxItems.Remove(item));
-            Configs
-                .Where(e => e.IsSelected)
-                .ToList()
-                .ForEach(e => Configs.Remove(e));
-        }
-    }
+            ListBoxItems.Where(e => e.IsSelected)
+                        .ToList()
+                        .ForEach(item => ListBoxItems.Remove(item));
 
-    public class Config(string name) : NotifyPropertyChanged, ISelectable
-    {
-        private readonly string _name = name;
-        public string Name => _name;
-
-        private bool _isSelected;
-        public bool IsSelected
-        {
-            get => _isSelected;
-            set => SetProperty(ref _isSelected, value);
+            Configs.Where(e => e.IsSelected)
+                   .ToList()
+                   .ForEach(e => Configs.Remove(e));
         }
     }
 }

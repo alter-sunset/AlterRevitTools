@@ -21,6 +21,7 @@ namespace AlterTools.BatchExport.Views
         public static OpenFileDialog OpenFileDialog(this DialogType dialogType)
         {
             (string defaultExt, string filter, bool multiselect) = GetOpenFileDialogSettings(dialogType);
+
             return new OpenFileDialog()
             {
                 Multiselect = multiselect,
@@ -32,6 +33,7 @@ namespace AlterTools.BatchExport.Views
         public static SaveFileDialog SaveFileDialog(this DialogType dialogType)
         {
             (string defaultExt, string filter, string fileName) = GetSaveFileDialogSettings(dialogType);
+
             return new SaveFileDialog()
             {
                 FileName = fileName,
@@ -47,6 +49,7 @@ namespace AlterTools.BatchExport.Views
                 DialogType.SingleText => (EXT_TXT, FILTER_TXT, false),
                 DialogType.SingleJson => (EXT_JSON, FILTER_JSON, false),
                 DialogType.MultiRevit => (EXT_RVT, FILTER_RVT, true),
+
                 _ => throw new ArgumentOutOfRangeException(nameof(dialogType), EXCEPTION),
             };
         }
@@ -57,6 +60,7 @@ namespace AlterTools.BatchExport.Views
                 DialogType.SingleJson => (EXT_JSON, FILTER_JSON, DEFAULT_FILE_NAME_JSON),
                 DialogType.RevitList => (EXT_TXT, FILTER_TXT, DEFAULT_FILE_NAME_TXT),
                 DialogType.SingleCsv => (EXT_CSV, FILTER_CSV, DEFAULT_FILE_NAME_CSV),
+
                 _ => throw new ArgumentOutOfRangeException(nameof(dialogType), EXCEPTION),
             };
         }

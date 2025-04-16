@@ -9,9 +9,8 @@ namespace AlterTools.BatchExport.Views.Migrate
         public MigrateViewModel(EventHandlerMigrate eventHandlerMigrate)
         {
             EventHandlerBase = eventHandlerMigrate;
-            HelpMessage =
-                Help.GetHelpDictionary().
-                    GetResultMessage(HelpMessageType.Migrate);
+            HelpMessage = Help.GetHelpDictionary()
+                              .GetResultMessage(HelpMessageType.Migrate);
         }
 
         private string _configPath;
@@ -27,7 +26,9 @@ namespace AlterTools.BatchExport.Views.Migrate
         {
             OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
             if (openFileDialog.ShowDialog() is DialogResult.OK)
+            {
                 ConfigPath = openFileDialog.FileName;
+            }
         }
     }
 }

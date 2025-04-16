@@ -8,6 +8,8 @@ namespace AlterTools.BatchExport.Core.Commands
     public class ExternalCommandLinkModels : IExternalCommand
     {
         public virtual Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements)
-            => CommandWrapper.Execute(ref msg, Forms.Link, commandData.Application);
+        {
+            return CommandWrapper.Execute(ref msg, Forms.Link, commandData.Application);
+        }
     }
 }

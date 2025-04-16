@@ -3,9 +3,6 @@ using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.IFC
 {
-    /// <summary>
-    /// Interaction logic for NWCExportView.xaml
-    /// </summary>
     public partial class IFCExportView : WindowBase
     {
         public IFCExportView(EventHandlerIFC eventHandlerIFC)

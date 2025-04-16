@@ -8,6 +8,8 @@ namespace AlterTools.BatchExport.Core.Commands
     public class ExternalCommandExportParametersMap : IExternalCommand
     {
         public virtual Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements)
-            => CommandWrapper.Execute(ref msg, Forms.Params);
+        {
+            return CommandWrapper.Execute(ref msg, Forms.Params);
+        }
     }
 }

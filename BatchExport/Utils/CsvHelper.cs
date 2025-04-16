@@ -23,12 +23,11 @@ namespace AlterTools.BatchExport.Utils
         }
 
         public void WriteElement(ParametersTable paramsTable)
-            => _stream.WriteLine(
-                    string.Join("|",
-                        new string[] { paramsTable.ModelName, paramsTable.ElementId.ToString() }.Concat(paramsTable.Parameters.Values)));
+        {
+            _stream.WriteLine(string.Join("|", new string[] { paramsTable.ModelName, paramsTable.ElementId.ToString() }.Concat(paramsTable.Parameters.Values)));
+        }
 
-        public void WriteWorkset(string modelName, string worksetName)
-            => _stream.WriteLine($"{modelName}|{worksetName}");
+        public void WriteWorkset(string modelName, string worksetName) => _stream.WriteLine($"{modelName}|{worksetName}");
 
         public void Dispose() => _stream.Dispose();
     }

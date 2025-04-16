@@ -23,20 +23,13 @@ namespace AlterTools.BatchExport.Utils
 
         private static readonly Dictionary<Forms, Func<Window>> _formCreators = new()
         {
-            { Forms.Detach,
-                () => new DetachModelsView(new EventHandlerDetach()) },
-            { Forms.IFC,
-                () => new IFCExportView(new EventHandlerIFC()) },
-            { Forms.NWC,
-                () => new NWCExportView(new EventHandlerNWC(), new EventHandlerNWC_Batch()) },
-            { Forms.Migrate,
-                () => new MigrateModelsView(new EventHandlerMigrate()) },
-            { Forms.Transmit,
-                () => new TransmitModelsView(new EventHandlerTransmit()) },
-            { Forms.Link,
-                () => new LinkModelsView(new EventHandlerLink(), GetWorksets()) },
-            { Forms.Params,
-                () => new ExportParamsView(new EventHandlerParams()) }
+            { Forms.Detach,     () => new DetachModelsView(     new EventHandlerDetach()                            )},
+            { Forms.IFC,        () => new IFCExportView(        new EventHandlerIFC()                               )},
+            { Forms.NWC,        () => new NWCExportView(        new EventHandlerNWC(), new EventHandlerNWC_Batch()  )},
+            { Forms.Migrate,    () => new MigrateModelsView(    new EventHandlerMigrate()                           )},
+            { Forms.Transmit,   () => new TransmitModelsView(   new EventHandlerTransmit()                          )},
+            { Forms.Link,       () => new LinkModelsView(       new EventHandlerLink(), GetWorksets()               )},
+            { Forms.Params,     () => new ExportParamsView(     new EventHandlerParams()                            )}
         };
 
         internal static void ShowForm(this Forms form, UIApplication uiApp)
@@ -60,14 +53,17 @@ namespace AlterTools.BatchExport.Utils
         }
 
         private static Workset[] GetWorksets()
-            => new FilteredWorksetCollector(_uiApp.ActiveUIDocument.Document)
-                .OfKind(WorksetKind.UserWorkset)
-                .ToWorksets()
-                .ToArray();
+        {
+            return new FilteredWorksetCollector(_uiApp.ActiveUIDocument.Document)
+                       .OfKind(WorksetKind.UserWorkset)
+                       .ToWorksets()
+                       .ToArray();
+        }
 
         private static void CloseCurrentForm()
         {
             if (_myForm is null) return;
+
             _myForm.Close();
             _myForm = null;
         }

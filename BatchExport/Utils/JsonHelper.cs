@@ -9,14 +9,19 @@ namespace AlterTools.BatchExport.Utils
     public static class JsonHelper<T>
     {
         public static T DeserializeResource(string path)
-            => JsonConvert.DeserializeObject<T>(
+        {
+            return JsonConvert.DeserializeObject<T>(
                 new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(path)).ReadToEnd());
+        }
 
         public static T DeserializeConfig(FileStream file)
-            => HandleSerialization(() => JsonConvert.DeserializeObject<T>(new StreamReader(file).ReadToEnd()));
+        {
+            return HandleSerialization(() => JsonConvert.DeserializeObject<T>(new StreamReader(file).ReadToEnd()));
+        }
 
         public static void SerializeConfig(T value, string path)
-            => HandleSerialization(() =>
+        {
+            HandleSerialization(() =>
             {
                 using FileStream stream = new(path, FileMode.Create, FileAccess.Write, FileShare.None);
                 using StreamWriter writer = new(stream);
@@ -25,6 +30,7 @@ namespace AlterTools.BatchExport.Utils
 
                 return default;
             });
+        }
 
         private static T HandleSerialization(Func<T> action)
         {

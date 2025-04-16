@@ -25,12 +25,13 @@ namespace AlterTools.BatchExport.Core.Commands
             string[] files = Directory.GetFiles(folderDialog.SelectedPath, "*.rvt", SearchOption.AllDirectories);
 
             using CsvHelper csvHelper = new(resultingFile);
+
             foreach (string file in files)
             {
                 string modelName = Path.GetFileName(file);
 
                 IEnumerable<string> worksets = WorksharingUtils.GetUserWorksetInfo(ModelPathUtils.ConvertUserVisiblePathToModelPath(file))
-                    .Select(w => w.Name);
+                                                               .Select(w => w.Name);
 
                 foreach (string workset in worksets)
                 {
