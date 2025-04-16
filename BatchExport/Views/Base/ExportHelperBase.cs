@@ -17,7 +17,10 @@ namespace AlterTools.BatchExport.Views.Base
         public void BatchExportModels(IConfigBase_Extended iConfig, UIApplication uiApp, ref Logger log)
         {
             using Application app = uiApp.Application;
+            using ErrorSuppressor errorSuppressor = new(uiApp);
+
             string[] models = iConfig.Files;
+
             ListBoxItem[] items = GetListBoxItems(iConfig);
 
             if (iConfig is ViewModelBase_Extended viewModel)
@@ -29,8 +32,9 @@ namespace AlterTools.BatchExport.Views.Base
 
             foreach (string file in models)
             {
-                log.LineBreak();
                 DateTime startTime = DateTime.Now;
+
+                log.LineBreak();
                 log.Start(file);
 
                 if (!File.Exists(file))
@@ -38,7 +42,7 @@ namespace AlterTools.BatchExport.Views.Base
                     HandleFileNotFound(file, items, log);
                     continue;
                 }
-                using ErrorSuppressor errorSuppressor = new(uiApp);
+
                 Document doc = OpenDocument(file, app, iConfig, log, items);
                 if (doc is null) continue;
 
@@ -59,7 +63,9 @@ namespace AlterTools.BatchExport.Views.Base
                 finally
                 {
                     CloseDocument(doc, ref isFuckedUp, items, file, log);
+
                     log.TimeForFile(startTime);
+
                     Thread.Sleep(500);
                 }
             }
@@ -68,19 +74,26 @@ namespace AlterTools.BatchExport.Views.Base
             log.ErrorTotal();
             log.TimeTotal();
         }
+
         private static ListBoxItem[] GetListBoxItems(IConfigBase_Extended iConfig)
-            => iConfig is ViewModelBase_Extended viewModel
-                ? viewModel.ListBoxItems.ToArray() : null;
+        {
+            return iConfig is ViewModelBase_Extended viewModel
+                ? viewModel.ListBoxItems.ToArray()
+                : null;
+        }
+
         private static void HandleFileNotFound(string file, ListBoxItem[] items, Logger log)
         {
             log.Error($"Файла {file} не существует. Ты совсем Туттуру?");
             UpdateItemBackground(items, file, Brushes.Red);
         }
+
         private static void UpdateItemBackground(ListBoxItem[] items, string file, Brush color)
         {
             ListBoxItem item = items.FirstOrDefault(e => e.Content.ToString() == file);
             if (item is not null) item.Background = color;
         }
+
         private static Document OpenDocument(string file, Application app, IConfigBase_Extended iConfig, Logger log, ListBoxItem[] items)
         {
             try
@@ -91,6 +104,7 @@ namespace AlterTools.BatchExport.Views.Base
                 TransmissionData trData = File.Exists(fileInfo.CentralPath) //ensures that central model exists and reachable
                     ? TransmissionData.ReadTransmissionData(modelPath)
                     : null;
+
                 bool transmitted = trData is not null && trData.IsTransmitted;
 
                 WorksetConfiguration worksetConfiguration = fileInfo.IsWorkshared
@@ -106,10 +120,13 @@ namespace AlterTools.BatchExport.Views.Base
             catch (Exception ex)
             {
                 log.Error("Файл не открылся. ", ex);
+
                 UpdateItemBackground(items, file, Brushes.Red);
+
                 return null;
             }
         }
+
         private static void CloseDocument(Document doc, ref bool isFuckedUp, ListBoxItem[] items, string file, Logger log)
         {
             if (doc is null) return;
@@ -117,8 +134,7 @@ namespace AlterTools.BatchExport.Views.Base
             try
             {
                 doc.FreeTheModel();
-                if (!isFuckedUp)
-                    log.Success("Всё ок.");
+                if (!isFuckedUp) log.Success("Всё ок.");
             }
             catch (Exception ex)
             {
@@ -129,32 +145,44 @@ namespace AlterTools.BatchExport.Views.Base
             {
                 doc.Close(false);
                 doc.Dispose();
-                UpdateItemBackground(items, file, isFuckedUp ? Brushes.Red : Brushes.Green);
+                UpdateItemBackground(items,
+                                     file,
+                                     isFuckedUp ? Brushes.Red : Brushes.Green);
             }
         }
 
         public virtual void ExportModel(IConfigBase_Extended iConfig, Document doc, ref bool isFuckedUp, ref Logger log) { }
+
         public static void Export(IConfigBase_Extended iConfig,
-            Document doc, object options,
-            ref Logger log, ref bool isFuckedUp)
+                                  Document doc,
+                                  object options,
+                                  ref Logger log,
+                                  ref bool isFuckedUp)
         {
             string folderPath = iConfig.FolderPath;
-            string fileExportName = $"{iConfig.NamePrefix}" +
-                $"{doc.Title.RemoveDetach()}" +
-                $"{iConfig.NamePostfix}";
-            string fileWithExtension = $"{fileExportName}" +
-                $"{(options is NavisworksExportOptions ? ".nwc" : ".ifc")}";
-            string fileName = Path.Combine(folderPath, fileWithExtension);
 
+            string fileExportName = $"{iConfig.NamePrefix}" +
+                                    $"{doc.Title.RemoveDetach()}" +
+                                    $"{iConfig.NamePostfix}";
+
+            string fileWithExtension = $"{fileExportName}" +
+                                       $"{(options is NavisworksExportOptions ? ".nwc" : ".ifc")}";
+
+            string fileName = Path.Combine(folderPath, fileWithExtension);
             string oldHash = File.Exists(fileName) ? fileName.MD5Hash() : null;
+
             if (oldHash is not null) log.Hash(oldHash);
 
             try
             {
                 if (options is NavisworksExportOptions navisOptions)
+                {
                     doc?.Export(folderPath, fileExportName, navisOptions);
+                }
                 else
+                {
                     doc?.Export(folderPath, fileExportName, options as IFCExportOptions);
+                }
             }
             catch (Exception ex)
             {
@@ -179,6 +207,7 @@ namespace AlterTools.BatchExport.Views.Base
                 isFuckedUp = true;
             }
         }
+
         public static bool IsViewEmpty(IConfigBase_Extended iConfig, Document doc, ref Logger log, ref bool isFuckedUp)
         {
             if (iConfig is NWC_ViewModel model && model.ExportLinks) return false;
@@ -193,9 +222,12 @@ namespace AlterTools.BatchExport.Views.Base
 
             return false;
         }
+
         private static Element GetView(IConfigBase_Extended iConfig, Document doc)
-            => new FilteredElementCollector(doc)
-                .OfClass(typeof(View3D))
-                .FirstOrDefault(e => e.Name == iConfig.ViewName && !((View3D)e).IsTemplate);
+        {
+            return new FilteredElementCollector(doc)
+                       .OfClass(typeof(View3D))
+                       .FirstOrDefault(e => e.Name == iConfig.ViewName && !((View3D)e).IsTemplate);
+        }
     }
 }

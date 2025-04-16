@@ -14,20 +14,26 @@ namespace AlterTools.BatchExport.Views.IFC
 
             IFCExportOptions options = IFC_ExportOptions(configIfc, doc);
 
-            using Transaction t = new(doc);
-            t.Start("Экспорт IFC");
-            Export(iConfig, doc, options, ref log, ref isFuckedUp);
-            t.Commit();
+            using (Transaction t = new(doc))
+            {
+                t.Start("Экспорт IFC");
+
+                Export(iConfig, doc, options, ref log, ref isFuckedUp);
+
+                t.Commit();
+            }
         }
         private static IFCExportOptions IFC_ExportOptions(IConfigIFC config, Document doc) => new()
         {
             ExportBaseQuantities = config.ExportBaseQuantities,
             FamilyMappingFile = config.FamilyMappingFile,
             FileVersion = config.FileVersion,
+
             FilterViewId = new FilteredElementCollector(doc)
-                .OfClass(typeof(View))
-                .FirstOrDefault(e => e.Name == config.ViewName)
-                .Id,
+                               .OfClass(typeof(View))
+                               .FirstOrDefault(e => e.Name == config.ViewName)
+                               .Id,
+
             SpaceBoundaryLevel = config.SpaceBoundaryLevel,
             WallAndColumnSplitting = config.WallAndColumnSplitting
         };

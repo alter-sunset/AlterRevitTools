@@ -12,15 +12,16 @@ namespace AlterTools.BatchExport.Views.Params
     public class ParamsViewModel : ViewModelBase, IConfigParams
     {
         private const string DEFAULT_PARAMS = "ADSK_Этаж;ADSK_Номер здания;ADSK_Комплект чертежей;";
+
         public ParamsViewModel(EventHandlerParams eventHandlerParams)
         {
             EventHandlerBase = eventHandlerParams;
-            HelpMessage =
-                Help.GetHelpDictionary().
-                GetResultMessage(HelpMessageType.ParamsTitle,
-                    HelpMessageType.Load,
-                    HelpMessageType.Config,
-                    HelpMessageType.Start);
+            HelpMessage = Help.GetHelpDictionary()
+                              .GetResultMessage(HelpMessageType.ParamsTitle,
+                                                HelpMessageType.Load,
+                                                HelpMessageType.Config,
+                                                HelpMessageType.Start);
+
             ParamsNames = DEFAULT_PARAMS;
         }
 
@@ -44,7 +45,9 @@ namespace AlterTools.BatchExport.Views.Params
         private void BrowseCsv()
         {
             SaveFileDialog saveFileDialog = DialogType.SingleCsv.SaveFileDialog();
+
             if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
+
             CsvPath = saveFileDialog.FileName;
         }
 
@@ -53,9 +56,11 @@ namespace AlterTools.BatchExport.Views.Params
         private void LoadList()
         {
             OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
+
             if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
             using FileStream file = File.OpenRead(openFileDialog.FileName);
+
             ParamsFormDeserilaizer(JsonHelper<ParamsForm>.DeserializeConfig(file));
         }
         private void ParamsFormDeserilaizer(ParamsForm form)
@@ -64,9 +69,8 @@ namespace AlterTools.BatchExport.Views.Params
 
             ParamsNames = string.Join(";", form.ParametersNames);
             CsvPath = form.CsvPath;
-            ListBoxItems = new ObservableCollection<ListBoxItem>(form.Files
-                .FilterRevitFiles()
-                .Select(DefaultListBoxItem));
+            ListBoxItems = new ObservableCollection<ListBoxItem>(form.Files.FilterRevitFiles()
+                                                                           .Select(DefaultListBoxItem));
         }
 
         private RelayCommand _saveListCommand;
@@ -87,19 +91,16 @@ namespace AlterTools.BatchExport.Views.Params
         {
             CsvPath = CsvPath,
             ParametersNames = ParametersNames,
-            Files = ListBoxItems
-                .Select(cont => cont.Content.ToString() ?? string.Empty)
-                .ToArray()
+            Files = ListBoxItems.Select(cont => cont.Content.ToString() ?? string.Empty)
+                                .ToArray()
         };
 
         private RelayCommand _eraseCommand;
-        public override RelayCommand EraseCommand
-            => _eraseCommand ??= new RelayCommand(
-                obj =>
-                {
-                    ListBoxItems.Clear();
-                    ParamsNames = DEFAULT_PARAMS;
-                    CsvPath = string.Empty;
-                });
+        public override RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(obj =>
+        {
+            ListBoxItems.Clear();
+            ParamsNames = DEFAULT_PARAMS;
+            CsvPath = string.Empty;
+        });
     }
 }

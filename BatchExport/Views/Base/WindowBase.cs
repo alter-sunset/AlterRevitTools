@@ -15,6 +15,7 @@ namespace AlterTools.BatchExport.Views.Base
         {
             if (sender is not ListBox) return;
             if (e.RemovedItems.Count != 0 && e.RemovedItems[0] is not ISelectable) return;
+
             // Unselect previously selected entries            
             foreach (ISelectable entry in e.RemovedItems)
             {
@@ -22,6 +23,7 @@ namespace AlterTools.BatchExport.Views.Base
             }
 
             if (e.AddedItems.Count != 0 && e.AddedItems[0] is not ISelectable) return;
+
             // Select newly selected entries
             foreach (ISelectable entry in e.AddedItems)
             {

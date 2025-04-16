@@ -9,8 +9,8 @@ namespace AlterTools.BatchExport.Views.NWC
     {
         public override void ExportModel(IConfigBase_Extended iConfig, Document doc, ref bool isFuckedUp, ref Logger log)
         {
-            if (iConfig is not IConfigNWC configNwc
-                || IsViewEmpty(iConfig, doc, ref log, ref isFuckedUp)) return;
+            if (iConfig is not IConfigNWC configNwc) return;
+            if (IsViewEmpty(iConfig, doc, ref log, ref isFuckedUp)) return;
 
             NavisworksExportOptions options = NWC_ExportOptions(configNwc, doc);
 
@@ -29,24 +29,27 @@ namespace AlterTools.BatchExport.Views.NWC
                 ExportRoomGeometry = config.ExportRoomGeometry,
                 ExportUrls = config.ExportUrls,
                 FindMissingMaterials = config.FindMissingMaterials,
+                Coordinates = config.Coordinates,
+                Parameters = config.Parameters,
+                ExportScope = config.ExportScopeView
+                    ? NavisworksExportScope.View
+                    : NavisworksExportScope.Model,
+
 #if R20_OR_GREATER
                 ConvertLights = config.ConvertLights,
                 ConvertLinkedCADFormats = config.ConvertLinkedCADFormats,
                 FacetingFactor = config.FacetingFactor,
 #endif
-                Coordinates = config.Coordinates,
-                Parameters = config.Parameters,
-                ExportScope = config.ExportScopeView
-                    ? NavisworksExportScope.View
-                    : NavisworksExportScope.Model
-
             };
+
             if (config.ExportScopeView)
+            {
                 options.ViewId = new FilteredElementCollector(doc)
-                        .OfClass(typeof(View3D))
-                        .FirstOrDefault(e => e.Name == config.ViewName
-                            && !((View3D)e).IsTemplate)
-                        .Id;
+                                     .OfClass(typeof(View3D))
+                                     .FirstOrDefault(e => e.Name == config.ViewName && !((View3D)e).IsTemplate)
+                                     .Id;
+            }
+
             return options;
         }
     }

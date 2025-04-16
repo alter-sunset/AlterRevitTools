@@ -16,14 +16,13 @@ namespace AlterTools.BatchExport.Views.IFC
         public IFC_ViewModel(EventHandlerIFC eventHandlerIFC)
         {
             EventHandlerBase = eventHandlerIFC;
-            HelpMessage =
-                Help.GetHelpDictionary().
-                GetResultMessage(HelpMessageType.IFCTitle,
-                    HelpMessageType.Load,
-                    HelpMessageType.Folder,
-                    HelpMessageType.Naming,
-                    HelpMessageType.Config,
-                    HelpMessageType.Start);
+            HelpMessage = Help.GetHelpDictionary()
+                              .GetResultMessage(HelpMessageType.IFCTitle,
+                                                HelpMessageType.Load,
+                                                HelpMessageType.Folder,
+                                                HelpMessageType.Naming,
+                                                HelpMessageType.Config,
+                                                HelpMessageType.Start);
         }
 
         private string _mapping = string.Empty;
@@ -39,6 +38,7 @@ namespace AlterTools.BatchExport.Views.IFC
         private void LoadMapping()
         {
             using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
+
             if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
             try
@@ -70,9 +70,11 @@ namespace AlterTools.BatchExport.Views.IFC
         private void LoadList()
         {
             OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
+
             if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
             using FileStream file = File.OpenRead(openFileDialog.FileName);
+
             IFCFormDeserilaizer(JsonHelper<IFCForm>.DeserializeConfig(file));
         }
         private void IFCFormDeserilaizer(IFCForm form)
@@ -101,6 +103,7 @@ namespace AlterTools.BatchExport.Views.IFC
         private void SaveList()
         {
             using IFCForm form = IFCFormSerializer();
+
             SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
 
             if (saveFileDialog.ShowDialog() is not DialogResult.OK)
@@ -128,9 +131,8 @@ namespace AlterTools.BatchExport.Views.IFC
             ExportView = ExportScopeView,
             ViewName = ViewName,
 
-            Files = ListBoxItems
-                .Select(cont => cont.Content.ToString() ?? string.Empty)
-                .ToArray()
+            Files = ListBoxItems.Select(cont => cont.Content.ToString() ?? string.Empty)
+                                .ToArray()
         };
 
         private readonly IReadOnlyDictionary<IFCVersion, string> _ifcVersions = IFC_Context.IFCVersions;
