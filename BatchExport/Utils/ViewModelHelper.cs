@@ -72,7 +72,7 @@ namespace AlterTools.BatchExport.Utils
             {
                 MessageBoxResult result = MessageBox.Show(CREATE_FOLDER, "Добрый вечер", MessageBoxButton.YesNo);
 
-                if (result is MessageBoxResult.Yes)
+                if (MessageBoxResult.Yes == result)
                 {
                     Directory.CreateDirectory(folderPath);
                 }

@@ -18,14 +18,14 @@ namespace AlterTools.BatchExport.Utils
         {
             WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.OpenAllWorksets);
 
-            if (prefixes.Length == 0) return worksetConfiguration;
+            if (0 == prefixes.Length) return worksetConfiguration;
 
             List<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)
                                                          .Where(wp => prefixes.Any(wp.Name.StartsWith))
                                                          .Select(wp => wp.Id)
                                                          .ToList();
 
-            if (worksetIds.Count > 0) worksetConfiguration.Close(worksetIds);
+            if (0 < worksetIds.Count) worksetConfiguration.Close(worksetIds);
 
             return worksetConfiguration;
         }
@@ -72,7 +72,7 @@ namespace AlterTools.BatchExport.Utils
         {
             ICollection<ElementId> ids = ExternalFileUtils.GetAllExternalFileReferences(doc);
 
-            if (ids.Count == 0) return;
+            if (0 == ids.Count) return;
 
             using Transaction t = new(doc, "Delete all Links");
 
@@ -133,8 +133,8 @@ namespace AlterTools.BatchExport.Utils
                                     .ToElementIds()
                                     .FirstOrDefault();
 
-            if (typeId is null) return;
-            if (levelId is null) return;
+            if (null == typeId) return;
+            if (null == levelId) return;
 
             using Transaction t = new(doc, "Open worksets");
 
@@ -150,7 +150,11 @@ namespace AlterTools.BatchExport.Utils
                 // Change the workset of the cable tray
                 Parameter wsParam = ct.get_Parameter(BuiltInParameter.ELEM_PARTITION_PARAM);
 
-                if (wsParam is not null && !wsParam.IsReadOnly) wsParam.Set(workset.Id.IntegerValue);
+                if (null != wsParam
+                    && !wsParam.IsReadOnly)
+                {
+                    wsParam.Set(workset.Id.IntegerValue);
+                }
 
                 // Show the cable tray to open the workset
                 new UIDocument(doc).ShowElements(ct.Id);
@@ -164,7 +168,10 @@ namespace AlterTools.BatchExport.Utils
         public static void YesNoTaskDialog(string msg, Action action)
         {
             TaskDialogResult result = TaskDialog.Show("Ошибка", msg, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
-            if (result is TaskDialogResult.Yes) action?.Invoke();
+            if (TaskDialogResult.Yes == result)
+            {
+                action?.Invoke();
+            }
         }
         private static void SuppressAlert(this Transaction t)
         {
@@ -189,7 +196,7 @@ namespace AlterTools.BatchExport.Utils
 
                     previousCount = unusedElements.Count;
 
-                    if (previousCount == 0) break;
+                    if (0 == previousCount) break;
 
                     using (Transaction t = new(doc, "Purge unused"))
                     {
@@ -199,7 +206,7 @@ namespace AlterTools.BatchExport.Utils
 
                         t.Commit();
                     }
-                } while (previousCount > 0);
+                } while (0 < previousCount);
             }
             catch { }
         }
@@ -244,14 +251,16 @@ namespace AlterTools.BatchExport.Utils
 
         public static bool IsPhysicalElement(this Element e)
         {
-            if (e.Category is null || e.ViewSpecific) return false;
+            if (null == e.Category) return false;
+            if (e.ViewSpecific) return false;
             // exclude specific unwanted categories
 #if R24_OR_GREATER
             if (((BuiltInCategory)e.Category.Id.Value) == BuiltInCategory.OST_HVAC_Zones) return false;
 #else
-            if (((BuiltInCategory)e.Category.Id.IntegerValue) == BuiltInCategory.OST_HVAC_Zones) return false;
+            if (BuiltInCategory.OST_HVAC_Zones == ((BuiltInCategory)e.Category.Id.IntegerValue)) return false;
 #endif
-            return e.Category.CategoryType == CategoryType.Model && e.Category.CanAddSubcategory;
+            return CategoryType.Model == e.Category.CategoryType
+                && e.Category.CanAddSubcategory;
         }
     }
 }

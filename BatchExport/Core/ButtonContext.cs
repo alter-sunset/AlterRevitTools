@@ -38,7 +38,10 @@ namespace AlterTools.BatchExport.Core
                     LargeImage = GetImage(ImageLarge)
                 };
 
-                if (Availability) pbData.AvailabilityClassName = typeof(CommandAvailability).FullName;
+                if (Availability)
+                {
+                    pbData.AvailabilityClassName = typeof(CommandAvailability).FullName;
+                }
 
                 return pbData;
             }

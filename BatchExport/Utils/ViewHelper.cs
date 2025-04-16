@@ -62,7 +62,7 @@ namespace AlterTools.BatchExport.Utils
 
         private static void CloseCurrentForm()
         {
-            if (_myForm is null) return;
+            if (null == _myForm) return;
 
             _myForm.Close();
             _myForm = null;

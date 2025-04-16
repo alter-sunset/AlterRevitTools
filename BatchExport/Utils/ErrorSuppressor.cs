@@ -48,7 +48,7 @@ namespace AlterTools.BatchExport.Utils
             {
                 FailureSeverity fseverity = a.GetSeverity();
 
-                if (fseverity is FailureSeverity.Warning)
+                if (FailureSeverity.Warning == fseverity)
                 {
                     a.DeleteWarning(f);
                 }

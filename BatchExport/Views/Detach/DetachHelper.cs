@@ -13,7 +13,7 @@ namespace AlterTools.BatchExport.Views.Detach
             try
             {
                 Document doc = OpenDocumentHelper.OpenDocument(app, filePath, out bool isWorkshared);
-                if (doc is null) return;
+                if (null == doc) return;
 
                 string fileDetachedPath = GetDetachedFilePath(iConfigDetach, doc, filePath);
 
@@ -29,7 +29,8 @@ namespace AlterTools.BatchExport.Views.Detach
             string docTitle = doc.Title.RemoveDetach();
             string fileDetachedPath = Path.Combine(iConfigDetach.FolderPath, $"{docTitle}.rvt");
 
-            if (iConfigDetach is DetachViewModel detachViewModel && detachViewModel.RadioButtonMode == 2)
+            if (iConfigDetach is DetachViewModel detachViewModel
+                && 2 == detachViewModel.RadioButtonMode)
             {
                 fileDetachedPath = RenamePath(originalFilePath,
                                               RenameType.Folder,
@@ -57,15 +58,12 @@ namespace AlterTools.BatchExport.Views.Detach
 
             try
             {
-                string onlyTitle = Path.GetFileNameWithoutExtension(fileDetachedPath);
-                string folder = Path.GetDirectoryName(fileDetachedPath);
-                string extension = Path.GetExtension(fileDetachedPath);
-
                 Element view = new FilteredElementCollector(doc)
                                    .OfClass(typeof(View3D))
                                    .FirstOrDefault(e => e.Name == iConfigDetach.ViewName && !((View3D)e).IsTemplate);
 
-                if (view is not null && doc.IsViewEmpty(view))
+                if (null != view
+                    && doc.IsViewEmpty(view))
                 {
                     fileDetachedPath = RenamePath(fileDetachedPath, RenameType.Empty);
                 }
@@ -92,6 +90,9 @@ namespace AlterTools.BatchExport.Views.Detach
                 case RenameType.Empty:
                     title = $"EMPTY_{title}";
                     break;
+
+                default:
+                    break;
             }
 
             return Path.Combine(folder, $"{title}{extension}");
@@ -99,14 +100,24 @@ namespace AlterTools.BatchExport.Views.Detach
 
         private static void ProcessDocument(Document doc, IConfigDetach iConfigDetach)
         {
-            if (iConfigDetach.RemoveLinks) doc.DeleteAllLinks();
+            if (iConfigDetach.RemoveLinks)
+            {
+                doc.DeleteAllLinks();
+            }
 
 #if R22_OR_GREATER
-            if (iConfigDetach.RemoveEmptyWorksets && doc.IsWorkshared) doc.RemoveEmptyWorksets();
+            if (iConfigDetach.RemoveEmptyWorksets
+                && doc.IsWorkshared)
+            {
+                doc.RemoveEmptyWorksets();
+            }
 #endif
 
 #if R24_OR_GREATER
-            if (iConfigDetach.Purge) doc.PurgeAll();
+            if (iConfigDetach.Purge)
+            {
+                doc.PurgeAll();
+            }
 #endif
         }
 
@@ -166,7 +177,7 @@ namespace AlterTools.BatchExport.Views.Detach
         private static void UpdateTransmissionData(ModelPath modelPath)
         {
             TransmissionData transData = TransmissionData.ReadTransmissionData(modelPath);
-            if (transData is null) return;
+            if (null == transData) return;
 
             transData.IsTransmitted = true;
 

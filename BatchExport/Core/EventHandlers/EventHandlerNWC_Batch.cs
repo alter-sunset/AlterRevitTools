@@ -16,7 +16,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
         {
             if (iConfigBase is not NWC_ViewModel nwcVM) return;
 
-            if (nwcVM.Configs.Count == 0)
+            if (0 == nwcVM.Configs.Count)
             {
                 MessageBox.Show("Загрузите конфиги.");
                 return;
