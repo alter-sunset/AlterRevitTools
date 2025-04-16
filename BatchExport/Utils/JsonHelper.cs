@@ -20,6 +20,7 @@ namespace AlterTools.BatchExport.Utils
             {
                 using FileStream stream = new(path, FileMode.Create, FileAccess.Write, FileShare.None);
                 using StreamWriter writer = new(stream);
+
                 writer.Write(JsonConvert.SerializeObject(value, Formatting.Indented));
 
                 return default;

@@ -1,7 +1,8 @@
-﻿using AlterTools.BatchExport.Utils;
-using AlterTools.BatchExport.Views;
-using Autodesk.Revit.DB;
+﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using Autodesk.Revit.Attributes;
+using AlterTools.BatchExport.Utils;
+using AlterTools.BatchExport.Views;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -9,9 +10,10 @@ using System.Windows.Forms;
 
 namespace AlterTools.BatchExport.Core.Commands
 {
-    public static class ExtractWorksetsCommand
+    [Transaction(TransactionMode.ReadOnly)]
+    public class ExternalCommandExtractWorkset : IExternalCommand
     {
-        public static Result Execute()
+        public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             FolderBrowserDialog folderDialog = new();
             if (folderDialog.ShowDialog() is not DialogResult.OK) return Result.Cancelled;

@@ -7,13 +7,13 @@ namespace AlterTools.BatchExport.Utils
 {
     public class CsvHelper : IDisposable
     {
+        private static readonly string[] _headerBase = new string[] { "ModelName", "ElementId" };
         private readonly StreamWriter _stream;
-        private static readonly string[] headerBase = new string[] { "ModelName", "ElementId" };
 
         public CsvHelper(string csvFilePath, string[] parametersNames)
         {
             _stream = new(csvFilePath);
-            _stream.WriteLine(string.Join("|", headerBase.Concat(parametersNames))); // Header
+            _stream.WriteLine(string.Join("|", _headerBase.Concat(parametersNames))); // Header
         }
 
         public CsvHelper(string csvFilePath)

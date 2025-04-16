@@ -15,7 +15,7 @@ namespace AlterTools.DriveFromOutside.Events.Detach
             string[] files = iConfigDetach.Files;
             foreach (string file in files)
             {
-                using ErrorSwallower errorSwallower = new(uiApp);
+                using ErrorSuppressor errorSuppressor = new(uiApp);
                 if (!File.Exists(file)) continue;
                 iConfigDetach.DetachModel(app, file);
             }

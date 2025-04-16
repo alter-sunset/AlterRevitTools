@@ -7,8 +7,10 @@ namespace AlterTools.BatchExport.Views.Base
     public class NotifyPropertyChanged : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
+
         public void OnPropertyChanged([CallerMemberName] string propertyName = "")
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
         public void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
         {
             if (value is string stringValue)

@@ -13,16 +13,18 @@ namespace AlterTools.BatchExport.Core.EventHandlers
     {
         public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not ParamsViewModel paramsVM || !paramsVM.IsEverythingFilled()) return;
+            if (iConfigBase is not ParamsViewModel paramsVM) return;
+            if (!paramsVM.IsEverythingFilled()) return;
 
             using (CsvHelper csvHelper = new(paramsVM.CsvPath, paramsVM.ParametersNames))
             {
-                using ErrorSwallower errorSwallower = new(uiApp);
+                using ErrorSuppressor errorSuppressor = new(uiApp);
                 using Application app = uiApp.Application;
 
                 List<ListBoxItem> listItems = paramsVM.ListBoxItems.ToList();
                 listItems.ForEach(e => e.ExportParameters(app, paramsVM, csvHelper));
             }
+
             paramsVM.Finisher(id: "ExportParametersFinished");
         }
     }

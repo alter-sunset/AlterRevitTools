@@ -13,10 +13,10 @@ namespace AlterTools.BatchExport.Core.EventHandlers
     {
         public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not TransmitViewModel transmitVM || !transmitVM.IsEverythingFilled()) return;
+            if (iConfigBase is not TransmitViewModel transmitVM) return;
+            if (!transmitVM.IsEverythingFilled()) return;
 
             string folderPath = transmitVM.FolderPath;
-            bool isSameFolder = transmitVM.IsSameFolder;
 
             foreach (ListBoxItem item in transmitVM.ListBoxItems)
             {
@@ -29,11 +29,13 @@ namespace AlterTools.BatchExport.Core.EventHandlers
                 }
 
                 string transmittedFilePath = Path.Combine(folderPath, Path.GetFileName(filePath));
+
                 File.Copy(filePath, transmittedFilePath, true);
 
                 ModelPath transmittedModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(transmittedFilePath);
-                transmittedModelPath.UnloadRevitLinks(folderPath, isSameFolder);
+                transmittedModelPath.UnloadRevitLinks(folderPath, transmitVM.IsSameFolder);
             }
+
             transmitVM.Finisher(id: "TransmitModelsFinished");
         }
     }

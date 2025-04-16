@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 using AlterTools.BatchExport.Utils;
+using AlterTools.BatchExport.Core.Commands;
 
 namespace AlterTools.BatchExport.Core
 {

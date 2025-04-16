@@ -17,6 +17,7 @@ namespace AlterTools.BatchExport.Utils
         public static WorksetConfiguration CloseWorksetsWithLinks(this ModelPath modelPath, params string[] prefixes)
         {
             WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.OpenAllWorksets);
+
             if (prefixes.Length == 0) return worksetConfiguration;
 
             List<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)
@@ -26,8 +27,10 @@ namespace AlterTools.BatchExport.Utils
 
             if (worksetIds.Count > 0)
                 worksetConfiguration.Close(worksetIds);
+
             return worksetConfiguration;
         }
+
         /// <summary>
         /// Checks whether given view has no visible objects 
         /// </summary>
@@ -36,9 +39,11 @@ namespace AlterTools.BatchExport.Utils
         public static bool IsViewEmpty(this Document doc, Element element)
         {
             View3D view = element as View3D;
+
             try
             {
                 using FilteredElementCollector collector = new(doc, view.Id);
+
                 return !collector.Where(e => e.Category != null
                         && e.GetType() != typeof(RevitLinkInstance))
                     .Any(e => e.CanBeHidden(view));
@@ -48,30 +53,32 @@ namespace AlterTools.BatchExport.Utils
                 return true;
             }
         }
+
         /// <summary>
         /// Relinquish ownership of all possible elements in the doc
         /// </summary>
         public static void FreeTheModel(this Document doc)
         {
-            RelinquishOptions relinquishOptions = new(true);
-            TransactWithCentralOptions transactWithCentralOptions = new();
             try
             {
-                WorksharingUtils.RelinquishOwnership(doc, relinquishOptions, transactWithCentralOptions);
+                WorksharingUtils.RelinquishOwnership(doc, new RelinquishOptions(true), new TransactWithCentralOptions());
             }
             catch { }
         }
+
         /// <summary>
         /// Delete all possible links from the doc 
         /// </summary>
         public static void DeleteAllLinks(this Document doc)
         {
             ICollection<ElementId> ids = ExternalFileUtils.GetAllExternalFileReferences(doc);
+
             if (ids.Count == 0) return;
 
             using Transaction t = new(doc, "Delete all Links");
+
             t.Start();
-            t.SwallowAlert();
+            t.SuppressAlert();
 
             foreach (ElementId id in ids)
             {
@@ -81,15 +88,20 @@ namespace AlterTools.BatchExport.Utils
                 }
                 catch { }
             }
+
             t.Commit();
         }
+
         /// <summary>
         /// Returns string with MD5 Hash of given file
         /// </summary>
         public static string MD5Hash(this string fileName)
         {
-            if (string.IsNullOrEmpty(fileName) || !File.Exists(fileName)) return null;
+            if (string.IsNullOrEmpty(fileName)) return null;
+            if (!File.Exists(fileName)) return null;
+
             using MD5 md5 = MD5.Create();
+
             try
             {
                 using FileStream stream = File.OpenRead(fileName);
@@ -100,6 +112,7 @@ namespace AlterTools.BatchExport.Utils
                 return null;
             }
         }
+
         /// <summary>
         /// Open all worksets in a doc in a very crippled way
         /// </summary>
@@ -121,9 +134,11 @@ namespace AlterTools.BatchExport.Utils
                 .ToElementIds()
                 .FirstOrDefault();
 
-            if (typeId is null || levelId is null) return;
+            if (typeId is null) return;
+            if (levelId is null) return;
 
             using Transaction t = new(doc, "Open worksets");
+
             t.Start();
 
             // Create a temporary cable tray
@@ -135,6 +150,7 @@ namespace AlterTools.BatchExport.Utils
 
                 // Change the workset of the cable tray
                 Parameter wsParam = ct.get_Parameter(BuiltInParameter.ELEM_PARTITION_PARAM);
+
                 if (wsParam is not null && !wsParam.IsReadOnly)
                     wsParam.Set(workset.Id.IntegerValue);
 
@@ -149,22 +165,23 @@ namespace AlterTools.BatchExport.Utils
         }
         public static void YesNoTaskDialog(string msg, Action action)
         {
-            TaskDialogResult result = TaskDialog.Show("Ошибка", msg, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
-            if (result is TaskDialogResult.Yes)
+            if (TaskDialog.Show("Ошибка", msg, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No) is TaskDialogResult.Yes)
                 action?.Invoke();
         }
-        private static void SwallowAlert(this Transaction t)
+        private static void SuppressAlert(this Transaction t)
         {
             FailureHandlingOptions failOpt = t.GetFailureHandlingOptions();
-            failOpt.SetFailuresPreprocessor(new CopyWatchAlertSwallower());
+            failOpt.SetFailuresPreprocessor(new CopyWatchAlertSuppressor());
             t.SetFailureHandlingOptions(failOpt);
         }
+
 #if R24_OR_GREATER
         public static void PurgeAll(this Document doc)
         {
             try
             {
                 int previousCount;
+
                 do
                 {
                     HashSet<ElementId> unusedElements = doc.GetUnusedElements(new HashSet<ElementId>())
@@ -173,36 +190,47 @@ namespace AlterTools.BatchExport.Utils
                         .ToHashSet();
 
                     previousCount = unusedElements.Count;
+
                     if (previousCount == 0) break;
 
-                    using Transaction t = new(doc, "Purge unused");
-                    t.Start();
-                    doc.Delete(unusedElements);
-                    t.Commit();
+                    using (Transaction t = new(doc, "Purge unused"))
+                    {
+                        t.Start();
+
+                        doc.Delete(unusedElements);
+
+                        t.Commit();
+                    }
                 } while (previousCount > 0);
             }
             catch { }
         }
 #endif
+
 #if R22_OR_GREATER
         public static void RemoveEmptyWorksets(this Document doc)
         {
-            DeleteWorksetSettings settings = new();
             List<WorksetId> worksets = new FilteredWorksetCollector(doc)
                 .OfKind(WorksetKind.UserWorkset)
                 .ToWorksetIds()
                 .Where(doc.IsWorksetEmpty)
                 .ToList();
 
-            using Transaction t = new(doc);
-            t.Start("Remove empty worksets");
-            worksets.ForEach(workset => WorksetTable.DeleteWorkset(doc, workset, settings));
-            t.Commit();
+            using (Transaction t = new(doc))
+            {
+                t.Start("Remove empty worksets");
+
+                worksets.ForEach(workset => WorksetTable.DeleteWorkset(doc, workset, new DeleteWorksetSettings()));
+
+                t.Commit();
+            }
         }
+
         private static bool IsWorksetEmpty(this Document doc, WorksetId workset)
             => !new FilteredElementCollector(doc)
                 .WherePasses(new ElementWorksetFilter(workset)).Any();
 #endif
+
         /// <summary>
         /// Return parameter value as string with correct null check
         /// </summary>

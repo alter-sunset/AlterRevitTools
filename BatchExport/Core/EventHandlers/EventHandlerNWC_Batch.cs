@@ -14,7 +14,8 @@ namespace AlterTools.BatchExport.Core.EventHandlers
     {
         public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not NWC_ViewModel nwcVM || nwcVM.Configs.Count == 0)
+            if (iConfigBase is not NWC_ViewModel nwcVM) return;
+            if (nwcVM.Configs.Count == 0)
             {
                 MessageBox.Show("Загрузите конфиги.");
                 return;
@@ -27,22 +28,28 @@ namespace AlterTools.BatchExport.Core.EventHandlers
                 try
                 {
                     using FileStream file = File.OpenRead(config.Name);
+
                     NWCForm form = JsonConvert.DeserializeObject<NWCForm>(new StreamReader(file).ReadToEnd());
+
                     nwcVM.NWCFormDeserilaizer(form);
                 }
                 catch
                 {
                     continue;
                 }
+
                 Logger log = new(nwcVM.FolderPath);
 
                 NWCHelper nwcHelper = new();
                 nwcHelper.BatchExportModels(nwcVM, uiApp, ref log);
+
                 log.Dispose();
+
                 Thread.Sleep(1000);
             }
 
             string msg = $"Задание выполнено. Всего затрачено времени:{DateTime.Now - timeStart}";
+
             nwcVM.Finisher(id: "ExportBatchNWCFinished", msg);
         }
     }

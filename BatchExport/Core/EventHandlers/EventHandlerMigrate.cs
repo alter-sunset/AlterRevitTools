@@ -11,11 +11,13 @@ namespace AlterTools.BatchExport.Core.EventHandlers
     {
         public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not MigrateViewModel migrateVM || !MigrateHelper.IsConfigPathValid(migrateVM.ConfigPath))
+            if (iConfigBase is not MigrateViewModel migrateVM) return;
+            if (!MigrateHelper.IsConfigPathValid(migrateVM.ConfigPath))
             {
                 MessageBox.Show("Предоставьте ссылку на конфиг");
                 return;
             }
+
             List<string> failedFiles = MigrateHelper.ProcessFiles(migrateVM.ConfigPath, uiApp.Application);
 
             string msg = failedFiles.Count > 0
