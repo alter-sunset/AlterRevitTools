@@ -5,7 +5,7 @@ using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.IFC
 {
-    public class IFCHelper : ExportHelperBase
+    public class IfcHelper : ExportHelperBase
     {
         protected override void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp, ref Logger log)
         {
@@ -14,14 +14,12 @@ namespace AlterTools.BatchExport.Views.IFC
 
             IFCExportOptions options = IFC_ExportOptions(configIfc, doc);
 
-            using (Transaction tr = new(doc))
-            {
-                tr.Start("Экспорт IFC");
+            using Transaction tr = new(doc);
+            tr.Start("Экспорт IFC");
 
-                Export(iConfig, doc, options, ref log, ref isFuckedUp);
+            Export(iConfig, doc, options, ref log, ref isFuckedUp);
 
-                tr.Commit();
-            }
+            tr.Commit();
         }
         private static IFCExportOptions IFC_ExportOptions(IConfigIFC config, Document doc) => new()
         {

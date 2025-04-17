@@ -30,7 +30,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
                 {
                     using FileStream file = File.OpenRead(config.Name);
 
-                    NWCForm form = JsonConvert.DeserializeObject<NWCForm>(new StreamReader(file).ReadToEnd());
+                    NwcForm form = JsonConvert.DeserializeObject<NwcForm>(new StreamReader(file).ReadToEnd());
 
                     nwcVm.NWCFormDeserilaizer(form);
                 }

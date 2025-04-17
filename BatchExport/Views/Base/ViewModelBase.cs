@@ -16,7 +16,7 @@ namespace AlterTools.BatchExport.Views.Base
 
         private ObservableCollection<ListBoxItem> _listBoxItems = [];
 
-        public virtual ObservableCollection<ListBoxItem> ListBoxItems
+        public ObservableCollection<ListBoxItem> ListBoxItems
         {
             get => _listBoxItems;
             protected set => SetProperty(ref _listBoxItems, value);
@@ -117,7 +117,7 @@ namespace AlterTools.BatchExport.Views.Base
         }
 
         private RelayCommand _browseFolderCommand;
-        public virtual RelayCommand BrowseFolderCommand => _browseFolderCommand ??= new RelayCommand(_ => BrowseFolder());
+        public RelayCommand BrowseFolderCommand => _browseFolderCommand ??= new RelayCommand(_ => BrowseFolder());
         private void BrowseFolder()
         {
             FolderBrowserDialog folderBrowserDialog = new() { SelectedPath = FolderPath };
@@ -131,7 +131,7 @@ namespace AlterTools.BatchExport.Views.Base
         protected string HelpMessage { get; init; }
 
         private RelayCommand _helpCommand;
-        public virtual RelayCommand HelpCommand => _helpCommand ??= new RelayCommand(_ => MessageBox.Show(HelpMessage, "Справка"));
+        public RelayCommand HelpCommand => _helpCommand ??= new RelayCommand(_ => MessageBox.Show(HelpMessage, "Справка"));
 
         private EventHandlerBase _eventHandlerBase;
         public EventHandlerBase EventHandlerBase

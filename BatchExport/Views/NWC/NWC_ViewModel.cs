@@ -142,9 +142,9 @@ namespace AlterTools.BatchExport.Views.NWC
 
             using FileStream file = File.OpenRead(openFileDialog.FileName);
 
-            NWCFormDeserilaizer(JsonHelper<NWCForm>.DeserializeConfig(file));
+            NWCFormDeserilaizer(JsonHelper<NwcForm>.DeserializeConfig(file));
         }
-        public void NWCFormDeserilaizer(NWCForm form)
+        public void NWCFormDeserilaizer(NwcForm form)
         {
             if (null == form) return;
 
@@ -179,7 +179,7 @@ namespace AlterTools.BatchExport.Views.NWC
         public override RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
         private void SaveList()
         {
-            using NWCForm form = NWCFormSerializer();
+            using NwcForm form = NWCFormSerializer();
             using SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
 
             if (DialogResult.OK != saveFileDialog.ShowDialog()) return;
@@ -191,9 +191,9 @@ namespace AlterTools.BatchExport.Views.NWC
                 File.Delete(fileName);
             }
 
-            JsonHelper<NWCForm>.SerializeConfig(form, fileName);
+            JsonHelper<NwcForm>.SerializeConfig(form, fileName);
         }
-        private NWCForm NWCFormSerializer() => new()
+        private NwcForm NWCFormSerializer() => new()
         {
             ConvertElementProperties = ConvertElementProperties,
             DivideFileIntoLevels = DivideFileIntoLevels,

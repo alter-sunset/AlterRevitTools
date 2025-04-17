@@ -4,10 +4,10 @@ namespace AlterTools.BatchExport.Views.IFC
 {
     public partial class IFCExportView
     {
-        public IFCExportView(EventHandlerIFC eventHandlerIFC)
+        public IFCExportView(EventHandlerIFC eventHandlerIfc)
         {
             InitializeComponent();
-            DataContext = new IFC_ViewModel(eventHandlerIFC);
+            DataContext = new IFC_ViewModel(eventHandlerIfc);
         }
     }
 }

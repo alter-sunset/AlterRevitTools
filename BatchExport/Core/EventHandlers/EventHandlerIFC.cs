@@ -14,7 +14,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 
             Logger log = new(ifcVm.FolderPath);
 
-            IFCHelper ifcHelper = new();
+            IfcHelper ifcHelper = new();
             ifcHelper.BatchExportModels(ifcVm, uiApp, ref log);
 
             string msg = $"В процессе выполнения было {log.ErrorCount} ошибок из {log.ErrorCount + log.SuccessCount} файлов.";

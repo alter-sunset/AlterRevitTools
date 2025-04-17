@@ -10,7 +10,7 @@ namespace AlterTools.BatchExport.Views.Link
 {
     internal static class LinkHelper
     {
-        private const string DIFF_COORD = "Обнаружено различие систем координат. Выполнить получение коордианат из файла?";
+        private const string DiffCoord = "Обнаружено различие систем координат. Выполнить получение коордианат из файла?";
         internal static void CreateLinks(this LinkViewModel linkViewModel, UIApplication uiApp)
         {
             Document doc = uiApp.ActiveUIDocument.Document;
@@ -33,8 +33,8 @@ namespace AlterTools.BatchExport.Views.Link
             ModelPath linkPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(entry.Name);
 
             RevitLinkOptions revitLinkOptions = fileInfo.IsWorkshared && (0 != props.WorksetPrefixes.Length)
-                ? new(false, CloseWorksetsWithLinks(linkPath, props.WorksetPrefixes))
-                : new(false);
+                ? new RevitLinkOptions(false, CloseWorksetsWithLinks(linkPath, props.WorksetPrefixes))
+                : new RevitLinkOptions(false);
 
             using Transaction tr = new(doc);
 
@@ -46,7 +46,7 @@ namespace AlterTools.BatchExport.Views.Link
             }
 
             RevitLinkInstance revitLinkInstance;
-            LinkLoadResult linkLoadResult = default;
+            LinkLoadResult linkLoadResult = null;
 
             try
             {
@@ -59,7 +59,7 @@ namespace AlterTools.BatchExport.Views.Link
             catch (InvalidOperationException)
             {
                 revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, ImportPlacement.Origin);
-                ModelHelper.YesNoTaskDialog(DIFF_COORD, () => doc.AcquireCoordinates(revitLinkInstance.Id));
+                ModelHelper.YesNoTaskDialog(DiffCoord, () => doc.AcquireCoordinates(revitLinkInstance.Id));
                 revitLinkInstance.Pinned = props.PinLink;
 
                 tr.Commit();
@@ -76,7 +76,7 @@ namespace AlterTools.BatchExport.Views.Link
 
             if (0 == prefixes.Length) return worksetConfiguration;
 
-            //problem occurs if centralModel can't be found
+            // problem occurs if centralModel can't be found
             IList<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)
                                                           .Where(wp => !prefixes.Any(wp.Name.StartsWith))
                                                           .Select(wp => wp.Id)

@@ -17,12 +17,12 @@ namespace AlterTools.BatchExport.Views.Detach
                                                 HelpMessageType.Start);
 
 #if R22_OR_GREATER
-            _isWorksetRemoverEnabled = true;
+            IsWorksetRemoverEnabled = true;
             _removeEmptyWorksets = true;
 #endif
 
 #if R24_OR_GREATER
-            _isPurgeEnabled = true;
+            IsPurgeEnabled = true;
             _purge = true;
 #endif
         }
@@ -108,10 +108,8 @@ namespace AlterTools.BatchExport.Views.Detach
             set => SetProperty(ref _purge, value);
         }
 
-        private readonly bool _isPurgeEnabled;
-        public bool IsPurgeEnabled => _isPurgeEnabled;
+        public bool IsPurgeEnabled { get; }
 
-        private readonly bool _isWorksetRemoverEnabled;
-        public bool IsWorksetRemoverEnabled => _isWorksetRemoverEnabled;
+        public bool IsWorksetRemoverEnabled { get; }
     }
 }

@@ -4,8 +4,7 @@ namespace AlterTools.BatchExport.Views.NWC
 {
     public class Config(string name) : NotifyPropertyChanged, ISelectable
     {
-        private readonly string _name = name;
-        public string Name => _name;
+        public string Name { get; } = name;
 
         private bool _isSelected;
         public bool IsSelected

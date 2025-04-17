@@ -75,9 +75,9 @@ namespace AlterTools.BatchExport.Views.IFC
 
             using FileStream file = File.OpenRead(openFileDialog.FileName);
 
-            IFCFormDeserilaizer(JsonHelper<IFCForm>.DeserializeConfig(file));
+            IFCFormDeserilaizer(JsonHelper<IfcForm>.DeserializeConfig(file));
         }
-        private void IFCFormDeserilaizer(IFCForm form)
+        private void IFCFormDeserilaizer(IfcForm form)
         {
             if (form is null) return;
 
@@ -102,7 +102,7 @@ namespace AlterTools.BatchExport.Views.IFC
         public override RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
         private void SaveList()
         {
-            using IFCForm form = IfcFormSerializer();
+            using IfcForm form = IfcFormSerializer();
 
             SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
 
@@ -111,9 +111,9 @@ namespace AlterTools.BatchExport.Views.IFC
             string fileName = saveFileDialog.FileName;
             File.Delete(fileName);
 
-            JsonHelper<IFCForm>.SerializeConfig(form, fileName);
+            JsonHelper<IfcForm>.SerializeConfig(form, fileName);
         }
-        private IFCForm IfcFormSerializer() => new()
+        private IfcForm IfcFormSerializer() => new()
         {
             ExportBaseQuantities = ExportBaseQuantities,
             FamilyMappingFile = Mapping,
@@ -131,8 +131,8 @@ namespace AlterTools.BatchExport.Views.IFC
                                 .ToArray()
         };
 
-        private readonly IReadOnlyDictionary<IFCVersion, string> _ifcVersions = IFC_Context.IFCVersions;
-        private KeyValuePair<IFCVersion, string> _selectedVersion = IFC_Context.IFCVersions.FirstOrDefault(ver => IFCVersion.Default == ver.Key);
+        private readonly IReadOnlyDictionary<IFCVersion, string> _ifcVersions = IfcContext.IFCVersions;
+        private KeyValuePair<IFCVersion, string> _selectedVersion = IfcContext.IFCVersions.FirstOrDefault(ver => IFCVersion.Default == ver.Key);
         public IReadOnlyDictionary<IFCVersion, string> IFCVersions => _ifcVersions;
         public KeyValuePair<IFCVersion, string> SelectedVersion
         {
@@ -141,8 +141,8 @@ namespace AlterTools.BatchExport.Views.IFC
         }
         public IFCVersion FileVersion => _selectedVersion.Key;
 
-        private readonly IReadOnlyDictionary<int, string> _spaceBoundaryLevels = IFC_Context.SpaceBoundaryLevels;
-        private KeyValuePair<int, string> _selectedLevel = IFC_Context.SpaceBoundaryLevels.FirstOrDefault(e => 1 == e.Key);
+        private readonly IReadOnlyDictionary<int, string> _spaceBoundaryLevels = IfcContext.SpaceBoundaryLevels;
+        private KeyValuePair<int, string> _selectedLevel = IfcContext.SpaceBoundaryLevels.FirstOrDefault(e => 1 == e.Key);
         public IReadOnlyDictionary<int, string> SpaceBoundaryLevels => _spaceBoundaryLevels;
         public KeyValuePair<int, string> SelectedLevel
         {

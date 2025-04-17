@@ -33,8 +33,7 @@ namespace AlterTools.BatchExport.Views.Detach
             string docTitle = doc.Title.RemoveDetach();
             string fileDetachedPath = Path.Combine(iConfigDetach.FolderPath, $"{docTitle}.rvt");
 
-            if ((iConfigDetach is DetachViewModel detachViewModel)
-                && (2 == detachViewModel.RadioButtonMode))
+            if ((iConfigDetach is DetachViewModel { RadioButtonMode: 2 } detachViewModel))
             {
                 fileDetachedPath = RenamePath(originalFilePath,
                                               RenameType.Folder,

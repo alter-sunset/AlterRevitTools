@@ -9,7 +9,7 @@ namespace AlterTools.BatchExport.Core.Commands
     {
         public virtual Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements)
         {
-            return CommandWrapper.Execute(ref msg, Forms.IFC);
+            return CommandWrapper.Execute(ref msg, Forms.Ifc);
         }
     }
 }

@@ -11,7 +11,7 @@ namespace AlterTools.BatchExport.Utils
         private readonly StreamWriter _stream;
 
         public int ErrorCount { get; private set; }
-        public int SuccessCount { get; set; } = 0;
+        public int SuccessCount => 0;
 
         public Logger(string path)
         {

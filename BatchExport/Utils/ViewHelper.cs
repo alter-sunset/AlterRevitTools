@@ -24,8 +24,8 @@ namespace AlterTools.BatchExport.Utils
         private static readonly Dictionary<Forms, Func<Window>> FormCreators = new()
         {
             { Forms.Detach,     () => new DetachModelsView(     new EventHandlerDetach()                            )},
-            { Forms.IFC,        () => new IFCExportView(        new EventHandlerIFC()                               )},
-            { Forms.NWC,        () => new NWCExportView(        new EventHandlerNWC(), new EventHandlerNWC_Batch()  )},
+            { Forms.Ifc,        () => new IFCExportView(        new EventHandlerIFC()                               )},
+            { Forms.Nwc,        () => new NWCExportView(        new EventHandlerNWC(), new EventHandlerNWC_Batch()  )},
             { Forms.Migrate,    () => new MigrateModelsView(    new EventHandlerMigrate()                           )},
             { Forms.Transmit,   () => new TransmitModelsView(   new EventHandlerTransmit()                          )},
             { Forms.Link,       () => new LinkModelsView(       new EventHandlerLink(), GetWorksets()               )},
