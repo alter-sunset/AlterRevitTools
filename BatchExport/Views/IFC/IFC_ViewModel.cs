@@ -11,13 +11,13 @@ using AlterTools.BatchExport.Core.EventHandlers;
 
 namespace AlterTools.BatchExport.Views.IFC
 {
-    public class IFC_ViewModel : ViewModelBase_Extended, IConfigIFC
+    public class IFC_ViewModel : ViewModelBaseExtended, IConfigIFC
     {
         public IFC_ViewModel(EventHandlerIFC eventHandlerIFC)
         {
             EventHandlerBase = eventHandlerIFC;
             HelpMessage = Help.GetHelpDictionary()
-                              .GetResultMessage(HelpMessageType.IFCTitle,
+                              .GetResultMessage(HelpMessageType.IfcTitle,
                                                 HelpMessageType.Load,
                                                 HelpMessageType.Folder,
                                                 HelpMessageType.Naming,
@@ -51,14 +51,14 @@ namespace AlterTools.BatchExport.Views.IFC
             }
         }
 
-        private bool _exportBaseQuantities = false;
+        private bool _exportBaseQuantities;
         public bool ExportBaseQuantities
         {
             get => _exportBaseQuantities;
             set => SetProperty(ref _exportBaseQuantities, value);
         }
 
-        private bool _wallAndColumnSplitting = false;
+        private bool _wallAndColumnSplitting;
         public bool WallAndColumnSplitting
         {
             get => _wallAndColumnSplitting;
@@ -102,22 +102,18 @@ namespace AlterTools.BatchExport.Views.IFC
         public override RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
         private void SaveList()
         {
-            using IFCForm form = IFCFormSerializer();
+            using IFCForm form = IfcFormSerializer();
 
             SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
 
-            if (DialogResult.OK != saveFileDialog.ShowDialog())
-            {
-                form.Dispose();
-                return;
-            }
+            if (DialogResult.OK != saveFileDialog.ShowDialog()) return;
 
             string fileName = saveFileDialog.FileName;
             File.Delete(fileName);
 
             JsonHelper<IFCForm>.SerializeConfig(form, fileName);
         }
-        private IFCForm IFCFormSerializer() => new()
+        private IFCForm IfcFormSerializer() => new()
         {
             ExportBaseQuantities = ExportBaseQuantities,
             FamilyMappingFile = Mapping,

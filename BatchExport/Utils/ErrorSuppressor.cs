@@ -46,9 +46,9 @@ namespace AlterTools.BatchExport.Utils
 
             foreach (FailureMessageAccessor failure in failures)
             {
-                FailureSeverity fseverity = accessor.GetSeverity();
+                FailureSeverity fSeverity = accessor.GetSeverity();
 
-                if (FailureSeverity.Warning == fseverity)
+                if (FailureSeverity.Warning == fSeverity)
                 {
                     accessor.DeleteWarning(failure);
                 }

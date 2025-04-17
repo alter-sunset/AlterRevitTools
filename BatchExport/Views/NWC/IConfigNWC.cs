@@ -3,7 +3,7 @@ using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.NWC
 {
-    public interface IConfigNWC : IConfigBase_Extended
+    public interface IConfigNWC : IConfigBaseExtended
     {
         bool ConvertElementProperties { get; set; }
         bool DivideFileIntoLevels { get; set; }

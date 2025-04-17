@@ -23,7 +23,7 @@ namespace AlterTools.BatchExport.Views.Link
                                                 HelpMessageType.Start);
         }
 
-        private bool _isCurrentWorkset = false;
+        private bool _isCurrentWorkset;
         public bool IsCurrentWorkset
         {
             get => _isCurrentWorkset;
@@ -39,11 +39,11 @@ namespace AlterTools.BatchExport.Views.Link
 
         public override string[] Files => Entries.Select(e => e.Name).ToArray();
 
-        public static readonly ImportPlacement[] ImportPlacements = new ImportPlacement[]
-        {
+        public static readonly ImportPlacement[] ImportPlacements =
+        [
             ImportPlacement.Origin,
             ImportPlacement.Shared
-        };
+        ];
         public readonly Workset[] Worksets;
 
         private ObservableCollection<Entry> _entries = [];

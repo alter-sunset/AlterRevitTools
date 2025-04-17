@@ -27,7 +27,7 @@ namespace AlterTools.BatchExport.Views.Detach
 #endif
         }
 
-        private int _radioButtonMode = 0;
+        private int _radioButtonMode;
         public int RadioButtonMode
         {
             get => _radioButtonMode;
@@ -37,16 +37,12 @@ namespace AlterTools.BatchExport.Views.Detach
         public override RelayCommand RadioButtonCommand => _radioButtonCommand ??= new RelayCommand(RB_Command);
         private void RB_Command(object parameter)
         {
-            switch ((string)parameter)
+            _radioButtonMode = (string)parameter switch
             {
-                case "Folder":
-                    _radioButtonMode = 1;
-                    break;
-
-                case "Mask":
-                    _radioButtonMode = 2;
-                    break;
-            }
+                "Folder" => 1,
+                "Mask" => 2,
+                _ => _radioButtonMode
+            };
         }
 
         private string _maskIn = @"05_В_Работе\52_ПД";
@@ -70,7 +66,7 @@ namespace AlterTools.BatchExport.Views.Detach
             set => SetProperty(ref _checkForEmptyView, value);
         }
 
-        private bool _isToRename = false;
+        private bool _isToRename;
         public bool IsToRename
         {
             get => _isToRename;
@@ -98,24 +94,24 @@ namespace AlterTools.BatchExport.Views.Detach
             set => SetProperty(ref _removeLinks, value);
         }
 
-        private bool _removeEmptyWorksets = false;
+        private bool _removeEmptyWorksets;
         public bool RemoveEmptyWorksets
         {
             get => _removeEmptyWorksets;
             set => SetProperty(ref _removeEmptyWorksets, value);
         }
 
-        private bool _purge = false;
+        private bool _purge;
         public bool Purge
         {
             get => _purge;
             set => SetProperty(ref _purge, value);
         }
 
-        private readonly bool _isPurgeEnabled = false;
+        private readonly bool _isPurgeEnabled;
         public bool IsPurgeEnabled => _isPurgeEnabled;
 
-        private readonly bool _isWorksetRemoverEnabled = false;
+        private readonly bool _isWorksetRemoverEnabled;
         public bool IsWorksetRemoverEnabled => _isWorksetRemoverEnabled;
     }
 }

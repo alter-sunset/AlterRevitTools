@@ -12,11 +12,11 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 {
     public class EventHandlerNWC_Batch : EventHandlerBase
     {
-        public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
+        protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not NWC_ViewModel nwcVM) return;
+            if (iConfigBase is not NWC_ViewModel nwcVm) return;
 
-            if (0 == nwcVM.Configs.Count)
+            if (0 == nwcVm.Configs.Count)
             {
                 MessageBox.Show("Загрузите конфиги.");
                 return;
@@ -24,7 +24,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 
             DateTime timeStart = DateTime.Now;
 
-            foreach (Config config in nwcVM.Configs)
+            foreach (Config config in nwcVm.Configs)
             {
                 try
                 {
@@ -32,17 +32,17 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 
                     NWCForm form = JsonConvert.DeserializeObject<NWCForm>(new StreamReader(file).ReadToEnd());
 
-                    nwcVM.NWCFormDeserilaizer(form);
+                    nwcVm.NWCFormDeserilaizer(form);
                 }
                 catch
                 {
                     continue;
                 }
 
-                Logger log = new(nwcVM.FolderPath);
+                Logger log = new(nwcVm.FolderPath);
 
                 NWCHelper nwcHelper = new();
-                nwcHelper.BatchExportModels(nwcVM, uiApp, ref log);
+                nwcHelper.BatchExportModels(nwcVm, uiApp, ref log);
 
                 log.Dispose();
 
@@ -51,7 +51,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 
             string msg = $"Задание выполнено. Всего затрачено времени:{DateTime.Now - timeStart}";
 
-            nwcVM.Finisher(id: "ExportBatchNWCFinished", msg);
+            nwcVm.Finisher(id: "ExportBatchNWCFinished", msg);
         }
     }
 }

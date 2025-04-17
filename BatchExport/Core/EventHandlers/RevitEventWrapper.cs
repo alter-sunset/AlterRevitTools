@@ -56,6 +56,6 @@ namespace AlterTools.BatchExport.Core.EventHandlers
         /// </summary>
         /// <param name="uiApp">Revit UI Application to use as the "wrapper" API context.</param>
         /// <param name="args">Arguments that could be passed to the execution method.</param>
-        public abstract void Execute(UIApplication uiApp, TType args);
+        protected abstract void Execute(UIApplication uiApp, TType args);
     }
 }

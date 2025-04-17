@@ -5,16 +5,13 @@ namespace AlterTools.BatchExport.Utils
 {
     public class Logger
     {
-        private const string BASE_ERROR = "ERROR";
+        private const string BaseError = "ERROR";
 
         private readonly DateTime _startTime = DateTime.Now;
         private readonly StreamWriter _stream;
 
-        private int _successCount = 0;
-        private int _errorCount = 0;
-
-        public int ErrorCount { get => _errorCount; set => _errorCount = value; }
-        public int SuccessCount { get => _successCount; set => _successCount = value; }
+        public int ErrorCount { get; private set; }
+        public int SuccessCount { get; set; } = 0;
 
         public Logger(string path)
         {
@@ -24,7 +21,7 @@ namespace AlterTools.BatchExport.Utils
 
         public void Error(string error, Exception ex = null)
         {
-            string lineToWrite = $"Error at {DateTime.Now}. {BASE_ERROR} {error}" +
+            string lineToWrite = $"Error at {DateTime.Now}. {BaseError} {error}" +
                                  (ex != null ? $" {ex.Message}" : string.Empty);
             _stream.WriteLine(lineToWrite);
             ErrorCount++;

@@ -7,21 +7,21 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 {
     public class EventHandlerNWC : EventHandlerBase
     {
-        public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
+        protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not NWC_ViewModel nwcVM) return;
-            if (!nwcVM.IsEverythingFilled()) return;
+            if (iConfigBase is not NWC_ViewModel nwcVm) return;
+            if (!nwcVm.IsEverythingFilled()) return;
 
-            Logger log = new(nwcVM.FolderPath);
+            Logger log = new(nwcVm.FolderPath);
 
             NWCHelper nwcHelper = new();
-            nwcHelper.BatchExportModels(nwcVM, uiApp, ref log);
+            nwcHelper.BatchExportModels(nwcVm, uiApp, ref log);
 
             string msg = $"В процессе выполнения было {log.ErrorCount} ошибок из {log.ErrorCount + log.SuccessCount} файлов.";
 
             log.Dispose();
 
-            nwcVM.Finisher("ExportNWCFinished", msg);
+            nwcVm.Finisher("ExportNWCFinished", msg);
         }
     }
 }

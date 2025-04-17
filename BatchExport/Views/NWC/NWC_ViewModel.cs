@@ -11,7 +11,7 @@ using AlterTools.BatchExport.Core.EventHandlers;
 
 namespace AlterTools.BatchExport.Views.NWC
 {
-    public class NWC_ViewModel : ViewModelBase_Extended, IConfigNWC
+    public class NWC_ViewModel : ViewModelBaseExtended, IConfigNWC
     {
         private readonly EventHandlerNWC_Batch _eventHandlerNWC_Batch;
 
@@ -20,16 +20,16 @@ namespace AlterTools.BatchExport.Views.NWC
             _eventHandlerNWC_Batch = eventHandlerNWC_Batch;
             EventHandlerBase = eventHandlerNWC;
             HelpMessage = Help.GetHelpDictionary()
-                              .GetResultMessage(HelpMessageType.NWCTitle,
+                              .GetResultMessage(HelpMessageType.NwcTitle,
                                                 HelpMessageType.Load,
                                                 HelpMessageType.Folder,
                                                 HelpMessageType.Naming,
                                                 HelpMessageType.Config,
                                                 HelpMessageType.Start,
-                                                HelpMessageType.NWCEnd);
+                                                HelpMessageType.NwcEnd);
         }
 
-        private bool _convertElementProperties = false;
+        private bool _convertElementProperties;
         public bool ConvertElementProperties
         {
             get => _convertElementProperties;
@@ -60,14 +60,14 @@ namespace AlterTools.BatchExport.Views.NWC
             set => SetProperty(ref _exportElementIds, value);
         }
 
-        private bool _exportLinks = false;
+        private bool _exportLinks;
         public bool ExportLinks
         {
             get => _exportLinks;
             set => SetProperty(ref _exportLinks, value);
         }
 
-        private bool _exportParts = false;
+        private bool _exportParts;
         public bool ExportParts
         {
             get => _exportParts;
@@ -81,21 +81,21 @@ namespace AlterTools.BatchExport.Views.NWC
             set => SetProperty(ref _exportRoomAsAttribute, value);
         }
 
-        private bool _exportRoomGeometry = false;
+        private bool _exportRoomGeometry;
         public bool ExportRoomGeometry
         {
             get => _exportRoomGeometry;
             set => SetProperty(ref _exportRoomGeometry, value);
         }
 
-        private bool _exportUrls = false;
+        private bool _exportUrls;
         public bool ExportUrls
         {
             get => _exportUrls;
             set => SetProperty(ref _exportUrls, value);
         }
 
-        private bool _findMissingMaterials = false;
+        private bool _findMissingMaterials;
         public bool FindMissingMaterials
         {
             get => _findMissingMaterials;
@@ -111,14 +111,14 @@ namespace AlterTools.BatchExport.Views.NWC
             set => SetProperty(ref _selectedParameters, value);
         }
 
-        private bool _convertLinkedCADFormats = false;
+        private bool _convertLinkedCADFormats;
         public bool ConvertLinkedCADFormats
         {
             get => _convertLinkedCADFormats;
             set => SetProperty(ref _convertLinkedCADFormats, value);
         }
 
-        private bool _convertLights = false;
+        private bool _convertLights;
         public bool ConvertLights
         {
             get => _convertLights;

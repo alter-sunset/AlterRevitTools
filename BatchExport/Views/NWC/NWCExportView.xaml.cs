@@ -1,14 +1,13 @@
 ﻿using AlterTools.BatchExport.Core.EventHandlers;
-using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.NWC
 {
-    public partial class NWCExportView : WindowBase
+    public partial class NWCExportView
     {
-        public NWCExportView(EventHandlerNWC eventHandlerNWC, EventHandlerNWC_Batch eventHandlerNWC_Batch)
+        public NWCExportView(EventHandlerNWC eventHandlerNwc, EventHandlerNWC_Batch eventHandlerNwcBatch)
         {
             InitializeComponent();
-            DataContext = new NWC_ViewModel(eventHandlerNWC_Batch, eventHandlerNWC);
+            DataContext = new NWC_ViewModel(eventHandlerNwcBatch, eventHandlerNwc);
         }
     }
 }

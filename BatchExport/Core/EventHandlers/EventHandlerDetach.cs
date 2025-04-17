@@ -13,15 +13,15 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 {
     public class EventHandlerDetach : EventHandlerBase
     {
-        public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
+        protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not DetachViewModel detachVM) return;
-            if (!detachVM.IsEverythingFilled()) return;
+            if (iConfigBase is not DetachViewModel detachVm) return;
+            if (!detachVm.IsEverythingFilled()) return;
 
             using Application app = uiApp.Application;
             using ErrorSuppressor errorSuppressor = new(uiApp);
 
-            List<ListBoxItem> listItems = detachVM.ListBoxItems.ToList();
+            List<ListBoxItem> listItems = detachVm.ListBoxItems.ToList();
 
             foreach (ListBoxItem item in listItems)
             {
@@ -33,10 +33,10 @@ namespace AlterTools.BatchExport.Core.EventHandlers
                     continue;
                 }
 
-                detachVM.DetachModel(app, filePath);
+                detachVm.DetachModel(app, filePath);
             }
 
-            detachVM.Finisher(id: "DetachModelsFinished");
+            detachVm.Finisher(id: "DetachModelsFinished");
         }
     }
 }

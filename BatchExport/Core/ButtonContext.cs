@@ -8,7 +8,7 @@ using AlterTools.BatchExport.Core.Commands;
 
 namespace AlterTools.BatchExport.Core
 {
-    class ButtonContext
+    internal abstract class ButtonContext
     {
         public string Name { get; set; }
         public string Text { get; set; }
@@ -56,7 +56,7 @@ namespace AlterTools.BatchExport.Core
             {
                 Assembly assembly = Assembly.GetExecutingAssembly();
                 Stream stream = assembly.GetManifestResourceStream(imagePath);
-                return BitmapFrame.Create(stream);
+                return BitmapFrame.Create(stream!);
             }
             catch
             {

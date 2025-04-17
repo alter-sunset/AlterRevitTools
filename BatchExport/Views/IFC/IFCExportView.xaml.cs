@@ -1,9 +1,8 @@
 ﻿using AlterTools.BatchExport.Core.EventHandlers;
-using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.IFC
 {
-    public partial class IFCExportView : WindowBase
+    public partial class IFCExportView
     {
         public IFCExportView(EventHandlerIFC eventHandlerIFC)
         {

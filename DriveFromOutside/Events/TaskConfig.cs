@@ -15,7 +15,7 @@ namespace AlterTools.DriveFromOutside.Events
         /// <summary>
         /// Object with configuration if given event needs one
         /// </summary>
-        public JToken EventConfig { get; set; }
+        public JToken? EventConfig { get; set; }
 
         /// <summary>
         /// Path to the configuration file

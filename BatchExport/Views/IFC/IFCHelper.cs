@@ -7,7 +7,7 @@ namespace AlterTools.BatchExport.Views.IFC
 {
     public class IFCHelper : ExportHelperBase
     {
-        public override void ExportModel(IConfigBase_Extended iConfig, Document doc, ref bool isFuckedUp, ref Logger log)
+        protected override void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp, ref Logger log)
         {
             if ((iConfig is not IConfigIFC configIfc)
                 || IsViewEmpty(iConfig, doc, ref log, ref isFuckedUp)) return;

@@ -7,7 +7,7 @@ namespace AlterTools.DriveFromOutside.Events.IFC
 {
     public class EventHandlerIFC : RevitEventWrapper<IfcConfig>
     {
-        public override void Execute(UIApplication uiApp, IfcConfig ifcConfig)
+        protected override void Execute(UIApplication uiApp, IfcConfig ifcConfig)
         {
             Logger log = new(ifcConfig.FolderPath);
             IFCHelper ifcHelper = new();

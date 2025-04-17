@@ -12,14 +12,14 @@ namespace AlterTools.BatchExport.Views.Base
 {
     public class ViewModelBase : NotifyPropertyChanged, IConfigBase
     {
-        public const string NO_FILES = "В текстовом файле не было найдено подходящей информации";
+        protected const string NO_FILES = "В текстовом файле не было найдено подходящей информации";
 
         private ObservableCollection<ListBoxItem> _listBoxItems = [];
 
         public virtual ObservableCollection<ListBoxItem> ListBoxItems
         {
             get => _listBoxItems;
-            set => SetProperty(ref _listBoxItems, value);
+            protected set => SetProperty(ref _listBoxItems, value);
         }
 
         public virtual string[] Files => _listBoxItems.Select(item => item.Content.ToString()).ToArray();
@@ -127,12 +127,9 @@ namespace AlterTools.BatchExport.Views.Base
                 FolderPath = folderBrowserDialog.SelectedPath;
             }
         }
-        private string _helpMessage;
-        public string HelpMessage
-        {
-            get => _helpMessage;
-            set => _helpMessage = value;
-        }
+
+        protected string HelpMessage { get; init; }
+
         private RelayCommand _helpCommand;
         public virtual RelayCommand HelpCommand => _helpCommand ??= new RelayCommand(_ => MessageBox.Show(HelpMessage, "Справка"));
 
@@ -146,7 +143,7 @@ namespace AlterTools.BatchExport.Views.Base
         public RelayCommand RaiseEventCommand => _raiseEventCommand ??= new RelayCommand(_ => _eventHandlerBase.Raise(this));
         public virtual RelayCommand RadioButtonCommand { get; }
 
-        public static ListBoxItem DefaultListBoxItem(string content) => new()
+        protected static ListBoxItem DefaultListBoxItem(string content) => new()
         {
             Content = content,
             Background = Brushes.White

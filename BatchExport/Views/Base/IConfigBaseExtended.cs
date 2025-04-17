@@ -1,6 +1,6 @@
 ﻿namespace AlterTools.BatchExport.Views.Base
 {
-    public interface IConfigBase_Extended : IConfigBase
+    public interface IConfigBaseExtended : IConfigBase
     {
         string NamePrefix { get; set; }
         string NamePostfix { get; set; }

@@ -93,7 +93,10 @@ namespace AlterTools.BatchExport.Views.Migrate
             {
                 doc.FreeTheModel();
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
 
             doc.Close();
         }

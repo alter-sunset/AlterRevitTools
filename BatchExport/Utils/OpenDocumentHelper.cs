@@ -59,7 +59,10 @@ namespace AlterTools.BatchExport.Utils
                     isWorkshared = true;
                 }
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
 
             return doc;
         }
