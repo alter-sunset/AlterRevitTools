@@ -5,10 +5,12 @@ using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Core.Commands;
+using JetBrains.Annotations;
 
 namespace AlterTools.BatchExport.Core
 {
-    internal abstract class ButtonContext
+    [UsedImplicitly]
+    internal class ButtonContext
     {
         public string Name { get; set; }
         public string Text { get; set; }

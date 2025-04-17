@@ -27,8 +27,6 @@ namespace AlterTools.BatchExport.Views.Base
             {
                 if (null == items) return;
 
-                // umm, why?
-                //items = viewModel.ListBoxItems.ToArray();
                 models = items.Select(item => item.Content.ToString())
                               .ToArray();
             }
@@ -221,7 +219,7 @@ namespace AlterTools.BatchExport.Views.Base
 
         protected static bool IsViewEmpty(IConfigBaseExtended iConfig, Document doc, ref Logger log, ref bool isFuckedUp)
         {
-            if (iConfig is NWC_ViewModel { ExportLinks: true }) return false;
+            if (iConfig is NwcViewModel { ExportLinks: true }) return false;
 
             if (!iConfig.ExportScopeView
                 || !doc.IsViewEmpty(GetView(iConfig, doc))) return false;

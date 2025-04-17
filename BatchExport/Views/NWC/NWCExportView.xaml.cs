@@ -2,12 +2,12 @@
 
 namespace AlterTools.BatchExport.Views.NWC
 {
-    public partial class NWCExportView
+    public partial class NwcExportView
     {
-        public NWCExportView(EventHandlerNWC eventHandlerNwc, EventHandlerNWC_Batch eventHandlerNwcBatch)
+        public NwcExportView(EventHandlerNwc eventHandlerNwc, EventHandlerNwcBatch eventHandlerNwcBatch)
         {
             InitializeComponent();
-            DataContext = new NWC_ViewModel(eventHandlerNwcBatch, eventHandlerNwc);
+            DataContext = new NwcViewModel(eventHandlerNwcBatch, eventHandlerNwc);
         }
     }
 }

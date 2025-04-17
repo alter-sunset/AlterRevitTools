@@ -16,8 +16,14 @@ namespace AlterTools.BatchExport.Utils
     {
         private const string NoFolder = "Укажите папку для экспорта!";
         private const string WrongFolder = "Укажите корректную папку для экспорта!";
-        private const string CreateFolder = "Такой папки не существует.\nСоздать папку?";
-        private const string ToHell = "Нет, так нет.\nТогда живи в проклятом мире, который сам и создал.";
+        private const string CreateFolder = """
+                                            Такой папки не существует.
+                                            Создать папку?
+                                            """;
+        private const string ToHell = """
+                                      Нет, так нет.
+                                      Тогда живи в проклятом мире, который сам и создал.
+                                      """;
         private const string NoFiles = "Добавьте хотя бы один файл для экспорта!";
         private const string NoViewName = "Введите имя вида!";
         private const string NoPathMode = "Выберите режим выбора пути!";
@@ -172,8 +178,6 @@ namespace AlterTools.BatchExport.Utils
             vmBase.IsViewEnabled = false;
             taskDialog.Show();
             vmBase.IsViewEnabled = true;
-            //TODO: Rework this 
-            //Process.Start("shutdown", "/s /t 10");
         }
 
         /// <returns>Unique files with .rvt extension</returns>

@@ -4,13 +4,13 @@ namespace AlterTools.BatchExport.Views.IFC
 {
     public class IfcForm : IFCExportOptions
     {
-        public string FolderPath { get; init; }
-        public string NamePrefix { get; init; }
-        public string NamePostfix { get; init; }
-        public string[] WorksetPrefixes { get; init; }
-        public string[] Files { get; init; }
-        public string ViewName { get; init; }
-        public bool ExportView { get; init; }
+        public string FolderPath { get; set; }
+        public string NamePrefix { get; set; }
+        public string NamePostfix { get; set; }
+        public string[] WorksetPrefixes { get; set; }
+        public string[] Files { get; set; }
+        public string ViewName { get; set; }
+        public bool ExportView { get; set; }
         public new bool FilterViewId { get; set; }
     }
 }

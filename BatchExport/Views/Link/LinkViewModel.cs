@@ -74,9 +74,7 @@ namespace AlterTools.BatchExport.Views.Link
             }
         }
 
-        private RelayCommand _loadListCommand;
-        public override RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
-        private void LoadList()
+        protected override void LoadList()
         {
             using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
 
@@ -93,10 +91,8 @@ namespace AlterTools.BatchExport.Views.Link
 
             FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
         }
-
-        private RelayCommand _loadCommand;
-        public override RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
-        private void Load()
+        
+        protected override void Load()
         {
             using OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
 
@@ -111,9 +107,7 @@ namespace AlterTools.BatchExport.Views.Link
                                     .ForEach(Entries.Add);
         }
 
-        private RelayCommand _saveListCommand;
-        public override RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
-        private void SaveList()
+        protected override void SaveList()
         {
             SaveFileDialog saveFileDialog = DialogType.RevitList.SaveFileDialog();
 
@@ -126,17 +120,14 @@ namespace AlterTools.BatchExport.Views.Link
             FolderPath = Path.GetDirectoryName(saveFileDialog.FileName);
         }
 
-        private RelayCommand _deleteCommand;
-        public override RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(_ => DeleteSelectedItems());
-        private void DeleteSelectedItems()
+        protected override void DeleteSelectedItems()
         {
             Entries.Where(entry => entry.IsSelected)
                    .ToList()
                    .ForEach(entry => Entries.Remove(entry));
         }
 
-        private RelayCommand _eraseCommand;
-        public override RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(_ => Entries.Clear());
+        protected override void Erase() => Entries.Clear();
 
         private string _worksetPrefix = string.Empty;
         public string WorksetPrefix

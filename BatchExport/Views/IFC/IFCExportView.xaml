@@ -1,5 +1,5 @@
 ﻿<base:WindowBase x:Name="Пакетный_экспорт_IFC"
-                 x:Class="AlterTools.BatchExport.Views.IFC.IFCExportView"
+                 x:Class="AlterTools.BatchExport.Views.IFC.IfcExportView"
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:local="clr-namespace:AlterTools.BatchExport.Views.IFC"
@@ -161,7 +161,7 @@
                   Grid.Column="1"
                   Grid.ColumnSpan="2"
                   VerticalContentAlignment="Center"
-                  ItemsSource="{Binding IFCVersions}"
+                  ItemsSource="{Binding IfcVersions}"
                   SelectedItem="{Binding SelectedVersion}"
                   DisplayMemberPath="Value"/>
         <CheckBox Margin="10"

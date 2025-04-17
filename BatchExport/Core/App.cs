@@ -1,10 +1,13 @@
 ﻿using Autodesk.Revit.UI;
 using System.Linq;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Panel = System.Tuple<Autodesk.Revit.UI.RibbonPanel, string>;
 
 namespace AlterTools.BatchExport.Core
-{//TODO: Add RevitServerViewer
+// TODO: Add RevitServerViewer
+{
+    [UsedImplicitly]
     public class App : IExternalApplication
     {
         private const string TabName = "AlterTools";

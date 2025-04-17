@@ -5,11 +5,11 @@ using AlterTools.BatchExport.Views.IFC;
 
 namespace AlterTools.BatchExport.Core.EventHandlers
 {
-    public class EventHandlerIFC : EventHandlerBase
+    public class EventHandlerIfc : EventHandlerBase
     {
         protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not IFC_ViewModel ifcVm) return;
+            if (iConfigBase is not IfcViewModel ifcVm) return;
             if (!ifcVm.IsEverythingFilled()) return;
 
             Logger log = new(ifcVm.FolderPath);
@@ -17,7 +17,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
             IfcHelper ifcHelper = new();
             ifcHelper.BatchExportModels(ifcVm, uiApp, ref log);
 
-            string msg = $"В процессе выполнения было {log.ErrorCount} ошибок из {log.ErrorCount + log.SuccessCount} файлов.";
+            string msg = $"В процессе выполнения было {log.ErrorCount} ошибок.";
 
             log.Dispose();
 

@@ -10,7 +10,7 @@ namespace AlterTools.DriveFromOutside.Events.NWC
         protected override void Execute(UIApplication uiApp, NwcConfig nwcConfig)
         {
             Logger log = new(nwcConfig.FolderPath);
-            NWCHelper nwcHelper = new();
+            NwcHelper nwcHelper = new();
             nwcHelper.BatchExportModels(nwcConfig, uiApp, ref log);
             log.Dispose();
         }

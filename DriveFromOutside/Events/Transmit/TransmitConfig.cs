@@ -2,7 +2,7 @@
 {
     public abstract class TransmitConfig
     {
-        public required string[] Files { get; set; }
-        public required string FolderPath { get; set; }
+        public string[] Files { get; set; }
+        public string FolderPath { get; set; }
     }
 }

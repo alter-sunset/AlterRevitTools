@@ -3,7 +3,7 @@ using AlterTools.BatchExport.Views.IFC;
 
 namespace AlterTools.DriveFromOutside.Events.IFC
 {
-    public class IfcConfig : IConfigIFC
+    public class IfcConfig : IConfigIfc
     {
         public string FamilyMappingFile { get; set; }
         public bool ExportBaseQuantities { get; set; }

@@ -51,9 +51,7 @@ namespace AlterTools.BatchExport.Views.Params
             CsvPath = saveFileDialog.FileName;
         }
 
-        private RelayCommand _loadListCommand;
-        public override RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
-        private void LoadList()
+        protected override void LoadList()
         {
             OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
 
@@ -73,9 +71,7 @@ namespace AlterTools.BatchExport.Views.Params
                                                                            .Select(DefaultListBoxItem));
         }
 
-        private RelayCommand _saveListCommand;
-        public override RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
-        private void SaveList()
+        protected override void SaveList()
         {
             ParamsForm form = ParamsFormSerializer();
             SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
@@ -95,9 +91,7 @@ namespace AlterTools.BatchExport.Views.Params
                                 .ToArray()
         };
 
-        private RelayCommand _eraseCommand;
-        public override RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(_ => Erase());
-        private void Erase()
+        protected override void Erase()
         {
             ListBoxItems.Clear();
             ParamsNames = DefaultParams;

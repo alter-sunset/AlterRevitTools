@@ -10,11 +10,11 @@ using AlterTools.BatchExport.Views.NWC;
 
 namespace AlterTools.BatchExport.Core.EventHandlers
 {
-    public class EventHandlerNWC_Batch : EventHandlerBase
+    public class EventHandlerNwcBatch : EventHandlerBase
     {
         protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not NWC_ViewModel nwcVm) return;
+            if (iConfigBase is not NwcViewModel nwcVm) return;
 
             if (0 == nwcVm.Configs.Count)
             {
@@ -32,7 +32,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 
                     NwcForm form = JsonConvert.DeserializeObject<NwcForm>(new StreamReader(file).ReadToEnd());
 
-                    nwcVm.NWCFormDeserilaizer(form);
+                    nwcVm.NwcFormDeserilaizer(form);
                 }
                 catch
                 {
@@ -41,7 +41,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 
                 Logger log = new(nwcVm.FolderPath);
 
-                NWCHelper nwcHelper = new();
+                NwcHelper nwcHelper = new();
                 nwcHelper.BatchExportModels(nwcVm, uiApp, ref log);
 
                 log.Dispose();

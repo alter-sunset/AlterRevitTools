@@ -9,7 +9,7 @@ namespace AlterTools.BatchExport.Views.IFC
     {
         protected override void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp, ref Logger log)
         {
-            if ((iConfig is not IConfigIFC configIfc)
+            if ((iConfig is not IConfigIfc configIfc)
                 || IsViewEmpty(iConfig, doc, ref log, ref isFuckedUp)) return;
 
             IFCExportOptions options = IFC_ExportOptions(configIfc, doc);
@@ -21,7 +21,7 @@ namespace AlterTools.BatchExport.Views.IFC
 
             tr.Commit();
         }
-        private static IFCExportOptions IFC_ExportOptions(IConfigIFC config, Document doc) => new()
+        private static IFCExportOptions IFC_ExportOptions(IConfigIfc config, Document doc) => new()
         {
             ExportBaseQuantities = config.ExportBaseQuantities,
             FamilyMappingFile = config.FamilyMappingFile,
