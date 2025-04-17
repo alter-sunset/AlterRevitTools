@@ -42,12 +42,13 @@ namespace AlterTools.BatchExport.Core
             }
             catch { }
 
-            return uiApp.GetRibbonPanels(TAB_NAME).FirstOrDefault(p => p.Name == panelName);
+            return uiApp.GetRibbonPanels(TAB_NAME)
+                        .FirstOrDefault(panel => panel.Name == panelName);
         }
 
         private void CreateButton(ButtonContext button)
         {
-            RibbonPanel ribbonPanel = _panels.First(e => e.Item2 == button.Panel).Item1;
+            RibbonPanel ribbonPanel = _panels.First(panel => panel.Item2 == button.Panel).Item1;
 
             try
             {

@@ -22,7 +22,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
                 using Application app = uiApp.Application;
 
                 List<ListBoxItem> listItems = paramsVM.ListBoxItems.ToList();
-                listItems.ForEach(e => e.ExportParameters(app, paramsVM, csvHelper));
+                listItems.ForEach(item => item.ExportParameters(app, paramsVM, csvHelper));
             }
 
             paramsVM.Finisher(id: "ExportParametersFinished");

@@ -22,7 +22,7 @@ namespace AlterTools.BatchExport.Views.Base
             set => SetProperty(ref _listBoxItems, value);
         }
 
-        public virtual string[] Files => _listBoxItems.Select(e => e.Content.ToString()).ToArray();
+        public virtual string[] Files => _listBoxItems.Select(item => item.Content.ToString()).ToArray();
 
         private ListBoxItem _selectedItem;
         public ListBoxItem SelectedItem
@@ -45,12 +45,12 @@ namespace AlterTools.BatchExport.Views.Base
         }
 
         private RelayCommand _loadListCommand;
-        public virtual RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(obj => LoadList());
+        public virtual RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
         private void LoadList()
         {
             using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
 
-            if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
+            if (DialogResult.OK != openFileDialog.ShowDialog()) return;
 
             IEnumerable<string> files = File.ReadLines(openFileDialog.FileName).FilterRevitFiles();
 
@@ -65,17 +65,17 @@ namespace AlterTools.BatchExport.Views.Base
         }
 
         private RelayCommand _loadCommand;
-        public virtual RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(obj => Load());
+        public virtual RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
         private void Load()
         {
             using OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
 
-            if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
+            if (DialogResult.OK != openFileDialog.ShowDialog()) return;
 
             HashSet<string> existingFiles = new(Files);
 
             IEnumerable<string> files = openFileDialog.FileNames.Distinct()
-                                                                .Where(f => !existingFiles.Contains(f));
+                                                                .Where(file => !existingFiles.Contains(file));
 
             foreach (string file in files)
             {
@@ -84,11 +84,11 @@ namespace AlterTools.BatchExport.Views.Base
         }
 
         private RelayCommand _saveListCommand;
-        public virtual RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(obj => SaveList());
+        public virtual RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
         private void SaveList()
         {
             SaveFileDialog saveFileDialog = DialogType.RevitList.SaveFileDialog();
-            if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
+            if (DialogResult.OK != saveFileDialog.ShowDialog()) return;
 
             string fileName = saveFileDialog.FileName;
             File.Delete(fileName);
@@ -98,16 +98,16 @@ namespace AlterTools.BatchExport.Views.Base
         }
 
         private RelayCommand _deleteCommand;
-        public virtual RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(obj => DeleteSelectedItems());
+        public virtual RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(_ => DeleteSelectedItems());
         private void DeleteSelectedItems()
         {
-            ListBoxItems.Where(e => e.IsSelected)
+            ListBoxItems.Where(item => item.IsSelected)
                         .ToList()
                         .ForEach(item => ListBoxItems.Remove(item));
         }
 
         private RelayCommand _eraseCommand;
-        public virtual RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(obj => ListBoxItems.Clear());
+        public virtual RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(_ => ListBoxItems.Clear());
 
         private string _folderPath;
         public string FolderPath
@@ -117,12 +117,12 @@ namespace AlterTools.BatchExport.Views.Base
         }
 
         private RelayCommand _browseFolderCommand;
-        public virtual RelayCommand BrowseFolderCommand => _browseFolderCommand ??= new RelayCommand(obj => BrowseFolder());
+        public virtual RelayCommand BrowseFolderCommand => _browseFolderCommand ??= new RelayCommand(_ => BrowseFolder());
         private void BrowseFolder()
         {
             FolderBrowserDialog folderBrowserDialog = new() { SelectedPath = FolderPath };
 
-            if (folderBrowserDialog.ShowDialog() is DialogResult.OK)
+            if (DialogResult.OK == folderBrowserDialog.ShowDialog())
             {
                 FolderPath = folderBrowserDialog.SelectedPath;
             }
@@ -134,7 +134,7 @@ namespace AlterTools.BatchExport.Views.Base
             set => _helpMessage = value;
         }
         private RelayCommand _helpCommand;
-        public virtual RelayCommand HelpCommand => _helpCommand ??= new RelayCommand(obj => MessageBox.Show(HelpMessage, "Справка"));
+        public virtual RelayCommand HelpCommand => _helpCommand ??= new RelayCommand(_ => MessageBox.Show(HelpMessage, "Справка"));
 
         private EventHandlerBase _eventHandlerBase;
         public EventHandlerBase EventHandlerBase
@@ -143,7 +143,7 @@ namespace AlterTools.BatchExport.Views.Base
             set => _eventHandlerBase = value;
         }
         private RelayCommand _raiseEventCommand;
-        public RelayCommand RaiseEventCommand => _raiseEventCommand ??= new RelayCommand(obj => _eventHandlerBase.Raise(this));
+        public RelayCommand RaiseEventCommand => _raiseEventCommand ??= new RelayCommand(_ => _eventHandlerBase.Raise(this));
         public virtual RelayCommand RadioButtonCommand { get; }
 
         public static ListBoxItem DefaultListBoxItem(string content) => new()

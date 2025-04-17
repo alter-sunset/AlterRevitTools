@@ -22,9 +22,9 @@ namespace AlterTools.BatchExport.Utils
             _app.FailuresProcessing += ApplicationFailuresProcessing;
         }
 
-        private static void TaskDialogBoxShowingEvent(object sender, DialogBoxShowingEventArgs e)
+        private static void TaskDialogBoxShowingEvent(object sender, DialogBoxShowingEventArgs args)
         {
-            if (e is not TaskDialogShowingEventArgs dialogArgs) return;
+            if (args is not TaskDialogShowingEventArgs dialogArgs) return;
 
             int dialogResult = dialogArgs.DialogId.StartsWith("TaskDialog_Missing_Third_Party_Updater")
                                 ? (int)TaskDialogResult.CommandLink1
@@ -33,28 +33,28 @@ namespace AlterTools.BatchExport.Utils
             dialogArgs.OverrideResult(dialogResult);
         }
 
-        private static void ApplicationFailuresProcessing(object sender, FailuresProcessingEventArgs e)
+        private static void ApplicationFailuresProcessing(object sender, FailuresProcessingEventArgs args)
         {
-            FailuresAccessor a = e.GetFailuresAccessor();
-            FailureProcessingResult result = PreprocessFailures(a);
-            e.SetProcessingResult(result);
+            FailuresAccessor accessor = args.GetFailuresAccessor();
+            FailureProcessingResult result = PreprocessFailures(accessor);
+            args.SetProcessingResult(result);
         }
 
-        private static FailureProcessingResult PreprocessFailures(FailuresAccessor a)
+        private static FailureProcessingResult PreprocessFailures(FailuresAccessor accessor)
         {
-            IList<FailureMessageAccessor> failures = a.GetFailureMessages();
+            IList<FailureMessageAccessor> failures = accessor.GetFailureMessages();
 
-            foreach (FailureMessageAccessor f in failures)
+            foreach (FailureMessageAccessor failure in failures)
             {
-                FailureSeverity fseverity = a.GetSeverity();
+                FailureSeverity fseverity = accessor.GetSeverity();
 
                 if (FailureSeverity.Warning == fseverity)
                 {
-                    a.DeleteWarning(f);
+                    accessor.DeleteWarning(failure);
                 }
                 else
                 {
-                    a.ResolveFailure(f);
+                    accessor.ResolveFailure(failure);
                     return FailureProcessingResult.ProceedWithCommit;
                 }
             }

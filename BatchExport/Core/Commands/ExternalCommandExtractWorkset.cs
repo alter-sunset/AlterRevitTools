@@ -31,7 +31,7 @@ namespace AlterTools.BatchExport.Core.Commands
                 string modelName = Path.GetFileName(file);
 
                 IEnumerable<string> worksets = WorksharingUtils.GetUserWorksetInfo(ModelPathUtils.ConvertUserVisiblePathToModelPath(file))
-                                                               .Select(w => w.Name);
+                                                               .Select(workset => workset.Name);
 
                 foreach (string workset in worksets)
                 {

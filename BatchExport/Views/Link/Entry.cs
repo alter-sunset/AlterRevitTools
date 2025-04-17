@@ -35,7 +35,7 @@ namespace AlterTools.BatchExport.Views.Link
             get => _selectedImportPlacement;
             set
             {
-                if (_selectedImportPlacement == value) return;
+                if (value == _selectedImportPlacement) return;
 
                 SetProperty(ref _selectedImportPlacement, value);
 
@@ -53,7 +53,7 @@ namespace AlterTools.BatchExport.Views.Link
             get => _selectedWorkset;
             set
             {
-                if (_selectedWorkset == value) return;
+                if (value == _selectedWorkset) return;
 
                 SetProperty(ref _selectedWorkset, value);
 

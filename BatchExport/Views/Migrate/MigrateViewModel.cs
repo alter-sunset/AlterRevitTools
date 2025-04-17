@@ -21,11 +21,11 @@ namespace AlterTools.BatchExport.Views.Migrate
         }
 
         private RelayCommand _loadListCommand;
-        public override RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(obj => LoadList());
+        public override RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
         private void LoadList()
         {
             OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
-            if (openFileDialog.ShowDialog() is DialogResult.OK)
+            if (DialogResult.OK == openFileDialog.ShowDialog())
             {
                 ConfigPath = openFileDialog.FileName;
             }

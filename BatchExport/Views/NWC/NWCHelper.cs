@@ -46,7 +46,7 @@ namespace AlterTools.BatchExport.Views.NWC
             {
                 options.ViewId = new FilteredElementCollector(doc)
                                      .OfClass(typeof(View3D))
-                                     .FirstOrDefault(e => e.Name == config.ViewName && !((View3D)e).IsTemplate)
+                                     .FirstOrDefault(el => el.Name == config.ViewName && !((View3D)el).IsTemplate)
                                      .Id;
             }
 

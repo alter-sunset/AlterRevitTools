@@ -54,9 +54,9 @@ namespace AlterTools.BatchExport.Core
         {
             try
             {
-                Assembly a = Assembly.GetExecutingAssembly();
-                Stream s = a.GetManifestResourceStream(imagePath);
-                return BitmapFrame.Create(s);
+                Assembly assembly = Assembly.GetExecutingAssembly();
+                Stream stream = assembly.GetManifestResourceStream(imagePath);
+                return BitmapFrame.Create(stream);
             }
             catch
             {

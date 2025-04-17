@@ -34,12 +34,12 @@ namespace AlterTools.BatchExport.Views.IFC
         public string FamilyMappingFile => _mapping;
 
         private RelayCommand _loadMappingCommand;
-        public RelayCommand LoadMappingCommand => _loadMappingCommand ??= new RelayCommand(obj => LoadMapping());
+        public RelayCommand LoadMappingCommand => _loadMappingCommand ??= new RelayCommand(_ => LoadMapping());
         private void LoadMapping()
         {
             using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
 
-            if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
+            if (DialogResult.OK != openFileDialog.ShowDialog()) return;
 
             try
             {
@@ -66,12 +66,12 @@ namespace AlterTools.BatchExport.Views.IFC
         }
 
         private RelayCommand _loadListCommand;
-        public override RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(obj => LoadList());
+        public override RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
         private void LoadList()
         {
             OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
 
-            if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
+            if (DialogResult.OK != openFileDialog.ShowDialog()) return;
 
             using FileStream file = File.OpenRead(openFileDialog.FileName);
 
@@ -87,11 +87,11 @@ namespace AlterTools.BatchExport.Views.IFC
             WorksetPrefix = string.Join(";", form.WorksetPrefixes);
             Mapping = form.FamilyMappingFile;
             ExportBaseQuantities = form.ExportBaseQuantities;
-            SelectedVersion = _ifcVersions.FirstOrDefault(e => e.Key == form.FileVersion);
+            SelectedVersion = _ifcVersions.FirstOrDefault(ver => ver.Key == form.FileVersion);
             WallAndColumnSplitting = form.WallAndColumnSplitting;
             ExportScopeView = form.ExportView;
             ViewName = form.ViewName;
-            SelectedLevel = _spaceBoundaryLevels.FirstOrDefault(e => e.Key == form.SpaceBoundaryLevel);
+            SelectedLevel = _spaceBoundaryLevels.FirstOrDefault(level => level.Key == form.SpaceBoundaryLevel);
 
             IEnumerable<string> files = form.Files.FilterRevitFiles();
 
@@ -99,14 +99,14 @@ namespace AlterTools.BatchExport.Views.IFC
         }
 
         private RelayCommand _saveListCommand;
-        public override RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(obj => SaveList());
+        public override RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
         private void SaveList()
         {
             using IFCForm form = IFCFormSerializer();
 
             SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
 
-            if (saveFileDialog.ShowDialog() is not DialogResult.OK)
+            if (DialogResult.OK != saveFileDialog.ShowDialog())
             {
                 form.Dispose();
                 return;
@@ -131,12 +131,12 @@ namespace AlterTools.BatchExport.Views.IFC
             ExportView = ExportScopeView,
             ViewName = ViewName,
 
-            Files = ListBoxItems.Select(cont => cont.Content.ToString() ?? string.Empty)
+            Files = ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)
                                 .ToArray()
         };
 
         private readonly IReadOnlyDictionary<IFCVersion, string> _ifcVersions = IFC_Context.IFCVersions;
-        private KeyValuePair<IFCVersion, string> _selectedVersion = IFC_Context.IFCVersions.FirstOrDefault(e => e.Key == IFCVersion.Default);
+        private KeyValuePair<IFCVersion, string> _selectedVersion = IFC_Context.IFCVersions.FirstOrDefault(ver => IFCVersion.Default == ver.Key);
         public IReadOnlyDictionary<IFCVersion, string> IFCVersions => _ifcVersions;
         public KeyValuePair<IFCVersion, string> SelectedVersion
         {
@@ -146,7 +146,7 @@ namespace AlterTools.BatchExport.Views.IFC
         public IFCVersion FileVersion => _selectedVersion.Key;
 
         private readonly IReadOnlyDictionary<int, string> _spaceBoundaryLevels = IFC_Context.SpaceBoundaryLevels;
-        private KeyValuePair<int, string> _selectedLevel = IFC_Context.SpaceBoundaryLevels.FirstOrDefault(e => e.Key == 1);
+        private KeyValuePair<int, string> _selectedLevel = IFC_Context.SpaceBoundaryLevels.FirstOrDefault(e => 1 == e.Key);
         public IReadOnlyDictionary<int, string> SpaceBoundaryLevels => _spaceBoundaryLevels;
         public KeyValuePair<int, string> SelectedLevel
         {

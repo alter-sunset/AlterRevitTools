@@ -25,9 +25,12 @@ namespace AlterTools.BatchExport.Views.Base
 
             if (iConfig is ViewModelBase_Extended viewModel)
             {
-                if (items is null) return;
-                items = viewModel.ListBoxItems.ToArray();
-                models = items.Select(e => e.Content.ToString()).ToArray();
+                if (null == items) return;
+
+                // umm, why?
+                //items = viewModel.ListBoxItems.ToArray();
+                models = items.Select(item => item.Content.ToString())
+                              .ToArray();
             }
 
             foreach (string file in models)
@@ -44,7 +47,7 @@ namespace AlterTools.BatchExport.Views.Base
                 }
 
                 Document doc = OpenDocument(file, app, iConfig, log, items);
-                if (doc is null) continue;
+                if (null == doc) continue;
 
                 log.FileOpened();
                 UpdateItemBackground(items, file, Brushes.Blue);
@@ -90,8 +93,11 @@ namespace AlterTools.BatchExport.Views.Base
 
         private static void UpdateItemBackground(ListBoxItem[] items, string file, Brush color)
         {
-            ListBoxItem item = items.FirstOrDefault(e => e.Content.ToString() == file);
-            if (item is not null) item.Background = color;
+            ListBoxItem item = items.FirstOrDefault(i => i.Content.ToString() == file);
+            if (null != item)
+            {
+                item.Background = color;
+            }
         }
 
         private static Document OpenDocument(string file, Application app, IConfigBase_Extended iConfig, Logger log, ListBoxItem[] items)
@@ -105,15 +111,15 @@ namespace AlterTools.BatchExport.Views.Base
                     ? TransmissionData.ReadTransmissionData(modelPath)
                     : null;
 
-                bool transmitted = trData is not null && trData.IsTransmitted;
+                bool transmitted = (null != trData) && trData.IsTransmitted;
 
                 WorksetConfiguration worksetConfiguration = fileInfo.IsWorkshared
-                    ? (file.Equals(fileInfo.CentralPath) && !transmitted && iConfig.WorksetPrefixes.Length != 0
+                    ? (file.Equals(fileInfo.CentralPath) && !transmitted && (0 != iConfig.WorksetPrefixes.Length)
                         ? modelPath.CloseWorksetsWithLinks(iConfig.WorksetPrefixes)
                         : new WorksetConfiguration())
                     : null;
 
-                return worksetConfiguration is null
+                return null == worksetConfiguration
                     ? app.OpenDocumentFile(file)
                     : modelPath.OpenDetached(app, worksetConfiguration);
             }
@@ -129,12 +135,15 @@ namespace AlterTools.BatchExport.Views.Base
 
         private static void CloseDocument(Document doc, ref bool isFuckedUp, ListBoxItem[] items, string file, Logger log)
         {
-            if (doc is null) return;
+            if (null == doc) return;
 
             try
             {
                 doc.FreeTheModel();
-                if (!isFuckedUp) log.Success("Всё ок.");
+                if (!isFuckedUp)
+                {
+                    log.Success("Всё ок.");
+                }
             }
             catch (Exception ex)
             {
@@ -171,7 +180,10 @@ namespace AlterTools.BatchExport.Views.Base
             string fileName = Path.Combine(folderPath, fileWithExtension);
             string oldHash = File.Exists(fileName) ? fileName.MD5Hash() : null;
 
-            if (oldHash is not null) log.Hash(oldHash);
+            if (null != oldHash)
+            {
+                log.Hash(oldHash);
+            }
 
             try
             {
@@ -227,7 +239,7 @@ namespace AlterTools.BatchExport.Views.Base
         {
             return new FilteredElementCollector(doc)
                        .OfClass(typeof(View3D))
-                       .FirstOrDefault(e => e.Name == iConfig.ViewName && !((View3D)e).IsTemplate);
+                       .FirstOrDefault(el => el.Name == iConfig.ViewName && !((View3D)el).IsTemplate);
         }
     }
 }

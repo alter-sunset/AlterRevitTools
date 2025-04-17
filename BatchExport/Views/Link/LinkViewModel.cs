@@ -61,7 +61,7 @@ namespace AlterTools.BatchExport.Views.Link
         }
         public void UpdateSelectedEntries(Entry sourceEntry, bool isWorkset)
         {
-            foreach (Entry entry in Entries.Where(e => e != sourceEntry && e.IsSelected))
+            foreach (Entry entry in Entries.Where(en => (en != sourceEntry) && en.IsSelected))
             {
                 if (isWorkset)
                 {
@@ -75,16 +75,16 @@ namespace AlterTools.BatchExport.Views.Link
         }
 
         private RelayCommand _loadListCommand;
-        public override RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(obj => LoadList());
+        public override RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
         private void LoadList()
         {
             using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
 
-            if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
+            if (DialogResult.OK != openFileDialog.ShowDialog()) return;
 
             IEnumerable<string> files = File.ReadLines(openFileDialog.FileName).FilterRevitFiles();
 
-            Entries = new ObservableCollection<Entry>(files.Select(e => new Entry(this, e)));
+            Entries = new ObservableCollection<Entry>(files.Select(file => new Entry(this, file)));
 
             if (!Entries.Any())
             {
@@ -95,29 +95,29 @@ namespace AlterTools.BatchExport.Views.Link
         }
 
         private RelayCommand _loadCommand;
-        public override RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(obj => Load());
+        public override RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
         private void Load()
         {
             using OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
 
-            if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
+            if (DialogResult.OK != openFileDialog.ShowDialog()) return;
 
             HashSet<string> existingFiles = new(Files);
 
-            openFileDialog.FileNames.Where(f => !existingFiles.Contains(f))
+            openFileDialog.FileNames.Where(file => !existingFiles.Contains(file))
                                     .Distinct()
-                                    .Select(f => new Entry(this, f))
+                                    .Select(file => new Entry(this, file))
                                     .ToList()
                                     .ForEach(Entries.Add);
         }
 
         private RelayCommand _saveListCommand;
-        public override RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(obj => SaveList());
+        public override RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
         private void SaveList()
         {
             SaveFileDialog saveFileDialog = DialogType.RevitList.SaveFileDialog();
 
-            if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
+            if (DialogResult.OK != saveFileDialog.ShowDialog()) return;
 
             string fileName = saveFileDialog.FileName;
             File.Delete(fileName);
@@ -127,16 +127,16 @@ namespace AlterTools.BatchExport.Views.Link
         }
 
         private RelayCommand _deleteCommand;
-        public override RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(obj => DeleteSelectedItems());
+        public override RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(_ => DeleteSelectedItems());
         private void DeleteSelectedItems()
         {
-            Entries.Where(e => e.IsSelected)
+            Entries.Where(entry => entry.IsSelected)
                    .ToList()
-                   .ForEach(item => Entries.Remove(item));
+                   .ForEach(entry => Entries.Remove(entry));
         }
 
         private RelayCommand _eraseCommand;
-        public override RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(obj => Entries.Clear());
+        public override RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(_ => Entries.Clear());
 
         private string _worksetPrefix = string.Empty;
         public string WorksetPrefix

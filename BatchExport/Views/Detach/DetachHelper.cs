@@ -29,8 +29,8 @@ namespace AlterTools.BatchExport.Views.Detach
             string docTitle = doc.Title.RemoveDetach();
             string fileDetachedPath = Path.Combine(iConfigDetach.FolderPath, $"{docTitle}.rvt");
 
-            if (iConfigDetach is DetachViewModel detachViewModel
-                && 2 == detachViewModel.RadioButtonMode)
+            if ((iConfigDetach is DetachViewModel detachViewModel)
+                && (2 == detachViewModel.RadioButtonMode))
             {
                 fileDetachedPath = RenamePath(originalFilePath,
                                               RenameType.Folder,
@@ -60,9 +60,9 @@ namespace AlterTools.BatchExport.Views.Detach
             {
                 Element view = new FilteredElementCollector(doc)
                                    .OfClass(typeof(View3D))
-                                   .FirstOrDefault(e => e.Name == iConfigDetach.ViewName && !((View3D)e).IsTemplate);
+                                   .FirstOrDefault(el => el.Name == iConfigDetach.ViewName && !((View3D)el).IsTemplate);
 
-                if (null != view
+                if ((null != view)
                     && doc.IsViewEmpty(view))
                 {
                     fileDetachedPath = RenamePath(fileDetachedPath, RenameType.Empty);

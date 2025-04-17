@@ -16,7 +16,7 @@ namespace AlterTools.BatchExport.Views.Migrate
 
         public static bool IsConfigPathValid(string configPath)
         {
-            return !string.IsNullOrEmpty(configPath) && Path.GetExtension(configPath) == ".json";
+            return !string.IsNullOrEmpty(configPath) && (".json" == Path.GetExtension(configPath));
         }
 
         public static WasBecome LoadMigrationConfig(string configPath)
@@ -25,15 +25,13 @@ namespace AlterTools.BatchExport.Views.Migrate
 
             WasBecome items = JsonConvert.DeserializeObject<WasBecome>(new StreamReader(fileStream).ReadToEnd());
 
-            return items is null
-                ? throw new InvalidOperationException(WRONG_SCHEME)
-                : items;
+            return items ?? throw new InvalidOperationException(WRONG_SCHEME);
         }
 
         public static void CreateDirectoryForFile(string filePath)
         {
             string dir = Path.GetDirectoryName(filePath);
-            if (dir is not null && !Directory.Exists(dir))
+            if ((null != dir) && !Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
             }
