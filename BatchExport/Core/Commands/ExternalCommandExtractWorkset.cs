@@ -16,10 +16,10 @@ namespace AlterTools.BatchExport.Core.Commands
         public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
         {
             FolderBrowserDialog folderDialog = new();
-            if (folderDialog.ShowDialog() is not DialogResult.OK) return Result.Cancelled;
+            if (DialogResult.OK != folderDialog.ShowDialog()) return Result.Cancelled;
 
             SaveFileDialog saveFileDialog = DialogType.SingleCsv.SaveFileDialog();
-            if (saveFileDialog.ShowDialog() is not DialogResult.OK) return Result.Cancelled;
+            if (DialogResult.OK != saveFileDialog.ShowDialog()) return Result.Cancelled;
 
             string resultingFile = saveFileDialog.FileName;
             string[] files = Directory.GetFiles(folderDialog.SelectedPath, "*.rvt", SearchOption.AllDirectories);
@@ -31,7 +31,7 @@ namespace AlterTools.BatchExport.Core.Commands
                 string modelName = Path.GetFileName(file);
 
                 IEnumerable<string> worksets = WorksharingUtils.GetUserWorksetInfo(ModelPathUtils.ConvertUserVisiblePathToModelPath(file))
-                                                               .Select(w => w.Name);
+                                                               .Select(workset => workset.Name);
 
                 foreach (string workset in worksets)
                 {

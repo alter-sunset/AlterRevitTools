@@ -21,7 +21,7 @@ namespace AlterTools.BatchExport.Utils
             {
                 ExternalFileReference extRef = transData.GetLastSavedReferenceData(refId);
 
-                if (extRef.ExternalFileReferenceType is not ExternalFileReferenceType.RevitLink) continue;
+                if (ExternalFileReferenceType.RevitLink != extRef.ExternalFileReferenceType) continue;
 
                 string name = Path.GetFileName(extRef.GetPath().CentralServerPath);
 
@@ -47,7 +47,7 @@ namespace AlterTools.BatchExport.Utils
             {
                 ExternalFileReference extRef = transData.GetLastSavedReferenceData(refId);
 
-                if (extRef.ExternalFileReferenceType != ExternalFileReferenceType.RevitLink) continue;
+                if (ExternalFileReferenceType.RevitLink != extRef.ExternalFileReferenceType) continue;
 
                 ModelPath modelPath = extRef.GetAbsolutePath();
                 string path = ModelPathUtils.ConvertModelPathToUserVisiblePath(modelPath);
@@ -75,7 +75,7 @@ namespace AlterTools.BatchExport.Utils
         {
             transData = TransmissionData.ReadTransmissionData(filePath);
 
-            if (transData is not null) return true;
+            if (null != transData) return true;
 
             TaskDialog.Show("Operation Error", NO_TRANS_DATA_ALERT);
 

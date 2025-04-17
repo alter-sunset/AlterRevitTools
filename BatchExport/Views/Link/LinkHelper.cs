@@ -16,10 +16,10 @@ namespace AlterTools.BatchExport.Views.Link
             Document doc = uiApp.ActiveUIDocument.Document;
 
             bool isCurrentWorkset = linkViewModel.IsCurrentWorkset;
-            bool setWorksetId = !isCurrentWorkset && linkViewModel.Worksets.Length > 0;
+            bool setWorksetId = !isCurrentWorkset && (0 < linkViewModel.Worksets.Length);
 
-            List<Entry> entries = linkViewModel.Entries.Where(e => !string.IsNullOrEmpty(e.Name) && File.Exists(e.Name))
-                                                       .OrderBy(e => e.SelectedWorkset?.Name ?? string.Empty)
+            List<Entry> entries = linkViewModel.Entries.Where(entry => !string.IsNullOrEmpty(entry.Name) && File.Exists(entry.Name))
+                                                       .OrderBy(entry => entry.SelectedWorkset?.Name ?? string.Empty)
                                                        .ToList();
 
             LinkProps props = new(doc.GetWorksetTable(), setWorksetId, linkViewModel.PinLinks, linkViewModel.WorksetPrefixes);
@@ -32,13 +32,13 @@ namespace AlterTools.BatchExport.Views.Link
 
             ModelPath linkPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(entry.Name);
 
-            RevitLinkOptions revitLinkOptions = fileInfo.IsWorkshared && props.WorksetPrefixes.Length != 0
+            RevitLinkOptions revitLinkOptions = fileInfo.IsWorkshared && (0 != props.WorksetPrefixes.Length)
                 ? new(false, CloseWorksetsWithLinks(linkPath, props.WorksetPrefixes))
                 : new(false);
 
-            using Transaction t = new(doc);
+            using Transaction tr = new(doc);
 
-            t.Start($"Link {entry.Name}");
+            tr.Start($"Link {entry.Name}");
 
             if (props.SetWorksetId)
             {
@@ -54,7 +54,7 @@ namespace AlterTools.BatchExport.Views.Link
                 revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, entry.SelectedImportPlacement);
                 revitLinkInstance.Pinned = props.PinLink;
 
-                t.Commit();
+                tr.Commit();
             }
             catch (InvalidOperationException)
             {
@@ -62,11 +62,11 @@ namespace AlterTools.BatchExport.Views.Link
                 ModelHelper.YesNoTaskDialog(DIFF_COORD, () => doc.AcquireCoordinates(revitLinkInstance.Id));
                 revitLinkInstance.Pinned = props.PinLink;
 
-                t.Commit();
+                tr.Commit();
             }
             catch
             {
-                t.RollBack();
+                tr.RollBack();
             }
         }
 
@@ -74,7 +74,7 @@ namespace AlterTools.BatchExport.Views.Link
         {
             WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.CloseAllWorksets);
 
-            if (prefixes.Length == 0) return worksetConfiguration;
+            if (0 == prefixes.Length) return worksetConfiguration;
 
             //problem occurs if centralModel can't be found
             IList<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)

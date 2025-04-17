@@ -8,7 +8,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
     /// <typeparam name="TType">The Class type being wrapped for the External Event Handler.</typeparam>
     public abstract class RevitEventWrapper<TType> : IExternalEventHandler
     {
-        private readonly object _lock = new object();
+        private readonly object _lock = new();
         private TType _savedArgs;
         private readonly ExternalEvent _revitEvent;
 

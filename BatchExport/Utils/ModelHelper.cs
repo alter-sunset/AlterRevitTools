@@ -18,14 +18,14 @@ namespace AlterTools.BatchExport.Utils
         {
             WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.OpenAllWorksets);
 
-            if (prefixes.Length == 0) return worksetConfiguration;
+            if (0 == prefixes.Length) return worksetConfiguration;
 
             List<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)
                                                          .Where(wp => prefixes.Any(wp.Name.StartsWith))
                                                          .Select(wp => wp.Id)
                                                          .ToList();
 
-            if (worksetIds.Count > 0) worksetConfiguration.Close(worksetIds);
+            if (0 < worksetIds.Count) worksetConfiguration.Close(worksetIds);
 
             return worksetConfiguration;
         }
@@ -43,9 +43,9 @@ namespace AlterTools.BatchExport.Utils
             {
                 using FilteredElementCollector collector = new(doc, view.Id);
 
-                return !collector.Where(e => e.Category != null
-                                          && e.GetType() != typeof(RevitLinkInstance))
-                                 .Any(e => e.CanBeHidden(view));
+                return !collector.Where(el => el.Category != null
+                                          && el.GetType() != typeof(RevitLinkInstance))
+                                 .Any(el => el.CanBeHidden(view));
             }
             catch
             {
@@ -72,12 +72,12 @@ namespace AlterTools.BatchExport.Utils
         {
             ICollection<ElementId> ids = ExternalFileUtils.GetAllExternalFileReferences(doc);
 
-            if (ids.Count == 0) return;
+            if (0 == ids.Count) return;
 
-            using Transaction t = new(doc, "Delete all Links");
+            using Transaction tr = new(doc, "Delete all Links");
 
-            t.Start();
-            t.SuppressAlert();
+            tr.Start();
+            tr.SuppressAlert();
 
             foreach (ElementId id in ids)
             {
@@ -88,7 +88,7 @@ namespace AlterTools.BatchExport.Utils
                 catch { }
             }
 
-            t.Commit();
+            tr.Commit();
         }
 
         /// <summary>
@@ -133,12 +133,12 @@ namespace AlterTools.BatchExport.Utils
                                     .ToElementIds()
                                     .FirstOrDefault();
 
-            if (typeId is null) return;
-            if (levelId is null) return;
+            if (null == typeId) return;
+            if (null == levelId) return;
 
-            using Transaction t = new(doc, "Open worksets");
+            using Transaction tr = new(doc, "Open worksets");
 
-            t.Start();
+            tr.Start();
 
             // Create a temporary cable tray
             CableTray ct = CableTray.Create(doc, typeId, new XYZ(0, 0, 0), new XYZ(0, 0, 1), levelId);
@@ -150,7 +150,11 @@ namespace AlterTools.BatchExport.Utils
                 // Change the workset of the cable tray
                 Parameter wsParam = ct.get_Parameter(BuiltInParameter.ELEM_PARTITION_PARAM);
 
-                if (wsParam is not null && !wsParam.IsReadOnly) wsParam.Set(workset.Id.IntegerValue);
+                if (null != wsParam
+                    && !wsParam.IsReadOnly)
+                {
+                    wsParam.Set(workset.Id.IntegerValue);
+                }
 
                 // Show the cable tray to open the workset
                 new UIDocument(doc).ShowElements(ct.Id);
@@ -159,18 +163,21 @@ namespace AlterTools.BatchExport.Utils
             // Delete the temporary cable tray
             doc.Delete(ct.Id);
 
-            t.Commit();
+            tr.Commit();
         }
         public static void YesNoTaskDialog(string msg, Action action)
         {
             TaskDialogResult result = TaskDialog.Show("Ошибка", msg, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
-            if (result is TaskDialogResult.Yes) action?.Invoke();
+            if (TaskDialogResult.Yes == result)
+            {
+                action?.Invoke();
+            }
         }
-        private static void SuppressAlert(this Transaction t)
+        private static void SuppressAlert(this Transaction tr)
         {
-            FailureHandlingOptions failOpt = t.GetFailureHandlingOptions();
+            FailureHandlingOptions failOpt = tr.GetFailureHandlingOptions();
             failOpt.SetFailuresPreprocessor(new CopyWatchAlertSuppressor());
-            t.SetFailureHandlingOptions(failOpt);
+            tr.SetFailureHandlingOptions(failOpt);
         }
 
 #if R24_OR_GREATER
@@ -189,17 +196,17 @@ namespace AlterTools.BatchExport.Utils
 
                     previousCount = unusedElements.Count;
 
-                    if (previousCount == 0) break;
+                    if (0 == previousCount) break;
 
-                    using (Transaction t = new(doc, "Purge unused"))
+                    using (Transaction tr = new(doc, "Purge unused"))
                     {
-                        t.Start();
+                        tr.Start();
 
                         doc.Delete(unusedElements);
 
-                        t.Commit();
+                        tr.Commit();
                     }
-                } while (previousCount > 0);
+                } while (0 < previousCount);
             }
             catch { }
         }
@@ -214,13 +221,13 @@ namespace AlterTools.BatchExport.Utils
                                            .Where(doc.IsWorksetEmpty)
                                            .ToList();
 
-            using (Transaction t = new(doc))
+            using (Transaction tr = new(doc))
             {
-                t.Start("Remove empty worksets");
+                tr.Start("Remove empty worksets");
 
                 worksets.ForEach(workset => WorksetTable.DeleteWorkset(doc, workset, new DeleteWorksetSettings()));
 
-                t.Commit();
+                tr.Commit();
             }
         }
 
@@ -242,16 +249,18 @@ namespace AlterTools.BatchExport.Utils
                 : param.AsValueString().Trim();
         }
 
-        public static bool IsPhysicalElement(this Element e)
+        public static bool IsPhysicalElement(this Element el)
         {
-            if (e.Category is null || e.ViewSpecific) return false;
+            if (null == el.Category) return false;
+            if (el.ViewSpecific) return false;
             // exclude specific unwanted categories
 #if R24_OR_GREATER
             if (((BuiltInCategory)e.Category.Id.Value) == BuiltInCategory.OST_HVAC_Zones) return false;
 #else
-            if (((BuiltInCategory)e.Category.Id.IntegerValue) == BuiltInCategory.OST_HVAC_Zones) return false;
+            if (BuiltInCategory.OST_HVAC_Zones == ((BuiltInCategory)el.Category.Id.IntegerValue)) return false;
 #endif
-            return e.Category.CategoryType == CategoryType.Model && e.Category.CanAddSubcategory;
+            return CategoryType.Model == el.Category.CategoryType
+                && el.Category.CanAddSubcategory;
         }
     }
 }

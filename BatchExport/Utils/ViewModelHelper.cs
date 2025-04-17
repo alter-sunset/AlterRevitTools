@@ -72,7 +72,7 @@ namespace AlterTools.BatchExport.Utils
             {
                 MessageBoxResult result = MessageBox.Show(CREATE_FOLDER, "Добрый вечер", MessageBoxButton.YesNo);
 
-                if (result is MessageBoxResult.Yes)
+                if (MessageBoxResult.Yes == result)
                 {
                     Directory.CreateDirectory(folderPath);
                 }
@@ -180,8 +180,8 @@ namespace AlterTools.BatchExport.Utils
         public static IEnumerable<string> FilterRevitFiles(this IEnumerable<string> files)
         {
             return files.Distinct()
-                        .Where(f => !string.IsNullOrWhiteSpace(f)
-                                    && Path.GetExtension(f) == ".rvt");
+                        .Where(file => !string.IsNullOrWhiteSpace(file)
+                                    && ".rvt" == Path.GetExtension(file));
         }
 
         public static string RemoveDetach(this string name)
@@ -193,9 +193,9 @@ namespace AlterTools.BatchExport.Utils
         public static string[] SplitBySemicolon(this string line)
         {
             return line.Split(';')
-                       .Select(e => e.Trim())
+                       .Select(word => word.Trim())
                        .Distinct()
-                       .Where(e => !string.IsNullOrWhiteSpace(e))
+                       .Where(word => !string.IsNullOrWhiteSpace(word))
                        .ToArray();
         }
     }

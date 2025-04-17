@@ -6,13 +6,13 @@ namespace AlterTools.BatchExport.Utils
 {
     public class CopyWatchAlertSuppressor : IFailuresPreprocessor
     {
-        public FailureProcessingResult PreprocessFailures(FailuresAccessor a)
+        public FailureProcessingResult PreprocessFailures(FailuresAccessor accessor)
         {
-            List<FailureMessageAccessor> failures = a.GetFailureMessages()
-                                                     .Where(f => f.GetFailureDefinitionId() == BuiltInFailures.CopyMonitorFailures.CopyWatchAlert)
+            List<FailureMessageAccessor> failures = accessor.GetFailureMessages()
+                                                     .Where(failure => BuiltInFailures.CopyMonitorFailures.CopyWatchAlert == failure.GetFailureDefinitionId())
                                                      .ToList();
 
-            failures.ForEach(a.DeleteWarning);
+            failures.ForEach(accessor.DeleteWarning);
 
             return FailureProcessingResult.Continue;
         }

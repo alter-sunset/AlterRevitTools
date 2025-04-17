@@ -27,20 +27,20 @@ namespace AlterTools.BatchExport.Views.Params
             try
             {
                 using Document doc = OpenDocumentHelper.OpenDocument(app, filePath, out bool _);
-                if (doc is null) return;
+                if (null == doc) return;
 
                 IEnumerable<ParametersTable> paramTables = new FilteredElementCollector(doc)
                                                                .WhereElementIsNotElementType()
-                                                               .Where(e => e.IsPhysicalElement())
-                                                               .Select(e => new ParametersTable()
+                                                               .Where(el => el.IsPhysicalElement())
+                                                               .Select(el => new ParametersTable()
                                                                {
                                                                    ModelName = fileName,
-                                                                   Parameters = e.GetParametersSet(paramsVM.ParametersNames),
+                                                                   Parameters = el.GetParametersSet(paramsVM.ParametersNames),
 
 #if R24_OR_GREATER
-                                                                   ElementId = e.Id.Value,
+                                                                   ElementId = el.Id.Value,
 #else
-                                                                   ElementId = e.Id.IntegerValue,
+                                                                   ElementId = el.Id.IntegerValue,
 #endif
                                                                });
 
@@ -56,7 +56,7 @@ namespace AlterTools.BatchExport.Views.Params
 
         private static Dictionary<string, string> GetParametersSet(this Element element, string[] parametersNames)
         {
-            return parametersNames.ToDictionary(p => p, p => element.LookupParameter(p).GetValueString());
+            return parametersNames.ToDictionary(name => name, name => element.LookupParameter(name).GetValueString());
         }
     }
 }
