@@ -9,7 +9,7 @@ namespace AlterTools.BatchExport.Views.Link
         private readonly LinkViewModel _viewModel;
         public Entry(LinkViewModel viewModel, string name)
         {
-            _name = name;
+            Name = name;
             _viewModel = viewModel;
 
             ImportPlacements = LinkViewModel.ImportPlacements;
@@ -18,8 +18,7 @@ namespace AlterTools.BatchExport.Views.Link
             SelectedWorkset = Worksets.FirstOrDefault();
         }
 
-        private readonly string _name;
-        public string Name => _name;
+        public string Name { get; }
 
         private bool _isSelected;
         public bool IsSelected

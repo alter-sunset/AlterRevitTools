@@ -11,9 +11,7 @@ namespace AlterTools.DriveFromOutside
 {
     public class ExternalTaskHandler(List<IEventHolder> eventHolders)
     {
-        private readonly List<IEventHolder> _eventHolders = eventHolders;
-
-        private static readonly string FOLDER_CONFIGS = InitializeFolderConfigs();
+        private static readonly string FolderConfigs = InitializeFolderConfigs();
         private static string InitializeFolderConfigs() =>
             Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 @"RevitListener\Tasks");
@@ -25,8 +23,7 @@ namespace AlterTools.DriveFromOutside
             while (await timer.WaitForNextTickAsync())
             {
                 TaskConfig? taskConfig = GetOldestMessage();
-                if (taskConfig is not null)
-                    RaiseEvent(taskConfig);
+                RaiseEvent(taskConfig);
             }
         }
 #else
@@ -44,13 +41,13 @@ namespace AlterTools.DriveFromOutside
         }
 #endif
 
-        public static TaskConfig GetOldestMessage()
+        private static TaskConfig GetOldestMessage()
         {
-            string[] files = Directory.GetFiles(FOLDER_CONFIGS)
+            string[] files = Directory.GetFiles(FolderConfigs)
                 .OrderBy(File.GetLastWriteTime)
                 .ToArray();
 
-            if (files.Length == 0) return null;
+            if (files.Length == 0) return null!;
 
             using StreamReader fileStream = File.OpenText(files[0]);
             using JsonTextReader reader = new(fileStream);
@@ -58,7 +55,7 @@ namespace AlterTools.DriveFromOutside
 
             return new TaskConfig
             {
-                ExternalEvent = jsonObject["ExternalEvent"].ToObject<ExternalEvents>(),
+                ExternalEvent = jsonObject["ExternalEvent"]!.ToObject<ExternalEvents>(),
                 EventConfig = jsonObject["EventConfig"],
                 FilePath = files[0]
             };
@@ -66,25 +63,26 @@ namespace AlterTools.DriveFromOutside
 
         private void RaiseEvent(TaskConfig taskConfig)
         {
-            if (taskConfig is null || taskConfig.FilePath is null) return;
-            IEventHolder? eventHolder = _eventHolders
-                .FirstOrDefault(e => e.ExternalEvent == taskConfig.ExternalEvent);
+            if (null == taskConfig?.FilePath) return;
+            IEventHolder? eventHolder = eventHolders.FirstOrDefault(e => e.ExternalEvent == taskConfig.ExternalEvent);
             if (eventHolder is null) return;
 
             Dictionary<ExternalEvents, Action> eventHandlers = GetEventHandlers(taskConfig, eventHolder);
 
             // Invoke the appropriate event handler if it exists
             if (eventHandlers.TryGetValue(taskConfig.ExternalEvent, out var raiseEvent))
+            {
                 raiseEvent();
+            }
 
             // Delete the file after raising the event
             File.Delete(taskConfig.FilePath);
         }
 
         private static Dictionary<ExternalEvents, Action> GetEventHandlers(TaskConfig taskConfig,
-            IEventHolder eventHolder)
+                                                                           IEventHolder eventHolder)
         {
-            return new()
+            return new Dictionary<ExternalEvents, Action>
             {
                 { ExternalEvents.Transmit, () =>
                     {

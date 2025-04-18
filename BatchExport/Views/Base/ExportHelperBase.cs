@@ -14,7 +14,7 @@ namespace AlterTools.BatchExport.Views.Base
 {
     public class ExportHelperBase
     {
-        public void BatchExportModels(IConfigBase_Extended iConfig, UIApplication uiApp, ref Logger log)
+        public void BatchExportModels(IConfigBaseExtended iConfig, UIApplication uiApp, ref Logger log)
         {
             using Application app = uiApp.Application;
             using ErrorSuppressor errorSuppressor = new(uiApp);
@@ -23,12 +23,10 @@ namespace AlterTools.BatchExport.Views.Base
 
             ListBoxItem[] items = GetListBoxItems(iConfig);
 
-            if (iConfig is ViewModelBase_Extended viewModel)
+            if (iConfig is ViewModelBaseExtended)
             {
                 if (null == items) return;
 
-                // umm, why?
-                //items = viewModel.ListBoxItems.ToArray();
                 models = items.Select(item => item.Content.ToString())
                               .ToArray();
             }
@@ -78,9 +76,9 @@ namespace AlterTools.BatchExport.Views.Base
             log.TimeTotal();
         }
 
-        private static ListBoxItem[] GetListBoxItems(IConfigBase_Extended iConfig)
+        private static ListBoxItem[] GetListBoxItems(IConfigBaseExtended iConfig)
         {
-            return iConfig is ViewModelBase_Extended viewModel
+            return iConfig is ViewModelBaseExtended viewModel
                 ? viewModel.ListBoxItems.ToArray()
                 : null;
         }
@@ -100,23 +98,25 @@ namespace AlterTools.BatchExport.Views.Base
             }
         }
 
-        private static Document OpenDocument(string file, Application app, IConfigBase_Extended iConfig, Logger log, ListBoxItem[] items)
+        private static Document OpenDocument(string file, Application app, IConfigBaseExtended iConfig, Logger log, ListBoxItem[] items)
         {
             try
             {
                 BasicFileInfo fileInfo = BasicFileInfo.Extract(file);
                 ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(file);
 
-                TransmissionData trData = File.Exists(fileInfo.CentralPath) //ensures that central model exists and reachable
+                TransmissionData trData = File.Exists(fileInfo.CentralPath) // ensure that central model exists and reachable
                     ? TransmissionData.ReadTransmissionData(modelPath)
                     : null;
 
-                bool transmitted = (null != trData) && trData.IsTransmitted;
+                bool transmitted = trData is { IsTransmitted: true };
 
                 WorksetConfiguration worksetConfiguration = fileInfo.IsWorkshared
-                    ? (file.Equals(fileInfo.CentralPath) && !transmitted && (0 != iConfig.WorksetPrefixes.Length)
-                        ? modelPath.CloseWorksets(iConfig.WorksetPrefixes)
-                        : new WorksetConfiguration())
+                    ? file.Equals(fileInfo.CentralPath) 
+                      && !transmitted
+                      && 0 != iConfig.WorksetPrefixes.Length
+                        ? modelPath.CloseWorksetsWithLinks(iConfig.WorksetPrefixes)
+                        : new WorksetConfiguration()
                     : null;
 
                 return null == worksetConfiguration
@@ -160,9 +160,9 @@ namespace AlterTools.BatchExport.Views.Base
             }
         }
 
-        public virtual void ExportModel(IConfigBase_Extended iConfig, Document doc, ref bool isFuckedUp, ref Logger log) { }
+        protected virtual void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp, ref Logger log) { }
 
-        public static void Export(IConfigBase_Extended iConfig,
+        protected static void Export(IConfigBaseExtended iConfig,
                                   Document doc,
                                   object options,
                                   ref Logger log,
@@ -178,7 +178,7 @@ namespace AlterTools.BatchExport.Views.Base
                                        $"{(options is NavisworksExportOptions ? ".nwc" : ".ifc")}";
 
             string fileName = Path.Combine(folderPath, fileWithExtension);
-            string oldHash = File.Exists(fileName) ? fileName.MD5Hash() : null;
+            string oldHash = File.Exists(fileName) ? fileName.Md5Hash() : null;
 
             if (null != oldHash)
             {
@@ -189,11 +189,11 @@ namespace AlterTools.BatchExport.Views.Base
             {
                 if (options is NavisworksExportOptions navisOptions)
                 {
-                    doc?.Export(folderPath, fileExportName, navisOptions);
+                    doc.Export(folderPath, fileExportName, navisOptions);
                 }
                 else
                 {
-                    doc?.Export(folderPath, fileExportName, options as IFCExportOptions);
+                    doc.Export(folderPath, fileExportName, options as IFCExportOptions);
                 }
             }
             catch (Exception ex)
@@ -210,32 +210,28 @@ namespace AlterTools.BatchExport.Views.Base
                 return;
             }
 
-            string newHash = fileName.MD5Hash();
+            string newHash = fileName.Md5Hash();
             log.Hash(newHash);
 
-            if (newHash == oldHash)
-            {
-                log.Error("Файл не был обновлён. Хэш сумма не изменилась.");
-                isFuckedUp = true;
-            }
+            if (newHash != oldHash) return;
+
+            log.Error("Файл не был обновлён. Хэш сумма не изменилась.");
+            isFuckedUp = true;
         }
 
-        public static bool IsViewEmpty(IConfigBase_Extended iConfig, Document doc, ref Logger log, ref bool isFuckedUp)
+        protected static bool IsViewEmpty(IConfigBaseExtended iConfig, Document doc, ref Logger log, ref bool isFuckedUp)
         {
-            if (iConfig is NWC_ViewModel model && model.ExportLinks) return false;
+            if (iConfig is NwcViewModel { ExportLinks: true }) return false;
 
-            if (iConfig.ExportScopeView
-                && doc.IsViewEmpty(GetView(iConfig, doc)))
-            {
-                log.Error("Нет геометрии на виде.");
-                isFuckedUp = true;
-                return true;
-            }
+            if (!iConfig.ExportScopeView) return false;
+            if (!doc.IsViewEmpty(GetView(iConfig, doc))) return false;
 
-            return false;
+            log.Error("Нет геометрии на виде.");
+            isFuckedUp = true;
+            return true;
         }
 
-        private static Element GetView(IConfigBase_Extended iConfig, Document doc)
+        private static Element GetView(IConfigBaseExtended iConfig, Document doc)
         {
             return new FilteredElementCollector(doc)
                        .OfClass(typeof(View3D))

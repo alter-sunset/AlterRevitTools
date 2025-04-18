@@ -1,15 +1,17 @@
 ﻿using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
+using JetBrains.Annotations;
 
 namespace AlterTools.BatchExport.Core.Commands
 {
+    [UsedImplicitly]
     [Transaction(TransactionMode.Manual)]
-    public class ExternalCommandExportModelsToNWC : IExternalCommand
+    public class ExternalCommandExportModelsToNwc : IExternalCommand
     {
         public virtual Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements)
         {
-            return CommandWrapper.Execute(ref msg, Forms.NWC);
+            return CommandWrapper.Execute(ref msg, Forms.Nwc);
         }
     }
 }

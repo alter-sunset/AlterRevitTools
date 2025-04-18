@@ -1,10 +1,12 @@
 ﻿using Autodesk.Revit.DB;
 using Autodesk.Revit.ApplicationServices;
+using JetBrains.Annotations;
 
 namespace AlterTools.BatchExport.Utils
 {
     public static class OpenDocumentHelper
     {
+        [UsedImplicitly]
         public static Document OpenAsIs(this ModelPath modelPath, Application app, WorksetConfiguration worksetConfiguration)
         {
             return modelPath.OpenDocumentWithOptions(DetachFromCentralOption.DoNotDetach,
@@ -59,7 +61,10 @@ namespace AlterTools.BatchExport.Utils
                     isWorkshared = true;
                 }
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
 
             return doc;
         }

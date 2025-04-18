@@ -16,16 +16,16 @@ using AlterTools.BatchExport.Core.Commands;
 
 namespace AlterTools.BatchExport.Utils
 {
-    static class ViewHelper
+    internal static class ViewHelper
     {
         private static UIApplication _uiApp;
         private static Window _myForm;
 
-        private static readonly Dictionary<Forms, Func<Window>> _formCreators = new()
+        private static readonly Dictionary<Forms, Func<Window>> FormCreators = new()
         {
             { Forms.Detach,     () => new DetachModelsView(     new EventHandlerDetach()                            )},
-            { Forms.IFC,        () => new IFCExportView(        new EventHandlerIFC()                               )},
-            { Forms.NWC,        () => new NWCExportView(        new EventHandlerNWC(), new EventHandlerNWC_Batch()  )},
+            { Forms.Ifc,        () => new IfcExportView(        new EventHandlerIfc()                               )},
+            { Forms.Nwc,        () => new NwcExportView(        new EventHandlerNwc(), new EventHandlerNwcBatch()  )},
             { Forms.Migrate,    () => new MigrateModelsView(    new EventHandlerMigrate()                           )},
             { Forms.Transmit,   () => new TransmitModelsView(   new EventHandlerTransmit()                          )},
             { Forms.Link,       () => new LinkModelsView(       new EventHandlerLink(), GetWorksets()               )},
@@ -40,11 +40,10 @@ namespace AlterTools.BatchExport.Utils
 
             try
             {
-                if (_formCreators.TryGetValue(form, out var createForm))
-                {
-                    _myForm = createForm();
-                    _myForm.Show();
-                }
+                if (!FormCreators.TryGetValue(form, out var createForm)) return;
+
+                _myForm = createForm();
+                _myForm.Show();
             }
             catch (Exception ex)
             {

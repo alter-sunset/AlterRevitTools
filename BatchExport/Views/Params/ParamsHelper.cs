@@ -11,7 +11,7 @@ namespace AlterTools.BatchExport.Views.Params
 {
     public static class ParamsHelper
     {
-        public static void ExportParameters(this ListBoxItem item, Application app, ParamsViewModel paramsVM, CsvHelper csvHelper)
+        public static void ExportParameters(this ListBoxItem item, Application app, ParamsViewModel paramsVm, CsvHelper csvHelper)
         {
             string filePath = item.Content?.ToString();
             string fileName = Path.GetFileName(filePath);
@@ -32,10 +32,10 @@ namespace AlterTools.BatchExport.Views.Params
                 IEnumerable<ParametersTable> paramTables = new FilteredElementCollector(doc)
                                                                .WhereElementIsNotElementType()
                                                                .Where(el => el.IsPhysicalElement())
-                                                               .Select(el => new ParametersTable()
+                                                               .Select(el => new ParametersTable
                                                                {
                                                                    ModelName = fileName,
-                                                                   Parameters = el.GetParametersSet(paramsVM.ParametersNames),
+                                                                   Parameters = el.GetParametersSet(paramsVm.ParametersNames),
 
 #if R24_OR_GREATER
                                                                    ElementId = el.Id.Value,
@@ -49,7 +49,10 @@ namespace AlterTools.BatchExport.Views.Params
                     csvHelper.WriteElement(table);
                 }
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
 
             item.Background = Brushes.Green;
         }

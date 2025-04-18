@@ -5,10 +5,12 @@ using System.Collections.Generic;
 using System.Windows.Media.Imaging;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Core.Commands;
+using JetBrains.Annotations;
 
 namespace AlterTools.BatchExport.Core
 {
-    class ButtonContext
+    [UsedImplicitly]
+    internal class ButtonContext
     {
         public string Name { get; set; }
         public string Text { get; set; }
@@ -56,7 +58,7 @@ namespace AlterTools.BatchExport.Core
             {
                 Assembly assembly = Assembly.GetExecutingAssembly();
                 Stream stream = assembly.GetManifestResourceStream(imagePath);
-                return BitmapFrame.Create(stream);
+                return BitmapFrame.Create(stream!);
             }
             catch
             {

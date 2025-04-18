@@ -12,14 +12,14 @@ namespace AlterTools.BatchExport.Views.Base
 {
     public class ViewModelBase : NotifyPropertyChanged, IConfigBase
     {
-        public const string NO_FILES = "В текстовом файле не было найдено подходящей информации";
+        protected const string NO_FILES = "В текстовом файле не было найдено подходящей информации";
 
         private ObservableCollection<ListBoxItem> _listBoxItems = [];
 
-        public virtual ObservableCollection<ListBoxItem> ListBoxItems
+        public ObservableCollection<ListBoxItem> ListBoxItems
         {
             get => _listBoxItems;
-            set => SetProperty(ref _listBoxItems, value);
+            protected set => SetProperty(ref _listBoxItems, value);
         }
 
         public virtual string[] Files => _listBoxItems.Select(item => item.Content.ToString()).ToArray();
@@ -45,8 +45,8 @@ namespace AlterTools.BatchExport.Views.Base
         }
 
         private RelayCommand _loadListCommand;
-        public virtual RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
-        private void LoadList()
+        public RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
+        protected virtual void LoadList()
         {
             using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
 
@@ -65,8 +65,8 @@ namespace AlterTools.BatchExport.Views.Base
         }
 
         private RelayCommand _loadCommand;
-        public virtual RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
-        private void Load()
+        public RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
+        protected virtual void Load()
         {
             using OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
 
@@ -84,8 +84,8 @@ namespace AlterTools.BatchExport.Views.Base
         }
 
         private RelayCommand _saveListCommand;
-        public virtual RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
-        private void SaveList()
+        public RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
+        protected virtual void SaveList()
         {
             SaveFileDialog saveFileDialog = DialogType.RevitList.SaveFileDialog();
             if (DialogResult.OK != saveFileDialog.ShowDialog()) return;
@@ -98,8 +98,8 @@ namespace AlterTools.BatchExport.Views.Base
         }
 
         private RelayCommand _deleteCommand;
-        public virtual RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(_ => DeleteSelectedItems());
-        private void DeleteSelectedItems()
+        public RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(_ => DeleteSelectedItems());
+        protected virtual void DeleteSelectedItems()
         {
             ListBoxItems.Where(item => item.IsSelected)
                         .ToList()
@@ -107,7 +107,9 @@ namespace AlterTools.BatchExport.Views.Base
         }
 
         private RelayCommand _eraseCommand;
-        public virtual RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(_ => ListBoxItems.Clear());
+        public RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(_ => Erase());
+
+        protected virtual void Erase() => ListBoxItems.Clear();
 
         private string _folderPath;
         public string FolderPath
@@ -117,7 +119,7 @@ namespace AlterTools.BatchExport.Views.Base
         }
 
         private RelayCommand _browseFolderCommand;
-        public virtual RelayCommand BrowseFolderCommand => _browseFolderCommand ??= new RelayCommand(_ => BrowseFolder());
+        public RelayCommand BrowseFolderCommand => _browseFolderCommand ??= new RelayCommand(_ => BrowseFolder());
         private void BrowseFolder()
         {
             FolderBrowserDialog folderBrowserDialog = new() { SelectedPath = FolderPath };
@@ -127,26 +129,19 @@ namespace AlterTools.BatchExport.Views.Base
                 FolderPath = folderBrowserDialog.SelectedPath;
             }
         }
-        private string _helpMessage;
-        public string HelpMessage
-        {
-            get => _helpMessage;
-            set => _helpMessage = value;
-        }
-        private RelayCommand _helpCommand;
-        public virtual RelayCommand HelpCommand => _helpCommand ??= new RelayCommand(_ => MessageBox.Show(HelpMessage, "Справка"));
 
-        private EventHandlerBase _eventHandlerBase;
-        public EventHandlerBase EventHandlerBase
-        {
-            get => _eventHandlerBase;
-            set => _eventHandlerBase = value;
-        }
+        protected string HelpMessage { get; set; }
+
+        private RelayCommand _helpCommand;
+        public RelayCommand HelpCommand => _helpCommand ??= new RelayCommand(_ => MessageBox.Show(HelpMessage, "Справка"));
+
+        protected EventHandlerBase EventHandlerBase { get; set; }
+
         private RelayCommand _raiseEventCommand;
-        public RelayCommand RaiseEventCommand => _raiseEventCommand ??= new RelayCommand(_ => _eventHandlerBase.Raise(this));
+        public RelayCommand RaiseEventCommand => _raiseEventCommand ??= new RelayCommand(_ => EventHandlerBase.Raise(this));
         public virtual RelayCommand RadioButtonCommand { get; }
 
-        public static ListBoxItem DefaultListBoxItem(string content) => new()
+        protected static ListBoxItem DefaultListBoxItem(string content) => new()
         {
             Content = content,
             Background = Brushes.White

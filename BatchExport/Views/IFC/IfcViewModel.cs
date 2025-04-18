@@ -11,13 +11,13 @@ using AlterTools.BatchExport.Core.EventHandlers;
 
 namespace AlterTools.BatchExport.Views.IFC
 {
-    public class IFC_ViewModel : ViewModelBase_Extended, IConfigIFC
+    public class IfcViewModel : ViewModelBaseExtended, IConfigIfc
     {
-        public IFC_ViewModel(EventHandlerIFC eventHandlerIFC)
+        public IfcViewModel(EventHandlerIfc eventHandlerIfc)
         {
-            EventHandlerBase = eventHandlerIFC;
+            EventHandlerBase = eventHandlerIfc;
             HelpMessage = Help.GetHelpDictionary()
-                              .GetResultMessage(HelpMessageType.IFCTitle,
+                              .GetResultMessage(HelpMessageType.IfcTitle,
                                                 HelpMessageType.Load,
                                                 HelpMessageType.Folder,
                                                 HelpMessageType.Naming,
@@ -51,23 +51,21 @@ namespace AlterTools.BatchExport.Views.IFC
             }
         }
 
-        private bool _exportBaseQuantities = false;
+        private bool _exportBaseQuantities;
         public bool ExportBaseQuantities
         {
             get => _exportBaseQuantities;
             set => SetProperty(ref _exportBaseQuantities, value);
         }
 
-        private bool _wallAndColumnSplitting = false;
+        private bool _wallAndColumnSplitting;
         public bool WallAndColumnSplitting
         {
             get => _wallAndColumnSplitting;
             set => SetProperty(ref _wallAndColumnSplitting, value);
         }
 
-        private RelayCommand _loadListCommand;
-        public override RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
-        private void LoadList()
+        protected override void LoadList()
         {
             OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
 
@@ -75,9 +73,9 @@ namespace AlterTools.BatchExport.Views.IFC
 
             using FileStream file = File.OpenRead(openFileDialog.FileName);
 
-            IFCFormDeserilaizer(JsonHelper<IFCForm>.DeserializeConfig(file));
+            IfcFormDeserializer(JsonHelper<IfcForm>.DeserializeConfig(file));
         }
-        private void IFCFormDeserilaizer(IFCForm form)
+        private void IfcFormDeserializer(IfcForm form)
         {
             if (form is null) return;
 
@@ -91,33 +89,27 @@ namespace AlterTools.BatchExport.Views.IFC
             WallAndColumnSplitting = form.WallAndColumnSplitting;
             ExportScopeView = form.ExportView;
             ViewName = form.ViewName;
-            SelectedLevel = _spaceBoundaryLevels.FirstOrDefault(level => level.Key == form.SpaceBoundaryLevel);
+            SelectedLevel = SpaceBoundaryLevels.FirstOrDefault(level => level.Key == form.SpaceBoundaryLevel);
 
             IEnumerable<string> files = form.Files.FilterRevitFiles();
 
             ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
         }
 
-        private RelayCommand _saveListCommand;
-        public override RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
-        private void SaveList()
+        protected override void SaveList()
         {
-            using IFCForm form = IFCFormSerializer();
+            using IfcForm form = IfcFormSerializer();
 
             SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
 
-            if (DialogResult.OK != saveFileDialog.ShowDialog())
-            {
-                form.Dispose();
-                return;
-            }
+            if (DialogResult.OK != saveFileDialog.ShowDialog()) return;
 
             string fileName = saveFileDialog.FileName;
             File.Delete(fileName);
 
-            JsonHelper<IFCForm>.SerializeConfig(form, fileName);
+            JsonHelper<IfcForm>.SerializeConfig(form, fileName);
         }
-        private IFCForm IFCFormSerializer() => new()
+        private IfcForm IfcFormSerializer() => new()
         {
             ExportBaseQuantities = ExportBaseQuantities,
             FamilyMappingFile = Mapping,
@@ -135,8 +127,8 @@ namespace AlterTools.BatchExport.Views.IFC
                                 .ToArray()
         };
 
-        private readonly IReadOnlyDictionary<IFCVersion, string> _ifcVersions = IFC_Context.IFCVersions;
-        private KeyValuePair<IFCVersion, string> _selectedVersion = IFC_Context.IFCVersions.FirstOrDefault(ver => IFCVersion.Default == ver.Key);
+        private readonly IReadOnlyDictionary<IFCVersion, string> _ifcVersions = IfcContext.IfcVersions;
+        private KeyValuePair<IFCVersion, string> _selectedVersion = IfcContext.IfcVersions.FirstOrDefault(ver => IFCVersion.Default == ver.Key);
         public IReadOnlyDictionary<IFCVersion, string> IFCVersions => _ifcVersions;
         public KeyValuePair<IFCVersion, string> SelectedVersion
         {
@@ -145,9 +137,9 @@ namespace AlterTools.BatchExport.Views.IFC
         }
         public IFCVersion FileVersion => _selectedVersion.Key;
 
-        private readonly IReadOnlyDictionary<int, string> _spaceBoundaryLevels = IFC_Context.SpaceBoundaryLevels;
-        private KeyValuePair<int, string> _selectedLevel = IFC_Context.SpaceBoundaryLevels.FirstOrDefault(e => 1 == e.Key);
-        public IReadOnlyDictionary<int, string> SpaceBoundaryLevels => _spaceBoundaryLevels;
+        private KeyValuePair<int, string> _selectedLevel = IfcContext.SpaceBoundaryLevels.FirstOrDefault(e => 1 == e.Key);
+        public IReadOnlyDictionary<int, string> SpaceBoundaryLevels { get; } = IfcContext.SpaceBoundaryLevels;
+
         public KeyValuePair<int, string> SelectedLevel
         {
             get => _selectedLevel;

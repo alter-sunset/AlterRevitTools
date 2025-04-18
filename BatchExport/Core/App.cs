@@ -1,22 +1,28 @@
 ﻿using Autodesk.Revit.UI;
 using System.Linq;
 using System.Collections.Generic;
+using JetBrains.Annotations;
 using Panel = System.Tuple<Autodesk.Revit.UI.RibbonPanel, string>;
 
 namespace AlterTools.BatchExport.Core
-{//TODO: Add RevitServerViewer
+// TODO: Add RevitServerViewer
+{
+    [UsedImplicitly]
     public class App : IExternalApplication
     {
-        private const string TAB_NAME = "AlterTools";
+        private const string TabName = "AlterTools";
         private Panel[] _panels;
 
         public Result OnStartup(UIControlledApplication uiApp)
         {
             try
             {
-                uiApp.CreateRibbonTab(TAB_NAME);
+                uiApp.CreateRibbonTab(TabName);
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
 
             //Get buttons to create from json config
             List<ButtonContext> buttons = ButtonContext.GetButtonsContext();
@@ -38,11 +44,14 @@ namespace AlterTools.BatchExport.Core
         {
             try
             {
-                RibbonPanel panel = uiApp.CreateRibbonPanel(TAB_NAME, panelName);
+                uiApp.CreateRibbonPanel(TabName, panelName);
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
 
-            return uiApp.GetRibbonPanels(TAB_NAME)
+            return uiApp.GetRibbonPanels(TabName)
                         .FirstOrDefault(panel => panel.Name == panelName);
         }
 
@@ -54,7 +63,10 @@ namespace AlterTools.BatchExport.Core
             {
                 ribbonPanel.AddItem(button.GetPushButtonData());
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
         }
     }
 }

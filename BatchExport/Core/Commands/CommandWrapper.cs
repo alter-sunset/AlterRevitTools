@@ -4,7 +4,7 @@ using System;
 
 namespace AlterTools.BatchExport.Core.Commands
 {
-    static class CommandWrapper
+    internal static class CommandWrapper
     {
         internal static Result Execute(ref string msg, Forms form, UIApplication uiApp = null)
         {

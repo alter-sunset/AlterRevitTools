@@ -11,7 +11,7 @@ namespace AlterTools.BatchExport.Utils
         public static T DeserializeResource(string path)
         {
             return JsonConvert.DeserializeObject<T>(
-                new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(path)).ReadToEnd());
+                new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(path)!).ReadToEnd());
         }
 
         public static T DeserializeConfig(FileStream file)

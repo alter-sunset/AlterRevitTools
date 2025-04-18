@@ -12,23 +12,23 @@ namespace AlterTools.BatchExport.Views.Migrate
 {
     public static class MigrateHelper
     {
-        private const string WRONG_SCHEME = "Неверная схема файла";
+        private const string WrongScheme = "Неверная схема файла";
 
         public static bool IsConfigPathValid(string configPath)
         {
             return !string.IsNullOrEmpty(configPath) && (".json" == Path.GetExtension(configPath));
         }
 
-        public static WasBecome LoadMigrationConfig(string configPath)
+        private static WasBecome LoadMigrationConfig(string configPath)
         {
             using FileStream fileStream = File.OpenRead(configPath);
 
             WasBecome items = JsonConvert.DeserializeObject<WasBecome>(new StreamReader(fileStream).ReadToEnd());
 
-            return items ?? throw new InvalidOperationException(WRONG_SCHEME);
+            return items ?? throw new InvalidOperationException(WrongScheme);
         }
 
-        public static void CreateDirectoryForFile(string filePath)
+        private static void CreateDirectoryForFile(string filePath)
         {
             string dir = Path.GetDirectoryName(filePath);
             if ((null != dir) && !Directory.Exists(dir))
@@ -47,8 +47,8 @@ namespace AlterTools.BatchExport.Views.Migrate
             }
             catch (Exception)
             {
-                MessageBox.Show(WRONG_SCHEME);
-                return new List<string>();
+                MessageBox.Show(WrongScheme);
+                return [];
             }
 
             List<string> failedFiles = new(items.Count);
@@ -93,7 +93,10 @@ namespace AlterTools.BatchExport.Views.Migrate
             {
                 doc.FreeTheModel();
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
 
             doc.Close();
         }

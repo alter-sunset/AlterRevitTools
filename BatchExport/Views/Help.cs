@@ -7,8 +7,8 @@ namespace AlterTools.BatchExport.Views
 {
     public static class Help
     {
-        private const string HELP_FILE = "AlterTools.BatchExport.Resources.HelpMessages.json";
-        public static Messages GetHelpDictionary() => JsonHelper<Messages>.DeserializeResource(HELP_FILE);
+        private const string HelpFile = "AlterTools.BatchExport.Resources.HelpMessages.json";
+        public static Messages GetHelpDictionary() => JsonHelper<Messages>.DeserializeResource(HelpFile);
 
         public static string GetResultMessage(this Messages helpDictionary, params HelpMessageType[] helpCodes)
         {

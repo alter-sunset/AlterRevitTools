@@ -5,6 +5,6 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 {
     public abstract class EventHandlerBase : RevitEventWrapper<IConfigBase>
     {
-        public abstract override void Execute(UIApplication app, IConfigBase args);
+        protected abstract override void Execute(UIApplication app, IConfigBase args);
     }
 }

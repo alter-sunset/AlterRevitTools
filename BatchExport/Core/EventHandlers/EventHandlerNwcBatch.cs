@@ -10,13 +10,13 @@ using AlterTools.BatchExport.Views.NWC;
 
 namespace AlterTools.BatchExport.Core.EventHandlers
 {
-    public class EventHandlerNWC_Batch : EventHandlerBase
+    public class EventHandlerNwcBatch : EventHandlerBase
     {
-        public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
+        protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not NWC_ViewModel nwcVM) return;
+            if (iConfigBase is not NwcViewModel nwcVm) return;
 
-            if (0 == nwcVM.Configs.Count)
+            if (0 == nwcVm.Configs.Count)
             {
                 MessageBox.Show("Загрузите конфиги.");
                 return;
@@ -24,25 +24,25 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 
             DateTime timeStart = DateTime.Now;
 
-            foreach (Config config in nwcVM.Configs)
+            foreach (Config config in nwcVm.Configs)
             {
                 try
                 {
                     using FileStream file = File.OpenRead(config.Name);
 
-                    NWCForm form = JsonConvert.DeserializeObject<NWCForm>(new StreamReader(file).ReadToEnd());
+                    NwcForm form = JsonConvert.DeserializeObject<NwcForm>(new StreamReader(file).ReadToEnd());
 
-                    nwcVM.NWCFormDeserilaizer(form);
+                    nwcVm.NwcFormDeserilaizer(form);
                 }
                 catch
                 {
                     continue;
                 }
 
-                Logger log = new(nwcVM.FolderPath);
+                Logger log = new(nwcVm.FolderPath);
 
-                NWCHelper nwcHelper = new();
-                nwcHelper.BatchExportModels(nwcVM, uiApp, ref log);
+                NwcHelper nwcHelper = new();
+                nwcHelper.BatchExportModels(nwcVm, uiApp, ref log);
 
                 log.Dispose();
 
@@ -51,7 +51,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 
             string msg = $"Задание выполнено. Всего затрачено времени:{DateTime.Now - timeStart}";
 
-            nwcVM.Finisher(id: "ExportBatchNWCFinished", msg);
+            nwcVm.Finisher(id: "ExportBatchNWCFinished", msg);
         }
     }
 }

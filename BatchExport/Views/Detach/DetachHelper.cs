@@ -1,4 +1,5 @@
-﻿using Autodesk.Revit.DB;
+﻿using System;
+using Autodesk.Revit.DB;
 using Autodesk.Revit.ApplicationServices;
 using System.IO;
 using System.Linq;
@@ -21,7 +22,10 @@ namespace AlterTools.BatchExport.Views.Detach
                 SaveDocument(doc, fileDetachedPath, isWorkshared);
                 Cleanup(doc, fileDetachedPath, isWorkshared);
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
         }
 
         private static string GetDetachedFilePath(IConfigDetach iConfigDetach, Document doc, string originalFilePath)
@@ -29,8 +33,7 @@ namespace AlterTools.BatchExport.Views.Detach
             string docTitle = doc.Title.RemoveDetach();
             string fileDetachedPath = Path.Combine(iConfigDetach.FolderPath, $"{docTitle}.rvt");
 
-            if ((iConfigDetach is DetachViewModel detachViewModel)
-                && (2 == detachViewModel.RadioButtonMode))
+            if ((iConfigDetach is DetachViewModel { RadioButtonMode: 2 } detachViewModel))
             {
                 fileDetachedPath = RenamePath(originalFilePath,
                                               RenameType.Folder,
@@ -62,13 +65,16 @@ namespace AlterTools.BatchExport.Views.Detach
                                    .OfClass(typeof(View3D))
                                    .FirstOrDefault(el => el.Name == iConfigDetach.ViewName && !((View3D)el).IsTemplate);
 
-                if ((null != view)
+                if (null != view
                     && doc.IsViewEmpty(view))
                 {
                     fileDetachedPath = RenamePath(fileDetachedPath, RenameType.Empty);
                 }
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
         }
 
         private static string RenamePath(string filePath, RenameType renameType, string maskIn = "", string maskOut = "")
@@ -80,7 +86,7 @@ namespace AlterTools.BatchExport.Views.Detach
             switch (renameType)
             {
                 case RenameType.Folder:
-                    folder = folder.Replace(maskIn, maskOut);
+                    folder = folder!.Replace(maskIn, maskOut);
                     break;
 
                 case RenameType.Title:
@@ -90,12 +96,12 @@ namespace AlterTools.BatchExport.Views.Detach
                 case RenameType.Empty:
                     title = $"EMPTY_{title}";
                     break;
-
+                
                 default:
-                    break;
+                    throw new ArgumentOutOfRangeException(nameof(renameType), renameType, null);
             }
 
-            return Path.Combine(folder, $"{title}{extension}");
+            return Path.Combine(folder!, $"{title}{extension}");
         }
 
         private static void ProcessDocument(Document doc, IConfigDetach iConfigDetach)
@@ -140,14 +146,26 @@ namespace AlterTools.BatchExport.Views.Detach
                 ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(fileDetachedPath);
                 doc.SaveAs(modelPath, saveOptions);
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
         }
 
         private static void Cleanup(Document doc, string fileDetachedPath, bool isWorkshared)
         {
-            try { doc.FreeTheModel(); }
-            catch { }
-            finally { doc?.Close(); }
+            try
+            {
+                doc.FreeTheModel();
+            }
+            catch
+            {
+                // ignored
+            }
+            finally
+            {
+                doc?.Close();
+            }
 
             if (isWorkshared)
             {

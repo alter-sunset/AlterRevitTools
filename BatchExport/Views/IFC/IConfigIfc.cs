@@ -3,11 +3,11 @@ using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.IFC
 {
-    public interface IConfigIFC : IConfigBase_Extended
+    public interface IConfigIfc : IConfigBaseExtended
     {
         string FamilyMappingFile { get; }
-        bool ExportBaseQuantities { get; set; }
-        bool WallAndColumnSplitting { get; set; }
+        bool ExportBaseQuantities { get; }
+        bool WallAndColumnSplitting { get; }
         IFCVersion FileVersion { get; }
         int SpaceBoundaryLevel { get; }
     }

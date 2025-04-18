@@ -8,7 +8,7 @@ namespace AlterTools.DriveFromOutside.Events.Transmit
 {
     public class EventHandlerTransmit : RevitEventWrapper<TransmitConfig>
     {
-        public override void Execute(UIApplication uiApp, TransmitConfig transmitConfig)
+        protected override void Execute(UIApplication uiApp, TransmitConfig transmitConfig)
         {
             using Application app = uiApp.Application;
 

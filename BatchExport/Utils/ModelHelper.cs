@@ -43,11 +43,12 @@ namespace AlterTools.BatchExport.Utils
         /// <summary>
         /// Checks whether given view has no visible objects 
         /// </summary>
-        /// <param name="element">View</param>
+        /// <param name="doc">Document to inspect</param>
+        /// <param name="element">View to check</param>
         /// <returns>true if view is empty</returns>
         public static bool IsViewEmpty(this Document doc, Element element)
         {
-            View3D view = element as View3D;
+            if (element is not View3D view) return true;
 
             try
             {
@@ -72,7 +73,10 @@ namespace AlterTools.BatchExport.Utils
             {
                 WorksharingUtils.RelinquishOwnership(doc, new RelinquishOptions(true), new TransactWithCentralOptions());
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
         }
 
         /// <summary>
@@ -95,7 +99,10 @@ namespace AlterTools.BatchExport.Utils
                 {
                     doc.Delete(id);
                 }
-                catch { }
+                catch
+                {
+                    // ignored
+                }
             }
 
             tr.Commit();
@@ -104,7 +111,7 @@ namespace AlterTools.BatchExport.Utils
         /// <summary>
         /// Returns string with MD5 Hash of given file
         /// </summary>
-        public static string MD5Hash(this string fileName)
+        public static string Md5Hash(this string fileName)
         {
             if (string.IsNullOrEmpty(fileName)) return null;
             if (!File.Exists(fileName)) return null;
@@ -160,8 +167,7 @@ namespace AlterTools.BatchExport.Utils
                 // Change the workset of the cable tray
                 Parameter wsParam = ct.get_Parameter(BuiltInParameter.ELEM_PARTITION_PARAM);
 
-                if (null != wsParam
-                    && !wsParam.IsReadOnly)
+                if (wsParam is { IsReadOnly: false })
                 {
                     wsParam.Set(workset.Id.IntegerValue);
                 }
@@ -208,17 +214,18 @@ namespace AlterTools.BatchExport.Utils
 
                     if (0 == previousCount) break;
 
-                    using (Transaction tr = new(doc, "Purge unused"))
-                    {
-                        tr.Start();
+                    using Transaction tr = new(doc, "Purge unused");
+                    tr.Start();
 
-                        doc.Delete(unusedElements);
+                    doc.Delete(unusedElements);
 
-                        tr.Commit();
-                    }
+                    tr.Commit();
                 } while (0 < previousCount);
             }
-            catch { }
+            catch
+            {
+                // ignored
+            }
         }
 #endif
 
@@ -231,14 +238,12 @@ namespace AlterTools.BatchExport.Utils
                                            .Where(doc.IsWorksetEmpty)
                                            .ToList();
 
-            using (Transaction tr = new(doc))
-            {
-                tr.Start("Remove empty worksets");
+            using Transaction tr = new(doc);
+            tr.Start("Remove empty worksets");
 
-                worksets.ForEach(workset => WorksetTable.DeleteWorkset(doc, workset, new DeleteWorksetSettings()));
+            worksets.ForEach(workset => WorksetTable.DeleteWorkset(doc, workset, new DeleteWorksetSettings()));
 
-                tr.Commit();
-            }
+            tr.Commit();
         }
 
         private static bool IsWorksetEmpty(this Document doc, WorksetId workset)
@@ -254,7 +259,7 @@ namespace AlterTools.BatchExport.Utils
         /// </summary>
         public static string GetValueString(this Parameter param)
         {
-            return param is null || param.AsValueString() is null
+            return null == param?.AsValueString()
                 ? string.Empty
                 : param.AsValueString().Trim();
         }
@@ -265,7 +270,7 @@ namespace AlterTools.BatchExport.Utils
             if (el.ViewSpecific) return false;
             // exclude specific unwanted categories
 #if R24_OR_GREATER
-            if (((BuiltInCategory)e.Category.Id.Value) == BuiltInCategory.OST_HVAC_Zones) return false;
+            if ((BuiltInCategory)el.Category.Id.Value == BuiltInCategory.OST_HVAC_Zones) return false;
 #else
             if (BuiltInCategory.OST_HVAC_Zones == ((BuiltInCategory)el.Category.Id.IntegerValue)) return false;
 #endif
