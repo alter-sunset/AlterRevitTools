@@ -7,14 +7,14 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 {
     public class EventHandlerLink : EventHandlerBase
     {
-        public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
+        protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not LinkViewModel linkVM) return;
-            if (!linkVM.IsEverythingFilled()) return;
+            if (iConfigBase is not LinkViewModel linkVm) return;
+            if (!linkVm.IsEverythingFilled()) return;
 
-            linkVM.CreateLinks(uiApp);
+            linkVm.CreateLinks(uiApp);
 
-            linkVM.Finisher(id: "LinkModelsFinished");
+            linkVm.Finisher(id: "LinkModelsFinished");
         }
     }
 }

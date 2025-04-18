@@ -9,23 +9,23 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 {
     public class EventHandlerMigrate : EventHandlerBase
     {
-        public override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
+        protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not MigrateViewModel migrateVM) return;
+            if (iConfigBase is not MigrateViewModel migrateVm) return;
 
-            if (!MigrateHelper.IsConfigPathValid(migrateVM.ConfigPath))
+            if (!MigrateHelper.IsConfigPathValid(migrateVm.ConfigPath))
             {
                 MessageBox.Show("Предоставьте ссылку на конфиг");
                 return;
             }
 
-            List<string> failedFiles = MigrateHelper.ProcessFiles(migrateVM.ConfigPath, uiApp.Application);
+            List<string> failedFiles = MigrateHelper.ProcessFiles(migrateVm.ConfigPath, uiApp.Application);
 
             string msg = failedFiles.Count > 0
                             ? $"Задание выполнено.\nСледующие файлы не были скопированы:\n{string.Join("\n", failedFiles)}"
                             : "Задание выполнено.";
 
-            migrateVM.Finisher(id: "MigrateModelsFinished", msg);
+            migrateVm.Finisher(id: "MigrateModelsFinished", msg);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace AlterTools.DriveFromOutside.Events.Detach
 {
     public class EventHandlerDetach : RevitEventWrapper<IConfigDetach>
     {
-        public override void Execute(UIApplication uiApp, IConfigDetach iConfigDetach)
+        protected override void Execute(UIApplication uiApp, IConfigDetach iConfigDetach)
         {
             using Application app = uiApp.Application;
 

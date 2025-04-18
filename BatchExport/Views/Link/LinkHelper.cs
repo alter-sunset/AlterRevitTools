@@ -10,7 +10,7 @@ namespace AlterTools.BatchExport.Views.Link
 {
     internal static class LinkHelper
     {
-        private const string DIFF_COORD = "Обнаружено различие систем координат. Выполнить получение коордианат из файла?";
+        private const string DiffCoord = "Обнаружено различие систем координат. Выполнить получение коордианат из файла?";
         internal static void CreateLinks(this LinkViewModel linkViewModel, UIApplication uiApp)
         {
             Document doc = uiApp.ActiveUIDocument.Document;
@@ -18,7 +18,7 @@ namespace AlterTools.BatchExport.Views.Link
             bool isCurrentWorkset = linkViewModel.IsCurrentWorkset;
             bool setWorksetId = !isCurrentWorkset && (0 < linkViewModel.Worksets.Length);
 
-            List<Entry> entries = linkViewModel.Entries.Where(entry => !string.IsNullOrEmpty(entry.Name) && File.Exists(entry.Name))
+            List<Entry> entries = linkViewModel.Entries.Where(entry => !string.IsNullOrWhiteSpace(entry.Name) && File.Exists(entry.Name))
                                                        .OrderBy(entry => entry.SelectedWorkset?.Name ?? string.Empty)
                                                        .ToList();
 
@@ -46,7 +46,7 @@ namespace AlterTools.BatchExport.Views.Link
             }
 
             RevitLinkInstance revitLinkInstance;
-            LinkLoadResult linkLoadResult = default;
+            LinkLoadResult linkLoadResult = null;
 
             try
             {
@@ -58,8 +58,14 @@ namespace AlterTools.BatchExport.Views.Link
             }
             catch (InvalidOperationException)
             {
+                if (null == linkLoadResult)
+                {
+                    tr.RollBack();
+                    return;
+                }
+                
                 revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, ImportPlacement.Origin);
-                ModelHelper.YesNoTaskDialog(DIFF_COORD, () => doc.AcquireCoordinates(revitLinkInstance.Id));
+                ModelHelper.YesNoTaskDialog(DiffCoord, () => doc.AcquireCoordinates(revitLinkInstance.Id));
                 revitLinkInstance.Pinned = props.PinLink;
 
                 tr.Commit();
@@ -72,19 +78,28 @@ namespace AlterTools.BatchExport.Views.Link
 
         private static WorksetConfiguration CloseWorksetsWithLinks(ModelPath modelPath, string[] prefixes)
         {
-            WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.CloseAllWorksets);
+            if (null == prefixes 
+                || 0 == prefixes.Length) return new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
 
-            if (0 == prefixes.Length) return worksetConfiguration;
-
-            //problem occurs if centralModel can't be found
-            IList<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)
-                                                          .Where(wp => !prefixes.Any(wp.Name.StartsWith))
-                                                          .Select(wp => wp.Id)
-                                                          .ToList();
-
-            worksetConfiguration.Open(worksetIds);
-
-            return worksetConfiguration;
+            // problem occurs if centralModel can't be found
+            try
+            {
+                WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.CloseAllWorksets);
+                
+                IList<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)
+                    .Where(wp => !prefixes.Any(wp.Name.StartsWith))
+                    .Select(wp => wp.Id)
+                    .ToList();
+                
+                worksetConfiguration.Open(worksetIds);
+                
+                return worksetConfiguration;
+            }
+            catch
+            {
+                // just return default worksetConfiguration
+                return new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
+            }
         }
     }
 }

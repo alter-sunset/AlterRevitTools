@@ -1,9 +1,8 @@
 ﻿using AlterTools.BatchExport.Core.EventHandlers;
-using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.Transmit
 {
-    public partial class TransmitModelsView : WindowBase
+    public partial class TransmitModelsView
     {
         public TransmitModelsView(EventHandlerTransmit eventHandlerTransmit)
         {

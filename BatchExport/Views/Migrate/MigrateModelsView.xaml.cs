@@ -1,9 +1,8 @@
 ﻿using AlterTools.BatchExport.Core.EventHandlers;
-using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.Migrate
 {
-    public partial class MigrateModelsView : WindowBase
+    public partial class MigrateModelsView
     {
         public MigrateModelsView(EventHandlerMigrate eventHandlerMigrate)
         {

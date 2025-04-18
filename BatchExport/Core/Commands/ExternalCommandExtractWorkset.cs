@@ -7,9 +7,11 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using JetBrains.Annotations;
 
 namespace AlterTools.BatchExport.Core.Commands
 {
+    [UsedImplicitly]
     [Transaction(TransactionMode.ReadOnly)]
     public class ExternalCommandExtractWorkset : IExternalCommand
     {

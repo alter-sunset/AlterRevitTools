@@ -1,5 +1,4 @@
 ﻿using Autodesk.Revit.Attributes;
-using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.UI;
 using AlterTools.DriveFromOutside.Events;
@@ -20,7 +19,7 @@ namespace AlterTools.DriveFromOutside
             return Result.Succeeded;
         }
 
-        private async void OnInitialized(object? sender, ApplicationInitializedEventArgs e)
+        private static async void OnInitialized(object? sender, ApplicationInitializedEventArgs e)
         {
             //Initialize all External Events
             List<IEventHolder> events =

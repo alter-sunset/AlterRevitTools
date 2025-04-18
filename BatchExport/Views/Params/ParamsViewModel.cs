@@ -11,7 +11,7 @@ namespace AlterTools.BatchExport.Views.Params
 {
     public class ParamsViewModel : ViewModelBase, IConfigParams
     {
-        private const string DEFAULT_PARAMS = "ADSK_Этаж;ADSK_Номер здания;ADSK_Комплект чертежей;";
+        private const string DefaultParams = "ADSK_Этаж;ADSK_Номер здания;ADSK_Комплект чертежей;";
 
         public ParamsViewModel(EventHandlerParams eventHandlerParams)
         {
@@ -22,7 +22,7 @@ namespace AlterTools.BatchExport.Views.Params
                                                 HelpMessageType.Config,
                                                 HelpMessageType.Start);
 
-            ParamsNames = DEFAULT_PARAMS;
+            ParamsNames = DefaultParams;
         }
 
         private string _paramsNames;
@@ -41,7 +41,7 @@ namespace AlterTools.BatchExport.Views.Params
         }
 
         private RelayCommand _browseCsvCommand;
-        public virtual RelayCommand BrowseCsvCommand => _browseCsvCommand ??= new RelayCommand(_ => BrowseCsv());
+        public RelayCommand BrowseCsvCommand => _browseCsvCommand ??= new RelayCommand(_ => BrowseCsv());
         private void BrowseCsv()
         {
             SaveFileDialog saveFileDialog = DialogType.SingleCsv.SaveFileDialog();
@@ -51,9 +51,7 @@ namespace AlterTools.BatchExport.Views.Params
             CsvPath = saveFileDialog.FileName;
         }
 
-        private RelayCommand _loadListCommand;
-        public override RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
-        private void LoadList()
+        protected override void LoadList()
         {
             OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
 
@@ -73,9 +71,7 @@ namespace AlterTools.BatchExport.Views.Params
                                                                            .Select(DefaultListBoxItem));
         }
 
-        private RelayCommand _saveListCommand;
-        public override RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
-        private void SaveList()
+        protected override void SaveList()
         {
             ParamsForm form = ParamsFormSerializer();
             SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
@@ -95,12 +91,10 @@ namespace AlterTools.BatchExport.Views.Params
                                 .ToArray()
         };
 
-        private RelayCommand _eraseCommand;
-        public override RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(_ => Erase());
-        private void Erase()
+        protected override void Erase()
         {
             ListBoxItems.Clear();
-            ParamsNames = DEFAULT_PARAMS;
+            ParamsNames = DefaultParams;
             CsvPath = string.Empty;
         }
     }

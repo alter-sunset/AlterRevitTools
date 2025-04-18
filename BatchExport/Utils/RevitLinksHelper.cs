@@ -9,7 +9,7 @@ namespace AlterTools.BatchExport.Utils
 {
     public static class RevitLinksHelper
     {
-        private const string NO_TRANS_DATA_ALERT = "The document doesn't have any transmission data";
+        private const string NoTransDataAlert = "The document doesn't have any transmission data";
 
         public static void UnloadRevitLinks(this ModelPath filePath, string folder, bool isSameFolder = true)
         {
@@ -24,6 +24,7 @@ namespace AlterTools.BatchExport.Utils
                 if (ExternalFileReferenceType.RevitLink != extRef.ExternalFileReferenceType) continue;
 
                 string name = Path.GetFileName(extRef.GetPath().CentralServerPath);
+                if (null == name) continue;
 
                 (ModelPath path, PathType pathType) = isSameFolder
                     ? (new FilePath(Path.Combine(folder, name)), PathType.Absolute)
@@ -63,7 +64,6 @@ namespace AlterTools.BatchExport.Utils
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.ToString());
-                    continue;
                 }
             }
 
@@ -77,7 +77,7 @@ namespace AlterTools.BatchExport.Utils
 
             if (null != transData) return true;
 
-            TaskDialog.Show("Operation Error", NO_TRANS_DATA_ALERT);
+            TaskDialog.Show("Operation Error", NoTransDataAlert);
 
             return false;
         }

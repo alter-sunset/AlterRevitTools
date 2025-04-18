@@ -12,111 +12,116 @@ using AlterTools.BatchExport.Views.Params;
 
 namespace AlterTools.BatchExport.Utils
 {
-    static class ViewModelHelper
+    internal static class ViewModelHelper
     {
-        private const string NO_FOLDER = "Укажите папку для экспорта!";
-        private const string WRONG_FOLDER = "Укажите корректную папку для экспорта!";
-        private const string CREATE_FOLDER = "Такой папки не существует.\nСоздать папку?";
-        private const string TO_HELL = "Нет, так нет.\nТогда живи в проклятом мире, который сам и создал.";
-        private const string NO_FILES = "Добавьте хотя бы один файл для экспорта!";
-        private const string NO_VIEW_NAME = "Введите имя вида!";
-        private const string NO_PATH_MODE = "Выберите режим выбора пути!";
-        private const string NO_MASK_PATH = "Укажите маску замены пути!";
-        private const string WRONG_MASK = "Несоответствие входной маски и имён файлов!";
-        private const string NO_MASK_FILE = "Введите маску для переименования файлов!";
-        private const string NO_CSV = "Укажите корректный путь к выходному файлу!";
-        private const string NO_PARAMETERS = "Укажите хотя бы один параметр для экспорта!";
+        private const string NoFolder = "Укажите папку для экспорта!";
+        private const string WrongFolder = "Укажите корректную папку для экспорта!";
+        private const string CreateFolder = """
+                                            Такой папки не существует.
+                                            Создать папку?
+                                            """;
+        private const string ToHell = """
+                                      Нет, так нет.
+                                      Тогда живи в проклятом мире, который сам и создал.
+                                      """;
+        private const string NoFiles = "Добавьте хотя бы один файл для экспорта!";
+        private const string NoViewName = "Введите имя вида!";
+        private const string NoPathMode = "Выберите режим выбора пути!";
+        private const string NoMaskPath = "Укажите маску замены пути!";
+        private const string WrongMask = "Несоответствие входной маски и имён файлов!";
+        private const string NoMaskFile = "Введите маску для переименования файлов!";
+        private const string NoCsv = "Укажите корректный путь к выходному файлу!";
+        private const string NoParameters = "Укажите хотя бы один параметр для экспорта!";
 
-        internal static bool IsEverythingFilled(this DetachViewModel detachVM)
+        internal static bool IsEverythingFilled(this DetachViewModel detachVm)
         {
-            return detachVM.IsListNotEmpty()
-                && detachVM.IsRBModeOK()
-                && detachVM.IsViewNameOK()
-                && detachVM.IsMaskNameOK();
+            return detachVm.IsListNotEmpty()
+                && detachVm.IsRbModeOk()
+                && detachVm.IsViewNameOk()
+                && detachVm.IsMaskNameOk();
         }
 
-        internal static bool IsEverythingFilled(this TransmitViewModel transmitVM)
+        internal static bool IsEverythingFilled(this TransmitViewModel transmitVm)
         {
-            return transmitVM.IsListNotEmpty()
-                && transmitVM.IsFolderPathOK();
+            return transmitVm.IsListNotEmpty()
+                && transmitVm.IsFolderPathOk();
         }
 
-        internal static bool IsEverythingFilled(this ParamsViewModel paramsVM)
+        internal static bool IsEverythingFilled(this ParamsViewModel paramsVm)
         {
-            return paramsVM.IsListNotEmpty()
-                && paramsVM.IsCsvPathNotEmpty()
-                && paramsVM.AreThereAnyParameters();
+            return paramsVm.IsListNotEmpty()
+                && paramsVm.IsCsvPathNotEmpty()
+                && paramsVm.AreThereAnyParameters();
         }
 
-        internal static bool IsEverythingFilled(this ViewModelBase_Extended vmBaseExt)
+        internal static bool IsEverythingFilled(this ViewModelBaseExtended vmBaseExt)
         {
             return vmBaseExt.IsListNotEmpty()
-                && vmBaseExt.IsFolderPathOK()
-                && vmBaseExt.IsViewNameOK();
+                && vmBaseExt.IsFolderPathOk()
+                && vmBaseExt.IsViewNameOk();
         }
 
-        internal static bool IsEverythingFilled(this LinkViewModel linkVM) => linkVM.IsListNotEmpty();
+        internal static bool IsEverythingFilled(this LinkViewModel linkVm) => linkVm.IsListNotEmpty();
 
-        private static bool IsListNotEmpty(this LinkViewModel linkVM) => CheckCondition(linkVM.Entries.Count > 0, NO_FILES);
-        private static bool IsListNotEmpty(this ViewModelBase vmBase) => CheckCondition(vmBase.ListBoxItems.Count > 0, NO_FILES);
+        private static bool IsListNotEmpty(this LinkViewModel linkVm) => CheckCondition(linkVm.Entries.Count > 0, NoFiles);
+        private static bool IsListNotEmpty(this ViewModelBase vmBase) => CheckCondition(vmBase.ListBoxItems.Count > 0, NoFiles);
 
-        private static bool IsFolderPathOK(this ViewModelBase vmBase)
+        private static bool IsFolderPathOk(this ViewModelBase vmBase)
         {
             string folderPath = vmBase.FolderPath;
 
-            if (string.IsNullOrEmpty(folderPath)) return CheckCondition(false, NO_FOLDER);
+            if (string.IsNullOrEmpty(folderPath)) return CheckCondition(false, NoFolder);
 
-            if (Uri.IsWellFormedUriString(folderPath, UriKind.RelativeOrAbsolute)) return CheckCondition(false, WRONG_FOLDER);
+            if (Uri.IsWellFormedUriString(folderPath, UriKind.RelativeOrAbsolute)) return CheckCondition(false, WrongFolder);
 
-            if (!Directory.Exists(folderPath))
+            if (Directory.Exists(folderPath)) return true;
+
+            MessageBoxResult result = MessageBox.Show(CreateFolder, "Добрый вечер", MessageBoxButton.YesNo);
+
+            if (MessageBoxResult.Yes == result)
             {
-                MessageBoxResult result = MessageBox.Show(CREATE_FOLDER, "Добрый вечер", MessageBoxButton.YesNo);
-
-                if (MessageBoxResult.Yes == result)
-                {
-                    Directory.CreateDirectory(folderPath);
-                }
-                else
-                {
-                    MessageBox.Show(TO_HELL);
-                    return false;
-                }
+                Directory.CreateDirectory(folderPath);
+            }
+            else
+            {
+                MessageBox.Show(ToHell);
+                return false;
             }
 
             return true;
         }
 
-        private static bool IsViewNameOK(this ViewModelBase_Extended vmBaseExt)
+        private static bool IsViewNameOk(this ViewModelBaseExtended vmBaseExt)
         {
             return CheckCondition(!vmBaseExt.ExportScopeView
-                                  || !string.IsNullOrEmpty(vmBaseExt.ViewName), NO_VIEW_NAME);
+                                  || !string.IsNullOrEmpty(vmBaseExt.ViewName), NoViewName);
         }
-        private static bool IsViewNameOK(this DetachViewModel detachVM)
+        private static bool IsViewNameOk(this DetachViewModel detachVm)
         {
-            return CheckCondition(!detachVM.CheckForEmptyView
-                                  || !string.IsNullOrEmpty(detachVM.ViewName), NO_VIEW_NAME);
+            return CheckCondition(!detachVm.CheckForEmptyView
+                                  || !string.IsNullOrEmpty(detachVm.ViewName), NoViewName);
         }
 
-        private static bool IsRBModeOK(this DetachViewModel detachVM)
+        private static bool IsRbModeOk(this DetachViewModel detachVm)
         {
-            switch (detachVM.RadioButtonMode)
+            switch (detachVm.RadioButtonMode)
             {
                 case 0:
-                    return CheckCondition(false, NO_PATH_MODE);
+                    return CheckCondition(false, NoPathMode);
 
                 case 1:
-                    return detachVM.IsFolderPathOK();
+                    return detachVm.IsFolderPathOk();
 
                 case 2:
-                    if (string.IsNullOrEmpty(detachVM.MaskIn) || string.IsNullOrEmpty(detachVM.MaskOut))
+                    if (string.IsNullOrEmpty(detachVm.MaskIn) || string.IsNullOrEmpty(detachVm.MaskOut))
                     {
-                        return CheckCondition(false, NO_MASK_PATH);
+                        return CheckCondition(false, NoMaskPath);
                     }
 
-                    if (!detachVM.ListBoxItems.Select(e => e.Content)
-                                              .All(e => e.ToString().Contains(detachVM.MaskIn)))
+                    if (!detachVm.ListBoxItems.Select(item => item.Content)
+                                              .All(i => i.ToString()!.Contains(detachVm.MaskIn)))
                     {
-                        return CheckCondition(false, WRONG_MASK);
+                        return CheckCondition(false, WrongMask);
                     }
 
                     break;
@@ -125,27 +130,27 @@ namespace AlterTools.BatchExport.Utils
             return true;
         }
 
-        private static bool IsMaskNameOK(this DetachViewModel detachVM)
+        private static bool IsMaskNameOk(this DetachViewModel detachVm)
         {
-            return CheckCondition(!detachVM.IsToRename
-                                  || !string.IsNullOrEmpty(detachVM.MaskInName), NO_MASK_FILE);
+            return CheckCondition(!detachVm.IsToRename
+                                  || !string.IsNullOrEmpty(detachVm.MaskInName), NoMaskFile);
         }
 
-        private static bool IsCsvPathNotEmpty(this ParamsViewModel paramsVM)
+        private static bool IsCsvPathNotEmpty(this ParamsViewModel paramsVm)
         {
-            string csvPath = paramsVM.CsvPath;
+            string csvPath = paramsVm.CsvPath;
 
             if (string.IsNullOrWhiteSpace(csvPath)
                 || Uri.IsWellFormedUriString(csvPath, UriKind.Absolute)
                 || !csvPath.EndsWith(".csv"))
             {
-                return CheckCondition(false, NO_CSV);
+                return CheckCondition(false, NoCsv);
             }
 
             return true;
 
         }
-        private static bool AreThereAnyParameters(this ParamsViewModel paramsVM) => CheckCondition(paramsVM.ParametersNames.Length > 0, NO_PARAMETERS);
+        private static bool AreThereAnyParameters(this ParamsViewModel paramsVm) => CheckCondition(paramsVm.ParametersNames.Length > 0, NoParameters);
 
         private static bool CheckCondition(bool condition, string msg)
         {
@@ -158,6 +163,7 @@ namespace AlterTools.BatchExport.Utils
         /// Default finisher method of most plugins,
         /// that will show final TaskDialog and lock View until TaskDialog is closed
         /// </summary>
+        /// <param name="vmBase">ViewModel to finalize</param>
         /// <param name="id">TaskDialog Id</param>
         /// <param name="msg">Message to show to user</param>
         public static void Finisher(this ViewModelBase vmBase, string id, string msg = "Задание выполнено")
@@ -172,8 +178,6 @@ namespace AlterTools.BatchExport.Utils
             vmBase.IsViewEnabled = false;
             taskDialog.Show();
             vmBase.IsViewEnabled = true;
-            //TODO: Rework this 
-            //Process.Start("shutdown", "/s /t 10");
         }
 
         /// <returns>Unique files with .rvt extension</returns>

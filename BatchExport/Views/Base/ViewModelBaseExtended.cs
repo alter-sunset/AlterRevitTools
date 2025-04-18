@@ -1,9 +1,8 @@
 ﻿using AlterTools.BatchExport.Utils;
-using System.Linq;
 
 namespace AlterTools.BatchExport.Views.Base
 {
-    public class ViewModelBase_Extended : ViewModelBase, IConfigBase_Extended
+    public class ViewModelBaseExtended : ViewModelBase, IConfigBaseExtended
     {
         private string _namePrefix = string.Empty;
         public string NamePrefix
@@ -20,7 +19,8 @@ namespace AlterTools.BatchExport.Views.Base
         }
 
         private string _worksetPrefix = string.Empty;
-        public string WorksetPrefix
+
+        protected string WorksetPrefix
         {
             get => _worksetPrefix;
             set => SetProperty(ref _worksetPrefix, value);

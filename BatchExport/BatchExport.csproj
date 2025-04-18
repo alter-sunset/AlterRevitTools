@@ -88,6 +88,7 @@
 		<EmbeddedResource Include="Resources\transmit_16.png" />
 	</ItemGroup>
 	<ItemGroup>
+		<PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*" />
 		<PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*" />

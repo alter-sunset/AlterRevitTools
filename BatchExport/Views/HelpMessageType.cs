@@ -10,11 +10,11 @@
         Start,
         DetachTitle,
         DetachMid,
-        IFCTitle,
+        IfcTitle,
         LinkTitle,
         Migrate,
-        NWCTitle,
-        NWCEnd,
+        NwcTitle,
+        NwcEnd,
         TransmitTitle,
         ParamsTitle
     }
