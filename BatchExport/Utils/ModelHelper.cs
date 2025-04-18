@@ -270,9 +270,9 @@ namespace AlterTools.BatchExport.Utils
             if (el.ViewSpecific) return false;
             // exclude specific unwanted categories
 #if R24_OR_GREATER
-            if ((BuiltInCategory)el.Category.Id.Value == BuiltInCategory.OST_HVAC_Zones) return false;
+            if (BuiltInCategory.OST_HVAC_Zones == (BuiltInCategory)el.Category.Id.Value) return false;
 #else
-            if (BuiltInCategory.OST_HVAC_Zones == ((BuiltInCategory)el.Category.Id.IntegerValue)) return false;
+            if (BuiltInCategory.OST_HVAC_Zones == (BuiltInCategory)el.Category.Id.IntegerValue) return false;
 #endif
             return CategoryType.Model == el.Category.CategoryType
                 && el.Category.CanAddSubcategory;

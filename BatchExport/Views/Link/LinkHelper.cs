@@ -75,31 +75,5 @@ namespace AlterTools.BatchExport.Views.Link
                 tr.RollBack();
             }
         }
-
-        private static WorksetConfiguration CloseWorksetsWithLinks(ModelPath modelPath, string[] prefixes)
-        {
-            if (null == prefixes 
-                || 0 == prefixes.Length) return new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
-
-            // problem occurs if centralModel can't be found
-            try
-            {
-                WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.CloseAllWorksets);
-                
-                IList<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)
-                    .Where(wp => !prefixes.Any(wp.Name.StartsWith))
-                    .Select(wp => wp.Id)
-                    .ToList();
-                
-                worksetConfiguration.Open(worksetIds);
-                
-                return worksetConfiguration;
-            }
-            catch
-            {
-                // just return default worksetConfiguration
-                return new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
-            }
-        }
     }
 }
