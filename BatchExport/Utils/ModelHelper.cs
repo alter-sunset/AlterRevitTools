@@ -14,20 +14,30 @@ namespace AlterTools.BatchExport.Utils
         /// <summary>
         /// Get WorksetConfiguration with closed worksets that match given prefixes
         /// </summary>
-        public static WorksetConfiguration CloseWorksetsWithLinks(this ModelPath modelPath, params string[] prefixes)
+        public static WorksetConfiguration CloseWorksets(this ModelPath modelPath, params string[] prefixes)
         {
-            WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.OpenAllWorksets);
+            if (null == prefixes 
+                || 0 == prefixes.Length) return new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
 
-            if (0 == prefixes.Length) return worksetConfiguration;
-
-            List<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)
-                                                         .Where(wp => prefixes.Any(wp.Name.StartsWith))
-                                                         .Select(wp => wp.Id)
-                                                         .ToList();
-
-            if (0 < worksetIds.Count) worksetConfiguration.Close(worksetIds);
-
-            return worksetConfiguration;
+            // problem occurs if centralModel can't be found
+            try
+            {
+                WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.CloseAllWorksets);
+                
+                IList<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)
+                    .Where(wp => !prefixes.Any(wp.Name.StartsWith))
+                    .Select(wp => wp.Id)
+                    .ToList();
+                
+                worksetConfiguration.Open(worksetIds);
+                
+                return worksetConfiguration;
+            }
+            catch
+            {
+                // just return default worksetConfiguration
+                return new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
+            }
         }
 
         /// <summary>
