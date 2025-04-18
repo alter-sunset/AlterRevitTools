@@ -5,7 +5,7 @@ namespace AlterTools.BatchExport.Views.IFC
 {
     internal static class IfcContext
     {
-        public static IReadOnlyDictionary<IFCVersion, string> IfcVersions { get; } = new Dictionary<IFCVersion, string>()
+        public static IReadOnlyDictionary<IFCVersion, string> IfcVersions { get; } = new Dictionary<IFCVersion, string>
         {
             { IFCVersion.Default,   "По умолчанию" },
             { IFCVersion.IFCBCA,    "IFC 2x2 Singapore BCA e-Plan Check" },
@@ -24,7 +24,7 @@ namespace AlterTools.BatchExport.Views.IFC
 #endif
         };
 
-        public static IReadOnlyDictionary<int, string> SpaceBoundaryLevels { get; } = new Dictionary<int, string>()
+        public static IReadOnlyDictionary<int, string> SpaceBoundaryLevels { get; } = new Dictionary<int, string>
         {
             { 0, "Нет" },
             { 1, "Первый уровень" },

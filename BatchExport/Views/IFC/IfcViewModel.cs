@@ -73,9 +73,9 @@ namespace AlterTools.BatchExport.Views.IFC
 
             using FileStream file = File.OpenRead(openFileDialog.FileName);
 
-            IfcFormDeserilaizer(JsonHelper<IfcForm>.DeserializeConfig(file));
+            IfcFormDeserializer(JsonHelper<IfcForm>.DeserializeConfig(file));
         }
-        private void IfcFormDeserilaizer(IfcForm form)
+        private void IfcFormDeserializer(IfcForm form)
         {
             if (form is null) return;
 
@@ -89,7 +89,7 @@ namespace AlterTools.BatchExport.Views.IFC
             WallAndColumnSplitting = form.WallAndColumnSplitting;
             ExportScopeView = form.ExportView;
             ViewName = form.ViewName;
-            SelectedLevel = _spaceBoundaryLevels.FirstOrDefault(level => level.Key == form.SpaceBoundaryLevel);
+            SelectedLevel = SpaceBoundaryLevels.FirstOrDefault(level => level.Key == form.SpaceBoundaryLevel);
 
             IEnumerable<string> files = form.Files.FilterRevitFiles();
 
@@ -137,9 +137,9 @@ namespace AlterTools.BatchExport.Views.IFC
         }
         public IFCVersion FileVersion => _selectedVersion.Key;
 
-        private readonly IReadOnlyDictionary<int, string> _spaceBoundaryLevels = IfcContext.SpaceBoundaryLevels;
         private KeyValuePair<int, string> _selectedLevel = IfcContext.SpaceBoundaryLevels.FirstOrDefault(e => 1 == e.Key);
-        public IReadOnlyDictionary<int, string> SpaceBoundaryLevels => _spaceBoundaryLevels;
+        public IReadOnlyDictionary<int, string> SpaceBoundaryLevels { get; } = IfcContext.SpaceBoundaryLevels;
+
         public KeyValuePair<int, string> SelectedLevel
         {
             get => _selectedLevel;

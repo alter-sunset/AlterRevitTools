@@ -65,7 +65,7 @@ namespace AlterTools.BatchExport.Views.Detach
                                    .OfClass(typeof(View3D))
                                    .FirstOrDefault(el => el.Name == iConfigDetach.ViewName && !((View3D)el).IsTemplate);
 
-                if ((null != view)
+                if (null != view
                     && doc.IsViewEmpty(view))
                 {
                     fileDetachedPath = RenamePath(fileDetachedPath, RenameType.Empty);
@@ -86,7 +86,7 @@ namespace AlterTools.BatchExport.Views.Detach
             switch (renameType)
             {
                 case RenameType.Folder:
-                    folder = folder.Replace(maskIn, maskOut);
+                    folder = folder!.Replace(maskIn, maskOut);
                     break;
 
                 case RenameType.Title:
@@ -101,7 +101,7 @@ namespace AlterTools.BatchExport.Views.Detach
                     throw new ArgumentOutOfRangeException(nameof(renameType), renameType, null);
             }
 
-            return Path.Combine(folder, $"{title}{extension}");
+            return Path.Combine(folder!, $"{title}{extension}");
         }
 
         private static void ProcessDocument(Document doc, IConfigDetach iConfigDetach)

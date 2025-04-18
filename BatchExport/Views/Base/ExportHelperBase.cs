@@ -105,16 +105,18 @@ namespace AlterTools.BatchExport.Views.Base
                 BasicFileInfo fileInfo = BasicFileInfo.Extract(file);
                 ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(file);
 
-                TransmissionData trData = File.Exists(fileInfo.CentralPath) //ensures that central model exists and reachable
+                TransmissionData trData = File.Exists(fileInfo.CentralPath) // ensure that central model exists and reachable
                     ? TransmissionData.ReadTransmissionData(modelPath)
                     : null;
 
                 bool transmitted = trData is { IsTransmitted: true };
 
                 WorksetConfiguration worksetConfiguration = fileInfo.IsWorkshared
-                    ? (file.Equals(fileInfo.CentralPath) && !transmitted && (0 != iConfig.WorksetPrefixes.Length)
+                    ? file.Equals(fileInfo.CentralPath) 
+                      && !transmitted
+                      && 0 != iConfig.WorksetPrefixes.Length
                         ? modelPath.CloseWorksetsWithLinks(iConfig.WorksetPrefixes)
-                        : new WorksetConfiguration())
+                        : new WorksetConfiguration()
                     : null;
 
                 return null == worksetConfiguration
@@ -221,8 +223,8 @@ namespace AlterTools.BatchExport.Views.Base
         {
             if (iConfig is NwcViewModel { ExportLinks: true }) return false;
 
-            if (!iConfig.ExportScopeView
-                || !doc.IsViewEmpty(GetView(iConfig, doc))) return false;
+            if (!iConfig.ExportScopeView) return false;
+            if (!doc.IsViewEmpty(GetView(iConfig, doc))) return false;
 
             log.Error("Нет геометрии на виде.");
             isFuckedUp = true;

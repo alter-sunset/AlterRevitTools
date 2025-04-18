@@ -11,7 +11,8 @@ namespace AlterTools.BatchExport.Views.Base
             DataContext = null;
             base.OnClosing(args);
         }
-        public void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs args)
+
+        protected void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs args)
         {
             if (sender is not ListBox) return;
 
