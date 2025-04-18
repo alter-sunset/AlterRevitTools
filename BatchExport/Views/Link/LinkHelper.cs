@@ -33,7 +33,7 @@ namespace AlterTools.BatchExport.Views.Link
             ModelPath linkPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(entry.Name);
 
             RevitLinkOptions revitLinkOptions = fileInfo.IsWorkshared && (0 != props.WorksetPrefixes.Length)
-                ? new RevitLinkOptions(false, CloseWorksetsWithLinks(linkPath, props.WorksetPrefixes))
+                ? new RevitLinkOptions(false, linkPath.CloseWorksets(props.WorksetPrefixes))
                 : new RevitLinkOptions(false);
 
             using Transaction tr = new(doc);
