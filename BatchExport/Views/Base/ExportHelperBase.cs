@@ -115,7 +115,7 @@ namespace AlterTools.BatchExport.Views.Base
                     ? file.Equals(fileInfo.CentralPath) 
                       && !transmitted
                       && 0 != iConfig.WorksetPrefixes.Length
-                        ? modelPath.CloseWorksetsWithLinks(iConfig.WorksetPrefixes)
+                        ? modelPath.CloseWorksets(iConfig.WorksetPrefixes)
                         : new WorksetConfiguration()
                     : null;
 
