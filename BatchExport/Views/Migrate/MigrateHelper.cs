@@ -1,10 +1,10 @@
-﻿using Autodesk.Revit.DB;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-using System.Collections.Generic;
-using Newtonsoft.Json;
 using AlterTools.BatchExport.Utils;
+using Autodesk.Revit.DB;
+using Newtonsoft.Json;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 using WasBecome = System.Collections.Generic.Dictionary<string, string>;
 
@@ -16,7 +16,7 @@ namespace AlterTools.BatchExport.Views.Migrate
 
         public static bool IsConfigPathValid(string configPath)
         {
-            return !string.IsNullOrEmpty(configPath) && (".json" == Path.GetExtension(configPath));
+            return !string.IsNullOrEmpty(configPath) && ".json" == Path.GetExtension(configPath);
         }
 
         private static WasBecome LoadMigrationConfig(string configPath)
@@ -31,7 +31,7 @@ namespace AlterTools.BatchExport.Views.Migrate
         private static void CreateDirectoryForFile(string filePath)
         {
             string dir = Path.GetDirectoryName(filePath);
-            if ((null != dir) && !Directory.Exists(dir))
+            if (null != dir && !Directory.Exists(dir))
             {
                 Directory.CreateDirectory(dir);
             }

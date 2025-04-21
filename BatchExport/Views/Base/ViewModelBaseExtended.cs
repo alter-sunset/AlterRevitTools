@@ -4,19 +4,10 @@ namespace AlterTools.BatchExport.Views.Base
 {
     public class ViewModelBaseExtended : ViewModelBase, IConfigBaseExtended
     {
-        private string _namePrefix = string.Empty;
-        public string NamePrefix
-        {
-            get => _namePrefix;
-            set => SetProperty(ref _namePrefix, value);
-        }
+        private bool _exportScopeView = true;
 
         private string _namePostfix = string.Empty;
-        public string NamePostfix
-        {
-            get => _namePostfix;
-            set => SetProperty(ref _namePostfix, value);
-        }
+        private string _namePrefix = string.Empty;
 
         private string _worksetPrefix = string.Empty;
 
@@ -26,24 +17,36 @@ namespace AlterTools.BatchExport.Views.Base
             set => SetProperty(ref _worksetPrefix, value);
         }
 
-        private bool _exportScopeView = true;
+        public string NamePrefix
+        {
+            get => _namePrefix;
+            set => SetProperty(ref _namePrefix, value);
+        }
+
+        public string NamePostfix
+        {
+            get => _namePostfix;
+            set => SetProperty(ref _namePostfix, value);
+        }
+
         public bool ExportScopeView
         {
             get => _exportScopeView;
             set
             {
                 _exportScopeView = value;
-                OnPropertyChanged(nameof(ExportScopeView));
+                OnPropertyChanged();
                 OnPropertyChanged(nameof(ExportScopeWhole));
             }
         }
+
         public bool ExportScopeWhole
         {
             get => !_exportScopeView;
             set
             {
                 _exportScopeView = !value;
-                OnPropertyChanged(nameof(ExportScopeWhole));
+                OnPropertyChanged();
                 OnPropertyChanged(nameof(ExportScopeView));
             }
         }

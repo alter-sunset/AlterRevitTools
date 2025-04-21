@@ -1,9 +1,9 @@
-﻿using Autodesk.Revit.DB;
-using AlterTools.BatchExport.Views.Base;
+﻿using AlterTools.BatchExport.Views.Base;
+using Autodesk.Revit.DB;
 
 namespace AlterTools.BatchExport.Views.NWC
 {
-    public interface IConfigNwc : IConfigBaseExtended
+    public interface IConfigNWC : IConfigBaseExtended
     {
         bool ConvertElementProperties { get; set; }
         bool DivideFileIntoLevels { get; set; }

@@ -1,17 +1,18 @@
-﻿using AlterTools.BatchExport.Utils;
-using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.DB;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
+using AlterTools.BatchExport.Utils;
+using Autodesk.Revit.ApplicationServices;
+using Autodesk.Revit.DB;
 
 namespace AlterTools.BatchExport.Views.Params
 {
     public static class ParamsHelper
     {
-        public static void ExportParameters(this ListBoxItem item, Application app, ParamsViewModel paramsVm, CsvHelper csvHelper)
+        public static void ExportParameters(this ListBoxItem item, Application app, ParamsViewModel paramsVm,
+            CsvHelper csvHelper)
         {
             string filePath = item.Content?.ToString();
             string fileName = Path.GetFileName(filePath);
@@ -26,23 +27,26 @@ namespace AlterTools.BatchExport.Views.Params
 
             try
             {
-                using Document doc = OpenDocumentHelper.OpenDocument(app, filePath, out bool _);
-                if (null == doc) return;
+                using Document doc = app.OpenDocument(filePath, out bool _);
+                if (null == doc)
+                {
+                    return;
+                }
 
                 IEnumerable<ParametersTable> paramTables = new FilteredElementCollector(doc)
-                                                               .WhereElementIsNotElementType()
-                                                               .Where(el => el.IsPhysicalElement())
-                                                               .Select(el => new ParametersTable
-                                                               {
-                                                                   ModelName = fileName,
-                                                                   Parameters = el.GetParametersSet(paramsVm.ParametersNames),
+                    .WhereElementIsNotElementType()
+                    .Where(el => el.IsPhysicalElement())
+                    .Select(el => new ParametersTable
+                    {
+                        ModelName = fileName,
+                        Parameters = el.GetParametersSet(paramsVm.ParametersNames),
 
 #if R24_OR_GREATER
-                                                                   ElementId = el.Id.Value,
+                        ElementId = el.Id.Value,
 #else
-                                                                   ElementId = el.Id.IntegerValue,
+                        ElementId = el.Id.IntegerValue,
 #endif
-                                                               });
+                    });
 
                 foreach (ParametersTable table in paramTables)
                 {

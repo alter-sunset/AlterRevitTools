@@ -1,9 +1,9 @@
 ﻿using System;
-using Autodesk.Revit.DB;
-using Autodesk.Revit.ApplicationServices;
 using System.IO;
 using System.Linq;
 using AlterTools.BatchExport.Utils;
+using Autodesk.Revit.ApplicationServices;
+using Autodesk.Revit.DB;
 
 namespace AlterTools.BatchExport.Views.Detach
 {
@@ -13,8 +13,11 @@ namespace AlterTools.BatchExport.Views.Detach
         {
             try
             {
-                Document doc = OpenDocumentHelper.OpenDocument(app, filePath, out bool isWorkshared);
-                if (null == doc) return;
+                Document doc = app.OpenDocument(filePath, out bool isWorkshared);
+                if (null == doc)
+                {
+                    return;
+                }
 
                 string fileDetachedPath = GetDetachedFilePath(iConfigDetach, doc, filePath);
 
@@ -33,18 +36,18 @@ namespace AlterTools.BatchExport.Views.Detach
             string docTitle = doc.Title.RemoveDetach();
             string fileDetachedPath = Path.Combine(iConfigDetach.FolderPath, $"{docTitle}.rvt");
 
-            if ((iConfigDetach is DetachViewModel { RadioButtonMode: 2 } detachViewModel))
+            if (iConfigDetach is DetachViewModel { RadioButtonMode: 2 } detachViewModel)
             {
                 fileDetachedPath = RenamePath(originalFilePath,
-                                              RenameType.Folder,
-                                              detachViewModel.MaskIn, detachViewModel.MaskOut);
+                    RenameType.Folder,
+                    detachViewModel.MaskIn, detachViewModel.MaskOut);
             }
 
             if (iConfigDetach.IsToRename)
             {
                 fileDetachedPath = RenamePath(fileDetachedPath,
-                                              RenameType.Title,
-                                              iConfigDetach.MaskInName, iConfigDetach.MaskOutName);
+                    RenameType.Title,
+                    iConfigDetach.MaskInName, iConfigDetach.MaskOutName);
             }
 
             if (iConfigDetach.CheckForEmptyView)
@@ -55,15 +58,16 @@ namespace AlterTools.BatchExport.Views.Detach
             return fileDetachedPath;
         }
 
-        private static void CheckAndModifyForEmptyView(Document doc, IConfigDetach iConfigDetach, ref string fileDetachedPath)
+        private static void CheckAndModifyForEmptyView(Document doc, IConfigDetach iConfigDetach,
+            ref string fileDetachedPath)
         {
             doc.OpenAllWorksets();
 
             try
             {
                 Element view = new FilteredElementCollector(doc)
-                                   .OfClass(typeof(View3D))
-                                   .FirstOrDefault(el => el.Name == iConfigDetach.ViewName && !((View3D)el).IsTemplate);
+                    .OfClass(typeof(View3D))
+                    .FirstOrDefault(el => el.Name == iConfigDetach.ViewName && !((View3D)el).IsTemplate);
 
                 if (null != view
                     && doc.IsViewEmpty(view))
@@ -77,7 +81,8 @@ namespace AlterTools.BatchExport.Views.Detach
             }
         }
 
-        private static string RenamePath(string filePath, RenameType renameType, string maskIn = "", string maskOut = "")
+        private static string RenamePath(string filePath, RenameType renameType, string maskIn = "",
+            string maskOut = "")
         {
             string title = Path.GetFileNameWithoutExtension(filePath);
             string folder = Path.GetDirectoryName(filePath);
@@ -96,7 +101,7 @@ namespace AlterTools.BatchExport.Views.Detach
                 case RenameType.Empty:
                     title = $"EMPTY_{title}";
                     break;
-                
+
                 default:
                     throw new ArgumentOutOfRangeException(nameof(renameType), renameType, null);
             }
@@ -195,7 +200,10 @@ namespace AlterTools.BatchExport.Views.Detach
         private static void UpdateTransmissionData(ModelPath modelPath)
         {
             TransmissionData transData = TransmissionData.ReadTransmissionData(modelPath);
-            if (null == transData) return;
+            if (null == transData)
+            {
+                return;
+            }
 
             transData.IsTransmitted = true;
 

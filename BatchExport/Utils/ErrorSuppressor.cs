@@ -1,17 +1,17 @@
-﻿using Autodesk.Revit.ApplicationServices;
+﻿using System;
+using System.Collections.Generic;
+using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Events;
-using System;
-using System.Collections.Generic;
 
 namespace AlterTools.BatchExport.Utils
 {
     public class ErrorSuppressor : IDisposable
     {
-        private readonly UIApplication _uiApp;
         private readonly Application _app;
+        private readonly UIApplication _uiApp;
 
         public ErrorSuppressor(UIApplication uiApp)
         {
@@ -22,13 +22,22 @@ namespace AlterTools.BatchExport.Utils
             _app.FailuresProcessing += ApplicationFailuresProcessing;
         }
 
+        public void Dispose()
+        {
+            _uiApp.DialogBoxShowing -= TaskDialogBoxShowingEvent;
+            _app.FailuresProcessing -= ApplicationFailuresProcessing;
+        }
+
         private static void TaskDialogBoxShowingEvent(object sender, DialogBoxShowingEventArgs args)
         {
-            if (args is not TaskDialogShowingEventArgs dialogArgs) return;
+            if (args is not TaskDialogShowingEventArgs dialogArgs)
+            {
+                return;
+            }
 
             int dialogResult = dialogArgs.DialogId.StartsWith("TaskDialog_Missing_Third_Party_Updater")
-                                ? (int)TaskDialogResult.CommandLink1
-                                : (int)TaskDialogResult.Close;
+                ? (int)TaskDialogResult.CommandLink1
+                : (int)TaskDialogResult.Close;
 
             dialogArgs.OverrideResult(dialogResult);
         }
@@ -60,12 +69,6 @@ namespace AlterTools.BatchExport.Utils
             }
 
             return FailureProcessingResult.Continue;
-        }
-
-        public void Dispose()
-        {
-            _uiApp.DialogBoxShowing -= TaskDialogBoxShowingEvent;
-            _app.FailuresProcessing -= ApplicationFailuresProcessing;
         }
     }
 }

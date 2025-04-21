@@ -13,8 +13,19 @@ namespace AlterTools.BatchExport.Views.Base
             remove => CommandManager.RequerySuggested -= value;
         }
 
-        public bool CanExecute(object parameter) => canExecute is null || canExecute(parameter);
-        public void Execute(object parameter) => _execute(parameter);
-        public static void RaiseCanExecuteChanged() => CommandManager.InvalidateRequerySuggested();
+        public bool CanExecute(object parameter)
+        {
+            return canExecute is null || canExecute(parameter);
+        }
+
+        public void Execute(object parameter)
+        {
+            _execute(parameter);
+        }
+
+        public static void RaiseCanExecuteChanged()
+        {
+            CommandManager.InvalidateRequerySuggested();
+        }
     }
 }

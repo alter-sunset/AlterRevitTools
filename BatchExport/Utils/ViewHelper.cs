@@ -1,18 +1,18 @@
-﻿using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using System.Collections.Generic;
-using AlterTools.BatchExport.Core.EventHandlers;
-using AlterTools.BatchExport.Views.IFC;
-using AlterTools.BatchExport.Views.NWC;
-using AlterTools.BatchExport.Views.Link;
-using AlterTools.BatchExport.Views.Detach;
-using AlterTools.BatchExport.Views.Migrate;
-using AlterTools.BatchExport.Views.Transmit;
-using AlterTools.BatchExport.Views.Params;
 using AlterTools.BatchExport.Core.Commands;
+using AlterTools.BatchExport.Core.EventHandlers;
+using AlterTools.BatchExport.Views.Detach;
+using AlterTools.BatchExport.Views.IFC;
+using AlterTools.BatchExport.Views.Link;
+using AlterTools.BatchExport.Views.Migrate;
+using AlterTools.BatchExport.Views.NWC;
+using AlterTools.BatchExport.Views.Params;
+using AlterTools.BatchExport.Views.Transmit;
+using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
 
 namespace AlterTools.BatchExport.Utils
 {
@@ -23,13 +23,13 @@ namespace AlterTools.BatchExport.Utils
 
         private static readonly Dictionary<Forms, Func<Window>> FormCreators = new()
         {
-            { Forms.Detach,     () => new DetachModelsView(     new EventHandlerDetach()                            )},
-            { Forms.Ifc,        () => new IfcExportView(        new EventHandlerIfc()                               )},
-            { Forms.Nwc,        () => new NwcExportView(        new EventHandlerNwc(), new EventHandlerNwcBatch()  )},
-            { Forms.Migrate,    () => new MigrateModelsView(    new EventHandlerMigrate()                           )},
-            { Forms.Transmit,   () => new TransmitModelsView(   new EventHandlerTransmit()                          )},
-            { Forms.Link,       () => new LinkModelsView(       new EventHandlerLink(), GetWorksets()               )},
-            { Forms.Params,     () => new ExportParamsView(     new EventHandlerParams()                            )}
+            { Forms.Detach, () => new DetachModelsView(new EventHandlerDetach()) },
+            { Forms.IFC, () => new IFCExportView(new EventHandlerIFC()) },
+            { Forms.NWC, () => new NWCExportView(new EventHandlerNWC(), new EventHandlerNWCBatch()) },
+            { Forms.Migrate, () => new MigrateModelsView(new EventHandlerMigrate()) },
+            { Forms.Transmit, () => new TransmitModelsView(new EventHandlerTransmit()) },
+            { Forms.Link, () => new LinkModelsView(new EventHandlerLink(), GetWorksets()) },
+            { Forms.Params, () => new ExportParamsView(new EventHandlerParams()) }
         };
 
         internal static void ShowForm(this Forms form, UIApplication uiApp)
@@ -40,7 +40,10 @@ namespace AlterTools.BatchExport.Utils
 
             try
             {
-                if (!FormCreators.TryGetValue(form, out var createForm)) return;
+                if (!FormCreators.TryGetValue(form, out Func<Window> createForm))
+                {
+                    return;
+                }
 
                 _myForm = createForm();
                 _myForm.Show();
@@ -54,14 +57,17 @@ namespace AlterTools.BatchExport.Utils
         private static Workset[] GetWorksets()
         {
             return new FilteredWorksetCollector(_uiApp.ActiveUIDocument.Document)
-                       .OfKind(WorksetKind.UserWorkset)
-                       .ToWorksets()
-                       .ToArray();
+                .OfKind(WorksetKind.UserWorkset)
+                .ToWorksets()
+                .ToArray();
         }
 
         private static void CloseCurrentForm()
         {
-            if (null == _myForm) return;
+            if (null == _myForm)
+            {
+                return;
+            }
 
             _myForm.Close();
             _myForm = null;

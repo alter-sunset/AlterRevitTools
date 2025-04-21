@@ -1,36 +1,39 @@
-﻿using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.Electrical;
-using Autodesk.Revit.UI;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
 using System.Security.Cryptography;
+using Autodesk.Revit.DB;
+using Autodesk.Revit.DB.Electrical;
+using Autodesk.Revit.UI;
 
 namespace AlterTools.BatchExport.Utils
 {
     public static class ModelHelper
     {
         /// <summary>
-        /// Get WorksetConfiguration with closed worksets that match given prefixes
+        ///     Get WorksetConfiguration with closed worksets that match given prefixes
         /// </summary>
         public static WorksetConfiguration CloseWorksets(this ModelPath modelPath, params string[] prefixes)
         {
-            if (null == prefixes 
-                || 0 == prefixes.Length) return new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
+            if (null == prefixes
+                || 0 == prefixes.Length)
+            {
+                return new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
+            }
 
             // problem occurs if centralModel can't be found
             try
             {
                 WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.CloseAllWorksets);
-                
+
                 IList<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)
                     .Where(wp => !prefixes.Any(wp.Name.StartsWith))
                     .Select(wp => wp.Id)
                     .ToList();
-                
+
                 worksetConfiguration.Open(worksetIds);
-                
+
                 return worksetConfiguration;
             }
             catch
@@ -41,22 +44,25 @@ namespace AlterTools.BatchExport.Utils
         }
 
         /// <summary>
-        /// Checks whether given view has no visible objects 
+        ///     Checks whether given view has no visible objects
         /// </summary>
         /// <param name="doc">Document to inspect</param>
         /// <param name="element">View to check</param>
         /// <returns>true if view is empty</returns>
         public static bool IsViewEmpty(this Document doc, Element element)
         {
-            if (element is not View3D view) return true;
+            if (element is not View3D view)
+            {
+                return true;
+            }
 
             try
             {
                 using FilteredElementCollector collector = new(doc, view.Id);
 
                 return !collector.Where(el => el.Category != null
-                                          && el.GetType() != typeof(RevitLinkInstance))
-                                 .Any(el => el.CanBeHidden(view));
+                                              && el.GetType() != typeof(RevitLinkInstance))
+                    .Any(el => el.CanBeHidden(view));
             }
             catch
             {
@@ -65,13 +71,14 @@ namespace AlterTools.BatchExport.Utils
         }
 
         /// <summary>
-        /// Relinquish ownership of all possible elements in the doc
+        ///     Relinquish ownership of all possible elements in the doc
         /// </summary>
         public static void FreeTheModel(this Document doc)
         {
             try
             {
-                WorksharingUtils.RelinquishOwnership(doc, new RelinquishOptions(true), new TransactWithCentralOptions());
+                WorksharingUtils.RelinquishOwnership(doc, new RelinquishOptions(true),
+                    new TransactWithCentralOptions());
             }
             catch
             {
@@ -80,13 +87,16 @@ namespace AlterTools.BatchExport.Utils
         }
 
         /// <summary>
-        /// Delete all possible links from the doc 
+        ///     Delete all possible links from the doc
         /// </summary>
         public static void DeleteAllLinks(this Document doc)
         {
             ICollection<ElementId> ids = ExternalFileUtils.GetAllExternalFileReferences(doc);
 
-            if (0 == ids.Count) return;
+            if (0 == ids.Count)
+            {
+                return;
+            }
 
             using Transaction tr = new(doc, "Delete all Links");
 
@@ -109,12 +119,19 @@ namespace AlterTools.BatchExport.Utils
         }
 
         /// <summary>
-        /// Returns string with MD5 Hash of given file
+        ///     Returns string with MD5 Hash of given file
         /// </summary>
-        public static string Md5Hash(this string fileName)
+        public static string GetMd5Hash(this string fileName)
         {
-            if (string.IsNullOrEmpty(fileName)) return null;
-            if (!File.Exists(fileName)) return null;
+            if (string.IsNullOrEmpty(fileName))
+            {
+                return null;
+            }
+
+            if (!File.Exists(fileName))
+            {
+                return null;
+            }
 
             using MD5 md5 = MD5.Create();
 
@@ -130,31 +147,35 @@ namespace AlterTools.BatchExport.Utils
         }
 
         /// <summary>
-        /// Open all worksets in a doc in a very crippled way
+        ///     Open all worksets in a doc in a very crippled way
         /// </summary>
         public static void OpenAllWorksets(this Document doc)
         {
-            // List of all user worksets
-            IList<Workset> collectorWorkset = new FilteredWorksetCollector(doc)
-                                                  .OfKind(WorksetKind.UserWorkset)
-                                                  .ToWorksets();
-
             ElementId typeId = new FilteredElementCollector(doc)
-                                   .WhereElementIsElementType()
-                                   .OfClass(typeof(CableTrayType))
-                                   .ToElementIds()
-                                   .FirstOrDefault();
+                .WhereElementIsElementType()
+                .OfClass(typeof(CableTrayType))
+                .ToElementIds()
+                .FirstOrDefault();
+            if (null == typeId)
+            {
+                return;
+            }
 
             ElementId levelId = new FilteredElementCollector(doc)
-                                    .OfClass(typeof(Level))
-                                    .ToElementIds()
-                                    .FirstOrDefault();
+                .OfClass(typeof(Level))
+                .ToElementIds()
+                .FirstOrDefault();
+            if (null == levelId)
+            {
+                return;
+            }
 
-            if (null == typeId) return;
-            if (null == levelId) return;
+            // List of all user worksets
+            IList<Workset> collectorWorkset = new FilteredWorksetCollector(doc)
+                .OfKind(WorksetKind.UserWorkset)
+                .ToWorksets();
 
             using Transaction tr = new(doc, "Open worksets");
-
             tr.Start();
 
             // Create a temporary cable tray
@@ -162,7 +183,10 @@ namespace AlterTools.BatchExport.Utils
 
             foreach (Workset workset in collectorWorkset)
             {
-                if (workset.IsOpen) continue;
+                if (workset.IsOpen)
+                {
+                    continue;
+                }
 
                 // Change the workset of the cable tray
                 Parameter wsParam = ct.get_Parameter(BuiltInParameter.ELEM_PARTITION_PARAM);
@@ -181,14 +205,7 @@ namespace AlterTools.BatchExport.Utils
 
             tr.Commit();
         }
-        public static void YesNoTaskDialog(string msg, Action action)
-        {
-            TaskDialogResult result = TaskDialog.Show("Ошибка", msg, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
-            if (TaskDialogResult.Yes == result)
-            {
-                action?.Invoke();
-            }
-        }
+
         private static void SuppressAlert(this Transaction tr)
         {
             FailureHandlingOptions failOpt = tr.GetFailureHandlingOptions();
@@ -233,10 +250,10 @@ namespace AlterTools.BatchExport.Utils
         public static void RemoveEmptyWorksets(this Document doc)
         {
             List<WorksetId> worksets = new FilteredWorksetCollector(doc)
-                                           .OfKind(WorksetKind.UserWorkset)
-                                           .ToWorksetIds()
-                                           .Where(doc.IsWorksetEmpty)
-                                           .ToList();
+                .OfKind(WorksetKind.UserWorkset)
+                .ToWorksetIds()
+                .Where(doc.IsWorksetEmpty)
+                .ToList();
 
             using Transaction tr = new(doc);
             tr.Start("Remove empty worksets");
@@ -249,13 +266,13 @@ namespace AlterTools.BatchExport.Utils
         private static bool IsWorksetEmpty(this Document doc, WorksetId workset)
         {
             return !new FilteredElementCollector(doc)
-                        .WherePasses(new ElementWorksetFilter(workset))
-                        .Any();
+                .WherePasses(new ElementWorksetFilter(workset))
+                .Any();
         }
 #endif
 
         /// <summary>
-        /// Return parameter value as string with correct null check
+        ///     Return parameter value as string with correct null check
         /// </summary>
         public static string GetValueString(this Parameter param)
         {
@@ -266,16 +283,26 @@ namespace AlterTools.BatchExport.Utils
 
         public static bool IsPhysicalElement(this Element el)
         {
-            if (null == el.Category) return false;
-            if (el.ViewSpecific) return false;
+            if (null == el.Category)
+            {
+                return false;
+            }
+
+            if (el.ViewSpecific)
+            {
+                return false;
+            }
             // exclude specific unwanted categories
 #if R24_OR_GREATER
-            if ((BuiltInCategory)el.Category.Id.Value == BuiltInCategory.OST_HVAC_Zones) return false;
+            if (BuiltInCategory.OST_HVAC_Zones == (BuiltInCategory)el.Category.Id.Value) return false;
 #else
-            if (BuiltInCategory.OST_HVAC_Zones == ((BuiltInCategory)el.Category.Id.IntegerValue)) return false;
+            if (BuiltInCategory.OST_HVAC_Zones == (BuiltInCategory)el.Category.Id.IntegerValue)
+            {
+                return false;
+            }
 #endif
             return CategoryType.Model == el.Category.CategoryType
-                && el.Category.CanAddSubcategory;
+                   && el.Category.CanAddSubcategory;
         }
     }
 }

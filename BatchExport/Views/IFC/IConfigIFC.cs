@@ -1,9 +1,9 @@
-﻿using Autodesk.Revit.DB;
-using AlterTools.BatchExport.Views.Base;
+﻿using AlterTools.BatchExport.Views.Base;
+using Autodesk.Revit.DB;
 
 namespace AlterTools.BatchExport.Views.IFC
 {
-    public interface IConfigIfc : IConfigBaseExtended
+    public interface IConfigIFC : IConfigBaseExtended
     {
         string FamilyMappingFile { get; }
         bool ExportBaseQuantities { get; }

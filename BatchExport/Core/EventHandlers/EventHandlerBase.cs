@@ -1,5 +1,5 @@
-﻿using Autodesk.Revit.UI;
-using AlterTools.BatchExport.Views.Base;
+﻿using AlterTools.BatchExport.Views.Base;
+using Autodesk.Revit.UI;
 
 namespace AlterTools.BatchExport.Core.EventHandlers
 {

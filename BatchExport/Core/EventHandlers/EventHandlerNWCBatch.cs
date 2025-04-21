@@ -1,20 +1,23 @@
-﻿using Autodesk.Revit.UI;
-using System;
+﻿using System;
 using System.IO;
-using System.Windows;
 using System.Threading;
-using Newtonsoft.Json;
+using System.Windows;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.NWC;
+using Autodesk.Revit.UI;
+using Newtonsoft.Json;
 
 namespace AlterTools.BatchExport.Core.EventHandlers
 {
-    public class EventHandlerNwcBatch : EventHandlerBase
+    public class EventHandlerNWCBatch : EventHandlerBase
     {
         protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not NwcViewModel nwcVm) return;
+            if (iConfigBase is not NWCViewModel nwcVm)
+            {
+                return;
+            }
 
             if (0 == nwcVm.Configs.Count)
             {
@@ -30,9 +33,9 @@ namespace AlterTools.BatchExport.Core.EventHandlers
                 {
                     using FileStream file = File.OpenRead(config.Name);
 
-                    NwcForm form = JsonConvert.DeserializeObject<NwcForm>(new StreamReader(file).ReadToEnd());
+                    NWCForm form = JsonConvert.DeserializeObject<NWCForm>(new StreamReader(file).ReadToEnd());
 
-                    nwcVm.NwcFormDeserilaizer(form);
+                    nwcVm.NWCFormDeserilaizer(form);
                 }
                 catch
                 {
@@ -41,7 +44,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 
                 Logger log = new(nwcVm.FolderPath);
 
-                NwcHelper nwcHelper = new();
+                NWCHelper nwcHelper = new();
                 nwcHelper.BatchExportModels(nwcVm, uiApp, ref log);
 
                 log.Dispose();
@@ -51,7 +54,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 
             string msg = $"Задание выполнено. Всего затрачено времени:{DateTime.Now - timeStart}";
 
-            nwcVm.Finisher(id: "ExportBatchNWCFinished", msg);
+            nwcVm.Finisher("ExportBatchNWCFinished", msg);
         }
     }
 }

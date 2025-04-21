@@ -1,7 +1,7 @@
-﻿using AlterTools.BatchExport.Views.Params;
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
+using AlterTools.BatchExport.Views.Params;
 
 namespace AlterTools.BatchExport.Utils
 {
@@ -22,13 +22,21 @@ namespace AlterTools.BatchExport.Utils
             _stream.WriteLine("ModelName|WorksetName");
         }
 
-        public void WriteElement(ParametersTable paramsTable)
+        public void Dispose()
         {
-            _stream.WriteLine(string.Join("|", new[] { paramsTable.ModelName, paramsTable.ElementId.ToString() }.Concat(paramsTable.Parameters.Values)));
+            _stream.Dispose();
         }
 
-        public void WriteWorkset(string modelName, string worksetName) => _stream.WriteLine($"{modelName}|{worksetName}");
+        public void WriteElement(ParametersTable paramsTable)
+        {
+            _stream.WriteLine(string.Join("|",
+                new[] { paramsTable.ModelName, paramsTable.ElementId.ToString() }
+                    .Concat(paramsTable.Parameters.Values)));
+        }
 
-        public void Dispose() => _stream.Dispose();
+        public void WriteWorkset(string modelName, string worksetName)
+        {
+            _stream.WriteLine($"{modelName}|{worksetName}");
+        }
     }
 }

@@ -1,6 +1,6 @@
-﻿using AlterTools.BatchExport.Utils;
+﻿using System;
+using AlterTools.BatchExport.Utils;
 using Autodesk.Revit.UI;
-using System;
 
 namespace AlterTools.BatchExport.Core.Commands
 {

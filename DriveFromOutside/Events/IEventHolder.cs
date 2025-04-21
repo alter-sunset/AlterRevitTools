@@ -1,10 +1,9 @@
 ﻿using Autodesk.Revit.UI;
 
-namespace AlterTools.DriveFromOutside.Events
+namespace AlterTools.DriveFromOutside.Events;
+
+public interface IEventHolder
 {
-    public interface IEventHolder
-    {
-        public ExternalEvents ExternalEvent { get; }
-        public IExternalEventHandler ExternalEventHandler { get; }
-    }
+    public ExternalEvents ExternalEvent { get; }
+    public IExternalEventHandler ExternalEventHandler { get; }
 }
