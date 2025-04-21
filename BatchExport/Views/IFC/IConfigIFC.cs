@@ -3,7 +3,7 @@ using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.IFC
 {
-    public interface IConfigIfc : IConfigBaseExtended
+    public interface IConfigIFC : IConfigBaseExtended
     {
         string FamilyMappingFile { get; }
         bool ExportBaseQuantities { get; }

@@ -5,12 +5,12 @@ using AlterTools.BatchExport.Views.IFC;
 
 namespace AlterTools.DriveFromOutside.Events.IFC
 {
-    public class EventHandlerIFC : RevitEventWrapper<IfcConfig>
+    public class EventHandlerIFC : RevitEventWrapper<IFCConfig>
     {
-        protected override void Execute(UIApplication uiApp, IfcConfig ifcConfig)
+        protected override void Execute(UIApplication uiApp, IFCConfig ifcConfig)
         {
             Logger log = new(ifcConfig.FolderPath);
-            IfcHelper ifcHelper = new();
+            IFCHelper ifcHelper = new();
             ifcHelper.BatchExportModels(ifcConfig, uiApp, ref log);
             log.Dispose();
         }

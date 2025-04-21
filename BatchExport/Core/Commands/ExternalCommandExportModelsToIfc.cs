@@ -7,11 +7,11 @@ namespace AlterTools.BatchExport.Core.Commands
 {
     [UsedImplicitly]
     [Transaction(TransactionMode.Manual)]
-    public class ExternalCommandExportModelsToIfc : IExternalCommand
+    public class ExternalCommandExportModelsToIFC : IExternalCommand
     {
         public virtual Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements)
         {
-            return CommandWrapper.Execute(ref msg, Forms.Ifc);
+            return CommandWrapper.Execute(ref msg, Forms.IFC);
         }
     }
 }

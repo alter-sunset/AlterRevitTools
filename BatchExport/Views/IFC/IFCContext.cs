@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace AlterTools.BatchExport.Views.IFC
 {
-    public static class IfcContext
+    public static class IFCContext
     {
-        public static IReadOnlyDictionary<IFCVersion, string> IfcVersions { get; } = new Dictionary<IFCVersion, string>
+        public static IReadOnlyDictionary<IFCVersion, string> IFCVersions { get; } = new Dictionary<IFCVersion, string>
         {
             { IFCVersion.Default,   "По умолчанию" },
             { IFCVersion.IFCBCA,    "IFC 2x2 Singapore BCA e-Plan Check" },

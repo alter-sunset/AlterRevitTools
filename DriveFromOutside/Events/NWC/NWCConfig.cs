@@ -3,7 +3,7 @@ using AlterTools.BatchExport.Views.NWC;
 
 namespace AlterTools.DriveFromOutside.Events.NWC
 {
-    public class NwcConfig : IConfigNwc
+    public class NWCConfig : IConfigNWC
     {
         public bool ConvertElementProperties { get; set; }
         public bool DivideFileIntoLevels { get; set; }

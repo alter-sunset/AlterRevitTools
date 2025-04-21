@@ -11,22 +11,22 @@ using AlterTools.BatchExport.Core.EventHandlers;
 
 namespace AlterTools.BatchExport.Views.NWC
 {
-    public class NwcViewModel : ViewModelBaseExtended, IConfigNwc
+    public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
     {
-        private readonly EventHandlerNwcBatch _eventHandlerNwcBatch;
+        private readonly EventHandlerNWCBatch _eventHandlerNWCBatch;
 
-        public NwcViewModel(EventHandlerNwcBatch eventHandlerNwcBatch, EventHandlerNwc eventHandlerNwc)
+        public NWCViewModel(EventHandlerNWCBatch eventHandlerNWCBatch, EventHandlerNWC eventHandlerNWC)
         {
-            _eventHandlerNwcBatch = eventHandlerNwcBatch;
-            EventHandlerBase = eventHandlerNwc;
+            _eventHandlerNWCBatch = eventHandlerNWCBatch;
+            EventHandlerBase = eventHandlerNWC;
             HelpMessage = Help.GetHelpDictionary()
-                              .GetResultMessage(HelpMessageType.NwcTitle,
+                              .GetResultMessage(HelpMessageType.NWCTitle,
                                                 HelpMessageType.Load,
                                                 HelpMessageType.Folder,
                                                 HelpMessageType.Naming,
                                                 HelpMessageType.Config,
                                                 HelpMessageType.Start,
-                                                HelpMessageType.NwcEnd);
+                                                HelpMessageType.NWCEnd);
         }
 
         private bool _convertElementProperties;
@@ -36,9 +36,9 @@ namespace AlterTools.BatchExport.Views.NWC
             set => SetProperty(ref _convertElementProperties, value);
         }
 
-        public IReadOnlyDictionary<NavisworksCoordinates, string> Coordinates { get; } = NwcContext.Coordinates;
+        public IReadOnlyDictionary<NavisworksCoordinates, string> Coordinates { get; } = NWCContext.Coordinates;
 
-        private KeyValuePair<NavisworksCoordinates, string> _selectedCoordinates = NwcContext.Coordinates.FirstOrDefault(coord => coord.Key == NavisworksCoordinates.Shared);
+        private KeyValuePair<NavisworksCoordinates, string> _selectedCoordinates = NWCContext.Coordinates.FirstOrDefault(coord => coord.Key == NavisworksCoordinates.Shared);
         public KeyValuePair<NavisworksCoordinates, string> SelectedCoordinates
         {
             get => _selectedCoordinates;
@@ -101,8 +101,8 @@ namespace AlterTools.BatchExport.Views.NWC
             set => SetProperty(ref _findMissingMaterials, value);
         }
 
-        private KeyValuePair<NavisworksParameters, string> _selectedParameters = NwcContext.Parameters.FirstOrDefault(param => param.Key is NavisworksParameters.All);
-        public IReadOnlyDictionary<NavisworksParameters, string> Parameters { get; } = NwcContext.Parameters;
+        private KeyValuePair<NavisworksParameters, string> _selectedParameters = NWCContext.Parameters.FirstOrDefault(param => param.Key is NavisworksParameters.All);
+        public IReadOnlyDictionary<NavisworksParameters, string> Parameters { get; } = NWCContext.Parameters;
 
         public KeyValuePair<NavisworksParameters, string> SelectedParameters
         {
@@ -139,9 +139,9 @@ namespace AlterTools.BatchExport.Views.NWC
 
             using FileStream file = File.OpenRead(openFileDialog.FileName);
 
-            NwcFormDeserilaizer(JsonHelper<NwcForm>.DeserializeConfig(file));
+            NWCFormDeserilaizer(JsonHelper<NWCForm>.DeserializeConfig(file));
         }
-        public void NwcFormDeserilaizer(NwcForm form)
+        public void NWCFormDeserilaizer(NWCForm form)
         {
             if (null == form) return;
 
@@ -160,11 +160,9 @@ namespace AlterTools.BatchExport.Views.NWC
             NamePostfix = form.NamePostfix;
             WorksetPrefix = string.Join(";", form.WorksetPrefixes);
             ExportScopeView = NavisworksExportScope.View == form.ExportScope;
-
-            IEnumerable<string> files = form.Files.FilterRevitFiles();
-
-            ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
-
+            ListBoxItems = new ObservableCollection<ListBoxItem>(form.Files
+                                                                     .FilterRevitFiles()
+                                                                     .Select(DefaultListBoxItem));
             ConvertLights = form.ConvertLights;
             ConvertLinkedCADFormats = form.ConvertLinkedCADFormats;
             FacetingFactor = form.FacetingFactor;
@@ -174,7 +172,7 @@ namespace AlterTools.BatchExport.Views.NWC
 
         protected override void SaveList()
         {
-            using NwcForm form = NwcFormSerializer();
+            using NWCForm form = NWCFormSerializer();
             using SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
 
             if (DialogResult.OK != saveFileDialog.ShowDialog()) return;
@@ -186,9 +184,9 @@ namespace AlterTools.BatchExport.Views.NWC
                 File.Delete(fileName);
             }
 
-            JsonHelper<NwcForm>.SerializeConfig(form, fileName);
+            JsonHelper<NWCForm>.SerializeConfig(form, fileName);
         }
-        private NwcForm NwcFormSerializer() => new()
+        private NWCForm NWCFormSerializer() => new()
         {
             ConvertElementProperties = ConvertElementProperties,
             DivideFileIntoLevels = DivideFileIntoLevels,
@@ -206,15 +204,12 @@ namespace AlterTools.BatchExport.Views.NWC
             FolderPath = FolderPath,
             NamePrefix = NamePrefix,
             NamePostfix = NamePostfix,
-
             WorksetPrefixes = WorksetPrefix.Split(';')
                                            .Select(prefix => prefix.Trim())
                                            .ToArray(),
-
             ConvertLights = ConvertLights,
             ConvertLinkedCADFormats = ConvertLinkedCADFormats,
             FacetingFactor = FacetingFactor,
-
             Files = ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)
                                 .ToArray()
         };
@@ -246,10 +241,10 @@ namespace AlterTools.BatchExport.Views.NWC
         }
 
         private RelayCommand _raiseBatchEventCommand;
-        public RelayCommand RaiseBatchEventCommand => _raiseBatchEventCommand ??= new RelayCommand(_ => _eventHandlerNwcBatch.Raise(this));
+        public RelayCommand RaiseBatchEventCommand => _raiseBatchEventCommand ??= new RelayCommand(_ => _eventHandlerNWCBatch.Raise(this));
 
-        NavisworksParameters IConfigNwc.Parameters => _selectedParameters.Key;
-        NavisworksCoordinates IConfigNwc.Coordinates => _selectedCoordinates.Key;
+        NavisworksParameters IConfigNWC.Parameters => _selectedParameters.Key;
+        NavisworksCoordinates IConfigNWC.Coordinates => _selectedCoordinates.Key;
 
         protected override void DeleteSelectedItems()
         {

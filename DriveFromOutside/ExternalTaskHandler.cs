@@ -100,14 +100,14 @@ namespace AlterTools.DriveFromOutside
                 },
                 { ExternalEvents.NWC, () =>
                     {
-                        NwcConfig nwcConfig = taskConfig.GetEventConfig<NwcConfig>();
+                        NWCConfig nwcConfig = taskConfig.GetEventConfig<NWCConfig>();
                         EventHandlerNWC? handler = eventHolder.ExternalEventHandler as EventHandlerNWC;
                         handler?.Raise(nwcConfig);
                     }
                 },
                 { ExternalEvents.IFC, () =>
                     {
-                        IfcConfig ifcConfig = taskConfig.GetEventConfig<IfcConfig>();
+                        IFCConfig ifcConfig = taskConfig.GetEventConfig<IFCConfig>();
                         EventHandlerIFC? handler = eventHolder.ExternalEventHandler as EventHandlerIFC;
                         handler?.Raise(ifcConfig);
                     }

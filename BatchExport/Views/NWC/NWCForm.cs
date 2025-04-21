@@ -1,8 +1,8 @@
 ﻿using Autodesk.Revit.DB;
 
-namespace AlterTools.BatchExport.Views.IFC
+namespace AlterTools.BatchExport.Views.NWC
 {
-    public class IfcForm : IFCExportOptions
+    public class NWCForm : NavisworksExportOptions
     {
         public string FolderPath { get; set; }
         public string NamePrefix { get; set; }
@@ -10,7 +10,9 @@ namespace AlterTools.BatchExport.Views.IFC
         public string[] WorksetPrefixes { get; set; }
         public string[] Files { get; set; }
         public string ViewName { get; set; }
-        public bool ExportView { get; set; }
-        public new bool FilterViewId { get; set; }
+        public new bool ConvertLights { get; set; }
+        public new bool ConvertLinkedCADFormats { get; set; }
+        public new double FacetingFactor { get; set; }
+        public new bool ViewId { get; set; }
     }
 }

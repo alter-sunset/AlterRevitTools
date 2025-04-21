@@ -5,18 +5,18 @@ using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.NWC
 {
-    public class NwcHelper : ExportHelperBase
+    public class NWCHelper : ExportHelperBase
     {
         protected override void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp, ref Logger log)
         {
-            if (iConfig is not IConfigNwc configNwc) return;
+            if (iConfig is not IConfigNWC configNWC) return;
             if (IsViewEmpty(iConfig, doc, ref log, ref isFuckedUp)) return;
 
-            NavisworksExportOptions options = NWC_ExportOptions(configNwc, doc);
+            NavisworksExportOptions options = NWC_ExportOptions(configNWC, doc);
 
             Export(iConfig, doc, options, ref log, ref isFuckedUp);
         }
-        private static NavisworksExportOptions NWC_ExportOptions(IConfigNwc config, Document doc)
+        private static NavisworksExportOptions NWC_ExportOptions(IConfigNWC config, Document doc)
         {
             NavisworksExportOptions options = new()
             {

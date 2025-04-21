@@ -26,8 +26,8 @@ namespace AlterTools.DriveFromOutside
             [
                 new TransmitEventHolder(),
                 new DetachEventHolder(),
-                new NwcEventHolder(),
-                new IfcEventHolder(),
+                new NWCEventHolder(),
+                new IFCEventHolder(),
             ];
 
             //Initialize Task Handler and pass Event instances to it

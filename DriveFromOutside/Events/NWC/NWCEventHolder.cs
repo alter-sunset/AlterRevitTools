@@ -2,7 +2,7 @@
 
 namespace AlterTools.DriveFromOutside.Events.NWC
 {
-    public class NwcEventHolder : IEventHolder
+    public class NWCEventHolder : IEventHolder
     {
         private readonly EventHandlerNWC _eventHandlerNWC = new();
         public ExternalEvents ExternalEvent => ExternalEvents.NWC;

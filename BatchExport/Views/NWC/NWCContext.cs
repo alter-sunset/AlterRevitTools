@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AlterTools.BatchExport.Views.NWC
 {
-    internal static class NwcContext
+    internal static class NWCContext
     {
         public static IReadOnlyDictionary<NavisworksCoordinates, string> Coordinates { get; } = new Dictionary<NavisworksCoordinates, string>()
         {

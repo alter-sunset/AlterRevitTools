@@ -5,12 +5,12 @@ using AlterTools.BatchExport.Views.NWC;
 
 namespace AlterTools.DriveFromOutside.Events.NWC
 {
-    public class EventHandlerNWC : RevitEventWrapper<NwcConfig>
+    public class EventHandlerNWC : RevitEventWrapper<NWCConfig>
     {
-        protected override void Execute(UIApplication uiApp, NwcConfig nwcConfig)
+        protected override void Execute(UIApplication uiApp, NWCConfig nwcConfig)
         {
             Logger log = new(nwcConfig.FolderPath);
-            NwcHelper nwcHelper = new();
+            NWCHelper nwcHelper = new();
             nwcHelper.BatchExportModels(nwcConfig, uiApp, ref log);
             log.Dispose();
         }

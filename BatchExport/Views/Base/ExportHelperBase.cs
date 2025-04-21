@@ -221,7 +221,7 @@ namespace AlterTools.BatchExport.Views.Base
 
         protected static bool IsViewEmpty(IConfigBaseExtended iConfig, Document doc, ref Logger log, ref bool isFuckedUp)
         {
-            if (iConfig is NwcViewModel { ExportLinks: true }) return false;
+            if (iConfig is NWCViewModel { ExportLinks: true }) return false;
 
             if (!iConfig.ExportScopeView) return false;
             if (!doc.IsViewEmpty(GetView(iConfig, doc))) return false;

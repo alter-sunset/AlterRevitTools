@@ -5,15 +5,15 @@ using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.IFC
 {
-    public class IfcHelper : ExportHelperBase
+    public class IFCHelper : ExportHelperBase
     {
         protected override void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp, ref Logger log)
         {
             if (null == iConfig || null == doc) return;
-            if ((iConfig is not IConfigIfc configIfc)
+            if ((iConfig is not IConfigIFC configIFC)
                 || IsViewEmpty(iConfig, doc, ref log, ref isFuckedUp)) return;
 
-            IFCExportOptions options = IFC_ExportOptions(configIfc, doc);
+            IFCExportOptions options = IFC_ExportOptions(configIFC, doc);
 
             using Transaction tr = new(doc);
             tr.Start("Экспорт IFC");
@@ -23,7 +23,7 @@ namespace AlterTools.BatchExport.Views.IFC
             tr.Commit();
         }
         
-        private static IFCExportOptions IFC_ExportOptions(IConfigIfc config, Document doc) => new()
+        private static IFCExportOptions IFC_ExportOptions(IConfigIFC config, Document doc) => new()
         {
             ExportBaseQuantities = config.ExportBaseQuantities,
             FamilyMappingFile = config.FamilyMappingFile,

@@ -2,7 +2,7 @@
   {
     "Name": "NWC",
     "Text": "Экспорт\nNWC",
-    "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportModelsToNwc",
+    "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportModelsToNWC",
     "ToolTip": "Пакетный экспорт в NWC",
     "ImageLarge": "AlterTools.BatchExport.Resources.nwc.png",
     "ImageSmall": "AlterTools.BatchExport.Resources.nwc_16.png",
@@ -12,7 +12,7 @@
   {
     "Name": "IFC",
     "Text": "Экспорт\nIFC",
-    "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportModelsToIfc",
+    "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportModelsToIFC",
     "ToolTip": "Пакетный экспорт в IFC",
     "ImageLarge": "AlterTools.BatchExport.Resources.ifc.png",
     "ImageSmall": "AlterTools.BatchExport.Resources.ifc_16.png",

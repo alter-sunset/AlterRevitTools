@@ -5,16 +5,16 @@ using AlterTools.BatchExport.Views.IFC;
 
 namespace AlterTools.BatchExport.Core.EventHandlers
 {
-    public class EventHandlerIfc : EventHandlerBase
+    public class EventHandlerIFC : EventHandlerBase
     {
         protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not IfcViewModel ifcVm) return;
+            if (iConfigBase is not IFCViewModel ifcVm) return;
             if (!ifcVm.IsEverythingFilled()) return;
 
             Logger log = new(ifcVm.FolderPath);
 
-            IfcHelper ifcHelper = new();
+            IFCHelper ifcHelper = new();
             ifcHelper.BatchExportModels(ifcVm, uiApp, ref log);
 
             string msg = $"В процессе выполнения было {log.ErrorCount} ошибок.";

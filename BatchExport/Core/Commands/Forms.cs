@@ -2,8 +2,8 @@
 {
     internal enum Forms
     {
-        Nwc = 1,
-        Ifc = 2,
+        NWC = 1,
+        IFC = 2,
         Detach = 3,
         Transmit = 4,
         Migrate = 5,

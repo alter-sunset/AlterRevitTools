@@ -2,7 +2,7 @@
 
 namespace AlterTools.DriveFromOutside.Events.IFC
 {
-    public class IfcEventHolder : IEventHolder
+    public class IFCEventHolder : IEventHolder
     {
         private readonly EventHandlerIFC _eventHandlerIFC = new();
         public ExternalEvents ExternalEvent => ExternalEvents.IFC;
