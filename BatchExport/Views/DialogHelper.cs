@@ -42,7 +42,8 @@ namespace AlterTools.BatchExport.Views
             };
         }
 
-        private static (string defaultExt, string filter, bool multiselect) GetOpenFileDialogSettings(DialogType dialogType)
+        private static (string defaultExt, string filter, bool multiselect) GetOpenFileDialogSettings(
+            DialogType dialogType)
         {
             return dialogType switch
             {
@@ -53,7 +54,9 @@ namespace AlterTools.BatchExport.Views
                 _ => throw new ArgumentOutOfRangeException(nameof(dialogType), Exception)
             };
         }
-        private static (string defaultExt, string filter, string fileName) GetSaveFileDialogSettings(DialogType dialogType)
+
+        private static (string defaultExt, string filter, string fileName) GetSaveFileDialogSettings(
+            DialogType dialogType)
         {
             return dialogType switch
             {

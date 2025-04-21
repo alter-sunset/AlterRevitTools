@@ -1,38 +1,43 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Collections.Generic;
-using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
 using AlterTools.BatchExport.Utils;
+using Autodesk.Revit.DB;
 using Autodesk.Revit.Exceptions;
+using Autodesk.Revit.UI;
 
 namespace AlterTools.BatchExport.Views.Link
 {
     internal static class LinkHelper
     {
-        private const string DiffCoord = "Обнаружено различие систем координат. Выполнить получение коордианат из файла?";
+        private const string DiffCoord =
+            "Обнаружено различие систем координат. Выполнить получение коордианат из файла?";
+
         internal static void CreateLinks(this LinkViewModel linkViewModel, UIApplication uiApp)
         {
             Document doc = uiApp.ActiveUIDocument.Document;
 
             bool isCurrentWorkset = linkViewModel.IsCurrentWorkset;
-            bool setWorksetId = !isCurrentWorkset && (0 < linkViewModel.Worksets.Length);
+            bool setWorksetId = !isCurrentWorkset && 0 < linkViewModel.Worksets.Length;
 
-            List<Entry> entries = linkViewModel.Entries.Where(entry => !string.IsNullOrWhiteSpace(entry.Name) && File.Exists(entry.Name))
-                                                       .OrderBy(entry => entry.SelectedWorkset?.Name ?? string.Empty)
-                                                       .ToList();
+            List<Entry> entries = linkViewModel.Entries
+                .Where(entry => !string.IsNullOrWhiteSpace(entry.Name) && File.Exists(entry.Name))
+                .OrderBy(entry => entry.SelectedWorkset?.Name ?? string.Empty)
+                .ToList();
 
-            LinkProps props = new(doc.GetWorksetTable(), setWorksetId, linkViewModel.PinLinks, linkViewModel.WorksetPrefixes);
+            LinkProps props = new(doc.GetWorksetTable(), setWorksetId, linkViewModel.PinLinks,
+                linkViewModel.WorksetPrefixes);
 
             entries.ForEach(entry => TryCreateLink(doc, entry, props));
         }
+
         private static void TryCreateLink(Document doc, Entry entry, LinkProps props)
         {
             BasicFileInfo fileInfo = BasicFileInfo.Extract(entry.Name);
 
             ModelPath linkPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(entry.Name);
 
-            RevitLinkOptions revitLinkOptions = fileInfo.IsWorkshared && (0 != props.WorksetPrefixes.Length)
+            RevitLinkOptions revitLinkOptions = fileInfo.IsWorkshared && 0 != props.WorksetPrefixes.Length
                 ? new RevitLinkOptions(false, linkPath.CloseWorksets(props.WorksetPrefixes))
                 : new RevitLinkOptions(false);
 
@@ -51,7 +56,8 @@ namespace AlterTools.BatchExport.Views.Link
             try
             {
                 linkLoadResult = RevitLinkType.Create(doc, linkPath, revitLinkOptions);
-                revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, entry.SelectedImportPlacement);
+                revitLinkInstance =
+                    RevitLinkInstance.Create(doc, linkLoadResult.ElementId, entry.SelectedImportPlacement);
                 revitLinkInstance.Pinned = props.PinLink;
 
                 tr.Commit();
@@ -63,7 +69,7 @@ namespace AlterTools.BatchExport.Views.Link
                     tr.RollBack();
                     return;
                 }
-                
+
                 revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, ImportPlacement.Origin);
                 ModelHelper.YesNoTaskDialog(DiffCoord, () => doc.AcquireCoordinates(revitLinkInstance.Id));
                 revitLinkInstance.Pinned = props.PinLink;

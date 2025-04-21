@@ -1,10 +1,10 @@
-﻿using Autodesk.Revit.UI;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
-using System.Collections.Generic;
 using System.Windows.Media.Imaging;
-using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Core.Commands;
+using AlterTools.BatchExport.Utils;
+using Autodesk.Revit.UI;
 using JetBrains.Annotations;
 
 namespace AlterTools.BatchExport.Core
@@ -30,10 +30,10 @@ namespace AlterTools.BatchExport.Core
         {
             try
             {
-                PushButtonData pbData = new(name: Name,
-                                            text: Text,
-                                            assemblyName: Assembly.GetExecutingAssembly().Location,
-                                            className: ClassName)
+                PushButtonData pbData = new(Name,
+                    Text,
+                    Assembly.GetExecutingAssembly().Location,
+                    ClassName)
                 {
                     ToolTip = ToolTip,
                     Image = GetImage(ImageSmall),
@@ -52,6 +52,7 @@ namespace AlterTools.BatchExport.Core
                 return null;
             }
         }
+
         private static BitmapFrame GetImage(string imagePath)
         {
             try

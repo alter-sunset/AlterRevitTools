@@ -1,9 +1,11 @@
 ﻿using AlterTools.DriveFromOutside.Events;
 
-namespace AlterTools.DriveFromOutside.Utils
+namespace AlterTools.DriveFromOutside.Utils;
+
+public static class ConfigHelper
 {
-    public static class ConfigHelper
+    public static T GetEventConfig<T>(this TaskConfig taskConfig)
     {
-        public static T GetEventConfig<T>(this TaskConfig taskConfig) => taskConfig.EventConfig.ToObject<T>();
+        return taskConfig.EventConfig.ToObject<T>();
     }
 }

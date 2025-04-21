@@ -8,12 +8,16 @@ namespace AlterTools.BatchExport.Views
     public static class Help
     {
         private const string HelpFile = "AlterTools.BatchExport.Resources.HelpMessages.json";
-        public static Messages GetHelpDictionary() => JsonHelper<Messages>.DeserializeResource(HelpFile);
+
+        public static Messages GetHelpDictionary()
+        {
+            return JsonHelper<Messages>.DeserializeResource(HelpFile);
+        }
 
         public static string GetResultMessage(this Messages helpDictionary, params HelpMessageType[] helpCodes)
         {
             return string.Join(Environment.NewLine,
-                               helpCodes.Select(code => helpDictionary.TryGetValue(code, out var value) ? value : string.Empty));
+                helpCodes.Select(code => helpDictionary.TryGetValue(code, out string value) ? value : string.Empty));
         }
     }
 }

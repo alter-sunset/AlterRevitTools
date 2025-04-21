@@ -1,7 +1,7 @@
-﻿using Autodesk.Revit.UI;
-using AlterTools.BatchExport.Utils;
+﻿using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.IFC;
+using Autodesk.Revit.UI;
 
 namespace AlterTools.BatchExport.Core.EventHandlers
 {
@@ -9,8 +9,15 @@ namespace AlterTools.BatchExport.Core.EventHandlers
     {
         protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not IFCViewModel ifcVm) return;
-            if (!ifcVm.IsEverythingFilled()) return;
+            if (iConfigBase is not IFCViewModel ifcVm)
+            {
+                return;
+            }
+
+            if (!ifcVm.IsEverythingFilled())
+            {
+                return;
+            }
 
             Logger log = new(ifcVm.FolderPath);
 
@@ -21,7 +28,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 
             log.Dispose();
 
-            ifcVm.Finisher(id: "ExportIFCFinished", msg);
+            ifcVm.Finisher("ExportIFCFinished", msg);
         }
     }
 }

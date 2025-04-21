@@ -1,7 +1,7 @@
-﻿using Autodesk.Revit.UI;
-using AlterTools.BatchExport.Utils;
+﻿using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.NWC;
+using Autodesk.Revit.UI;
 
 namespace AlterTools.BatchExport.Core.EventHandlers
 {
@@ -9,8 +9,15 @@ namespace AlterTools.BatchExport.Core.EventHandlers
     {
         protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not NWCViewModel nwcVm) return;
-            if (!nwcVm.IsEverythingFilled()) return;
+            if (iConfigBase is not NWCViewModel nwcVm)
+            {
+                return;
+            }
+
+            if (!nwcVm.IsEverythingFilled())
+            {
+                return;
+            }
 
             Logger log = new(nwcVm.FolderPath);
 

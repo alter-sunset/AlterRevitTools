@@ -1,8 +1,7 @@
-﻿namespace AlterTools.DriveFromOutside.Events.Transmit
+﻿namespace AlterTools.DriveFromOutside.Events.Transmit;
+
+public abstract class TransmitConfig
 {
-    public abstract class TransmitConfig
-    {
-        public string[] Files { get; set; }
-        public string FolderPath { get; set; }
-    }
+    public string[] Files { get; set; }
+    public string FolderPath { get; set; }
 }

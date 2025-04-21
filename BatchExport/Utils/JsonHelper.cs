@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
-using System.Windows;
 using System.Reflection;
+using System.Windows;
 using Newtonsoft.Json;
 
 namespace AlterTools.BatchExport.Utils

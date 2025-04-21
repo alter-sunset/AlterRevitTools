@@ -1,11 +1,11 @@
-﻿using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
-using System.IO;
-using System.Windows.Media;
+﻿using System.IO;
 using System.Windows.Controls;
+using System.Windows.Media;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.Transmit;
+using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
 
 namespace AlterTools.BatchExport.Core.EventHandlers
 {
@@ -13,8 +13,15 @@ namespace AlterTools.BatchExport.Core.EventHandlers
     {
         protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not TransmitViewModel transmitVm) return;
-            if (!transmitVm.IsEverythingFilled()) return;
+            if (iConfigBase is not TransmitViewModel transmitVm)
+            {
+                return;
+            }
+
+            if (!transmitVm.IsEverythingFilled())
+            {
+                return;
+            }
 
             string folderPath = transmitVm.FolderPath;
 
@@ -36,7 +43,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
                 transmittedModelPath.UnloadRevitLinks(folderPath, transmitVm.IsSameFolder);
             }
 
-            transmitVm.Finisher(id: "TransmitModelsFinished");
+            transmitVm.Finisher("TransmitModelsFinished");
         }
     }
 }

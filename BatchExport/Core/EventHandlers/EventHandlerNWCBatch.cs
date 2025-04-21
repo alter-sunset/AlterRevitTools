@@ -1,12 +1,12 @@
-﻿using Autodesk.Revit.UI;
-using System;
+﻿using System;
 using System.IO;
-using System.Windows;
 using System.Threading;
-using Newtonsoft.Json;
+using System.Windows;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.NWC;
+using Autodesk.Revit.UI;
+using Newtonsoft.Json;
 
 namespace AlterTools.BatchExport.Core.EventHandlers
 {
@@ -14,7 +14,10 @@ namespace AlterTools.BatchExport.Core.EventHandlers
     {
         protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not NWCViewModel nwcVm) return;
+            if (iConfigBase is not NWCViewModel nwcVm)
+            {
+                return;
+            }
 
             if (0 == nwcVm.Configs.Count)
             {
@@ -51,7 +54,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
 
             string msg = $"Задание выполнено. Всего затрачено времени:{DateTime.Now - timeStart}";
 
-            nwcVm.Finisher(id: "ExportBatchNWCFinished", msg);
+            nwcVm.Finisher("ExportBatchNWCFinished", msg);
         }
     }
 }

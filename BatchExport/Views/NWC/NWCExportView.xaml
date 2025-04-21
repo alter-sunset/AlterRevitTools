@@ -1,7 +1,6 @@
 ﻿<base:WindowBase x:Name="Пакетный_экспорт_NWC" x:Class="AlterTools.BatchExport.Views.NWC.NWCExportView"
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                 xmlns:local="clr-namespace:AlterTools.BatchExport.Views.NWC"
                  xmlns:base="clr-namespace:AlterTools.BatchExport.Views.Base"
                  Height="950"
                  Width="800"
@@ -13,41 +12,41 @@
                  ShowInTaskbar="False">
     <Grid Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="3*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <TextBlock Margin="10,0,10,0"
                    FontSize="14"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    VerticalAlignment="Center"
-                   Text="Список RVT файлов для экспорта"/>
+                   Text="Список RVT файлов для экспорта" />
 
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="0"
                 Command="{Binding HelpCommand}"
                 ToolTip="Справка по работе с плагином"
-                Content="Справка"/>
+                Content="Справка" />
         <ListBox Grid.Row="1"
                  Grid.Column="0"
                  Grid.ColumnSpan="4"
@@ -55,49 +54,49 @@
                  SelectionMode="Extended"
                  ItemsSource="{Binding ListBoxItems}"
                  SelectedItem="{Binding SelectedItem}"
-                 ToolTip="Список файлов в формате (.rvt)"/>
+                 ToolTip="Список файлов в формате (.rvt)" />
 
         <Button Margin="10"
                 Grid.Column="0"
                 Grid.Row="2"
                 Command="{Binding LoadCommand}"
                 ToolTip="Загрузить файлы в формате (.rvt)"
-                Content="Загрузить"/>
+                Content="Загрузить" />
         <Button Margin="10"
                 Grid.Column="1"
                 Grid.Row="2"
                 Command="{Binding LoadListCommand}"
                 ToolTip="Загрузить сохранённый ранее файл конфигурации в формате (.JSON)"
-                Content="Загрузить конфиг"/>
+                Content="Загрузить конфиг" />
         <Button Margin="10"
                 Grid.Column="2"
                 Grid.Row="2"
                 Command="{Binding SaveListCommand}"
                 ToolTip="Сохранить файл конфигурации в формате (.JSON)"
-                Content="Сохранить конфиг"/>
+                Content="Сохранить конфиг" />
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="2"
                 Command="{Binding DeleteCommand}"
                 ToolTip="Удалить выбранные файлы из списка"
-                Content="Удалить"/>
+                Content="Удалить" />
 
         <TextBlock Margin="10,0,40,0"
                    FontSize="14"
                    Grid.Row="3"
                    Grid.Column="0"
                    VerticalAlignment="Center"
-                   Text="Папка для сохранения"/>
+                   Text="Папка для сохранения" />
         <TextBox Margin="165,10,135,10"
                  Grid.Row="3"
                  Grid.ColumnSpan="4"
                  VerticalContentAlignment="Center"
-                 Text="{Binding FolderPath}"/>
+                 Text="{Binding FolderPath}" />
         <Button Margin="80,10,10,10"
                 Grid.Column="3"
                 Grid.Row="3"
                 Command="{Binding BrowseFolderCommand}"
-                Content="Обзор"/>
+                Content="Обзор" />
 
         <TextBlock Margin="10,0,80,0"
                    Grid.Row="4"
@@ -105,27 +104,27 @@
                    VerticalAlignment="Center"
                    ToolTip="Префикс, который необходимо вставить перед названием файла"
                    FontSize="12"
-                   Text="Префикс названия"/>
+                   Text="Префикс названия" />
         <TextBox Margin="125,10,10,10"
                  Grid.Row="4"
                  Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
                  Text="{Binding NamePrefix}"
-                 ToolTip="Префикс, который необходимо вставить перед названием файла"/>
+                 ToolTip="Префикс, который необходимо вставить перед названием файла" />
         <TextBlock Margin="10,0,80,0"
                    Grid.Row="4"
                    Grid.Column="2"
                    VerticalAlignment="Center"
                    ToolTip="Постфикс, который необходимо вставить после названия файла"
                    FontSize="12"
-                   Text="Постфикс названия"/>
+                   Text="Постфикс названия" />
         <TextBox Margin="125,10,10,10"
                  Grid.Row="4"
                  Grid.Column="2"
                  Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
                  Text="{Binding NamePostfix}"
-                 ToolTip="Постфикс, который необходимо вставить после названия файла"/>
+                 ToolTip="Постфикс, который необходимо вставить после названия файла" />
 
         <CheckBox Margin="10,10,10,10"
                   Grid.Row="5"
@@ -133,21 +132,23 @@
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding ConvertElementProperties}"
                   ToolTip="">
-            <TextBlock>Конвертировать<LineBreak/>
-                свойства объектов</TextBlock>
+            <TextBlock>
+                Конвертировать<LineBreak />
+                свойства объектов
+            </TextBlock>
         </CheckBox>
         <TextBlock Margin="10,10,110,10"
                    Grid.Row="5"
                    Grid.Column="1"
                    VerticalAlignment="Center"
-                   Text="Координаты"/>
+                   Text="Координаты" />
         <ComboBox Margin="95,10,10,10"
                   Grid.Row="5"
                   Grid.Column="1"
                   VerticalContentAlignment="Center"
                   ItemsSource="{Binding Coordinates}"
                   SelectedItem="{Binding SelectedCoordinates}"
-                  DisplayMemberPath="Value"/>
+                  DisplayMemberPath="Value" />
         <CheckBox Margin="10,10,10,10"
                   Grid.Row="5"
                   Grid.Column="2"
@@ -160,8 +161,10 @@
                   Grid.Column="3"
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding ExportElementIds}">
-            <TextBlock>Экспортировать<LineBreak/>
-                Id элементов</TextBlock>
+            <TextBlock>
+                Экспортировать<LineBreak />
+                Id элементов
+            </TextBlock>
         </CheckBox>
 
         <CheckBox Margin="10"
@@ -169,8 +172,10 @@
                   Grid.Column="0"
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding ExportLinks}">
-            <TextBlock>Экспортировать <LineBreak/>
-                связанные файлы</TextBlock>
+            <TextBlock>
+                Экспортировать <LineBreak />
+                связанные файлы
+            </TextBlock>
         </CheckBox>
         <CheckBox Margin="10"
                   Grid.Row="6"
@@ -178,7 +183,7 @@
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding ExportParts}">
             <TextBlock>
-                Экспортировать<LineBreak/>
+                Экспортировать<LineBreak />
                 элементы конструкции
             </TextBlock>
         </CheckBox>
@@ -188,7 +193,7 @@
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding ExportRoomAsAttribute}">
             <TextBlock>
-                Экспортировать<LineBreak/>
+                Экспортировать<LineBreak />
                 помещения как атрибут
             </TextBlock>
         </CheckBox>
@@ -198,7 +203,7 @@
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding ExportRoomGeometry}">
             <TextBlock>
-                Экспортировать<LineBreak/>
+                Экспортировать<LineBreak />
                 геометрию помещений
             </TextBlock>
         </CheckBox>
@@ -209,26 +214,26 @@
                      VerticalContentAlignment="Center"
                      GroupName="ExportScope"
                      IsChecked="{Binding ExportScopeWhole}"
-                     Content="Экспортировать весь проект"/>
+                     Content="Экспортировать весь проект" />
         <RadioButton Margin="10,10,50,10"
                      Grid.Row="7"
                      Grid.Column="1"
                      VerticalContentAlignment="Center"
                      GroupName="ExportScope"
                      IsChecked="{Binding ExportScopeView}"
-                     Content="Экспортировать вид"/>
+                     Content="Экспортировать вид" />
         <TextBox Margin="155,10,10,10"
                  Grid.Row="7"
                  Grid.Column="1"
                  Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
-                 Text="{Binding ViewName}"/>
+                 Text="{Binding ViewName}" />
         <CheckBox Margin="10"
                   Grid.Row="7"
                   Grid.Column="3"
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding ExportUrls}"
-                  Content="Экспортировать URL адреса"/>
+                  Content="Экспортировать URL адреса" />
 
         <CheckBox Margin="10"
                   Grid.Row="8"
@@ -236,7 +241,7 @@
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding FindMissingMaterials}">
             <TextBlock>
-                Проверять и находить<LineBreak/>
+                Проверять и находить<LineBreak />
                 отсутсвующие материалы
             </TextBlock>
         </CheckBox>
@@ -246,7 +251,7 @@
                    Grid.Column="1"
                    VerticalAlignment="Center"
                    TextWrapping="Wrap"
-                   Text="Конвертировать параметры объектов"/>
+                   Text="Конвертировать параметры объектов" />
 
         <ComboBox Margin="175,10,10,10"
                   Grid.Row="8"
@@ -255,7 +260,7 @@
                   VerticalContentAlignment="Center"
                   ItemsSource="{Binding Parameters}"
                   SelectedItem="{Binding SelectedParameters}"
-                  DisplayMemberPath="Value"/>
+                  DisplayMemberPath="Value" />
 
         <CheckBox Margin="10"
                   Grid.Row="9"
@@ -263,7 +268,7 @@
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding ConvertLinkedCADFormats}">
             <TextBlock>
-                Экспортировать<LineBreak/>
+                Экспортировать<LineBreak />
                 связанные CAD файлы
             </TextBlock>
         </CheckBox>
@@ -273,56 +278,55 @@
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding ConvertLights}">
             <TextBlock>
-                Экспортировать<LineBreak/>
+                Экспортировать<LineBreak />
                 источники света
             </TextBlock>
         </CheckBox>
         <TextBlock Margin="10,0,30,0"
-                  Grid.Row="9"
-                  Grid.Column="2"
-                  VerticalAlignment="Center"
-                  Text="Коэффициент фасетизации"/>
+                   Grid.Row="9"
+                   Grid.Column="2"
+                   VerticalAlignment="Center"
+                   Text="Коэффициент фасетизации" />
         <TextBox Margin="175,10,10,10"
                  Grid.Row="9"
                  Grid.Column="2"
                  Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
-                 Text="{Binding FacetingFactor}"/>
+                 Text="{Binding FacetingFactor}" />
 
         <TextBlock Margin="10,0,10,0"
-                FontSize="12"
-                Grid.Row="10"
-                Grid.Column="0"
-                VerticalAlignment="Center"
-                TextWrapping="Wrap"
-                Text="Префиксы рабочих наборов, которые нужно закрыть"/>
+                   FontSize="12"
+                   Grid.Row="10"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   TextWrapping="Wrap"
+                   Text="Префиксы рабочих наборов, которые нужно закрыть" />
         <TextBox Margin="10,10,10,10"
                  Grid.Row="10"
                  Grid.Column="1"
                  Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
                  Text="{Binding WorksetPrefix}"
-                 ToolTip="Укажите через точку-запятую (;) префиксы всех рабочих наборов, которые необходимо закрыть при открытии файла. Обычно закрывают рабочие наборы со связями, чтобы ускорить открытие моделей."/>
+                 ToolTip="Укажите через точку-запятую (;) префиксы всех рабочих наборов, которые необходимо закрыть при открытии файла. Обычно закрывают рабочие наборы со связями, чтобы ускорить открытие моделей." />
 
         <Button Margin="10"
                 Grid.Row="11"
                 Grid.Column="2"
                 Command="{Binding EraseCommand}"
-                Content="Очистить список"/>
+                Content="Очистить список" />
         <Button Margin="10"
                 Grid.Row="11"
                 Grid.Column="3"
                 Command="{Binding RaiseEventCommand}"
                 Content="Запуск"
-                ToolTip="Запуск пакетного экспорта текущей конфигурации"/>
+                ToolTip="Запуск пакетного экспорта текущей конфигурации" />
 
         <TextBlock Margin="10"
                    FontSize="14"
                    Grid.Row="12"
                    Grid.Column="0"
                    VerticalAlignment="Center"
-                   Text="Список JSON конфигов">
-        </TextBlock>
+                   Text="Список JSON конфигов" />
         <ListBox Margin="10"
                  Grid.Row="12"
                  Grid.RowSpan="3"
@@ -332,20 +336,18 @@
                  SelectionMode="Extended"
                  SelectionChanged="ListBox_SelectionChanged"
                  ItemsSource="{Binding Configs}"
-                 DisplayMemberPath="Name"/>
+                 DisplayMemberPath="Name" />
         <Button Margin="10"
                 Grid.Row="13"
                 Grid.Column="0"
                 Command="{Binding LoadConfigsCommand}"
                 Content="Загрузить конфиги"
-                ToolTip="Загрузить список с файлами конфигураций в формате (.txt)">
-        </Button>
+                ToolTip="Загрузить список с файлами конфигураций в формате (.txt)" />
         <Button Margin="10"
                 Grid.Row="14"
                 Grid.Column="0"
                 Command="{Binding RaiseBatchEventCommand}"
                 Content="Начать"
-                ToolTip="Запустить экспорт нескольких конфигураций">
-        </Button>
+                ToolTip="Запустить экспорт нескольких конфигураций" />
     </Grid>
 </base:WindowBase>

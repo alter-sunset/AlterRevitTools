@@ -1,6 +1,6 @@
-﻿using Autodesk.Revit.UI;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Collections.Generic;
+using Autodesk.Revit.UI;
 using JetBrains.Annotations;
 using Panel = System.Tuple<Autodesk.Revit.UI.RibbonPanel, string>;
 
@@ -29,16 +29,19 @@ namespace AlterTools.BatchExport.Core
 
             //Create panels from config
             _panels = buttons.Select(button => button.Panel)
-                             .Distinct()
-                             .Select(panelName => new Panel(GetRibbonPanel(uiApp, panelName), panelName))
-                             .ToArray();
+                .Distinct()
+                .Select(panelName => new Panel(GetRibbonPanel(uiApp, panelName), panelName))
+                .ToArray();
 
             buttons.ForEach(CreateButton);
 
             return Result.Succeeded;
         }
 
-        public Result OnShutdown(UIControlledApplication a) => Result.Succeeded;
+        public Result OnShutdown(UIControlledApplication a)
+        {
+            return Result.Succeeded;
+        }
 
         private static RibbonPanel GetRibbonPanel(UIControlledApplication uiApp, string panelName)
         {
@@ -52,7 +55,7 @@ namespace AlterTools.BatchExport.Core
             }
 
             return uiApp.GetRibbonPanels(TabName)
-                        .FirstOrDefault(panel => panel.Name == panelName);
+                .FirstOrDefault(panel => panel.Name == panelName);
         }
 
         private void CreateButton(ButtonContext button)

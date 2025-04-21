@@ -1,17 +1,25 @@
-﻿using Autodesk.Revit.DB;
-using System.Linq;
+﻿using System.Linq;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
+using Autodesk.Revit.DB;
 
 namespace AlterTools.BatchExport.Views.IFC
 {
     public class IFCHelper : ExportHelperBase
     {
-        protected override void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp, ref Logger log)
+        protected override void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp,
+            ref Logger log)
         {
-            if (null == iConfig || null == doc) return;
-            if ((iConfig is not IConfigIFC configIFC)
-                || IsViewEmpty(iConfig, doc, ref log, ref isFuckedUp)) return;
+            if (null == iConfig || null == doc)
+            {
+                return;
+            }
+
+            if (iConfig is not IConfigIFC configIFC
+                || IsViewEmpty(iConfig, doc, ref log, ref isFuckedUp))
+            {
+                return;
+            }
 
             IFCExportOptions options = IFC_ExportOptions(configIFC, doc);
 
@@ -22,21 +30,27 @@ namespace AlterTools.BatchExport.Views.IFC
 
             tr.Commit();
         }
-        
-        private static IFCExportOptions IFC_ExportOptions(IConfigIFC config, Document doc) => new()
+
+        private static IFCExportOptions IFC_ExportOptions(IConfigIFC config, Document doc)
         {
-            ExportBaseQuantities = config.ExportBaseQuantities,
-            FamilyMappingFile = config.FamilyMappingFile,
-            FileVersion = config.FileVersion,
-            FilterViewId = GetViewId(config.ViewName, doc),
-            SpaceBoundaryLevel = config.SpaceBoundaryLevel,
-            WallAndColumnSplitting = config.WallAndColumnSplitting
-        };
+            return new IFCExportOptions
+            {
+                ExportBaseQuantities = config.ExportBaseQuantities,
+                FamilyMappingFile = config.FamilyMappingFile,
+                FileVersion = config.FileVersion,
+                FilterViewId = GetViewId(config.ViewName, doc),
+                SpaceBoundaryLevel = config.SpaceBoundaryLevel,
+                WallAndColumnSplitting = config.WallAndColumnSplitting
+            };
+        }
 
         private static ElementId GetViewId(string viewName, Document doc)
         {
-            if (null == doc || string.IsNullOrEmpty(viewName)) return null;
-            
+            if (null == doc || string.IsNullOrEmpty(viewName))
+            {
+                return null;
+            }
+
             return new FilteredElementCollector(doc)
                 .OfClass(typeof(View))
                 .FirstOrDefault(el => el.Name == viewName)?

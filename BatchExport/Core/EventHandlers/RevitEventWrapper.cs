@@ -3,22 +3,25 @@
 namespace AlterTools.BatchExport.Core.EventHandlers
 {
     /// <summary>
-    /// Class for creating Argument (Wrapped) External Events
+    ///     Class for creating Argument (Wrapped) External Events
     /// </summary>
     /// <typeparam name="TType">The Class type being wrapped for the External Event Handler.</typeparam>
     public abstract class RevitEventWrapper<TType> : IExternalEventHandler
     {
         private readonly object _lock = new();
-        private TType _savedArgs;
         private readonly ExternalEvent _revitEvent;
+        private TType _savedArgs;
 
         /// <summary>
-        /// Class for wrapping methods for execution within a "valid" Revit API context.
+        ///     Class for wrapping methods for execution within a "valid" Revit API context.
         /// </summary>
-        protected RevitEventWrapper() => _revitEvent = ExternalEvent.Create(this);
+        protected RevitEventWrapper()
+        {
+            _revitEvent = ExternalEvent.Create(this);
+        }
 
         /// <summary>
-        /// Wraps the "Execution" method in a valid Revit API context.
+        ///     Wraps the "Execution" method in a valid Revit API context.
         /// </summary>
         /// <param name="uiApp">Revit UI Application to use as the "wrapper" API context.</param>
         public void Execute(UIApplication uiApp)
@@ -29,17 +32,21 @@ namespace AlterTools.BatchExport.Core.EventHandlers
                 args = _savedArgs;
                 _savedArgs = default;
             }
+
             Execute(uiApp, args);
         }
 
         /// <summary>
-        /// Get the name of the operation.
+        ///     Get the name of the operation.
         /// </summary>
         /// <returns>Operation Name.</returns>
-        public string GetName() => GetType().Name;
+        public string GetName()
+        {
+            return GetType().Name;
+        }
 
         /// <summary>
-        /// Execute the wrapped external event in a valid Revit API context.
+        ///     Execute the wrapped external event in a valid Revit API context.
         /// </summary>
         /// <param name="args">Arguments that could be passed to the execution method.</param>
         public void Raise(TType args)
@@ -48,11 +55,12 @@ namespace AlterTools.BatchExport.Core.EventHandlers
             {
                 _savedArgs = args;
             }
+
             _revitEvent.Raise();
         }
 
         /// <summary>
-        /// Override void which wraps the "Execution" method in a valid Revit API context.
+        ///     Override void which wraps the "Execution" method in a valid Revit API context.
         /// </summary>
         /// <param name="uiApp">Revit UI Application to use as the "wrapper" API context.</param>
         /// <param name="args">Arguments that could be passed to the execution method.</param>

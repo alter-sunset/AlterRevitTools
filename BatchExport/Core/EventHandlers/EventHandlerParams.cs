@@ -1,11 +1,11 @@
-﻿using AlterTools.BatchExport.Utils;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Windows.Controls;
+using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.Params;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.UI;
-using System.Collections.Generic;
-using System.Linq;
-using System.Windows.Controls;
 
 namespace AlterTools.BatchExport.Core.EventHandlers
 {
@@ -13,8 +13,15 @@ namespace AlterTools.BatchExport.Core.EventHandlers
     {
         protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
         {
-            if (iConfigBase is not ParamsViewModel paramsVm) return;
-            if (!paramsVm.IsEverythingFilled()) return;
+            if (iConfigBase is not ParamsViewModel paramsVm)
+            {
+                return;
+            }
+
+            if (!paramsVm.IsEverythingFilled())
+            {
+                return;
+            }
 
             using (CsvHelper csvHelper = new(paramsVm.CsvPath, paramsVm.ParametersNames))
             {
@@ -25,7 +32,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers
                 listItems.ForEach(item => item.ExportParameters(app, paramsVm, csvHelper));
             }
 
-            paramsVm.Finisher(id: "ExportParametersFinished");
+            paramsVm.Finisher("ExportParametersFinished");
         }
     }
 }
