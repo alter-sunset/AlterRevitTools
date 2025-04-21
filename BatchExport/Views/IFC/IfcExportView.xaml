@@ -161,7 +161,7 @@
                   Grid.Column="1"
                   Grid.ColumnSpan="2"
                   VerticalContentAlignment="Center"
-                  ItemsSource="{Binding IfcVersions}"
+                  ItemsSource="{Binding IFCVersions}"
                   SelectedItem="{Binding SelectedVersion}"
                   DisplayMemberPath="Value"/>
         <CheckBox Margin="10"

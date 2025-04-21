@@ -85,7 +85,7 @@ namespace AlterTools.BatchExport.Views.IFC
             WorksetPrefix = string.Join(";", form.WorksetPrefixes);
             Mapping = form.FamilyMappingFile;
             ExportBaseQuantities = form.ExportBaseQuantities;
-            SelectedVersion = _ifcVersions.FirstOrDefault(ver => ver.Key == form.FileVersion);
+            SelectedVersion = IFCVersions.FirstOrDefault(ver => ver.Key == form.FileVersion);
             WallAndColumnSplitting = form.WallAndColumnSplitting;
             ExportScopeView = form.ExportView;
             ViewName = form.ViewName;
@@ -127,9 +127,8 @@ namespace AlterTools.BatchExport.Views.IFC
                                 .ToArray()
         };
 
-        private readonly IReadOnlyDictionary<IFCVersion, string> _ifcVersions = IfcContext.IfcVersions;
         private KeyValuePair<IFCVersion, string> _selectedVersion = IfcContext.IfcVersions.FirstOrDefault(ver => IFCVersion.Default == ver.Key);
-        public IReadOnlyDictionary<IFCVersion, string> IFCVersions => _ifcVersions;
+        public IReadOnlyDictionary<IFCVersion, string> IFCVersions { get; } = IfcContext.IfcVersions;
         public KeyValuePair<IFCVersion, string> SelectedVersion
         {
             get => _selectedVersion;

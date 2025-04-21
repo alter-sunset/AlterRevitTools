@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace AlterTools.BatchExport.Views.IFC
 {
-    internal static class IfcContext
+    public static class IfcContext
     {
         public static IReadOnlyDictionary<IFCVersion, string> IfcVersions { get; } = new Dictionary<IFCVersion, string>
         {
