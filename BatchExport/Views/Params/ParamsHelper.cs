@@ -27,7 +27,7 @@ namespace AlterTools.BatchExport.Views.Params
 
             try
             {
-                using Document doc = OpenDocumentHelper.OpenDocument(app, filePath, out bool _);
+                using Document doc = app.OpenDocument(filePath, out bool _);
                 if (null == doc)
                 {
                     return;

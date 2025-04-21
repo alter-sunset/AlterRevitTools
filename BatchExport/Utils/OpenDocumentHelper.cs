@@ -43,7 +43,7 @@ namespace AlterTools.BatchExport.Utils
             return app.OpenDocumentFile(modelPath, openOptions);
         }
 
-        public static Document OpenDocument(Application app, string filePath, out bool isWorkshared)
+        public static Document OpenDocument(this Application app, string filePath, out bool isWorkshared)
         {
             Document doc = null;
             isWorkshared = false;

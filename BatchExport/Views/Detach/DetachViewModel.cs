@@ -1,5 +1,6 @@
 ﻿using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Views.Base;
+using JetBrains.Annotations;
 
 namespace AlterTools.BatchExport.Views.Detach
 {
@@ -69,13 +70,14 @@ namespace AlterTools.BatchExport.Views.Detach
             set => SetProperty(ref _maskOut, value);
         }
 
+        [UsedImplicitly]
         public bool Purge
         {
             get => _purge;
             set => SetProperty(ref _purge, value);
         }
 
-        public bool IsPurgeEnabled { get; }
+        [UsedImplicitly] public bool IsPurgeEnabled { get; }
 
         public bool IsWorksetRemoverEnabled { get; }
 

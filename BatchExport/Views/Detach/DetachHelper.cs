@@ -13,7 +13,7 @@ namespace AlterTools.BatchExport.Views.Detach
         {
             try
             {
-                Document doc = OpenDocumentHelper.OpenDocument(app, filePath, out bool isWorkshared);
+                Document doc = app.OpenDocument(filePath, out bool isWorkshared);
                 if (null == doc)
                 {
                     return;

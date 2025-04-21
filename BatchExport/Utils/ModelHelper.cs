@@ -121,7 +121,7 @@ namespace AlterTools.BatchExport.Utils
         /// <summary>
         ///     Returns string with MD5 Hash of given file
         /// </summary>
-        public static string MD5Hash(this string fileName)
+        public static string GetMd5Hash(this string fileName)
         {
             if (string.IsNullOrEmpty(fileName))
             {
@@ -204,16 +204,6 @@ namespace AlterTools.BatchExport.Utils
             doc.Delete(ct.Id);
 
             tr.Commit();
-        }
-
-        public static void YesNoTaskDialog(string msg, Action action)
-        {
-            TaskDialogResult result =
-                TaskDialog.Show("Ошибка", msg, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
-            if (TaskDialogResult.Yes == result)
-            {
-                action?.Invoke();
-            }
         }
 
         private static void SuppressAlert(this Transaction tr)

@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using AlterTools.BatchExport.Utils;
 using Autodesk.Revit.DB;
-using Autodesk.Revit.Exceptions;
 using Autodesk.Revit.UI;
+using InvalidOperationException = Autodesk.Revit.Exceptions.InvalidOperationException;
 
 namespace AlterTools.BatchExport.Views.Link
 {
@@ -71,7 +72,7 @@ namespace AlterTools.BatchExport.Views.Link
                 }
 
                 revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, ImportPlacement.Origin);
-                ModelHelper.YesNoTaskDialog(DiffCoord, () => doc.AcquireCoordinates(revitLinkInstance.Id));
+                YesNoTaskDialog(DiffCoord, () => doc.AcquireCoordinates(revitLinkInstance.Id));
                 revitLinkInstance.Pinned = props.PinLink;
 
                 tr.Commit();
@@ -79,6 +80,16 @@ namespace AlterTools.BatchExport.Views.Link
             catch
             {
                 tr.RollBack();
+            }
+        }
+
+        private static void YesNoTaskDialog(string msg, Action action)
+        {
+            TaskDialogResult result =
+                TaskDialog.Show("Ошибка", msg, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
+            if (TaskDialogResult.Yes == result)
+            {
+                action?.Invoke();
             }
         }
     }

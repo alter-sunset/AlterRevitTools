@@ -22,14 +22,13 @@ namespace AlterTools.BatchExport.Views.Base
             string[] models = iConfig.Files;
 
             ListBoxItem[] items = GetListBoxItems(iConfig);
+            if (null == items)
+            {
+                return;
+            }
 
             if (iConfig is ViewModelBaseExtended)
             {
-                if (null == items)
-                {
-                    return;
-                }
-
                 models = items.Select(item => item.Content.ToString())
                     .ToArray();
             }
@@ -193,7 +192,7 @@ namespace AlterTools.BatchExport.Views.Base
                                        $"{(options is NavisworksExportOptions ? ".nwc" : ".ifc")}";
 
             string fileName = Path.Combine(folderPath, fileWithExtension);
-            string oldHash = File.Exists(fileName) ? fileName.MD5Hash() : null;
+            string oldHash = File.Exists(fileName) ? fileName.GetMd5Hash() : null;
 
             if (null != oldHash)
             {
@@ -225,7 +224,7 @@ namespace AlterTools.BatchExport.Views.Base
                 return;
             }
 
-            string newHash = fileName.MD5Hash();
+            string newHash = fileName.GetMd5Hash();
             log.Hash(newHash);
 
             if (newHash != oldHash)

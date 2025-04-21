@@ -78,7 +78,7 @@
 
         <TextBlock Margin="10,10,10,10"
                    FontSize="16"
-                   Grid.Row="3"
+                   Grid.Row="3" Grid.Column="0"
                    VerticalAlignment="Center"
                    Text="Как сохранять файлы" />
 
@@ -88,9 +88,9 @@
                      Grid.Column="0"
                      VerticalAlignment="Center"
                      GroupName="SavingPathMode"
-                     Name="rbFolder"
+                     Name="RbFolder"
                      Command="{Binding RadioButtonCommand}"
-                     CommandParameter="{Binding ElementName=rbFolder, Path=Tag}"
+                     CommandParameter="{Binding ElementName=RbFolder, Path=Tag}"
                      Content="Папка для сохранения"
                      Tag="Folder" />
         <TextBox Margin="10,10,135,10"
@@ -112,9 +112,9 @@
                      VerticalAlignment="Center"
                      GroupName="SavingPathMode"
                      Content="Маска"
-                     Name="rbMask"
+                     Name="RbMask"
                      Command="{Binding RadioButtonCommand}"
-                     CommandParameter="{Binding ElementName=rbMask, Path=Tag}"
+                     CommandParameter="{Binding ElementName=RbMask, Path=Tag}"
                      Tag="Mask" />
         <TextBlock Margin="10,0,100,0"
                    FontSize="14"

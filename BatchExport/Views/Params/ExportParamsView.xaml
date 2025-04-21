@@ -81,7 +81,7 @@
                    Grid.Column="0"
                    VerticalAlignment="Center"
                    Text="Путь к выходному файлу" />
-        <TextBox Margin="165,10,135,10"
+        <TextBox Grid.Column="0" Margin="165,10,135,10"
                  Grid.Row="3"
                  Grid.ColumnSpan="4"
                  VerticalContentAlignment="Center"
@@ -100,7 +100,7 @@
                    VerticalAlignment="Center"
                    TextWrapping="Wrap"
                    Text="Параметры для экспорта" />
-        <TextBox Margin="165,10,10,10"
+        <TextBox Grid.Column="0" Margin="165,10,10,10"
                  Grid.Row="4"
                  Grid.ColumnSpan="4"
                  VerticalContentAlignment="Center"
