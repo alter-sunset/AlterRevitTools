@@ -7,63 +7,56 @@ using AlterTools.BatchExport.Utils;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 
-namespace AlterTools.BatchExport.Views.Params
+namespace AlterTools.BatchExport.Views.Params;
+
+public static class ParamsHelper
 {
-    public static class ParamsHelper
+    public static void ExportParameters(this ListBoxItem item, Application app, ParamsViewModel paramsVm,
+        CsvHelper csvHelper)
     {
-        public static void ExportParameters(this ListBoxItem item, Application app, ParamsViewModel paramsVm,
-            CsvHelper csvHelper)
+        string filePath = item.Content?.ToString();
+        string fileName = Path.GetFileName(filePath);
+
+        if (!File.Exists(filePath))
         {
-            string filePath = item.Content?.ToString();
-            string fileName = Path.GetFileName(filePath);
+            item.Background = Brushes.Red;
+            return;
+        }
 
-            if (!File.Exists(filePath))
-            {
-                item.Background = Brushes.Red;
-                return;
-            }
+        item.Background = Brushes.Blue;
 
-            item.Background = Brushes.Blue;
+        try
+        {
+            using Document doc = app.OpenDocument(filePath, out _);
+            if (null == doc) return;
 
-            try
-            {
-                using Document doc = app.OpenDocument(filePath, out bool _);
-                if (null == doc)
+            IEnumerable<ParametersTable> paramTables = new FilteredElementCollector(doc)
+                .WhereElementIsNotElementType()
+                .Where(el => el.IsPhysicalElement())
+                .Select(el => new ParametersTable
                 {
-                    return;
-                }
-
-                IEnumerable<ParametersTable> paramTables = new FilteredElementCollector(doc)
-                    .WhereElementIsNotElementType()
-                    .Where(el => el.IsPhysicalElement())
-                    .Select(el => new ParametersTable
-                    {
-                        ModelName = fileName,
-                        Parameters = el.GetParametersSet(paramsVm.ParametersNames),
+                    ModelName = fileName,
+                    Parameters = el.GetParametersSet(paramsVm.ParametersNames),
 
 #if R24_OR_GREATER
                         ElementId = el.Id.Value,
 #else
-                        ElementId = el.Id.IntegerValue,
+                    ElementId = el.Id.IntegerValue,
 #endif
-                    });
+                });
 
-                foreach (ParametersTable table in paramTables)
-                {
-                    csvHelper.WriteElement(table);
-                }
-            }
-            catch
-            {
-                // ignored
-            }
-
-            item.Background = Brushes.Green;
+            foreach (ParametersTable table in paramTables) csvHelper.WriteElement(table);
         }
-
-        private static Dictionary<string, string> GetParametersSet(this Element element, string[] parametersNames)
+        catch
         {
-            return parametersNames.ToDictionary(name => name, name => element.LookupParameter(name).GetValueString());
+            // ignored
         }
+
+        item.Background = Brushes.Green;
+    }
+
+    private static Dictionary<string, string> GetParametersSet(this Element element, string[] parametersNames)
+    {
+        return parametersNames.ToDictionary(name => name, name => element.LookupParameter(name).GetValueString());
     }
 }

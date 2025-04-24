@@ -1,7 +1,6 @@
-﻿namespace AlterTools.BatchExport.Views.Base
+﻿namespace AlterTools.BatchExport.Views.Base;
+
+public interface ISelectable
 {
-    public interface ISelectable
-    {
-        bool IsSelected { get; set; }
-    }
+    bool IsSelected { get; set; }
 }

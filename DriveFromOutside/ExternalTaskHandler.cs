@@ -20,25 +20,22 @@ public class ExternalTaskHandler(List<IEventHolder> eventHolders)
     }
 
 #if R25_OR_GREATER
-        public async Task LookForSingleTask(TimeSpan period)
+    public async Task LookForSingleTask(TimeSpan period)
+    {
+        using PeriodicTimer timer = new(period);
+        while (await timer.WaitForNextTickAsync())
         {
-            using PeriodicTimer timer = new(period);
-            while (await timer.WaitForNextTickAsync())
-            {
-                TaskConfig? taskConfig = GetOldestMessage();
-                RaiseEvent(taskConfig);
-            }
+            var taskConfig = GetOldestMessage();
+            RaiseEvent(taskConfig);
         }
+    }
 #else
     public void LookForSingleTask(TimeSpan period)
     {
-        Timer timer = null;
-
-        timer = new Timer(_ =>
+        Timer timer = new(_ =>
             {
-                var taskConfig = GetOldestMessage();
-                if (taskConfig is not null)
-                    RaiseEvent(taskConfig);
+                TaskConfig? taskConfig = GetOldestMessage();
+                if (null != taskConfig) RaiseEvent(taskConfig);
             },
             null, TimeSpan.Zero, period);
     }
@@ -46,15 +43,15 @@ public class ExternalTaskHandler(List<IEventHolder> eventHolders)
 
     private static TaskConfig GetOldestMessage()
     {
-        var files = Directory.GetFiles(FolderConfigs)
+        string[] files = Directory.GetFiles(FolderConfigs)
             .OrderBy(File.GetLastWriteTime)
             .ToArray();
 
         if (files.Length == 0) return null!;
 
-        using var fileStream = File.OpenText(files[0]);
+        using StreamReader fileStream = File.OpenText(files[0]);
         using JsonTextReader reader = new(fileStream);
-        var jsonObject = JObject.Load(reader);
+        JObject jsonObject = JObject.Load(reader);
 
         return new TaskConfig
         {
@@ -67,13 +64,13 @@ public class ExternalTaskHandler(List<IEventHolder> eventHolders)
     private void RaiseEvent(TaskConfig taskConfig)
     {
         if (null == taskConfig?.FilePath) return;
-        var eventHolder = eventHolders.FirstOrDefault(e => e.ExternalEvent == taskConfig.ExternalEvent);
+        IEventHolder? eventHolder = eventHolders.FirstOrDefault(e => e.ExternalEvent == taskConfig.ExternalEvent);
         if (eventHolder is null) return;
 
-        var eventHandlers = GetEventHandlers(taskConfig, eventHolder);
+        Dictionary<ExternalEvents, Action> eventHandlers = GetEventHandlers(taskConfig, eventHolder);
 
         // Invoke the appropriate event handler if it exists
-        if (eventHandlers.TryGetValue(taskConfig.ExternalEvent, out var raiseEvent)) raiseEvent();
+        if (eventHandlers.TryGetValue(taskConfig.ExternalEvent, out Action? raiseEvent)) raiseEvent();
 
         // Delete the file after raising the event
         File.Delete(taskConfig.FilePath);
@@ -87,32 +84,32 @@ public class ExternalTaskHandler(List<IEventHolder> eventHolders)
             {
                 ExternalEvents.Transmit, () =>
                 {
-                    var transmitConfig = taskConfig.GetEventConfig<TransmitConfig>();
-                    var handler = eventHolder.ExternalEventHandler as EventHandlerTransmit;
+                    TransmitConfig transmitConfig = taskConfig.GetEventConfig<TransmitConfig>();
+                    EventHandlerTransmit? handler = eventHolder.ExternalEventHandler as EventHandlerTransmit;
                     handler?.Raise(transmitConfig);
                 }
             },
             {
                 ExternalEvents.Detach, () =>
                 {
-                    var detachConfig = taskConfig.GetEventConfig<DetachConfig>();
-                    var handler = eventHolder.ExternalEventHandler as EventHandlerDetach;
+                    DetachConfig detachConfig = taskConfig.GetEventConfig<DetachConfig>();
+                    EventHandlerDetach? handler = eventHolder.ExternalEventHandler as EventHandlerDetach;
                     handler?.Raise(detachConfig);
                 }
             },
             {
                 ExternalEvents.NWC, () =>
                 {
-                    var nwcConfig = taskConfig.GetEventConfig<NWCConfig>();
-                    var handler = eventHolder.ExternalEventHandler as EventHandlerNWC;
+                    NWCConfig nwcConfig = taskConfig.GetEventConfig<NWCConfig>();
+                    EventHandlerNWC? handler = eventHolder.ExternalEventHandler as EventHandlerNWC;
                     handler?.Raise(nwcConfig);
                 }
             },
             {
                 ExternalEvents.IFC, () =>
                 {
-                    var ifcConfig = taskConfig.GetEventConfig<IFCConfig>();
-                    var handler = eventHolder.ExternalEventHandler as EventHandlerIFC;
+                    IFCConfig ifcConfig = taskConfig.GetEventConfig<IFCConfig>();
+                    EventHandlerIFC? handler = eventHolder.ExternalEventHandler as EventHandlerIFC;
                     handler?.Raise(ifcConfig);
                 }
             }

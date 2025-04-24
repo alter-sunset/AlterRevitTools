@@ -2,22 +2,21 @@
 using AlterTools.BatchExport.Utils;
 using Autodesk.Revit.UI;
 
-namespace AlterTools.BatchExport.Core.Commands
+namespace AlterTools.BatchExport.Core.Commands;
+
+internal static class CommandWrapper
 {
-    internal static class CommandWrapper
+    internal static Result Execute(ref string msg, Forms form, UIApplication uiApp = null)
     {
-        internal static Result Execute(ref string msg, Forms form, UIApplication uiApp = null)
+        try
         {
-            try
-            {
-                form.ShowForm(uiApp);
-                return Result.Succeeded;
-            }
-            catch (Exception ex)
-            {
-                msg = ex.Message;
-                return Result.Failed;
-            }
+            form.ShowForm(uiApp);
+            return Result.Succeeded;
+        }
+        catch (Exception ex)
+        {
+            msg = ex.Message;
+            return Result.Failed;
         }
     }
 }

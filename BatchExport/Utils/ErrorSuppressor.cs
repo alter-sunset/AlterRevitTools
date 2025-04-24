@@ -6,69 +6,65 @@ using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Events;
 
-namespace AlterTools.BatchExport.Utils
+namespace AlterTools.BatchExport.Utils;
+
+public class ErrorSuppressor : IDisposable
 {
-    public class ErrorSuppressor : IDisposable
+    private readonly Application _app;
+    private readonly UIApplication _uiApp;
+
+    public ErrorSuppressor(UIApplication uiApp)
     {
-        private readonly Application _app;
-        private readonly UIApplication _uiApp;
+        _uiApp = uiApp;
+        _app = uiApp.Application;
 
-        public ErrorSuppressor(UIApplication uiApp)
+        _uiApp.DialogBoxShowing += TaskDialogBoxShowingEvent;
+        _app.FailuresProcessing += ApplicationFailuresProcessing;
+    }
+
+    public void Dispose()
+    {
+        _uiApp.DialogBoxShowing -= TaskDialogBoxShowingEvent;
+        _app.FailuresProcessing -= ApplicationFailuresProcessing;
+    }
+
+    private static void TaskDialogBoxShowingEvent(object sender, DialogBoxShowingEventArgs args)
+    {
+        if (args is not TaskDialogShowingEventArgs dialogArgs) return;
+
+        int dialogResult = dialogArgs.DialogId.StartsWith("TaskDialog_Missing_Third_Party_Updater")
+            ? (int)TaskDialogResult.CommandLink1
+            : (int)TaskDialogResult.Close;
+
+        dialogArgs.OverrideResult(dialogResult);
+    }
+
+    private static void ApplicationFailuresProcessing(object sender, FailuresProcessingEventArgs args)
+    {
+        FailuresAccessor accessor = args.GetFailuresAccessor();
+        FailureProcessingResult result = PreprocessFailures(accessor);
+        args.SetProcessingResult(result);
+    }
+
+    private static FailureProcessingResult PreprocessFailures(FailuresAccessor accessor)
+    {
+        IList<FailureMessageAccessor> failures = accessor.GetFailureMessages();
+
+        foreach (FailureMessageAccessor failure in failures)
         {
-            _uiApp = uiApp;
-            _app = uiApp.Application;
+            FailureSeverity fSeverity = accessor.GetSeverity();
 
-            _uiApp.DialogBoxShowing += TaskDialogBoxShowingEvent;
-            _app.FailuresProcessing += ApplicationFailuresProcessing;
-        }
-
-        public void Dispose()
-        {
-            _uiApp.DialogBoxShowing -= TaskDialogBoxShowingEvent;
-            _app.FailuresProcessing -= ApplicationFailuresProcessing;
-        }
-
-        private static void TaskDialogBoxShowingEvent(object sender, DialogBoxShowingEventArgs args)
-        {
-            if (args is not TaskDialogShowingEventArgs dialogArgs)
+            if (FailureSeverity.Warning == fSeverity)
             {
-                return;
+                accessor.DeleteWarning(failure);
             }
-
-            int dialogResult = dialogArgs.DialogId.StartsWith("TaskDialog_Missing_Third_Party_Updater")
-                ? (int)TaskDialogResult.CommandLink1
-                : (int)TaskDialogResult.Close;
-
-            dialogArgs.OverrideResult(dialogResult);
-        }
-
-        private static void ApplicationFailuresProcessing(object sender, FailuresProcessingEventArgs args)
-        {
-            FailuresAccessor accessor = args.GetFailuresAccessor();
-            FailureProcessingResult result = PreprocessFailures(accessor);
-            args.SetProcessingResult(result);
-        }
-
-        private static FailureProcessingResult PreprocessFailures(FailuresAccessor accessor)
-        {
-            IList<FailureMessageAccessor> failures = accessor.GetFailureMessages();
-
-            foreach (FailureMessageAccessor failure in failures)
+            else
             {
-                FailureSeverity fSeverity = accessor.GetSeverity();
-
-                if (FailureSeverity.Warning == fSeverity)
-                {
-                    accessor.DeleteWarning(failure);
-                }
-                else
-                {
-                    accessor.ResolveFailure(failure);
-                    return FailureProcessingResult.ProceedWithCommit;
-                }
+                accessor.ResolveFailure(failure);
+                return FailureProcessingResult.ProceedWithCommit;
             }
-
-            return FailureProcessingResult.Continue;
         }
+
+        return FailureProcessingResult.Continue;
     }
 }

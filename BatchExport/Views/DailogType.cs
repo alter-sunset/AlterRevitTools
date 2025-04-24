@@ -1,11 +1,10 @@
-﻿namespace AlterTools.BatchExport.Views
+﻿namespace AlterTools.BatchExport.Views;
+
+public enum DialogType
 {
-    public enum DialogType
-    {
-        SingleText,
-        SingleJson,
-        MultiRevit,
-        RevitList,
-        SingleCsv
-    }
+    SingleText,
+    SingleJson,
+    MultiRevit,
+    RevitList,
+    SingleCsv
 }

@@ -14,63 +14,56 @@ using AlterTools.BatchExport.Views.Transmit;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
-namespace AlterTools.BatchExport.Utils
+namespace AlterTools.BatchExport.Utils;
+
+internal static class ViewHelper
 {
-    internal static class ViewHelper
+    private static UIApplication _uiApp;
+    private static Window _myForm;
+
+    private static readonly Dictionary<Forms, Func<Window>> FormCreators = new()
     {
-        private static UIApplication _uiApp;
-        private static Window _myForm;
+        { Forms.Detach, () => new DetachModelsView(new EventHandlerDetach()) },
+        { Forms.IFC, () => new IFCExportView(new EventHandlerIFC()) },
+        { Forms.NWC, () => new NWCExportView(new EventHandlerNWC(), new EventHandlerNWCBatch()) },
+        { Forms.Migrate, () => new MigrateModelsView(new EventHandlerMigrate()) },
+        { Forms.Transmit, () => new TransmitModelsView(new EventHandlerTransmit()) },
+        { Forms.Link, () => new LinkModelsView(new EventHandlerLink(), GetWorksets()) },
+        { Forms.Params, () => new ExportParamsView(new EventHandlerParams()) }
+    };
 
-        private static readonly Dictionary<Forms, Func<Window>> FormCreators = new()
+    internal static void ShowForm(this Forms form, UIApplication uiApp)
+    {
+        CloseCurrentForm();
+
+        _uiApp = uiApp;
+
+        try
         {
-            { Forms.Detach, () => new DetachModelsView(new EventHandlerDetach()) },
-            { Forms.IFC, () => new IFCExportView(new EventHandlerIFC()) },
-            { Forms.NWC, () => new NWCExportView(new EventHandlerNWC(), new EventHandlerNWCBatch()) },
-            { Forms.Migrate, () => new MigrateModelsView(new EventHandlerMigrate()) },
-            { Forms.Transmit, () => new TransmitModelsView(new EventHandlerTransmit()) },
-            { Forms.Link, () => new LinkModelsView(new EventHandlerLink(), GetWorksets()) },
-            { Forms.Params, () => new ExportParamsView(new EventHandlerParams()) }
-        };
+            if (!FormCreators.TryGetValue(form, out Func<Window> createForm)) return;
 
-        internal static void ShowForm(this Forms form, UIApplication uiApp)
-        {
-            CloseCurrentForm();
-
-            _uiApp = uiApp;
-
-            try
-            {
-                if (!FormCreators.TryGetValue(form, out Func<Window> createForm))
-                {
-                    return;
-                }
-
-                _myForm = createForm();
-                _myForm.Show();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            _myForm = createForm();
+            _myForm.Show();
         }
-
-        private static Workset[] GetWorksets()
+        catch (Exception ex)
         {
-            return new FilteredWorksetCollector(_uiApp.ActiveUIDocument.Document)
-                .OfKind(WorksetKind.UserWorkset)
-                .ToWorksets()
-                .ToArray();
+            MessageBox.Show(ex.Message);
         }
+    }
 
-        private static void CloseCurrentForm()
-        {
-            if (null == _myForm)
-            {
-                return;
-            }
+    private static Workset[] GetWorksets()
+    {
+        return new FilteredWorksetCollector(_uiApp.ActiveUIDocument.Document)
+            .OfKind(WorksetKind.UserWorkset)
+            .ToWorksets()
+            .ToArray();
+    }
 
-            _myForm.Close();
-            _myForm = null;
-        }
+    private static void CloseCurrentForm()
+    {
+        if (null == _myForm) return;
+
+        _myForm.Close();
+        _myForm = null;
     }
 }

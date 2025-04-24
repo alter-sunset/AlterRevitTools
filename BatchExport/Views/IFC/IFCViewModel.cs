@@ -9,169 +9,156 @@ using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 using Autodesk.Revit.DB;
 
-namespace AlterTools.BatchExport.Views.IFC
+namespace AlterTools.BatchExport.Views.IFC;
+
+public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
 {
-    public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
+    private bool _exportBaseQuantities;
+
+    private RelayCommand _loadMappingCommand;
+
+    private string _mapping = string.Empty;
+
+    private KeyValuePair<int, string> _selectedLevel =
+        IFCContext.SpaceBoundaryLevels.FirstOrDefault(e => 1 == e.Key);
+
+    private KeyValuePair<IFCVersion, string> _selectedVersion =
+        IFCContext.IFCVersions.FirstOrDefault(ver => IFCVersion.Default == ver.Key);
+
+    private bool _wallAndColumnSplitting;
+
+    public IFCViewModel(EventHandlerIFC eventHandlerIFC)
     {
-        private bool _exportBaseQuantities;
+        EventHandlerBase = eventHandlerIFC;
+        HelpMessage = Help.GetHelpDictionary()
+            .GetResultMessage(HelpMessageType.IFCTitle,
+                HelpMessageType.Load,
+                HelpMessageType.Folder,
+                HelpMessageType.Naming,
+                HelpMessageType.Config,
+                HelpMessageType.Start);
+    }
 
-        private RelayCommand _loadMappingCommand;
+    public string Mapping
+    {
+        get => _mapping;
+        set => SetProperty(ref _mapping, value);
+    }
 
-        private string _mapping = string.Empty;
+    public RelayCommand LoadMappingCommand => _loadMappingCommand ??= new RelayCommand(_ => LoadMapping());
 
-        private KeyValuePair<int, string> _selectedLevel =
-            IFCContext.SpaceBoundaryLevels.FirstOrDefault(e => 1 == e.Key);
+    public IReadOnlyDictionary<IFCVersion, string> IFCVersions { get; } = IFCContext.IFCVersions;
 
-        private KeyValuePair<IFCVersion, string> _selectedVersion =
-            IFCContext.IFCVersions.FirstOrDefault(ver => IFCVersion.Default == ver.Key);
+    public KeyValuePair<IFCVersion, string> SelectedVersion
+    {
+        get => _selectedVersion;
+        set => SetProperty(ref _selectedVersion, value);
+    }
 
-        private bool _wallAndColumnSplitting;
+    public IReadOnlyDictionary<int, string> SpaceBoundaryLevels { get; } = IFCContext.SpaceBoundaryLevels;
 
-        public IFCViewModel(EventHandlerIFC eventHandlerIFC)
+    public KeyValuePair<int, string> SelectedLevel
+    {
+        get => _selectedLevel;
+        set => SetProperty(ref _selectedLevel, value);
+    }
+
+    public string FamilyMappingFile => _mapping;
+
+    public bool ExportBaseQuantities
+    {
+        get => _exportBaseQuantities;
+        set => SetProperty(ref _exportBaseQuantities, value);
+    }
+
+    public bool WallAndColumnSplitting
+    {
+        get => _wallAndColumnSplitting;
+        set => SetProperty(ref _wallAndColumnSplitting, value);
+    }
+
+    public IFCVersion FileVersion => _selectedVersion.Key;
+
+    public int SpaceBoundaryLevel => SelectedLevel.Key;
+
+    private void LoadMapping()
+    {
+        using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
+
+        if (DialogResult.OK != openFileDialog.ShowDialog()) return;
+
+        try
         {
-            EventHandlerBase = eventHandlerIFC;
-            HelpMessage = Help.GetHelpDictionary()
-                .GetResultMessage(HelpMessageType.IFCTitle,
-                    HelpMessageType.Load,
-                    HelpMessageType.Folder,
-                    HelpMessageType.Naming,
-                    HelpMessageType.Config,
-                    HelpMessageType.Start);
+            Mapping = openFileDialog.FileName;
         }
-
-        public string Mapping
+        catch
         {
-            get => _mapping;
-            set => SetProperty(ref _mapping, value);
+            MessageBox.Show("Неверная схема файла");
         }
+    }
 
-        public RelayCommand LoadMappingCommand => _loadMappingCommand ??= new RelayCommand(_ => LoadMapping());
+    protected override void LoadList()
+    {
+        OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
 
-        public IReadOnlyDictionary<IFCVersion, string> IFCVersions { get; } = IFCContext.IFCVersions;
+        if (DialogResult.OK != openFileDialog.ShowDialog()) return;
 
-        public KeyValuePair<IFCVersion, string> SelectedVersion
+        using FileStream file = File.OpenRead(openFileDialog.FileName);
+
+        IFCFormDeserializer(JsonHelper<IFCForm>.DeserializeConfig(file));
+    }
+
+    private void IFCFormDeserializer(IFCForm form)
+    {
+        if (form is null) return;
+
+        FolderPath = form.FolderPath;
+        NamePrefix = form.NamePrefix;
+        NamePostfix = form.NamePostfix;
+        WorksetPrefix = string.Join(";", form.WorksetPrefixes);
+        Mapping = form.FamilyMappingFile;
+        ExportBaseQuantities = form.ExportBaseQuantities;
+        SelectedVersion = IFCVersions.FirstOrDefault(ver => ver.Key == form.FileVersion);
+        WallAndColumnSplitting = form.WallAndColumnSplitting;
+        ExportScopeView = form.ExportView;
+        ViewName = form.ViewName;
+        SelectedLevel = SpaceBoundaryLevels.FirstOrDefault(level => level.Key == form.SpaceBoundaryLevel);
+        ListBoxItems = new ObservableCollection<ListBoxItem>(form.Files
+            .FilterRevitFiles()
+            .Select(DefaultListBoxItem));
+    }
+
+    protected override void SaveList()
+    {
+        using IFCForm form = IFCFormSerializer();
+
+        SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
+
+        if (DialogResult.OK != saveFileDialog.ShowDialog()) return;
+
+        string fileName = saveFileDialog.FileName;
+        File.Delete(fileName);
+
+        JsonHelper<IFCForm>.SerializeConfig(form, fileName);
+    }
+
+    private IFCForm IFCFormSerializer()
+    {
+        return new IFCForm
         {
-            get => _selectedVersion;
-            set => SetProperty(ref _selectedVersion, value);
-        }
-
-        public IReadOnlyDictionary<int, string> SpaceBoundaryLevels { get; } = IFCContext.SpaceBoundaryLevels;
-
-        public KeyValuePair<int, string> SelectedLevel
-        {
-            get => _selectedLevel;
-            set => SetProperty(ref _selectedLevel, value);
-        }
-
-        public string FamilyMappingFile => _mapping;
-
-        public bool ExportBaseQuantities
-        {
-            get => _exportBaseQuantities;
-            set => SetProperty(ref _exportBaseQuantities, value);
-        }
-
-        public bool WallAndColumnSplitting
-        {
-            get => _wallAndColumnSplitting;
-            set => SetProperty(ref _wallAndColumnSplitting, value);
-        }
-
-        public IFCVersion FileVersion => _selectedVersion.Key;
-
-        public int SpaceBoundaryLevel => SelectedLevel.Key;
-
-        private void LoadMapping()
-        {
-            using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
-
-            if (DialogResult.OK != openFileDialog.ShowDialog())
-            {
-                return;
-            }
-
-            try
-            {
-                Mapping = openFileDialog.FileName;
-            }
-            catch
-            {
-                MessageBox.Show("Неверная схема файла");
-            }
-        }
-
-        protected override void LoadList()
-        {
-            OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
-
-            if (DialogResult.OK != openFileDialog.ShowDialog())
-            {
-                return;
-            }
-
-            using FileStream file = File.OpenRead(openFileDialog.FileName);
-
-            IFCFormDeserializer(JsonHelper<IFCForm>.DeserializeConfig(file));
-        }
-
-        private void IFCFormDeserializer(IFCForm form)
-        {
-            if (form is null)
-            {
-                return;
-            }
-
-            FolderPath = form.FolderPath;
-            NamePrefix = form.NamePrefix;
-            NamePostfix = form.NamePostfix;
-            WorksetPrefix = string.Join(";", form.WorksetPrefixes);
-            Mapping = form.FamilyMappingFile;
-            ExportBaseQuantities = form.ExportBaseQuantities;
-            SelectedVersion = IFCVersions.FirstOrDefault(ver => ver.Key == form.FileVersion);
-            WallAndColumnSplitting = form.WallAndColumnSplitting;
-            ExportScopeView = form.ExportView;
-            ViewName = form.ViewName;
-            SelectedLevel = SpaceBoundaryLevels.FirstOrDefault(level => level.Key == form.SpaceBoundaryLevel);
-            ListBoxItems = new ObservableCollection<ListBoxItem>(form.Files
-                .FilterRevitFiles()
-                .Select(DefaultListBoxItem));
-        }
-
-        protected override void SaveList()
-        {
-            using IFCForm form = IFCFormSerializer();
-
-            SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
-
-            if (DialogResult.OK != saveFileDialog.ShowDialog())
-            {
-                return;
-            }
-
-            string fileName = saveFileDialog.FileName;
-            File.Delete(fileName);
-
-            JsonHelper<IFCForm>.SerializeConfig(form, fileName);
-        }
-
-        private IFCForm IFCFormSerializer()
-        {
-            return new IFCForm
-            {
-                ExportBaseQuantities = ExportBaseQuantities,
-                FamilyMappingFile = Mapping,
-                FileVersion = SelectedVersion.Key,
-                SpaceBoundaryLevel = SelectedLevel.Key,
-                WallAndColumnSplitting = WallAndColumnSplitting,
-                FolderPath = FolderPath,
-                NamePrefix = NamePrefix,
-                NamePostfix = NamePostfix,
-                WorksetPrefixes = WorksetPrefixes,
-                ExportView = ExportScopeView,
-                ViewName = ViewName,
-                Files = ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)
-                    .ToArray()
-            };
-        }
+            ExportBaseQuantities = ExportBaseQuantities,
+            FamilyMappingFile = Mapping,
+            FileVersion = SelectedVersion.Key,
+            SpaceBoundaryLevel = SelectedLevel.Key,
+            WallAndColumnSplitting = WallAndColumnSplitting,
+            FolderPath = FolderPath,
+            NamePrefix = NamePrefix,
+            NamePostfix = NamePostfix,
+            WorksetPrefixes = WorksetPrefixes,
+            ExportView = ExportScopeView,
+            ViewName = ViewName,
+            Files = ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)
+                .ToArray()
+        };
     }
 }

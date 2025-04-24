@@ -5,7 +5,6 @@
 /// </summary>
 public enum ExternalEvents
 {
-    None = 0,
     Transmit,
     Detach,
     NWC,

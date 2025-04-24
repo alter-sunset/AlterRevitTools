@@ -1,13 +1,12 @@
 ﻿using AlterTools.BatchExport.Core.EventHandlers;
 
-namespace AlterTools.BatchExport.Views.IFC
+namespace AlterTools.BatchExport.Views.IFC;
+
+public partial class IFCExportView
 {
-    public partial class IFCExportView
+    public IFCExportView(EventHandlerIFC eventHandlerIFC)
     {
-        public IFCExportView(EventHandlerIFC eventHandlerIFC)
-        {
-            InitializeComponent();
-            DataContext = new IFCViewModel(eventHandlerIFC);
-        }
+        InitializeComponent();
+        DataContext = new IFCViewModel(eventHandlerIFC);
     }
 }

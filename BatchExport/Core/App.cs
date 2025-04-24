@@ -4,72 +4,72 @@ using Autodesk.Revit.UI;
 using JetBrains.Annotations;
 using Panel = System.Tuple<Autodesk.Revit.UI.RibbonPanel, string>;
 
-namespace AlterTools.BatchExport.Core
+namespace AlterTools.BatchExport.Core;
+
 // TODO: Add RevitServerViewer
+
+[UsedImplicitly]
+public class App : IExternalApplication
 {
-    [UsedImplicitly]
-    public class App : IExternalApplication
+    private const string TabName = "AlterTools";
+    private Panel[] _panels;
+
+    public Result OnStartup(UIControlledApplication uiApp)
     {
-        private const string TabName = "AlterTools";
-        private Panel[] _panels;
-
-        public Result OnStartup(UIControlledApplication uiApp)
+        try
         {
-            try
-            {
-                uiApp.CreateRibbonTab(TabName);
-            }
-            catch
-            {
-                // ignored
-            }
-
-            //Get buttons to create from json config
-            List<ButtonContext> buttons = ButtonContext.GetButtonsContext();
-
-            //Create panels from config
-            _panels = buttons.Select(button => button.Panel)
-                .Distinct()
-                .Select(panelName => new Panel(GetRibbonPanel(uiApp, panelName), panelName))
-                .ToArray();
-
-            buttons.ForEach(CreateButton);
-
-            return Result.Succeeded;
+            uiApp.CreateRibbonTab(TabName);
+        }
+        catch
+        {
+            // ignored
         }
 
-        public Result OnShutdown(UIControlledApplication a)
+        //Get buttons to create from json config
+        List<ButtonContext> buttons = ButtonContext.GetButtonsContext();
+
+        //Create panels from config
+        _panels = buttons.Select(button => button.Panel)
+            .Distinct()
+            .Select(panelName => new Panel(GetRibbonPanel(uiApp, panelName), panelName))
+            .ToArray();
+
+        buttons.ForEach(CreateButton);
+
+        return Result.Succeeded;
+    }
+
+    public Result OnShutdown(UIControlledApplication a)
+    {
+        return Result.Succeeded;
+    }
+
+    private static RibbonPanel GetRibbonPanel(UIControlledApplication uiApp, string panelName)
+    {
+        try
         {
-            return Result.Succeeded;
+            uiApp.CreateRibbonPanel(TabName, panelName);
+        }
+        catch
+        {
+            // ignored
         }
 
-        private static RibbonPanel GetRibbonPanel(UIControlledApplication uiApp, string panelName)
-        {
-            try
-            {
-                uiApp.CreateRibbonPanel(TabName, panelName);
-            }
-            catch
-            {
-                // ignored
-            }
+        return uiApp.GetRibbonPanels(TabName)
+            .FirstOrDefault(panel => panel.Name == panelName);
+    }
 
-            return uiApp.GetRibbonPanels(TabName)
-                .FirstOrDefault(panel => panel.Name == panelName);
+    private void CreateButton(ButtonContext button)
+    {
+        RibbonPanel ribbonPanel = _panels.First(panel => panel.Item2 == button.Panel).Item1;
+
+        try
+        {
+            ribbonPanel.AddItem(button.GetPushButtonData());
         }
-
-        private void CreateButton(ButtonContext button)
+        catch
         {
-            RibbonPanel ribbonPanel = _panels.First(panel => panel.Item2 == button.Panel).Item1;
-
-            try
-            {
-                ribbonPanel.AddItem(button.GetPushButtonData());
-            }
-            catch
-            {
-                // ignored
-            }
+            // ignored
         }
     }
 }

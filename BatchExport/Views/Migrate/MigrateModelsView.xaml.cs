@@ -1,13 +1,12 @@
 ﻿using AlterTools.BatchExport.Core.EventHandlers;
 
-namespace AlterTools.BatchExport.Views.Migrate
+namespace AlterTools.BatchExport.Views.Migrate;
+
+public partial class MigrateModelsView
 {
-    public partial class MigrateModelsView
+    public MigrateModelsView(EventHandlerMigrate eventHandlerMigrate)
     {
-        public MigrateModelsView(EventHandlerMigrate eventHandlerMigrate)
-        {
-            InitializeComponent();
-            DataContext = new MigrateViewModel(eventHandlerMigrate);
-        }
+        InitializeComponent();
+        DataContext = new MigrateViewModel(eventHandlerMigrate);
     }
 }

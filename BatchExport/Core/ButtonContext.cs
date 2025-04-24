@@ -7,64 +7,60 @@ using AlterTools.BatchExport.Utils;
 using Autodesk.Revit.UI;
 using JetBrains.Annotations;
 
-namespace AlterTools.BatchExport.Core
+namespace AlterTools.BatchExport.Core;
+
+[UsedImplicitly]
+internal class ButtonContext
 {
-    [UsedImplicitly]
-    internal class ButtonContext
+    public string Name { get; set; }
+    public string Text { get; set; }
+    public string ClassName { get; set; }
+    public string ToolTip { get; set; }
+    public string ImageLarge { get; set; }
+    public string ImageSmall { get; set; }
+    public string Panel { get; set; }
+    public bool Availability { get; set; }
+
+    public static List<ButtonContext> GetButtonsContext()
     {
-        public string Name { get; set; }
-        public string Text { get; set; }
-        public string ClassName { get; set; }
-        public string ToolTip { get; set; }
-        public string ImageLarge { get; set; }
-        public string ImageSmall { get; set; }
-        public string Panel { get; set; }
-        public bool Availability { get; set; }
+        return JsonHelper<List<ButtonContext>>.DeserializeResource("AlterTools.BatchExport.Resources.Buttons.json");
+    }
 
-        public static List<ButtonContext> GetButtonsContext()
+    public PushButtonData GetPushButtonData()
+    {
+        try
         {
-            return JsonHelper<List<ButtonContext>>.DeserializeResource("AlterTools.BatchExport.Resources.Buttons.json");
+            PushButtonData pbData = new(Name,
+                Text,
+                Assembly.GetExecutingAssembly().Location,
+                ClassName)
+            {
+                ToolTip = ToolTip,
+                Image = GetImage(ImageSmall),
+                LargeImage = GetImage(ImageLarge)
+            };
+
+            if (Availability) pbData.AvailabilityClassName = typeof(CommandAvailability).FullName;
+
+            return pbData;
         }
-
-        public PushButtonData GetPushButtonData()
+        catch
         {
-            try
-            {
-                PushButtonData pbData = new(Name,
-                    Text,
-                    Assembly.GetExecutingAssembly().Location,
-                    ClassName)
-                {
-                    ToolTip = ToolTip,
-                    Image = GetImage(ImageSmall),
-                    LargeImage = GetImage(ImageLarge)
-                };
-
-                if (Availability)
-                {
-                    pbData.AvailabilityClassName = typeof(CommandAvailability).FullName;
-                }
-
-                return pbData;
-            }
-            catch
-            {
-                return null;
-            }
+            return null;
         }
+    }
 
-        private static BitmapFrame GetImage(string imagePath)
+    private static BitmapFrame GetImage(string imagePath)
+    {
+        try
         {
-            try
-            {
-                Assembly assembly = Assembly.GetExecutingAssembly();
-                Stream stream = assembly.GetManifestResourceStream(imagePath);
-                return BitmapFrame.Create(stream!);
-            }
-            catch
-            {
-                return null;
-            }
+            Assembly assembly = Assembly.GetExecutingAssembly();
+            Stream stream = assembly.GetManifestResourceStream(imagePath);
+            return BitmapFrame.Create(stream!);
+        }
+        catch
+        {
+            return null;
         }
     }
 }

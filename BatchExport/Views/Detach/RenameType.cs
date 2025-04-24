@@ -1,9 +1,8 @@
-﻿namespace AlterTools.BatchExport.Views.Detach
+﻿namespace AlterTools.BatchExport.Views.Detach;
+
+public enum RenameType
 {
-    public enum RenameType
-    {
-        Folder,
-        Title,
-        Empty
-    }
+    Folder,
+    Title,
+    Empty
 }

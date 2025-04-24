@@ -3,15 +3,14 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using JetBrains.Annotations;
 
-namespace AlterTools.BatchExport.Core.Commands
+namespace AlterTools.BatchExport.Core.Commands;
+
+[UsedImplicitly]
+[Transaction(TransactionMode.Manual)]
+public class ExternalCommandExportModelsTransmitted : IExternalCommand
 {
-    [UsedImplicitly]
-    [Transaction(TransactionMode.Manual)]
-    public class ExternalCommandExportModelsTransmitted : IExternalCommand
+    public virtual Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements)
     {
-        public virtual Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements)
-        {
-            return CommandWrapper.Execute(ref msg, Forms.Transmit);
-        }
+        return CommandWrapper.Execute(ref msg, Forms.Transmit);
     }
 }

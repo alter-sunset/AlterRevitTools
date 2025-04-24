@@ -9,41 +9,34 @@ using AlterTools.BatchExport.Views.Detach;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.UI;
 
-namespace AlterTools.BatchExport.Core.EventHandlers
+namespace AlterTools.BatchExport.Core.EventHandlers;
+
+public class EventHandlerDetach : EventHandlerBase
 {
-    public class EventHandlerDetach : EventHandlerBase
+    protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
     {
-        protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
+        if (iConfigBase is not DetachViewModel detachVm) return;
+
+        if (!detachVm.IsEverythingFilled()) return;
+
+        using Application app = uiApp.Application;
+        using ErrorSuppressor errorSuppressor = new(uiApp);
+
+        List<ListBoxItem> listItems = detachVm.ListBoxItems.ToList();
+
+        foreach (ListBoxItem item in listItems)
         {
-            if (iConfigBase is not DetachViewModel detachVm)
+            string filePath = item.Content?.ToString();
+
+            if (!File.Exists(filePath))
             {
-                return;
+                item.Background = Brushes.Red;
+                continue;
             }
 
-            if (!detachVm.IsEverythingFilled())
-            {
-                return;
-            }
-
-            using Application app = uiApp.Application;
-            using ErrorSuppressor errorSuppressor = new(uiApp);
-
-            List<ListBoxItem> listItems = detachVm.ListBoxItems.ToList();
-
-            foreach (ListBoxItem item in listItems)
-            {
-                string filePath = item.Content?.ToString();
-
-                if (!File.Exists(filePath))
-                {
-                    item.Background = Brushes.Red;
-                    continue;
-                }
-
-                detachVm.DetachModel(app, filePath);
-            }
-
-            detachVm.Finisher("DetachModelsFinished");
+            detachVm.DetachModel(app, filePath);
         }
+
+        detachVm.Finisher("DetachModelsFinished");
     }
 }

@@ -6,9 +6,11 @@ using AlterTools.DriveFromOutside.Events.Transmit;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB.Events;
 using Autodesk.Revit.UI;
+using JetBrains.Annotations;
 
 namespace AlterTools.DriveFromOutside;
 
+[UsedImplicitly]
 [Transaction(TransactionMode.Manual)]
 [Regeneration(RegenerationOption.Manual)]
 internal class App : IExternalApplication
@@ -41,10 +43,10 @@ internal class App : IExternalApplication
         ExternalTaskHandler externalTaskHandler = new(events);
 
         //Start listener, duh
-        var timeSpan = TimeSpan.FromMinutes(1);
+        TimeSpan timeSpan = TimeSpan.FromMinutes(1);
 
 #if R25_OR_GREATER
-            await externalTaskHandler.LookForSingleTask(timeSpan);
+        await externalTaskHandler.LookForSingleTask(timeSpan);
 #else
         externalTaskHandler.LookForSingleTask(timeSpan);
 #endif

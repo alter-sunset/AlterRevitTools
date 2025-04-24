@@ -1,5 +1,6 @@
 ﻿using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Utils;
+using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
@@ -9,17 +10,17 @@ public class EventHandlerTransmit : RevitEventWrapper<TransmitConfig>
 {
     protected override void Execute(UIApplication uiApp, TransmitConfig transmitConfig)
     {
-        using var app = uiApp.Application;
+        using Application? app = uiApp.Application;
 
-        foreach (var file in transmitConfig.Files)
+        foreach (string file in transmitConfig.Files)
         {
             if (!File.Exists(file)) continue;
 
-            var folder = transmitConfig.FolderPath;
+            string folder = transmitConfig.FolderPath;
 
-            var transmittedFilePath = Path.Combine(folder, Path.GetFileName(file));
+            string transmittedFilePath = Path.Combine(folder, Path.GetFileName(file));
             File.Copy(file, transmittedFilePath, true);
-            var transmittedModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(transmittedFilePath);
+            ModelPath? transmittedModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(transmittedFilePath);
             transmittedModelPath.UnloadRevitLinks(folder);
         }
     }

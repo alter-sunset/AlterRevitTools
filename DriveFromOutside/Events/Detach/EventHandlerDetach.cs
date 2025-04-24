@@ -1,6 +1,7 @@
 ﻿using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Detach;
+using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.UI;
 
 namespace AlterTools.DriveFromOutside.Events.Detach;
@@ -9,10 +10,10 @@ public class EventHandlerDetach : RevitEventWrapper<IConfigDetach>
 {
     protected override void Execute(UIApplication uiApp, IConfigDetach iConfigDetach)
     {
-        using var app = uiApp.Application;
+        using Application? app = uiApp.Application;
 
         string[] files = iConfigDetach.Files;
-        foreach (var file in files)
+        foreach (string file in files)
         {
             using ErrorSuppressor errorSuppressor = new(uiApp);
             if (!File.Exists(file)) continue;

@@ -20,5 +20,5 @@ public class TaskConfig
     /// <summary>
     ///     Path to the configuration file
     /// </summary>
-    public string FilePath { get; set; }
+    public string FilePath { get; set; } = string.Empty;
 }

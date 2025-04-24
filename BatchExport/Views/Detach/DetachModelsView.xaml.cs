@@ -1,13 +1,12 @@
 ﻿using AlterTools.BatchExport.Core.EventHandlers;
 
-namespace AlterTools.BatchExport.Views.Detach
+namespace AlterTools.BatchExport.Views.Detach;
+
+public partial class DetachModelsView
 {
-    public partial class DetachModelsView
+    public DetachModelsView(EventHandlerDetach eventHandlerDetach)
     {
-        public DetachModelsView(EventHandlerDetach eventHandlerDetach)
-        {
-            InitializeComponent();
-            DataContext = new DetachViewModel(eventHandlerDetach);
-        }
+        InitializeComponent();
+        DataContext = new DetachViewModel(eventHandlerDetach);
     }
 }

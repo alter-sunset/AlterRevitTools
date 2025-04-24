@@ -3,25 +3,18 @@ using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.Link;
 using Autodesk.Revit.UI;
 
-namespace AlterTools.BatchExport.Core.EventHandlers
+namespace AlterTools.BatchExport.Core.EventHandlers;
+
+public class EventHandlerLink : EventHandlerBase
 {
-    public class EventHandlerLink : EventHandlerBase
+    protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
     {
-        protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
-        {
-            if (iConfigBase is not LinkViewModel linkVm)
-            {
-                return;
-            }
+        if (iConfigBase is not LinkViewModel linkVm) return;
 
-            if (!linkVm.IsEverythingFilled())
-            {
-                return;
-            }
+        if (!linkVm.IsEverythingFilled()) return;
 
-            linkVm.CreateLinks(uiApp);
+        linkVm.CreateLinks(uiApp);
 
-            linkVm.Finisher("LinkModelsFinished");
-        }
+        linkVm.Finisher("LinkModelsFinished");
     }
 }

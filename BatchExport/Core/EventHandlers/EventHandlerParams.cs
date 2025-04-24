@@ -7,32 +7,25 @@ using AlterTools.BatchExport.Views.Params;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.UI;
 
-namespace AlterTools.BatchExport.Core.EventHandlers
+namespace AlterTools.BatchExport.Core.EventHandlers;
+
+public class EventHandlerParams : EventHandlerBase
 {
-    public class EventHandlerParams : EventHandlerBase
+    protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
     {
-        protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
+        if (iConfigBase is not ParamsViewModel paramsVm) return;
+
+        if (!paramsVm.IsEverythingFilled()) return;
+
+        using (CsvHelper csvHelper = new(paramsVm.CsvPath, paramsVm.ParametersNames))
         {
-            if (iConfigBase is not ParamsViewModel paramsVm)
-            {
-                return;
-            }
+            using ErrorSuppressor errorSuppressor = new(uiApp);
+            using Application app = uiApp.Application;
 
-            if (!paramsVm.IsEverythingFilled())
-            {
-                return;
-            }
-
-            using (CsvHelper csvHelper = new(paramsVm.CsvPath, paramsVm.ParametersNames))
-            {
-                using ErrorSuppressor errorSuppressor = new(uiApp);
-                using Application app = uiApp.Application;
-
-                List<ListBoxItem> listItems = paramsVm.ListBoxItems.ToList();
-                listItems.ForEach(item => item.ExportParameters(app, paramsVm, csvHelper));
-            }
-
-            paramsVm.Finisher("ExportParametersFinished");
+            List<ListBoxItem> listItems = paramsVm.ListBoxItems.ToList();
+            listItems.ForEach(item => item.ExportParameters(app, paramsVm, csvHelper));
         }
+
+        paramsVm.Finisher("ExportParametersFinished");
     }
 }

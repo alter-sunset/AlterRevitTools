@@ -9,182 +9,163 @@ using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Utils;
 using JetBrains.Annotations;
 
-namespace AlterTools.BatchExport.Views.Base
+namespace AlterTools.BatchExport.Views.Base;
+
+public class ViewModelBase : NotifyPropertyChanged, IConfigBase
 {
-    public class ViewModelBase : NotifyPropertyChanged, IConfigBase
+    protected const string NO_FILES = "В текстовом файле не было найдено подходящей информации";
+
+    private RelayCommand _browseFolderCommand;
+
+    private RelayCommand _deleteCommand;
+
+    private RelayCommand _eraseCommand;
+
+    private string _folderPath;
+
+    private RelayCommand _helpCommand;
+
+    private bool _isViewEnabled = true;
+
+    private ObservableCollection<ListBoxItem> _listBoxItems = [];
+
+    private RelayCommand _loadCommand;
+
+    private RelayCommand _loadListCommand;
+
+    private RelayCommand _raiseEventCommand;
+
+    private RelayCommand _saveListCommand;
+
+    private ListBoxItem _selectedItem;
+
+    private string _viewName = "Navisworks";
+
+    public ObservableCollection<ListBoxItem> ListBoxItems
     {
-        protected const string NO_FILES = "В текстовом файле не было найдено подходящей информации";
+        get => _listBoxItems;
+        protected set => SetProperty(ref _listBoxItems, value);
+    }
 
-        private RelayCommand _browseFolderCommand;
+    [UsedImplicitly]
+    public ListBoxItem SelectedItem
+    {
+        get => _selectedItem;
+        set => SetProperty(ref _selectedItem, value);
+    }
 
-        private RelayCommand _deleteCommand;
+    public bool IsViewEnabled
+    {
+        get => _isViewEnabled;
+        set => SetProperty(ref _isViewEnabled, value);
+    }
 
-        private RelayCommand _eraseCommand;
+    [UsedImplicitly] public RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
+    [UsedImplicitly] public RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
+    [UsedImplicitly] public RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
 
-        private string _folderPath;
+    [UsedImplicitly]
+    public RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(_ => DeleteSelectedItems());
 
-        private RelayCommand _helpCommand;
+    [UsedImplicitly] public RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(_ => Erase());
 
-        private bool _isViewEnabled = true;
+    [UsedImplicitly]
+    public RelayCommand BrowseFolderCommand => _browseFolderCommand ??= new RelayCommand(_ => BrowseFolder());
 
-        private ObservableCollection<ListBoxItem> _listBoxItems = [];
+    protected string HelpMessage { get; set; }
 
-        private RelayCommand _loadCommand;
+    [UsedImplicitly]
+    public RelayCommand HelpCommand =>
+        _helpCommand ??= new RelayCommand(_ => MessageBox.Show(HelpMessage, "Справка"));
 
-        private RelayCommand _loadListCommand;
+    protected EventHandlerBase EventHandlerBase { get; set; }
 
-        private RelayCommand _raiseEventCommand;
+    [UsedImplicitly]
+    public RelayCommand RaiseEventCommand =>
+        _raiseEventCommand ??= new RelayCommand(_ => EventHandlerBase.Raise(this));
 
-        private RelayCommand _saveListCommand;
+    [UsedImplicitly] public virtual RelayCommand RadioButtonCommand { get; }
 
-        private ListBoxItem _selectedItem;
+    public virtual string[] Files => _listBoxItems.Select(item => item.Content.ToString()).ToArray();
 
-        private string _viewName = "Navisworks";
+    public string ViewName
+    {
+        get => _viewName;
+        set => SetProperty(ref _viewName, value);
+    }
 
-        public ObservableCollection<ListBoxItem> ListBoxItems
+    public string FolderPath
+    {
+        get => _folderPath;
+        set => SetProperty(ref _folderPath, value);
+    }
+
+    protected virtual void LoadList()
+    {
+        using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
+
+        if (DialogResult.OK != openFileDialog.ShowDialog()) return;
+
+        IEnumerable<string> files = File.ReadLines(openFileDialog.FileName).FilterRevitFiles();
+
+        ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
+
+        if (!ListBoxItems.Any()) MessageBox.Show(NO_FILES);
+
+        FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
+    }
+
+    protected virtual void Load()
+    {
+        using OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
+
+        if (DialogResult.OK != openFileDialog.ShowDialog()) return;
+
+        HashSet<string> existingFiles = new(Files);
+
+        IEnumerable<string> files = openFileDialog.FileNames.Distinct()
+            .Where(file => !existingFiles.Contains(file));
+
+        foreach (string file in files) ListBoxItems.Add(DefaultListBoxItem(file));
+    }
+
+    protected virtual void SaveList()
+    {
+        SaveFileDialog saveFileDialog = DialogType.RevitList.SaveFileDialog();
+        if (DialogResult.OK != saveFileDialog.ShowDialog()) return;
+
+        string fileName = saveFileDialog.FileName;
+        File.Delete(fileName);
+        File.WriteAllLines(fileName, Files);
+
+        FolderPath = Path.GetDirectoryName(saveFileDialog.FileName);
+    }
+
+    protected virtual void DeleteSelectedItems()
+    {
+        ListBoxItems.Where(item => item.IsSelected)
+            .ToList()
+            .ForEach(item => ListBoxItems.Remove(item));
+    }
+
+    protected virtual void Erase()
+    {
+        ListBoxItems.Clear();
+    }
+
+    private void BrowseFolder()
+    {
+        FolderBrowserDialog folderBrowserDialog = new() { SelectedPath = FolderPath };
+
+        if (DialogResult.OK == folderBrowserDialog.ShowDialog()) FolderPath = folderBrowserDialog.SelectedPath;
+    }
+
+    protected static ListBoxItem DefaultListBoxItem(string content)
+    {
+        return new ListBoxItem
         {
-            get => _listBoxItems;
-            protected set => SetProperty(ref _listBoxItems, value);
-        }
-
-        [UsedImplicitly]
-        public ListBoxItem SelectedItem
-        {
-            get => _selectedItem;
-            set => SetProperty(ref _selectedItem, value);
-        }
-
-        public bool IsViewEnabled
-        {
-            get => _isViewEnabled;
-            set => SetProperty(ref _isViewEnabled, value);
-        }
-
-        [UsedImplicitly] public RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
-        [UsedImplicitly] public RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
-        [UsedImplicitly] public RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
-
-        [UsedImplicitly]
-        public RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(_ => DeleteSelectedItems());
-
-        [UsedImplicitly] public RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(_ => Erase());
-
-        [UsedImplicitly]
-        public RelayCommand BrowseFolderCommand => _browseFolderCommand ??= new RelayCommand(_ => BrowseFolder());
-
-        protected string HelpMessage { get; set; }
-
-        [UsedImplicitly]
-        public RelayCommand HelpCommand =>
-            _helpCommand ??= new RelayCommand(_ => MessageBox.Show(HelpMessage, "Справка"));
-
-        protected EventHandlerBase EventHandlerBase { get; set; }
-
-        [UsedImplicitly]
-        public RelayCommand RaiseEventCommand =>
-            _raiseEventCommand ??= new RelayCommand(_ => EventHandlerBase.Raise(this));
-
-        [UsedImplicitly] public virtual RelayCommand RadioButtonCommand { get; }
-
-        public virtual string[] Files => _listBoxItems.Select(item => item.Content.ToString()).ToArray();
-
-        public string ViewName
-        {
-            get => _viewName;
-            set => SetProperty(ref _viewName, value);
-        }
-
-        public string FolderPath
-        {
-            get => _folderPath;
-            set => SetProperty(ref _folderPath, value);
-        }
-
-        protected virtual void LoadList()
-        {
-            using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
-
-            if (DialogResult.OK != openFileDialog.ShowDialog())
-            {
-                return;
-            }
-
-            IEnumerable<string> files = File.ReadLines(openFileDialog.FileName).FilterRevitFiles();
-
-            ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
-
-            if (!ListBoxItems.Any())
-            {
-                MessageBox.Show(NO_FILES);
-            }
-
-            FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
-        }
-
-        protected virtual void Load()
-        {
-            using OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
-
-            if (DialogResult.OK != openFileDialog.ShowDialog())
-            {
-                return;
-            }
-
-            HashSet<string> existingFiles = new(Files);
-
-            IEnumerable<string> files = openFileDialog.FileNames.Distinct()
-                .Where(file => !existingFiles.Contains(file));
-
-            foreach (string file in files)
-            {
-                ListBoxItems.Add(DefaultListBoxItem(file));
-            }
-        }
-
-        protected virtual void SaveList()
-        {
-            SaveFileDialog saveFileDialog = DialogType.RevitList.SaveFileDialog();
-            if (DialogResult.OK != saveFileDialog.ShowDialog())
-            {
-                return;
-            }
-
-            string fileName = saveFileDialog.FileName;
-            File.Delete(fileName);
-            File.WriteAllLines(fileName, Files);
-
-            FolderPath = Path.GetDirectoryName(saveFileDialog.FileName);
-        }
-
-        protected virtual void DeleteSelectedItems()
-        {
-            ListBoxItems.Where(item => item.IsSelected)
-                .ToList()
-                .ForEach(item => ListBoxItems.Remove(item));
-        }
-
-        protected virtual void Erase()
-        {
-            ListBoxItems.Clear();
-        }
-
-        private void BrowseFolder()
-        {
-            FolderBrowserDialog folderBrowserDialog = new() { SelectedPath = FolderPath };
-
-            if (DialogResult.OK == folderBrowserDialog.ShowDialog())
-            {
-                FolderPath = folderBrowserDialog.SelectedPath;
-            }
-        }
-
-        protected static ListBoxItem DefaultListBoxItem(string content)
-        {
-            return new ListBoxItem
-            {
-                Content = content,
-                Background = Brushes.White
-            };
-        }
+            Content = content,
+            Background = Brushes.White
+        };
     }
 }

@@ -1,21 +1,20 @@
-﻿namespace AlterTools.BatchExport.Views
+﻿namespace AlterTools.BatchExport.Views;
+
+public enum HelpMessageType
 {
-    public enum HelpMessageType
-    {
-        Load,
-        Folder,
-        Naming,
-        List,
-        Config,
-        Start,
-        DetachTitle,
-        DetachMid,
-        IFCTitle,
-        LinkTitle,
-        Migrate,
-        NWCTitle,
-        NWCEnd,
-        TransmitTitle,
-        ParamsTitle
-    }
+    Load,
+    Folder,
+    Naming,
+    List,
+    Config,
+    Start,
+    DetachTitle,
+    DetachMid,
+    IFCTitle,
+    LinkTitle,
+    Migrate,
+    NWCTitle,
+    NWCEnd,
+    TransmitTitle,
+    ParamsTitle
 }

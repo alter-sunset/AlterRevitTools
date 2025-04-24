@@ -7,43 +7,36 @@ using AlterTools.BatchExport.Views.Transmit;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
-namespace AlterTools.BatchExport.Core.EventHandlers
+namespace AlterTools.BatchExport.Core.EventHandlers;
+
+public class EventHandlerTransmit : EventHandlerBase
 {
-    public class EventHandlerTransmit : EventHandlerBase
+    protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
     {
-        protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
+        if (iConfigBase is not TransmitViewModel transmitVm) return;
+
+        if (!transmitVm.IsEverythingFilled()) return;
+
+        string folderPath = transmitVm.FolderPath;
+
+        foreach (ListBoxItem item in transmitVm.ListBoxItems)
         {
-            if (iConfigBase is not TransmitViewModel transmitVm)
+            string filePath = item.Content.ToString();
+
+            if (!File.Exists(filePath))
             {
-                return;
+                item.Background = Brushes.Red;
+                continue;
             }
 
-            if (!transmitVm.IsEverythingFilled())
-            {
-                return;
-            }
+            string transmittedFilePath = Path.Combine(folderPath, Path.GetFileName(filePath));
 
-            string folderPath = transmitVm.FolderPath;
+            File.Copy(filePath, transmittedFilePath, true);
 
-            foreach (ListBoxItem item in transmitVm.ListBoxItems)
-            {
-                string filePath = item.Content.ToString();
-
-                if (!File.Exists(filePath))
-                {
-                    item.Background = Brushes.Red;
-                    continue;
-                }
-
-                string transmittedFilePath = Path.Combine(folderPath, Path.GetFileName(filePath));
-
-                File.Copy(filePath, transmittedFilePath, true);
-
-                ModelPath transmittedModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(transmittedFilePath);
-                transmittedModelPath.UnloadRevitLinks(folderPath, transmitVm.IsSameFolder);
-            }
-
-            transmitVm.Finisher("TransmitModelsFinished");
+            ModelPath transmittedModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(transmittedFilePath);
+            transmittedModelPath.UnloadRevitLinks(folderPath, transmitVm.IsSameFolder);
         }
+
+        transmitVm.Finisher("TransmitModelsFinished");
     }
 }

@@ -2,31 +2,24 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace AlterTools.BatchExport.Views.Base
+namespace AlterTools.BatchExport.Views.Base;
+
+public class NotifyPropertyChanged : INotifyPropertyChanged
 {
-    public class NotifyPropertyChanged : INotifyPropertyChanged
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
+    protected void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+    {
+        if (value is string stringValue) value = (T)(object)stringValue.Trim();
 
-        protected void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
-        {
-            if (value is string stringValue)
-            {
-                value = (T)(object)stringValue.Trim();
-            }
+        if (EqualityComparer<T>.Default.Equals(field, value)) return;
 
-            if (EqualityComparer<T>.Default.Equals(field, value))
-            {
-                return;
-            }
-
-            field = value;
-            OnPropertyChanged(propertyName);
-        }
+        field = value;
+        OnPropertyChanged(propertyName);
     }
 }
