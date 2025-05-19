@@ -13,7 +13,7 @@ public class EventHandlerIFC : EventHandlerBase
 
         if (!ifcVm.IsEverythingFilled()) return;
 
-        Logger log = new(ifcVm.FolderPath);
+        Logger log = new(ifcVm.FolderPath); // how to correctly turn off logging?
 
         IFCHelper ifcHelper = new();
         ifcHelper.BatchExportModels(ifcVm, uiApp, ref log);

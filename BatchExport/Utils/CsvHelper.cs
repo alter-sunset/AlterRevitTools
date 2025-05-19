@@ -22,10 +22,7 @@ public class CsvHelper : IDisposable
         _stream.WriteLine("ModelName|WorksetName");
     }
 
-    public void Dispose()
-    {
-        _stream.Dispose();
-    }
+    public void Dispose() => _stream.Dispose();
 
     public void WriteElement(ParametersTable paramsTable)
     {

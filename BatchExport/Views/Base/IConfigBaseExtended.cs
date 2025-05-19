@@ -7,4 +7,5 @@ public interface IConfigBaseExtended : IConfigBase
     string[] WorksetPrefixes { get; }
     bool ExportScopeView { get; }
     bool ExportScopeWhole { get; set; }
+    bool TurnOffLog { get; set; }
 }

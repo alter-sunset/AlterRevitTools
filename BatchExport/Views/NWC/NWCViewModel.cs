@@ -205,6 +205,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
         FacetingFactor = form.FacetingFactor;
         SelectedCoordinates = Coordinates.FirstOrDefault(coord => coord.Key == form.Coordinates);
         SelectedParameters = Parameters.FirstOrDefault(param => param.Key == form.Parameters);
+        TurnOffLog = form.TurnOffLog;
     }
 
     protected override void SaveList()
@@ -248,7 +249,8 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
             ConvertLinkedCADFormats = ConvertLinkedCADFormats,
             FacetingFactor = FacetingFactor,
             Files = ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)
-                .ToArray()
+                .ToArray(),
+            TurnOffLog = TurnOffLog
         };
     }
 
@@ -264,7 +266,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
             .Where(config => config.EndsWith(".json") && File.Exists(config))
             .Select(config => new Config(config)));
 
-        if (!Configs.Any()) MessageBox.Show(NO_FILES);
+        if (!Configs.Any()) MessageBox.Show(NoFiles);
     }
 
     protected override void DeleteSelectedItems()

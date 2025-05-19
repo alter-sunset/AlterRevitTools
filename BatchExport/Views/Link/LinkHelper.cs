@@ -69,7 +69,7 @@ internal static class LinkHelper
             }
 
             revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, ImportPlacement.Origin);
-            YesNoTaskDialog(DiffCoord, () => doc.AcquireCoordinates(revitLinkInstance.Id));
+            ShowYesNoTaskDialog(DiffCoord, () => doc.AcquireCoordinates(revitLinkInstance.Id));
             revitLinkInstance.Pinned = props.PinLink;
 
             tr.Commit();
@@ -80,7 +80,7 @@ internal static class LinkHelper
         }
     }
 
-    private static void YesNoTaskDialog(string msg, Action action)
+    private static void ShowYesNoTaskDialog(string msg, Action action)
     {
         TaskDialogResult result =
             TaskDialog.Show("Ошибка", msg, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);

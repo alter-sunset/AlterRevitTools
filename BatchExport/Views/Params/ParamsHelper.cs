@@ -39,7 +39,7 @@ public static class ParamsHelper
                     Parameters = el.GetParametersSet(paramsVm.ParametersNames),
 
 #if R24_OR_GREATER
-                        ElementId = el.Id.Value,
+                    ElementId = el.Id.Value,
 #else
                     ElementId = el.Id.IntegerValue,
 #endif

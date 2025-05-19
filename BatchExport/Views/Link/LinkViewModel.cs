@@ -94,7 +94,7 @@ public class LinkViewModel : ViewModelBase
 
         Entries = new ObservableCollection<Entry>(files.Select(file => new Entry(this, file)));
 
-        if (!Entries.Any()) MessageBox.Show(NO_FILES);
+        if (!Entries.Any()) MessageBox.Show(NoFiles);
 
         FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
     }

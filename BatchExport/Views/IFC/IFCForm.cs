@@ -12,4 +12,5 @@ public class IFCForm : IFCExportOptions
     public string ViewName { get; set; }
     public bool ExportView { get; set; }
     public new bool FilterViewId { get; set; }
+    public bool TurnOffLog {get; set;}
 }

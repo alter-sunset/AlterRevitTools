@@ -154,8 +154,7 @@ public class ExportHelperBase
         }
     }
 
-    protected virtual void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp,
-        ref Logger log)
+    protected virtual void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp, ref Logger log)
     {
     }
 
@@ -209,8 +208,7 @@ public class ExportHelperBase
         isFuckedUp = true;
     }
 
-    protected static bool IsViewEmpty(IConfigBaseExtended iConfig, Document doc, ref Logger log,
-        ref bool isFuckedUp)
+    protected static bool IsViewEmpty(IConfigBaseExtended iConfig, Document doc, ref Logger log, ref bool isFuckedUp)
     {
         if (iConfig is NWCViewModel { ExportLinks: true }) return false;
 

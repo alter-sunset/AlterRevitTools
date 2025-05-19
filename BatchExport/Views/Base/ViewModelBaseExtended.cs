@@ -5,6 +5,7 @@ namespace AlterTools.BatchExport.Views.Base;
 public class ViewModelBaseExtended : ViewModelBase, IConfigBaseExtended
 {
     private bool _exportScopeView = true;
+    private bool _turnOffLog = false;
 
     private string _namePostfix = string.Empty;
     private string _namePrefix = string.Empty;
@@ -49,6 +50,12 @@ public class ViewModelBaseExtended : ViewModelBase, IConfigBaseExtended
             OnPropertyChanged();
             OnPropertyChanged(nameof(ExportScopeView));
         }
+    }
+
+    public bool TurnOffLog
+    {
+        get => _turnOffLog;
+        set => SetProperty(ref _turnOffLog, value);
     }
 
     public string[] WorksetPrefixes => _worksetPrefix.SplitBySemicolon();
