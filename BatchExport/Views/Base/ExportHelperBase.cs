@@ -5,6 +5,7 @@ using System.Threading;
 using System.Windows.Controls;
 using System.Windows.Media;
 using AlterTools.BatchExport.Utils;
+using AlterTools.BatchExport.Utils.Logger;
 using AlterTools.BatchExport.Views.NWC;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
@@ -14,7 +15,7 @@ namespace AlterTools.BatchExport.Views.Base;
 
 public class ExportHelperBase
 {
-    public void BatchExportModels(IConfigBaseExtended iConfig, UIApplication uiApp, ref Logger log)
+    public void BatchExportModels(IConfigBaseExtended iConfig, UIApplication uiApp, ref ILogger log)
     {
         using Application app = uiApp.Application;
         using ErrorSuppressor errorSuppressor = new(uiApp);
@@ -80,7 +81,7 @@ public class ExportHelperBase
             : null;
     }
 
-    private static void HandleFileNotFound(string file, ListBoxItem[] items, Logger log)
+    private static void HandleFileNotFound(string file, ListBoxItem[] items, ILogger log)
     {
         log.Error($"Файла {file} не существует. Ты совсем Туттуру?");
         UpdateItemBackground(items, file, Brushes.Red);
@@ -92,7 +93,7 @@ public class ExportHelperBase
         if (null != item) item.Background = color;
     }
 
-    private static Document OpenDocument(string file, Application app, IConfigBaseExtended iConfig, Logger log,
+    private static Document OpenDocument(string file, Application app, IConfigBaseExtended iConfig, ILogger log,
         ListBoxItem[] items)
     {
         try
@@ -130,7 +131,7 @@ public class ExportHelperBase
     }
 
     private static void CloseDocument(Document doc, ref bool isFuckedUp, ListBoxItem[] items, string file,
-        Logger log)
+        ILogger log)
     {
         if (null == doc) return;
 
@@ -154,15 +155,14 @@ public class ExportHelperBase
         }
     }
 
-    protected virtual void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp,
-        ref Logger log)
+    protected virtual void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp, ref ILogger log)
     {
     }
 
     protected static void Export(IConfigBaseExtended iConfig,
         Document doc,
         object options,
-        ref Logger log,
+        ref ILogger log,
         ref bool isFuckedUp)
     {
         string folderPath = iConfig.FolderPath;
@@ -209,8 +209,7 @@ public class ExportHelperBase
         isFuckedUp = true;
     }
 
-    protected static bool IsViewEmpty(IConfigBaseExtended iConfig, Document doc, ref Logger log,
-        ref bool isFuckedUp)
+    protected static bool IsViewEmpty(IConfigBaseExtended iConfig, Document doc, ref ILogger log, ref bool isFuckedUp)
     {
         if (iConfig is NWCViewModel { ExportLinks: true }) return false;
 

@@ -13,7 +13,7 @@ namespace AlterTools.BatchExport.Views.Base;
 
 public class ViewModelBase : NotifyPropertyChanged, IConfigBase
 {
-    protected const string NO_FILES = "В текстовом файле не было найдено подходящей информации";
+    protected const string NoFiles = "В текстовом файле не было найдено подходящей информации";
 
     private RelayCommand _browseFolderCommand;
 
@@ -110,7 +110,7 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
 
         ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
 
-        if (!ListBoxItems.Any()) MessageBox.Show(NO_FILES);
+        if (!ListBoxItems.Any()) MessageBox.Show(NoFiles);
 
         FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
     }
@@ -148,10 +148,7 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
             .ForEach(item => ListBoxItems.Remove(item));
     }
 
-    protected virtual void Erase()
-    {
-        ListBoxItems.Clear();
-    }
+    protected virtual void Erase() => ListBoxItems.Clear();
 
     private void BrowseFolder()
     {

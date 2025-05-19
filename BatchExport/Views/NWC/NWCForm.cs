@@ -14,4 +14,5 @@ public class NWCForm : NavisworksExportOptions
     public new bool ConvertLinkedCADFormats { get; set; }
     public new double FacetingFactor { get; set; }
     public new bool ViewId { get; set; }
+    public bool TurnOffLog {get; set;}
 }

@@ -1,4 +1,5 @@
 ﻿using AlterTools.BatchExport.Utils;
+using AlterTools.BatchExport.Utils.Logger;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.NWC;
 using Autodesk.Revit.UI;
@@ -13,7 +14,7 @@ public class EventHandlerNWC : EventHandlerBase
 
         if (!nwcVm.IsEverythingFilled()) return;
 
-        Logger log = new(nwcVm.FolderPath);
+        ILogger log = LoggerFactory.CreateLogger(nwcVm.FolderPath, nwcVm.TurnOffLog);
 
         NWCHelper nwcHelper = new();
         nwcHelper.BatchExportModels(nwcVm, uiApp, ref log);

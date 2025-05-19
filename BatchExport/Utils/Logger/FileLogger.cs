@@ -1,14 +1,14 @@
 ﻿using System;
 using System.IO;
 
-namespace AlterTools.BatchExport.Utils;
+namespace AlterTools.BatchExport.Utils.Logger;
 
-public class Logger
+public class FileLogger : ILogger
 {
     private readonly DateTime _startTime = DateTime.Now;
     private readonly StreamWriter _stream;
 
-    public Logger(string path)
+    public FileLogger(string path)
     {
         _stream = new StreamWriter($@"{path}\Log_{_startTime:yy-MM-dd_HH-mm-ss}.log");
         _stream.WriteLine($"Initial launch at {_startTime}.");

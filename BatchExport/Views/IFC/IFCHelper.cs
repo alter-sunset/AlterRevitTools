@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using AlterTools.BatchExport.Utils;
+using AlterTools.BatchExport.Utils.Logger;
 using AlterTools.BatchExport.Views.Base;
 using Autodesk.Revit.DB;
 
@@ -8,7 +9,7 @@ namespace AlterTools.BatchExport.Views.IFC;
 public class IFCHelper : ExportHelperBase
 {
     protected override void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp,
-        ref Logger log)
+        ref ILogger log)
     {
         if (null == iConfig || null == doc) return;
 

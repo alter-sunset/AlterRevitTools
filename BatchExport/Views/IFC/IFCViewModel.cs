@@ -126,6 +126,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
         ListBoxItems = new ObservableCollection<ListBoxItem>(form.Files
             .FilterRevitFiles()
             .Select(DefaultListBoxItem));
+        TurnOffLog = form.TurnOffLog;
     }
 
     protected override void SaveList()
@@ -158,7 +159,8 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
             ExportView = ExportScopeView,
             ViewName = ViewName,
             Files = ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)
-                .ToArray()
+                .ToArray(),
+            TurnOffLog = TurnOffLog
         };
     }
 }
