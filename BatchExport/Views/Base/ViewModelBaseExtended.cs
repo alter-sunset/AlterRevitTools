@@ -12,7 +12,7 @@ public class ViewModelBaseExtended : ViewModelBase, IConfigBaseExtended
 
     private string _worksetPrefix = string.Empty;
 
-    protected string WorksetPrefix
+    public string WorksetPrefix
     {
         get => _worksetPrefix;
         set => SetProperty(ref _worksetPrefix, value);

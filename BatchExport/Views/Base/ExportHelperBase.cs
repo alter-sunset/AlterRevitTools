@@ -130,8 +130,7 @@ public class ExportHelperBase
         }
     }
 
-    private static void CloseDocument(Document doc, ref bool isFuckedUp, ListBoxItem[] items, string file,
-        ILogger log)
+    private static void CloseDocument(Document doc, ref bool isFuckedUp, ListBoxItem[] items, string file, ILogger log)
     {
         if (null == doc) return;
 
