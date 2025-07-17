@@ -15,10 +15,7 @@ public abstract class RevitEventWrapper<TType> : IExternalEventHandler
     /// <summary>
     ///     Class for wrapping methods for execution within a "valid" Revit API context.
     /// </summary>
-    protected RevitEventWrapper()
-    {
-        _revitEvent = ExternalEvent.Create(this);
-    }
+    protected RevitEventWrapper() => _revitEvent = ExternalEvent.Create(this);
 
     /// <summary>
     ///     Wraps the "Execution" method in a valid Revit API context.
@@ -40,10 +37,7 @@ public abstract class RevitEventWrapper<TType> : IExternalEventHandler
     ///     Get the name of the operation.
     /// </summary>
     /// <returns>Operation Name.</returns>
-    public string GetName()
-    {
-        return GetType().Name;
-    }
+    public string GetName() => GetType().Name;
 
     /// <summary>
     ///     Execute the wrapped external event in a valid Revit API context.

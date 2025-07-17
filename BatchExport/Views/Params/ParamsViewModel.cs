@@ -51,7 +51,7 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
     {
         SaveFileDialog saveFileDialog = DialogType.SingleCsv.SaveFileDialog();
 
-        if (DialogResult.OK != saveFileDialog.ShowDialog()) return;
+        if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
 
         CsvPath = saveFileDialog.FileName;
     }
@@ -60,7 +60,7 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
     {
         OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
 
-        if (DialogResult.OK != openFileDialog.ShowDialog()) return;
+        if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
         using FileStream file = File.OpenRead(openFileDialog.FileName);
 
@@ -69,7 +69,7 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
 
     private void ParamsFormDeserilaizer(ParamsForm form)
     {
-        if (null == form) return;
+        if (form is null) return;
 
         ParamsNames = string.Join(";", form.ParametersNames);
         CsvPath = form.CsvPath;
@@ -82,7 +82,7 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
         ParamsForm form = ParamsFormSerializer();
         SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
 
-        if (DialogResult.OK != saveFileDialog.ShowDialog()) return;
+        if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
 
         string fileName = saveFileDialog.FileName;
         File.Delete(fileName);

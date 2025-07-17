@@ -20,10 +20,10 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
     private string _mapping = string.Empty;
 
     private KeyValuePair<int, string> _selectedLevel =
-        IFCContext.SpaceBoundaryLevels.FirstOrDefault(e => 1 == e.Key);
+        IFCContext.SpaceBoundaryLevels.FirstOrDefault(lev => lev.Key == 1);
 
     private KeyValuePair<IFCVersion, string> _selectedVersion =
-        IFCContext.IFCVersions.FirstOrDefault(ver => IFCVersion.Default == ver.Key);
+        IFCContext.IFCVersions.FirstOrDefault(ver => ver.Key is IFCVersion.Default);
 
     private bool _wallAndColumnSplitting;
 
@@ -85,7 +85,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
     {
         using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
 
-        if (DialogResult.OK != openFileDialog.ShowDialog()) return;
+        if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
         try
         {
@@ -101,7 +101,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
     {
         OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
 
-        if (DialogResult.OK != openFileDialog.ShowDialog()) return;
+        if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
         using FileStream file = File.OpenRead(openFileDialog.FileName);
 
@@ -135,7 +135,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
 
         SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
 
-        if (DialogResult.OK != saveFileDialog.ShowDialog()) return;
+        if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
 
         string fileName = saveFileDialog.FileName;
         File.Delete(fileName);

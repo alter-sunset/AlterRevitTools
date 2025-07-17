@@ -1,5 +1,4 @@
 ﻿using System.Linq;
-using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Utils.Logger;
 using AlterTools.BatchExport.Views.Base;
 using Autodesk.Revit.DB;
@@ -11,7 +10,7 @@ public class IFCHelper : ExportHelperBase
     protected override void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp,
         ref ILogger log)
     {
-        if (null == iConfig || null == doc) return;
+        if (iConfig is null || doc is null) return;
 
         if (iConfig is not IConfigIFC configIFC
             || IsViewEmpty(iConfig, doc, ref log, ref isFuckedUp))
@@ -42,7 +41,7 @@ public class IFCHelper : ExportHelperBase
 
     private static ElementId GetViewId(string viewName, Document doc)
     {
-        if (null == doc || string.IsNullOrEmpty(viewName)) return null;
+        if (doc is null || string.IsNullOrEmpty(viewName)) return null;
 
         return new FilteredElementCollector(doc)
             .OfClass(typeof(View))

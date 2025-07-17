@@ -17,7 +17,7 @@ public class EventHandlerNWCBatch : EventHandlerBase
     {
         if (iConfigBase is not NWCViewModel nwcVm) return;
 
-        if (0 == nwcVm.Configs.Count)
+        if (nwcVm.Configs.Count == 0)
         {
             MessageBox.Show("Загрузите конфиги.");
             return;

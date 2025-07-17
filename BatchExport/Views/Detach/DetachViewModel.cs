@@ -45,8 +45,8 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
 #endif
 
 #if R24_OR_GREATER
-            IsPurgeEnabled = true;
-            _purge = true;
+        IsPurgeEnabled = true;
+        _purge = true;
 #endif
     }
 
@@ -70,7 +70,8 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
         set => SetProperty(ref _maskOut, value);
     }
 
-    [UsedImplicitly] public bool IsPurgeEnabled { get; }
+    [UsedImplicitly]
+    public bool IsPurgeEnabled { get; }
 
     public bool IsWorksetRemoverEnabled { get; }
 

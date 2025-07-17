@@ -31,8 +31,5 @@ public class CsvHelper : IDisposable
                 .Concat(paramsTable.Parameters.Values)));
     }
 
-    public void WriteWorkset(string modelName, string worksetName)
-    {
-        _stream.WriteLine($"{modelName}|{worksetName}");
-    }
+    public void WriteWorkset(string modelName, string worksetName) => _stream.WriteLine($"{modelName}|{worksetName}");
 }

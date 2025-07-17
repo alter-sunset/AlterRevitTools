@@ -171,7 +171,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
     {
         OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
 
-        if (DialogResult.OK != openFileDialog.ShowDialog()) return;
+        if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
         using FileStream file = File.OpenRead(openFileDialog.FileName);
 
@@ -180,7 +180,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
 
     public void NWCFormDeserilaizer(NWCForm form)
     {
-        if (null == form) return;
+        if (form is null) return;
 
         ConvertElementProperties = form.ConvertElementProperties;
         DivideFileIntoLevels = form.DivideFileIntoLevels;
@@ -213,7 +213,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
         using NWCForm form = NWCFormSerializer();
         using SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
 
-        if (DialogResult.OK != saveFileDialog.ShowDialog()) return;
+        if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
 
         string fileName = saveFileDialog.FileName;
 
@@ -258,7 +258,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
     {
         using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
 
-        if (DialogResult.OK != openFileDialog.ShowDialog()) return;
+        if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
         IEnumerable<string> configs = File.ReadLines(openFileDialog.FileName);
 

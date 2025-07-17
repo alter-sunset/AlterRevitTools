@@ -21,10 +21,8 @@ internal class ButtonContext
     public string Panel { get; set; }
     public bool Availability { get; set; }
 
-    public static List<ButtonContext> GetButtonsContext()
-    {
-        return JsonHelper<List<ButtonContext>>.DeserializeResource("AlterTools.BatchExport.Resources.Buttons.json");
-    }
+    public static List<ButtonContext> GetButtonsContext() =>
+        JsonHelper<List<ButtonContext>>.DeserializeResource("AlterTools.BatchExport.Resources.Buttons.json");
 
     public PushButtonData GetPushButtonData()
     {

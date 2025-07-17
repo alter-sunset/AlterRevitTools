@@ -16,8 +16,8 @@ public static class ModelHelper
     /// </summary>
     public static WorksetConfiguration CloseWorksets(this ModelPath modelPath, params string[] prefixes)
     {
-        if (null == prefixes
-            || 0 == prefixes.Length)
+        if (prefixes is null
+            || prefixes.Length == 0)
             return new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
 
         // problem occurs if centralModel can't be found
@@ -88,7 +88,7 @@ public static class ModelHelper
     {
         ICollection<ElementId> ids = ExternalFileUtils.GetAllExternalFileReferences(doc);
 
-        if (0 == ids.Count) return;
+        if (ids.Count == 0) return;
 
         using Transaction tr = new(doc, "Delete all Links");
 
@@ -96,6 +96,7 @@ public static class ModelHelper
         tr.SuppressAlert();
 
         foreach (ElementId id in ids)
+        {
             try
             {
                 doc.Delete(id);
@@ -104,6 +105,7 @@ public static class ModelHelper
             {
                 // ignored
             }
+        }
 
         tr.Commit();
     }
@@ -140,13 +142,13 @@ public static class ModelHelper
             .OfClass(typeof(CableTrayType))
             .ToElementIds()
             .FirstOrDefault();
-        if (null == typeId) return;
+        if (typeId is null) return;
 
         ElementId levelId = new FilteredElementCollector(doc)
             .OfClass(typeof(Level))
             .ToElementIds()
             .FirstOrDefault();
-        if (null == levelId) return;
+        if (levelId is null) return;
 
         // List of all user worksets
         IList<Workset> collectorWorkset = new FilteredWorksetCollector(doc)
@@ -201,7 +203,7 @@ public static class ModelHelper
 
                     previousCount = unusedElements.Count;
 
-                    if (0 == previousCount)
+                    if (previousCount == 0)
                     {
                         break;
                     }
@@ -226,26 +228,26 @@ public static class ModelHelper
     /// </summary>
     public static string GetValueString(this Parameter param)
     {
-        return null == param?.AsValueString()
+        return param?.AsValueString() is null
             ? string.Empty
             : param.AsValueString().Trim();
     }
 
     public static bool IsPhysicalElement(this Element el)
     {
-        if (null == el.Category) return false;
+        if (el.Category is null) return false;
 
         if (el.ViewSpecific) return false;
         // exclude specific unwanted categories
 #if R24_OR_GREATER
-            if (BuiltInCategory.OST_HVAC_Zones == (BuiltInCategory)el.Category.Id.Value)
+            if ((BuiltInCategory)el.Category.Id.Value is BuiltInCategory.OST_HVAC_Zones)
             {
                 return false;
             }
 #else
-        if (BuiltInCategory.OST_HVAC_Zones == (BuiltInCategory)el.Category.Id.IntegerValue) return false;
+        if ((BuiltInCategory)el.Category.Id.IntegerValue is BuiltInCategory.OST_HVAC_Zones) return false;
 #endif
-        return CategoryType.Model == el.Category.CategoryType
+        return el.Category.CategoryType is CategoryType.Model
                && el.Category.CanAddSubcategory;
     }
 

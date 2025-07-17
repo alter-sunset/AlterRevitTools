@@ -43,20 +43,26 @@
                  Grid.Column="0"
                  Grid.ColumnSpan="4"
                  Margin="10"
+                 Width="760"
                  SelectionMode="Extended"
                  ItemsSource="{Binding Entries}"
                  SelectedItem="{Binding SelectedEntry}"
+                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                 HorizontalContentAlignment="Left"
                  SelectionChanged="ListBox_SelectionChanged"
                  ToolTip="Список файлов в формате (.rvt)">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="510" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="150" />
                             <ColumnDefinition Width="70" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Name}" Grid.Column="0" />
+                        <TextBlock Text="{Binding Name}"
+                                   Grid.Column="0"
+                                   TextWrapping="NoWrap"/>
                         <ComboBox
                             Margin="10,0,10,0"
                             Grid.Column="1"

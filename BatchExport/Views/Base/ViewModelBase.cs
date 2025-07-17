@@ -60,14 +60,18 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
         set => SetProperty(ref _isViewEnabled, value);
     }
 
-    [UsedImplicitly] public RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
-    [UsedImplicitly] public RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
-    [UsedImplicitly] public RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
+    [UsedImplicitly]
+    public RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
+    [UsedImplicitly]
+    public RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
+    [UsedImplicitly]
+    public RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
 
     [UsedImplicitly]
     public RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(_ => DeleteSelectedItems());
 
-    [UsedImplicitly] public RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(_ => Erase());
+    [UsedImplicitly]
+    public RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(_ => Erase());
 
     [UsedImplicitly]
     public RelayCommand BrowseFolderCommand => _browseFolderCommand ??= new RelayCommand(_ => BrowseFolder());
@@ -84,7 +88,8 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
     public RelayCommand RaiseEventCommand =>
         _raiseEventCommand ??= new RelayCommand(_ => EventHandlerBase.Raise(this));
 
-    [UsedImplicitly] public virtual RelayCommand RadioButtonCommand { get; }
+    [UsedImplicitly]
+    public virtual RelayCommand RadioButtonCommand { get; }
 
     public virtual string[] Files => _listBoxItems.Select(item => item.Content.ToString()).ToArray();
 
@@ -104,7 +109,7 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
     {
         using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
 
-        if (DialogResult.OK != openFileDialog.ShowDialog()) return;
+        if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
         IEnumerable<string> files = File.ReadLines(openFileDialog.FileName).FilterRevitFiles();
 
@@ -119,7 +124,7 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
     {
         using OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
 
-        if (DialogResult.OK != openFileDialog.ShowDialog()) return;
+        if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
         HashSet<string> existingFiles = new(Files);
 
@@ -132,7 +137,7 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
     protected virtual void SaveList()
     {
         SaveFileDialog saveFileDialog = DialogType.RevitList.SaveFileDialog();
-        if (DialogResult.OK != saveFileDialog.ShowDialog()) return;
+        if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
 
         string fileName = saveFileDialog.FileName;
         File.Delete(fileName);
@@ -154,7 +159,7 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
     {
         FolderBrowserDialog folderBrowserDialog = new() { SelectedPath = FolderPath };
 
-        if (DialogResult.OK == folderBrowserDialog.ShowDialog()) FolderPath = folderBrowserDialog.SelectedPath;
+        if (folderBrowserDialog.ShowDialog() is DialogResult.OK) FolderPath = folderBrowserDialog.SelectedPath;
     }
 
     protected static ListBoxItem DefaultListBoxItem(string content)

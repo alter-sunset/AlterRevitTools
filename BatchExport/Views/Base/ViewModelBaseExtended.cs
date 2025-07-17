@@ -5,14 +5,14 @@ namespace AlterTools.BatchExport.Views.Base;
 public class ViewModelBaseExtended : ViewModelBase, IConfigBaseExtended
 {
     private bool _exportScopeView = true;
-    private bool _turnOffLog = false;
+    private bool _turnOffLog;
 
     private string _namePostfix = string.Empty;
     private string _namePrefix = string.Empty;
 
     private string _worksetPrefix = string.Empty;
 
-    protected string WorksetPrefix
+    public string WorksetPrefix
     {
         get => _worksetPrefix;
         set => SetProperty(ref _worksetPrefix, value);

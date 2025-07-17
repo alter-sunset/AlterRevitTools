@@ -9,10 +9,7 @@ public static class Help
 {
     private const string HelpFile = "AlterTools.BatchExport.Resources.HelpMessages.json";
 
-    public static Messages GetHelpDictionary()
-    {
-        return JsonHelper<Messages>.DeserializeResource(HelpFile);
-    }
+    public static Messages GetHelpDictionary() => JsonHelper<Messages>.DeserializeResource(HelpFile);
 
     public static string GetResultMessage(this Messages helpDictionary, params HelpMessageType[] helpCodes)
     {

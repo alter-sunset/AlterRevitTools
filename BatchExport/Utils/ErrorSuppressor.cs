@@ -54,15 +54,12 @@ public class ErrorSuppressor : IDisposable
         {
             FailureSeverity fSeverity = accessor.GetSeverity();
 
-            if (FailureSeverity.Warning == fSeverity)
-            {
-                accessor.DeleteWarning(failure);
-            }
-            else
+            if (fSeverity is not FailureSeverity.Warning)
             {
                 accessor.ResolveFailure(failure);
                 return FailureProcessingResult.ProceedWithCommit;
             }
+            accessor.DeleteWarning(failure);
         }
 
         return FailureProcessingResult.Continue;
