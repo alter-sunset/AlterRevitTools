@@ -19,7 +19,7 @@ internal static class LinkHelper
         Document doc = uiApp.ActiveUIDocument.Document;
 
         bool isCurrentWorkset = linkViewModel.IsCurrentWorkset;
-        bool setWorksetId = !isCurrentWorkset && 0 < linkViewModel.Worksets.Length;
+        bool setWorksetId = !isCurrentWorkset && linkViewModel.Worksets.Length > 0;
 
         List<Entry> entries = linkViewModel.Entries
             .Where(entry => !string.IsNullOrWhiteSpace(entry.Name) && File.Exists(entry.Name))
@@ -54,15 +54,14 @@ internal static class LinkHelper
         try
         {
             linkLoadResult = RevitLinkType.Create(doc, linkPath, revitLinkOptions);
-            revitLinkInstance =
-                RevitLinkInstance.Create(doc, linkLoadResult.ElementId, entry.SelectedImportPlacement);
+            revitLinkInstance = RevitLinkInstance.Create(doc, linkLoadResult.ElementId, entry.SelectedImportPlacement);
             revitLinkInstance.Pinned = props.PinLink;
 
             tr.Commit();
         }
         catch (InvalidOperationException)
         {
-            if (null == linkLoadResult)
+            if (linkLoadResult is null)
             {
                 tr.RollBack();
                 return;
@@ -84,6 +83,6 @@ internal static class LinkHelper
     {
         TaskDialogResult result =
             TaskDialog.Show("Ошибка", msg, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
-        if (TaskDialogResult.Yes == result) action?.Invoke();
+        if (result is TaskDialogResult.Yes) action?.Invoke();
     }
 }

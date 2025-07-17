@@ -39,10 +39,7 @@ public class App : IExternalApplication
         return Result.Succeeded;
     }
 
-    public Result OnShutdown(UIControlledApplication a)
-    {
-        return Result.Succeeded;
-    }
+    public Result OnShutdown(UIControlledApplication a) => Result.Succeeded;
 
     private static RibbonPanel GetRibbonPanel(UIControlledApplication uiApp, string panelName)
     {

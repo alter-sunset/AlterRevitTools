@@ -28,7 +28,7 @@ public static class ParamsHelper
         try
         {
             using Document doc = app.OpenDocument(filePath, out _);
-            if (null == doc) return;
+            if (doc is null) return;
 
             IEnumerable<ParametersTable> paramTables = new FilteredElementCollector(doc)
                 .WhereElementIsNotElementType()
@@ -55,8 +55,6 @@ public static class ParamsHelper
         item.Background = Brushes.Green;
     }
 
-    private static Dictionary<string, string> GetParametersSet(this Element element, string[] parametersNames)
-    {
-        return parametersNames.ToDictionary(name => name, name => element.LookupParameter(name).GetValueString());
-    }
+    private static Dictionary<string, string> GetParametersSet(this Element element, string[] parametersNames) =>
+        parametersNames.ToDictionary(name => name, name => element.LookupParameter(name).GetValueString());
 }

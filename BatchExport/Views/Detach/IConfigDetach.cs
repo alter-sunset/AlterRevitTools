@@ -15,6 +15,6 @@ public interface IConfigDetach : IConfigBase
 #endif
 
 #if R24_OR_GREATER
-        bool Purge { get; set; }
+    bool Purge { get; set; }
 #endif
 }

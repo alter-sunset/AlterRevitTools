@@ -24,6 +24,7 @@ public class MigrateViewModel : ViewModelBase
     protected override void LoadList()
     {
         OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
-        if (DialogResult.OK == openFileDialog.ShowDialog()) ConfigPath = openFileDialog.FileName;
+        if (openFileDialog.ShowDialog() is DialogResult.OK)
+            ConfigPath = openFileDialog.FileName;
     }
 }

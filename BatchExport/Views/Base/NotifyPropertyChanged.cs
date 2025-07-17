@@ -8,10 +8,8 @@ public class NotifyPropertyChanged : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
 
-    protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
-    {
+    protected void OnPropertyChanged([CallerMemberName] string propertyName = "") =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-    }
 
     protected void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
     {

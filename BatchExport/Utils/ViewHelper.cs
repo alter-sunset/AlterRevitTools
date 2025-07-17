@@ -61,7 +61,7 @@ internal static class ViewHelper
 
     private static void CloseCurrentForm()
     {
-        if (null == _myForm) return;
+        if (_myForm is null) return;
 
         _myForm.Close();
         _myForm = null;

@@ -14,7 +14,7 @@ public static class DetachHelper
         try
         {
             Document doc = app.OpenDocument(filePath, out bool isWorkshared);
-            if (null == doc) return;
+            if (doc is null) return;
 
             string fileDetachedPath = GetDetachedFilePath(iConfigDetach, doc, filePath);
 
@@ -59,7 +59,7 @@ public static class DetachHelper
                 .OfClass(typeof(View3D))
                 .FirstOrDefault(el => el.Name == iConfigDetach.ViewName && !((View3D)el).IsTemplate);
 
-            if (null != view
+            if (view is not null
                 && doc.IsViewEmpty(view))
                 fileDetachedPath = RenamePath(fileDetachedPath, RenameType.Empty);
         }
@@ -108,10 +108,10 @@ public static class DetachHelper
 #endif
 
 #if R24_OR_GREATER
-            if (iConfigDetach.Purge)
-            {
-                doc.PurgeAll();
-            }
+        if (iConfigDetach.Purge)
+        {
+            doc.PurgeAll();
+        }
 #endif
     }
 
@@ -177,7 +177,7 @@ public static class DetachHelper
     private static void UpdateTransmissionData(ModelPath modelPath)
     {
         TransmissionData transData = TransmissionData.ReadTransmissionData(modelPath);
-        if (null == transData) return;
+        if (transData is null) return;
 
         transData.IsTransmitted = true;
 

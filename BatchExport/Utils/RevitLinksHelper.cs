@@ -23,7 +23,7 @@ public static class RevitLinksHelper
             if (ExternalFileReferenceType.RevitLink != extRef.ExternalFileReferenceType) continue;
 
             string name = Path.GetFileName(extRef.GetPath().CentralServerPath);
-            if (null == name) continue;
+            if (name is null) continue;
 
             (ModelPath path, PathType pathType) = isSameFolder
                 ? (new FilePath(Path.Combine(folder, name)), PathType.Absolute)
@@ -46,7 +46,7 @@ public static class RevitLinksHelper
         foreach (ElementId refId in externalReferences)
         {
             ExternalFileReference extRef = transData.GetLastSavedReferenceData(refId);
-            if (ExternalFileReferenceType.RevitLink != extRef.ExternalFileReferenceType) continue;
+            if (extRef.ExternalFileReferenceType is not ExternalFileReferenceType.RevitLink) continue;
 
             ModelPath modelPath = extRef.GetAbsolutePath();
             string path = ModelPathUtils.ConvertModelPathToUserVisiblePath(modelPath);
@@ -74,7 +74,7 @@ public static class RevitLinksHelper
     {
         transData = TransmissionData.ReadTransmissionData(filePath);
 
-        if (null != transData) return true;
+        if (transData is not null) return true;
 
         TaskDialog.Show("Operation Error", NoTransDataAlert);
 

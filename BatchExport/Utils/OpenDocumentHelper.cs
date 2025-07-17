@@ -56,12 +56,12 @@ public static class OpenDocumentHelper
                 doc = app.OpenDocumentFile(filePath);
             }
             else
-            {
+            {                
                 ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
-
+                
                 doc = modelPath.OpenDetached(app,
                     new WorksetConfiguration(WorksetConfigurationOption.CloseAllWorksets));
-
+                
                 isWorkshared = true;
             }
         }

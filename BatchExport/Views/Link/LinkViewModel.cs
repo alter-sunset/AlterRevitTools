@@ -88,7 +88,7 @@ public class LinkViewModel : ViewModelBase
     {
         using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
 
-        if (DialogResult.OK != openFileDialog.ShowDialog()) return;
+        if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
         IEnumerable<string> files = File.ReadLines(openFileDialog.FileName).FilterRevitFiles();
 
@@ -103,7 +103,7 @@ public class LinkViewModel : ViewModelBase
     {
         using OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
 
-        if (DialogResult.OK != openFileDialog.ShowDialog()) return;
+        if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
         HashSet<string> existingFiles = new(Files);
 
@@ -118,7 +118,7 @@ public class LinkViewModel : ViewModelBase
     {
         SaveFileDialog saveFileDialog = DialogType.RevitList.SaveFileDialog();
 
-        if (DialogResult.OK != saveFileDialog.ShowDialog()) return;
+        if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
 
         string fileName = saveFileDialog.FileName;
         File.Delete(fileName);
@@ -134,8 +134,5 @@ public class LinkViewModel : ViewModelBase
             .ForEach(entry => Entries.Remove(entry));
     }
 
-    protected override void Erase()
-    {
-        Entries.Clear();
-    }
+    protected override void Erase() => Entries.Clear();
 }

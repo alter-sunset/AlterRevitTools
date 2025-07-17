@@ -14,10 +14,8 @@ public static class MigrateHelper
 {
     private const string WrongScheme = "Неверная схема файла";
 
-    public static bool IsConfigPathValid(string configPath)
-    {
-        return !string.IsNullOrEmpty(configPath) && ".json" == Path.GetExtension(configPath);
-    }
+    public static bool IsConfigPathValid(string configPath) =>
+        !string.IsNullOrEmpty(configPath) && ".json" == Path.GetExtension(configPath);
 
     private static WasBecome LoadMigrationConfig(string configPath)
     {
@@ -31,7 +29,8 @@ public static class MigrateHelper
     private static void CreateDirectoryForFile(string filePath)
     {
         string dir = Path.GetDirectoryName(filePath);
-        if (null != dir && !Directory.Exists(dir)) Directory.CreateDirectory(dir);
+        if (dir is not null && !Directory.Exists(dir))
+            Directory.CreateDirectory(dir);
     }
 
     public static List<string> ProcessFiles(string configPath, Application app)

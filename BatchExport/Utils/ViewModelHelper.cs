@@ -64,26 +64,20 @@ internal static class ViewModelHelper
                && vmBaseExt.IsViewNameOk();
     }
 
-    internal static bool IsEverythingFilled(this LinkViewModel linkVm)
-    {
-        return linkVm.IsListNotEmpty();
-    }
+    internal static bool IsEverythingFilled(this LinkViewModel linkVm) => linkVm.IsListNotEmpty();
 
-    private static bool IsListNotEmpty(this LinkViewModel linkVm)
-    {
-        return CheckCondition(linkVm.Entries.Count > 0, NoFiles);
-    }
+    private static bool IsListNotEmpty(this LinkViewModel linkVm) =>
+        CheckCondition(linkVm.Entries.Count > 0, NoFiles);
 
-    private static bool IsListNotEmpty(this ViewModelBase vmBase)
-    {
-        return CheckCondition(vmBase.ListBoxItems.Count > 0, NoFiles);
-    }
+    private static bool IsListNotEmpty(this ViewModelBase vmBase) =>
+        CheckCondition(vmBase.ListBoxItems.Count > 0, NoFiles);
 
     private static bool IsFolderPathOk(this ViewModelBase vmBase)
     {
         string folderPath = vmBase.FolderPath;
 
-        if (string.IsNullOrEmpty(folderPath)) return CheckCondition(false, NoFolder);
+        if (string.IsNullOrEmpty(folderPath))
+            return CheckCondition(false, NoFolder);
 
         if (Uri.IsWellFormedUriString(folderPath, UriKind.RelativeOrAbsolute))
             return CheckCondition(false, WrongFolder);
@@ -92,7 +86,7 @@ internal static class ViewModelHelper
 
         MessageBoxResult result = MessageBox.Show(CreateFolder, "Добрый вечер", MessageBoxButton.YesNo);
 
-        if (MessageBoxResult.Yes == result)
+        if (result is MessageBoxResult.Yes)
         {
             Directory.CreateDirectory(folderPath);
             return true;
@@ -156,10 +150,8 @@ internal static class ViewModelHelper
         return true;
     }
 
-    private static bool AreThereAnyParameters(this ParamsViewModel paramsVm)
-    {
-        return CheckCondition(paramsVm.ParametersNames.Length > 0, NoParameters);
-    }
+    private static bool AreThereAnyParameters(this ParamsViewModel paramsVm) =>
+        CheckCondition(paramsVm.ParametersNames.Length > 0, NoParameters);
 
     private static bool CheckCondition(bool condition, string msg)
     {
@@ -194,7 +186,7 @@ internal static class ViewModelHelper
     {
         return files.Distinct()
             .Where(file => !string.IsNullOrWhiteSpace(file)
-                           && ".rvt" == Path.GetExtension(file));
+                           && Path.GetExtension(file) == ".rvt");
     }
 
     public static string RemoveDetach(this string name)

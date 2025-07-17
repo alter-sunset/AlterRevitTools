@@ -16,7 +16,7 @@ public class WindowBase : Window
     {
         if (sender is not ListBox) return;
 
-        if (0 != args.RemovedItems.Count
+        if (args.RemovedItems.Count != 0
             && args.RemovedItems[0] is not ISelectable)
             return;
 
@@ -24,7 +24,7 @@ public class WindowBase : Window
         foreach (ISelectable entry in
                  args.RemovedItems) entry.IsSelected = false; // Set IsSelected to false for unselected entries
 
-        if (0 != args.AddedItems.Count
+        if (args.AddedItems.Count != 0
             && args.AddedItems[0] is not ISelectable)
             return;
 
