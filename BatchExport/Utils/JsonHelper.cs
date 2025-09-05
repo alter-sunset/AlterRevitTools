@@ -10,8 +10,10 @@ public static class JsonHelper<T>
 {
     public static T DeserializeResource(string path)
     {
-        return JsonConvert.DeserializeObject<T>(
-            new StreamReader(Assembly.GetExecutingAssembly().GetManifestResourceStream(path)!).ReadToEnd());
+        Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream(path);
+        return stream is null 
+            ? default
+            : JsonConvert.DeserializeObject<T>(new StreamReader(stream).ReadToEnd());
     }
 
     public static T DeserializeConfig(FileStream file)
