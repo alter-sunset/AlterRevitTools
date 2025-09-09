@@ -32,7 +32,6 @@ public static class ParamsHelper
 
             IEnumerable<ParametersTable> paramTables = new FilteredElementCollector(doc)
                 .WhereElementIsNotElementType()
-                .WherePasses(new ElementCategoryFilter(BuiltInCategory.OST_Lines, true))
                 .Where(el => el.IsPhysicalElement())
                 .Select(el => new ParametersTable
                 {
@@ -48,6 +47,7 @@ public static class ParamsHelper
 
             foreach (ParametersTable table in paramTables)
             {
+                if (string.IsNullOrWhiteSpace(table.Parameters["Семейство и типоразмер"])) continue;
                 csvHelper.WriteElement(table);
             }
         }
