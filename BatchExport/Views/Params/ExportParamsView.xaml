@@ -6,7 +6,6 @@
                  xmlns:base="clr-namespace:AlterTools.BatchExport.Views.Base"
                  mc:Ignorable="d"
                  IsEnabled="{Binding IsViewEnabled}"
-                 Topmost="True"
                  ShowInTaskbar="False"
                  Height="550"
                  Width="800"

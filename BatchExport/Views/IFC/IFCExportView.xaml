@@ -9,7 +9,6 @@
                  ResizeMode="NoResize"
                  Title="Пакетный экспорт IFC"
                  IsEnabled="{Binding IsViewEnabled}"
-                 Topmost="True"
                  ShowInTaskbar="False">
     <Grid Background="WhiteSmoke">
         <Grid.ColumnDefinitions>

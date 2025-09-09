@@ -8,7 +8,6 @@
                  ResizeMode="NoResize"
                  Title="Пакетный экспорт NWC"
                  IsEnabled="{Binding IsViewEnabled}"
-                 Topmost="True"
                  ShowInTaskbar="False">
     <Grid Background="WhiteSmoke">
         <Grid.ColumnDefinitions>

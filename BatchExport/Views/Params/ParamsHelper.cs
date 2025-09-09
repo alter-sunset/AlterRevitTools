@@ -32,6 +32,7 @@ public static class ParamsHelper
 
             IEnumerable<ParametersTable> paramTables = new FilteredElementCollector(doc)
                 .WhereElementIsNotElementType()
+                .WherePasses(new ElementCategoryFilter(BuiltInCategory.OST_Lines, true))
                 .Where(el => el.IsPhysicalElement())
                 .Select(el => new ParametersTable
                 {
@@ -45,7 +46,10 @@ public static class ParamsHelper
 #endif
                 });
 
-            foreach (ParametersTable table in paramTables) csvHelper.WriteElement(table);
+            foreach (ParametersTable table in paramTables)
+            {
+                csvHelper.WriteElement(table);
+            }
         }
         catch
         {
