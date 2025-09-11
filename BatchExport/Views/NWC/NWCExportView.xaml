@@ -231,8 +231,13 @@
                   Grid.Row="7"
                   Grid.Column="3"
                   VerticalContentAlignment="Center"
-                  IsChecked="{Binding ExportUrls}"
-                  Content="Экспортировать URL адреса" />
+                  IsChecked="{Binding IgnoreMissingView}">
+            <TextBlock FontSize="11">
+                Игнорировать отсутствие вида
+                <LineBreak/>
+                и экспортировать весь проект
+            </TextBlock>
+        </CheckBox>
 
         <CheckBox Margin="10"
                   Grid.Row="8"
@@ -251,7 +256,6 @@
                    VerticalAlignment="Center"
                    TextWrapping="Wrap"
                    Text="Конвертировать параметры объектов" />
-
         <ComboBox Margin="175,10,10,10"
                   Grid.Row="8"
                   Grid.Column="1"
@@ -260,7 +264,13 @@
                   ItemsSource="{Binding Parameters}"
                   SelectedItem="{Binding SelectedParameters}"
                   DisplayMemberPath="Value" />
-
+        <CheckBox Margin="10"
+                  Grid.Row="8"
+                  Grid.Column="3"
+                  VerticalContentAlignment="Center"
+                  IsChecked="{Binding ExportUrls}"
+                  Content="Экспортировать URL адреса" />
+        
         <CheckBox Margin="10"
                   Grid.Row="9"
                   Grid.Column="0"

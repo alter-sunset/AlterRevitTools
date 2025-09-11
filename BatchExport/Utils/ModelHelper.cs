@@ -41,6 +41,13 @@ public static class ModelHelper
         }
     }
 
+    public static bool DoesViewExist(this Document doc, string viewName)
+    {
+        return new FilteredElementCollector(doc)
+            .OfClass(typeof(View3D))
+            .Any(el => el.Name == viewName && !((View3D)el).IsTemplate);
+    }
+
     /// <summary>
     ///     Checks whether given view has no visible objects
     /// </summary>

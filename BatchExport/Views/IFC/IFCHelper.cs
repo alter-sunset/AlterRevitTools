@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Utils.Logger;
 using AlterTools.BatchExport.Views.Base;
 using Autodesk.Revit.DB;
@@ -13,7 +14,7 @@ public class IFCHelper : ExportHelperBase
         if (iConfig is null || doc is null) return;
 
         if (iConfig is not IConfigIFC configIFC
-            || IsViewEmpty(iConfig, doc, ref log, ref isFuckedUp))
+            || !IsViewReadyForExport(iConfig, doc, ref log, ref isFuckedUp))
             return;
 
         IFCExportOptions options = IFC_ExportOptions(configIFC, doc);
@@ -37,7 +38,7 @@ public class IFCHelper : ExportHelperBase
             WallAndColumnSplitting = config.WallAndColumnSplitting
         };
 
-        if (config.ExportScopeView)
+        if (config.ExportScopeView && doc.DoesViewExist(config.ViewName))
         {
             options.FilterViewId = new FilteredElementCollector(doc)
                 .OfClass(typeof(View3D))

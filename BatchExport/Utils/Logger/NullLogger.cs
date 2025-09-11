@@ -6,6 +6,7 @@ public class NullLogger : ILogger
 {
     public int ErrorCount { get; } = 0;
     public void Error(string error, Exception ex = null) { }
+    public void Info(string info) { }
     public void Start(string file) { }
     public void FileOpened() { }
     public void Success(string message) { }
