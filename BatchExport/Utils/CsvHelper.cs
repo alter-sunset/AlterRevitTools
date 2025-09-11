@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Xml;
 using AlterTools.BatchExport.Views.Params;
 
 namespace AlterTools.BatchExport.Utils;

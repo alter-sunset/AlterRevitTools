@@ -28,24 +28,23 @@ public class IFCHelper : ExportHelperBase
 
     private static IFCExportOptions IFC_ExportOptions(IConfigIFC config, Document doc)
     {
-        return new IFCExportOptions
+        IFCExportOptions options = new()
         {
             ExportBaseQuantities = config.ExportBaseQuantities,
             FamilyMappingFile = config.FamilyMappingFile,
             FileVersion = config.FileVersion,
-            FilterViewId = GetViewId(config.ViewName, doc),
             SpaceBoundaryLevel = config.SpaceBoundaryLevel,
             WallAndColumnSplitting = config.WallAndColumnSplitting
         };
-    }
 
-    private static ElementId GetViewId(string viewName, Document doc)
-    {
-        if (doc is null || string.IsNullOrEmpty(viewName)) return null;
-
-        return new FilteredElementCollector(doc)
-            .OfClass(typeof(View))
-            .FirstOrDefault(el => el.Name == viewName)?
-            .Id;
+        if (config.ExportScopeView)
+        {
+            options.FilterViewId = new FilteredElementCollector(doc)
+                .OfClass(typeof(View3D))
+                .FirstOrDefault(el => el.Name == config.ViewName && !((View3D)el).IsTemplate)
+                .Id;
+        }
+        
+        return options;
     }
 }
