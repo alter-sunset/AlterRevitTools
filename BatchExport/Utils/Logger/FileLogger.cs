@@ -24,6 +24,8 @@ public class FileLogger : ILogger
         ErrorCount++;
     }
 
+    public void Info(string info) => _stream.WriteLine($"{DateTime.Now}. {info}");
+
     public void Start(string file) => _stream.WriteLine($"Started work at {DateTime.Now} on {file}");
 
     public void FileOpened() => _stream.WriteLine("File successfully opened.");

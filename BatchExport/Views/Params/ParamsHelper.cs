@@ -45,7 +45,11 @@ public static class ParamsHelper
 #endif
                 });
 
-            foreach (ParametersTable table in paramTables) csvHelper.WriteElement(table);
+            foreach (ParametersTable table in paramTables)
+            {
+                if (string.IsNullOrWhiteSpace(table.Parameters["Семейство и типоразмер"])) continue;
+                csvHelper.WriteElement(table);
+            }
         }
         catch
         {

@@ -9,7 +9,6 @@
                  ResizeMode="NoResize"
                  Title="Пакетная миграция моделей"
                  IsEnabled="{Binding IsViewEnabled}"
-                 Topmost="True"
                  ShowInTaskbar="False">
     <Grid Background="WhiteSmoke">
         <Grid.ColumnDefinitions>

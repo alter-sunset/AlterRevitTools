@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Utils.Logger;
 using AlterTools.BatchExport.Views.Base;
 using Autodesk.Revit.DB;
@@ -12,7 +13,7 @@ public class NWCHelper : ExportHelperBase
     {
         if (iConfig is not IConfigNWC configNWC) return;
 
-        if (IsViewEmpty(iConfig, doc, ref log, ref isFuckedUp)) return;
+        if (!IsViewReadyForExport(iConfig, doc, ref log, ref isFuckedUp)) return;
 
         NavisworksExportOptions options = NWC_ExportOptions(configNWC, doc);
 
@@ -45,11 +46,18 @@ public class NWCHelper : ExportHelperBase
 #endif
         };
 
-        if (config.ExportScopeView)
+        if (config.ExportScopeView && doc.DoesViewExist(config.ViewName))
+        {
+            options.ExportScope = NavisworksExportScope.View;
             options.ViewId = new FilteredElementCollector(doc)
                 .OfClass(typeof(View3D))
                 .FirstOrDefault(el => el.Name == config.ViewName && !((View3D)el).IsTemplate)
                 .Id;
+        }
+        else if (config.IgnoreMissingView)
+        {
+            options.ExportScope =  NavisworksExportScope.Model;
+        }
 
         return options;
     }

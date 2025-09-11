@@ -5,6 +5,7 @@ namespace AlterTools.BatchExport.Views.Base;
 public class ViewModelBaseExtended : ViewModelBase, IConfigBaseExtended
 {
     private bool _exportScopeView = true;
+    private bool _ignoreMissingView = false;
     private bool _turnOffLog;
 
     private string _namePostfix = string.Empty;
@@ -39,6 +40,12 @@ public class ViewModelBaseExtended : ViewModelBase, IConfigBaseExtended
             OnPropertyChanged();
             OnPropertyChanged(nameof(ExportScopeWhole));
         }
+    }
+
+    public bool IgnoreMissingView
+    {
+        get => _ignoreMissingView;
+        set => SetProperty(ref _ignoreMissingView, value);
     }
 
     public bool ExportScopeWhole

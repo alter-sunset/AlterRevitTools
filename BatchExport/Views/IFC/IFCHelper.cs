@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Utils.Logger;
 using AlterTools.BatchExport.Views.Base;
 using Autodesk.Revit.DB;
@@ -13,7 +14,7 @@ public class IFCHelper : ExportHelperBase
         if (iConfig is null || doc is null) return;
 
         if (iConfig is not IConfigIFC configIFC
-            || IsViewEmpty(iConfig, doc, ref log, ref isFuckedUp))
+            || !IsViewReadyForExport(iConfig, doc, ref log, ref isFuckedUp))
             return;
 
         IFCExportOptions options = IFC_ExportOptions(configIFC, doc);
@@ -28,24 +29,23 @@ public class IFCHelper : ExportHelperBase
 
     private static IFCExportOptions IFC_ExportOptions(IConfigIFC config, Document doc)
     {
-        return new IFCExportOptions
+        IFCExportOptions options = new()
         {
             ExportBaseQuantities = config.ExportBaseQuantities,
             FamilyMappingFile = config.FamilyMappingFile,
             FileVersion = config.FileVersion,
-            FilterViewId = GetViewId(config.ViewName, doc),
             SpaceBoundaryLevel = config.SpaceBoundaryLevel,
             WallAndColumnSplitting = config.WallAndColumnSplitting
         };
-    }
 
-    private static ElementId GetViewId(string viewName, Document doc)
-    {
-        if (doc is null || string.IsNullOrEmpty(viewName)) return null;
-
-        return new FilteredElementCollector(doc)
-            .OfClass(typeof(View))
-            .FirstOrDefault(el => el.Name == viewName)?
-            .Id;
+        if (config.ExportScopeView && doc.DoesViewExist(config.ViewName))
+        {
+            options.FilterViewId = new FilteredElementCollector(doc)
+                .OfClass(typeof(View3D))
+                .FirstOrDefault(el => el.Name == config.ViewName && !((View3D)el).IsTemplate)
+                .Id;
+        }
+        
+        return options;
     }
 }

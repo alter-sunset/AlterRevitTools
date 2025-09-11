@@ -28,7 +28,7 @@ public class CsvHelper : IDisposable
     {
         _stream.WriteLine(string.Join("|",
             new[] { paramsTable.ModelName, paramsTable.ElementId.ToString() }
-                .Concat(paramsTable.Parameters.Values)));
+                .Concat(paramsTable.Parameters.Values.Select(v => v.Replace(Environment.NewLine, " ")))));
     }
 
     public void WriteWorkset(string modelName, string worksetName) => _stream.WriteLine($"{modelName}|{worksetName}");

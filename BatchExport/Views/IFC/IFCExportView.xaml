@@ -9,7 +9,6 @@
                  ResizeMode="NoResize"
                  Title="Пакетный экспорт IFC"
                  IsEnabled="{Binding IsViewEnabled}"
-                 Topmost="True"
                  ShowInTaskbar="False">
     <Grid Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
@@ -194,6 +193,17 @@
                  VerticalContentAlignment="Center"
                  Grid.ColumnSpan="2"
                  Text="{Binding ViewName}" />
+        <CheckBox Margin="10"
+                  Grid.Row="7"
+                  Grid.Column="3"
+                  VerticalContentAlignment="Center"
+                  IsChecked="{Binding IgnoreMissingView}">
+            <TextBlock FontSize="11">
+                Игнорировать отсутствие вида
+                <LineBreak/>
+                и экспортировать весь проект
+            </TextBlock>
+        </CheckBox>
 
         <TextBlock Margin="10,0,40,0"
                    FontSize="14"

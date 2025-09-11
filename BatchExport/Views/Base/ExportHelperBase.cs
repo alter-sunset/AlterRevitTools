@@ -208,17 +208,26 @@ public class ExportHelperBase
         isFuckedUp = true;
     }
 
-    protected static bool IsViewEmpty(IConfigBaseExtended iConfig, Document doc, ref ILogger log, ref bool isFuckedUp)
+    protected static bool IsViewReadyForExport(IConfigBaseExtended iConfig, Document doc, ref ILogger log, ref bool isFuckedUp)
     {
-        if (iConfig is NWCViewModel { ExportLinks: true }) return false;
+        if (iConfig is NWCViewModel { ExportLinks: true }) return true;
 
-        if (!iConfig.ExportScopeView) return false;
+        if (!iConfig.ExportScopeView) return true;
+        
+        if (!doc.IsViewEmpty(GetView(iConfig, doc))) return true;
 
-        if (!doc.IsViewEmpty(GetView(iConfig, doc))) return false;
+        if (iConfig.IgnoreMissingView)
+        {
+            log.Info($"Вида {iConfig.ViewName} не существует. Экспорт будет выполнен по всей модели.");
+            return true;
+        }
 
-        log.Error("Нет геометрии на виде.");
+        log.Error(doc.DoesViewExist(iConfig.ViewName)
+            ? "Нет геометрии на виде."
+            : $"Вида {iConfig.ViewName} не существует. Экспорт выполнен не будет.");
+
         isFuckedUp = true;
-        return true;
+        return false;
     }
 
     private static Element GetView(IConfigBaseExtended iConfig, Document doc)
