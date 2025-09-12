@@ -217,7 +217,10 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
 
         string fileName = saveFileDialog.FileName;
 
-        if (File.Exists(fileName)) File.Delete(fileName);
+        if (File.Exists(fileName))
+        {
+            File.Delete(fileName);
+        }
 
         JsonHelper<NWCForm>.SerializeConfig(form, fileName);
     }
@@ -248,8 +251,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
             ConvertLights = ConvertLights,
             ConvertLinkedCADFormats = ConvertLinkedCADFormats,
             FacetingFactor = FacetingFactor,
-            Files = ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)
-                .ToArray(),
+            Files = ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty).ToArray(),
             TurnOffLog = TurnOffLog
         };
     }
@@ -266,7 +268,10 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
             .Where(config => config.EndsWith(".json") && File.Exists(config))
             .Select(config => new Config(config)));
 
-        if (!Configs.Any()) MessageBox.Show(NoFiles);
+        if (!Configs.Any())
+        {
+            MessageBox.Show(NoFiles);
+        }
     }
 
     protected override void DeleteSelectedItems()

@@ -96,8 +96,7 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
         {
             CsvPath = CsvPath,
             ParametersNames = ParametersNames,
-            Files = ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)
-                .ToArray()
+            Files = ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty).ToArray()
         };
     }
 

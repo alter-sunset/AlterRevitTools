@@ -77,10 +77,14 @@ internal static class ViewModelHelper
         string folderPath = vmBase.FolderPath;
 
         if (string.IsNullOrEmpty(folderPath))
+        {
             return CheckCondition(false, NoFolder);
+        }
 
         if (Uri.IsWellFormedUriString(folderPath, UriKind.RelativeOrAbsolute))
+        {
             return CheckCondition(false, WrongFolder);
+        }
 
         if (Directory.Exists(folderPath)) return true;
 
@@ -120,11 +124,16 @@ internal static class ViewModelHelper
 
             case 2:
                 if (string.IsNullOrEmpty(detachVm.MaskIn) || string.IsNullOrEmpty(detachVm.MaskOut))
+                {
                     return CheckCondition(false, NoMaskPath);
+                }
 
-                if (!detachVm.ListBoxItems.Select(item => item.Content)
+                if (!detachVm.ListBoxItems
+                        .Select(item => item.Content)
                         .All(i => i.ToString()!.Contains(detachVm.MaskIn)))
+                {
                     return CheckCondition(false, WrongMask);
+                }
 
                 break;
         }
@@ -145,17 +154,24 @@ internal static class ViewModelHelper
         if (string.IsNullOrWhiteSpace(csvPath)
             || Uri.IsWellFormedUriString(csvPath, UriKind.Absolute)
             || !csvPath.EndsWith(".csv"))
+        {
             return CheckCondition(false, NoCsv);
+        }
 
         return true;
     }
 
-    private static bool AreThereAnyParameters(this ParamsViewModel paramsVm) =>
-        CheckCondition(paramsVm.ParametersNames.Length > 0, NoParameters);
+    private static bool AreThereAnyParameters(this ParamsViewModel paramsVm)
+    {
+        return CheckCondition(paramsVm.ParametersNames.Length > 0, NoParameters);
+    }
 
     private static bool CheckCondition(bool condition, string msg)
     {
-        if (!condition) MessageBox.Show(msg);
+        if (!condition)
+        {
+            MessageBox.Show(msg);
+        }
 
         return condition;
     }

@@ -16,20 +16,20 @@ public class WindowBase : Window
     {
         if (sender is not ListBox) return;
 
-        if (args.RemovedItems.Count != 0
-            && args.RemovedItems[0] is not ISelectable)
-            return;
+        if (args.RemovedItems.Count != 0 && args.RemovedItems[0] is not ISelectable) return;
 
         // Unselect previously selected entries            
-        foreach (ISelectable entry in
-                 args.RemovedItems) entry.IsSelected = false; // Set IsSelected to false for unselected entries
+        foreach (ISelectable entry in args.RemovedItems)
+        {
+            entry.IsSelected = false; // Set IsSelected to false for unselected entries
+        }
 
-        if (args.AddedItems.Count != 0
-            && args.AddedItems[0] is not ISelectable)
-            return;
+        if (args.AddedItems.Count != 0 && args.AddedItems[0] is not ISelectable) return;
 
         // Select newly selected entries
-        foreach (ISelectable entry in
-                 args.AddedItems) entry.IsSelected = true; // Set IsSelected to true for newly selected entries
+        foreach (ISelectable entry in args.AddedItems)
+        {
+            entry.IsSelected = true; // Set IsSelected to true for newly selected entries
+        }
     }
 }

@@ -30,7 +30,9 @@ public static class MigrateHelper
     {
         string dir = Path.GetDirectoryName(filePath);
         if (dir is not null && !Directory.Exists(dir))
+        {
             Directory.CreateDirectory(dir);
+        }
     }
 
     public static List<string> ProcessFiles(string configPath, Application app)
@@ -50,11 +52,8 @@ public static class MigrateHelper
         List<string> failedFiles = new(items.Count);
         List<string> movedFiles = new(items.Count);
 
-        foreach (KeyValuePair<string, string> item in items)
+        foreach ((string oldFile, string newFile) in items)
         {
-            string oldFile = item.Key;
-            string newFile = item.Value;
-
             if (!File.Exists(oldFile))
             {
                 failedFiles.Add(oldFile);

@@ -11,8 +11,7 @@ namespace AlterTools.BatchExport.Views.Link;
 
 internal static class LinkHelper
 {
-    private const string DiffCoord =
-        "Обнаружено различие систем координат. Выполнить получение коордианат из файла?";
+    private const string DiffCoord = "Обнаружено различие систем координат. Выполнить получение коордианат из файла?";
 
     internal static void CreateLinks(this LinkViewModel linkViewModel, UIApplication uiApp)
     {
@@ -46,7 +45,10 @@ internal static class LinkHelper
 
         tr.Start($"Link {entry.Name}");
 
-        if (props.SetWorksetId) props.WorksetTable.SetActiveWorksetId(entry.SelectedWorkset.Id);
+        if (props.SetWorksetId)
+        {
+            props.WorksetTable.SetActiveWorksetId(entry.SelectedWorkset.Id);
+        }
 
         RevitLinkInstance revitLinkInstance;
         LinkLoadResult linkLoadResult = null;
@@ -83,6 +85,9 @@ internal static class LinkHelper
     {
         TaskDialogResult result =
             TaskDialog.Show("Ошибка", msg, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
-        if (result is TaskDialogResult.Yes) action?.Invoke();
+        if (result is TaskDialogResult.Yes)
+        {
+            action?.Invoke();
+        }
     }
 }

@@ -26,8 +26,9 @@ public class ExportHelperBase
         if (items is null) return;
 
         if (iConfig is ViewModelBaseExtended)
-            models = items.Select(item => item.Content.ToString())
-                .ToArray();
+        {
+            models = items.Select(item => item.Content.ToString()).ToArray();
+        }
 
         foreach (string file in models)
         {
@@ -90,7 +91,10 @@ public class ExportHelperBase
     private static void UpdateItemBackground(ListBoxItem[] items, string file, Brush color)
     {
         ListBoxItem item = items.FirstOrDefault(i => i.Content.ToString() == file);
-        if (item is not null) item.Background = color;
+        if (item is not null)
+        {
+            item.Background = color;
+        }
     }
 
     private static Document OpenDocument(string file, Application app, IConfigBaseExtended iConfig, ILogger log,
@@ -137,7 +141,10 @@ public class ExportHelperBase
         try
         {
             doc.FreeTheModel();
-            if (!isFuckedUp) log.Success("Всё ок.");
+            if (!isFuckedUp)
+            {
+                log.Success("Всё ок.");
+            }
         }
         catch (Exception ex)
         {
@@ -176,14 +183,21 @@ public class ExportHelperBase
         string fileName = Path.Combine(folderPath, fileWithExtension);
         string oldHash = File.Exists(fileName) ? fileName.GetMd5Hash() : null;
 
-        if (oldHash is not null) log.Hash(oldHash);
+        if (oldHash is not null)
+        {
+            log.Hash(oldHash);
+        }
 
         try
         {
             if (options is NavisworksExportOptions navisOptions)
+            {
                 doc.Export(folderPath, fileExportName, navisOptions);
+            }
             else
+            {
                 doc.Export(folderPath, fileExportName, options as IFCExportOptions);
+            }
         }
         catch (Exception ex)
         {

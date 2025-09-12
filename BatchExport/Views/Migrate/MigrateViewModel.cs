@@ -25,6 +25,8 @@ public class MigrateViewModel : ViewModelBase
     {
         OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
         if (openFileDialog.ShowDialog() is DialogResult.OK)
+        {
             ConfigPath = openFileDialog.FileName;
+        }
     }
 }

@@ -13,9 +13,7 @@ public class IFCHelper : ExportHelperBase
     {
         if (iConfig is null || doc is null) return;
 
-        if (iConfig is not IConfigIFC configIFC
-            || !IsViewReadyForExport(iConfig, doc, ref log, ref isFuckedUp))
-            return;
+        if (iConfig is not IConfigIFC configIFC || !IsViewReadyForExport(iConfig, doc, ref log, ref isFuckedUp)) return;
 
         IFCExportOptions options = IFC_ExportOptions(configIFC, doc);
 

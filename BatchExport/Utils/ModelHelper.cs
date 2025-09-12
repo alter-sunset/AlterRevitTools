@@ -16,9 +16,10 @@ public static class ModelHelper
     /// </summary>
     public static WorksetConfiguration CloseWorksets(this ModelPath modelPath, params string[] prefixes)
     {
-        if (prefixes is null
-            || prefixes.Length == 0)
+        if (prefixes is null || prefixes.Length == 0)
+        {
             return new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
+        }
 
         // problem occurs if centralModel can't be found
         try
@@ -175,7 +176,10 @@ public static class ModelHelper
             // Change the workset of the cable tray
             Parameter wsParam = ct.get_Parameter(BuiltInParameter.ELEM_PARTITION_PARAM);
 
-            if (wsParam is { IsReadOnly: false }) wsParam.Set(workset.Id.IntegerValue);
+            if (wsParam is { IsReadOnly: false })
+            {
+                wsParam.Set(workset.Id.IntegerValue);
+            }
 
             // Show the cable tray to open the workset
             new UIDocument(doc).ShowElements(ct.Id);
@@ -210,10 +214,7 @@ public static class ModelHelper
 
                     previousCount = unusedElements.Count;
 
-                    if (previousCount == 0)
-                    {
-                        break;
-                    }
+                    if (previousCount == 0) break;
 
                     using Transaction tr = new(doc, "Purge unused");
                     tr.Start();
@@ -247,15 +248,11 @@ public static class ModelHelper
         if (el.ViewSpecific) return false;
         // exclude specific unwanted categories
 #if R24_OR_GREATER
-            if ((BuiltInCategory)el.Category.Id.Value is BuiltInCategory.OST_HVAC_Zones)
-            {
-                return false;
-            }
+        if ((BuiltInCategory)el.Category.Id.Value is BuiltInCategory.OST_HVAC_Zones) return false;
 #else
         if ((BuiltInCategory)el.Category.Id.IntegerValue is BuiltInCategory.OST_HVAC_Zones) return false;
 #endif
-        return el.Category.CategoryType is CategoryType.Model
-               && el.Category.CanAddSubcategory;
+        return el.Category.CategoryType is CategoryType.Model && el.Category.CanAddSubcategory;
     }
 
 #if R22_OR_GREATER

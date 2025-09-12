@@ -115,7 +115,10 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
 
         ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
 
-        if (!ListBoxItems.Any()) MessageBox.Show(NoFiles);
+        if (!ListBoxItems.Any())
+        {
+            MessageBox.Show(NoFiles);
+        }
 
         FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
     }
@@ -131,7 +134,10 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
         IEnumerable<string> files = openFileDialog.FileNames.Distinct()
             .Where(file => !existingFiles.Contains(file));
 
-        foreach (string file in files) ListBoxItems.Add(DefaultListBoxItem(file));
+        foreach (string file in files)
+        {
+            ListBoxItems.Add(DefaultListBoxItem(file));
+        }
     }
 
     protected virtual void SaveList()
@@ -159,7 +165,10 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
     {
         FolderBrowserDialog folderBrowserDialog = new() { SelectedPath = FolderPath };
 
-        if (folderBrowserDialog.ShowDialog() is DialogResult.OK) FolderPath = folderBrowserDialog.SelectedPath;
+        if (folderBrowserDialog.ShowDialog() is DialogResult.OK)
+        {
+            FolderPath = folderBrowserDialog.SelectedPath;
+        }
     }
 
     protected static ListBoxItem DefaultListBoxItem(string content)
