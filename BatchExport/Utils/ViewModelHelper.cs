@@ -213,10 +213,9 @@ internal static class ViewModelHelper
 
     public static string[] SplitBySemicolon(this string line)
     {
-        return line.Split(';')
+        return [.. line.Split(';')
             .Select(word => word.Trim())
             .Distinct()
-            .Where(word => !string.IsNullOrWhiteSpace(word))
-            .ToArray();
+            .Where(word => !string.IsNullOrWhiteSpace(word))];
     }
 }

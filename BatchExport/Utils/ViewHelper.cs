@@ -53,10 +53,9 @@ internal static class ViewHelper
 
     private static Workset[] GetWorksets()
     {
-        return new FilteredWorksetCollector(_uiApp.ActiveUIDocument.Document)
+        return [.. new FilteredWorksetCollector(_uiApp.ActiveUIDocument.Document)
             .OfKind(WorksetKind.UserWorkset)
-            .ToWorksets()
-            .ToArray();
+            .ToWorksets()];
     }
 
     private static void CloseCurrentForm()

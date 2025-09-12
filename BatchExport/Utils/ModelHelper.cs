@@ -26,10 +26,12 @@ public static class ModelHelper
         {
             WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.CloseAllWorksets);
 
-            IList<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)
-                .Where(wp => !prefixes.Any(wp.Name.StartsWith))
-                .Select(wp => wp.Id)
-                .ToList();
+            IList<WorksetId> worksetIds =
+            [
+                .. WorksharingUtils.GetUserWorksetInfo(modelPath)
+                    .Where(wp => !prefixes.Any(wp.Name.StartsWith))
+                    .Select(wp => wp.Id)
+            ];
 
             worksetConfiguration.Open(worksetIds);
 
@@ -199,36 +201,39 @@ public static class ModelHelper
     }
 
 #if R24_OR_GREATER
-        public static void PurgeAll(this Document doc)
+    public static void PurgeAll(this Document doc)
+    {
+        try
         {
-            try
+            int previousCount;
+            
+            do
             {
-                int previousCount;
-
-                do
-                {
-                    HashSet<ElementId> unusedElements = doc.GetUnusedElements(new HashSet<ElementId>())
+                HashSet<ElementId> unusedElement =
+                    [
+                        .. doc.GetUnusedElements(new HashSet<ElementId>())
                         .Where(el => doc.GetElement(el) is not null
-                                     && doc.GetElement(el) is not RevitLinkType)
-                        .ToHashSet();
-
-                    previousCount = unusedElements.Count;
-
-                    if (previousCount == 0) break;
-
-                    using Transaction tr = new(doc, "Purge unused");
-                    tr.Start();
-
-                    doc.Delete(unusedElements);
-
-                    tr.Commit();
-                } while (0 < previousCount);
-            }
-            catch
-            {
-                // ignored
-            }
+                            && doc.GetElement(el) is not RevitLinkType)
+                    ];
+                
+                previousCount = unusedElements.Count;
+                
+                if (previousCount == 0) break;
+                
+                using Transaction tr = new(doc, "Purge unused");
+                tr.Start();
+                
+                doc.Delete(unusedElements);
+                
+                tr.Commit();            
+            } while (0 < previousCount);
+        
         }
+        catch
+        {
+            // ignored
+        }
+    }
 #endif
 
     /// <summary>
@@ -258,11 +263,13 @@ public static class ModelHelper
 #if R22_OR_GREATER
     public static void RemoveEmptyWorksets(this Document doc)
     {
-        List<WorksetId> worksets = new FilteredWorksetCollector(doc)
-            .OfKind(WorksetKind.UserWorkset)
-            .ToWorksetIds()
-            .Where(doc.IsWorksetEmpty)
-            .ToList();
+        List<WorksetId> worksets = 
+        [
+            .. new FilteredWorksetCollector(doc)
+                .OfKind(WorksetKind.UserWorkset)
+                .ToWorksetIds()
+                .Where(doc.IsWorksetEmpty)
+        ];
 
         using Transaction tr = new(doc);
         tr.Start("Remove empty worksets");

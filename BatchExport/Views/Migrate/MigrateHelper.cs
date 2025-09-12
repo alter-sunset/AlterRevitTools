@@ -52,8 +52,11 @@ public static class MigrateHelper
         List<string> failedFiles = new(items.Count);
         List<string> movedFiles = new(items.Count);
 
-        foreach ((string oldFile, string newFile) in items)
+        foreach (KeyValuePair<string, string> item in items)
         {
+            string oldFile = item.Key;
+            string newFile = item.Value;
+            
             if (!File.Exists(oldFile))
             {
                 failedFiles.Add(oldFile);

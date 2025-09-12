@@ -73,8 +73,7 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
 
         ParamsNames = string.Join(";", form.ParametersNames);
         CsvPath = form.CsvPath;
-        ListBoxItems = new ObservableCollection<ListBoxItem>(form.Files.FilterRevitFiles()
-            .Select(DefaultListBoxItem));
+        ListBoxItems = [.. form.Files.FilterRevitFiles().Select(DefaultListBoxItem)];
     }
 
     protected override void SaveList()
@@ -96,7 +95,7 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
         {
             CsvPath = CsvPath,
             ParametersNames = ParametersNames,
-            Files = ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty).ToArray()
+            Files = [.. ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)]
         };
     }
 

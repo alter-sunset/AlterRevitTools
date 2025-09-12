@@ -197,9 +197,12 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
         NamePostfix = form.NamePostfix;
         WorksetPrefix = string.Join(";", form.WorksetPrefixes);
         ExportScopeView = NavisworksExportScope.View == form.ExportScope;
-        ListBoxItems = new ObservableCollection<ListBoxItem>(form.Files
-            .FilterRevitFiles()
-            .Select(DefaultListBoxItem));
+        ListBoxItems = 
+        [
+            .. form.Files
+                .FilterRevitFiles()
+                .Select(DefaultListBoxItem)
+        ];
         ConvertLights = form.ConvertLights;
         ConvertLinkedCADFormats = form.ConvertLinkedCADFormats;
         FacetingFactor = form.FacetingFactor;
@@ -245,9 +248,11 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
             FolderPath = FolderPath,
             NamePrefix = NamePrefix,
             NamePostfix = NamePostfix,
-            WorksetPrefixes = WorksetPrefix.Split(';')
-                .Select(prefix => prefix.Trim())
-                .ToArray(),
+            WorksetPrefixes = 
+                [
+                    .. WorksetPrefix.Split(';')
+                        .Select(prefix => prefix.Trim())
+                ],
             ConvertLights = ConvertLights,
             ConvertLinkedCADFormats = ConvertLinkedCADFormats,
             FacetingFactor = FacetingFactor,
@@ -264,9 +269,11 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
 
         IEnumerable<string> configs = File.ReadLines(openFileDialog.FileName);
 
-        Configs = new ObservableCollection<Config>(configs
-            .Where(config => config.EndsWith(".json") && File.Exists(config))
-            .Select(config => new Config(config)));
+        Configs = 
+        [
+            .. configs.Where(config => config.EndsWith(".json") && File.Exists(config))
+                .Select(config => new Config(config))
+        ];
 
         if (!Configs.Any())
         {

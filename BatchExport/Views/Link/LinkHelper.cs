@@ -20,10 +20,12 @@ internal static class LinkHelper
         bool isCurrentWorkset = linkViewModel.IsCurrentWorkset;
         bool setWorksetId = !isCurrentWorkset && linkViewModel.Worksets.Length > 0;
 
-        List<Entry> entries = linkViewModel.Entries
-            .Where(entry => !string.IsNullOrWhiteSpace(entry.Name) && File.Exists(entry.Name))
-            .OrderBy(entry => entry.SelectedWorkset?.Name ?? string.Empty)
-            .ToList();
+        List<Entry> entries = 
+        [
+            .. linkViewModel.Entries
+                .Where(entry => !string.IsNullOrWhiteSpace(entry.Name) && File.Exists(entry.Name))
+                .OrderBy(entry => entry.SelectedWorkset?.Name ?? string.Empty)
+        ];
 
         LinkProps props = new(doc.GetWorksetTable(), setWorksetId, linkViewModel.PinLinks,
             linkViewModel.WorksetPrefixes);

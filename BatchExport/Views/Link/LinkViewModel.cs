@@ -53,7 +53,7 @@ public class LinkViewModel : ViewModelBase
         set => SetProperty(ref _pinLinks, value);
     }
 
-    public override string[] Files => Entries.Select(e => e.Name).ToArray();
+    public override string[] Files => [.. Entries.Select(e => e.Name)];
 
     public ObservableCollection<Entry> Entries
     {
@@ -98,7 +98,7 @@ public class LinkViewModel : ViewModelBase
 
         IEnumerable<string> files = File.ReadLines(openFileDialog.FileName).FilterRevitFiles();
 
-        Entries = new ObservableCollection<Entry>(files.Select(file => new Entry(this, file)));
+        Entries = [.. files.Select(file => new Entry(this, file))];
 
         if (!Entries.Any())
         {
@@ -114,7 +114,7 @@ public class LinkViewModel : ViewModelBase
 
         if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
-        HashSet<string> existingFiles = new(Files);
+        HashSet<string> existingFiles = [.. Files];
 
         openFileDialog.FileNames.Where(file => !existingFiles.Contains(file))
             .Distinct()

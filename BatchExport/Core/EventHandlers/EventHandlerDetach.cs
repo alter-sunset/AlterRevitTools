@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
 using AlterTools.BatchExport.Utils;
@@ -22,7 +21,7 @@ public class EventHandlerDetach : EventHandlerBase
         using Application app = uiApp.Application;
         using ErrorSuppressor errorSuppressor = new(uiApp);
 
-        List<ListBoxItem> listItems = detachVm.ListBoxItems.ToList();
+        List<ListBoxItem> listItems = [.. detachVm.ListBoxItems];
 
         foreach (ListBoxItem item in listItems)
         {

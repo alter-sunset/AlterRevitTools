@@ -113,7 +113,7 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
 
         IEnumerable<string> files = File.ReadLines(openFileDialog.FileName).FilterRevitFiles();
 
-        ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
+        ListBoxItems = [.. files.Select(DefaultListBoxItem)];
 
         if (!ListBoxItems.Any())
         {
@@ -129,7 +129,7 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
 
         if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
-        HashSet<string> existingFiles = new(Files);
+        HashSet<string> existingFiles = [.. Files];
 
         IEnumerable<string> files = openFileDialog.FileNames.Distinct()
             .Where(file => !existingFiles.Contains(file));

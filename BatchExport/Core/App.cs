@@ -29,10 +29,11 @@ public class App : IExternalApplication
         List<ButtonContext> buttons = ButtonContext.GetButtonsContext();
 
         //Create panels from config
-        _panels = buttons.Select(button => button.Panel)
-            .Distinct()
-            .Select(panelName => new Panel(GetRibbonPanel(uiApp, panelName), panelName))
-            .ToArray();
+        _panels =
+        [
+            .. buttons.Select(button => button.Panel).Distinct()
+                .Select(panelName => new Panel(GetRibbonPanel(uiApp, panelName), panelName))
+        ];
 
         buttons.ForEach(CreateButton);
 

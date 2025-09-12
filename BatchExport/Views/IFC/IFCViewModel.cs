@@ -123,9 +123,12 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
         ExportScopeView = form.ExportView;
         ViewName = form.ViewName;
         SelectedLevel = SpaceBoundaryLevels.FirstOrDefault(level => level.Key == form.SpaceBoundaryLevel);
-        ListBoxItems = new ObservableCollection<ListBoxItem>(form.Files
-            .FilterRevitFiles()
-            .Select(DefaultListBoxItem));
+        ListBoxItems = 
+        [
+            .. form.Files
+                .FilterRevitFiles()
+                .Select(DefaultListBoxItem)
+        ];
         TurnOffLog = form.TurnOffLog;
     }
 
@@ -158,7 +161,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
             WorksetPrefixes = WorksetPrefixes,
             ExportView = ExportScopeView,
             ViewName = ViewName,
-            Files = ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty).ToArray(),
+            Files = [.. ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)],
             TurnOffLog = TurnOffLog
         };
     }
