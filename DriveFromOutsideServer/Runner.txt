@@ -1,0 +1,4 @@
+'
+Dim Jrn
+Set Jrn = CrsJournalScript
+Jrn.RibbonEvent "Execute external command:93c51559-3920-41cd-bedc-eb7e985fbddb:Test.App"

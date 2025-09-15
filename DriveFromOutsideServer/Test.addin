@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<RevitAddIns>
+	<AddIn Type="Command">
+		<Text>Test</Text>
+		<Assembly>Test.dll</Assembly>
+		<Description>command autorun example</Description>
+		<ClientId>93c51559-3920-41cd-bedc-eb7e985fbddb</ClientId>
+		<FullClassName>Test.App</FullClassName>
+		<VendorId>ALTR</VendorId>
+		<VendorDescription>altersunset</VendorDescription>
+	</AddIn>
+  </RevitAddIns>
