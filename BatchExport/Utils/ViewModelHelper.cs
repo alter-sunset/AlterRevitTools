@@ -66,8 +66,7 @@ internal static class ViewModelHelper
 
     internal static bool IsEverythingFilled(this LinkViewModel linkVm) => linkVm.IsListNotEmpty();
 
-    private static bool IsListNotEmpty(this LinkViewModel linkVm) =>
-        CheckCondition(linkVm.Entries.Count > 0, NoFiles);
+    private static bool IsListNotEmpty(this LinkViewModel linkVm) => CheckCondition(linkVm.Entries.Count > 0, NoFiles);
 
     private static bool IsListNotEmpty(this ViewModelBase vmBase) =>
         CheckCondition(vmBase.ListBoxItems.Count > 0, NoFiles);

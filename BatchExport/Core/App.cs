@@ -31,7 +31,9 @@ public class App : IExternalApplication
         //Create panels from config
         _panels =
         [
-            .. buttons.Select(button => button.Panel).Distinct()
+            .. buttons
+                .Select(button => button.Panel)
+                .Distinct()
                 .Select(panelName => new Panel(GetRibbonPanel(uiApp, panelName), panelName))
         ];
 
@@ -59,7 +61,9 @@ public class App : IExternalApplication
 
     private void CreateButton(ButtonContext button)
     {
-        RibbonPanel ribbonPanel = _panels.First(panel => panel.Item2 == button.Panel).Item1;
+        RibbonPanel ribbonPanel = _panels
+            .First(panel => panel.Item2 == button.Panel)
+            .Item1;
 
         try
         {

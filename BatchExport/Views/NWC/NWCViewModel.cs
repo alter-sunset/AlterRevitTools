@@ -256,7 +256,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
             ConvertLights = ConvertLights,
             ConvertLinkedCADFormats = ConvertLinkedCADFormats,
             FacetingFactor = FacetingFactor,
-            Files = ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty).ToArray(),
+            Files = [.. ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)],
             TurnOffLog = TurnOffLog
         };
     }
@@ -271,7 +271,8 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
 
         Configs = 
         [
-            .. configs.Where(config => config.EndsWith(".json") && File.Exists(config))
+            .. configs.Where(config => config.EndsWith(".json")
+                                       && File.Exists(config))
                 .Select(config => new Config(config))
         ];
 

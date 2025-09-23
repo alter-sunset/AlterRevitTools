@@ -23,11 +23,14 @@ internal static class LinkHelper
         List<Entry> entries = 
         [
             .. linkViewModel.Entries
-                .Where(entry => !string.IsNullOrWhiteSpace(entry.Name) && File.Exists(entry.Name))
+                .Where(entry => !string.IsNullOrWhiteSpace(entry.Name)
+                                && File.Exists(entry.Name))
                 .OrderBy(entry => entry.SelectedWorkset?.Name ?? string.Empty)
         ];
 
-        LinkProps props = new(doc.GetWorksetTable(), setWorksetId, linkViewModel.PinLinks,
+        LinkProps props = new(doc.GetWorksetTable(),
+            setWorksetId,
+            linkViewModel.PinLinks,
             linkViewModel.WorksetPrefixes);
 
         entries.ForEach(entry => TryCreateLink(doc, entry, props));

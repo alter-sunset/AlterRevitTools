@@ -161,9 +161,10 @@ public class ExportHelperBase
         }
     }
 
-    protected virtual void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp, ref ILogger log)
-    {
-    }
+    protected virtual void ExportModel(IConfigBaseExtended iConfig,
+        Document doc,
+        ref bool isFuckedUp,
+        ref ILogger log) { }
 
     protected static void Export(IConfigBaseExtended iConfig,
         Document doc,

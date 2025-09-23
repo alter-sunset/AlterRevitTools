@@ -48,7 +48,8 @@ public static class ModelHelper
     {
         return new FilteredElementCollector(doc)
             .OfClass(typeof(View3D))
-            .Any(el => el.Name == viewName && !((View3D)el).IsTemplate);
+            .Any(el => el.Name == viewName
+                       && !((View3D)el).IsTemplate);
     }
 
     /// <summary>
@@ -209,11 +210,11 @@ public static class ModelHelper
             
             do
             {
-                HashSet<ElementId> unusedElement =
+                HashSet<ElementId> unusedElements =
                     [
                         .. doc.GetUnusedElements(new HashSet<ElementId>())
-                        .Where(el => doc.GetElement(el) is not null
-                            && doc.GetElement(el) is not RevitLinkType)
+                            .Where(el => doc.GetElement(el) is not null
+                                         && doc.GetElement(el) is not RevitLinkType)
                     ];
                 
                 previousCount = unusedElements.Count;

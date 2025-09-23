@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using AlterTools.BatchExport.Core.Commands;
 using AlterTools.BatchExport.Core.EventHandlers;
