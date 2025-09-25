@@ -19,7 +19,7 @@ public class EventHandlerDetach : EventHandlerBase
         if (!detachVm.IsEverythingFilled()) return;
 
         using Application app = uiApp.Application;
-        using ErrorSuppressor errorSuppressor = new(uiApp);
+        ErrorSuppressor errorSuppressor = new(uiApp);
 
         List<ListBoxItem> listItems = [.. detachVm.ListBoxItems];
 
@@ -35,6 +35,7 @@ public class EventHandlerDetach : EventHandlerBase
 
             detachVm.DetachModel(app, filePath);
         }
+        errorSuppressor.Dispose();
 
         detachVm.Finisher("DetachModelsFinished");
     }
