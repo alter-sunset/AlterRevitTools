@@ -25,6 +25,7 @@ public class EventHandlerDetach : EventHandlerBase
 
         foreach (ListBoxItem item in listItems)
         {
+            item.Background = Brushes.Blue;
             string filePath = item.Content?.ToString();
 
             if (!File.Exists(filePath))
@@ -34,6 +35,7 @@ public class EventHandlerDetach : EventHandlerBase
             }
 
             detachVm.DetachModel(app, filePath);
+            item.Background = Brushes.Green;
         }
         errorSuppressor.Dispose();
 
