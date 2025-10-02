@@ -314,6 +314,15 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Level;Assembly Code;Count.
+        /// </summary>
+        public static string Const_DefaultParams {
+            get {
+                return ResourceManager.GetString("Const.DefaultParams", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A difference in coordinate systems has been detected. 
         ///Do you want to retrieve coordinates from the file?.
         /// </summary>
@@ -863,6 +872,69 @@ namespace AlterTools.BatchExport.Resources {
         public static string NWC_Title {
             get {
                 return ResourceManager.GetString("NWC.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parameters to export.
+        /// </summary>
+        public static string Params_ExportParams {
+            get {
+                return ResourceManager.GetString("Params.ExportParams", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify the names of the parameters to be exported using a semicolon (;)..
+        /// </summary>
+        public static string Params_ExportParams_ToolTip {
+            get {
+                return ResourceManager.GetString("Params.ExportParams.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Family and Type.
+        /// </summary>
+        public static string Params_FamilyAndType {
+            get {
+                return ResourceManager.GetString("Params.FamilyAndType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LIst of RVT files to process.
+        /// </summary>
+        public static string Params_Header {
+            get {
+                return ResourceManager.GetString("Params.Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path to resulting file.
+        /// </summary>
+        public static string Params_ResultFile {
+            get {
+                return ResourceManager.GetString("Params.ResultFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Define path to the resulting file in (.csv) format.
+        /// </summary>
+        public static string Params_ResultFile_ToolTip {
+            get {
+                return ResourceManager.GetString("Params.ResultFile.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch export parameters.
+        /// </summary>
+        public static string Params_Title {
+            get {
+                return ResourceManager.GetString("Params.Title", resourceCulture);
             }
         }
     }

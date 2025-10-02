@@ -296,4 +296,28 @@ Id элементов</value>
     <data name="NWC.Button.Begin.ToolTip" xml:space="preserve">
         <value>Запустить экспорт нескольких конфигураций</value>
     </data>
+    <data name="Params.Title" xml:space="preserve">
+        <value>Пакетный экспорт параметров</value>
+    </data>
+    <data name="Params.Header" xml:space="preserve">
+        <value>Список RVT файлов для обработки</value>
+    </data>
+    <data name="Params.ResultFile" xml:space="preserve">
+        <value>Путь к выходному файлу</value>
+    </data>
+    <data name="Params.ResultFile.ToolTip" xml:space="preserve">
+        <value>Укажите путь к выходному файлу формата .csv</value>
+    </data>
+    <data name="Params.ExportParams" xml:space="preserve">
+        <value>Параметры для экспорта</value>
+    </data>
+    <data name="Params.ExportParams.ToolTip" xml:space="preserve">
+        <value>Укажите через точку-запятую (;) имена параметров, которые необходимо экспортировать.</value>
+    </data>
+    <data name="Params.FamilyAndType" xml:space="preserve">
+        <value>Семейство и типоразмер</value>
+    </data>
+    <data name="Const.DefaultParams" xml:space="preserve">
+        <value>ADSK_Этаж;ADSK_Номер здания;ADSK_Комплект чертежей;</value>
+    </data>
 </root>

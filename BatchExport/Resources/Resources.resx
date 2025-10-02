@@ -291,4 +291,28 @@ CAD formats</value>
     <data name="NWC.Button.Begin.ToolTip" xml:space="preserve">
         <value>Begin export of multiple configurations</value>
     </data>
+    <data name="Params.Title" xml:space="preserve">
+        <value>Batch export parameters</value>
+    </data>
+    <data name="Params.Header" xml:space="preserve">
+        <value>LIst of RVT files to process</value>
+    </data>
+    <data name="Params.ResultFile" xml:space="preserve">
+        <value>Path to resulting file</value>
+    </data>
+    <data name="Params.ResultFile.ToolTip" xml:space="preserve">
+        <value>Define path to the resulting file in (.csv) format</value>
+    </data>
+    <data name="Params.ExportParams" xml:space="preserve">
+        <value>Parameters to export</value>
+    </data>
+    <data name="Params.ExportParams.ToolTip" xml:space="preserve">
+        <value>Specify the names of the parameters to be exported using a semicolon (;).</value>
+    </data>
+    <data name="Params.FamilyAndType" xml:space="preserve">
+        <value>Family and Type</value>
+    </data>
+    <data name="Const.DefaultParams" xml:space="preserve">
+        <value>Level;Assembly Code;Count</value>
+    </data>
 </root>

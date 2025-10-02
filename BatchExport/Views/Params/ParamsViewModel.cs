@@ -11,7 +11,7 @@ namespace AlterTools.BatchExport.Views.Params;
 
 public class ParamsViewModel : ViewModelBase, IConfigParams
 {
-    private const string DefaultParams = "ADSK_Этаж;ADSK_Номер здания;ADSK_Комплект чертежей;";
+    private static string DefaultParams => Resources.Resources.Const_DefaultParams;
 
     private RelayCommand _browseCsvCommand;
 
