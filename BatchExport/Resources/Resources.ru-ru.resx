@@ -392,4 +392,25 @@ Id элементов</value>
     <data name="Const.NoParameters" xml:space="preserve">
         <value>Укажите хотя бы один параметр для экспорта!</value>
     </data>
+    <data name="Const.TaskCompleted" xml:space="preserve">
+        <value>Задание выполнено.</value>
+    </data>
+    <data name="Migrate.NoConfig" xml:space="preserve">
+        <value>Предоставьте ссылку на конфиг!</value>
+    </data>
+    <data name="Migrate.DidntCopy" xml:space="preserve">
+        <value>Следующие файлы не были скопированы:</value>
+    </data>
+    <data name="NWC.AddConfigs" xml:space="preserve">
+        <value>Добавьте конфиги!</value>
+    </data>
+    <data name="Const.TotalTime" xml:space="preserve">
+        <value>Всего затрачено времени:</value>
+    </data>
+    <data name="Const.ThereWhere" xml:space="preserve">
+        <value>В процессе выполнения было</value>
+    </data>
+    <data name="Const.Errors" xml:space="preserve">
+        <value>ошибок.</value>
+    </data>
 </root>

@@ -15,15 +15,17 @@ public class EventHandlerMigrate : EventHandlerBase
 
         if (!MigrateHelper.IsConfigPathValid(migrateVm.ConfigPath))
         {
-            MessageBox.Show("Предоставьте ссылку на конфиг");
+            MessageBox.Show(Resources.Resources.Migrate_NoConfig);
             return;
         }
 
         List<string> failedFiles = MigrateHelper.ProcessFiles(migrateVm.ConfigPath, uiApp.Application);
 
         string msg = failedFiles.Count > 0
-            ? $"Задание выполнено.\nСледующие файлы не были скопированы:\n{string.Join("\n", failedFiles)}"
-            : "Задание выполнено.";
+            ? $"{Resources.Resources.Const_TaskCompleted}" +
+              $"\n{Resources.Resources.Migrate_DidntCopy}" +
+              $"\n{string.Join("\n", failedFiles)}"
+            : Resources.Resources.Const_TaskCompleted;
 
         migrateVm.Finisher("MigrateModelsFinished", msg);
     }

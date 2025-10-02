@@ -370,6 +370,15 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to errors..
+        /// </summary>
+        public static string Const_Errors {
+            get {
+                return ResourceManager.GetString("Const.Errors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to (CSV) split by semicolon (.csv)|*.csv.
         /// </summary>
         public static string Const_FilterCsv {
@@ -541,11 +550,38 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Task completed..
+        /// </summary>
+        public static string Const_TaskCompleted {
+            get {
+                return ResourceManager.GetString("Const.TaskCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There where.
+        /// </summary>
+        public static string Const_ThereWhere {
+            get {
+                return ResourceManager.GetString("Const.ThereWhere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Well, the call is yours..
         /// </summary>
         public static string Const_ToHell {
             get {
                 return ResourceManager.GetString("Const.ToHell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total time:.
+        /// </summary>
+        public static string Const_TotalTime {
+            get {
+                return ResourceManager.GetString("Const.TotalTime", resourceCulture);
             }
         }
         
@@ -821,11 +857,38 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to These files weren&apos;t copied:.
+        /// </summary>
+        public static string Migrate_DidntCopy {
+            get {
+                return ResourceManager.GetString("Migrate.DidntCopy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide path to the configuration!.
+        /// </summary>
+        public static string Migrate_NoConfig {
+            get {
+                return ResourceManager.GetString("Migrate.NoConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Batch migrate models.
         /// </summary>
         public static string Migrate_Title {
             get {
                 return ResourceManager.GetString("Migrate.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add configs!.
+        /// </summary>
+        public static string NWC_AddConfigs {
+            get {
+                return ResourceManager.GetString("NWC.AddConfigs", resourceCulture);
             }
         }
         

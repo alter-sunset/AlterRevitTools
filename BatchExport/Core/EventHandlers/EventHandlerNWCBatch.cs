@@ -19,7 +19,7 @@ public class EventHandlerNWCBatch : EventHandlerBase
 
         if (nwcVm.Configs.Count == 0)
         {
-            MessageBox.Show("Загрузите конфиги.");
+            MessageBox.Show(Resources.Resources.NWC_AddConfigs);
             return;
         }
 
@@ -50,7 +50,8 @@ public class EventHandlerNWCBatch : EventHandlerBase
             Thread.Sleep(1000);
         }
 
-        string msg = $"Задание выполнено. Всего затрачено времени:{DateTime.Now - timeStart}";
+        string msg = $"{Resources.Resources.Const_TaskCompleted}" +
+                     $"\n{Resources.Resources.Const_TotalTime}{DateTime.Now - timeStart}";
 
         nwcVm.Finisher("ExportBatchNWCFinished", msg);
     }

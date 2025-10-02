@@ -386,4 +386,25 @@ Should I create one?</value>
     <data name="Const.NoParameters" xml:space="preserve">
         <value>Specify at least one parameter for export!</value>
     </data>
+    <data name="Const.TaskCompleted" xml:space="preserve">
+        <value>Task completed.</value>
+    </data>
+    <data name="Migrate.NoConfig" xml:space="preserve">
+        <value>Provide path to the configuration!</value>
+    </data>
+    <data name="Migrate.DidntCopy" xml:space="preserve">
+        <value>These files weren't copied:</value>
+    </data>
+    <data name="NWC.AddConfigs" xml:space="preserve">
+        <value>Add configs!</value>
+    </data>
+    <data name="Const.TotalTime" xml:space="preserve">
+        <value>Total time:</value>
+    </data>
+    <data name="Const.ThereWhere" xml:space="preserve">
+        <value>There where</value>
+    </data>
+    <data name="Const.Errors" xml:space="preserve">
+        <value>errors.</value>
+    </data>
 </root>
