@@ -12,6 +12,7 @@ public class TransmitViewModel : ViewModelBase
     {
         EventHandlerBase = eventHandlerTransmit;
         HelpMessage = string.Join(Environment.NewLine,
+            Resources.Strings.Help_TransmitTitle,
             Resources.Strings.Help_Load,
             Resources.Strings.Help_Folder,
             Resources.Strings.Help_List,
