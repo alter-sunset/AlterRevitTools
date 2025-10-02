@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Detach.Title" xml:space="preserve">
+        <value>Batch export of detached models</value>
+    </data>
+    <data name="Detach.Header" xml:space="preserve">
+        <value>RVT files to be exported</value>
+    </data>
+    <data name="Base.Button.Help.ToolTip" xml:space="preserve">
+        <value>Plugin usage help</value>
+    </data>
+    <data name="Base.Button.Help.Content" xml:space="preserve">
+        <value>Help</value>
+    </data>
+    <data name="Base.ListBox.ToolTip" xml:space="preserve">
+        <value>Files list in (.rvt) format</value>
+    </data>
+    <data name="Base.Button.Load.Content" xml:space="preserve">
+        <value>Load</value>
+    </data>
+    <data name="Base.Button.Load.ToolTip" xml:space="preserve">
+        <value>Load (.rvt) files</value>
+    </data>
+</root>

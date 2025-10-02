@@ -20,8 +20,8 @@ public static class RevitLinksHelper
         foreach (ElementId refId in externalReferences)
         {
             ExternalFileReference extRef = transData.GetLastSavedReferenceData(refId);
-            if (ExternalFileReferenceType.RevitLink != extRef.ExternalFileReferenceType) continue;
-
+            if (extRef.ExternalFileReferenceType is not ExternalFileReferenceType.RevitLink) continue;
+            
             string name = Path.GetFileName(extRef.GetPath().CentralServerPath);
             if (name is null) continue;
 

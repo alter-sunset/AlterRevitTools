@@ -83,7 +83,8 @@ public static class ModelHelper
     {
         try
         {
-            WorksharingUtils.RelinquishOwnership(doc, new RelinquishOptions(true),
+            WorksharingUtils.RelinquishOwnership(doc,
+                new RelinquishOptions(true),
                 new TransactWithCentralOptions());
         }
         catch

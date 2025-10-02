@@ -82,11 +82,10 @@ public class LinkViewModel : ViewModelBase
             if (isWorkset)
             {
                 entry.SelectedWorkset = sourceEntry.SelectedWorkset;
+                continue;
             }
-            else
-            {
-                entry.SelectedImportPlacement = sourceEntry.SelectedImportPlacement;
-            }
+            
+            entry.SelectedImportPlacement = sourceEntry.SelectedImportPlacement;
         }
     }
 

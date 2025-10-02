@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Utils;
@@ -47,7 +45,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
 
     public RelayCommand LoadMappingCommand => _loadMappingCommand ??= new RelayCommand(_ => LoadMapping());
 
-    public IReadOnlyDictionary<IFCVersion, string> IFCVersions { get; } = IFCContext.IFCVersions;
+    public static IReadOnlyDictionary<IFCVersion, string> IFCVersions => IFCContext.IFCVersions;
 
     public KeyValuePair<IFCVersion, string> SelectedVersion
     {

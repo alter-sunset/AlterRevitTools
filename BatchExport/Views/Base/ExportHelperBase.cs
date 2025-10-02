@@ -27,7 +27,7 @@ public class ExportHelperBase
 
         if (iConfig is ViewModelBaseExtended)
         {
-            models = items.Select(item => item.Content.ToString()).ToArray();
+            models = [.. items.Select(item => item.Content.ToString())];
         }
 
         foreach (string file in models)

@@ -1,0 +1,35 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Detach.Title" xml:space="preserve">
+        <value>Пакетный экспорт отсоединённых моделей</value>
+    </data>
+    <data name="Detach.Header" xml:space="preserve">
+        <value>Список RVT файлов для экспорта</value>
+    </data>
+    <data name="Base.Button.Help.ToolTip" xml:space="preserve">
+        <value>Справка по работе с плагином</value>
+    </data>
+    <data name="Base.Button.Help.Content" xml:space="preserve">
+        <value>Справка</value>
+    </data>
+    <data name="Base.ListBox.ToolTip" xml:space="preserve">
+        <value>Список файлов в формате (.rvt)</value>
+    </data>
+    <data name="Base.Button.Load.Content" xml:space="preserve">
+        <value>Загрузить</value>
+    </data>
+    <data name="Base.Button.Load.ToolTip" xml:space="preserve">
+        <value>Загрузить файлы в формате (.rvt)</value>
+    </data>
+</root>
