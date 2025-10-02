@@ -314,6 +314,34 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A difference in coordinate systems has been detected. 
+        ///Do you want to retrieve coordinates from the file?.
+        /// </summary>
+        public static string Const_DiffCoord {
+            get {
+                return ResourceManager.GetString("Const.DiffCoord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string Const_Error {
+            get {
+                return ResourceManager.GetString("Const.Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link.
+        /// </summary>
+        public static string Const_Link {
+            get {
+                return ResourceManager.GetString("Const.Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The document doesn&apos;t have any transmission data.
         /// </summary>
         public static string Const_NoTransDataAlert {
@@ -549,11 +577,29 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add to the current Workset.
+        /// </summary>
+        public static string Link_CurrentWorkset {
+            get {
+                return ResourceManager.GetString("Link.CurrentWorkset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to List of RVT files to link.
         /// </summary>
         public static string Link_Header {
             get {
                 return ResourceManager.GetString("Link.Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pin Links.
+        /// </summary>
+        public static string Link_Pin {
+            get {
+                return ResourceManager.GetString("Link.Pin", resourceCulture);
             }
         }
         

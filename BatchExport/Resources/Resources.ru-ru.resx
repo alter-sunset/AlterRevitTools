@@ -188,4 +188,20 @@
     <data name="Base.TurnOffLog" xml:space="preserve">
         <value>Не создавать лог-файл</value>
     </data>
+    <data name="Const.DiffCoord" xml:space="preserve">
+        <value>Обнаружено различие систем координат. 
+Выполнить получение коордианат из файла?</value>
+    </data>
+    <data name="Const.Link" xml:space="preserve">
+        <value>Связь</value>
+    </data>
+    <data name="Const.Error" xml:space="preserve">
+        <value>Ошибка</value>
+    </data>
+    <data name="Link.Pin" xml:space="preserve">
+        <value>Закрепить связи</value>
+    </data>
+    <data name="Link.CurrentWorkset" xml:space="preserve">
+        <value>Добавить в текущий рабочий набор</value>
+    </data>
 </root>

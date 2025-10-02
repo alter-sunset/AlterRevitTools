@@ -195,4 +195,20 @@ Worksets with Links are usually closed to speed up the opening of models.</value
     <data name="Base.TurnOffLog" xml:space="preserve">
         <value>Don't create log file</value>
     </data>
+    <data name="Const.DiffCoord" xml:space="preserve">
+        <value>A difference in coordinate systems has been detected. 
+Do you want to retrieve coordinates from the file?</value>
+    </data>
+    <data name="Const.Link" xml:space="preserve">
+        <value>Link</value>
+    </data>
+    <data name="Const.Error" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="Link.Pin" xml:space="preserve">
+        <value>Pin Links</value>
+    </data>
+    <data name="Link.CurrentWorkset" xml:space="preserve">
+        <value>Add to the current Workset</value>
+    </data>
 </root>

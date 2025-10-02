@@ -11,7 +11,7 @@ namespace AlterTools.BatchExport.Views.Link;
 
 internal static class LinkHelper
 {
-    private const string DiffCoord = "Обнаружено различие систем координат. Выполнить получение коордианат из файла?";
+    private static string DiffCoord => Resources.Resources.Const_DiffCoord;
 
     internal static void CreateLinks(this LinkViewModel linkViewModel, UIApplication uiApp)
     {
@@ -48,7 +48,7 @@ internal static class LinkHelper
 
         using Transaction tr = new(doc);
 
-        tr.Start($"Link {entry.Name}");
+        tr.Start($"{Resources.Resources.Const_Link} {entry.Name}");
 
         if (props.SetWorksetId)
         {
@@ -89,7 +89,9 @@ internal static class LinkHelper
     private static void ShowYesNoTaskDialog(string msg, Action action)
     {
         TaskDialogResult result =
-            TaskDialog.Show("Ошибка", msg, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
+            TaskDialog.Show(Resources.Resources.Const_Error,
+                msg,
+                TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
         if (result is TaskDialogResult.Yes)
         {
             action?.Invoke();
