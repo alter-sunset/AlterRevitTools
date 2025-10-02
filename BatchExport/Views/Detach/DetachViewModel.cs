@@ -10,11 +10,11 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
 
     private bool _isToRename;
 
-    private string _maskIn = @"05_В_Работе\52_ПД";
+    private string _maskIn = Resources.Resources.Detach_MaskIn;
 
     private string _maskInName = "R18";
 
-    private string _maskOut = @"06_Общие\62_ПД";
+    private string _maskOut = Resources.Resources.Detach_MaskOut;
 
     private string _maskOutName = "R24";
 

@@ -9,7 +9,7 @@ namespace AlterTools.BatchExport.Utils;
 
 public static class RevitLinksHelper
 {
-    private const string NoTransDataAlert = "The document doesn't have any transmission data";
+    private static string NoTransDataAlert => Resources.Resources.Const_NoTransDataAlert;
 
     public static void UnloadRevitLinks(this ModelPath filePath, string folder, bool isSameFolder = true)
     {

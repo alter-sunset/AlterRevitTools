@@ -77,7 +77,55 @@
     <data name="Base.Button.Start.ToolTip" xml:space="preserve">
         <value>Запуск пакетного экспорта текущей конфигурации</value>
     </data>
-    <data name="Base.Const.WrongScheme" xml:space="preserve">
+    <data name="Const.WrongScheme" xml:space="preserve">
         <value>Неверная схема файла</value>
+    </data>
+    <data name="Const.NoTransDataAlert" xml:space="preserve">
+        <value>В модели нет данных класса TransmissionData</value>
+    </data>
+    <data name="Const.VMBase.NoFiles" xml:space="preserve">
+        <value>В текстовом файле не было найдено подходящей информации</value>
+    </data>
+    <data name="Detach.Mask" xml:space="preserve">
+        <value>Маска</value>
+    </data>
+    <data name="Detach.Change" xml:space="preserve">
+        <value>Заменить</value>
+    </data>
+    <data name="Detach.To" xml:space="preserve">
+        <value>На</value>
+    </data>
+    <data name="Detach.Rename" xml:space="preserve">
+        <value>Переименовать файлы</value>
+    </data>
+    <data name="Detach.CheckBox.Purge.Content" xml:space="preserve">
+        <value>Очистить модели</value>
+    </data>
+    <data name="Detach.CheckBox.Purge.ToolTip" xml:space="preserve">
+        <value>Реализует функционал команды "Удалить неиспользуемые'" до полной очистки (несколько раз)</value>
+    </data>
+    <data name="Detach.CheckBox.EmptyView.Content" xml:space="preserve">
+        <value>Проверить модели на "пустой" вид</value>
+    </data>
+    <data name="Detach.CheckBox.EmptyView.ToolTip" xml:space="preserve">
+        <value>Следует ли проверить вид "Имя_вида" на наличие объектов, и если вид пустой - то сохранить файл с префиксом "EMPTY_"</value>
+    </data>
+    <data name="Detach.ViewName" xml:space="preserve">
+        <value>Имя вида для проверки</value>
+    </data>
+    <data name="Detach.RemoveWorksets" xml:space="preserve">
+        <value>Удалить пустые рабочие наборы</value>
+    </data>
+    <data name="Detach.RemoveLinks" xml:space="preserve">
+        <value>Удалить связи</value>
+    </data>
+    <data name="Base.Button.EraseList" xml:space="preserve">
+        <value>Удалить список</value>
+    </data>
+    <data name="Detach.MaskIn" xml:space="preserve">
+        <value>05_В_Работе\52_ПД</value>
+    </data>
+    <data name="Detach.MaskOut" xml:space="preserve">
+        <value>06_Общие\62_ПД</value>
     </data>
 </root>

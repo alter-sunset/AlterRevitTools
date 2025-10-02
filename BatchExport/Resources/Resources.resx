@@ -84,7 +84,55 @@
     <data name="Base.Button.Start.ToolTip" xml:space="preserve">
         <value>Start batch export of current configuration</value>
     </data>
-    <data name="Base.Const.WrongScheme" xml:space="preserve">
+    <data name="Const.WrongScheme" xml:space="preserve">
         <value>Wrong file scheme</value>
+    </data>
+    <data name="Const.NoTransDataAlert" xml:space="preserve">
+        <value>The document doesn't have any transmission data</value>
+    </data>
+    <data name="Const.VMBase.NoFiles" xml:space="preserve">
+        <value>Couldn't find correct info in the text file</value>
+    </data>
+    <data name="Detach.Mask" xml:space="preserve">
+        <value>Mask</value>
+    </data>
+    <data name="Detach.Change" xml:space="preserve">
+        <value>Change</value>
+    </data>
+    <data name="Detach.To" xml:space="preserve">
+        <value>To</value>
+    </data>
+    <data name="Detach.Rename" xml:space="preserve">
+        <value>Rename files</value>
+    </data>
+    <data name="Detach.CheckBox.Purge.Content" xml:space="preserve">
+        <value>Purge models</value>
+    </data>
+    <data name="Detach.CheckBox.Purge.ToolTip" xml:space="preserve">
+        <value>Implements the functionality of the "Purge unused" command until complete cleanup (several times)</value>
+    </data>
+    <data name="Detach.CheckBox.EmptyView.Content" xml:space="preserve">
+        <value>Check models for “empty” view</value>
+    </data>
+    <data name="Detach.CheckBox.EmptyView.ToolTip" xml:space="preserve">
+        <value>Should the “View_name” view be checked for the presence of objects, and if the view is empty, the file will be saved with the prefix “EMPTY_”</value>
+    </data>
+    <data name="Detach.ViewName" xml:space="preserve">
+        <value>Name of the view to check</value>
+    </data>
+    <data name="Detach.RemoveWorksets" xml:space="preserve">
+        <value>Remove empty worksets</value>
+    </data>
+    <data name="Detach.RemoveLinks" xml:space="preserve">
+        <value>Remove Links</value>
+    </data>
+    <data name="Base.Button.EraseList" xml:space="preserve">
+        <value>Erase list</value>
+    </data>
+    <data name="Detach.MaskIn" xml:space="preserve">
+        <value>05_WIP</value>
+    </data>
+    <data name="Detach.MaskOut" xml:space="preserve">
+        <value>06_Common</value>
     </data>
 </root>

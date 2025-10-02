@@ -13,7 +13,7 @@ namespace AlterTools.BatchExport.Views.Base;
 
 public class ViewModelBase : NotifyPropertyChanged, IConfigBase
 {
-    protected const string NoFiles = "В текстовом файле не было найдено подходящей информации";
+    protected static string NoFiles => Resources.Resources.Const_VMBase_NoFiles;
 
     private RelayCommand _browseFolderCommand;
     private RelayCommand _deleteCommand;
@@ -75,7 +75,8 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
 
     [UsedImplicitly]
     public RelayCommand HelpCommand =>
-        _helpCommand ??= new RelayCommand(_ => MessageBox.Show(HelpMessage, "Справка"));
+        _helpCommand ??= new RelayCommand(_ => MessageBox.Show(HelpMessage,
+            Resources.Resources.Base_Button_Help_Content));
 
     protected EventHandlerBase EventHandlerBase { get; set; }
 

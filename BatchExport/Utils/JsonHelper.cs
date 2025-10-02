@@ -42,7 +42,7 @@ public static class JsonHelper<T>
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"Неверная схема файла\n{ex.Message}");
+            MessageBox.Show($"{Resources.Resources.Const_WrongScheme}\n{ex.Message}");
             return default;
         }
     }

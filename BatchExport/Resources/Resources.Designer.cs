@@ -87,6 +87,15 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Erase list.
+        /// </summary>
+        public static string Base_Button_EraseList {
+            get {
+                return ResourceManager.GetString("Base.Button.EraseList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Help.
         /// </summary>
         public static string Base_Button_Help_Content {
@@ -177,15 +186,6 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Wrong file scheme.
-        /// </summary>
-        public static string Base_Const_WrongScheme {
-            get {
-                return ResourceManager.GetString("Base.Const.WrongScheme", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to RVT files to be exported.
         /// </summary>
         public static string Base_Header {
@@ -213,11 +213,155 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The document doesn&apos;t have any transmission data.
+        /// </summary>
+        public static string Const_NoTransDataAlert {
+            get {
+                return ResourceManager.GetString("Const.NoTransDataAlert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t find correct info in the text file.
+        /// </summary>
+        public static string Const_VMBase_NoFiles {
+            get {
+                return ResourceManager.GetString("Const.VMBase.NoFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong file scheme.
+        /// </summary>
+        public static string Const_WrongScheme {
+            get {
+                return ResourceManager.GetString("Const.WrongScheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change.
+        /// </summary>
+        public static string Detach_Change {
+            get {
+                return ResourceManager.GetString("Detach.Change", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Check models for “empty” view.
+        /// </summary>
+        public static string Detach_CheckBox_EmptyView_Content {
+            get {
+                return ResourceManager.GetString("Detach.CheckBox.EmptyView.Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Should the “View_name” view be checked for the presence of objects, and if the view is empty, the file will be saved with the prefix “EMPTY_”.
+        /// </summary>
+        public static string Detach_CheckBox_EmptyView_ToolTip {
+            get {
+                return ResourceManager.GetString("Detach.CheckBox.EmptyView.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Purge models.
+        /// </summary>
+        public static string Detach_CheckBox_Purge_Content {
+            get {
+                return ResourceManager.GetString("Detach.CheckBox.Purge.Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Implements the functionality of the &quot;Purge unused&quot; command until complete cleanup (several times).
+        /// </summary>
+        public static string Detach_CheckBox_Purge_ToolTip {
+            get {
+                return ResourceManager.GetString("Detach.CheckBox.Purge.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mask.
+        /// </summary>
+        public static string Detach_Mask {
+            get {
+                return ResourceManager.GetString("Detach.Mask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 05_WIP.
+        /// </summary>
+        public static string Detach_MaskIn {
+            get {
+                return ResourceManager.GetString("Detach.MaskIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 06_Common.
+        /// </summary>
+        public static string Detach_MaskOut {
+            get {
+                return ResourceManager.GetString("Detach.MaskOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove Links.
+        /// </summary>
+        public static string Detach_RemoveLinks {
+            get {
+                return ResourceManager.GetString("Detach.RemoveLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove empty worksets.
+        /// </summary>
+        public static string Detach_RemoveWorksets {
+            get {
+                return ResourceManager.GetString("Detach.RemoveWorksets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename files.
+        /// </summary>
+        public static string Detach_Rename {
+            get {
+                return ResourceManager.GetString("Detach.Rename", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Batch export of detached models.
         /// </summary>
         public static string Detach_Title {
             get {
                 return ResourceManager.GetString("Detach.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To.
+        /// </summary>
+        public static string Detach_To {
+            get {
+                return ResourceManager.GetString("Detach.To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name of the view to check.
+        /// </summary>
+        public static string Detach_ViewName {
+            get {
+                return ResourceManager.GetString("Detach.ViewName", resourceCulture);
             }
         }
         

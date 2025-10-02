@@ -57,7 +57,7 @@ public class ExportHelperBase
             }
             catch (Exception ex)
             {
-                log.Error("Ля, я хз даже. Смотри, что в исключении написано: ", ex);
+                log.Error("No idea. Read exception message: ", ex);
                 isFuckedUp = true;
             }
             finally
@@ -84,7 +84,7 @@ public class ExportHelperBase
 
     private static void HandleFileNotFound(string file, ListBoxItem[] items, ILogger log)
     {
-        log.Error($"Файла {file} не существует. Ты совсем Туттуру?");
+        log.Error($"File {file} doesn't exist.");
         UpdateItemBackground(items, file, Brushes.Red);
     }
 
@@ -126,7 +126,7 @@ public class ExportHelperBase
         }
         catch (Exception ex)
         {
-            log.Error("Файл не открылся. ", ex);
+            log.Error("File didn't open. ", ex);
 
             UpdateItemBackground(items, file, Brushes.Red);
 
@@ -143,12 +143,12 @@ public class ExportHelperBase
             doc.FreeTheModel();
             if (!isFuckedUp)
             {
-                log.Success("Всё ок.");
+                log.Success("OK.");
             }
         }
         catch (Exception ex)
         {
-            log.Error("Не смог освободить рабочие наборы. ", ex);
+            log.Error("Couldn't relinquish ownership of worksets. ", ex);
             isFuckedUp = true;
         }
         finally
@@ -202,14 +202,14 @@ public class ExportHelperBase
         }
         catch (Exception ex)
         {
-            log.Error("Смотри исключение.", ex);
+            log.Error("Read exception message.", ex);
             isFuckedUp = true;
             return;
         }
 
         if (!File.Exists(fileName))
         {
-            log.Error("Файл не был создан. Скорее всего нет геометрии на виде.");
+            log.Error("File wasn't created. Probably no geometry in a view.");
             isFuckedUp = true;
             return;
         }
@@ -219,7 +219,7 @@ public class ExportHelperBase
 
         if (newHash != oldHash) return;
 
-        log.Error("Файл не был обновлён. Хэш сумма не изменилась.");
+        log.Error("File wasn't updated. Hash didn't change.");
         isFuckedUp = true;
     }
 
@@ -233,13 +233,13 @@ public class ExportHelperBase
 
         if (iConfig.IgnoreMissingView)
         {
-            log.Info($"Вида {iConfig.ViewName} не существует. Экспорт будет выполнен по всей модели.");
+            log.Info($"View {iConfig.ViewName} doesn't exist. The export gonna be processed by whole model.");
             return true;
         }
 
         log.Error(doc.DoesViewExist(iConfig.ViewName)
-            ? "Нет геометрии на виде."
-            : $"Вида {iConfig.ViewName} не существует. Экспорт выполнен не будет.");
+            ? "No geometry in a view."
+            : $"View {iConfig.ViewName} doesn't exist. The export won't be performed.");
 
         isFuckedUp = true;
         return false;
