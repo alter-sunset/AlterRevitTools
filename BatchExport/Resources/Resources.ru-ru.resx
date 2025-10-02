@@ -113,12 +113,6 @@
     <data name="Detach.ViewName" xml:space="preserve">
         <value>Имя вида для проверки</value>
     </data>
-    <data name="Detach.RemoveWorksets" xml:space="preserve">
-        <value>Удалить пустые рабочие наборы</value>
-    </data>
-    <data name="Detach.RemoveLinks" xml:space="preserve">
-        <value>Удалить связи</value>
-    </data>
     <data name="Base.Button.EraseList" xml:space="preserve">
         <value>Удалить список</value>
     </data>
@@ -325,5 +319,77 @@ Id элементов</value>
     </data>
     <data name="Transmit.SameFolder" xml:space="preserve">
         <value>Всё в одной папке</value>
+    </data>
+    <data name="Const.FilterTxt" xml:space="preserve">
+        <value>Текстовый файл (.txt)|*.txt</value>
+    </data>
+    <data name="Const.FilterJson" xml:space="preserve">
+        <value>Файл JSON (.json)|*.json</value>
+    </data>
+    <data name="Const.FilterRvt" xml:space="preserve">
+        <value>Файлы Revit (.rvt)|*.rvt</value>
+    </data>
+    <data name="Const.FilterCsv" xml:space="preserve">
+        <value>(CSV) разделитель точка с запятой (.csv)|*.csv</value>
+    </data>
+    <data name="Const.RemoveLinks" xml:space="preserve">
+        <value>Удалить все связи</value>
+    </data>
+    <data name="Const.OpenWorksets" xml:space="preserve">
+        <value>Открыть Рабочие наборы</value>
+    </data>
+    <data name="Const.Purge" xml:space="preserve">
+        <value>Удалить неиспользуемые</value>
+    </data>
+    <data name="Const.RemoveEmptyWorksets" xml:space="preserve">
+        <value>Удалить пустые рабочие наборы</value>
+    </data>
+    <data name="Const.GoodEvening" xml:space="preserve">
+        <value>Добрый вечер</value>
+    </data>
+    <data name="Const.Done" xml:space="preserve">
+        <value>Готово!</value>
+    </data>
+    <data name="Const.Detached" xml:space="preserve">
+        <value>_отсоединено</value>
+    </data>
+    <data name="Const.NoFolder" xml:space="preserve">
+        <value>Укажите папку для экспорта!</value>
+    </data>
+    <data name="Const.WrongFolder" xml:space="preserve">
+        <value>Укажите корректную папку для экспорта!</value>
+    </data>
+    <data name="Const.CreateFolder" xml:space="preserve">
+        <value>Такой папки не существует. 
+С
+оздать папку?</value>
+    </data>
+    <data name="Const.ToHell" xml:space="preserve">
+        <value>Нет, так нет. 
+Тогда живи в проклятом мире, который сам и создал.</value>
+    </data>
+    <data name="Const.NoFiles" xml:space="preserve">
+        <value>Добавьте хотя бы один файл для экспорта!</value>
+    </data>
+    <data name="Const.NoViewName" xml:space="preserve">
+        <value>Введите имя вида!</value>
+    </data>
+    <data name="Const.NoPathMode" xml:space="preserve">
+        <value>Выберите режим выбора пути!</value>
+    </data>
+    <data name="Const.NoMaskPath" xml:space="preserve">
+        <value>Укажите маску замены пути!</value>
+    </data>
+    <data name="Const.WrongMask" xml:space="preserve">
+        <value>Несоответствие входной маски и имён файлов!</value>
+    </data>
+    <data name="Const.NoMaskFile" xml:space="preserve">
+        <value>Введите маску для переименования файлов!</value>
+    </data>
+    <data name="Const.NoCsv" xml:space="preserve">
+        <value>Укажите корректный путь к выходному файлу!</value>
+    </data>
+    <data name="Const.NoParameters" xml:space="preserve">
+        <value>Укажите хотя бы один параметр для экспорта!</value>
     </data>
 </root>

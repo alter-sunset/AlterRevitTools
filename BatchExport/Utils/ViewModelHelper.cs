@@ -14,27 +14,18 @@ namespace AlterTools.BatchExport.Utils;
 
 internal static class ViewModelHelper
 {
-    private const string NoFolder = "Укажите папку для экспорта!";
-    private const string WrongFolder = "Укажите корректную папку для экспорта!";
-
-    private const string CreateFolder = """
-                                        Такой папки не существует.
-                                        Создать папку?
-                                        """;
-
-    private const string ToHell = """
-                                  Нет, так нет.
-                                  Тогда живи в проклятом мире, который сам и создал.
-                                  """;
-
-    private const string NoFiles = "Добавьте хотя бы один файл для экспорта!";
-    private const string NoViewName = "Введите имя вида!";
-    private const string NoPathMode = "Выберите режим выбора пути!";
-    private const string NoMaskPath = "Укажите маску замены пути!";
-    private const string WrongMask = "Несоответствие входной маски и имён файлов!";
-    private const string NoMaskFile = "Введите маску для переименования файлов!";
-    private const string NoCsv = "Укажите корректный путь к выходному файлу!";
-    private const string NoParameters = "Укажите хотя бы один параметр для экспорта!";
+    private static string NoFolder => Resources.Resources.Const_NoFolder;
+    private static string WrongFolder => Resources.Resources.Const_WrongFolder;
+    private static string CreateFolder => Resources.Resources.Const_CreateFolder;
+    private static string ToHell => Resources.Resources.Const_ToHell;
+    private static string NoFiles => Resources.Resources.Const_NoFiles;
+    private static string NoViewName => Resources.Resources.Const_NoViewName;
+    private static string NoPathMode => Resources.Resources.Const_NoPathMode;
+    private static string NoMaskPath => Resources.Resources.Const_NoMaskPath;
+    private static string WrongMask => Resources.Resources.Const_WrongMask;
+    private static string NoMaskFile => Resources.Resources.Const_NoMaskFile;
+    private static string NoCsv => Resources.Resources.Const_NoCsv;
+    private static string NoParameters =>  Resources.Resources.Const_NoParameters;
 
     internal static bool IsEverythingFilled(this DetachViewModel detachVm)
     {
@@ -87,7 +78,9 @@ internal static class ViewModelHelper
 
         if (Directory.Exists(folderPath)) return true;
 
-        MessageBoxResult result = MessageBox.Show(CreateFolder, "Добрый вечер", MessageBoxButton.YesNo);
+        MessageBoxResult result = MessageBox.Show(CreateFolder,
+            Resources.Resources.Const_GoodEvening,
+            MessageBoxButton.YesNo);
 
         if (result is MessageBoxResult.Yes)
         {
@@ -182,9 +175,9 @@ internal static class ViewModelHelper
     /// <param name="vmBase">ViewModel to finalize</param>
     /// <param name="id">TaskDialog Id</param>
     /// <param name="msg">Message to show to user</param>
-    public static void Finisher(this ViewModelBase vmBase, string id, string msg = "Задание выполнено")
+    public static void Finisher(this ViewModelBase vmBase, string id, string msg = "Task completed")
     {
-        TaskDialog taskDialog = new("Готово!")
+        TaskDialog taskDialog = new(Resources.Resources.Const_Done)
         {
             CommonButtons = TaskDialogCommonButtons.Close,
             Id = id,
@@ -206,8 +199,7 @@ internal static class ViewModelHelper
 
     public static string RemoveDetach(this string name)
     {
-        return name.Replace("_detached", "")
-            .Replace("_отсоединено", "");
+        return name.Replace(Resources.Resources.Const_Detached, "");
     }
 
     public static string[] SplitBySemicolon(this string line)

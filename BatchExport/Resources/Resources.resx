@@ -120,12 +120,6 @@
     <data name="Detach.ViewName" xml:space="preserve">
         <value>Name of the view to check</value>
     </data>
-    <data name="Detach.RemoveWorksets" xml:space="preserve">
-        <value>Remove empty worksets</value>
-    </data>
-    <data name="Detach.RemoveLinks" xml:space="preserve">
-        <value>Remove Links</value>
-    </data>
     <data name="Base.Button.EraseList" xml:space="preserve">
         <value>Erase list</value>
     </data>
@@ -321,5 +315,75 @@ CAD formats</value>
     <data name="Transmit.SameFolder" xml:space="preserve">
         <value>Put everything 
 in single folder</value>
+    </data>
+    <data name="Const.FilterTxt" xml:space="preserve">
+        <value>Text file (.txt)|*.txt</value>
+    </data>
+    <data name="Const.FilterJson" xml:space="preserve">
+        <value>JSON file (.json)|*.json</value>
+    </data>
+    <data name="Const.FilterRvt" xml:space="preserve">
+        <value>Revit Files (.rvt)|*.rvt</value>
+    </data>
+    <data name="Const.FilterCsv" xml:space="preserve">
+        <value>(CSV) split by semicolon (.csv)|*.csv</value>
+    </data>
+    <data name="Const.RemoveLinks" xml:space="preserve">
+        <value>Remove all Links</value>
+    </data>
+    <data name="Const.OpenWorksets" xml:space="preserve">
+        <value>Open Worksets</value>
+    </data>
+    <data name="Const.Purge" xml:space="preserve">
+        <value>Purge unused</value>
+    </data>
+    <data name="Const.RemoveEmptyWorksets" xml:space="preserve">
+        <value>Remove empty Worksets</value>
+    </data>
+    <data name="Const.GoodEvening" xml:space="preserve">
+        <value>Good evening</value>
+    </data>
+    <data name="Const.Done" xml:space="preserve">
+        <value>Done!</value>
+    </data>
+    <data name="Const.Detached" xml:space="preserve">
+        <value>_detached</value>
+    </data>
+    <data name="Const.NoFolder" xml:space="preserve">
+        <value>Specify the folder for export!</value>
+    </data>
+    <data name="Const.WrongFolder" xml:space="preserve">
+        <value>Specify valid folder for export!</value>
+    </data>
+    <data name="Const.CreateFolder" xml:space="preserve">
+        <value>No such folder exists. 
+Should I create one?</value>
+    </data>
+    <data name="Const.ToHell" xml:space="preserve">
+        <value>Well, the call is yours.</value>
+    </data>
+    <data name="Const.NoFiles" xml:space="preserve">
+        <value>Add at least one file for export!</value>
+    </data>
+    <data name="Const.NoViewName" xml:space="preserve">
+        <value>Enter View name</value>
+    </data>
+    <data name="Const.NoPathMode" xml:space="preserve">
+        <value>Select the Path mode!</value>
+    </data>
+    <data name="Const.NoMaskPath" xml:space="preserve">
+        <value>Specify the path replacement mask!</value>
+    </data>
+    <data name="Const.WrongMask" xml:space="preserve">
+        <value>Inconsistency between the input mask and file names!</value>
+    </data>
+    <data name="Const.NoMaskFile" xml:space="preserve">
+        <value>Enter a mask for renaming files!</value>
+    </data>
+    <data name="Const.NoCsv" xml:space="preserve">
+        <value>Specify the valid path to the output file!</value>
+    </data>
+    <data name="Const.NoParameters" xml:space="preserve">
+        <value>Specify at least one parameter for export!</value>
     </data>
 </root>

@@ -190,7 +190,7 @@
                   Grid.ColumnSpan="2"
                   FontSize="14"
                   VerticalContentAlignment="Center"
-                  Content="{x:Static resx:Resources.Detach_RemoveWorksets}"
+                  Content="{x:Static resx:Resources.Const_RemoveEmptyWorksets}"
                   IsChecked="{Binding RemoveEmptyWorksets}"
                   IsEnabled="{Binding IsWorksetRemoverEnabled}" />
 
@@ -199,7 +199,7 @@
                   Grid.Column="0"
                   VerticalAlignment="Center"
                   FontSize="14"
-                  Content="{x:Static resx:Resources.Detach_RemoveLinks}"
+                  Content="{x:Static resx:Resources.Const_RemoveLinks}"
                   IsChecked="{Binding RemoveLinks}" />
 
         <Button Margin="10"

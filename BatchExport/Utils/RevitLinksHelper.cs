@@ -76,7 +76,7 @@ public static class RevitLinksHelper
 
         if (transData is not null) return true;
 
-        TaskDialog.Show("Operation Error", NoTransDataAlert);
+        TaskDialog.Show(Resources.Resources.Const_Error, NoTransDataAlert);
 
         return false;
     }

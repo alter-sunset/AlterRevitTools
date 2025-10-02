@@ -9,14 +9,14 @@ public static class DialogHelper
     private const string ExtJson = ".json";
     private const string ExtRvt = ".rvt";
     private const string ExtCsv = ".csv";
-    private const string FilterTxt = "Текстовый файл (.txt)|*.txt";
-    private const string FilterJson = "Файл JSON (.json)|*.json";
-    private const string FilterRvt = "Revit Files (.rvt)|*.rvt";
-    private const string FilterCsv = "(CSV) разделитель точка с запятой (.csv)|*.csv";
     private const string DefaultFileNameTxt = "ListOfRVTFiles";
     private const string DefaultFileNameJson = "ConfigBatchExport";
     private const string DefaultFileNameCsv = "ParametersExport";
     private const string Exception = "Unsupported dialog type";
+    private static string FilterTxt => Resources.Resources.Const_FilterTxt;
+    private static string FilterJson => Resources.Resources.Const_FilterJson;
+    private static string FilterRvt => Resources.Resources.Const_FilterRvt;
+    private static string FilterCsv => Resources.Resources.Const_FilterCsv;
 
     public static OpenFileDialog OpenFileDialog(this DialogType dialogType)
     {

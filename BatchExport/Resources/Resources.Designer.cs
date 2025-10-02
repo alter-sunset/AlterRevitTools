@@ -305,6 +305,16 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No such folder exists. 
+        ///Should I create one?.
+        /// </summary>
+        public static string Const_CreateFolder {
+            get {
+                return ResourceManager.GetString("Const.CreateFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Default.
         /// </summary>
         public static string Const_Default {
@@ -323,12 +333,30 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to _detached.
+        /// </summary>
+        public static string Const_Detached {
+            get {
+                return ResourceManager.GetString("Const.Detached", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A difference in coordinate systems has been detected. 
         ///Do you want to retrieve coordinates from the file?.
         /// </summary>
         public static string Const_DiffCoord {
             get {
                 return ResourceManager.GetString("Const.DiffCoord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Done!.
+        /// </summary>
+        public static string Const_Done {
+            get {
+                return ResourceManager.GetString("Const.Done", resourceCulture);
             }
         }
         
@@ -342,11 +370,119 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to (CSV) split by semicolon (.csv)|*.csv.
+        /// </summary>
+        public static string Const_FilterCsv {
+            get {
+                return ResourceManager.GetString("Const.FilterCsv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to JSON file (.json)|*.json.
+        /// </summary>
+        public static string Const_FilterJson {
+            get {
+                return ResourceManager.GetString("Const.FilterJson", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Revit Files (.rvt)|*.rvt.
+        /// </summary>
+        public static string Const_FilterRvt {
+            get {
+                return ResourceManager.GetString("Const.FilterRvt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Text file (.txt)|*.txt.
+        /// </summary>
+        public static string Const_FilterTxt {
+            get {
+                return ResourceManager.GetString("Const.FilterTxt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Good evening.
+        /// </summary>
+        public static string Const_GoodEvening {
+            get {
+                return ResourceManager.GetString("Const.GoodEvening", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Link.
         /// </summary>
         public static string Const_Link {
             get {
                 return ResourceManager.GetString("Const.Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify the valid path to the output file!.
+        /// </summary>
+        public static string Const_NoCsv {
+            get {
+                return ResourceManager.GetString("Const.NoCsv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add at least one file for export!.
+        /// </summary>
+        public static string Const_NoFiles {
+            get {
+                return ResourceManager.GetString("Const.NoFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify the folder for export!.
+        /// </summary>
+        public static string Const_NoFolder {
+            get {
+                return ResourceManager.GetString("Const.NoFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter a mask for renaming files!.
+        /// </summary>
+        public static string Const_NoMaskFile {
+            get {
+                return ResourceManager.GetString("Const.NoMaskFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify the path replacement mask!.
+        /// </summary>
+        public static string Const_NoMaskPath {
+            get {
+                return ResourceManager.GetString("Const.NoMaskPath", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify at least one parameter for export!.
+        /// </summary>
+        public static string Const_NoParameters {
+            get {
+                return ResourceManager.GetString("Const.NoParameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the Path mode!.
+        /// </summary>
+        public static string Const_NoPathMode {
+            get {
+                return ResourceManager.GetString("Const.NoPathMode", resourceCulture);
             }
         }
         
@@ -360,11 +496,83 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter View name.
+        /// </summary>
+        public static string Const_NoViewName {
+            get {
+                return ResourceManager.GetString("Const.NoViewName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open Worksets.
+        /// </summary>
+        public static string Const_OpenWorksets {
+            get {
+                return ResourceManager.GetString("Const.OpenWorksets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Purge unused.
+        /// </summary>
+        public static string Const_Purge {
+            get {
+                return ResourceManager.GetString("Const.Purge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove empty Worksets.
+        /// </summary>
+        public static string Const_RemoveEmptyWorksets {
+            get {
+                return ResourceManager.GetString("Const.RemoveEmptyWorksets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all Links.
+        /// </summary>
+        public static string Const_RemoveLinks {
+            get {
+                return ResourceManager.GetString("Const.RemoveLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Well, the call is yours..
+        /// </summary>
+        public static string Const_ToHell {
+            get {
+                return ResourceManager.GetString("Const.ToHell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Couldn&apos;t find correct info in the text file.
         /// </summary>
         public static string Const_VMBase_NoFiles {
             get {
                 return ResourceManager.GetString("Const.VMBase.NoFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify valid folder for export!.
+        /// </summary>
+        public static string Const_WrongFolder {
+            get {
+                return ResourceManager.GetString("Const.WrongFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inconsistency between the input mask and file names!.
+        /// </summary>
+        public static string Const_WrongMask {
+            get {
+                return ResourceManager.GetString("Const.WrongMask", resourceCulture);
             }
         }
         
@@ -446,24 +654,6 @@ namespace AlterTools.BatchExport.Resources {
         public static string Detach_MaskOut {
             get {
                 return ResourceManager.GetString("Detach.MaskOut", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remove Links.
-        /// </summary>
-        public static string Detach_RemoveLinks {
-            get {
-                return ResourceManager.GetString("Detach.RemoveLinks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remove empty worksets.
-        /// </summary>
-        public static string Detach_RemoveWorksets {
-            get {
-                return ResourceManager.GetString("Detach.RemoveWorksets", resourceCulture);
             }
         }
         
