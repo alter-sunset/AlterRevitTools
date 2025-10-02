@@ -19,7 +19,7 @@ public class EventHandlerNWC : EventHandlerBase
         NWCHelper nwcHelper = new();
         nwcHelper.BatchExportModels(nwcVm, uiApp, ref log);
 
-        string msg = $"{Resources.Resources.Const_ThereWhere} {log.ErrorCount} {Resources.Resources.Const_Errors}";
+        string msg = $"{Resources.Strings.Const_ThereWhere} {log.ErrorCount} {Resources.Strings.Const_Errors}";
 
         log.Dispose();
 

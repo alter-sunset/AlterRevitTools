@@ -1,7 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
 using System.IO;
 using System.Linq;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Utils;
@@ -11,7 +10,7 @@ namespace AlterTools.BatchExport.Views.Params;
 
 public class ParamsViewModel : ViewModelBase, IConfigParams
 {
-    private static string DefaultParams => Resources.Resources.Const_DefaultParams;
+    private static string DefaultParams => Resources.Strings.Const_DefaultParams;
 
     private RelayCommand _browseCsvCommand;
 
@@ -22,11 +21,11 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
     public ParamsViewModel(EventHandlerParams eventHandlerParams)
     {
         EventHandlerBase = eventHandlerParams;
-        HelpMessage = Help.GetHelpDictionary()
-            .GetResultMessage(HelpMessageType.ParamsTitle,
-                HelpMessageType.Load,
-                HelpMessageType.Config,
-                HelpMessageType.Start);
+        HelpMessage = string.Join(Environment.NewLine,
+            Resources.Strings.Help_ParamsTitle,
+            Resources.Strings.Help_Load,
+            Resources.Strings.Help_Config,
+            Resources.Strings.Help_Start);
 
         ParamsNames = DefaultParams;
     }

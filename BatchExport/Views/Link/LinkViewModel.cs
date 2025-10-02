@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -34,11 +35,11 @@ public class LinkViewModel : ViewModelBase
     {
         Worksets = worksets;
         EventHandlerBase = eventHandlerLink;
-        HelpMessage = Help.GetHelpDictionary()
-            .GetResultMessage(HelpMessageType.LinkTitle,
-                HelpMessageType.Load,
-                HelpMessageType.List,
-                HelpMessageType.Start);
+        HelpMessage = string.Join(Environment.NewLine,
+            Resources.Strings.Help_LinkTitle,
+            Resources.Strings.Help_Load,
+            Resources.Strings.Help_List,
+            Resources.Strings.Help_Start);
     }
 
     public bool IsCurrentWorkset

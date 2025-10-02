@@ -12,7 +12,7 @@
                  Width="800"
                  WindowStartupLocation="CenterScreen"
                  ResizeMode="NoResize"
-                 Title="{x:Static resx:Resources.Params_Title}">
+                 Title="{x:Static resx:Strings.Params_Title}">
     <Grid Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -33,14 +33,14 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    VerticalAlignment="Center"
-                   Text="{x:Static resx:Resources.Params_Header}"/>
+                   Text="{x:Static resx:Strings.Params_Header}"/>
 
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="0"
                 Command="{Binding HelpCommand}"
-                ToolTip="{x:Static resx:Resources.Base_Button_Help_ToolTip}"
-                Content="{x:Static resx:Resources.Base_Button_Help_Content}" />
+                ToolTip="{x:Static resx:Strings.Base_Button_Help_ToolTip}"
+                Content="{x:Static resx:Strings.Base_Button_Help_Content}" />
         <ListBox Grid.Row="1"
                  Grid.Column="0"
                  Grid.ColumnSpan="4"
@@ -48,50 +48,50 @@
                  SelectionMode="Extended"
                  ItemsSource="{Binding ListBoxItems}"
                  SelectedItem="{Binding SelectedItem}"
-                 ToolTip="{x:Static resx:Resources.Base_ListBox_ToolTip}" />
+                 ToolTip="{x:Static resx:Strings.Base_ListBox_ToolTip}" />
 
         <Button Margin="10"
                 Grid.Column="0"
                 Grid.Row="2"
                 Command="{Binding LoadCommand}"
-                Content="{x:Static resx:Resources.Base_Button_Load_Content}"
-                ToolTip="{x:Static resx:Resources.Base_Button_Load_ToolTip}" />
+                Content="{x:Static resx:Strings.Base_Button_Load_Content}"
+                ToolTip="{x:Static resx:Strings.Base_Button_Load_ToolTip}" />
         <Button Margin="10"
                 Grid.Column="1"
                 Grid.Row="2"
                 Command="{Binding LoadListCommand}"
-                Content="{x:Static resx:Resources.Base_Button_LoadList_Content}"
-                ToolTip="{x:Static resx:Resources.Base_Button_LoadList_ToolTip}" />
+                Content="{x:Static resx:Strings.Base_Button_LoadList_Content}"
+                ToolTip="{x:Static resx:Strings.Base_Button_LoadList_ToolTip}" />
         <Button Margin="10"
                 Grid.Column="2"
                 Grid.Row="2"
                 Command="{Binding SaveListCommand}"
-                Content="{x:Static resx:Resources.Base_Button_SaveList_Content}"
-                ToolTip="{x:Static resx:Resources.Base_Button_SaveList_ToolTip}" />
+                Content="{x:Static resx:Strings.Base_Button_SaveList_Content}"
+                ToolTip="{x:Static resx:Strings.Base_Button_SaveList_ToolTip}" />
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="2"
                 Command="{Binding DeleteCommand}"
-                Content="{x:Static resx:Resources.Base_Button_Delete_Content}"
-                ToolTip="{x:Static resx:Resources.Base_Button_Delete_ToolTip}" />
+                Content="{x:Static resx:Strings.Base_Button_Delete_Content}"
+                ToolTip="{x:Static resx:Strings.Base_Button_Delete_ToolTip}" />
 
         <TextBlock Margin="10,0,40,0"
                    FontSize="12"
                    Grid.Row="3"
                    Grid.Column="0"
                    VerticalAlignment="Center"
-                   Text="{x:Static resx:Resources.Params_ResultFile}" />
+                   Text="{x:Static resx:Strings.Params_ResultFile}" />
         <TextBox Grid.Column="0" Margin="165,10,135,10"
                  Grid.Row="3"
                  Grid.ColumnSpan="4"
                  VerticalContentAlignment="Center"
                  Text="{Binding CsvPath}"
-                 ToolTip="{x:Static resx:Resources.Params_ResultFile_ToolTip}" />
+                 ToolTip="{x:Static resx:Strings.Params_ResultFile_ToolTip}" />
         <Button Margin="80,10,10,10"
                 Grid.Column="3"
                 Grid.Row="3"
                 Command="{Binding BrowseCsvCommand}"
-                Content="{x:Static resx:Resources.Base_Button_Browse}" />
+                Content="{x:Static resx:Strings.Base_Button_Browse}" />
 
         <TextBlock Margin="10,0,40,0"
                    FontSize="12"
@@ -99,24 +99,24 @@
                    Grid.Column="0"
                    VerticalAlignment="Center"
                    TextWrapping="Wrap"
-                   Text="{x:Static resx:Resources.Params_ExportParams}" />
+                   Text="{x:Static resx:Strings.Params_ExportParams}" />
         <TextBox Grid.Column="0" Margin="165,10,10,10"
                  Grid.Row="4"
                  Grid.ColumnSpan="4"
                  VerticalContentAlignment="Center"
                  Text="{Binding ParamsNames}"
-                 ToolTip="{x:Static resx:Resources.Params_ExportParams_ToolTip}" />
+                 ToolTip="{x:Static resx:Strings.Params_ExportParams_ToolTip}" />
 
         <Button Margin="10"
                 Grid.Row="5"
                 Grid.Column="2"
                 Command="{Binding EraseCommand}"
-                Content="{x:Static resx:Resources.Base_Button_EraseList}" />
+                Content="{x:Static resx:Strings.Base_Button_EraseList}" />
         <Button Margin="10"
                 Grid.Row="5"
                 Grid.Column="3"
                 Command="{Binding RaiseEventCommand}"
-                Content="{x:Static resx:Resources.Base_Button_Start_Content}"
-                ToolTip="{x:Static resx:Resources.Base_Button_Start_ToolTip}" />
+                Content="{x:Static resx:Strings.Base_Button_Start_Content}"
+                ToolTip="{x:Static resx:Strings.Base_Button_Start_ToolTip}" />
     </Grid>
 </base:WindowBase>

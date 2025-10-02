@@ -12,7 +12,7 @@ namespace AlterTools.BatchExport.Views.Migrate;
 
 public static class MigrateHelper
 {
-    private static string WrongScheme => Resources.Resources.Const_WrongScheme;
+    private static string WrongScheme => Resources.Strings.Const_WrongScheme;
 
     public static bool IsConfigPathValid(string configPath) =>
         !string.IsNullOrEmpty(configPath) && ".json" == Path.GetExtension(configPath);

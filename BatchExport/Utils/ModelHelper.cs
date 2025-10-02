@@ -102,7 +102,7 @@ public static class ModelHelper
 
         if (ids.Count == 0) return;
 
-        using Transaction tr = new(doc, Resources.Resources.Const_RemoveLinks);
+        using Transaction tr = new(doc, Resources.Strings.Const_RemoveLinks);
 
         tr.Start();
         tr.SuppressAlert();
@@ -167,7 +167,7 @@ public static class ModelHelper
             .OfKind(WorksetKind.UserWorkset)
             .ToWorksets();
 
-        using Transaction tr = new(doc, Resources.Resources.Const_OpenWorksets);
+        using Transaction tr = new(doc, Resources.Strings.Const_OpenWorksets);
         tr.Start();
 
         // Create a temporary cable tray
@@ -222,7 +222,7 @@ public static class ModelHelper
                 
                 if (previousCount == 0) break;
                 
-                using Transaction tr = new(doc, Resources.Resources.Const_Purge);
+                using Transaction tr = new(doc, Resources.Strings.Const_Purge);
                 tr.Start();
                 
                 doc.Delete(unusedElements);
@@ -274,7 +274,7 @@ public static class ModelHelper
         ];
 
         using Transaction tr = new(doc);
-        tr.Start(Resources.Resources.Const_RemoveEmptyWorksets);
+        tr.Start(Resources.Strings.Const_RemoveEmptyWorksets);
 
         worksets.ForEach(workset => WorksetTable.DeleteWorkset(doc, workset, new DeleteWorksetSettings()));
 

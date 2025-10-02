@@ -19,7 +19,7 @@ public class EventHandlerNWCBatch : EventHandlerBase
 
         if (nwcVm.Configs.Count == 0)
         {
-            MessageBox.Show(Resources.Resources.NWC_AddConfigs);
+            MessageBox.Show(Resources.Strings.NWC_AddConfigs);
             return;
         }
 
@@ -50,8 +50,8 @@ public class EventHandlerNWCBatch : EventHandlerBase
             Thread.Sleep(1000);
         }
 
-        string msg = $"{Resources.Resources.Const_TaskCompleted}" +
-                     $"\n{Resources.Resources.Const_TotalTime}{DateTime.Now - timeStart}";
+        string msg = $"{Resources.Strings.Const_TaskCompleted}" +
+                     $"\n{Resources.Strings.Const_TotalTime}{DateTime.Now - timeStart}";
 
         nwcVm.Finisher("ExportBatchNWCFinished", msg);
     }

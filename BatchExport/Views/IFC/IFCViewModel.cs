@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -28,13 +29,13 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
     public IFCViewModel(EventHandlerIFC eventHandlerIFC)
     {
         EventHandlerBase = eventHandlerIFC;
-        HelpMessage = Help.GetHelpDictionary()
-            .GetResultMessage(HelpMessageType.IFCTitle,
-                HelpMessageType.Load,
-                HelpMessageType.Folder,
-                HelpMessageType.Naming,
-                HelpMessageType.Config,
-                HelpMessageType.Start);
+        HelpMessage = string.Join(Environment.NewLine,
+            Resources.Strings.Help_IFCTitle,
+            Resources.Strings.Help_Load,
+            Resources.Strings.Help_Folder,
+            Resources.Strings.Help_Naming,
+            Resources.Strings.Help_Config,
+            Resources.Strings.Help_Start);
     }
 
     public string Mapping
@@ -91,7 +92,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
         }
         catch
         {
-            MessageBox.Show(Resources.Resources.Const_WrongScheme);
+            MessageBox.Show(Resources.Strings.Const_WrongScheme);
         }
     }
 

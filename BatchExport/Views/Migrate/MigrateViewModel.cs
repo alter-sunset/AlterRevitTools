@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System;
+using System.Windows.Forms;
 using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Views.Base;
 
@@ -11,8 +12,7 @@ public class MigrateViewModel : ViewModelBase
     public MigrateViewModel(EventHandlerMigrate eventHandlerMigrate)
     {
         EventHandlerBase = eventHandlerMigrate;
-        HelpMessage = Help.GetHelpDictionary()
-            .GetResultMessage(HelpMessageType.Migrate);
+        HelpMessage = Resources.Strings.Help_Migrate;
     }
 
     public string ConfigPath

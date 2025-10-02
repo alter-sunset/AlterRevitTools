@@ -8,15 +8,15 @@ internal static class NWCContext
     public static IReadOnlyDictionary<NavisworksCoordinates, string> Coordinates { get; } =
         new Dictionary<NavisworksCoordinates, string>
         {
-            { NavisworksCoordinates.Shared, Resources.Resources.NWC_Shared },
-            { NavisworksCoordinates.Internal, Resources.Resources.NWC_Internal }
+            { NavisworksCoordinates.Shared, Resources.Strings.NWC_Shared },
+            { NavisworksCoordinates.Internal, Resources.Strings.NWC_Internal }
         };
 
     public static IReadOnlyDictionary<NavisworksParameters, string> Parameters { get; } =
         new Dictionary<NavisworksParameters, string>
         {
-            { NavisworksParameters.All, Resources.Resources.NWC_All },
-            { NavisworksParameters.Elements, Resources.Resources.NWC_Elements },
-            { NavisworksParameters.None, Resources.Resources.NWC_None }
+            { NavisworksParameters.All, Resources.Strings.NWC_All },
+            { NavisworksParameters.Elements, Resources.Strings.NWC_Elements },
+            { NavisworksParameters.None, Resources.Strings.NWC_None }
         };
 }

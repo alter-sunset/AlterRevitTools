@@ -8,7 +8,7 @@
                  Width="800"
                  WindowStartupLocation="CenterScreen"
                  ResizeMode="NoResize"
-                 Title="{x:Static resx:Resources.Link_Title}"
+                 Title="{x:Static resx:Strings.Link_Title}"
                  IsEnabled="{Binding IsViewEnabled}"
                  ShowInTaskbar="False">
     <Grid Background="WhiteSmoke">
@@ -31,14 +31,14 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    VerticalAlignment="Center"
-                   Text="{x:Static resx:Resources.Link_Header}" />
+                   Text="{x:Static resx:Strings.Link_Header}" />
 
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="0"
                 Command="{Binding HelpCommand}"
-                ToolTip="{x:Static resx:Resources.Base_Button_Help_ToolTip}"
-                Content="{x:Static resx:Resources.Base_Button_Help_Content}" />
+                ToolTip="{x:Static resx:Strings.Base_Button_Help_ToolTip}"
+                Content="{x:Static resx:Strings.Base_Button_Help_Content}" />
         <ListBox Grid.Row="1"
                  Grid.Column="0"
                  Grid.ColumnSpan="4"
@@ -51,7 +51,7 @@
                  ScrollViewer.VerticalScrollBarVisibility="Auto"
                  HorizontalContentAlignment="Left"
                  SelectionChanged="ListBox_SelectionChanged"
-                 ToolTip="{x:Static resx:Resources.Base_ListBox_ToolTip}">
+                 ToolTip="{x:Static resx:Strings.Base_ListBox_ToolTip}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -83,32 +83,32 @@
                 Grid.Column="0"
                 Grid.Row="2"
                 Command="{Binding LoadCommand}"
-                Content="{x:Static resx:Resources.Base_Button_Load_Content}"
-                ToolTip="{x:Static resx:Resources.Base_Button_Load_ToolTip}" />
+                Content="{x:Static resx:Strings.Base_Button_Load_Content}"
+                ToolTip="{x:Static resx:Strings.Base_Button_Load_ToolTip}" />
         <Button Margin="10"
                 Grid.Column="1"
                 Grid.Row="2"
                 Command="{Binding LoadListCommand}"
-                Content="{x:Static resx:Resources.Base_Button_LoadList_Content}"
-                ToolTip="{x:Static resx:Resources.Base_Button_LoadList_ToolTip}" />
+                Content="{x:Static resx:Strings.Base_Button_LoadList_Content}"
+                ToolTip="{x:Static resx:Strings.Base_Button_LoadList_ToolTip}" />
         <Button Margin="10"
                 Grid.Column="2"
                 Grid.Row="2"
                 Command="{Binding SaveListCommand}"
-                Content="{x:Static resx:Resources.Base_Button_SaveList_Content}"
-                ToolTip="{x:Static resx:Resources.Base_Button_SaveList_ToolTip}" />
+                Content="{x:Static resx:Strings.Base_Button_SaveList_Content}"
+                ToolTip="{x:Static resx:Strings.Base_Button_SaveList_ToolTip}" />
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="2"
                 Command="{Binding DeleteCommand}"
-                Content="{x:Static resx:Resources.Base_Button_Delete_Content}"
-                ToolTip="{x:Static resx:Resources.Base_Button_Delete_ToolTip}" />
+                Content="{x:Static resx:Strings.Base_Button_Delete_Content}"
+                ToolTip="{x:Static resx:Strings.Base_Button_Delete_ToolTip}" />
 
         <CheckBox Margin="10,0,10,0"
                   Grid.Column="0"
                   Grid.Row="4"
                   VerticalAlignment="Center"
-                  Content="{x:Static resx:Resources.Link_Pin}"
+                  Content="{x:Static resx:Strings.Link_Pin}"
                   IsChecked="{Binding PinLinks}" />
         <TextBlock Margin="10,0,10,0"
                    FontSize="12"
@@ -116,20 +116,20 @@
                    Grid.Column="1"
                    VerticalAlignment="Center"
                    TextWrapping="Wrap"
-                   Text="{x:Static resx:Resources.Base_WorksetPrefixes}" />
+                   Text="{x:Static resx:Strings.Base_WorksetPrefixes}" />
         <TextBox Margin="10,10,10,10"
                  Grid.Row="4"
                  Grid.Column="2"
                  Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
                  Text="{Binding WorksetPrefix}"
-                 ToolTip="{x:Static resx:Resources.Base_WorksetPrefixes_ToolTip}" />
+                 ToolTip="{x:Static resx:Strings.Base_WorksetPrefixes_ToolTip}" />
 
         <CheckBox Margin="10,0,100,0"
                   Grid.Column="0"
                   Grid.Row="5"
                   VerticalAlignment="Center"
-                  Content="{x:Static resx:Resources.Link_CurrentWorkset}"
+                  Content="{x:Static resx:Strings.Link_CurrentWorkset}"
                   Grid.ColumnSpan="2"
                   IsChecked="{Binding IsCurrentWorkset}" />
 
@@ -137,11 +137,11 @@
                 Grid.Row="5"
                 Grid.Column="2"
                 Command="{Binding EraseCommand}"
-                Content="{x:Static resx:Resources.Base_Button_EraseList}" />
+                Content="{x:Static resx:Strings.Base_Button_EraseList}" />
         <Button Margin="10"
                 Grid.Row="5"
                 Grid.Column="3"
                 Command="{Binding RaiseEventCommand}"
-                Content="{x:Static resx:Resources.Base_Button_Start_Content}" />
+                Content="{x:Static resx:Strings.Base_Button_Start_Content}" />
     </Grid>
 </base:WindowBase>

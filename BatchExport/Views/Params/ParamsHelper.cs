@@ -47,7 +47,7 @@ public static class ParamsHelper
 
             foreach (ParametersTable table in paramTables)
             {
-                if (string.IsNullOrWhiteSpace(table.Parameters[Resources.Resources.Params_FamilyAndType])) continue;
+                if (string.IsNullOrWhiteSpace(table.Parameters[Resources.Strings.Params_FamilyAndType])) continue;
                 csvHelper.WriteElement(table);
             }
         }

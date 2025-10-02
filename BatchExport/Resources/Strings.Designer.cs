@@ -21,14 +21,14 @@ namespace AlterTools.BatchExport.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    public class Strings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Strings() {
         }
         
         /// <summary>
@@ -38,7 +38,7 @@ namespace AlterTools.BatchExport.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AlterTools.BatchExport.Resources.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("AlterTools.BatchExport.Resources.Strings", typeof(Strings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -726,6 +726,160 @@ namespace AlterTools.BatchExport.Resources {
         public static string Detach_ViewName {
             get {
                 return ResourceManager.GetString("Detach.ViewName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 	Save the configuration by clicking the “Save config” button in (.JSON) format.
+        ///	This configuration can then be used for re-exporting by clicking the “Load config” button..
+        /// </summary>
+        public static string Help_Config {
+            get {
+                return ResourceManager.GetString("Help.Config", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 	Select the export mode:
+        ///1. All files will be placed in one folder.
+        ///2. Files will be placed in the appropriate folders, i.e., the path will be updated according to the mask..
+        /// </summary>
+        public static string Help_DetachMid {
+            get {
+                return ResourceManager.GetString("Help.DetachMid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 	The plugin is designed for batch export of detached models..
+        /// </summary>
+        public static string Help_DetachTitle {
+            get {
+                return ResourceManager.GetString("Help.DetachTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 	Next, specify the folder for saving. You can enter the path manually or select a folder using the “Browse” button..
+        /// </summary>
+        public static string Help_Folder {
+            get {
+                return ResourceManager.GetString("Help.Folder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 	The plugin is designed for batch export of files to IFC format..
+        /// </summary>
+        public static string Help_IFCTitle {
+            get {
+                return ResourceManager.GetString("Help.IFCTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 	The plugin is designed for batch adding models as Revit links..
+        /// </summary>
+        public static string Help_LinkTitle {
+            get {
+                return ResourceManager.GetString("Help.LinkTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 	Save the list by clicking the “Save list” button in (.txt) format.
+        ///	This list can then be used for re-exporting by clicking the “Load list” button..
+        /// </summary>
+        public static string Help_List {
+            get {
+                return ResourceManager.GetString("Help.List", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 	If you are using the plugin for the first time and do not have any previously saved lists, you need to do the following: use the “Load” button to add all the object models that need to be exported. If you accidentally added extra files, select them and click the “Delete” button..
+        /// </summary>
+        public static string Help_Load {
+            get {
+                return ResourceManager.GetString("Help.Load", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 	The plugin is designed to migrate a project to a new location while preserving the structure of links, both within folders and within the models themselves.
+        ///	Open or paste a link to the Json config, which stores the structure of type Dictionary&lt;string, string&gt;,
+        ///where the first string is the current path to the file, and the second is the new path.
+        ///    Example:
+        ///    { “C:\oldfile.rvt”: “C:\newfile.rvt”,}.
+        /// </summary>
+        public static string Help_Migrate {
+            get {
+                return ResourceManager.GetString("Help.Migrate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 	Set the prefix and postfix that you want to add to the file names. If you don&apos;t need to do this, just leave the fields blank.
+        ///	Select the export properties you need. The default settings are the ones that are used most often..
+        /// </summary>
+        public static string Help_Naming {
+            get {
+                return ResourceManager.GetString("Help.Naming", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 
+        ///	**********************************************
+        ///
+        ///	If you have several saved configurations, you can use the second-level batch export.
+        ///	Use the “Load Configs” button to load a list (.txt) with paths to configurations in (.JSON) format. The list structure looks like this: 
+        ///	path\\config.json
+        ///	path\\config2.json
+        ///	path\\config3.json
+        ///
+        ///	Use the “Begin” button to start the second-level batch export, which exports several objects with their corresponding settings..
+        /// </summary>
+        public static string Help_NWCEnd {
+            get {
+                return ResourceManager.GetString("Help.NWCEnd", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 	The plugin is designed for batch exporting files to NWC format..
+        /// </summary>
+        public static string Help_NWCTitle {
+            get {
+                return ResourceManager.GetString("Help.NWCTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 	The plugin is designed for batch export of parameters from the model to a .csv file.
+        ///	Specify the names of the parameters to be exported, separated by semicolon (;) in the corresponding field..
+        /// </summary>
+        public static string Help_ParamsTitle {
+            get {
+                return ResourceManager.GetString("Help.ParamsTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 	Start the export by clicking the “Start” button..
+        /// </summary>
+        public static string Help_Start {
+            get {
+                return ResourceManager.GetString("Help.Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 	The plugin is designed for batch transfer of models and implements similar functionality to the “eTransmit” plugin..
+        /// </summary>
+        public static string Help_TransmitTitle {
+            get {
+                return ResourceManager.GetString("Help.TransmitTitle", resourceCulture);
             }
         }
         

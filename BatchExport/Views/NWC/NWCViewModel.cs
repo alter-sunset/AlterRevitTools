@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Utils;
@@ -55,14 +55,14 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
     {
         _eventHandlerNWCBatch = eventHandlerNWCBatch;
         EventHandlerBase = eventHandlerNWC;
-        HelpMessage = Help.GetHelpDictionary()
-            .GetResultMessage(HelpMessageType.NWCTitle,
-                HelpMessageType.Load,
-                HelpMessageType.Folder,
-                HelpMessageType.Naming,
-                HelpMessageType.Config,
-                HelpMessageType.Start,
-                HelpMessageType.NWCEnd);
+        HelpMessage = string.Join(Environment.NewLine,
+            Resources.Strings.Help_NWCTitle,
+            Resources.Strings.Help_Load,
+            Resources.Strings.Help_Folder,
+            Resources.Strings.Help_Naming,
+            Resources.Strings.Help_Config,
+            Resources.Strings.Help_Start,
+            Resources.Strings.Help_NWCEnd);
     }
 
     public IReadOnlyDictionary<NavisworksCoordinates, string> Coordinates { get; } = NWCContext.Coordinates;

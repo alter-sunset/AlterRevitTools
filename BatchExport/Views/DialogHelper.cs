@@ -13,10 +13,10 @@ public static class DialogHelper
     private const string DefaultFileNameJson = "ConfigBatchExport";
     private const string DefaultFileNameCsv = "ParametersExport";
     private const string Exception = "Unsupported dialog type";
-    private static string FilterTxt => Resources.Resources.Const_FilterTxt;
-    private static string FilterJson => Resources.Resources.Const_FilterJson;
-    private static string FilterRvt => Resources.Resources.Const_FilterRvt;
-    private static string FilterCsv => Resources.Resources.Const_FilterCsv;
+    private static string FilterTxt => Resources.Strings.Const_FilterTxt;
+    private static string FilterJson => Resources.Strings.Const_FilterJson;
+    private static string FilterRvt => Resources.Strings.Const_FilterRvt;
+    private static string FilterCsv => Resources.Strings.Const_FilterCsv;
 
     public static OpenFileDialog OpenFileDialog(this DialogType dialogType)
     {

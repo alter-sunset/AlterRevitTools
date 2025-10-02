@@ -70,7 +70,6 @@
         <None Remove="Resources\params_16.png"/>
     </ItemGroup>
     <ItemGroup>
-        <EmbeddedResource Include="Resources\HelpMessages.json"/>
         <EmbeddedResource Include="Resources\Buttons.json"/>
         <EmbeddedResource Include="Resources\detach.png"/>
         <EmbeddedResource Include="Resources\detach_16.png"/>
@@ -86,12 +85,12 @@
         <EmbeddedResource Include="Resources\params_16.png"/>
         <EmbeddedResource Include="Resources\transmit.png"/>
         <EmbeddedResource Include="Resources\transmit_16.png"/>
-        <EmbeddedResource Update="Resources\Resources.resx">
+        <EmbeddedResource Update="Resources\Strings.resx">
           <Generator>PublicResXFileCodeGenerator</Generator>
           <LastGenOutput>Resources.Designer.cs</LastGenOutput>
         </EmbeddedResource>
-        <EmbeddedResource Update="Resources\Resources.ru-ru.resx">
-          <DependentUpon>Resources.resx</DependentUpon>
+        <EmbeddedResource Update="Resources\Strings.ru-ru.resx">
+          <DependentUpon>Strings.resx</DependentUpon>
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
@@ -109,10 +108,10 @@
         <EditorConfigFiles Remove=".editorconfig"/>
     </ItemGroup>
     <ItemGroup>
-      <Compile Update="Resources\Resources.Designer.cs">
+      <Compile Update="Resources\Strings.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
-        <DependentUpon>Resources.resx</DependentUpon>
+        <DependentUpon>Strings.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 </Project>
