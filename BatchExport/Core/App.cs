@@ -32,7 +32,7 @@ public class App : IExternalApplication
         _panels =
         [
             .. buttons
-                .Select(button => button.Panel)
+                .Select(button => ButtonContext.GetString(button.Panel))
                 .Distinct()
                 .Select(panelName => new Panel(GetRibbonPanel(uiApp, panelName), panelName))
         ];
@@ -62,7 +62,7 @@ public class App : IExternalApplication
     private void CreateButton(ButtonContext button)
     {
         RibbonPanel ribbonPanel = _panels
-            .First(panel => panel.Item2 == button.Panel)
+            .First(panel => panel.Item2 == ButtonContext.GetString(button.Panel))
             .Item1;
 
         try
