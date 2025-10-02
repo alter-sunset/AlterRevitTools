@@ -315,4 +315,11 @@ CAD formats</value>
     <data name="Const.DefaultParams" xml:space="preserve">
         <value>Level;Assembly Code;Count</value>
     </data>
+    <data name="Transmit.Title" xml:space="preserve">
+        <value>Batch export of transmitted models</value>
+    </data>
+    <data name="Transmit.SameFolder" xml:space="preserve">
+        <value>Put everything 
+in single folder</value>
+    </data>
 </root>

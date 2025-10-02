@@ -937,5 +937,24 @@ namespace AlterTools.BatchExport.Resources {
                 return ResourceManager.GetString("Params.Title", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Put everything 
+        ///in single folder.
+        /// </summary>
+        public static string Transmit_SameFolder {
+            get {
+                return ResourceManager.GetString("Transmit.SameFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch export of transmitted models.
+        /// </summary>
+        public static string Transmit_Title {
+            get {
+                return ResourceManager.GetString("Transmit.Title", resourceCulture);
+            }
+        }
     }
 }

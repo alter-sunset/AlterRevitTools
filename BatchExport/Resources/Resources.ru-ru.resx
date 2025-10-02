@@ -320,4 +320,10 @@ Id элементов</value>
     <data name="Const.DefaultParams" xml:space="preserve">
         <value>ADSK_Этаж;ADSK_Номер здания;ADSK_Комплект чертежей;</value>
     </data>
+    <data name="Transmit.Title" xml:space="preserve">
+        <value>Пакетный экспорт передаваемых моделей</value>
+    </data>
+    <data name="Transmit.SameFolder" xml:space="preserve">
+        <value>Всё в одной папке</value>
+    </data>
 </root>

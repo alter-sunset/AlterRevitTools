@@ -8,7 +8,7 @@
                  Width="800"
                  WindowStartupLocation="CenterScreen"
                  ResizeMode="NoResize"
-                 Title="Пакетный экспорт передаваемых моделей"
+                 Title="{x:Static resx:Resources.Transmit_Title}"
                  IsEnabled="{Binding IsViewEnabled}"
                  ShowInTaskbar="False">
     <Grid Background="WhiteSmoke">
@@ -94,12 +94,12 @@
                   Grid.Row="4"
                   Grid.Column="0"
                   IsChecked="{Binding IsSameFolder}"
-                  Content="Всё в одной папке" />
+                  Content="{x:Static resx:Resources.Transmit_SameFolder}" />
 
         <Button Margin="10"
                 Grid.Row="5"
                 Grid.Column="2"
-                Content="Очистить список"
+                Content="{x:Static resx:Resources.Base_Button_EraseList}"
                 Command="{Binding EraseCommand}" />
         <Button Margin="10"
                 Grid.Row="5"
