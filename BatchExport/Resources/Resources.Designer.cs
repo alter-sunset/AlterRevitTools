@@ -195,7 +195,7 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export whole model.
+        ///   Looks up a localized string similar to Export entire model.
         /// </summary>
         public static string Base_ExportScopeWhole {
             get {
@@ -627,6 +627,242 @@ namespace AlterTools.BatchExport.Resources {
         public static string Migrate_Title {
             get {
                 return ResourceManager.GetString("Migrate.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string NWC_All {
+            get {
+                return ResourceManager.GetString("NWC.All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Begin.
+        /// </summary>
+        public static string NWC_Button_Begin {
+            get {
+                return ResourceManager.GetString("NWC.Button.Begin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Begin export of multiple configurations.
+        /// </summary>
+        public static string NWC_Button_Begin_ToolTip {
+            get {
+                return ResourceManager.GetString("NWC.Button.Begin.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load configs.
+        /// </summary>
+        public static string NWC_Button_LoadConfigs {
+            get {
+                return ResourceManager.GetString("NWC.Button.LoadConfigs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load list with configuration files in (.txt) format.
+        /// </summary>
+        public static string NWC_Button_LoadConfigs_ToolTip {
+            get {
+                return ResourceManager.GetString("NWC.Button.LoadConfigs.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert element parameters.
+        /// </summary>
+        public static string NWC_ConvertElementParams {
+            get {
+                return ResourceManager.GetString("NWC.ConvertElementParams", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert element properties.
+        /// </summary>
+        public static string NWC_ConvertElementProperties {
+            get {
+                return ResourceManager.GetString("NWC.ConvertElementProperties", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert lights.
+        /// </summary>
+        public static string NWC_ConvertLights {
+            get {
+                return ResourceManager.GetString("NWC.ConvertLights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coordinates.
+        /// </summary>
+        public static string NWC_Coordinates {
+            get {
+                return ResourceManager.GetString("NWC.Coordinates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Divide File into Levels.
+        /// </summary>
+        public static string NWC_DivideFile {
+            get {
+                return ResourceManager.GetString("NWC.DivideFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Elements.
+        /// </summary>
+        public static string NWC_Elements {
+            get {
+                return ResourceManager.GetString("NWC.Elements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert linked 
+        ///CAD formats.
+        /// </summary>
+        public static string NWC_ExportCAD {
+            get {
+                return ResourceManager.GetString("NWC.ExportCAD", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export element Ids.
+        /// </summary>
+        public static string NWC_ExportElementIds {
+            get {
+                return ResourceManager.GetString("NWC.ExportElementIds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert linked files.
+        /// </summary>
+        public static string NWC_ExportLinks {
+            get {
+                return ResourceManager.GetString("NWC.ExportLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert construction parts.
+        /// </summary>
+        public static string NWC_ExportParts {
+            get {
+                return ResourceManager.GetString("NWC.ExportParts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert room as attribute.
+        /// </summary>
+        public static string NWC_ExportRoomAsAttr {
+            get {
+                return ResourceManager.GetString("NWC.ExportRoomAsAttr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export room geometry.
+        /// </summary>
+        public static string NWC_ExportRoomGeometry {
+            get {
+                return ResourceManager.GetString("NWC.ExportRoomGeometry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert URLs.
+        /// </summary>
+        public static string NWC_ExportURLs {
+            get {
+                return ResourceManager.GetString("NWC.ExportURLs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faceting Factor.
+        /// </summary>
+        public static string NWC_Faceting {
+            get {
+                return ResourceManager.GetString("NWC.Faceting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Try and find 
+        ///missing material.
+        /// </summary>
+        public static string NWC_FindMissingMaterials {
+            get {
+                return ResourceManager.GetString("NWC.FindMissingMaterials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Project Internal.
+        /// </summary>
+        public static string NWC_Internal {
+            get {
+                return ResourceManager.GetString("NWC.Internal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to LIst of JSON configs.
+        /// </summary>
+        public static string NWC_ListConfigs {
+            get {
+                return ResourceManager.GetString("NWC.ListConfigs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List of configuration files.
+        /// </summary>
+        public static string NWC_ListConfigs_ToolTip {
+            get {
+                return ResourceManager.GetString("NWC.ListConfigs.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string NWC_None {
+            get {
+                return ResourceManager.GetString("NWC.None", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shared.
+        /// </summary>
+        public static string NWC_Shared {
+            get {
+                return ResourceManager.GetString("NWC.Shared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch export NWC.
+        /// </summary>
+        public static string NWC_Title {
+            get {
+                return ResourceManager.GetString("NWC.Title", resourceCulture);
             }
         }
     }

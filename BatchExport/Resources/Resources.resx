@@ -173,7 +173,7 @@
 Ducts by Level</value>
     </data>
     <data name="Base.ExportScopeWhole" xml:space="preserve">
-        <value>Export whole model</value>
+        <value>Export entire model</value>
     </data>
     <data name="Base.ExportScopeView" xml:space="preserve">
         <value>Export view</value>
@@ -210,5 +210,85 @@ Do you want to retrieve coordinates from the file?</value>
     </data>
     <data name="Link.CurrentWorkset" xml:space="preserve">
         <value>Add to the current Workset</value>
+    </data>
+    <data name="NWC.Shared" xml:space="preserve">
+        <value>Shared</value>
+    </data>
+    <data name="NWC.Internal" xml:space="preserve">
+        <value>Project Internal</value>
+    </data>
+    <data name="NWC.None" xml:space="preserve">
+        <value>None</value>
+    </data>
+    <data name="NWC.All" xml:space="preserve">
+        <value>All</value>
+    </data>
+    <data name="NWC.Elements" xml:space="preserve">
+        <value>Elements</value>
+    </data>
+    <data name="NWC.Title" xml:space="preserve">
+        <value>Batch export NWC</value>
+    </data>
+    <data name="NWC.ConvertElementProperties" xml:space="preserve">
+        <value>Convert element properties</value>
+    </data>
+    <data name="NWC.Coordinates" xml:space="preserve">
+        <value>Coordinates</value>
+    </data>
+    <data name="NWC.DivideFile" xml:space="preserve">
+        <value>Divide File into Levels</value>
+    </data>
+    <data name="NWC.ExportElementIds" xml:space="preserve">
+        <value>Export element Ids</value>
+    </data>
+    <data name="NWC.ExportLinks" xml:space="preserve">
+        <value>Convert linked files</value>
+    </data>
+    <data name="NWC.ExportParts" xml:space="preserve">
+        <value>Convert construction parts</value>
+    </data>
+    <data name="NWC.ExportRoomAsAttr" xml:space="preserve">
+        <value>Convert room as attribute</value>
+    </data>
+    <data name="NWC.ExportRoomGeometry" xml:space="preserve">
+        <value>Export room geometry</value>
+    </data>
+    <data name="NWC.FindMissingMaterials" xml:space="preserve">
+        <value>Try and find 
+missing material</value>
+    </data>
+    <data name="NWC.ConvertElementParams" xml:space="preserve">
+        <value>Convert element parameters</value>
+    </data>
+    <data name="NWC.ExportURLs" xml:space="preserve">
+        <value>Convert URLs</value>
+    </data>
+    <data name="NWC.ExportCAD" xml:space="preserve">
+        <value>Convert linked 
+CAD formats</value>
+    </data>
+    <data name="NWC.ConvertLights" xml:space="preserve">
+        <value>Convert lights</value>
+    </data>
+    <data name="NWC.Faceting" xml:space="preserve">
+        <value>Faceting Factor</value>
+    </data>
+    <data name="NWC.ListConfigs" xml:space="preserve">
+        <value>LIst of JSON configs</value>
+    </data>
+    <data name="NWC.ListConfigs.ToolTip" xml:space="preserve">
+        <value>List of configuration files</value>
+    </data>
+    <data name="NWC.Button.LoadConfigs" xml:space="preserve">
+        <value>Load configs</value>
+    </data>
+    <data name="NWC.Button.LoadConfigs.ToolTip" xml:space="preserve">
+        <value>Load list with configuration files in (.txt) format</value>
+    </data>
+    <data name="NWC.Button.Begin" xml:space="preserve">
+        <value>Begin</value>
+    </data>
+    <data name="NWC.Button.Begin.ToolTip" xml:space="preserve">
+        <value>Begin export of multiple configurations</value>
     </data>
 </root>

@@ -204,4 +204,96 @@
     <data name="Link.CurrentWorkset" xml:space="preserve">
         <value>Добавить в текущий рабочий набор</value>
     </data>
+    <data name="NWC.Shared" xml:space="preserve">
+        <value>Общие</value>
+    </data>
+    <data name="NWC.Internal" xml:space="preserve">
+        <value>Внутренние для проекта</value>
+    </data>
+    <data name="NWC.None" xml:space="preserve">
+        <value>Нет</value>
+    </data>
+    <data name="NWC.All" xml:space="preserve">
+        <value>Все</value>
+    </data>
+    <data name="NWC.Elements" xml:space="preserve">
+        <value>Объекты</value>
+    </data>
+    <data name="NWC.Title" xml:space="preserve">
+        <value>Пакетный экспорт NWC</value>
+    </data>
+    <data name="NWC.ConvertElementProperties" xml:space="preserve">
+        <value>Конвертировать 
+свойства объекта</value>
+    </data>
+    <data name="NWC.Coordinates" xml:space="preserve">
+        <value>Координаты</value>
+    </data>
+    <data name="NWC.DivideFile" xml:space="preserve">
+        <value>Разделить файл на уровни</value>
+    </data>
+    <data name="NWC.ExportElementIds" xml:space="preserve">
+        <value>Экспортировать
+ 
+Id элементов</value>
+    </data>
+    <data name="NWC.ExportLinks" xml:space="preserve">
+        <value>Экспортировать 
+связанные файлы</value>
+    </data>
+    <data name="NWC.ExportParts" xml:space="preserve">
+        <value>Экспортировать 
+элементы конструкции</value>
+    </data>
+    <data name="NWC.ExportRoomAsAttr" xml:space="preserve">
+        <value>Экспортировать
+ 
+помещение как атрибут</value>
+    </data>
+    <data name="NWC.ExportRoomGeometry" xml:space="preserve">
+        <value>Экспортировать 
+геометрию помещений</value>
+    </data>
+    <data name="NWC.FindMissingMaterials" xml:space="preserve">
+        <value>Проверять и находить 
+о
+
+
+тсутсвующие материалы</value>
+    </data>
+    <data name="NWC.ConvertElementParams" xml:space="preserve">
+        <value>Конвертировать параметры объектов</value>
+    </data>
+    <data name="NWC.ExportURLs" xml:space="preserve">
+        <value>Экспортировать URL адреса</value>
+    </data>
+    <data name="NWC.ExportCAD" xml:space="preserve">
+        <value>Экспортировать 
+связанные файлы САПР</value>
+    </data>
+    <data name="NWC.ConvertLights" xml:space="preserve">
+        <value>Экспортировать 
+источники света</value>
+    </data>
+    <data name="NWC.Faceting" xml:space="preserve">
+        <value>Коэффициент фасетизации</value>
+    </data>
+    <data name="NWC.ListConfigs" xml:space="preserve">
+        <value>Список JSON конфигов</value>
+    </data>
+    <data name="NWC.ListConfigs.ToolTip" xml:space="preserve">
+        <value>Список файлов конфигураций</value>
+    </data>
+    <data name="NWC.Button.LoadConfigs" xml:space="preserve">
+        <value>Загрузить конфиги</value>
+    </data>
+    <data name="NWC.Button.LoadConfigs.ToolTip" xml:space="preserve">
+        <value>Загрузить список с файлами конфигураций в формате (.txt)</value>
+    </data>
+    <data name="NWC.Button.Begin" xml:space="preserve">
+        <value>Начать</value>
+    </data>
+    <data name="NWC.Button.Begin.ToolTip" xml:space="preserve">
+        <value>Запустить экспорт нескольких конфигураций</value>
+    </data>
 </root>
