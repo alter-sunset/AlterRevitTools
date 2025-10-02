@@ -91,7 +91,7 @@
                 Grid.Column="3"
                 Grid.Row="3"
                 Command="{Binding BrowseCsvCommand}"
-                Content="Обзор" />
+                Content="{x:Static resx:Resources.Base_Button_Browse}" />
 
         <TextBlock Margin="10,0,40,0"
                    FontSize="12"
@@ -116,7 +116,7 @@
                 Grid.Row="5"
                 Grid.Column="3"
                 Command="{Binding RaiseEventCommand}"
-                Content="Запуск"
-                ToolTip="Запуск пакетного экспорта текущей конфигурации" />
+                Content="{x:Static resx:Resources.Base_Button_Start_Content}"
+                ToolTip="{x:Static resx:Resources.Base_Button_Start_ToolTip}" />
     </Grid>
 </base:WindowBase>

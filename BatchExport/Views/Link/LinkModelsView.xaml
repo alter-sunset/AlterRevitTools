@@ -8,7 +8,7 @@
                  Width="800"
                  WindowStartupLocation="CenterScreen"
                  ResizeMode="NoResize"
-                 Title="Пакетное добавление связей"
+                 Title="{x:Static resx:Resources.Link_Title}"
                  IsEnabled="{Binding IsViewEnabled}"
                  ShowInTaskbar="False">
     <Grid Background="WhiteSmoke">
@@ -31,7 +31,7 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    VerticalAlignment="Center"
-                   Text="Список RVT файлов для добавления" />
+                   Text="{x:Static resx:Resources.Link_Header}" />
 
         <Button Margin="10"
                 Grid.Column="3"
@@ -142,7 +142,6 @@
                 Grid.Row="5"
                 Grid.Column="3"
                 Command="{Binding RaiseEventCommand}"
-                Content="Запуск"
-                ToolTip="Запуск пакетного экспорта текущей конфигурации" />
+                Content="{x:Static resx:Resources.Base_Button_Start_Content}" />
     </Grid>
 </base:WindowBase>

@@ -21,7 +21,7 @@
     <data name="Detach.Title" xml:space="preserve">
         <value>Batch export of detached models</value>
     </data>
-    <data name="Detach.Header" xml:space="preserve">
+    <data name="Base.Header" xml:space="preserve">
         <value>RVT files to be exported</value>
     </data>
     <data name="Base.Button.Help.ToolTip" xml:space="preserve">
@@ -57,7 +57,34 @@
     <data name="Base.Button.Delete.ToolTip" xml:space="preserve">
         <value>Delete selected files from list</value>
     </data>
-    <data name="Base.BodyText" xml:space="preserve">
-        <value />
+    <data name="IFC.Title" xml:space="preserve">
+        <value>IFC batch export</value>
+    </data>
+    <data name="Base.ResultingFolder" xml:space="preserve">
+        <value>Save to folder</value>
+    </data>
+    <data name="Base.Button.Browse" xml:space="preserve">
+        <value>Browse</value>
+    </data>
+    <data name="Link.Title" xml:space="preserve">
+        <value>Batch link models</value>
+    </data>
+    <data name="Link.Header" xml:space="preserve">
+        <value>List of RVT files to link</value>
+    </data>
+    <data name="Migrate.Title" xml:space="preserve">
+        <value>Batch migrate models</value>
+    </data>
+    <data name="Migrate.Button.LoadConfig" xml:space="preserve">
+        <value>Load config</value>
+    </data>
+    <data name="Base.Button.Start.Content" xml:space="preserve">
+        <value>Start</value>
+    </data>
+    <data name="Base.Button.Start.ToolTip" xml:space="preserve">
+        <value>Start batch export of current configuration</value>
+    </data>
+    <data name="Base.Const.WrongScheme" xml:space="preserve">
+        <value>Wrong file scheme</value>
     </data>
 </root>

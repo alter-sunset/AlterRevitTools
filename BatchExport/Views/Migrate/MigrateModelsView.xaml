@@ -8,7 +8,7 @@
                  Width="600"
                  WindowStartupLocation="CenterScreen"
                  ResizeMode="NoResize"
-                 Title="Пакетная миграция моделей"
+                 Title="{x:Static resx:Resources.Migrate_Title}"
                  IsEnabled="{Binding IsViewEnabled}"
                  ShowInTaskbar="False">
     <Grid Background="WhiteSmoke">
@@ -28,7 +28,7 @@
                 Grid.Column="0"
                 Grid.Row="0"
                 Command="{Binding LoadListCommand}"
-                Content="Загрузить конфиг" />
+                Content="{x:Static resx:Resources.Migrate_Button_LoadConfig}" />
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="0"
@@ -47,8 +47,8 @@
                 Grid.Row="2"
                 Grid.Column="3"
                 Command="{Binding RaiseEventCommand}"
-                Content="Запуск"
-                ToolTip="Запуск пакетного экспорта текущей конфигурации" />
+                Content="{x:Static resx:Resources.Base_Button_Start_Content}"
+                ToolTip="{x:Static resx:Resources.Base_Button_Start_ToolTip}" />
 
     </Grid>
 </base:WindowBase>

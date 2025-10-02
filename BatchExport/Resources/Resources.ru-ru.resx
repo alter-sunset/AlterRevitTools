@@ -14,7 +14,7 @@
     <data name="Detach.Title" xml:space="preserve">
         <value>Пакетный экспорт отсоединённых моделей</value>
     </data>
-    <data name="Detach.Header" xml:space="preserve">
+    <data name="Base.Header" xml:space="preserve">
         <value>Список RVT файлов для экспорта</value>
     </data>
     <data name="Base.Button.Help.ToolTip" xml:space="preserve">
@@ -49,5 +49,35 @@
     </data>
     <data name="Base.Button.Delete.ToolTip" xml:space="preserve">
         <value>Удалить выбранные файлы из списка</value>
+    </data>
+    <data name="IFC.Title" xml:space="preserve">
+        <value>Пакетный экспорт IFC</value>
+    </data>
+    <data name="Base.ResultingFolder" xml:space="preserve">
+        <value>Папка для сохранения</value>
+    </data>
+    <data name="Base.Button.Browse" xml:space="preserve">
+        <value>Обзор</value>
+    </data>
+    <data name="Link.Title" xml:space="preserve">
+        <value>Пакетное добавление связей</value>
+    </data>
+    <data name="Link.Header" xml:space="preserve">
+        <value>Список RVT файлов для добавления</value>
+    </data>
+    <data name="Migrate.Title" xml:space="preserve">
+        <value>Пакетная миграция моделей</value>
+    </data>
+    <data name="Migrate.Button.LoadConfig" xml:space="preserve">
+        <value>Загрузить конфиг</value>
+    </data>
+    <data name="Base.Button.Start.Content" xml:space="preserve">
+        <value>Запуск</value>
+    </data>
+    <data name="Base.Button.Start.ToolTip" xml:space="preserve">
+        <value>Запуск пакетного экспорта текущей конфигурации</value>
+    </data>
+    <data name="Base.Const.WrongScheme" xml:space="preserve">
+        <value>Неверная схема файла</value>
     </data>
 </root>

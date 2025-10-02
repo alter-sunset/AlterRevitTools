@@ -60,11 +60,11 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Browse.
         /// </summary>
-        public static string Base_BodyText {
+        public static string Base_Button_Browse {
             get {
-                return ResourceManager.GetString("Base.BodyText", resourceCulture);
+                return ResourceManager.GetString("Base.Button.Browse", resourceCulture);
             }
         }
         
@@ -159,6 +159,42 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Start.
+        /// </summary>
+        public static string Base_Button_Start_Content {
+            get {
+                return ResourceManager.GetString("Base.Button.Start.Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start batch export of current configuration.
+        /// </summary>
+        public static string Base_Button_Start_ToolTip {
+            get {
+                return ResourceManager.GetString("Base.Button.Start.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong file scheme.
+        /// </summary>
+        public static string Base_Const_WrongScheme {
+            get {
+                return ResourceManager.GetString("Base.Const.WrongScheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RVT files to be exported.
+        /// </summary>
+        public static string Base_Header {
+            get {
+                return ResourceManager.GetString("Base.Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Files list in (.rvt) format.
         /// </summary>
         public static string Base_ListBox_ToolTip {
@@ -168,11 +204,11 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to RVT files to be exported.
+        ///   Looks up a localized string similar to Save to folder.
         /// </summary>
-        public static string Detach_Header {
+        public static string Base_ResultingFolder {
             get {
-                return ResourceManager.GetString("Detach.Header", resourceCulture);
+                return ResourceManager.GetString("Base.ResultingFolder", resourceCulture);
             }
         }
         
@@ -182,6 +218,51 @@ namespace AlterTools.BatchExport.Resources {
         public static string Detach_Title {
             get {
                 return ResourceManager.GetString("Detach.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IFC batch export.
+        /// </summary>
+        public static string IFC_Title {
+            get {
+                return ResourceManager.GetString("IFC.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List of RVT files to link.
+        /// </summary>
+        public static string Link_Header {
+            get {
+                return ResourceManager.GetString("Link.Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch link models.
+        /// </summary>
+        public static string Link_Title {
+            get {
+                return ResourceManager.GetString("Link.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load config.
+        /// </summary>
+        public static string Migrate_Button_LoadConfig {
+            get {
+                return ResourceManager.GetString("Migrate.Button.LoadConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch migrate models.
+        /// </summary>
+        public static string Migrate_Title {
+            get {
+                return ResourceManager.GetString("Migrate.Title", resourceCulture);
             }
         }
     }

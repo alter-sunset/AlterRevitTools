@@ -39,7 +39,7 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    VerticalAlignment="Center"
-                   Text="{x:Static resx:Resources.Detach_Header}" />
+                   Text="{x:Static resx:Resources.Base_Header}" />
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="0"
@@ -85,7 +85,7 @@
                    Grid.Row="3"
                    Grid.Column="0"
                    VerticalAlignment="Center"
-                   Text="Папка для сохранения" />
+                   Text="{x:Static resx:Resources.Base_ResultingFolder}" />
         <TextBox Grid.Column="0" Margin="165,10,135,10"
                  Grid.Row="3"
                  Grid.ColumnSpan="4"
@@ -95,7 +95,7 @@
                 Grid.Column="3"
                 Grid.Row="3"
                 Command="{Binding BrowseFolderCommand}"
-                Content="Обзор" />
+                Content="{x:Static resx:Resources.Base_Button_Browse}" />
 
         <TextBlock Margin="10,0,80,0"
                    Grid.Row="4"
@@ -335,8 +335,8 @@
                 Grid.Row="11"
                 Grid.Column="3"
                 Command="{Binding RaiseEventCommand}"
-                Content="Запуск"
-                ToolTip="Запуск пакетного экспорта текущей конфигурации" />
+                Content="{x:Static resx:Resources.Base_Button_Start_Content}"
+                ToolTip="{x:Static resx:Resources.Base_Button_Start_ToolTip}" />
 
         <TextBlock Margin="10"
                    FontSize="14"
