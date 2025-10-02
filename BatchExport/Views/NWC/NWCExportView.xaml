@@ -2,6 +2,7 @@
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:base="clr-namespace:AlterTools.BatchExport.Views.Base"
+                 xmlns:resx="clr-namespace:AlterTools.BatchExport.Resources"
                  Height="950"
                  Width="800"
                  WindowStartupLocation="CenterScreen"
@@ -33,19 +34,18 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Margin="10,0,10,0"
+       <TextBlock Margin="10,0,10,0"
                    FontSize="14"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    VerticalAlignment="Center"
-                   Text="Список RVT файлов для экспорта" />
-
+                   Text="{x:Static resx:Resources.Detach_Header}" />
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="0"
                 Command="{Binding HelpCommand}"
-                ToolTip="Справка по работе с плагином"
-                Content="Справка" />
+                ToolTip="{x:Static resx:Resources.Base_Button_Help_ToolTip}"
+                Content="{x:Static resx:Resources.Base_Button_Help_Content}" />
         <ListBox Grid.Row="1"
                  Grid.Column="0"
                  Grid.ColumnSpan="4"
@@ -53,32 +53,32 @@
                  SelectionMode="Extended"
                  ItemsSource="{Binding ListBoxItems}"
                  SelectedItem="{Binding SelectedItem}"
-                 ToolTip="Список файлов в формате (.rvt)" />
+                 ToolTip="{x:Static resx:Resources.Base_ListBox_ToolTip}" />
 
         <Button Margin="10"
                 Grid.Column="0"
                 Grid.Row="2"
                 Command="{Binding LoadCommand}"
-                ToolTip="Загрузить файлы в формате (.rvt)"
-                Content="Загрузить" />
+                Content="{x:Static resx:Resources.Base_Button_Load_Content}"
+                ToolTip="{x:Static resx:Resources.Base_Button_Load_ToolTip}" />
         <Button Margin="10"
                 Grid.Column="1"
                 Grid.Row="2"
                 Command="{Binding LoadListCommand}"
-                ToolTip="Загрузить сохранённый ранее файл конфигурации в формате (.JSON)"
-                Content="Загрузить конфиг" />
+                Content="{x:Static resx:Resources.Base_Button_LoadList_Content}"
+                ToolTip="{x:Static resx:Resources.Base_Button_LoadList_ToolTip}" />
         <Button Margin="10"
                 Grid.Column="2"
                 Grid.Row="2"
                 Command="{Binding SaveListCommand}"
-                ToolTip="Сохранить файл конфигурации в формате (.JSON)"
-                Content="Сохранить конфиг" />
+                Content="{x:Static resx:Resources.Base_Button_SaveList_Content}"
+                ToolTip="{x:Static resx:Resources.Base_Button_SaveList_ToolTip}" />
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="2"
                 Command="{Binding DeleteCommand}"
-                ToolTip="Удалить выбранные файлы из списка"
-                Content="Удалить" />
+                Content="{x:Static resx:Resources.Base_Button_Delete_Content}"
+                ToolTip="{x:Static resx:Resources.Base_Button_Delete_ToolTip}" />
 
         <TextBlock Margin="10,0,40,0"
                    FontSize="14"
