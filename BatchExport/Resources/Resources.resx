@@ -39,4 +39,25 @@
     <data name="Base.Button.Load.ToolTip" xml:space="preserve">
         <value>Load (.rvt) files</value>
     </data>
+    <data name="Base.Button.LoadList.Content" xml:space="preserve">
+        <value>Load list</value>
+    </data>
+    <data name="Base.Button.LoadList.ToolTip" xml:space="preserve">
+        <value>Load previously saved configuration file in (.json) format</value>
+    </data>
+    <data name="Base.Button.SaveList.Content" xml:space="preserve">
+        <value>Save list</value>
+    </data>
+    <data name="Base.Button.SaveList.ToolTip" xml:space="preserve">
+        <value>Save configuration file in (.json) format</value>
+    </data>
+    <data name="Base.Button.Delete.Content" xml:space="preserve">
+        <value>Delete</value>
+    </data>
+    <data name="Base.Button.Delete.ToolTip" xml:space="preserve">
+        <value>Delete selected files from list</value>
+    </data>
+    <data name="Base.BodyText" xml:space="preserve">
+        <value />
+    </data>
 </root>

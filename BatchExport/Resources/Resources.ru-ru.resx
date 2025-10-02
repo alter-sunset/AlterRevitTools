@@ -32,4 +32,22 @@
     <data name="Base.Button.Load.ToolTip" xml:space="preserve">
         <value>Загрузить файлы в формате (.rvt)</value>
     </data>
+    <data name="Base.Button.LoadList.Content" xml:space="preserve">
+        <value>Загрузить список</value>
+    </data>
+    <data name="Base.Button.LoadList.ToolTip" xml:space="preserve">
+        <value>Загрузить сохранённый ранее файл конфигурации в формате (.json)</value>
+    </data>
+    <data name="Base.Button.SaveList.Content" xml:space="preserve">
+        <value>Сохранить список</value>
+    </data>
+    <data name="Base.Button.SaveList.ToolTip" xml:space="preserve">
+        <value>Сохранить файл конфигурации в формате (.json)</value>
+    </data>
+    <data name="Base.Button.Delete.Content" xml:space="preserve">
+        <value>Удалить</value>
+    </data>
+    <data name="Base.Button.Delete.ToolTip" xml:space="preserve">
+        <value>Удалить выбранные файлы из списка</value>
+    </data>
 </root>

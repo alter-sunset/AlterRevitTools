@@ -60,6 +60,33 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Base_BodyText {
+            get {
+                return ResourceManager.GetString("Base.BodyText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Base_Button_Delete_Content {
+            get {
+                return ResourceManager.GetString("Base.Button.Delete.Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete selected files from list.
+        /// </summary>
+        public static string Base_Button_Delete_ToolTip {
+            get {
+                return ResourceManager.GetString("Base.Button.Delete.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Help.
         /// </summary>
         public static string Base_Button_Help_Content {
@@ -92,6 +119,42 @@ namespace AlterTools.BatchExport.Resources {
         public static string Base_Button_Load_ToolTip {
             get {
                 return ResourceManager.GetString("Base.Button.Load.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load list.
+        /// </summary>
+        public static string Base_Button_LoadList_Content {
+            get {
+                return ResourceManager.GetString("Base.Button.LoadList.Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load previously saved configuration file in (.json) format.
+        /// </summary>
+        public static string Base_Button_LoadList_ToolTip {
+            get {
+                return ResourceManager.GetString("Base.Button.LoadList.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save list.
+        /// </summary>
+        public static string Base_Button_SaveList_Content {
+            get {
+                return ResourceManager.GetString("Base.Button.SaveList.Content", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save configuration file in (.json) format.
+        /// </summary>
+        public static string Base_Button_SaveList_ToolTip {
+            get {
+                return ResourceManager.GetString("Base.Button.SaveList.ToolTip", resourceCulture);
             }
         }
         
