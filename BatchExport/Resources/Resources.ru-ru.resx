@@ -128,4 +128,64 @@
     <data name="Detach.MaskOut" xml:space="preserve">
         <value>06_Общие\62_ПД</value>
     </data>
+    <data name="IFC.SpaceBoundaryLevels0" xml:space="preserve">
+        <value>Нет</value>
+    </data>
+    <data name="IFC.SpaceBoundaryLevels1" xml:space="preserve">
+        <value>Первый уровень</value>
+    </data>
+    <data name="IFC.SpaceBoundaryLevels2" xml:space="preserve">
+        <value>Второй уровень</value>
+    </data>
+    <data name="Const.Default" xml:space="preserve">
+        <value>По умолчанию</value>
+    </data>
+    <data name="Base.Prefix" xml:space="preserve">
+        <value>Префикс названия</value>
+    </data>
+    <data name="Base.Prefix.ToolTip" xml:space="preserve">
+        <value>Префикс, который необходимо вставить перед названием файла</value>
+    </data>
+    <data name="Base.Postfix" xml:space="preserve">
+        <value>Постфикс названия</value>
+    </data>
+    <data name="Base.Postfix.ToolTip" xml:space="preserve">
+        <value>Постфикс, который необходимо вставить после названия файла</value>
+    </data>
+    <data name="IFC.MappingTable" xml:space="preserve">
+        <value>Таблица соответствия параметров экспорта</value>
+    </data>
+    <data name="IFC.BaseQuantities" xml:space="preserve">
+        <value>Экспорт основных величин</value>
+    </data>
+    <data name="IFC.Version" xml:space="preserve">
+        <value>Версия IFC</value>
+    </data>
+    <data name="IFC.CheckBox.Splitting" xml:space="preserve">
+        <value>Разделить стены, колонны
+и воздуховоды по уровню</value>
+    </data>
+    <data name="Base.ExportScopeWhole" xml:space="preserve">
+        <value>Экспортировать весь проект</value>
+    </data>
+    <data name="Base.ExportScopeView" xml:space="preserve">
+        <value>Экспортировать вид</value>
+    </data>
+    <data name="Base.IgnoreMissingView" xml:space="preserve">
+        <value>Игнорировать отсутствие вида и
+ экспортировать весь проект</value>
+    </data>
+    <data name="IFC.SpaceBoundaries" xml:space="preserve">
+        <value>Границы пространств</value>
+    </data>
+    <data name="Base.WorksetPrefixes" xml:space="preserve">
+        <value>Префиксы рабочих наборов, которые нужно закрыть</value>
+    </data>
+    <data name="Base.WorksetPrefixes.ToolTip" xml:space="preserve">
+        <value>Укажите через точку-запятую (;) префиксы всех рабочих наборов, которые необходимо закрыть при открытии файла. 
+Обычно закрывают рабочие наборы со связями, чтобы ускорить открытие моделей.</value>
+    </data>
+    <data name="Base.TurnOffLog" xml:space="preserve">
+        <value>Не создавать лог-файл</value>
+    </data>
 </root>

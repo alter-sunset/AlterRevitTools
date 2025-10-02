@@ -135,4 +135,64 @@
     <data name="Detach.MaskOut" xml:space="preserve">
         <value>06_Common</value>
     </data>
+    <data name="IFC.SpaceBoundaryLevels0" xml:space="preserve">
+        <value>None</value>
+    </data>
+    <data name="IFC.SpaceBoundaryLevels1" xml:space="preserve">
+        <value>1st Level</value>
+    </data>
+    <data name="IFC.SpaceBoundaryLevels2" xml:space="preserve">
+        <value>2nd Level</value>
+    </data>
+    <data name="Const.Default" xml:space="preserve">
+        <value>Default</value>
+    </data>
+    <data name="Base.Prefix" xml:space="preserve">
+        <value>Prefix</value>
+    </data>
+    <data name="Base.Prefix.ToolTip" xml:space="preserve">
+        <value>Prefix to be added to the start of a file name</value>
+    </data>
+    <data name="Base.Postfix" xml:space="preserve">
+        <value>Postfix</value>
+    </data>
+    <data name="Base.Postfix.ToolTip" xml:space="preserve">
+        <value>Postfix to be added to the end of a file name</value>
+    </data>
+    <data name="IFC.MappingTable" xml:space="preserve">
+        <value>Export parameter mapping table</value>
+    </data>
+    <data name="IFC.BaseQuantities" xml:space="preserve">
+        <value>Export base quantities</value>
+    </data>
+    <data name="IFC.Version" xml:space="preserve">
+        <value>IFC version</value>
+    </data>
+    <data name="IFC.CheckBox.Splitting" xml:space="preserve">
+        <value>Split Walls, Columns,
+Ducts by Level</value>
+    </data>
+    <data name="Base.ExportScopeWhole" xml:space="preserve">
+        <value>Export whole model</value>
+    </data>
+    <data name="Base.ExportScopeView" xml:space="preserve">
+        <value>Export view</value>
+    </data>
+    <data name="Base.IgnoreMissingView" xml:space="preserve">
+        <value>Ignore missing view
+and export whole project</value>
+    </data>
+    <data name="IFC.SpaceBoundaries" xml:space="preserve">
+        <value>Space boundaries</value>
+    </data>
+    <data name="Base.WorksetPrefixes" xml:space="preserve">
+        <value>Prefixes of Worksets to be closed</value>
+    </data>
+    <data name="Base.WorksetPrefixes.ToolTip" xml:space="preserve">
+        <value>Specify the Prefixes of all Worksets that need to be closed when opening the file, separated by semicolons (;). 
+Worksets with Links are usually closed to speed up the opening of models.</value>
+    </data>
+    <data name="Base.TurnOffLog" xml:space="preserve">
+        <value>Don't create log file</value>
+    </data>
 </root>

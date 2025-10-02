@@ -91,7 +91,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
         }
         catch
         {
-            MessageBox.Show("Неверная схема файла");
+            MessageBox.Show(Resources.Resources.Const_WrongScheme);
         }
     }
 

@@ -17,7 +17,7 @@ public class IFCHelper : ExportHelperBase
         IFCExportOptions options = IFC_ExportOptions(configIFC, doc);
 
         using Transaction tr = new(doc);
-        tr.Start("Экспорт IFC");
+        tr.Start(Resources.Resources.IFC_Title);
 
         Export(iConfig, doc, options, ref log, ref isFuckedUp);
 

@@ -186,11 +186,39 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export view.
+        /// </summary>
+        public static string Base_ExportScopeView {
+            get {
+                return ResourceManager.GetString("Base.ExportScopeView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export whole model.
+        /// </summary>
+        public static string Base_ExportScopeWhole {
+            get {
+                return ResourceManager.GetString("Base.ExportScopeWhole", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RVT files to be exported.
         /// </summary>
         public static string Base_Header {
             get {
                 return ResourceManager.GetString("Base.Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ignore missing view
+        ///and export whole project.
+        /// </summary>
+        public static string Base_IgnoreMissingView {
+            get {
+                return ResourceManager.GetString("Base.IgnoreMissingView", resourceCulture);
             }
         }
         
@@ -204,11 +232,84 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Postfix.
+        /// </summary>
+        public static string Base_Postfix {
+            get {
+                return ResourceManager.GetString("Base.Postfix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postfix to be added to the end of a file name.
+        /// </summary>
+        public static string Base_Postfix_ToolTip {
+            get {
+                return ResourceManager.GetString("Base.Postfix.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prefix.
+        /// </summary>
+        public static string Base_Prefix {
+            get {
+                return ResourceManager.GetString("Base.Prefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prefix to be added to the start of a file name.
+        /// </summary>
+        public static string Base_Prefix_ToolTip {
+            get {
+                return ResourceManager.GetString("Base.Prefix.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save to folder.
         /// </summary>
         public static string Base_ResultingFolder {
             get {
                 return ResourceManager.GetString("Base.ResultingFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Don&apos;t create log file.
+        /// </summary>
+        public static string Base_TurnOffLog {
+            get {
+                return ResourceManager.GetString("Base.TurnOffLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prefixes of Worksets to be closed.
+        /// </summary>
+        public static string Base_WorksetPrefixes {
+            get {
+                return ResourceManager.GetString("Base.WorksetPrefixes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify the Prefixes of all Worksets that need to be closed when opening the file, separated by semicolons (;). 
+        ///Worksets with Links are usually closed to speed up the opening of models..
+        /// </summary>
+        public static string Base_WorksetPrefixes_ToolTip {
+            get {
+                return ResourceManager.GetString("Base.WorksetPrefixes.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Default.
+        /// </summary>
+        public static string Const_Default {
+            get {
+                return ResourceManager.GetString("Const.Default", resourceCulture);
             }
         }
         
@@ -366,11 +467,84 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export base quantities.
+        /// </summary>
+        public static string IFC_BaseQuantities {
+            get {
+                return ResourceManager.GetString("IFC.BaseQuantities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Split Walls, Columns,
+        ///Ducts by Level.
+        /// </summary>
+        public static string IFC_CheckBox_Splitting {
+            get {
+                return ResourceManager.GetString("IFC.CheckBox.Splitting", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export parameter mapping table.
+        /// </summary>
+        public static string IFC_MappingTable {
+            get {
+                return ResourceManager.GetString("IFC.MappingTable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Space boundaries.
+        /// </summary>
+        public static string IFC_SpaceBoundaries {
+            get {
+                return ResourceManager.GetString("IFC.SpaceBoundaries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None.
+        /// </summary>
+        public static string IFC_SpaceBoundaryLevels0 {
+            get {
+                return ResourceManager.GetString("IFC.SpaceBoundaryLevels0", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1st Level.
+        /// </summary>
+        public static string IFC_SpaceBoundaryLevels1 {
+            get {
+                return ResourceManager.GetString("IFC.SpaceBoundaryLevels1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2nd Level.
+        /// </summary>
+        public static string IFC_SpaceBoundaryLevels2 {
+            get {
+                return ResourceManager.GetString("IFC.SpaceBoundaryLevels2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IFC batch export.
         /// </summary>
         public static string IFC_Title {
             get {
                 return ResourceManager.GetString("IFC.Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IFC version.
+        /// </summary>
+        public static string IFC_Version {
+            get {
+                return ResourceManager.GetString("IFC.Version", resourceCulture);
             }
         }
         

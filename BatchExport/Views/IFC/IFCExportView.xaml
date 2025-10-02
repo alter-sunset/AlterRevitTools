@@ -99,29 +99,29 @@
                    Grid.Row="4"
                    Grid.Column="0"
                    VerticalAlignment="Center"
-                   ToolTip="Префикс, который необходимо вставить перед названием файла"
+                   ToolTip="{x:Static resx:Resources.Base_Prefix_ToolTip}"
                    FontSize="12"
-                   Text="Префикс названия" />
+                   Text="{x:Static resx:Resources.Base_Prefix}" />
         <TextBox Margin="125,10,10,10"
                  Grid.Row="4"
                  Grid.ColumnSpan="2" Grid.Column="0"
                  VerticalContentAlignment="Center"
                  Text="{Binding NamePrefix}"
-                 ToolTip="Префикс, который необходимо вставить перед названием файла" />
+                 ToolTip="{x:Static resx:Resources.Base_Prefix_ToolTip}" />
         <TextBlock Margin="10,0,80,0"
                    Grid.Row="4"
                    Grid.Column="2"
                    VerticalAlignment="Center"
-                   ToolTip="Постфикс, который необходимо вставить после названия файла"
+                   ToolTip="{x:Static resx:Resources.Base_Postfix_ToolTip}"
                    FontSize="12"
-                   Text="Постфикс названия" />
+                   Text="{x:Static resx:Resources.Base_Postfix}" />
         <TextBox Margin="125,10,10,10"
                  Grid.Row="4"
                  Grid.Column="2"
                  Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
                  Text="{Binding NamePostfix}"
-                 ToolTip="Постфикс, который необходимо вставить после названия файла" />
+                 ToolTip="{x:Static resx:Resources.Base_Postfix_ToolTip}" />
 
         <TextBlock Margin="10,0,40,0"
                    FontSize="14"
@@ -129,7 +129,7 @@
                    Grid.Column="0"
                    VerticalAlignment="Center"
                    TextWrapping="Wrap"
-                   Text="Таблица соответствия параметров экспорта" />
+                   Text="{x:Static resx:Resources.IFC_MappingTable}" />
 
         <TextBox Margin="165,10,135,10"
                  Grid.Row="5"
@@ -147,14 +147,14 @@
                   Grid.Column="0"
                   VerticalAlignment="Center"
                   FontSize="12"
-                  Content="Экспорт основных величин"
+                  Content="{x:Static resx:Resources.IFC_BaseQuantities}"
                   IsChecked="{Binding ExportBaseQuantities}" />
         <TextBlock Margin="10,0,100,0"
                    FontSize="14"
                    Grid.Row="6"
                    Grid.Column="1"
                    VerticalAlignment="Center"
-                   Text="Версия IFC" />
+                   Text="{x:Static resx:Resources.IFC_Version}" />
         <ComboBox Margin="100,10,10,10"
                   Grid.Row="6"
                   Grid.Column="1"
@@ -167,12 +167,8 @@
                   Grid.Row="6"
                   Grid.Column="3"
                   VerticalContentAlignment="Center"
-                  IsChecked="{Binding WallAndColumnSplitting}">
-            <TextBlock>
-                Разделить стены, колонны
-                <LineBreak /> и воздуховоды по уровню
-            </TextBlock>
-        </CheckBox>
+                  IsChecked="{Binding WallAndColumnSplitting}"
+                  Content="{x:Static resx:Resources.IFC_CheckBox_Splitting}"/>
 
         <RadioButton Margin="10"
                      Grid.Row="7"
@@ -180,14 +176,14 @@
                      VerticalContentAlignment="Center"
                      GroupName="ExportScope"
                      IsChecked="{Binding ExportScopeWhole}"
-                     Content="Экспортировать весь проект" />
+                     Content="{x:Static resx:Resources.Base_ExportScopeWhole}" />
         <RadioButton Margin="10,10,50,10"
                      Grid.Row="7"
                      Grid.Column="1"
                      VerticalContentAlignment="Center"
                      GroupName="ExportScope"
                      IsChecked="{Binding ExportScopeView}"
-                     Content="Экспортировать вид" />
+                     Content="{x:Static resx:Resources.Base_ExportScopeView}" />
         <TextBox Margin="155,10,10,10"
                  Grid.Row="7"
                  Grid.Column="1"
@@ -198,20 +194,16 @@
                   Grid.Row="7"
                   Grid.Column="3"
                   VerticalContentAlignment="Center"
-                  IsChecked="{Binding IgnoreMissingView}">
-            <TextBlock FontSize="11">
-                Игнорировать отсутствие вида
-                <LineBreak/>
-                и экспортировать весь проект
-            </TextBlock>
-        </CheckBox>
+                  IsChecked="{Binding IgnoreMissingView}"
+                  Content="{x:Static resx:Resources.Base_IgnoreMissingView}"
+                  FontSize="11"/>
 
         <TextBlock Margin="10,0,40,0"
                    FontSize="14"
                    Grid.Row="8"
                    Grid.Column="2"
                    VerticalAlignment="Center"
-                   Text="Границы пространств" />
+                   Text="{x:Static resx:Resources.IFC_SpaceBoundaries}" />
 
         <ComboBox Margin="165,9,10,11"
                   Grid.Row="8"
@@ -228,14 +220,14 @@
                    Grid.Column="0"
                    VerticalAlignment="Center"
                    TextWrapping="Wrap"
-                   Text="Префиксы рабочих наборов, которые нужно закрыть" />
+                   Text="{x:Static resx:Resources.Base_WorksetPrefixes}" />
         <TextBox Margin="10,10,10,10"
                  Grid.Row="9"
                  Grid.Column="1"
                  Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
                  Text="{Binding WorksetPrefix}"
-                 ToolTip="Укажите через точку-запятую (;) префиксы всех рабочих наборов, которые необходимо закрыть при открытии файла. Обычно закрывают рабочие наборы со связями, чтобы ускорить открытие моделей." />
+                 ToolTip="{x:Static resx:Resources.Base_WorksetPrefixes_ToolTip}" />
 
         
         <CheckBox Margin="10"
@@ -243,13 +235,13 @@
                   Grid.Column="0"
                   VerticalAlignment="Center"
                   FontSize="12"
-                  Content="Не создавать лог-файл"
+                  Content="{x:Static resx:Resources.Base_TurnOffLog}"
                   IsChecked="{Binding TurnOffLog}" />
         <Button Margin="10"
                 Grid.Row="10"
                 Grid.Column="2"
                 Command="{Binding EraseCommand}"
-                Content="Очистить список" />
+                Content="{x:Static resx:Resources.Base_Button_EraseList}" />
         <Button Margin="10"
                 Grid.Row="10"
                 Grid.Column="3"
