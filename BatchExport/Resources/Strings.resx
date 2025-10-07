@@ -471,4 +471,66 @@ where the first string is the current path to the file, and the second is the ne
         <value>	The plugin is designed for batch export of parameters from the model to a .csv file.
 	Specify the names of the parameters to be exported, separated by semicolon (;) in the corresponding field.</value>
     </data>
+    <data name="Core.Panel.Export" xml:space="preserve">
+        <value>Batch export</value>
+    </data>
+    <data name="Core.Panel.Import" xml:space="preserve">
+        <value>Batch import</value>
+    </data>
+    <data name="Core.Button.NWC.Text" xml:space="preserve">
+        <value>NWC 
+Export</value>
+    </data>
+    <data name="Core.Button.IFC.Text" xml:space="preserve">
+        <value>IFC 
+Export</value>
+    </data>
+    <data name="Core.Button.Detach.Text" xml:space="preserve">
+        <value>Detached 
+models Export</value>
+    </data>
+    <data name="Core.Button.Transmit.Text" xml:space="preserve">
+        <value>Transmit 
+models</value>
+    </data>
+    <data name="Core.Button.Migrate.Text" xml:space="preserve">
+        <value>Migrate 
+models</value>
+    </data>
+    <data name="Core.Button.Params.Text" xml:space="preserve">
+        <value>Parameters 
+Export</value>
+    </data>
+    <data name="Core.Button.Link.Text" xml:space="preserve">
+        <value>Link 
+RVT models</value>
+    </data>
+    <data name="Core.Button.Worksets.Text" xml:space="preserve">
+        <value>Worksets 
+Export</value>
+    </data>
+    <data name="Core.Button.NWC.ToolTip" xml:space="preserve">
+        <value>Batch export models to NWC</value>
+    </data>
+    <data name="Core.Button.IFC.ToolTip" xml:space="preserve">
+        <value>Batch export models to IFC</value>
+    </data>
+    <data name="Core.Button.Detach.ToolTip" xml:space="preserve">
+        <value>Batch detach and export models</value>
+    </data>
+    <data name="Core.Button.Transmit.ToolTip" xml:space="preserve">
+        <value>Batch transmit models</value>
+    </data>
+    <data name="Core.Button.Migrate.ToolTip" xml:space="preserve">
+        <value>Batch migrate models and update nested links</value>
+    </data>
+    <data name="Core.Button.Params.ToolTip" xml:space="preserve">
+        <value>Batch export parameters from models into single CSV</value>
+    </data>
+    <data name="Core.Button.Link.ToolTip" xml:space="preserve">
+        <value>Link batch of RVT models to current project in one click</value>
+    </data>
+    <data name="Core.Button.Worksets.ToolTip" xml:space="preserve">
+        <value>Batch export workset name from several models</value>
+    </data>
 </root>

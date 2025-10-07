@@ -167,7 +167,7 @@
     </data>
     <data name="Base.IgnoreMissingView" xml:space="preserve">
         <value>Игнорировать отсутствие вида и
- экспортировать весь проект</value>
+экспортировать весь проект</value>
     </data>
     <data name="IFC.SpaceBoundaries" xml:space="preserve">
         <value>Границы пространств</value>
@@ -227,8 +227,7 @@
         <value>Разделить файл на уровни</value>
     </data>
     <data name="NWC.ExportElementIds" xml:space="preserve">
-        <value>Экспортировать
- 
+        <value>Экспортировать 
 Id элементов</value>
     </data>
     <data name="NWC.ExportLinks" xml:space="preserve">
@@ -240,8 +239,7 @@ Id элементов</value>
 элементы конструкции</value>
     </data>
     <data name="NWC.ExportRoomAsAttr" xml:space="preserve">
-        <value>Экспортировать
- 
+        <value>Экспортировать 
 помещение как атрибут</value>
     </data>
     <data name="NWC.ExportRoomGeometry" xml:space="preserve">
@@ -250,10 +248,7 @@ Id элементов</value>
     </data>
     <data name="NWC.FindMissingMaterials" xml:space="preserve">
         <value>Проверять и находить 
-о
-
-
-тсутсвующие материалы</value>
+отсутсвующие материалы</value>
     </data>
     <data name="NWC.ConvertElementParams" xml:space="preserve">
         <value>Конвертировать параметры объектов</value>
@@ -361,8 +356,7 @@ Id элементов</value>
     </data>
     <data name="Const.CreateFolder" xml:space="preserve">
         <value>Такой папки не существует. 
-С
-оздать папку?</value>
+Создать папку?</value>
     </data>
     <data name="Const.ToHell" xml:space="preserve">
         <value>Нет, так нет. 
@@ -476,5 +470,67 @@ Id элементов</value>
     <data name="Help.ParamsTitle" xml:space="preserve">
         <value>	Плагин предназначен для пакетного эскпорта параметров из модели в файл формата .csv.
 	Укажите наименования параметров, которые необходимо экспортировать, через точку-запятую (;) в соответсвующее поле.</value>
+    </data>
+    <data name="Core.Panel.Export" xml:space="preserve">
+        <value>Пакетный экспорт</value>
+    </data>
+    <data name="Core.Panel.Import" xml:space="preserve">
+        <value>Пакетный импорт</value>
+    </data>
+    <data name="Core.Button.NWC.Text" xml:space="preserve">
+        <value>Экспорт 
+NWC</value>
+    </data>
+    <data name="Core.Button.IFC.Text" xml:space="preserve">
+        <value>Экспорт 
+IFC</value>
+    </data>
+    <data name="Core.Button.Detach.Text" xml:space="preserve">
+        <value>Экспорт 
+отсоединённых моделей</value>
+    </data>
+    <data name="Core.Button.Transmit.Text" xml:space="preserve">
+        <value>Передача 
+моделей</value>
+    </data>
+    <data name="Core.Button.Migrate.Text" xml:space="preserve">
+        <value>Миграция 
+моделей</value>
+    </data>
+    <data name="Core.Button.Params.Text" xml:space="preserve">
+        <value>Экспорт 
+параметров</value>
+    </data>
+    <data name="Core.Button.Link.Text" xml:space="preserve">
+        <value>Добавление 
+Revit ссылок</value>
+    </data>
+    <data name="Core.Button.Worksets.Text" xml:space="preserve">
+        <value>Экспорт 
+рабочих наборов</value>
+    </data>
+    <data name="Core.Button.NWC.ToolTip" xml:space="preserve">
+        <value>Пакетный экспорт в NWC</value>
+    </data>
+    <data name="Core.Button.IFC.ToolTip" xml:space="preserve">
+        <value>Пакетный экспорт в IFC</value>
+    </data>
+    <data name="Core.Button.Detach.ToolTip" xml:space="preserve">
+        <value>Пакетный экспорт отсоединённых моделей</value>
+    </data>
+    <data name="Core.Button.Transmit.ToolTip" xml:space="preserve">
+        <value>Пакетная передача моделей</value>
+    </data>
+    <data name="Core.Button.Migrate.ToolTip" xml:space="preserve">
+        <value>Пакетная миграция моделей с обновлением связей</value>
+    </data>
+    <data name="Core.Button.Params.ToolTip" xml:space="preserve">
+        <value>Пакетный экспорт параметров из моделей в единый CSV файл</value>
+    </data>
+    <data name="Core.Button.Link.ToolTip" xml:space="preserve">
+        <value>Пакетное добавление Revit ссылок в текущую модель</value>
+    </data>
+    <data name="Core.Button.Worksets.ToolTip" xml:space="preserve">
+        <value>Пакетный экспорт рабочих наборов из моделей</value>
     </data>
 </root>

@@ -1,12 +1,12 @@
 [
   {
     "Name": "WorksetsExtract",
-    "Text": "Экспорт\nрабочих наборов",
+    "Text": "Core.Button.Worksets.Text",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExtractWorkset",
-    "ToolTip": "Пакетный экспорт рабочих наборов из моделей",
+    "ToolTip": "Core.Button.Worksets.ToolTip",
     "ImageLarge": "",
     "ImageSmall": "",
-    "Panel": "Пакетный экспорт",
+    "Panel": "Core.Panel.Export",
     "Availability": true
   }
 ]

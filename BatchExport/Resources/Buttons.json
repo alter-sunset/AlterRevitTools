@@ -1,72 +1,72 @@
 [
   {
     "Name": "NWC",
-    "Text": "Экспорт\nNWC",
+    "Text": "Core.Button.NWC.Text",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportModelsToNWC",
-    "ToolTip": "Пакетный экспорт в NWC",
+    "ToolTip": "Core.Button.NWC.ToolTip",
     "ImageLarge": "AlterTools.BatchExport.Resources.nwc.png",
     "ImageSmall": "AlterTools.BatchExport.Resources.nwc_16.png",
-    "Panel": "Пакетный экспорт",
+    "Panel": "Core.Panel.Export",
     "Availability": true
   },
   {
     "Name": "IFC",
-    "Text": "Экспорт\nIFC",
+    "Text": "Core.Button.IFC.Text",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportModelsToIFC",
-    "ToolTip": "Пакетный экспорт в IFC",
+    "ToolTip": "Core.Button.IFC.ToolTip",
     "ImageLarge": "AlterTools.BatchExport.Resources.ifc.png",
     "ImageSmall": "AlterTools.BatchExport.Resources.ifc_16.png",
-    "Panel": "Пакетный экспорт",
+    "Panel": "Core.Panel.Export",
     "Availability": true
   },
   {
     "Name": "Detach",
-    "Text": "Экспорт\nотсоединённых\nмоделей",
+    "Text": "Core.Button.Detach.Text",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportModelsDetached",
-    "ToolTip": "Пакетный экспорт отсоединённых моделей",
+    "ToolTip": "Core.Button.Detach.ToolTip",
     "ImageLarge": "AlterTools.BatchExport.Resources.detach.png",
     "ImageSmall": "AlterTools.BatchExport.Resources.detach_16.png",
-    "Panel": "Пакетный экспорт",
+    "Panel": "Core.Panel.Export",
     "Availability": true
   },
   {
     "Name": "Transmit",
-    "Text": "Передача\nмоделей",
+    "Text": "Core.Button.Transmit.Text",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportModelsTransmitted",
-    "ToolTip": "Пакетная передача моделей",
+    "ToolTip": "Core.Button.Transmit.ToolTip",
     "ImageLarge": "AlterTools.BatchExport.Resources.transmit.png",
     "ImageSmall": "AlterTools.BatchExport.Resources.transmit_16.png",
-    "Panel": "Пакетный экспорт",
+    "Panel": "Core.Panel.Export",
     "Availability": true
   },
   {
     "Name": "Migrate",
-    "Text": "Миграция\nмоделей",
+    "Text": "Core.Button.Migrate.Text",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandMigrateModels",
-    "ToolTip": "Пакетная миграция моделей с обновлением связей",
+    "ToolTip": "Core.Button.Migrate.ToolTip",
     "ImageLarge": "AlterTools.BatchExport.Resources.migrate.png",
     "ImageSmall": "AlterTools.BatchExport.Resources.migrate_16.png",
-    "Panel": "Пакетный экспорт",
+    "Panel": "Core.Panel.Export",
     "Availability": true
   },
   {
     "Name": "Params",
-    "Text": "Экспорт\nпараметров",
+    "Text": "Core.Button.Params.Text",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportParametersMap",
-    "ToolTip": "Пакетный экспорт параметров из моделей",
+    "ToolTip": "Core.Button.Params.ToolTip",
     "ImageLarge": "AlterTools.BatchExport.Resources.params.png",
     "ImageSmall": "AlterTools.BatchExport.Resources.params_16.png",
-    "Panel": "Пакетный экспорт",
+    "Panel": "Core.Panel.Export",
     "Availability": true
   },
   {
     "Name": "Link",
-    "Text": "Пакетное добавление\nRevit ссылок",
+    "Text": "Core.Button.Link.Text",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandLinkModels",
-    "ToolTip": "Пакетное добавление Revit ссылок в текущую модель",
+    "ToolTip": "Core.Button.Link.ToolTip",
     "ImageLarge": "AlterTools.BatchExport.Resources.link.png",
     "ImageSmall": "AlterTools.BatchExport.Resources.link_16.png",
-    "Panel": "Пакетный импорт",
+    "Panel": "Core.Panel.Import",
     "Availability": false
   }
 ]
