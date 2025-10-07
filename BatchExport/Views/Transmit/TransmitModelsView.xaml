@@ -94,7 +94,8 @@
                   Grid.Row="4"
                   Grid.Column="0"
                   IsChecked="{Binding IsSameFolder}"
-                  Content="{x:Static resx:Strings.Transmit_SameFolder}" />
+                  Content="{x:Static resx:Strings.Transmit_SameFolder}"
+                  ToolTip="{x:Static resx:Strings.Transmit_SameFolder_ToolTip}"/>
 
         <Button Margin="10"
                 Grid.Row="5"

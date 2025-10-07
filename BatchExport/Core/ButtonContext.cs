@@ -32,7 +32,6 @@ internal class ButtonContext
         {
             PushButtonData pbData = new(Name,GetString(Text), Assembly.GetExecutingAssembly().Location, ClassName)
             {
-                //TODO: work with it
                 ToolTip = GetString(ToolTip),
                 Image = GetImage(ImageSmall),
                 LargeImage = GetImage(ImageLarge)
@@ -65,5 +64,5 @@ internal class ButtonContext
         }
     }
 
-    internal static string GetString(string name) => Resources.Strings.ResourceManager.GetString(name);
+    private static string GetString(string name) => Resources.Strings.ResourceManager.GetString(name);
 }

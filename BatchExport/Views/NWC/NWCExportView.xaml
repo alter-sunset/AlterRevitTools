@@ -34,7 +34,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-       <TextBlock Margin="10,0,10,0"
+        <TextBlock Margin="10,0,10,0"
                    FontSize="14"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
@@ -96,34 +96,32 @@
                 Grid.Row="3"
                 Command="{Binding BrowseFolderCommand}"
                 Content="{x:Static resx:Strings.Base_Button_Browse}" />
-
-       <TextBlock Margin="10,0,80,0"
-                  Grid.Row="4"
-                  Grid.Column="0"
-                  VerticalAlignment="Center"
-                  ToolTip="{x:Static resx:Strings.Base_Prefix_ToolTip}"
-                  FontSize="12"
-                  Text="{x:Static resx:Strings.Base_Prefix}" />
-       <TextBox Margin="125,10,10,10"
-                Grid.Row="4"
-                Grid.ColumnSpan="2" Grid.Column="0"
-                VerticalContentAlignment="Center"
-                Text="{Binding NamePrefix}"
-                ToolTip="{x:Static resx:Strings.Base_Prefix_ToolTip}" />
-       <TextBlock Margin="10,0,80,0"
-                  Grid.Row="4"
-                  Grid.Column="2"
-                  VerticalAlignment="Center"
-                  ToolTip="{x:Static resx:Strings.Base_Postfix_ToolTip}"
-                  FontSize="12"
-                  Text="{x:Static resx:Strings.Base_Postfix}" />
-       <TextBox Margin="125,10,10,10"
-                Grid.Row="4"
-                Grid.Column="2"
-                Grid.ColumnSpan="2"
-                VerticalContentAlignment="Center"
-                Text="{Binding NamePostfix}"
-                ToolTip="{x:Static resx:Strings.Base_Postfix_ToolTip}" />
+        
+        <TextBlock Margin="10,0,80,0"
+                   Grid.Row="4"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   ToolTip="{x:Static resx:Strings.Base_Prefix_ToolTip}"
+                   Text="{x:Static resx:Strings.Base_Prefix}" />
+        <TextBox Margin="125,10,10,10"
+                 Grid.Row="4"
+                 Grid.ColumnSpan="2" Grid.Column="0"
+                 VerticalContentAlignment="Center"
+                 Text="{Binding NamePrefix}"
+                 ToolTip="{x:Static resx:Strings.Base_Prefix_ToolTip}" />
+        <TextBlock Margin="10,0,80,0"
+                   Grid.Row="4"
+                   Grid.Column="2"
+                   VerticalAlignment="Center"
+                   ToolTip="{x:Static resx:Strings.Base_Postfix_ToolTip}"
+                   Text="{x:Static resx:Strings.Base_Postfix}" />
+        <TextBox Margin="125,10,10,10"
+                 Grid.Row="4"
+                 Grid.Column="2"
+                 Grid.ColumnSpan="2"
+                 VerticalContentAlignment="Center"
+                 Text="{Binding NamePostfix}"
+                 ToolTip="{x:Static resx:Strings.Base_Postfix_ToolTip}" />
 
         <CheckBox Margin="10,10,10,10"
                   Grid.Row="5"

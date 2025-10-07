@@ -539,4 +539,7 @@ Revit ссылок</value>
     <data name="Base.Button.SaveListTxt.ToolTip" xml:space="preserve">
         <value>Сохранить список в формате (.txt)</value>
     </data>
+    <data name="Transmit.SameFolder.ToolTip" xml:space="preserve">
+        <value>Поместить все файлы в одну папку или сохранить структуру каталога</value>
+    </data>
 </root>

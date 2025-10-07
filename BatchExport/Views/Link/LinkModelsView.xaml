@@ -4,7 +4,7 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:base="clr-namespace:AlterTools.BatchExport.Views.Base"
                  xmlns:resx="clr-namespace:AlterTools.BatchExport.Resources"
-                 Height="550"
+                 Height="450"
                  Width="800"
                  WindowStartupLocation="CenterScreen"
                  ResizeMode="NoResize"
@@ -21,7 +21,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="4*" />
-            <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
@@ -106,19 +105,19 @@
 
         <CheckBox Margin="10,0,10,0"
                   Grid.Column="0"
-                  Grid.Row="4"
+                  Grid.Row="3"
                   VerticalAlignment="Center"
                   Content="{x:Static resx:Strings.Link_Pin}"
                   IsChecked="{Binding PinLinks}" />
         <TextBlock Margin="10,0,10,0"
                    FontSize="12"
-                   Grid.Row="4"
+                   Grid.Row="3"
                    Grid.Column="1"
                    VerticalAlignment="Center"
                    TextWrapping="Wrap"
                    Text="{x:Static resx:Strings.Base_WorksetPrefixes}" />
         <TextBox Margin="10,10,10,10"
-                 Grid.Row="4"
+                 Grid.Row="3"
                  Grid.Column="2"
                  Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
@@ -127,19 +126,18 @@
 
         <CheckBox Margin="10,0,100,0"
                   Grid.Column="0"
-                  Grid.Row="5"
+                  Grid.Row="4"
                   VerticalAlignment="Center"
                   Content="{x:Static resx:Strings.Link_CurrentWorkset}"
                   Grid.ColumnSpan="2"
                   IsChecked="{Binding IsCurrentWorkset}" />
-
         <Button Margin="10"
-                Grid.Row="5"
+                Grid.Row="4"
                 Grid.Column="2"
                 Command="{Binding EraseCommand}"
                 Content="{x:Static resx:Strings.Base_Button_EraseList}" />
         <Button Margin="10"
-                Grid.Row="5"
+                Grid.Row="4"
                 Grid.Column="3"
                 Command="{Binding RaiseEventCommand}"
                 Content="{x:Static resx:Strings.Base_Button_Start_Content}" />
