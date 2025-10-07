@@ -486,8 +486,8 @@ NWC</value>
 IFC</value>
     </data>
     <data name="Core.Button.Detach.Text" xml:space="preserve">
-        <value>Экспорт 
-отсоединённых моделей</value>
+        <value>Отсоединение 
+моделей</value>
     </data>
     <data name="Core.Button.Transmit.Text" xml:space="preserve">
         <value>Передача 
@@ -532,5 +532,11 @@ Revit ссылок</value>
     </data>
     <data name="Core.Button.Worksets.ToolTip" xml:space="preserve">
         <value>Пакетный экспорт рабочих наборов из моделей</value>
+    </data>
+    <data name="Base.Button.LoadListTxt.ToolTip" xml:space="preserve">
+        <value>Загрузить сохранённый ранее список файлов в формате (.txt)</value>
+    </data>
+    <data name="Base.Button.SaveListTxt.ToolTip" xml:space="preserve">
+        <value>Сохранить список в формате (.txt)</value>
     </data>
 </root>

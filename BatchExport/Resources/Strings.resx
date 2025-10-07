@@ -486,8 +486,8 @@ Export</value>
 Export</value>
     </data>
     <data name="Core.Button.Detach.Text" xml:space="preserve">
-        <value>Detached 
-models Export</value>
+        <value>Detach 
+models</value>
     </data>
     <data name="Core.Button.Transmit.Text" xml:space="preserve">
         <value>Transmit 
@@ -532,5 +532,11 @@ Export</value>
     </data>
     <data name="Core.Button.Worksets.ToolTip" xml:space="preserve">
         <value>Batch export workset name from several models</value>
+    </data>
+    <data name="Base.Button.LoadListTxt.ToolTip" xml:space="preserve">
+        <value>Load previously saved file list in (.txt) format</value>
+    </data>
+    <data name="Base.Button.SaveListTxt.ToolTip" xml:space="preserve">
+        <value>Save list in (.txt) format</value>
     </data>
 </root>

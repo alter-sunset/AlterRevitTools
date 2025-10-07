@@ -150,6 +150,15 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Load previously saved file list in (.txt) format.
+        /// </summary>
+        public static string Base_Button_LoadListTxt_ToolTip {
+            get {
+                return ResourceManager.GetString("Base.Button.LoadListTxt.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Save list.
         /// </summary>
         public static string Base_Button_SaveList_Content {
@@ -164,6 +173,15 @@ namespace AlterTools.BatchExport.Resources {
         public static string Base_Button_SaveList_ToolTip {
             get {
                 return ResourceManager.GetString("Base.Button.SaveList.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save list in (.txt) format.
+        /// </summary>
+        public static string Base_Button_SaveListTxt_ToolTip {
+            get {
+                return ResourceManager.GetString("Base.Button.SaveListTxt.ToolTip", resourceCulture);
             }
         }
         
