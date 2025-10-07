@@ -58,13 +58,13 @@
                 Grid.Row="2"
                 Command="{Binding LoadListCommand}"
                 Content="{x:Static resx:Strings.Base_Button_LoadList_Content}"
-                ToolTip="{x:Static resx:Strings.Base_Button_LoadList_ToolTip}" />
+                ToolTip="{x:Static resx:Strings.Base_Button_LoadListTxt_ToolTip}" />
         <Button Margin="10"
                 Grid.Column="2"
                 Grid.Row="2"
                 Command="{Binding SaveListCommand}"
                 Content="{x:Static resx:Strings.Base_Button_SaveList_Content}"
-                ToolTip="{x:Static resx:Strings.Base_Button_SaveList_ToolTip}" />
+                ToolTip="{x:Static resx:Strings.Base_Button_SaveListTxt_ToolTip}" />
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="2"
