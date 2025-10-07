@@ -34,16 +34,25 @@ public static class DetachHelper
         string fileDetachedPath = Path.Combine(iConfigDetach.FolderPath, $"{docTitle}.rvt");
 
         if (iConfigDetach is DetachViewModel { RadioButtonMode: 2 } detachViewModel)
+        {
             fileDetachedPath = RenamePath(originalFilePath,
                 RenameType.Folder,
                 detachViewModel.MaskIn, detachViewModel.MaskOut);
+            
+        }
 
         if (iConfigDetach.IsToRename)
+        {
             fileDetachedPath = RenamePath(fileDetachedPath,
                 RenameType.Title,
                 iConfigDetach.MaskInName, iConfigDetach.MaskOutName);
+            
+        }
 
-        if (iConfigDetach.CheckForEmptyView) CheckAndModifyForEmptyView(doc, iConfigDetach, ref fileDetachedPath);
+        if (iConfigDetach.CheckForEmptyView)
+        {
+            CheckAndModifyForEmptyView(doc, iConfigDetach, ref fileDetachedPath);
+        }
 
         return fileDetachedPath;
     }
@@ -59,9 +68,10 @@ public static class DetachHelper
                 .OfClass(typeof(View3D))
                 .FirstOrDefault(el => el.Name == iConfigDetach.ViewName && !((View3D)el).IsTemplate);
 
-            if (view is not null
-                && doc.IsViewEmpty(view))
+            if (view is not null && doc.IsViewEmpty(view))
+            {
                 fileDetachedPath = RenamePath(fileDetachedPath, RenameType.Empty);
+            }
         }
         catch
         {
@@ -99,12 +109,16 @@ public static class DetachHelper
 
     private static void ProcessDocument(Document doc, IConfigDetach iConfigDetach)
     {
-        if (iConfigDetach.RemoveLinks) doc.DeleteAllLinks();
+        if (iConfigDetach.RemoveLinks)
+        {
+            doc.DeleteAllLinks();
+        }
 
 #if R22_OR_GREATER
-        if (iConfigDetach.RemoveEmptyWorksets
-            && doc.IsWorkshared)
+        if (iConfigDetach.RemoveEmptyWorksets && doc.IsWorkshared)
+        {
             doc.RemoveEmptyWorksets();
+        }
 #endif
 
 #if R24_OR_GREATER
@@ -162,7 +176,10 @@ public static class DetachHelper
 
             string backupFolderPath = fileDetachedPath.Replace(".rvt", "_backup");
 
-            if (Directory.Exists(backupFolderPath)) Directory.Delete(backupFolderPath, true);
+            if (Directory.Exists(backupFolderPath))
+            {
+                Directory.Delete(backupFolderPath, true);
+            }
 
             return;
         }
@@ -170,7 +187,10 @@ public static class DetachHelper
         for (int i = 1; i <= 3; i++)
         {
             string versionedFilePath = fileDetachedPath.Replace(".rvt", $".{i:D4}.rvt");
-            if (File.Exists(versionedFilePath)) File.Delete(versionedFilePath);
+            if (File.Exists(versionedFilePath))
+            {
+                File.Delete(versionedFilePath);
+            }
         }
     }
 

@@ -36,7 +36,10 @@ public class Entry : NotifyPropertyChanged, ISelectable
 
             SetProperty(ref _selectedImportPlacement, value);
 
-            if (IsSelected) _viewModel.UpdateSelectedEntries(this, false);
+            if (IsSelected)
+            {
+                _viewModel.UpdateSelectedEntries(this, false);
+            }
         }
     }
 
@@ -51,7 +54,10 @@ public class Entry : NotifyPropertyChanged, ISelectable
 
             SetProperty(ref _selectedWorkset, value);
 
-            if (IsSelected) _viewModel.UpdateSelectedEntries(this, true);
+            if (IsSelected)
+            {
+                _viewModel.UpdateSelectedEntries(this, true);
+            }
         }
     }
 

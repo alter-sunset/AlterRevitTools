@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
@@ -34,11 +35,11 @@ public class LinkViewModel : ViewModelBase
     {
         Worksets = worksets;
         EventHandlerBase = eventHandlerLink;
-        HelpMessage = Help.GetHelpDictionary()
-            .GetResultMessage(HelpMessageType.LinkTitle,
-                HelpMessageType.Load,
-                HelpMessageType.List,
-                HelpMessageType.Start);
+        HelpMessage = string.Join(Environment.NewLine,
+            Resources.Strings.Help_LinkTitle,
+            Resources.Strings.Help_Load,
+            Resources.Strings.Help_List,
+            Resources.Strings.Help_Start);
     }
 
     public bool IsCurrentWorkset
@@ -53,7 +54,7 @@ public class LinkViewModel : ViewModelBase
         set => SetProperty(ref _pinLinks, value);
     }
 
-    public override string[] Files => Entries.Select(e => e.Name).ToArray();
+    public override string[] Files => [.. Entries.Select(e => e.Name)];
 
     public ObservableCollection<Entry> Entries
     {
@@ -78,10 +79,15 @@ public class LinkViewModel : ViewModelBase
     public void UpdateSelectedEntries(Entry sourceEntry, bool isWorkset)
     {
         foreach (Entry entry in Entries.Where(en => en != sourceEntry && en.IsSelected))
+        {
             if (isWorkset)
+            {
                 entry.SelectedWorkset = sourceEntry.SelectedWorkset;
-            else
-                entry.SelectedImportPlacement = sourceEntry.SelectedImportPlacement;
+                continue;
+            }
+            
+            entry.SelectedImportPlacement = sourceEntry.SelectedImportPlacement;
+        }
     }
 
     protected override void LoadList()
@@ -92,9 +98,12 @@ public class LinkViewModel : ViewModelBase
 
         IEnumerable<string> files = File.ReadLines(openFileDialog.FileName).FilterRevitFiles();
 
-        Entries = new ObservableCollection<Entry>(files.Select(file => new Entry(this, file)));
+        Entries = [.. files.Select(file => new Entry(this, file))];
 
-        if (!Entries.Any()) MessageBox.Show(NoFiles);
+        if (!Entries.Any())
+        {
+            MessageBox.Show(NoFiles);
+        }
 
         FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
     }
@@ -105,7 +114,7 @@ public class LinkViewModel : ViewModelBase
 
         if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
-        HashSet<string> existingFiles = new(Files);
+        HashSet<string> existingFiles = [.. Files];
 
         openFileDialog.FileNames.Where(file => !existingFiles.Contains(file))
             .Distinct()

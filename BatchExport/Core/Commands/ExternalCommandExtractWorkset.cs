@@ -18,10 +18,16 @@ public class ExternalCommandExtractWorkset : IExternalCommand
     public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
     {
         FolderBrowserDialog folderDialog = new();
-        if (folderDialog.ShowDialog() is not DialogResult.OK) return Result.Cancelled;
+        if (folderDialog.ShowDialog() is not DialogResult.OK)
+        {
+            return Result.Cancelled;
+        }
 
         SaveFileDialog saveFileDialog = DialogType.SingleCsv.SaveFileDialog();
-        if (saveFileDialog.ShowDialog() is not DialogResult.OK) return Result.Cancelled;
+        if (saveFileDialog.ShowDialog() is not DialogResult.OK)
+        {
+            return Result.Cancelled;
+        }
         
         string[] files = Directory.GetFiles(folderDialog.SelectedPath, "*.rvt", SearchOption.AllDirectories);
         

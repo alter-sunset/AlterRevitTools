@@ -1,7 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
 using System.IO;
 using System.Linq;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Utils;
@@ -11,7 +10,7 @@ namespace AlterTools.BatchExport.Views.Params;
 
 public class ParamsViewModel : ViewModelBase, IConfigParams
 {
-    private const string DefaultParams = "ADSK_Этаж;ADSK_Номер здания;ADSK_Комплект чертежей;";
+    private static string DefaultParams => Resources.Strings.Const_DefaultParams;
 
     private RelayCommand _browseCsvCommand;
 
@@ -22,11 +21,11 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
     public ParamsViewModel(EventHandlerParams eventHandlerParams)
     {
         EventHandlerBase = eventHandlerParams;
-        HelpMessage = Help.GetHelpDictionary()
-            .GetResultMessage(HelpMessageType.ParamsTitle,
-                HelpMessageType.Load,
-                HelpMessageType.Config,
-                HelpMessageType.Start);
+        HelpMessage = string.Join(Environment.NewLine,
+            Resources.Strings.Help_ParamsTitle,
+            Resources.Strings.Help_Load,
+            Resources.Strings.Help_Config,
+            Resources.Strings.Help_Start);
 
         ParamsNames = DefaultParams;
     }
@@ -73,8 +72,7 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
 
         ParamsNames = string.Join(";", form.ParametersNames);
         CsvPath = form.CsvPath;
-        ListBoxItems = new ObservableCollection<ListBoxItem>(form.Files.FilterRevitFiles()
-            .Select(DefaultListBoxItem));
+        ListBoxItems = [.. form.Files.FilterRevitFiles().Select(DefaultListBoxItem)];
     }
 
     protected override void SaveList()
@@ -96,8 +94,7 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
         {
             CsvPath = CsvPath,
             ParametersNames = ParametersNames,
-            Files = ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)
-                .ToArray()
+            Files = [.. ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)]
         };
     }
 

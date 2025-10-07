@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Utils;
@@ -30,13 +29,13 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
     public IFCViewModel(EventHandlerIFC eventHandlerIFC)
     {
         EventHandlerBase = eventHandlerIFC;
-        HelpMessage = Help.GetHelpDictionary()
-            .GetResultMessage(HelpMessageType.IFCTitle,
-                HelpMessageType.Load,
-                HelpMessageType.Folder,
-                HelpMessageType.Naming,
-                HelpMessageType.Config,
-                HelpMessageType.Start);
+        HelpMessage = string.Join(Environment.NewLine,
+            Resources.Strings.Help_IFCTitle,
+            Resources.Strings.Help_Load,
+            Resources.Strings.Help_Folder,
+            Resources.Strings.Help_Naming,
+            Resources.Strings.Help_Config,
+            Resources.Strings.Help_Start);
     }
 
     public string Mapping
@@ -47,7 +46,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
 
     public RelayCommand LoadMappingCommand => _loadMappingCommand ??= new RelayCommand(_ => LoadMapping());
 
-    public IReadOnlyDictionary<IFCVersion, string> IFCVersions { get; } = IFCContext.IFCVersions;
+    public static IReadOnlyDictionary<IFCVersion, string> IFCVersions => IFCContext.IFCVersions;
 
     public KeyValuePair<IFCVersion, string> SelectedVersion
     {
@@ -93,7 +92,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
         }
         catch
         {
-            MessageBox.Show("Неверная схема файла");
+            MessageBox.Show(Resources.Strings.Const_WrongScheme);
         }
     }
 
@@ -123,9 +122,12 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
         ExportScopeView = form.ExportView;
         ViewName = form.ViewName;
         SelectedLevel = SpaceBoundaryLevels.FirstOrDefault(level => level.Key == form.SpaceBoundaryLevel);
-        ListBoxItems = new ObservableCollection<ListBoxItem>(form.Files
-            .FilterRevitFiles()
-            .Select(DefaultListBoxItem));
+        ListBoxItems = 
+        [
+            .. form.Files
+                .FilterRevitFiles()
+                .Select(DefaultListBoxItem)
+        ];
         TurnOffLog = form.TurnOffLog;
     }
 
@@ -158,8 +160,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
             WorksetPrefixes = WorksetPrefixes,
             ExportView = ExportScopeView,
             ViewName = ViewName,
-            Files = ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)
-                .ToArray(),
+            Files = [.. ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)],
             TurnOffLog = TurnOffLog
         };
     }

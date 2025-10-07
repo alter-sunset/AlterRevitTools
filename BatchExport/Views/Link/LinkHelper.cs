@@ -11,8 +11,7 @@ namespace AlterTools.BatchExport.Views.Link;
 
 internal static class LinkHelper
 {
-    private const string DiffCoord =
-        "Обнаружено различие систем координат. Выполнить получение коордианат из файла?";
+    private static string DiffCoord => Resources.Strings.Const_DiffCoord;
 
     internal static void CreateLinks(this LinkViewModel linkViewModel, UIApplication uiApp)
     {
@@ -21,12 +20,17 @@ internal static class LinkHelper
         bool isCurrentWorkset = linkViewModel.IsCurrentWorkset;
         bool setWorksetId = !isCurrentWorkset && linkViewModel.Worksets.Length > 0;
 
-        List<Entry> entries = linkViewModel.Entries
-            .Where(entry => !string.IsNullOrWhiteSpace(entry.Name) && File.Exists(entry.Name))
-            .OrderBy(entry => entry.SelectedWorkset?.Name ?? string.Empty)
-            .ToList();
+        List<Entry> entries = 
+        [
+            .. linkViewModel.Entries
+                .Where(entry => !string.IsNullOrWhiteSpace(entry.Name)
+                                && File.Exists(entry.Name))
+                .OrderBy(entry => entry.SelectedWorkset?.Name ?? string.Empty)
+        ];
 
-        LinkProps props = new(doc.GetWorksetTable(), setWorksetId, linkViewModel.PinLinks,
+        LinkProps props = new(doc.GetWorksetTable(),
+            setWorksetId,
+            linkViewModel.PinLinks,
             linkViewModel.WorksetPrefixes);
 
         entries.ForEach(entry => TryCreateLink(doc, entry, props));
@@ -44,9 +48,12 @@ internal static class LinkHelper
 
         using Transaction tr = new(doc);
 
-        tr.Start($"Link {entry.Name}");
+        tr.Start($"{Resources.Strings.Const_Link} {entry.Name}");
 
-        if (props.SetWorksetId) props.WorksetTable.SetActiveWorksetId(entry.SelectedWorkset.Id);
+        if (props.SetWorksetId)
+        {
+            props.WorksetTable.SetActiveWorksetId(entry.SelectedWorkset.Id);
+        }
 
         RevitLinkInstance revitLinkInstance;
         LinkLoadResult linkLoadResult = null;
@@ -82,7 +89,12 @@ internal static class LinkHelper
     private static void ShowYesNoTaskDialog(string msg, Action action)
     {
         TaskDialogResult result =
-            TaskDialog.Show("Ошибка", msg, TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
-        if (result is TaskDialogResult.Yes) action?.Invoke();
+            TaskDialog.Show(Resources.Strings.Const_Error,
+                msg,
+                TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
+        if (result is TaskDialogResult.Yes)
+        {
+            action?.Invoke();
+        }
     }
 }

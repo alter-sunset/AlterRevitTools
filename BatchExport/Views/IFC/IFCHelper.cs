@@ -8,19 +8,16 @@ namespace AlterTools.BatchExport.Views.IFC;
 
 public class IFCHelper : ExportHelperBase
 {
-    protected override void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp,
-        ref ILogger log)
+    protected override void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp, ref ILogger log)
     {
         if (iConfig is null || doc is null) return;
 
-        if (iConfig is not IConfigIFC configIFC
-            || !IsViewReadyForExport(iConfig, doc, ref log, ref isFuckedUp))
-            return;
+        if (iConfig is not IConfigIFC configIFC || !IsViewReadyForExport(iConfig, doc, ref log, ref isFuckedUp)) return;
 
         IFCExportOptions options = IFC_ExportOptions(configIFC, doc);
 
         using Transaction tr = new(doc);
-        tr.Start("Экспорт IFC");
+        tr.Start(Resources.Strings.IFC_Title);
 
         Export(iConfig, doc, options, ref log, ref isFuckedUp);
 

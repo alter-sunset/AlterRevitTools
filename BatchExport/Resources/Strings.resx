@@ -1,0 +1,542 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Detach.Title" xml:space="preserve">
+        <value>Batch export of detached models</value>
+    </data>
+    <data name="Base.Header" xml:space="preserve">
+        <value>RVT files to be exported</value>
+    </data>
+    <data name="Base.Button.Help.ToolTip" xml:space="preserve">
+        <value>Plugin usage help</value>
+    </data>
+    <data name="Base.Button.Help.Content" xml:space="preserve">
+        <value>Help</value>
+    </data>
+    <data name="Base.ListBox.ToolTip" xml:space="preserve">
+        <value>Files list in (.rvt) format</value>
+    </data>
+    <data name="Base.Button.Load.Content" xml:space="preserve">
+        <value>Load</value>
+    </data>
+    <data name="Base.Button.Load.ToolTip" xml:space="preserve">
+        <value>Load (.rvt) files</value>
+    </data>
+    <data name="Base.Button.LoadList.Content" xml:space="preserve">
+        <value>Load list</value>
+    </data>
+    <data name="Base.Button.LoadList.ToolTip" xml:space="preserve">
+        <value>Load previously saved configuration file in (.json) format</value>
+    </data>
+    <data name="Base.Button.SaveList.Content" xml:space="preserve">
+        <value>Save list</value>
+    </data>
+    <data name="Base.Button.SaveList.ToolTip" xml:space="preserve">
+        <value>Save configuration file in (.json) format</value>
+    </data>
+    <data name="Base.Button.Delete.Content" xml:space="preserve">
+        <value>Delete</value>
+    </data>
+    <data name="Base.Button.Delete.ToolTip" xml:space="preserve">
+        <value>Delete selected files from list</value>
+    </data>
+    <data name="IFC.Title" xml:space="preserve">
+        <value>IFC batch export</value>
+    </data>
+    <data name="Base.ResultingFolder" xml:space="preserve">
+        <value>Save to folder</value>
+    </data>
+    <data name="Base.Button.Browse" xml:space="preserve">
+        <value>Browse</value>
+    </data>
+    <data name="Link.Title" xml:space="preserve">
+        <value>Batch link models</value>
+    </data>
+    <data name="Link.Header" xml:space="preserve">
+        <value>List of RVT files to link</value>
+    </data>
+    <data name="Migrate.Title" xml:space="preserve">
+        <value>Batch migrate models</value>
+    </data>
+    <data name="Migrate.Button.LoadConfig" xml:space="preserve">
+        <value>Load config</value>
+    </data>
+    <data name="Base.Button.Start.Content" xml:space="preserve">
+        <value>Start</value>
+    </data>
+    <data name="Base.Button.Start.ToolTip" xml:space="preserve">
+        <value>Start batch export of current configuration</value>
+    </data>
+    <data name="Const.WrongScheme" xml:space="preserve">
+        <value>Wrong file scheme</value>
+    </data>
+    <data name="Const.NoTransDataAlert" xml:space="preserve">
+        <value>The document doesn't have any transmission data</value>
+    </data>
+    <data name="Const.VMBase.NoFiles" xml:space="preserve">
+        <value>Couldn't find correct info in the text file</value>
+    </data>
+    <data name="Detach.Mask" xml:space="preserve">
+        <value>Mask</value>
+    </data>
+    <data name="Detach.Change" xml:space="preserve">
+        <value>Change</value>
+    </data>
+    <data name="Detach.To" xml:space="preserve">
+        <value>To</value>
+    </data>
+    <data name="Detach.Rename" xml:space="preserve">
+        <value>Rename files</value>
+    </data>
+    <data name="Detach.CheckBox.Purge.Content" xml:space="preserve">
+        <value>Purge models</value>
+    </data>
+    <data name="Detach.CheckBox.Purge.ToolTip" xml:space="preserve">
+        <value>Implements the functionality of the "Purge unused" command until complete cleanup (several times)</value>
+    </data>
+    <data name="Detach.CheckBox.EmptyView.Content" xml:space="preserve">
+        <value>Check models for “empty” view</value>
+    </data>
+    <data name="Detach.CheckBox.EmptyView.ToolTip" xml:space="preserve">
+        <value>Should the “View_name” view be checked for the presence of objects, and if the view is empty, the file will be saved with the prefix “EMPTY_”</value>
+    </data>
+    <data name="Detach.ViewName" xml:space="preserve">
+        <value>Name of the view to check</value>
+    </data>
+    <data name="Base.Button.EraseList" xml:space="preserve">
+        <value>Erase list</value>
+    </data>
+    <data name="Detach.MaskIn" xml:space="preserve">
+        <value>05_WIP</value>
+    </data>
+    <data name="Detach.MaskOut" xml:space="preserve">
+        <value>06_Common</value>
+    </data>
+    <data name="IFC.SpaceBoundaryLevels0" xml:space="preserve">
+        <value>None</value>
+    </data>
+    <data name="IFC.SpaceBoundaryLevels1" xml:space="preserve">
+        <value>1st Level</value>
+    </data>
+    <data name="IFC.SpaceBoundaryLevels2" xml:space="preserve">
+        <value>2nd Level</value>
+    </data>
+    <data name="Const.Default" xml:space="preserve">
+        <value>Default</value>
+    </data>
+    <data name="Base.Prefix" xml:space="preserve">
+        <value>Prefix</value>
+    </data>
+    <data name="Base.Prefix.ToolTip" xml:space="preserve">
+        <value>Prefix to be added to the start of a file name</value>
+    </data>
+    <data name="Base.Postfix" xml:space="preserve">
+        <value>Postfix</value>
+    </data>
+    <data name="Base.Postfix.ToolTip" xml:space="preserve">
+        <value>Postfix to be added to the end of a file name</value>
+    </data>
+    <data name="IFC.MappingTable" xml:space="preserve">
+        <value>Export parameter mapping table</value>
+    </data>
+    <data name="IFC.BaseQuantities" xml:space="preserve">
+        <value>Export base quantities</value>
+    </data>
+    <data name="IFC.Version" xml:space="preserve">
+        <value>IFC version</value>
+    </data>
+    <data name="IFC.CheckBox.Splitting" xml:space="preserve">
+        <value>Split Walls, Columns,
+Ducts by Level</value>
+    </data>
+    <data name="Base.ExportScopeWhole" xml:space="preserve">
+        <value>Export entire model</value>
+    </data>
+    <data name="Base.ExportScopeView" xml:space="preserve">
+        <value>Export view</value>
+    </data>
+    <data name="Base.IgnoreMissingView" xml:space="preserve">
+        <value>Ignore missing view
+and export whole project</value>
+    </data>
+    <data name="IFC.SpaceBoundaries" xml:space="preserve">
+        <value>Space boundaries</value>
+    </data>
+    <data name="Base.WorksetPrefixes" xml:space="preserve">
+        <value>Prefixes of Worksets to be closed</value>
+    </data>
+    <data name="Base.WorksetPrefixes.ToolTip" xml:space="preserve">
+        <value>Specify the Prefixes of all Worksets that need to be closed when opening the file, separated by semicolons (;). 
+Worksets with Links are usually closed to speed up the opening of models.</value>
+    </data>
+    <data name="Base.TurnOffLog" xml:space="preserve">
+        <value>Don't create log file</value>
+    </data>
+    <data name="Const.DiffCoord" xml:space="preserve">
+        <value>A difference in coordinate systems has been detected. 
+Do you want to retrieve coordinates from the file?</value>
+    </data>
+    <data name="Const.Link" xml:space="preserve">
+        <value>Link</value>
+    </data>
+    <data name="Const.Error" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="Link.Pin" xml:space="preserve">
+        <value>Pin Links</value>
+    </data>
+    <data name="Link.CurrentWorkset" xml:space="preserve">
+        <value>Add to the current Workset</value>
+    </data>
+    <data name="NWC.Shared" xml:space="preserve">
+        <value>Shared</value>
+    </data>
+    <data name="NWC.Internal" xml:space="preserve">
+        <value>Project Internal</value>
+    </data>
+    <data name="NWC.None" xml:space="preserve">
+        <value>None</value>
+    </data>
+    <data name="NWC.All" xml:space="preserve">
+        <value>All</value>
+    </data>
+    <data name="NWC.Elements" xml:space="preserve">
+        <value>Elements</value>
+    </data>
+    <data name="NWC.Title" xml:space="preserve">
+        <value>Batch export NWC</value>
+    </data>
+    <data name="NWC.ConvertElementProperties" xml:space="preserve">
+        <value>Convert element properties</value>
+    </data>
+    <data name="NWC.Coordinates" xml:space="preserve">
+        <value>Coordinates</value>
+    </data>
+    <data name="NWC.DivideFile" xml:space="preserve">
+        <value>Divide File into Levels</value>
+    </data>
+    <data name="NWC.ExportElementIds" xml:space="preserve">
+        <value>Export element Ids</value>
+    </data>
+    <data name="NWC.ExportLinks" xml:space="preserve">
+        <value>Convert linked files</value>
+    </data>
+    <data name="NWC.ExportParts" xml:space="preserve">
+        <value>Convert construction parts</value>
+    </data>
+    <data name="NWC.ExportRoomAsAttr" xml:space="preserve">
+        <value>Convert room as attribute</value>
+    </data>
+    <data name="NWC.ExportRoomGeometry" xml:space="preserve">
+        <value>Export room geometry</value>
+    </data>
+    <data name="NWC.FindMissingMaterials" xml:space="preserve">
+        <value>Try and find 
+missing material</value>
+    </data>
+    <data name="NWC.ConvertElementParams" xml:space="preserve">
+        <value>Convert element parameters</value>
+    </data>
+    <data name="NWC.ExportURLs" xml:space="preserve">
+        <value>Convert URLs</value>
+    </data>
+    <data name="NWC.ExportCAD" xml:space="preserve">
+        <value>Convert linked 
+CAD formats</value>
+    </data>
+    <data name="NWC.ConvertLights" xml:space="preserve">
+        <value>Convert lights</value>
+    </data>
+    <data name="NWC.Faceting" xml:space="preserve">
+        <value>Faceting Factor</value>
+    </data>
+    <data name="NWC.ListConfigs" xml:space="preserve">
+        <value>LIst of JSON configs</value>
+    </data>
+    <data name="NWC.ListConfigs.ToolTip" xml:space="preserve">
+        <value>List of configuration files</value>
+    </data>
+    <data name="NWC.Button.LoadConfigs" xml:space="preserve">
+        <value>Load configs</value>
+    </data>
+    <data name="NWC.Button.LoadConfigs.ToolTip" xml:space="preserve">
+        <value>Load list with configuration files in (.txt) format</value>
+    </data>
+    <data name="NWC.Button.Begin" xml:space="preserve">
+        <value>Begin</value>
+    </data>
+    <data name="NWC.Button.Begin.ToolTip" xml:space="preserve">
+        <value>Begin export of multiple configurations</value>
+    </data>
+    <data name="Params.Title" xml:space="preserve">
+        <value>Batch export parameters</value>
+    </data>
+    <data name="Params.Header" xml:space="preserve">
+        <value>LIst of RVT files to process</value>
+    </data>
+    <data name="Params.ResultFile" xml:space="preserve">
+        <value>Path to resulting file</value>
+    </data>
+    <data name="Params.ResultFile.ToolTip" xml:space="preserve">
+        <value>Define path to the resulting file in (.csv) format</value>
+    </data>
+    <data name="Params.ExportParams" xml:space="preserve">
+        <value>Parameters to export</value>
+    </data>
+    <data name="Params.ExportParams.ToolTip" xml:space="preserve">
+        <value>Specify the names of the parameters to be exported using a semicolon (;).</value>
+    </data>
+    <data name="Params.FamilyAndType" xml:space="preserve">
+        <value>Family and Type</value>
+    </data>
+    <data name="Const.DefaultParams" xml:space="preserve">
+        <value>Level;Assembly Code;Count</value>
+    </data>
+    <data name="Transmit.Title" xml:space="preserve">
+        <value>Batch export of transmitted models</value>
+    </data>
+    <data name="Transmit.SameFolder" xml:space="preserve">
+        <value>Put everything 
+in single folder</value>
+    </data>
+    <data name="Const.FilterTxt" xml:space="preserve">
+        <value>Text file (.txt)|*.txt</value>
+    </data>
+    <data name="Const.FilterJson" xml:space="preserve">
+        <value>JSON file (.json)|*.json</value>
+    </data>
+    <data name="Const.FilterRvt" xml:space="preserve">
+        <value>Revit Files (.rvt)|*.rvt</value>
+    </data>
+    <data name="Const.FilterCsv" xml:space="preserve">
+        <value>(CSV) split by semicolon (.csv)|*.csv</value>
+    </data>
+    <data name="Const.RemoveLinks" xml:space="preserve">
+        <value>Remove all Links</value>
+    </data>
+    <data name="Const.OpenWorksets" xml:space="preserve">
+        <value>Open Worksets</value>
+    </data>
+    <data name="Const.Purge" xml:space="preserve">
+        <value>Purge unused</value>
+    </data>
+    <data name="Const.RemoveEmptyWorksets" xml:space="preserve">
+        <value>Remove empty Worksets</value>
+    </data>
+    <data name="Const.GoodEvening" xml:space="preserve">
+        <value>Good evening</value>
+    </data>
+    <data name="Const.Done" xml:space="preserve">
+        <value>Done!</value>
+    </data>
+    <data name="Const.Detached" xml:space="preserve">
+        <value>_detached</value>
+    </data>
+    <data name="Const.NoFolder" xml:space="preserve">
+        <value>Specify the folder for export!</value>
+    </data>
+    <data name="Const.WrongFolder" xml:space="preserve">
+        <value>Specify valid folder for export!</value>
+    </data>
+    <data name="Const.CreateFolder" xml:space="preserve">
+        <value>No such folder exists. 
+Should I create one?</value>
+    </data>
+    <data name="Const.ToHell" xml:space="preserve">
+        <value>Well, the call is yours.</value>
+    </data>
+    <data name="Const.NoFiles" xml:space="preserve">
+        <value>Add at least one file for export!</value>
+    </data>
+    <data name="Const.NoViewName" xml:space="preserve">
+        <value>Enter View name</value>
+    </data>
+    <data name="Const.NoPathMode" xml:space="preserve">
+        <value>Select the Path mode!</value>
+    </data>
+    <data name="Const.NoMaskPath" xml:space="preserve">
+        <value>Specify the path replacement mask!</value>
+    </data>
+    <data name="Const.WrongMask" xml:space="preserve">
+        <value>Inconsistency between the input mask and file names!</value>
+    </data>
+    <data name="Const.NoMaskFile" xml:space="preserve">
+        <value>Enter a mask for renaming files!</value>
+    </data>
+    <data name="Const.NoCsv" xml:space="preserve">
+        <value>Specify the valid path to the output file!</value>
+    </data>
+    <data name="Const.NoParameters" xml:space="preserve">
+        <value>Specify at least one parameter for export!</value>
+    </data>
+    <data name="Const.TaskCompleted" xml:space="preserve">
+        <value>Task completed.</value>
+    </data>
+    <data name="Migrate.NoConfig" xml:space="preserve">
+        <value>Provide path to the configuration!</value>
+    </data>
+    <data name="Migrate.DidntCopy" xml:space="preserve">
+        <value>These files weren't copied:</value>
+    </data>
+    <data name="NWC.AddConfigs" xml:space="preserve">
+        <value>Add configs!</value>
+    </data>
+    <data name="Const.TotalTime" xml:space="preserve">
+        <value>Total time:</value>
+    </data>
+    <data name="Const.ThereWhere" xml:space="preserve">
+        <value>There where</value>
+    </data>
+    <data name="Const.Errors" xml:space="preserve">
+        <value>errors.</value>
+    </data>
+    <data name="Help.Load" xml:space="preserve">
+        <value>	If you are using the plugin for the first time and do not have any previously saved lists, you need to do the following: use the “Load” button to add all the object models that need to be exported. If you accidentally added extra files, select them and click the “Delete” button.</value>
+    </data>
+    <data name="Help.Folder" xml:space="preserve">
+        <value>	Next, specify the folder for saving. You can enter the path manually or select a folder using the “Browse” button.</value>
+    </data>
+    <data name="Help.Naming" xml:space="preserve">
+        <value>	Set the prefix and postfix that you want to add to the file names. If you don't need to do this, just leave the fields blank.
+	Select the export properties you need. The default settings are the ones that are used most often.</value>
+    </data>
+    <data name="Help.List" xml:space="preserve">
+        <value>	Save the list by clicking the “Save list” button in (.txt) format.
+	This list can then be used for re-exporting by clicking the “Load list” button.</value>
+    </data>
+    <data name="Help.Config" xml:space="preserve">
+        <value>	Save the configuration by clicking the “Save config” button in (.JSON) format.
+	This configuration can then be used for re-exporting by clicking the “Load config” button.</value>
+    </data>
+    <data name="Help.Start" xml:space="preserve">
+        <value>	Start the export by clicking the “Start” button.</value>
+    </data>
+    <data name="Help.DetachTitle" xml:space="preserve">
+        <value>	The plugin is designed for batch export of detached models.</value>
+    </data>
+    <data name="Help.DetachMid" xml:space="preserve">
+        <value>	Select the export mode:
+1. All files will be placed in one folder.
+2. Files will be placed in the appropriate folders, i.e., the path will be updated according to the mask.</value>
+    </data>
+    <data name="Help.IFCTitle" xml:space="preserve">
+        <value>	The plugin is designed for batch export of files to IFC format.</value>
+    </data>
+    <data name="Help.LinkTitle" xml:space="preserve">
+        <value>	The plugin is designed for batch adding models as Revit links.</value>
+    </data>
+    <data name="Help.Migrate" xml:space="preserve">
+        <value>	The plugin is designed to migrate a project to a new location while preserving the structure of links, both within folders and within the models themselves.
+	Open or paste a link to the Json config, which stores the structure of type Dictionary&lt;string, string&gt;,
+where the first string is the current path to the file, and the second is the new path.
+    Example:
+    { “C:\oldfile.rvt”: “C:\newfile.rvt”,}</value>
+    </data>
+    <data name="Help.NWCTitle" xml:space="preserve">
+        <value>	The plugin is designed for batch exporting files to NWC format.</value>
+    </data>
+    <data name="Help.NWCEnd" xml:space="preserve">
+        <value>
+	**********************************************
+
+	If you have several saved configurations, you can use the second-level batch export.
+	Use the “Load Configs” button to load a list (.txt) with paths to configurations in (.JSON) format. The list structure looks like this: 
+	path\\config.json
+	path\\config2.json
+	path\\config3.json
+
+	Use the “Begin” button to start the second-level batch export, which exports several objects with their corresponding settings.</value>
+    </data>
+    <data name="Help.TransmitTitle" xml:space="preserve">
+        <value>	The plugin is designed for batch transfer of models and implements similar functionality to the “eTransmit” plugin.</value>
+    </data>
+    <data name="Help.ParamsTitle" xml:space="preserve">
+        <value>	The plugin is designed for batch export of parameters from the model to a .csv file.
+	Specify the names of the parameters to be exported, separated by semicolon (;) in the corresponding field.</value>
+    </data>
+    <data name="Core.Panel.Export" xml:space="preserve">
+        <value>Batch export</value>
+    </data>
+    <data name="Core.Panel.Import" xml:space="preserve">
+        <value>Batch import</value>
+    </data>
+    <data name="Core.Button.NWC.Text" xml:space="preserve">
+        <value>NWC 
+Export</value>
+    </data>
+    <data name="Core.Button.IFC.Text" xml:space="preserve">
+        <value>IFC 
+Export</value>
+    </data>
+    <data name="Core.Button.Detach.Text" xml:space="preserve">
+        <value>Detach 
+models</value>
+    </data>
+    <data name="Core.Button.Transmit.Text" xml:space="preserve">
+        <value>Transmit 
+models</value>
+    </data>
+    <data name="Core.Button.Migrate.Text" xml:space="preserve">
+        <value>Migrate 
+models</value>
+    </data>
+    <data name="Core.Button.Params.Text" xml:space="preserve">
+        <value>Parameters 
+Export</value>
+    </data>
+    <data name="Core.Button.Link.Text" xml:space="preserve">
+        <value>Link 
+RVT models</value>
+    </data>
+    <data name="Core.Button.Worksets.Text" xml:space="preserve">
+        <value>Worksets 
+Export</value>
+    </data>
+    <data name="Core.Button.NWC.ToolTip" xml:space="preserve">
+        <value>Batch export models to NWC</value>
+    </data>
+    <data name="Core.Button.IFC.ToolTip" xml:space="preserve">
+        <value>Batch export models to IFC</value>
+    </data>
+    <data name="Core.Button.Detach.ToolTip" xml:space="preserve">
+        <value>Batch detach and export models</value>
+    </data>
+    <data name="Core.Button.Transmit.ToolTip" xml:space="preserve">
+        <value>Batch transmit models</value>
+    </data>
+    <data name="Core.Button.Migrate.ToolTip" xml:space="preserve">
+        <value>Batch migrate models and update nested links</value>
+    </data>
+    <data name="Core.Button.Params.ToolTip" xml:space="preserve">
+        <value>Batch export parameters from models into single CSV</value>
+    </data>
+    <data name="Core.Button.Link.ToolTip" xml:space="preserve">
+        <value>Link batch of RVT models to current project in one click</value>
+    </data>
+    <data name="Core.Button.Worksets.ToolTip" xml:space="preserve">
+        <value>Batch export workset name from several models</value>
+    </data>
+    <data name="Base.Button.LoadListTxt.ToolTip" xml:space="preserve">
+        <value>Load previously saved file list in (.txt) format</value>
+    </data>
+    <data name="Base.Button.SaveListTxt.ToolTip" xml:space="preserve">
+        <value>Save list in (.txt) format</value>
+    </data>
+</root>

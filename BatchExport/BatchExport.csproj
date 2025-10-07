@@ -70,7 +70,6 @@
         <None Remove="Resources\params_16.png"/>
     </ItemGroup>
     <ItemGroup>
-        <EmbeddedResource Include="Resources\HelpMessages.json"/>
         <EmbeddedResource Include="Resources\Buttons.json"/>
         <EmbeddedResource Include="Resources\detach.png"/>
         <EmbeddedResource Include="Resources\detach_16.png"/>
@@ -86,6 +85,13 @@
         <EmbeddedResource Include="Resources\params_16.png"/>
         <EmbeddedResource Include="Resources\transmit.png"/>
         <EmbeddedResource Include="Resources\transmit_16.png"/>
+        <EmbeddedResource Update="Resources\Strings.resx">
+          <Generator>PublicResXFileCodeGenerator</Generator>
+          <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+        </EmbeddedResource>
+        <EmbeddedResource Update="Resources\Strings.ru-ru.resx">
+          <DependentUpon>Strings.resx</DependentUpon>
+        </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="JetBrains.Annotations" Version="2024.3.0"/>
@@ -100,5 +106,12 @@
     </ItemGroup>
     <ItemGroup>
         <EditorConfigFiles Remove=".editorconfig"/>
+    </ItemGroup>
+    <ItemGroup>
+      <Compile Update="Resources\Strings.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>Strings.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 </Project>

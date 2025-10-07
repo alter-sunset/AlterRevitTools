@@ -1,4 +1,5 @@
-﻿using AlterTools.BatchExport.Core.EventHandlers;
+﻿using System;
+using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.Transmit;
@@ -10,12 +11,12 @@ public class TransmitViewModel : ViewModelBase
     public TransmitViewModel(EventHandlerTransmit eventHandlerTransmit)
     {
         EventHandlerBase = eventHandlerTransmit;
-        HelpMessage = Help.GetHelpDictionary()
-            .GetResultMessage(HelpMessageType.TransmitTitle,
-                HelpMessageType.Load,
-                HelpMessageType.Folder,
-                HelpMessageType.List,
-                HelpMessageType.Start);
+        HelpMessage = string.Join(Environment.NewLine,
+            Resources.Strings.Help_TransmitTitle,
+            Resources.Strings.Help_Load,
+            Resources.Strings.Help_Folder,
+            Resources.Strings.Help_List,
+            Resources.Strings.Help_Start);
     }
 
     public bool IsSameFolder

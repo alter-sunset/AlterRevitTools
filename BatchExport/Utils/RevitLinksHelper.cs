@@ -9,7 +9,7 @@ namespace AlterTools.BatchExport.Utils;
 
 public static class RevitLinksHelper
 {
-    private const string NoTransDataAlert = "The document doesn't have any transmission data";
+    private static string NoTransDataAlert => Resources.Strings.Const_NoTransDataAlert;
 
     public static void UnloadRevitLinks(this ModelPath filePath, string folder, bool isSameFolder = true)
     {
@@ -20,8 +20,8 @@ public static class RevitLinksHelper
         foreach (ElementId refId in externalReferences)
         {
             ExternalFileReference extRef = transData.GetLastSavedReferenceData(refId);
-            if (ExternalFileReferenceType.RevitLink != extRef.ExternalFileReferenceType) continue;
-
+            if (extRef.ExternalFileReferenceType is not ExternalFileReferenceType.RevitLink) continue;
+            
             string name = Path.GetFileName(extRef.GetPath().CentralServerPath);
             if (name is null) continue;
 
@@ -76,7 +76,7 @@ public static class RevitLinksHelper
 
         if (transData is not null) return true;
 
-        TaskDialog.Show("Operation Error", NoTransDataAlert);
+        TaskDialog.Show(Resources.Strings.Const_Error, NoTransDataAlert);
 
         return false;
     }

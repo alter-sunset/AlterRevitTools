@@ -1,0 +1,542 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="Detach.Title" xml:space="preserve">
+        <value>Пакетный экспорт отсоединённых моделей</value>
+    </data>
+    <data name="Base.Header" xml:space="preserve">
+        <value>Список RVT файлов для экспорта</value>
+    </data>
+    <data name="Base.Button.Help.ToolTip" xml:space="preserve">
+        <value>Справка по работе с плагином</value>
+    </data>
+    <data name="Base.Button.Help.Content" xml:space="preserve">
+        <value>Справка</value>
+    </data>
+    <data name="Base.ListBox.ToolTip" xml:space="preserve">
+        <value>Список файлов в формате (.rvt)</value>
+    </data>
+    <data name="Base.Button.Load.Content" xml:space="preserve">
+        <value>Загрузить</value>
+    </data>
+    <data name="Base.Button.Load.ToolTip" xml:space="preserve">
+        <value>Загрузить файлы в формате (.rvt)</value>
+    </data>
+    <data name="Base.Button.LoadList.Content" xml:space="preserve">
+        <value>Загрузить список</value>
+    </data>
+    <data name="Base.Button.LoadList.ToolTip" xml:space="preserve">
+        <value>Загрузить сохранённый ранее файл конфигурации в формате (.json)</value>
+    </data>
+    <data name="Base.Button.SaveList.Content" xml:space="preserve">
+        <value>Сохранить список</value>
+    </data>
+    <data name="Base.Button.SaveList.ToolTip" xml:space="preserve">
+        <value>Сохранить файл конфигурации в формате (.json)</value>
+    </data>
+    <data name="Base.Button.Delete.Content" xml:space="preserve">
+        <value>Удалить</value>
+    </data>
+    <data name="Base.Button.Delete.ToolTip" xml:space="preserve">
+        <value>Удалить выбранные файлы из списка</value>
+    </data>
+    <data name="IFC.Title" xml:space="preserve">
+        <value>Пакетный экспорт IFC</value>
+    </data>
+    <data name="Base.ResultingFolder" xml:space="preserve">
+        <value>Папка для сохранения</value>
+    </data>
+    <data name="Base.Button.Browse" xml:space="preserve">
+        <value>Обзор</value>
+    </data>
+    <data name="Link.Title" xml:space="preserve">
+        <value>Пакетное добавление связей</value>
+    </data>
+    <data name="Link.Header" xml:space="preserve">
+        <value>Список RVT файлов для добавления</value>
+    </data>
+    <data name="Migrate.Title" xml:space="preserve">
+        <value>Пакетная миграция моделей</value>
+    </data>
+    <data name="Migrate.Button.LoadConfig" xml:space="preserve">
+        <value>Загрузить конфиг</value>
+    </data>
+    <data name="Base.Button.Start.Content" xml:space="preserve">
+        <value>Запуск</value>
+    </data>
+    <data name="Base.Button.Start.ToolTip" xml:space="preserve">
+        <value>Запуск пакетного экспорта текущей конфигурации</value>
+    </data>
+    <data name="Const.WrongScheme" xml:space="preserve">
+        <value>Неверная схема файла</value>
+    </data>
+    <data name="Const.NoTransDataAlert" xml:space="preserve">
+        <value>В модели нет данных класса TransmissionData</value>
+    </data>
+    <data name="Const.VMBase.NoFiles" xml:space="preserve">
+        <value>В текстовом файле не было найдено подходящей информации</value>
+    </data>
+    <data name="Detach.Mask" xml:space="preserve">
+        <value>Маска</value>
+    </data>
+    <data name="Detach.Change" xml:space="preserve">
+        <value>Заменить</value>
+    </data>
+    <data name="Detach.To" xml:space="preserve">
+        <value>На</value>
+    </data>
+    <data name="Detach.Rename" xml:space="preserve">
+        <value>Переименовать файлы</value>
+    </data>
+    <data name="Detach.CheckBox.Purge.Content" xml:space="preserve">
+        <value>Очистить модели</value>
+    </data>
+    <data name="Detach.CheckBox.Purge.ToolTip" xml:space="preserve">
+        <value>Реализует функционал команды "Удалить неиспользуемые'" до полной очистки (несколько раз)</value>
+    </data>
+    <data name="Detach.CheckBox.EmptyView.Content" xml:space="preserve">
+        <value>Проверить модели на "пустой" вид</value>
+    </data>
+    <data name="Detach.CheckBox.EmptyView.ToolTip" xml:space="preserve">
+        <value>Следует ли проверить вид "Имя_вида" на наличие объектов, и если вид пустой - то сохранить файл с префиксом "EMPTY_"</value>
+    </data>
+    <data name="Detach.ViewName" xml:space="preserve">
+        <value>Имя вида для проверки</value>
+    </data>
+    <data name="Base.Button.EraseList" xml:space="preserve">
+        <value>Удалить список</value>
+    </data>
+    <data name="Detach.MaskIn" xml:space="preserve">
+        <value>05_В_Работе\52_ПД</value>
+    </data>
+    <data name="Detach.MaskOut" xml:space="preserve">
+        <value>06_Общие\62_ПД</value>
+    </data>
+    <data name="IFC.SpaceBoundaryLevels0" xml:space="preserve">
+        <value>Нет</value>
+    </data>
+    <data name="IFC.SpaceBoundaryLevels1" xml:space="preserve">
+        <value>Первый уровень</value>
+    </data>
+    <data name="IFC.SpaceBoundaryLevels2" xml:space="preserve">
+        <value>Второй уровень</value>
+    </data>
+    <data name="Const.Default" xml:space="preserve">
+        <value>По умолчанию</value>
+    </data>
+    <data name="Base.Prefix" xml:space="preserve">
+        <value>Префикс названия</value>
+    </data>
+    <data name="Base.Prefix.ToolTip" xml:space="preserve">
+        <value>Префикс, который необходимо вставить перед названием файла</value>
+    </data>
+    <data name="Base.Postfix" xml:space="preserve">
+        <value>Постфикс названия</value>
+    </data>
+    <data name="Base.Postfix.ToolTip" xml:space="preserve">
+        <value>Постфикс, который необходимо вставить после названия файла</value>
+    </data>
+    <data name="IFC.MappingTable" xml:space="preserve">
+        <value>Таблица соответствия параметров экспорта</value>
+    </data>
+    <data name="IFC.BaseQuantities" xml:space="preserve">
+        <value>Экспорт основных величин</value>
+    </data>
+    <data name="IFC.Version" xml:space="preserve">
+        <value>Версия IFC</value>
+    </data>
+    <data name="IFC.CheckBox.Splitting" xml:space="preserve">
+        <value>Разделить стены, колонны
+и воздуховоды по уровню</value>
+    </data>
+    <data name="Base.ExportScopeWhole" xml:space="preserve">
+        <value>Экспортировать весь проект</value>
+    </data>
+    <data name="Base.ExportScopeView" xml:space="preserve">
+        <value>Экспортировать вид</value>
+    </data>
+    <data name="Base.IgnoreMissingView" xml:space="preserve">
+        <value>Игнорировать отсутствие вида и
+экспортировать весь проект</value>
+    </data>
+    <data name="IFC.SpaceBoundaries" xml:space="preserve">
+        <value>Границы пространств</value>
+    </data>
+    <data name="Base.WorksetPrefixes" xml:space="preserve">
+        <value>Префиксы рабочих наборов, которые нужно закрыть</value>
+    </data>
+    <data name="Base.WorksetPrefixes.ToolTip" xml:space="preserve">
+        <value>Укажите через точку-запятую (;) префиксы всех рабочих наборов, которые необходимо закрыть при открытии файла. 
+Обычно закрывают рабочие наборы со связями, чтобы ускорить открытие моделей.</value>
+    </data>
+    <data name="Base.TurnOffLog" xml:space="preserve">
+        <value>Не создавать лог-файл</value>
+    </data>
+    <data name="Const.DiffCoord" xml:space="preserve">
+        <value>Обнаружено различие систем координат. 
+Выполнить получение коордианат из файла?</value>
+    </data>
+    <data name="Const.Link" xml:space="preserve">
+        <value>Связь</value>
+    </data>
+    <data name="Const.Error" xml:space="preserve">
+        <value>Ошибка</value>
+    </data>
+    <data name="Link.Pin" xml:space="preserve">
+        <value>Закрепить связи</value>
+    </data>
+    <data name="Link.CurrentWorkset" xml:space="preserve">
+        <value>Добавить в текущий рабочий набор</value>
+    </data>
+    <data name="NWC.Shared" xml:space="preserve">
+        <value>Общие</value>
+    </data>
+    <data name="NWC.Internal" xml:space="preserve">
+        <value>Внутренние для проекта</value>
+    </data>
+    <data name="NWC.None" xml:space="preserve">
+        <value>Нет</value>
+    </data>
+    <data name="NWC.All" xml:space="preserve">
+        <value>Все</value>
+    </data>
+    <data name="NWC.Elements" xml:space="preserve">
+        <value>Объекты</value>
+    </data>
+    <data name="NWC.Title" xml:space="preserve">
+        <value>Пакетный экспорт NWC</value>
+    </data>
+    <data name="NWC.ConvertElementProperties" xml:space="preserve">
+        <value>Конвертировать 
+свойства объекта</value>
+    </data>
+    <data name="NWC.Coordinates" xml:space="preserve">
+        <value>Координаты</value>
+    </data>
+    <data name="NWC.DivideFile" xml:space="preserve">
+        <value>Разделить файл на уровни</value>
+    </data>
+    <data name="NWC.ExportElementIds" xml:space="preserve">
+        <value>Экспортировать 
+Id элементов</value>
+    </data>
+    <data name="NWC.ExportLinks" xml:space="preserve">
+        <value>Экспортировать 
+связанные файлы</value>
+    </data>
+    <data name="NWC.ExportParts" xml:space="preserve">
+        <value>Экспортировать 
+элементы конструкции</value>
+    </data>
+    <data name="NWC.ExportRoomAsAttr" xml:space="preserve">
+        <value>Экспортировать 
+помещение как атрибут</value>
+    </data>
+    <data name="NWC.ExportRoomGeometry" xml:space="preserve">
+        <value>Экспортировать 
+геометрию помещений</value>
+    </data>
+    <data name="NWC.FindMissingMaterials" xml:space="preserve">
+        <value>Проверять и находить 
+отсутсвующие материалы</value>
+    </data>
+    <data name="NWC.ConvertElementParams" xml:space="preserve">
+        <value>Конвертировать параметры объектов</value>
+    </data>
+    <data name="NWC.ExportURLs" xml:space="preserve">
+        <value>Экспортировать URL адреса</value>
+    </data>
+    <data name="NWC.ExportCAD" xml:space="preserve">
+        <value>Экспортировать 
+связанные файлы САПР</value>
+    </data>
+    <data name="NWC.ConvertLights" xml:space="preserve">
+        <value>Экспортировать 
+источники света</value>
+    </data>
+    <data name="NWC.Faceting" xml:space="preserve">
+        <value>Коэффициент фасетизации</value>
+    </data>
+    <data name="NWC.ListConfigs" xml:space="preserve">
+        <value>Список JSON конфигов</value>
+    </data>
+    <data name="NWC.ListConfigs.ToolTip" xml:space="preserve">
+        <value>Список файлов конфигураций</value>
+    </data>
+    <data name="NWC.Button.LoadConfigs" xml:space="preserve">
+        <value>Загрузить конфиги</value>
+    </data>
+    <data name="NWC.Button.LoadConfigs.ToolTip" xml:space="preserve">
+        <value>Загрузить список с файлами конфигураций в формате (.txt)</value>
+    </data>
+    <data name="NWC.Button.Begin" xml:space="preserve">
+        <value>Начать</value>
+    </data>
+    <data name="NWC.Button.Begin.ToolTip" xml:space="preserve">
+        <value>Запустить экспорт нескольких конфигураций</value>
+    </data>
+    <data name="Params.Title" xml:space="preserve">
+        <value>Пакетный экспорт параметров</value>
+    </data>
+    <data name="Params.Header" xml:space="preserve">
+        <value>Список RVT файлов для обработки</value>
+    </data>
+    <data name="Params.ResultFile" xml:space="preserve">
+        <value>Путь к выходному файлу</value>
+    </data>
+    <data name="Params.ResultFile.ToolTip" xml:space="preserve">
+        <value>Укажите путь к выходному файлу формата .csv</value>
+    </data>
+    <data name="Params.ExportParams" xml:space="preserve">
+        <value>Параметры для экспорта</value>
+    </data>
+    <data name="Params.ExportParams.ToolTip" xml:space="preserve">
+        <value>Укажите через точку-запятую (;) имена параметров, которые необходимо экспортировать.</value>
+    </data>
+    <data name="Params.FamilyAndType" xml:space="preserve">
+        <value>Семейство и типоразмер</value>
+    </data>
+    <data name="Const.DefaultParams" xml:space="preserve">
+        <value>ADSK_Этаж;ADSK_Номер здания;ADSK_Комплект чертежей;</value>
+    </data>
+    <data name="Transmit.Title" xml:space="preserve">
+        <value>Пакетный экспорт передаваемых моделей</value>
+    </data>
+    <data name="Transmit.SameFolder" xml:space="preserve">
+        <value>Всё в одной папке</value>
+    </data>
+    <data name="Const.FilterTxt" xml:space="preserve">
+        <value>Текстовый файл (.txt)|*.txt</value>
+    </data>
+    <data name="Const.FilterJson" xml:space="preserve">
+        <value>Файл JSON (.json)|*.json</value>
+    </data>
+    <data name="Const.FilterRvt" xml:space="preserve">
+        <value>Файлы Revit (.rvt)|*.rvt</value>
+    </data>
+    <data name="Const.FilterCsv" xml:space="preserve">
+        <value>(CSV) разделитель точка с запятой (.csv)|*.csv</value>
+    </data>
+    <data name="Const.RemoveLinks" xml:space="preserve">
+        <value>Удалить все связи</value>
+    </data>
+    <data name="Const.OpenWorksets" xml:space="preserve">
+        <value>Открыть Рабочие наборы</value>
+    </data>
+    <data name="Const.Purge" xml:space="preserve">
+        <value>Удалить неиспользуемые</value>
+    </data>
+    <data name="Const.RemoveEmptyWorksets" xml:space="preserve">
+        <value>Удалить пустые рабочие наборы</value>
+    </data>
+    <data name="Const.GoodEvening" xml:space="preserve">
+        <value>Добрый вечер</value>
+    </data>
+    <data name="Const.Done" xml:space="preserve">
+        <value>Готово!</value>
+    </data>
+    <data name="Const.Detached" xml:space="preserve">
+        <value>_отсоединено</value>
+    </data>
+    <data name="Const.NoFolder" xml:space="preserve">
+        <value>Укажите папку для экспорта!</value>
+    </data>
+    <data name="Const.WrongFolder" xml:space="preserve">
+        <value>Укажите корректную папку для экспорта!</value>
+    </data>
+    <data name="Const.CreateFolder" xml:space="preserve">
+        <value>Такой папки не существует. 
+Создать папку?</value>
+    </data>
+    <data name="Const.ToHell" xml:space="preserve">
+        <value>Нет, так нет. 
+Тогда живи в проклятом мире, который сам и создал.</value>
+    </data>
+    <data name="Const.NoFiles" xml:space="preserve">
+        <value>Добавьте хотя бы один файл для экспорта!</value>
+    </data>
+    <data name="Const.NoViewName" xml:space="preserve">
+        <value>Введите имя вида!</value>
+    </data>
+    <data name="Const.NoPathMode" xml:space="preserve">
+        <value>Выберите режим выбора пути!</value>
+    </data>
+    <data name="Const.NoMaskPath" xml:space="preserve">
+        <value>Укажите маску замены пути!</value>
+    </data>
+    <data name="Const.WrongMask" xml:space="preserve">
+        <value>Несоответствие входной маски и имён файлов!</value>
+    </data>
+    <data name="Const.NoMaskFile" xml:space="preserve">
+        <value>Введите маску для переименования файлов!</value>
+    </data>
+    <data name="Const.NoCsv" xml:space="preserve">
+        <value>Укажите корректный путь к выходному файлу!</value>
+    </data>
+    <data name="Const.NoParameters" xml:space="preserve">
+        <value>Укажите хотя бы один параметр для экспорта!</value>
+    </data>
+    <data name="Const.TaskCompleted" xml:space="preserve">
+        <value>Задание выполнено.</value>
+    </data>
+    <data name="Migrate.NoConfig" xml:space="preserve">
+        <value>Предоставьте ссылку на конфиг!</value>
+    </data>
+    <data name="Migrate.DidntCopy" xml:space="preserve">
+        <value>Следующие файлы не были скопированы:</value>
+    </data>
+    <data name="NWC.AddConfigs" xml:space="preserve">
+        <value>Добавьте конфиги!</value>
+    </data>
+    <data name="Const.TotalTime" xml:space="preserve">
+        <value>Всего затрачено времени:</value>
+    </data>
+    <data name="Const.ThereWhere" xml:space="preserve">
+        <value>В процессе выполнения было</value>
+    </data>
+    <data name="Const.Errors" xml:space="preserve">
+        <value>ошибок.</value>
+    </data>
+    <data name="Help.Load" xml:space="preserve">
+        <value>	Если вы впервые используете плагин, и у вас нет ранее сохранённых списков, то вам необходимо выполнить следующее: используя кнопку "Загрузить" добавьте все модели объекта, которые необходимо экспортировать. Если случайно были добавлены лишние файлы, выделите их и нажмите кнопку "Удалить"</value>
+    </data>
+    <data name="Help.Folder" xml:space="preserve">
+        <value>	Далее укажите папку для сохранения. Прописать путь можно в ручную или же выбрать папку используя кнопку "Обзор".</value>
+    </data>
+    <data name="Help.Naming" xml:space="preserve">
+        <value>	Задайте префикс и постфикс, которые будет необходимо добавить в название файлов. Если такой необходимости нет, то оставьте поля пустыми.
+	Выберите необходимые свойства экспорта. По умолчанию стоят стандартные настройки, с которыми чаще всего работают.</value>
+    </data>
+    <data name="Help.List" xml:space="preserve">
+        <value>	Сохраните список кнопкой "Сохранить список" в формате (.txt).
+	Далее этот список можно будет использовать для повторного экспорта, используя кнопку "Загрузить список".</value>
+    </data>
+    <data name="Help.Config" xml:space="preserve">
+        <value>	Сохраните конфигурацию кнопкой "Сохранить конфиг" в формате (.JSON).
+	Далее эту конфигурацию можно будет использовать для повторного экспорта, используя кнопку "Загрузить конфиг".</value>
+    </data>
+    <data name="Help.Start" xml:space="preserve">
+        <value>	Запустите экспорт кнопкой "Запуск".</value>
+    </data>
+    <data name="Help.DetachTitle" xml:space="preserve">
+        <value>	Плагин предназначен для пакетного экспорта отсоединённых моделей.</value>
+    </data>
+    <data name="Help.DetachMid" xml:space="preserve">
+        <value>	Выберите режим экспорта:
+1. Все файлы будут помещены в одну папку.
+2. Файлы будут помещены в соответствующие папки, то есть будет произведено обновление пути по маске.</value>
+    </data>
+    <data name="Help.IFCTitle" xml:space="preserve">
+        <value>	Плагин предназначен для пакетного экспорта файлов в формат IFC.</value>
+    </data>
+    <data name="Help.LinkTitle" xml:space="preserve">
+        <value>	Плагин предназначен для пакетного добавления моделей в качестве Revit ссылок.</value>
+    </data>
+    <data name="Help.Migrate" xml:space="preserve">
+        <value>	Плагин предназначен для миграции проекта в новое место с сохранением структуры связей, как внутри папок, так и внутри самих моделей.
+	Откройте или вставьте ссылку на Json конфиг, который хранит в себе структуру типа Dictionary&lt;string, string&gt;,
+где первый string - текущий путь к файлу, второй - новый путь.
+	Пример:
+	{ "C:\oldfile.rvt": "C:\newfile.rvt",}</value>
+    </data>
+    <data name="Help.NWCTitle" xml:space="preserve">
+        <value>	Плагин предназначен для пакетного экспорта файлов в формат NWC.</value>
+    </data>
+    <data name="Help.NWCEnd" xml:space="preserve">
+        <value>
+	**********************************************
+
+	Если у вас есть несколько сохранённых конфигураций, то можно использовать пакетный экспорт второго уровня.
+	Кнопкой "Загрузить конфиги" загрузите список (.txt) с путями к конфигурациям в формате (.JSON). Структура списка выглядит следующим образом: 
+	path\\config.json
+	path\\config2.json
+	path\\config3.json
+
+	Кнопкой "Начать" запустите пакетный экспорт второго уровня, который экспортирует несколько объектов с соответствующими им настройками.</value>
+    </data>
+    <data name="Help.TransmitTitle" xml:space="preserve">
+        <value>	Плагин предназначен для пакетной передачи моделей и реализует схожий функционал с плагином "eTransmit".</value>
+    </data>
+    <data name="Help.ParamsTitle" xml:space="preserve">
+        <value>	Плагин предназначен для пакетного эскпорта параметров из модели в файл формата .csv.
+	Укажите наименования параметров, которые необходимо экспортировать, через точку-запятую (;) в соответсвующее поле.</value>
+    </data>
+    <data name="Core.Panel.Export" xml:space="preserve">
+        <value>Пакетный экспорт</value>
+    </data>
+    <data name="Core.Panel.Import" xml:space="preserve">
+        <value>Пакетный импорт</value>
+    </data>
+    <data name="Core.Button.NWC.Text" xml:space="preserve">
+        <value>Экспорт 
+NWC</value>
+    </data>
+    <data name="Core.Button.IFC.Text" xml:space="preserve">
+        <value>Экспорт 
+IFC</value>
+    </data>
+    <data name="Core.Button.Detach.Text" xml:space="preserve">
+        <value>Отсоединение 
+моделей</value>
+    </data>
+    <data name="Core.Button.Transmit.Text" xml:space="preserve">
+        <value>Передача 
+моделей</value>
+    </data>
+    <data name="Core.Button.Migrate.Text" xml:space="preserve">
+        <value>Миграция 
+моделей</value>
+    </data>
+    <data name="Core.Button.Params.Text" xml:space="preserve">
+        <value>Экспорт 
+параметров</value>
+    </data>
+    <data name="Core.Button.Link.Text" xml:space="preserve">
+        <value>Добавление 
+Revit ссылок</value>
+    </data>
+    <data name="Core.Button.Worksets.Text" xml:space="preserve">
+        <value>Экспорт 
+рабочих наборов</value>
+    </data>
+    <data name="Core.Button.NWC.ToolTip" xml:space="preserve">
+        <value>Пакетный экспорт в NWC</value>
+    </data>
+    <data name="Core.Button.IFC.ToolTip" xml:space="preserve">
+        <value>Пакетный экспорт в IFC</value>
+    </data>
+    <data name="Core.Button.Detach.ToolTip" xml:space="preserve">
+        <value>Пакетный экспорт отсоединённых моделей</value>
+    </data>
+    <data name="Core.Button.Transmit.ToolTip" xml:space="preserve">
+        <value>Пакетная передача моделей</value>
+    </data>
+    <data name="Core.Button.Migrate.ToolTip" xml:space="preserve">
+        <value>Пакетная миграция моделей с обновлением связей</value>
+    </data>
+    <data name="Core.Button.Params.ToolTip" xml:space="preserve">
+        <value>Пакетный экспорт параметров из моделей в единый CSV файл</value>
+    </data>
+    <data name="Core.Button.Link.ToolTip" xml:space="preserve">
+        <value>Пакетное добавление Revit ссылок в текущую модель</value>
+    </data>
+    <data name="Core.Button.Worksets.ToolTip" xml:space="preserve">
+        <value>Пакетный экспорт рабочих наборов из моделей</value>
+    </data>
+    <data name="Base.Button.LoadListTxt.ToolTip" xml:space="preserve">
+        <value>Загрузить сохранённый ранее список файлов в формате (.txt)</value>
+    </data>
+    <data name="Base.Button.SaveListTxt.ToolTip" xml:space="preserve">
+        <value>Сохранить список в формате (.txt)</value>
+    </data>
+</root>

@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
-using System.Windows.Controls;
 using System.Windows.Forms;
 using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Utils;
@@ -55,14 +55,14 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
     {
         _eventHandlerNWCBatch = eventHandlerNWCBatch;
         EventHandlerBase = eventHandlerNWC;
-        HelpMessage = Help.GetHelpDictionary()
-            .GetResultMessage(HelpMessageType.NWCTitle,
-                HelpMessageType.Load,
-                HelpMessageType.Folder,
-                HelpMessageType.Naming,
-                HelpMessageType.Config,
-                HelpMessageType.Start,
-                HelpMessageType.NWCEnd);
+        HelpMessage = string.Join(Environment.NewLine,
+            Resources.Strings.Help_NWCTitle,
+            Resources.Strings.Help_Load,
+            Resources.Strings.Help_Folder,
+            Resources.Strings.Help_Naming,
+            Resources.Strings.Help_Config,
+            Resources.Strings.Help_Start,
+            Resources.Strings.Help_NWCEnd);
     }
 
     public IReadOnlyDictionary<NavisworksCoordinates, string> Coordinates { get; } = NWCContext.Coordinates;
@@ -197,9 +197,12 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
         NamePostfix = form.NamePostfix;
         WorksetPrefix = string.Join(";", form.WorksetPrefixes);
         ExportScopeView = NavisworksExportScope.View == form.ExportScope;
-        ListBoxItems = new ObservableCollection<ListBoxItem>(form.Files
-            .FilterRevitFiles()
-            .Select(DefaultListBoxItem));
+        ListBoxItems = 
+        [
+            .. form.Files
+                .FilterRevitFiles()
+                .Select(DefaultListBoxItem)
+        ];
         ConvertLights = form.ConvertLights;
         ConvertLinkedCADFormats = form.ConvertLinkedCADFormats;
         FacetingFactor = form.FacetingFactor;
@@ -217,7 +220,10 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
 
         string fileName = saveFileDialog.FileName;
 
-        if (File.Exists(fileName)) File.Delete(fileName);
+        if (File.Exists(fileName))
+        {
+            File.Delete(fileName);
+        }
 
         JsonHelper<NWCForm>.SerializeConfig(form, fileName);
     }
@@ -242,14 +248,15 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
             FolderPath = FolderPath,
             NamePrefix = NamePrefix,
             NamePostfix = NamePostfix,
-            WorksetPrefixes = WorksetPrefix.Split(';')
-                .Select(prefix => prefix.Trim())
-                .ToArray(),
+            WorksetPrefixes = 
+                [
+                    .. WorksetPrefix.Split(';')
+                        .Select(prefix => prefix.Trim())
+                ],
             ConvertLights = ConvertLights,
             ConvertLinkedCADFormats = ConvertLinkedCADFormats,
             FacetingFactor = FacetingFactor,
-            Files = ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)
-                .ToArray(),
+            Files = [.. ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)],
             TurnOffLog = TurnOffLog
         };
     }
@@ -262,11 +269,17 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
 
         IEnumerable<string> configs = File.ReadLines(openFileDialog.FileName);
 
-        Configs = new ObservableCollection<Config>(configs
-            .Where(config => config.EndsWith(".json") && File.Exists(config))
-            .Select(config => new Config(config)));
+        Configs = 
+        [
+            .. configs.Where(config => config.EndsWith(".json")
+                                       && File.Exists(config))
+                .Select(config => new Config(config))
+        ];
 
-        if (!Configs.Any()) MessageBox.Show(NoFiles);
+        if (!Configs.Any())
+        {
+            MessageBox.Show(NoFiles);
+        }
     }
 
     protected override void DeleteSelectedItems()

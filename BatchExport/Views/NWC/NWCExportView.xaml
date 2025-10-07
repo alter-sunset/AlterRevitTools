@@ -2,11 +2,12 @@
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:base="clr-namespace:AlterTools.BatchExport.Views.Base"
+                 xmlns:resx="clr-namespace:AlterTools.BatchExport.Resources"
                  Height="950"
                  Width="800"
                  WindowStartupLocation="CenterScreen"
                  ResizeMode="NoResize"
-                 Title="Пакетный экспорт NWC"
+                 Title="{x:Static resx:Strings.NWC_Title}"
                  IsEnabled="{Binding IsViewEnabled}"
                  ShowInTaskbar="False">
     <Grid Background="WhiteSmoke">
@@ -33,19 +34,18 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <TextBlock Margin="10,0,10,0"
+       <TextBlock Margin="10,0,10,0"
                    FontSize="14"
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    VerticalAlignment="Center"
-                   Text="Список RVT файлов для экспорта" />
-
+                   Text="{x:Static resx:Strings.Base_Header}" />
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="0"
                 Command="{Binding HelpCommand}"
-                ToolTip="Справка по работе с плагином"
-                Content="Справка" />
+                ToolTip="{x:Static resx:Strings.Base_Button_Help_ToolTip}"
+                Content="{x:Static resx:Strings.Base_Button_Help_Content}" />
         <ListBox Grid.Row="1"
                  Grid.Column="0"
                  Grid.ColumnSpan="4"
@@ -53,39 +53,39 @@
                  SelectionMode="Extended"
                  ItemsSource="{Binding ListBoxItems}"
                  SelectedItem="{Binding SelectedItem}"
-                 ToolTip="Список файлов в формате (.rvt)" />
+                 ToolTip="{x:Static resx:Strings.Base_ListBox_ToolTip}" />
 
         <Button Margin="10"
                 Grid.Column="0"
                 Grid.Row="2"
                 Command="{Binding LoadCommand}"
-                ToolTip="Загрузить файлы в формате (.rvt)"
-                Content="Загрузить" />
+                Content="{x:Static resx:Strings.Base_Button_Load_Content}"
+                ToolTip="{x:Static resx:Strings.Base_Button_Load_ToolTip}" />
         <Button Margin="10"
                 Grid.Column="1"
                 Grid.Row="2"
                 Command="{Binding LoadListCommand}"
-                ToolTip="Загрузить сохранённый ранее файл конфигурации в формате (.JSON)"
-                Content="Загрузить конфиг" />
+                Content="{x:Static resx:Strings.Base_Button_LoadList_Content}"
+                ToolTip="{x:Static resx:Strings.Base_Button_LoadList_ToolTip}" />
         <Button Margin="10"
                 Grid.Column="2"
                 Grid.Row="2"
                 Command="{Binding SaveListCommand}"
-                ToolTip="Сохранить файл конфигурации в формате (.JSON)"
-                Content="Сохранить конфиг" />
+                Content="{x:Static resx:Strings.Base_Button_SaveList_Content}"
+                ToolTip="{x:Static resx:Strings.Base_Button_SaveList_ToolTip}" />
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="2"
                 Command="{Binding DeleteCommand}"
-                ToolTip="Удалить выбранные файлы из списка"
-                Content="Удалить" />
+                Content="{x:Static resx:Strings.Base_Button_Delete_Content}"
+                ToolTip="{x:Static resx:Strings.Base_Button_Delete_ToolTip}" />
 
         <TextBlock Margin="10,0,40,0"
                    FontSize="14"
                    Grid.Row="3"
                    Grid.Column="0"
                    VerticalAlignment="Center"
-                   Text="Папка для сохранения" />
+                   Text="{x:Static resx:Strings.Base_ResultingFolder}" />
         <TextBox Grid.Column="0" Margin="165,10,135,10"
                  Grid.Row="3"
                  Grid.ColumnSpan="4"
@@ -95,52 +95,47 @@
                 Grid.Column="3"
                 Grid.Row="3"
                 Command="{Binding BrowseFolderCommand}"
-                Content="Обзор" />
+                Content="{x:Static resx:Strings.Base_Button_Browse}" />
 
-        <TextBlock Margin="10,0,80,0"
-                   Grid.Row="4"
-                   Grid.Column="0"
-                   VerticalAlignment="Center"
-                   ToolTip="Префикс, который необходимо вставить перед названием файла"
-                   FontSize="12"
-                   Text="Префикс названия" />
-        <TextBox Margin="125,10,10,10"
-                 Grid.Row="4"
-                 Grid.ColumnSpan="2" Grid.Column="0"
-                 VerticalContentAlignment="Center"
-                 Text="{Binding NamePrefix}"
-                 ToolTip="Префикс, который необходимо вставить перед названием файла" />
-        <TextBlock Margin="10,0,80,0"
-                   Grid.Row="4"
-                   Grid.Column="2"
-                   VerticalAlignment="Center"
-                   ToolTip="Постфикс, который необходимо вставить после названия файла"
-                   FontSize="12"
-                   Text="Постфикс названия" />
-        <TextBox Margin="125,10,10,10"
-                 Grid.Row="4"
-                 Grid.Column="2"
-                 Grid.ColumnSpan="2"
-                 VerticalContentAlignment="Center"
-                 Text="{Binding NamePostfix}"
-                 ToolTip="Постфикс, который необходимо вставить после названия файла" />
+       <TextBlock Margin="10,0,80,0"
+                  Grid.Row="4"
+                  Grid.Column="0"
+                  VerticalAlignment="Center"
+                  ToolTip="{x:Static resx:Strings.Base_Prefix_ToolTip}"
+                  FontSize="12"
+                  Text="{x:Static resx:Strings.Base_Prefix}" />
+       <TextBox Margin="125,10,10,10"
+                Grid.Row="4"
+                Grid.ColumnSpan="2" Grid.Column="0"
+                VerticalContentAlignment="Center"
+                Text="{Binding NamePrefix}"
+                ToolTip="{x:Static resx:Strings.Base_Prefix_ToolTip}" />
+       <TextBlock Margin="10,0,80,0"
+                  Grid.Row="4"
+                  Grid.Column="2"
+                  VerticalAlignment="Center"
+                  ToolTip="{x:Static resx:Strings.Base_Postfix_ToolTip}"
+                  FontSize="12"
+                  Text="{x:Static resx:Strings.Base_Postfix}" />
+       <TextBox Margin="125,10,10,10"
+                Grid.Row="4"
+                Grid.Column="2"
+                Grid.ColumnSpan="2"
+                VerticalContentAlignment="Center"
+                Text="{Binding NamePostfix}"
+                ToolTip="{x:Static resx:Strings.Base_Postfix_ToolTip}" />
 
         <CheckBox Margin="10,10,10,10"
                   Grid.Row="5"
                   Grid.Column="0"
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding ConvertElementProperties}"
-                  ToolTip="">
-            <TextBlock>
-                Конвертировать<LineBreak />
-                свойства объектов
-            </TextBlock>
-        </CheckBox>
+                  Content="{x:Static resx:Strings.NWC_ConvertElementProperties}"/>
         <TextBlock Margin="10,10,110,10"
                    Grid.Row="5"
                    Grid.Column="1"
                    VerticalAlignment="Center"
-                   Text="Координаты" />
+                   Text="{x:Static resx:Strings.NWC_Coordinates}" />
         <ComboBox Margin="95,10,10,10"
                   Grid.Row="5"
                   Grid.Column="1"
@@ -152,60 +147,39 @@
                   Grid.Row="5"
                   Grid.Column="2"
                   VerticalContentAlignment="Center"
-                  IsChecked="{Binding DivideFileIntoLevels}">
-            <TextBlock>Разделить файл на уровни</TextBlock>
-        </CheckBox>
+                  IsChecked="{Binding DivideFileIntoLevels}"
+                  Content="{x:Static resx:Strings.NWC_DivideFile}"/>
         <CheckBox Margin="10,10,10,10"
                   Grid.Row="5"
                   Grid.Column="3"
                   VerticalContentAlignment="Center"
-                  IsChecked="{Binding ExportElementIds}">
-            <TextBlock>
-                Экспортировать<LineBreak />
-                Id элементов
-            </TextBlock>
-        </CheckBox>
+                  IsChecked="{Binding ExportElementIds}"
+                  Content="{x:Static resx:Strings.NWC_ExportElementIds}"/>
 
         <CheckBox Margin="10"
                   Grid.Row="6"
                   Grid.Column="0"
                   VerticalContentAlignment="Center"
-                  IsChecked="{Binding ExportLinks}">
-            <TextBlock>
-                Экспортировать <LineBreak />
-                связанные файлы
-            </TextBlock>
-        </CheckBox>
+                  IsChecked="{Binding ExportLinks}"
+                  Content="{x:Static resx:Strings.NWC_ExportLinks}"/>
         <CheckBox Margin="10"
                   Grid.Row="6"
                   Grid.Column="1"
                   VerticalContentAlignment="Center"
-                  IsChecked="{Binding ExportParts}">
-            <TextBlock>
-                Экспортировать<LineBreak />
-                элементы конструкции
-            </TextBlock>
-        </CheckBox>
+                  IsChecked="{Binding ExportParts}"
+                  Content="{x:Static resx:Strings.NWC_ExportParts}"/>
         <CheckBox Margin="10"
                   Grid.Row="6"
                   Grid.Column="2"
                   VerticalContentAlignment="Center"
-                  IsChecked="{Binding ExportRoomAsAttribute}">
-            <TextBlock>
-                Экспортировать<LineBreak />
-                помещения как атрибут
-            </TextBlock>
-        </CheckBox>
+                  IsChecked="{Binding ExportRoomAsAttribute}"
+                  Content="{x:Static resx:Strings.NWC_ExportRoomAsAttr}"/>
         <CheckBox Margin="10"
                   Grid.Row="6"
                   Grid.Column="3"
                   VerticalContentAlignment="Center"
-                  IsChecked="{Binding ExportRoomGeometry}">
-            <TextBlock>
-                Экспортировать<LineBreak />
-                геометрию помещений
-            </TextBlock>
-        </CheckBox>
+                  IsChecked="{Binding ExportRoomGeometry}"
+                  Content="{x:Static resx:Strings.NWC_ExportRoomGeometry}"/>
 
         <RadioButton Margin="10"
                      Grid.Row="7"
@@ -213,14 +187,14 @@
                      VerticalContentAlignment="Center"
                      GroupName="ExportScope"
                      IsChecked="{Binding ExportScopeWhole}"
-                     Content="Экспортировать весь проект" />
+                     Content="{x:Static resx:Strings.Base_ExportScopeWhole}"/>
         <RadioButton Margin="10,10,50,10"
                      Grid.Row="7"
                      Grid.Column="1"
                      VerticalContentAlignment="Center"
                      GroupName="ExportScope"
                      IsChecked="{Binding ExportScopeView}"
-                     Content="Экспортировать вид" />
+                     Content="{x:Static resx:Strings.Base_ExportScopeView}"/>
         <TextBox Margin="155,10,10,10"
                  Grid.Row="7"
                  Grid.Column="1"
@@ -231,31 +205,23 @@
                   Grid.Row="7"
                   Grid.Column="3"
                   VerticalContentAlignment="Center"
-                  IsChecked="{Binding IgnoreMissingView}">
-            <TextBlock FontSize="11">
-                Игнорировать отсутствие вида
-                <LineBreak/>
-                и экспортировать весь проект
-            </TextBlock>
-        </CheckBox>
+                  IsChecked="{Binding IgnoreMissingView}"
+                  Content="{x:Static resx:Strings.Base_IgnoreMissingView}"
+                  FontSize="11"/>
 
         <CheckBox Margin="10"
                   Grid.Row="8"
                   Grid.Column="0"
                   VerticalContentAlignment="Center"
-                  IsChecked="{Binding FindMissingMaterials}">
-            <TextBlock>
-                Проверять и находить<LineBreak />
-                отсутсвующие материалы
-            </TextBlock>
-        </CheckBox>
+                  IsChecked="{Binding FindMissingMaterials}"
+                  Content="{x:Static resx:Strings.NWC_FindMissingMaterials}"/>
         <TextBlock Margin="10,0,30,0"
                    FontSize="12"
                    Grid.Row="8"
                    Grid.Column="1"
                    VerticalAlignment="Center"
                    TextWrapping="Wrap"
-                   Text="Конвертировать параметры объектов" />
+                   Text="{x:Static resx:Strings.NWC_ConvertElementParams}" />
         <ComboBox Margin="175,10,10,10"
                   Grid.Row="8"
                   Grid.Column="1"
@@ -269,33 +235,25 @@
                   Grid.Column="3"
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding ExportUrls}"
-                  Content="Экспортировать URL адреса" />
+                  Content="{x:Static resx:Strings.NWC_ExportURLs}" />
         
         <CheckBox Margin="10"
                   Grid.Row="9"
                   Grid.Column="0"
                   VerticalContentAlignment="Center"
-                  IsChecked="{Binding ConvertLinkedCADFormats}">
-            <TextBlock>
-                Экспортировать<LineBreak />
-                связанные CAD файлы
-            </TextBlock>
-        </CheckBox>
+                  IsChecked="{Binding ConvertLinkedCADFormats}"
+                  Content="{x:Static resx:Strings.NWC_ExportCAD}"/>
         <CheckBox Margin="10"
                   Grid.Row="9"
                   Grid.Column="1"
                   VerticalContentAlignment="Center"
-                  IsChecked="{Binding ConvertLights}">
-            <TextBlock>
-                Экспортировать<LineBreak />
-                источники света
-            </TextBlock>
-        </CheckBox>
+                  IsChecked="{Binding ConvertLights}"
+                  Content="{x:Static resx:Strings.NWC_ConvertLights}"/>
         <TextBlock Margin="10,0,30,0"
                    Grid.Row="9"
                    Grid.Column="2"
                    VerticalAlignment="Center"
-                   Text="Коэффициент фасетизации" />
+                   Text="{x:Static resx:Strings.NWC_Faceting}" />
         <TextBox Margin="175,10,10,10"
                  Grid.Row="9"
                  Grid.Column="2"
@@ -309,47 +267,46 @@
                    Grid.Column="0"
                    VerticalAlignment="Center"
                    TextWrapping="Wrap"
-                   Text="Префиксы рабочих наборов, которые нужно закрыть" />
+                   Text="{x:Static resx:Strings.Base_WorksetPrefixes}"/>
         <TextBox Margin="10,10,10,10"
                  Grid.Row="10"
                  Grid.Column="1"
                  Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
                  Text="{Binding WorksetPrefix}"
-                 ToolTip="Укажите через точку-запятую (;) префиксы всех рабочих наборов, которые необходимо закрыть при открытии файла. Обычно закрывают рабочие наборы со связями, чтобы ускорить открытие моделей." />
-
+                 ToolTip="{x:Static resx:Strings.Base_WorksetPrefixes_ToolTip}"/>
         
         <CheckBox Margin="10"
                   Grid.Row="11"
                   Grid.Column="0"
                   VerticalAlignment="Center"
                   FontSize="12"
-                  Content="Не создавать лог-файл"
+                  Content="{x:Static resx:Strings.Base_TurnOffLog}"
                   IsChecked="{Binding TurnOffLog}" />
         <Button Margin="10"
                 Grid.Row="11"
                 Grid.Column="2"
                 Command="{Binding EraseCommand}"
-                Content="Очистить список" />
+                Content="{x:Static resx:Strings.Base_Button_EraseList}"/>
         <Button Margin="10"
                 Grid.Row="11"
                 Grid.Column="3"
                 Command="{Binding RaiseEventCommand}"
-                Content="Запуск"
-                ToolTip="Запуск пакетного экспорта текущей конфигурации" />
+                Content="{x:Static resx:Strings.Base_Button_Start_Content}"
+                ToolTip="{x:Static resx:Strings.Base_Button_Start_ToolTip}" />
 
         <TextBlock Margin="10"
                    FontSize="14"
                    Grid.Row="12"
                    Grid.Column="0"
                    VerticalAlignment="Center"
-                   Text="Список JSON конфигов" />
+                   Text="{x:Static resx:Strings.NWC_ListConfigs}" />
         <ListBox Margin="10"
                  Grid.Row="12"
                  Grid.RowSpan="3"
                  Grid.Column="1"
                  Grid.ColumnSpan="3"
-                 ToolTip="Список файлов конфигураций"
+                 ToolTip="{x:Static resx:Strings.NWC_ListConfigs_ToolTip}"
                  SelectionMode="Extended"
                  SelectionChanged="ListBox_SelectionChanged"
                  ItemsSource="{Binding Configs}"
@@ -358,13 +315,13 @@
                 Grid.Row="13"
                 Grid.Column="0"
                 Command="{Binding LoadConfigsCommand}"
-                Content="Загрузить конфиги"
-                ToolTip="Загрузить список с файлами конфигураций в формате (.txt)" />
+                Content="{x:Static resx:Strings.NWC_Button_LoadConfigs}"
+                ToolTip="{x:Static resx:Strings.NWC_Button_LoadConfigs_ToolTip}" />
         <Button Margin="10"
                 Grid.Row="14"
                 Grid.Column="0"
                 Command="{Binding RaiseBatchEventCommand}"
-                Content="Начать"
-                ToolTip="Запустить экспорт нескольких конфигураций" />
+                Content="{x:Static resx:Strings.NWC_Button_Begin}"
+                ToolTip="{x:Static resx:Strings.NWC_Button_Begin_ToolTip}" />
     </Grid>
 </base:WindowBase>

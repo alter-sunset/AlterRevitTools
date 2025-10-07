@@ -12,7 +12,7 @@ namespace AlterTools.BatchExport.Views.Migrate;
 
 public static class MigrateHelper
 {
-    private const string WrongScheme = "Неверная схема файла";
+    private static string WrongScheme => Resources.Strings.Const_WrongScheme;
 
     public static bool IsConfigPathValid(string configPath) =>
         !string.IsNullOrEmpty(configPath) && ".json" == Path.GetExtension(configPath);
@@ -30,7 +30,9 @@ public static class MigrateHelper
     {
         string dir = Path.GetDirectoryName(filePath);
         if (dir is not null && !Directory.Exists(dir))
+        {
             Directory.CreateDirectory(dir);
+        }
     }
 
     public static List<string> ProcessFiles(string configPath, Application app)
@@ -54,7 +56,7 @@ public static class MigrateHelper
         {
             string oldFile = item.Key;
             string newFile = item.Value;
-
+            
             if (!File.Exists(oldFile))
             {
                 failedFiles.Add(oldFile);

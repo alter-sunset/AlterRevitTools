@@ -13,30 +13,23 @@ namespace AlterTools.BatchExport.Views.Base;
 
 public class ViewModelBase : NotifyPropertyChanged, IConfigBase
 {
-    protected const string NoFiles = "В текстовом файле не было найдено подходящей информации";
+    protected static string NoFiles => Resources.Strings.Const_VMBase_NoFiles;
 
     private RelayCommand _browseFolderCommand;
-
     private RelayCommand _deleteCommand;
-
     private RelayCommand _eraseCommand;
-
-    private string _folderPath;
-
     private RelayCommand _helpCommand;
-
-    private bool _isViewEnabled = true;
-
-    private ObservableCollection<ListBoxItem> _listBoxItems = [];
-
     private RelayCommand _loadCommand;
-
     private RelayCommand _loadListCommand;
-
     private RelayCommand _raiseEventCommand;
-
     private RelayCommand _saveListCommand;
-
+    
+    private string _folderPath;
+    
+    private bool _isViewEnabled = true;
+    
+    private ObservableCollection<ListBoxItem> _listBoxItems = [];
+    
     private ListBoxItem _selectedItem;
 
     private string _viewName = "Navisworks";
@@ -62,8 +55,10 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
 
     [UsedImplicitly]
     public RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
+    
     [UsedImplicitly]
     public RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
+    
     [UsedImplicitly]
     public RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
 
@@ -80,18 +75,18 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
 
     [UsedImplicitly]
     public RelayCommand HelpCommand =>
-        _helpCommand ??= new RelayCommand(_ => MessageBox.Show(HelpMessage, "Справка"));
+        _helpCommand ??= new RelayCommand(_ => MessageBox.Show(HelpMessage,
+            Resources.Strings.Base_Button_Help_Content));
 
     protected EventHandlerBase EventHandlerBase { get; set; }
 
     [UsedImplicitly]
-    public RelayCommand RaiseEventCommand =>
-        _raiseEventCommand ??= new RelayCommand(_ => EventHandlerBase.Raise(this));
+    public RelayCommand RaiseEventCommand => _raiseEventCommand ??= new RelayCommand(_ => EventHandlerBase.Raise(this));
 
     [UsedImplicitly]
     public virtual RelayCommand RadioButtonCommand { get; }
 
-    public virtual string[] Files => _listBoxItems.Select(item => item.Content.ToString()).ToArray();
+    public virtual string[] Files => [.. _listBoxItems.Select(item => item.Content.ToString())];
 
     public string ViewName
     {
@@ -113,9 +108,12 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
 
         IEnumerable<string> files = File.ReadLines(openFileDialog.FileName).FilterRevitFiles();
 
-        ListBoxItems = new ObservableCollection<ListBoxItem>(files.Select(DefaultListBoxItem));
+        ListBoxItems = [.. files.Select(DefaultListBoxItem)];
 
-        if (!ListBoxItems.Any()) MessageBox.Show(NoFiles);
+        if (!ListBoxItems.Any())
+        {
+            MessageBox.Show(NoFiles);
+        }
 
         FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
     }
@@ -126,12 +124,16 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
 
         if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
-        HashSet<string> existingFiles = new(Files);
+        HashSet<string> existingFiles = [.. Files];
 
-        IEnumerable<string> files = openFileDialog.FileNames.Distinct()
+        IEnumerable<string> files = openFileDialog.FileNames
+            .Distinct()
             .Where(file => !existingFiles.Contains(file));
 
-        foreach (string file in files) ListBoxItems.Add(DefaultListBoxItem(file));
+        foreach (string file in files)
+        {
+            ListBoxItems.Add(DefaultListBoxItem(file));
+        }
     }
 
     protected virtual void SaveList()
@@ -159,7 +161,10 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
     {
         FolderBrowserDialog folderBrowserDialog = new() { SelectedPath = FolderPath };
 
-        if (folderBrowserDialog.ShowDialog() is DialogResult.OK) FolderPath = folderBrowserDialog.SelectedPath;
+        if (folderBrowserDialog.ShowDialog() is DialogResult.OK)
+        {
+            FolderPath = folderBrowserDialog.SelectedPath;
+        }
     }
 
     protected static ListBoxItem DefaultListBoxItem(string content)

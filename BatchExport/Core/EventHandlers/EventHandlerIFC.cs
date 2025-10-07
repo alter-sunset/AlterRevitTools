@@ -19,7 +19,7 @@ public class EventHandlerIFC : EventHandlerBase
         IFCHelper ifcHelper = new();
         ifcHelper.BatchExportModels(ifcVm, uiApp, ref log);
 
-        string msg = $"В процессе выполнения было {log.ErrorCount} ошибок.";
+        string msg = $"{Resources.Strings.Const_ThereWhere} {log.ErrorCount} {Resources.Strings.Const_Errors}";
 
         log.Dispose();
 

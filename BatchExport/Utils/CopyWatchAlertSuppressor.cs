@@ -8,11 +8,12 @@ public class CopyWatchAlertSuppressor : IFailuresPreprocessor
 {
     public FailureProcessingResult PreprocessFailures(FailuresAccessor accessor)
     {
-        List<FailureMessageAccessor> failures = accessor.GetFailureMessages()
-            .Where(failure =>
-                BuiltInFailures.CopyMonitorFailures.CopyWatchAlert ==
-                failure.GetFailureDefinitionId())
-            .ToList();
+        List<FailureMessageAccessor> failures =
+        [
+            .. accessor.GetFailureMessages()
+                .Where(failure =>
+                    failure.GetFailureDefinitionId() == BuiltInFailures.CopyMonitorFailures.CopyWatchAlert)
+        ];
 
         failures.ForEach(accessor.DeleteWarning);
 

@@ -9,14 +9,14 @@ public static class DialogHelper
     private const string ExtJson = ".json";
     private const string ExtRvt = ".rvt";
     private const string ExtCsv = ".csv";
-    private const string FilterTxt = "Текстовый файл (.txt)|*.txt";
-    private const string FilterJson = "Файл JSON (.json)|*.json";
-    private const string FilterRvt = "Revit Files (.rvt)|*.rvt";
-    private const string FilterCsv = "(CSV) разделитель точка с запятой (.csv)|*.csv";
     private const string DefaultFileNameTxt = "ListOfRVTFiles";
     private const string DefaultFileNameJson = "ConfigBatchExport";
     private const string DefaultFileNameCsv = "ParametersExport";
     private const string Exception = "Unsupported dialog type";
+    private static string FilterTxt => Resources.Strings.Const_FilterTxt;
+    private static string FilterJson => Resources.Strings.Const_FilterJson;
+    private static string FilterRvt => Resources.Strings.Const_FilterRvt;
+    private static string FilterCsv => Resources.Strings.Const_FilterCsv;
 
     public static OpenFileDialog OpenFileDialog(this DialogType dialogType)
     {
@@ -42,8 +42,7 @@ public static class DialogHelper
         };
     }
 
-    private static (string defaultExt, string filter, bool multiselect) GetOpenFileDialogSettings(
-        DialogType dialogType)
+    private static (string defaultExt, string filter, bool multiselect) GetOpenFileDialogSettings(DialogType dialogType)
     {
         return dialogType switch
         {
@@ -55,8 +54,7 @@ public static class DialogHelper
         };
     }
 
-    private static (string defaultExt, string filter, string fileName) GetSaveFileDialogSettings(
-        DialogType dialogType)
+    private static (string defaultExt, string filter, string fileName) GetSaveFileDialogSettings(DialogType dialogType)
     {
         return dialogType switch
         {

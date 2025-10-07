@@ -14,27 +14,18 @@ namespace AlterTools.BatchExport.Utils;
 
 internal static class ViewModelHelper
 {
-    private const string NoFolder = "Укажите папку для экспорта!";
-    private const string WrongFolder = "Укажите корректную папку для экспорта!";
-
-    private const string CreateFolder = """
-                                        Такой папки не существует.
-                                        Создать папку?
-                                        """;
-
-    private const string ToHell = """
-                                  Нет, так нет.
-                                  Тогда живи в проклятом мире, который сам и создал.
-                                  """;
-
-    private const string NoFiles = "Добавьте хотя бы один файл для экспорта!";
-    private const string NoViewName = "Введите имя вида!";
-    private const string NoPathMode = "Выберите режим выбора пути!";
-    private const string NoMaskPath = "Укажите маску замены пути!";
-    private const string WrongMask = "Несоответствие входной маски и имён файлов!";
-    private const string NoMaskFile = "Введите маску для переименования файлов!";
-    private const string NoCsv = "Укажите корректный путь к выходному файлу!";
-    private const string NoParameters = "Укажите хотя бы один параметр для экспорта!";
+    private static string NoFolder => Resources.Strings.Const_NoFolder;
+    private static string WrongFolder => Resources.Strings.Const_WrongFolder;
+    private static string CreateFolder => Resources.Strings.Const_CreateFolder;
+    private static string ToHell => Resources.Strings.Const_ToHell;
+    private static string NoFiles => Resources.Strings.Const_NoFiles;
+    private static string NoViewName => Resources.Strings.Const_NoViewName;
+    private static string NoPathMode => Resources.Strings.Const_NoPathMode;
+    private static string NoMaskPath => Resources.Strings.Const_NoMaskPath;
+    private static string WrongMask => Resources.Strings.Const_WrongMask;
+    private static string NoMaskFile => Resources.Strings.Const_NoMaskFile;
+    private static string NoCsv => Resources.Strings.Const_NoCsv;
+    private static string NoParameters =>  Resources.Strings.Const_NoParameters;
 
     internal static bool IsEverythingFilled(this DetachViewModel detachVm)
     {
@@ -66,8 +57,7 @@ internal static class ViewModelHelper
 
     internal static bool IsEverythingFilled(this LinkViewModel linkVm) => linkVm.IsListNotEmpty();
 
-    private static bool IsListNotEmpty(this LinkViewModel linkVm) =>
-        CheckCondition(linkVm.Entries.Count > 0, NoFiles);
+    private static bool IsListNotEmpty(this LinkViewModel linkVm) => CheckCondition(linkVm.Entries.Count > 0, NoFiles);
 
     private static bool IsListNotEmpty(this ViewModelBase vmBase) =>
         CheckCondition(vmBase.ListBoxItems.Count > 0, NoFiles);
@@ -77,14 +67,20 @@ internal static class ViewModelHelper
         string folderPath = vmBase.FolderPath;
 
         if (string.IsNullOrEmpty(folderPath))
+        {
             return CheckCondition(false, NoFolder);
+        }
 
         if (Uri.IsWellFormedUriString(folderPath, UriKind.RelativeOrAbsolute))
+        {
             return CheckCondition(false, WrongFolder);
+        }
 
         if (Directory.Exists(folderPath)) return true;
 
-        MessageBoxResult result = MessageBox.Show(CreateFolder, "Добрый вечер", MessageBoxButton.YesNo);
+        MessageBoxResult result = MessageBox.Show(CreateFolder,
+            Resources.Strings.Const_GoodEvening,
+            MessageBoxButton.YesNo);
 
         if (result is MessageBoxResult.Yes)
         {
@@ -120,11 +116,16 @@ internal static class ViewModelHelper
 
             case 2:
                 if (string.IsNullOrEmpty(detachVm.MaskIn) || string.IsNullOrEmpty(detachVm.MaskOut))
+                {
                     return CheckCondition(false, NoMaskPath);
+                }
 
-                if (!detachVm.ListBoxItems.Select(item => item.Content)
+                if (!detachVm.ListBoxItems
+                        .Select(item => item.Content)
                         .All(i => i.ToString()!.Contains(detachVm.MaskIn)))
+                {
                     return CheckCondition(false, WrongMask);
+                }
 
                 break;
         }
@@ -145,17 +146,24 @@ internal static class ViewModelHelper
         if (string.IsNullOrWhiteSpace(csvPath)
             || Uri.IsWellFormedUriString(csvPath, UriKind.Absolute)
             || !csvPath.EndsWith(".csv"))
+        {
             return CheckCondition(false, NoCsv);
+        }
 
         return true;
     }
 
-    private static bool AreThereAnyParameters(this ParamsViewModel paramsVm) =>
-        CheckCondition(paramsVm.ParametersNames.Length > 0, NoParameters);
+    private static bool AreThereAnyParameters(this ParamsViewModel paramsVm)
+    {
+        return CheckCondition(paramsVm.ParametersNames.Length > 0, NoParameters);
+    }
 
     private static bool CheckCondition(bool condition, string msg)
     {
-        if (!condition) MessageBox.Show(msg);
+        if (!condition)
+        {
+            MessageBox.Show(msg);
+        }
 
         return condition;
     }
@@ -167,9 +175,9 @@ internal static class ViewModelHelper
     /// <param name="vmBase">ViewModel to finalize</param>
     /// <param name="id">TaskDialog Id</param>
     /// <param name="msg">Message to show to user</param>
-    public static void Finisher(this ViewModelBase vmBase, string id, string msg = "Задание выполнено")
+    public static void Finisher(this ViewModelBase vmBase, string id, string msg = "Task completed")
     {
-        TaskDialog taskDialog = new("Готово!")
+        TaskDialog taskDialog = new(Resources.Strings.Const_Done)
         {
             CommonButtons = TaskDialogCommonButtons.Close,
             Id = id,
@@ -191,16 +199,14 @@ internal static class ViewModelHelper
 
     public static string RemoveDetach(this string name)
     {
-        return name.Replace("_detached", "")
-            .Replace("_отсоединено", "");
+        return name.Replace(Resources.Strings.Const_Detached, "");
     }
 
     public static string[] SplitBySemicolon(this string line)
     {
-        return line.Split(';')
+        return [.. line.Split(';')
             .Select(word => word.Trim())
             .Distinct()
-            .Where(word => !string.IsNullOrWhiteSpace(word))
-            .ToArray();
+            .Where(word => !string.IsNullOrWhiteSpace(word))];
     }
 }

@@ -21,6 +21,7 @@ public class EventHandlerTransmit : EventHandlerBase
 
         foreach (ListBoxItem item in transmitVm.ListBoxItems)
         {
+            item.Background = Brushes.Blue;
             string filePath = item.Content.ToString();
 
             if (!File.Exists(filePath))
@@ -35,6 +36,7 @@ public class EventHandlerTransmit : EventHandlerBase
 
             ModelPath transmittedModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(transmittedFilePath);
             transmittedModelPath.UnloadRevitLinks(folderPath, transmitVm.IsSameFolder);
+            item.Background = Brushes.Green;
         }
 
         transmitVm.Finisher("TransmitModelsFinished");

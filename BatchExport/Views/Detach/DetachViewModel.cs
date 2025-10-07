@@ -1,4 +1,5 @@
-﻿using AlterTools.BatchExport.Core.EventHandlers;
+﻿using System;
+using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Views.Base;
 using JetBrains.Annotations;
 
@@ -10,11 +11,11 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
 
     private bool _isToRename;
 
-    private string _maskIn = @"05_В_Работе\52_ПД";
+    private string _maskIn = Resources.Strings.Detach_MaskIn;
 
     private string _maskInName = "R18";
 
-    private string _maskOut = @"06_Общие\62_ПД";
+    private string _maskOut = Resources.Strings.Detach_MaskOut;
 
     private string _maskOutName = "R24";
 
@@ -31,13 +32,13 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
     public DetachViewModel(EventHandlerDetach eventHandlerDetach)
     {
         EventHandlerBase = eventHandlerDetach;
-        HelpMessage = Help.GetHelpDictionary()
-            .GetResultMessage(HelpMessageType.DetachTitle,
-                HelpMessageType.Load,
-                HelpMessageType.Folder,
-                HelpMessageType.DetachMid,
-                HelpMessageType.List,
-                HelpMessageType.Start);
+        HelpMessage = string.Join(Environment.NewLine,
+            Resources.Strings.Help_DetachTitle,
+            Resources.Strings.Help_Load,
+            Resources.Strings.Help_Folder,
+            Resources.Strings.Help_DetachMid,
+            Resources.Strings.Help_List,
+            Resources.Strings.Help_Start);
 
 #if R22_OR_GREATER
         IsWorksetRemoverEnabled = true;

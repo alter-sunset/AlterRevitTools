@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Windows.Controls;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
@@ -22,7 +21,7 @@ public class EventHandlerParams : EventHandlerBase
             using ErrorSuppressor errorSuppressor = new(uiApp);
             using Application app = uiApp.Application;
 
-            List<ListBoxItem> listItems = paramsVm.ListBoxItems.ToList();
+            List<ListBoxItem> listItems = [.. paramsVm.ListBoxItems];
             listItems.ForEach(item => item.ExportParameters(app, paramsVm, csvHelper));
         }
 

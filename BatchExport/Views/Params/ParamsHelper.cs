@@ -47,7 +47,7 @@ public static class ParamsHelper
 
             foreach (ParametersTable table in paramTables)
             {
-                if (string.IsNullOrWhiteSpace(table.Parameters["Семейство и типоразмер"])) continue;
+                if (string.IsNullOrWhiteSpace(table.Parameters[Resources.Strings.Params_FamilyAndType])) continue;
                 csvHelper.WriteElement(table);
             }
         }
@@ -59,6 +59,8 @@ public static class ParamsHelper
         item.Background = Brushes.Green;
     }
 
-    private static Dictionary<string, string> GetParametersSet(this Element element, string[] parametersNames) =>
-        parametersNames.ToDictionary(name => name, name => element.LookupParameter(name).GetValueString());
+    private static Dictionary<string, string> GetParametersSet(this Element element, string[] parametersNames)
+    {
+        return parametersNames.ToDictionary(name => name, name => element.LookupParameter(name).GetValueString());
+    }
 }

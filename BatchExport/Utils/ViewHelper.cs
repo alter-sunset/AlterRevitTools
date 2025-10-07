@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Windows;
 using AlterTools.BatchExport.Core.Commands;
 using AlterTools.BatchExport.Core.EventHandlers;
@@ -53,10 +52,9 @@ internal static class ViewHelper
 
     private static Workset[] GetWorksets()
     {
-        return new FilteredWorksetCollector(_uiApp.ActiveUIDocument.Document)
+        return [.. new FilteredWorksetCollector(_uiApp.ActiveUIDocument.Document)
             .OfKind(WorksetKind.UserWorkset)
-            .ToWorksets()
-            .ToArray();
+            .ToWorksets()];
     }
 
     private static void CloseCurrentForm()

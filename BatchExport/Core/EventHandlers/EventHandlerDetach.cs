@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
 using AlterTools.BatchExport.Utils;
@@ -20,12 +19,13 @@ public class EventHandlerDetach : EventHandlerBase
         if (!detachVm.IsEverythingFilled()) return;
 
         using Application app = uiApp.Application;
-        using ErrorSuppressor errorSuppressor = new(uiApp);
+        ErrorSuppressor errorSuppressor = new(uiApp);
 
-        List<ListBoxItem> listItems = detachVm.ListBoxItems.ToList();
+        List<ListBoxItem> listItems = [.. detachVm.ListBoxItems];
 
         foreach (ListBoxItem item in listItems)
         {
+            item.Background = Brushes.Blue;
             string filePath = item.Content?.ToString();
 
             if (!File.Exists(filePath))
@@ -35,7 +35,9 @@ public class EventHandlerDetach : EventHandlerBase
             }
 
             detachVm.DetachModel(app, filePath);
+            item.Background = Brushes.Green;
         }
+        errorSuppressor.Dispose();
 
         detachVm.Finisher("DetachModelsFinished");
     }

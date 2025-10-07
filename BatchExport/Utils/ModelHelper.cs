@@ -16,19 +16,22 @@ public static class ModelHelper
     /// </summary>
     public static WorksetConfiguration CloseWorksets(this ModelPath modelPath, params string[] prefixes)
     {
-        if (prefixes is null
-            || prefixes.Length == 0)
+        if (prefixes is null || prefixes.Length == 0)
+        {
             return new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
+        }
 
         // problem occurs if centralModel can't be found
         try
         {
             WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.CloseAllWorksets);
 
-            IList<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)
-                .Where(wp => !prefixes.Any(wp.Name.StartsWith))
-                .Select(wp => wp.Id)
-                .ToList();
+            IList<WorksetId> worksetIds =
+            [
+                .. WorksharingUtils.GetUserWorksetInfo(modelPath)
+                    .Where(wp => !prefixes.Any(wp.Name.StartsWith))
+                    .Select(wp => wp.Id)
+            ];
 
             worksetConfiguration.Open(worksetIds);
 
@@ -45,7 +48,8 @@ public static class ModelHelper
     {
         return new FilteredElementCollector(doc)
             .OfClass(typeof(View3D))
-            .Any(el => el.Name == viewName && !((View3D)el).IsTemplate);
+            .Any(el => el.Name == viewName
+                       && !((View3D)el).IsTemplate);
     }
 
     /// <summary>
@@ -79,7 +83,8 @@ public static class ModelHelper
     {
         try
         {
-            WorksharingUtils.RelinquishOwnership(doc, new RelinquishOptions(true),
+            WorksharingUtils.RelinquishOwnership(doc,
+                new RelinquishOptions(true),
                 new TransactWithCentralOptions());
         }
         catch
@@ -97,7 +102,7 @@ public static class ModelHelper
 
         if (ids.Count == 0) return;
 
-        using Transaction tr = new(doc, "Delete all Links");
+        using Transaction tr = new(doc, Resources.Strings.Const_RemoveLinks);
 
         tr.Start();
         tr.SuppressAlert();
@@ -162,7 +167,7 @@ public static class ModelHelper
             .OfKind(WorksetKind.UserWorkset)
             .ToWorksets();
 
-        using Transaction tr = new(doc, "Open worksets");
+        using Transaction tr = new(doc, Resources.Strings.Const_OpenWorksets);
         tr.Start();
 
         // Create a temporary cable tray
@@ -175,7 +180,10 @@ public static class ModelHelper
             // Change the workset of the cable tray
             Parameter wsParam = ct.get_Parameter(BuiltInParameter.ELEM_PARTITION_PARAM);
 
-            if (wsParam is { IsReadOnly: false }) wsParam.Set(workset.Id.IntegerValue);
+            if (wsParam is { IsReadOnly: false })
+            {
+                wsParam.Set(workset.Id.IntegerValue);
+            }
 
             // Show the cable tray to open the workset
             new UIDocument(doc).ShowElements(ct.Id);
@@ -195,39 +203,39 @@ public static class ModelHelper
     }
 
 #if R24_OR_GREATER
-        public static void PurgeAll(this Document doc)
+    public static void PurgeAll(this Document doc)
+    {
+        try
         {
-            try
+            int previousCount;
+            
+            do
             {
-                int previousCount;
-
-                do
-                {
-                    HashSet<ElementId> unusedElements = doc.GetUnusedElements(new HashSet<ElementId>())
-                        .Where(el => doc.GetElement(el) is not null
-                                     && doc.GetElement(el) is not RevitLinkType)
-                        .ToHashSet();
-
-                    previousCount = unusedElements.Count;
-
-                    if (previousCount == 0)
-                    {
-                        break;
-                    }
-
-                    using Transaction tr = new(doc, "Purge unused");
-                    tr.Start();
-
-                    doc.Delete(unusedElements);
-
-                    tr.Commit();
-                } while (0 < previousCount);
-            }
-            catch
-            {
-                // ignored
-            }
+                HashSet<ElementId> unusedElements =
+                    [
+                        .. doc.GetUnusedElements(new HashSet<ElementId>())
+                            .Where(el => doc.GetElement(el) is not null
+                                         && doc.GetElement(el) is not RevitLinkType)
+                    ];
+                
+                previousCount = unusedElements.Count;
+                
+                if (previousCount == 0) break;
+                
+                using Transaction tr = new(doc, Resources.Strings.Const_Purge);
+                tr.Start();
+                
+                doc.Delete(unusedElements);
+                
+                tr.Commit();            
+            } while (0 < previousCount);
+        
         }
+        catch
+        {
+            // ignored
+        }
+    }
 #endif
 
     /// <summary>
@@ -247,28 +255,26 @@ public static class ModelHelper
         if (el.ViewSpecific) return false;
         // exclude specific unwanted categories
 #if R24_OR_GREATER
-            if ((BuiltInCategory)el.Category.Id.Value is BuiltInCategory.OST_HVAC_Zones)
-            {
-                return false;
-            }
+        if ((BuiltInCategory)el.Category.Id.Value is BuiltInCategory.OST_HVAC_Zones) return false;
 #else
         if ((BuiltInCategory)el.Category.Id.IntegerValue is BuiltInCategory.OST_HVAC_Zones) return false;
 #endif
-        return el.Category.CategoryType is CategoryType.Model
-               && el.Category.CanAddSubcategory;
+        return el.Category.CategoryType is CategoryType.Model && el.Category.CanAddSubcategory;
     }
 
 #if R22_OR_GREATER
     public static void RemoveEmptyWorksets(this Document doc)
     {
-        List<WorksetId> worksets = new FilteredWorksetCollector(doc)
-            .OfKind(WorksetKind.UserWorkset)
-            .ToWorksetIds()
-            .Where(doc.IsWorksetEmpty)
-            .ToList();
+        List<WorksetId> worksets = 
+        [
+            .. new FilteredWorksetCollector(doc)
+                .OfKind(WorksetKind.UserWorkset)
+                .ToWorksetIds()
+                .Where(doc.IsWorksetEmpty)
+        ];
 
         using Transaction tr = new(doc);
-        tr.Start("Remove empty worksets");
+        tr.Start(Resources.Strings.Const_RemoveEmptyWorksets);
 
         worksets.ForEach(workset => WorksetTable.DeleteWorkset(doc, workset, new DeleteWorksetSettings()));
 
