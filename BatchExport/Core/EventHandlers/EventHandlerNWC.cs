@@ -1,4 +1,5 @@
-﻿using AlterTools.BatchExport.Utils;
+﻿using AlterTools.BatchExport.Resources;
+using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Utils.Logger;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.NWC;
@@ -19,7 +20,7 @@ public class EventHandlerNWC : EventHandlerBase
         NWCHelper nwcHelper = new();
         nwcHelper.BatchExportModels(nwcVm, uiApp, ref log);
 
-        string msg = $"{Resources.Strings.Const_ThereWhere} {log.ErrorCount} {Resources.Strings.Const_Errors}";
+        string msg = $"{Strings.Const_ThereWhere} {log.ErrorCount} {Strings.Const_Errors}";
 
         log.Dispose();
 

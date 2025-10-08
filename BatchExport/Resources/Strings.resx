@@ -539,4 +539,7 @@ Export</value>
     <data name="Base.Button.SaveListTxt.ToolTip" xml:space="preserve">
         <value>Save list in (.txt) format</value>
     </data>
+    <data name="Transmit.SameFolder.ToolTip" xml:space="preserve">
+        <value>Put all models into single directory or preserve folder structure</value>
+    </data>
 </root>

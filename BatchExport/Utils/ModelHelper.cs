@@ -6,6 +6,7 @@ using System.Security.Cryptography;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Electrical;
 using Autodesk.Revit.UI;
+using AlterTools.BatchExport.Resources;
 
 namespace AlterTools.BatchExport.Utils;
 
@@ -102,7 +103,7 @@ public static class ModelHelper
 
         if (ids.Count == 0) return;
 
-        using Transaction tr = new(doc, Resources.Strings.Const_RemoveLinks);
+        using Transaction tr = new(doc, Strings.Const_RemoveLinks);
 
         tr.Start();
         tr.SuppressAlert();
@@ -167,7 +168,7 @@ public static class ModelHelper
             .OfKind(WorksetKind.UserWorkset)
             .ToWorksets();
 
-        using Transaction tr = new(doc, Resources.Strings.Const_OpenWorksets);
+        using Transaction tr = new(doc, Strings.Const_OpenWorksets);
         tr.Start();
 
         // Create a temporary cable tray
@@ -222,7 +223,7 @@ public static class ModelHelper
                 
                 if (previousCount == 0) break;
                 
-                using Transaction tr = new(doc, Resources.Strings.Const_Purge);
+                using Transaction tr = new(doc, Strings.Const_Purge);
                 tr.Start();
                 
                 doc.Delete(unusedElements);
@@ -250,16 +251,10 @@ public static class ModelHelper
 
     public static bool IsPhysicalElement(this Element el)
     {
-        if (el.Category is null) return false;
-
-        if (el.ViewSpecific) return false;
-        // exclude specific unwanted categories
-#if R24_OR_GREATER
-        if ((BuiltInCategory)el.Category.Id.Value is BuiltInCategory.OST_HVAC_Zones) return false;
-#else
-        if ((BuiltInCategory)el.Category.Id.IntegerValue is BuiltInCategory.OST_HVAC_Zones) return false;
-#endif
-        return el.Category.CategoryType is CategoryType.Model && el.Category.CanAddSubcategory;
+        return el.Category is not null
+               && !el.ViewSpecific
+               && el.Category.CategoryType is CategoryType.Model
+               && el.Category.CanAddSubcategory;
     }
 
 #if R22_OR_GREATER
@@ -274,7 +269,7 @@ public static class ModelHelper
         ];
 
         using Transaction tr = new(doc);
-        tr.Start(Resources.Strings.Const_RemoveEmptyWorksets);
+        tr.Start(Strings.Const_RemoveEmptyWorksets);
 
         worksets.ForEach(workset => WorksetTable.DeleteWorkset(doc, workset, new DeleteWorksetSettings()));
 

@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using AlterTools.BatchExport.Core.EventHandlers;
+using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 
@@ -10,7 +11,7 @@ namespace AlterTools.BatchExport.Views.Params;
 
 public class ParamsViewModel : ViewModelBase, IConfigParams
 {
-    private static string DefaultParams => Resources.Strings.Const_DefaultParams;
+    private static string DefaultParams => Strings.Const_DefaultParams;
 
     private RelayCommand _browseCsvCommand;
 
@@ -22,10 +23,10 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
     {
         EventHandlerBase = eventHandlerParams;
         HelpMessage = string.Join(Environment.NewLine,
-            Resources.Strings.Help_ParamsTitle,
-            Resources.Strings.Help_Load,
-            Resources.Strings.Help_Config,
-            Resources.Strings.Help_Start);
+            Strings.Help_ParamsTitle,
+            Strings.Help_Load,
+            Strings.Help_Config,
+            Strings.Help_Start);
 
         ParamsNames = DefaultParams;
     }

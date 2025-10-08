@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using AlterTools.BatchExport.Core.EventHandlers;
+using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 using Autodesk.Revit.DB;
@@ -56,13 +57,13 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
         _eventHandlerNWCBatch = eventHandlerNWCBatch;
         EventHandlerBase = eventHandlerNWC;
         HelpMessage = string.Join(Environment.NewLine,
-            Resources.Strings.Help_NWCTitle,
-            Resources.Strings.Help_Load,
-            Resources.Strings.Help_Folder,
-            Resources.Strings.Help_Naming,
-            Resources.Strings.Help_Config,
-            Resources.Strings.Help_Start,
-            Resources.Strings.Help_NWCEnd);
+            Strings.Help_NWCTitle,
+            Strings.Help_Load,
+            Strings.Help_Folder,
+            Strings.Help_Naming,
+            Strings.Help_Config,
+            Strings.Help_Start,
+            Strings.Help_NWCEnd);
     }
 
     public IReadOnlyDictionary<NavisworksCoordinates, string> Coordinates { get; } = NWCContext.Coordinates;

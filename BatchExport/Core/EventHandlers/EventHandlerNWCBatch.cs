@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading;
 using System.Windows;
+using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Utils.Logger;
 using AlterTools.BatchExport.Views.Base;
@@ -19,7 +20,7 @@ public class EventHandlerNWCBatch : EventHandlerBase
 
         if (nwcVm.Configs.Count == 0)
         {
-            MessageBox.Show(Resources.Strings.NWC_AddConfigs);
+            MessageBox.Show(Strings.NWC_AddConfigs);
             return;
         }
 
@@ -50,8 +51,8 @@ public class EventHandlerNWCBatch : EventHandlerBase
             Thread.Sleep(1000);
         }
 
-        string msg = $"{Resources.Strings.Const_TaskCompleted}" +
-                     $"\n{Resources.Strings.Const_TotalTime}{DateTime.Now - timeStart}";
+        string msg = $"{Strings.Const_TaskCompleted}" +
+                     $"\n{Strings.Const_TotalTime}{DateTime.Now - timeStart}";
 
         nwcVm.Finisher("ExportBatchNWCFinished", msg);
     }

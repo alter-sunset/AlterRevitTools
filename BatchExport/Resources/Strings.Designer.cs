@@ -1364,12 +1364,20 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Put everything 
-        ///in single folder.
+        ///   Looks up a localized string similar to Put everything in single folder.
         /// </summary>
         public static string Transmit_SameFolder {
             get {
                 return ResourceManager.GetString("Transmit.SameFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Put all models into single directory or preserve folder structure.
+        /// </summary>
+        public static string Transmit_SameFolder_ToolTip {
+            get {
+                return ResourceManager.GetString("Transmit.SameFolder.ToolTip", resourceCulture);
             }
         }
         

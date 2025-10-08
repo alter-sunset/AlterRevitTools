@@ -66,17 +66,13 @@
         <DefineConstants>R20_OR_GREATER;R22_OR_GREATER;R24_OR_GREATER;R25_OR_GREATER</DefineConstants>
     </PropertyGroup>
     <ItemGroup>
-        <None Remove="Resources\params.png"/>
-        <None Remove="Resources\params_16.png"/>
-    </ItemGroup>
-    <ItemGroup>
         <EmbeddedResource Include="Resources\Buttons.json"/>
         <EmbeddedResource Include="Resources\detach.png"/>
         <EmbeddedResource Include="Resources\detach_16.png"/>
         <EmbeddedResource Include="Resources\migrate.png"/>
         <EmbeddedResource Include="Resources\migrate_16.png"/>
-        <EmbeddedResource Include="Resources\nwc_16.png"/>
         <EmbeddedResource Include="Resources\nwc.png"/>
+        <EmbeddedResource Include="Resources\nwc_16.png"/>
         <EmbeddedResource Include="Resources\ifc.png"/>
         <EmbeddedResource Include="Resources\ifc_16.png"/>
         <EmbeddedResource Include="Resources\link.png"/>

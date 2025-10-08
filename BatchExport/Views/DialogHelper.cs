@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Windows.Forms;
+using AlterTools.BatchExport.Resources;
 
 namespace AlterTools.BatchExport.Views;
 
@@ -13,10 +14,10 @@ public static class DialogHelper
     private const string DefaultFileNameJson = "ConfigBatchExport";
     private const string DefaultFileNameCsv = "ParametersExport";
     private const string Exception = "Unsupported dialog type";
-    private static string FilterTxt => Resources.Strings.Const_FilterTxt;
-    private static string FilterJson => Resources.Strings.Const_FilterJson;
-    private static string FilterRvt => Resources.Strings.Const_FilterRvt;
-    private static string FilterCsv => Resources.Strings.Const_FilterCsv;
+    private static string FilterTxt => Strings.Const_FilterTxt;
+    private static string FilterJson => Strings.Const_FilterJson;
+    private static string FilterRvt => Strings.Const_FilterRvt;
+    private static string FilterCsv => Strings.Const_FilterCsv;
 
     public static OpenFileDialog OpenFileDialog(this DialogType dialogType)
     {

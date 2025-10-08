@@ -4,7 +4,7 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:base="clr-namespace:AlterTools.BatchExport.Views.Base"
                  xmlns:resx="clr-namespace:AlterTools.BatchExport.Resources"
-                 Height="600"
+                 Height="550"
                  Width="800"
                  WindowStartupLocation="CenterScreen"
                  ResizeMode="NoResize"
@@ -21,7 +21,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="3*" />
-            <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
@@ -78,7 +77,7 @@
 
         <RadioButton Margin="10,10,10,10"
                      FontSize="14"
-                     Grid.Row="4"
+                     Grid.Row="3"
                      Grid.Column="0"
                      VerticalAlignment="Center"
                      GroupName="SavingPathMode"
@@ -89,19 +88,19 @@
                      Tag="Folder" />
         <TextBox Margin="10,10,135,10"
                  VerticalContentAlignment="Center"
-                 Grid.Row="4"
+                 Grid.Row="3"
                  Grid.Column="1"
                  Grid.ColumnSpan="3"
                  Text="{Binding FolderPath}" />
         <Button Margin="80,10,10,10"
                 Grid.Column="3"
-                Grid.Row="4"
+                Grid.Row="3"
                 Command="{Binding BrowseFolderCommand}"
                 Content="{x:Static resx:Strings.Base_Button_Browse}" />
 
         <RadioButton Margin="10,10,10,10"
                      FontSize="14"
-                     Grid.Row="5"
+                     Grid.Row="4"
                      Grid.Column="0"
                      VerticalAlignment="Center"
                      GroupName="SavingPathMode"
@@ -112,54 +111,54 @@
                      Tag="Mask" />
         <TextBlock Margin="10,0,100,0"
                    FontSize="14"
-                   Grid.Row="5"
+                   Grid.Row="4"
                    Grid.Column="1"
                    VerticalAlignment="Center"
                    Text="{x:Static resx:Strings.Detach_Change}" />
         <TextBox Margin="110,10,80,10"
-                 Grid.Row="5"
+                 Grid.Row="4"
                  Grid.Column="1"
                  Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
                  Text="{Binding MaskIn}" />
         <TextBlock Margin="140,0,30,0"
                    FontSize="14"
-                   Grid.Row="5"
+                   Grid.Row="4"
                    Grid.Column="2"
                    VerticalAlignment="Center"
                    Text="{x:Static resx:Strings.Detach_To}" />
         <TextBox Margin="180,10,10,10"
-                 Grid.Row="5"
+                 Grid.Row="4"
                  Grid.Column="2"
                  Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
                  Text="{Binding MaskOut}" />
 
         <CheckBox Margin="10,0,0,0"
-                  Grid.Row="6"
+                  Grid.Row="5"
                   Grid.Column="0"
                   VerticalAlignment="Center"
                   FontSize="14"
                   Content="{x:Static resx:Strings.Detach_Rename}"
                   IsChecked="{Binding IsToRename}" />
         <TextBox Margin="10"
-                 Grid.Row="6"
+                 Grid.Row="5"
                  Grid.Column="1"
                  VerticalContentAlignment="Center"
                  Text="{Binding MaskInName}" />
-        <TextBlock Grid.Row="6"
+        <TextBlock Grid.Row="5"
                    Grid.Column="1"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    TextAlignment="Center"
                    Text="=>" Grid.ColumnSpan="2" Width="20" />
         <TextBox Margin="10"
-                 Grid.Row="6"
+                 Grid.Row="5"
                  Grid.Column="2"
                  VerticalContentAlignment="Center"
                  Text="{Binding MaskOutName}" />
         <CheckBox Margin="10"
-                  Grid.Row="6"
+                  Grid.Row="5"
                   Grid.Column="3"
                   FontSize="14"
                   VerticalAlignment="Center"
@@ -169,7 +168,7 @@
                   IsEnabled="{Binding IsPurgeEnabled}" />
 
         <CheckBox Margin="10,0,95,0"
-                  Grid.Row="7"
+                  Grid.Row="6"
                   Grid.Column="0"
                   Grid.ColumnSpan="2"
                   FontSize="14"
@@ -178,14 +177,14 @@
                   ToolTip="{x:Static resx:Strings.Detach_CheckBox_EmptyView_ToolTip}"
                   IsChecked="{Binding CheckForEmptyView}" />
         <TextBox Margin="110,10,80,10"
-                 Grid.Row="7"
+                 Grid.Row="6"
                  Grid.Column="1"
                  Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
                  Text="{Binding ViewName}"
                  ToolTip="{x:Static resx:Strings.Detach_ViewName}" />
         <CheckBox Margin="140,10,10,10"
-                  Grid.Row="7"
+                  Grid.Row="6"
                   Grid.Column="2"
                   Grid.ColumnSpan="2"
                   FontSize="14"
@@ -195,24 +194,22 @@
                   IsEnabled="{Binding IsWorksetRemoverEnabled}" />
 
         <CheckBox Margin="10,0,0,0"
-                  Grid.Row="8"
+                  Grid.Row="7"
                   Grid.Column="0"
                   VerticalAlignment="Center"
                   FontSize="14"
                   Content="{x:Static resx:Strings.Const_RemoveLinks}"
                   IsChecked="{Binding RemoveLinks}" />
-
         <Button Margin="10"
-                Grid.Row="8"
+                Grid.Row="7"
                 Grid.Column="2"
                 Command="{Binding EraseCommand}"
                 Content="{x:Static resx:Strings.Base_Button_EraseList}" />
         <Button Margin="10"
-                Grid.Row="8"
+                Grid.Row="7"
                 Grid.Column="3"
                 Command="{Binding RaiseEventCommand}"
                 Content="{x:Static resx:Strings.Base_Button_Start_Content}"
                 ToolTip="{x:Static resx:Strings.Base_Button_Start_ToolTip}" />
-
     </Grid>
 </base:WindowBase>

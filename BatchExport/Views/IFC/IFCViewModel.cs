@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using AlterTools.BatchExport.Core.EventHandlers;
+using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 using Autodesk.Revit.DB;
@@ -30,12 +31,12 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
     {
         EventHandlerBase = eventHandlerIFC;
         HelpMessage = string.Join(Environment.NewLine,
-            Resources.Strings.Help_IFCTitle,
-            Resources.Strings.Help_Load,
-            Resources.Strings.Help_Folder,
-            Resources.Strings.Help_Naming,
-            Resources.Strings.Help_Config,
-            Resources.Strings.Help_Start);
+            Strings.Help_IFCTitle,
+            Strings.Help_Load,
+            Strings.Help_Folder,
+            Strings.Help_Naming,
+            Strings.Help_Config,
+            Strings.Help_Start);
     }
 
     public string Mapping
@@ -92,7 +93,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
         }
         catch
         {
-            MessageBox.Show(Resources.Strings.Const_WrongScheme);
+            MessageBox.Show(Strings.Const_WrongScheme);
         }
     }
 

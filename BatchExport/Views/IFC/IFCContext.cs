@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using AlterTools.BatchExport.Resources;
 using Autodesk.Revit.DB;
 
 namespace AlterTools.BatchExport.Views.IFC;
@@ -7,7 +8,7 @@ public static class IFCContext
 {
     public static IReadOnlyDictionary<IFCVersion, string> IFCVersions { get; } = new Dictionary<IFCVersion, string>
     {
-        { IFCVersion.Default, Resources.Strings.Const_Default },
+        { IFCVersion.Default, Strings.Const_Default },
         { IFCVersion.IFCBCA, "IFC 2x2 Singapore BCA e-Plan Check" },
         { IFCVersion.IFC2x2, "IFC 2x2 Coordination View" },
         { IFCVersion.IFC2x3, "IFC 2x3 Coordination View" },
@@ -26,8 +27,8 @@ public static class IFCContext
 
     public static IReadOnlyDictionary<int, string> SpaceBoundaryLevels { get; } = new Dictionary<int, string>
     {
-        { 0, Resources.Strings.IFC_SpaceBoundaryLevels0 },
-        { 1, Resources.Strings.IFC_SpaceBoundaryLevels1 },
-        { 2, Resources.Strings.IFC_SpaceBoundaryLevels2 },
+        { 0, Strings.IFC_SpaceBoundaryLevels0 },
+        { 1, Strings.IFC_SpaceBoundaryLevels1 },
+        { 2, Strings.IFC_SpaceBoundaryLevels2 },
     };
 }
