@@ -542,4 +542,7 @@ Revit ссылок</value>
     <data name="Transmit.SameFolder.ToolTip" xml:space="preserve">
         <value>Поместить все файлы в одну папку или сохранить структуру каталога</value>
     </data>
+    <data name="Const.DwgImportDialog" xml:space="preserve">
+        <value>При импорте не обнаружено подходящих элементов в пространстве модели</value>
+    </data>
 </root>

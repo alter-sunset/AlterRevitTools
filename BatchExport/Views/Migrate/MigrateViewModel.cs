@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Views.Base;
 

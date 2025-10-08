@@ -161,7 +161,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
             WorksetPrefixes = WorksetPrefixes,
             ExportView = ExportScopeView,
             ViewName = ViewName,
-            Files = [.. ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)],
+            Files = [.. ListBoxItems.Select(item => item.Content.ToString())],
             TurnOffLog = TurnOffLog
         };
     }

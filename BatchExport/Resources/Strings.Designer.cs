@@ -379,6 +379,15 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Import detected no valid elements in the file's Model space.
+        /// </summary>
+        public static string Const_DwgImportDialog {
+            get {
+                return ResourceManager.GetString("Const.DwgImportDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Const_Error {

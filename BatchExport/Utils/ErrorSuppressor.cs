@@ -12,11 +12,13 @@ public class ErrorSuppressor : IDisposable
 {
     private readonly Application _app;
     private readonly UIApplication _uiApp;
+    private readonly DwgImportDialogSuppressor _dwgImportDialogSuppressor;
 
     public ErrorSuppressor(UIApplication uiApp)
     {
         _uiApp = uiApp;
         _app = uiApp.Application;
+        _dwgImportDialogSuppressor = new DwgImportDialogSuppressor();
 
         _uiApp.DialogBoxShowing += TaskDialogBoxShowingEvent;
         _app.FailuresProcessing += ApplicationFailuresProcessing;
@@ -26,6 +28,7 @@ public class ErrorSuppressor : IDisposable
     {
         _uiApp.DialogBoxShowing -= TaskDialogBoxShowingEvent;
         _app.FailuresProcessing -= ApplicationFailuresProcessing;
+        _dwgImportDialogSuppressor.Dispose();
     }
 
     private static void TaskDialogBoxShowingEvent(object sender, DialogBoxShowingEventArgs args)

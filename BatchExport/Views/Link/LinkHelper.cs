@@ -48,7 +48,7 @@ internal static class LinkHelper
 
         using Transaction tr = new(doc);
 
-        tr.Start($"{Resources.Strings.Const_Link} {entry.Name}");
+        tr.Start($"{Resources.Strings.Const_Link} {Path.GetFileNameWithoutExtension(entry.Name)}");
 
         if (props.SetWorksetId)
         {
@@ -58,6 +58,7 @@ internal static class LinkHelper
         RevitLinkInstance revitLinkInstance;
         LinkLoadResult linkLoadResult = null;
 
+        DwgImportDialogSuppressor suppressor = new();
         try
         {
             linkLoadResult = RevitLinkType.Create(doc, linkPath, revitLinkOptions);
@@ -84,6 +85,7 @@ internal static class LinkHelper
         {
             tr.RollBack();
         }
+        suppressor.Dispose();
     }
 
     private static void ShowYesNoTaskDialog(string msg, Action action)

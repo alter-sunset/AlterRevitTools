@@ -4,6 +4,7 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:base="clr-namespace:AlterTools.BatchExport.Views.Base"
                  xmlns:resx="clr-namespace:AlterTools.BatchExport.Resources"
+                 xmlns:link="clr-namespace:AlterTools.BatchExport.Views.Link"
                  Height="450"
                  Width="800"
                  WindowStartupLocation="CenterScreen"
@@ -52,7 +53,7 @@
                  SelectionChanged="ListBox_SelectionChanged"
                  ToolTip="{x:Static resx:Strings.Base_ListBox_ToolTip}">
             <ListBox.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate DataType="link:Entry">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />

@@ -66,7 +66,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
             Strings.Help_NWCEnd);
     }
 
-    public IReadOnlyDictionary<NavisworksCoordinates, string> Coordinates { get; } = NWCContext.Coordinates;
+    public static IReadOnlyDictionary<NavisworksCoordinates, string> Coordinates => NWCContext.Coordinates;
 
     public KeyValuePair<NavisworksCoordinates, string> SelectedCoordinates
     {
@@ -74,7 +74,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
         set => SetProperty(ref _selectedCoordinates, value);
     }
 
-    public IReadOnlyDictionary<NavisworksParameters, string> Parameters { get; } = NWCContext.Parameters;
+    public static IReadOnlyDictionary<NavisworksParameters, string> Parameters => NWCContext.Parameters;
 
     public KeyValuePair<NavisworksParameters, string> SelectedParameters
     {
@@ -257,7 +257,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
             ConvertLights = ConvertLights,
             ConvertLinkedCADFormats = ConvertLinkedCADFormats,
             FacetingFactor = FacetingFactor,
-            Files = [.. ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)],
+            Files = [.. ListBoxItems.Select(item => item.Content.ToString())],
             TurnOffLog = TurnOffLog
         };
     }

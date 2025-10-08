@@ -542,4 +542,7 @@ Export</value>
     <data name="Transmit.SameFolder.ToolTip" xml:space="preserve">
         <value>Put all models into single directory or preserve folder structure</value>
     </data>
+    <data name="Const.DwgImportDialog" xml:space="preserve">
+        <value>Import detected no valid elements in the file's Model space</value>
+    </data>
 </root>

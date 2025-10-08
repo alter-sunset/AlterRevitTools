@@ -29,6 +29,6 @@ public static class IFCContext
     {
         { 0, Strings.IFC_SpaceBoundaryLevels0 },
         { 1, Strings.IFC_SpaceBoundaryLevels1 },
-        { 2, Strings.IFC_SpaceBoundaryLevels2 },
+        { 2, Strings.IFC_SpaceBoundaryLevels2 }
     };
 }

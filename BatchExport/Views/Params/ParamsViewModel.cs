@@ -64,10 +64,10 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
 
         using FileStream file = File.OpenRead(openFileDialog.FileName);
 
-        ParamsFormDeserilaizer(JsonHelper<ParamsForm>.DeserializeConfig(file));
+        ParamsFormDeserializer(JsonHelper<ParamsForm>.DeserializeConfig(file));
     }
 
-    private void ParamsFormDeserilaizer(ParamsForm form)
+    private void ParamsFormDeserializer(ParamsForm form)
     {
         if (form is null) return;
 
@@ -95,7 +95,7 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
         {
             CsvPath = CsvPath,
             ParametersNames = ParametersNames,
-            Files = [.. ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)]
+            Files = [.. ListBoxItems.Select(item => item.Content.ToString())]
         };
     }
 
