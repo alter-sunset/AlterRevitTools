@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using AlterTools.BatchExport.Core.EventHandlers;
+using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 using Autodesk.Revit.DB;
@@ -36,10 +37,10 @@ public class LinkViewModel : ViewModelBase
         Worksets = worksets;
         EventHandlerBase = eventHandlerLink;
         HelpMessage = string.Join(Environment.NewLine,
-            Resources.Strings.Help_LinkTitle,
-            Resources.Strings.Help_Load,
-            Resources.Strings.Help_List,
-            Resources.Strings.Help_Start);
+            Strings.Help_LinkTitle,
+            Strings.Help_Load,
+            Strings.Help_List,
+            Strings.Help_Start);
     }
 
     public bool IsCurrentWorkset

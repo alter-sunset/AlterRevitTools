@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.Migrate;
@@ -15,17 +16,17 @@ public class EventHandlerMigrate : EventHandlerBase
 
         if (!MigrateHelper.IsConfigPathValid(migrateVm.ConfigPath))
         {
-            MessageBox.Show(Resources.Strings.Migrate_NoConfig);
+            MessageBox.Show(Strings.Migrate_NoConfig);
             return;
         }
 
         List<string> failedFiles = MigrateHelper.ProcessFiles(migrateVm.ConfigPath, uiApp.Application);
 
         string msg = failedFiles.Count > 0
-            ? $"{Resources.Strings.Const_TaskCompleted}" +
-              $"\n{Resources.Strings.Migrate_DidntCopy}" +
+            ? $"{Strings.Const_TaskCompleted}" +
+              $"\n{Strings.Migrate_DidntCopy}" +
               $"\n{string.Join("\n", failedFiles)}"
-            : Resources.Strings.Const_TaskCompleted;
+            : Strings.Const_TaskCompleted;
 
         migrateVm.Finisher("MigrateModelsFinished", msg);
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.Detach;
 using AlterTools.BatchExport.Views.Link;
@@ -14,18 +15,18 @@ namespace AlterTools.BatchExport.Utils;
 
 internal static class ViewModelHelper
 {
-    private static string NoFolder => Resources.Strings.Const_NoFolder;
-    private static string WrongFolder => Resources.Strings.Const_WrongFolder;
-    private static string CreateFolder => Resources.Strings.Const_CreateFolder;
-    private static string ToHell => Resources.Strings.Const_ToHell;
-    private static string NoFiles => Resources.Strings.Const_NoFiles;
-    private static string NoViewName => Resources.Strings.Const_NoViewName;
-    private static string NoPathMode => Resources.Strings.Const_NoPathMode;
-    private static string NoMaskPath => Resources.Strings.Const_NoMaskPath;
-    private static string WrongMask => Resources.Strings.Const_WrongMask;
-    private static string NoMaskFile => Resources.Strings.Const_NoMaskFile;
-    private static string NoCsv => Resources.Strings.Const_NoCsv;
-    private static string NoParameters =>  Resources.Strings.Const_NoParameters;
+    private static string NoFolder => Strings.Const_NoFolder;
+    private static string WrongFolder => Strings.Const_WrongFolder;
+    private static string CreateFolder => Strings.Const_CreateFolder;
+    private static string ToHell => Strings.Const_ToHell;
+    private static string NoFiles => Strings.Const_NoFiles;
+    private static string NoViewName => Strings.Const_NoViewName;
+    private static string NoPathMode => Strings.Const_NoPathMode;
+    private static string NoMaskPath => Strings.Const_NoMaskPath;
+    private static string WrongMask => Strings.Const_WrongMask;
+    private static string NoMaskFile => Strings.Const_NoMaskFile;
+    private static string NoCsv => Strings.Const_NoCsv;
+    private static string NoParameters =>  Strings.Const_NoParameters;
 
     internal static bool IsEverythingFilled(this DetachViewModel detachVm)
     {
@@ -79,7 +80,7 @@ internal static class ViewModelHelper
         if (Directory.Exists(folderPath)) return true;
 
         MessageBoxResult result = MessageBox.Show(CreateFolder,
-            Resources.Strings.Const_GoodEvening,
+            Strings.Const_GoodEvening,
             MessageBoxButton.YesNo);
 
         if (result is MessageBoxResult.Yes)
@@ -177,7 +178,7 @@ internal static class ViewModelHelper
     /// <param name="msg">Message to show to user</param>
     public static void Finisher(this ViewModelBase vmBase, string id, string msg = "Task completed")
     {
-        TaskDialog taskDialog = new(Resources.Strings.Const_Done)
+        TaskDialog taskDialog = new(Strings.Const_Done)
         {
             CommonButtons = TaskDialogCommonButtons.Close,
             Id = id,
@@ -199,7 +200,7 @@ internal static class ViewModelHelper
 
     public static string RemoveDetach(this string name)
     {
-        return name.Replace(Resources.Strings.Const_Detached, "");
+        return name.Replace(Strings.Const_Detached, "");
     }
 
     public static string[] SplitBySemicolon(this string line)

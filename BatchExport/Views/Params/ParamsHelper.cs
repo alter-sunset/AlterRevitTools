@@ -29,15 +29,20 @@ public static class ParamsHelper
         {
             using Document doc = app.OpenDocument(filePath, out _);
             if (doc is null) return;
+            
+            using ElementCategoryFilter filterOutHvac = new(BuiltInCategory.OST_HVAC_Zones, true);
 
             IEnumerable<ParametersTable> paramTables = new FilteredElementCollector(doc)
                 .WhereElementIsNotElementType()
+                .WherePasses(filterOutHvac)
                 .Where(el => el.IsPhysicalElement())
+                .Where(el => !string.IsNullOrWhiteSpace(
+                    el.get_Parameter(BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM)
+                        .GetValueString()))
                 .Select(el => new ParametersTable
                 {
                     ModelName = fileName,
                     Parameters = el.GetParametersSet(paramsVm.ParametersNames),
-
 #if R24_OR_GREATER
                     ElementId = el.Id.Value,
 #else
@@ -47,7 +52,6 @@ public static class ParamsHelper
 
             foreach (ParametersTable table in paramTables)
             {
-                if (string.IsNullOrWhiteSpace(table.Parameters[Resources.Strings.Params_FamilyAndType])) continue;
                 csvHelper.WriteElement(table);
             }
         }

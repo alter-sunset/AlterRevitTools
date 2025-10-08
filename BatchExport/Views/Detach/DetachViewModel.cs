@@ -1,5 +1,6 @@
 ﻿using System;
 using AlterTools.BatchExport.Core.EventHandlers;
+using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Views.Base;
 using JetBrains.Annotations;
 
@@ -11,11 +12,11 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
 
     private bool _isToRename;
 
-    private string _maskIn = Resources.Strings.Detach_MaskIn;
+    private string _maskIn = Strings.Detach_MaskIn;
 
     private string _maskInName = "R18";
 
-    private string _maskOut = Resources.Strings.Detach_MaskOut;
+    private string _maskOut = Strings.Detach_MaskOut;
 
     private string _maskOutName = "R24";
 
@@ -33,12 +34,12 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
     {
         EventHandlerBase = eventHandlerDetach;
         HelpMessage = string.Join(Environment.NewLine,
-            Resources.Strings.Help_DetachTitle,
-            Resources.Strings.Help_Load,
-            Resources.Strings.Help_Folder,
-            Resources.Strings.Help_DetachMid,
-            Resources.Strings.Help_List,
-            Resources.Strings.Help_Start);
+            Strings.Help_DetachTitle,
+            Strings.Help_Load,
+            Strings.Help_Folder,
+            Strings.Help_DetachMid,
+            Strings.Help_List,
+            Strings.Help_Start);
 
 #if R22_OR_GREATER
         IsWorksetRemoverEnabled = true;
