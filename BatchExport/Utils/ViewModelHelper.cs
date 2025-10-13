@@ -123,7 +123,8 @@ internal static class ViewModelHelper
 
                 if (!detachVm.ListBoxItems
                         .Select(item => item.Content)
-                        .All(i => i.ToString()!.Contains(detachVm.MaskIn)))
+                        .All(i => i.ToString()
+                            !.Contains(detachVm.MaskIn)))
                 {
                     return CheckCondition(false, WrongMask);
                 }

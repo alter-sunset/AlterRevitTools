@@ -51,7 +51,7 @@ public class DwgImportDialogSuppressor : IDisposable
                 string msg = textElement?.Current.Name;
                 if (msg is null || !msg.Contains(TargetMessage)) continue;
                 
-                SendMessage(hWnd, WmClose, 0, 0);
+                _ = SendMessage(hWnd, WmClose, 0, 0);
             }
             catch
             {

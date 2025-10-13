@@ -58,7 +58,8 @@ internal static class LinkHelper
         RevitLinkInstance revitLinkInstance;
         LinkLoadResult linkLoadResult = null;
 
-        DwgImportDialogSuppressor suppressor = new();
+        using DwgImportDialogSuppressor suppressor = new();
+        
         try
         {
             linkLoadResult = RevitLinkType.Create(doc, linkPath, revitLinkOptions);
@@ -85,7 +86,6 @@ internal static class LinkHelper
         {
             tr.RollBack();
         }
-        suppressor.Dispose();
     }
 
     private static void ShowYesNoTaskDialog(string msg, Action action)
