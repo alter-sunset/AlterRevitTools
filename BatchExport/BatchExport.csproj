@@ -71,34 +71,34 @@
         <DefineConstants>R20_OR_GREATER;R22_OR_GREATER;R24_OR_GREATER;R25_OR_GREATER</DefineConstants>
     </PropertyGroup>
     <ItemGroup>
-        <EmbeddedResource Include="Resources\Buttons.json"/>
-        <EmbeddedResource Include="Resources\detach.png"/>
-        <EmbeddedResource Include="Resources\detach_16.png"/>
-        <EmbeddedResource Include="Resources\migrate.png"/>
-        <EmbeddedResource Include="Resources\migrate_16.png"/>
-        <EmbeddedResource Include="Resources\nwc.png"/>
-        <EmbeddedResource Include="Resources\nwc_16.png"/>
-        <EmbeddedResource Include="Resources\ifc.png"/>
-        <EmbeddedResource Include="Resources\ifc_16.png"/>
-        <EmbeddedResource Include="Resources\link.png"/>
-        <EmbeddedResource Include="Resources\link_16.png"/>
-        <EmbeddedResource Include="Resources\params.png"/>
-        <EmbeddedResource Include="Resources\params_16.png"/>
-        <EmbeddedResource Include="Resources\transmit.png"/>
-        <EmbeddedResource Include="Resources\transmit_16.png"/>
+        <EmbeddedResource Include="Resources\Buttons.json" />
+        <EmbeddedResource Include="Resources\detach.png" />
+        <EmbeddedResource Include="Resources\detach_16.png" />
+        <EmbeddedResource Include="Resources\migrate.png" />
+        <EmbeddedResource Include="Resources\migrate_16.png" />
+        <EmbeddedResource Include="Resources\nwc.png" />
+        <EmbeddedResource Include="Resources\nwc_16.png" />
+        <EmbeddedResource Include="Resources\ifc.png" />
+        <EmbeddedResource Include="Resources\ifc_16.png" />
+        <EmbeddedResource Include="Resources\link.png" />
+        <EmbeddedResource Include="Resources\link_16.png" />
+        <EmbeddedResource Include="Resources\params.png" />
+        <EmbeddedResource Include="Resources\params_16.png" />
+        <EmbeddedResource Include="Resources\transmit.png" />
+        <EmbeddedResource Include="Resources\transmit_16.png" />
         <EmbeddedResource Update="Resources\Strings.resx">
           <Generator>PublicResXFileCodeGenerator</Generator>
-          <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+          <LastGenOutput>Strings.Designer.cs</LastGenOutput>
         </EmbeddedResource>
         <EmbeddedResource Update="Resources\Strings.ru-ru.resx">
           <DependentUpon>Strings.resx</DependentUpon>
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="JetBrains.Annotations" Version="2024.3.0"/>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
-        <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*"/>
-        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*" />
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*" />
     </ItemGroup>
     <ItemGroup>
         <None Update="AlterTools.BatchExport.addin">
@@ -106,7 +106,7 @@
         </None>
     </ItemGroup>
     <ItemGroup>
-        <EditorConfigFiles Remove=".editorconfig"/>
+        <EditorConfigFiles Remove=".editorconfig" />
     </ItemGroup>
     <ItemGroup>
       <Compile Update="Resources\Strings.Designer.cs">

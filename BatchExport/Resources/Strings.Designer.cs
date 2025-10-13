@@ -18,7 +18,7 @@ namespace AlterTools.BatchExport.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Strings {
@@ -379,7 +379,7 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Import detected no valid elements in the file's Model space.
+        ///   Looks up a localized string similar to Import detected no valid elements in the file&apos;s Model space.
         /// </summary>
         public static string Const_DwgImportDialog {
             get {
@@ -645,6 +645,176 @@ namespace AlterTools.BatchExport.Resources {
         public static string Const_WrongScheme {
             get {
                 return ResourceManager.GetString("Const.WrongScheme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detach 
+        ///models.
+        /// </summary>
+        public static string Core_Button_Detach_Text {
+            get {
+                return ResourceManager.GetString("Core.Button.Detach.Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch detach and export models.
+        /// </summary>
+        public static string Core_Button_Detach_ToolTip {
+            get {
+                return ResourceManager.GetString("Core.Button.Detach.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IFC 
+        ///Export.
+        /// </summary>
+        public static string Core_Button_IFC_Text {
+            get {
+                return ResourceManager.GetString("Core.Button.IFC.Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch export models to IFC.
+        /// </summary>
+        public static string Core_Button_IFC_ToolTip {
+            get {
+                return ResourceManager.GetString("Core.Button.IFC.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link 
+        ///RVT models.
+        /// </summary>
+        public static string Core_Button_Link_Text {
+            get {
+                return ResourceManager.GetString("Core.Button.Link.Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link batch of RVT models to current project in one click.
+        /// </summary>
+        public static string Core_Button_Link_ToolTip {
+            get {
+                return ResourceManager.GetString("Core.Button.Link.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Migrate 
+        ///models.
+        /// </summary>
+        public static string Core_Button_Migrate_Text {
+            get {
+                return ResourceManager.GetString("Core.Button.Migrate.Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch migrate models and update nested links.
+        /// </summary>
+        public static string Core_Button_Migrate_ToolTip {
+            get {
+                return ResourceManager.GetString("Core.Button.Migrate.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NWC 
+        ///Export.
+        /// </summary>
+        public static string Core_Button_NWC_Text {
+            get {
+                return ResourceManager.GetString("Core.Button.NWC.Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch export models to NWC.
+        /// </summary>
+        public static string Core_Button_NWC_ToolTip {
+            get {
+                return ResourceManager.GetString("Core.Button.NWC.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parameters 
+        ///Export.
+        /// </summary>
+        public static string Core_Button_Params_Text {
+            get {
+                return ResourceManager.GetString("Core.Button.Params.Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch export parameters from models into single CSV.
+        /// </summary>
+        public static string Core_Button_Params_ToolTip {
+            get {
+                return ResourceManager.GetString("Core.Button.Params.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transmit 
+        ///models.
+        /// </summary>
+        public static string Core_Button_Transmit_Text {
+            get {
+                return ResourceManager.GetString("Core.Button.Transmit.Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch transmit models.
+        /// </summary>
+        public static string Core_Button_Transmit_ToolTip {
+            get {
+                return ResourceManager.GetString("Core.Button.Transmit.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Worksets 
+        ///Export.
+        /// </summary>
+        public static string Core_Button_Worksets_Text {
+            get {
+                return ResourceManager.GetString("Core.Button.Worksets.Text", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch export workset name from several models.
+        /// </summary>
+        public static string Core_Button_Worksets_ToolTip {
+            get {
+                return ResourceManager.GetString("Core.Button.Worksets.ToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch export.
+        /// </summary>
+        public static string Core_Panel_Export {
+            get {
+                return ResourceManager.GetString("Core.Panel.Export", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch import.
+        /// </summary>
+        public static string Core_Panel_Import {
+            get {
+                return ResourceManager.GetString("Core.Panel.Import", resourceCulture);
             }
         }
         
@@ -1373,7 +1543,8 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Put everything in single folder.
+        ///   Looks up a localized string similar to Put everything 
+        ///in single folder.
         /// </summary>
         public static string Transmit_SameFolder {
             get {
