@@ -11,7 +11,7 @@ namespace AlterTools.BatchExport.Views.Link;
 
 internal static class LinkHelper
 {
-    private static string DiffCoord => Resources.Strings.Const_DiffCoord;
+    private static string DiffCoord => Resources.Strings.DiffCoordError;
 
     internal static void CreateLinks(this LinkViewModel linkViewModel, UIApplication uiApp)
     {
@@ -48,7 +48,7 @@ internal static class LinkHelper
 
         using Transaction tr = new(doc);
 
-        tr.Start($"{Resources.Strings.Const_Link} {Path.GetFileNameWithoutExtension(entry.Name)}");
+        tr.Start($"{Resources.Strings.Link} {Path.GetFileNameWithoutExtension(entry.Name)}");
 
         if (props.SetWorksetId)
         {
@@ -91,7 +91,7 @@ internal static class LinkHelper
     private static void ShowYesNoTaskDialog(string msg, Action action)
     {
         TaskDialogResult result =
-            TaskDialog.Show(Resources.Strings.Const_Error,
+            TaskDialog.Show(Resources.Strings.Error,
                 msg,
                 TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
         if (result is TaskDialogResult.Yes)

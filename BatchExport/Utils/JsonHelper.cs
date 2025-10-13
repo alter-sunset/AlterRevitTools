@@ -42,7 +42,7 @@ public static class JsonHelper<T>
         }
         catch (Exception ex)
         {
-            MessageBox.Show($"{Resources.Strings.Const_WrongScheme}\n{ex.Message}");
+            MessageBox.Show($"{Resources.Strings.WrongScheme}\n{ex.Message}");
             return default;
         }
     }

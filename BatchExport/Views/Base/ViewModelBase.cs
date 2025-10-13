@@ -13,7 +13,7 @@ namespace AlterTools.BatchExport.Views.Base;
 
 public class ViewModelBase : NotifyPropertyChanged, IConfigBase
 {
-    protected static string NoFiles => Resources.Strings.Const_VMBase_NoFiles;
+    protected static string NoFiles => Resources.Strings.NoFilesVMBase;
 
     private RelayCommand _browseFolderCommand;
     private RelayCommand _deleteCommand;
@@ -76,7 +76,7 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
     [UsedImplicitly]
     public RelayCommand HelpCommand =>
         _helpCommand ??= new RelayCommand(_ => MessageBox.Show(HelpMessage,
-            Resources.Strings.Base_Button_Help_Content));
+            Resources.Strings.Help));
 
     protected EventHandlerBase EventHandlerBase { get; set; }
 

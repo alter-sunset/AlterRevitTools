@@ -13,11 +13,11 @@ public class TransmitViewModel : ViewModelBase
     {
         EventHandlerBase = eventHandlerTransmit;
         HelpMessage = string.Join(Environment.NewLine,
-            Strings.Help_TransmitTitle,
-            Strings.Help_Load,
-            Strings.Help_Folder,
-            Strings.Help_List,
-            Strings.Help_Start);
+            Strings.HelpTransmitTitle,
+            Strings.HelpLoad,
+            Strings.HelpFolder,
+            Strings.HelpList,
+            Strings.HelpStart);
     }
 
     public bool IsSameFolder

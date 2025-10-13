@@ -57,13 +57,13 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
         _eventHandlerNWCBatch = eventHandlerNWCBatch;
         EventHandlerBase = eventHandlerNWC;
         HelpMessage = string.Join(Environment.NewLine,
-            Strings.Help_NWCTitle,
-            Strings.Help_Load,
-            Strings.Help_Folder,
-            Strings.Help_Naming,
-            Strings.Help_Config,
-            Strings.Help_Start,
-            Strings.Help_NWCEnd);
+            Strings.HelpNWCTitle,
+            Strings.HelpLoad,
+            Strings.HelpFolder,
+            Strings.HelpNaming,
+            Strings.HelpConfig,
+            Strings.HelpStart,
+            Strings.HelpNWCEnd);
     }
 
     public static IReadOnlyDictionary<NavisworksCoordinates, string> Coordinates => NWCContext.Coordinates;

@@ -9,7 +9,7 @@ namespace AlterTools.BatchExport.Utils;
 
 public static class RevitLinksHelper
 {
-    private static string NoTransDataAlert => Resources.Strings.Const_NoTransDataAlert;
+    private static string NoTransDataAlert => Resources.Strings.NoTransDataAlert;
 
     public static void UnloadRevitLinks(this ModelPath filePath, string folder, bool isSameFolder = true)
     {
@@ -76,7 +76,7 @@ public static class RevitLinksHelper
 
         if (transData is not null) return true;
 
-        TaskDialog.Show(Resources.Strings.Const_Error, NoTransDataAlert);
+        TaskDialog.Show(Resources.Strings.Error, NoTransDataAlert);
 
         return false;
     }

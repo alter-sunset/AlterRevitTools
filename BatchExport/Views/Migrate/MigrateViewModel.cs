@@ -11,7 +11,7 @@ public class MigrateViewModel : ViewModelBase
     public MigrateViewModel(EventHandlerMigrate eventHandlerMigrate)
     {
         EventHandlerBase = eventHandlerMigrate;
-        HelpMessage = Resources.Strings.Help_Migrate;
+        HelpMessage = Resources.Strings.HelpMigrate;
     }
 
     public string ConfigPath

@@ -16,17 +16,17 @@ public class EventHandlerMigrate : EventHandlerBase
 
         if (!MigrateHelper.IsConfigPathValid(migrateVm.ConfigPath))
         {
-            MessageBox.Show(Strings.Migrate_NoConfig);
+            MessageBox.Show(Strings.MigrateNoConfig);
             return;
         }
 
         List<string> failedFiles = MigrateHelper.ProcessFiles(migrateVm.ConfigPath, uiApp.Application);
 
         string msg = failedFiles.Count > 0
-            ? $"{Strings.Const_TaskCompleted}" +
-              $"\n{Strings.Migrate_DidntCopy}" +
+            ? $"{Strings.TaskCompleted}" +
+              $"\n{Strings.MigrateDidntCopy}" +
               $"\n{string.Join("\n", failedFiles)}"
-            : Strings.Const_TaskCompleted;
+            : Strings.TaskCompleted;
 
         migrateVm.Finisher("MigrateModelsFinished", msg);
     }

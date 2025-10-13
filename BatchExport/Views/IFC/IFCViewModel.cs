@@ -31,12 +31,12 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
     {
         EventHandlerBase = eventHandlerIFC;
         HelpMessage = string.Join(Environment.NewLine,
-            Strings.Help_IFCTitle,
-            Strings.Help_Load,
-            Strings.Help_Folder,
-            Strings.Help_Naming,
-            Strings.Help_Config,
-            Strings.Help_Start);
+            Strings.HelpIFCTitle,
+            Strings.HelpLoad,
+            Strings.HelpFolder,
+            Strings.HelpNaming,
+            Strings.HelpConfig,
+            Strings.HelpStart);
     }
 
     public string Mapping
@@ -93,7 +93,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
         }
         catch
         {
-            MessageBox.Show(Strings.Const_WrongScheme);
+            MessageBox.Show(Strings.WrongScheme);
         }
     }
 

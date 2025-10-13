@@ -37,10 +37,10 @@ public class LinkViewModel : ViewModelBase
         Worksets = worksets;
         EventHandlerBase = eventHandlerLink;
         HelpMessage = string.Join(Environment.NewLine,
-            Strings.Help_LinkTitle,
-            Strings.Help_Load,
-            Strings.Help_List,
-            Strings.Help_Start);
+            Strings.HelpLinkTitle,
+            Strings.HelpLoad,
+            Strings.HelpList,
+            Strings.HelpStart);
     }
 
     public bool IsCurrentWorkset

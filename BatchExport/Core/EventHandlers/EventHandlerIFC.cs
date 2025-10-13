@@ -20,7 +20,7 @@ public class EventHandlerIFC : EventHandlerBase
         IFCHelper ifcHelper = new();
         ifcHelper.BatchExportModels(ifcVm, uiApp, ref log);
 
-        string msg = $"{Strings.Const_ThereWhere} {log.ErrorCount} {Strings.Const_Errors}";
+        string msg = $"{Strings.ThereWhere} {log.ErrorCount} {Strings.Errors}";
 
         log.Dispose();
 

@@ -11,7 +11,7 @@ namespace AlterTools.BatchExport.Views.Params;
 
 public class ParamsViewModel : ViewModelBase, IConfigParams
 {
-    private static string DefaultParams => Strings.Const_DefaultParams;
+    private static string DefaultParams => Strings.DefaultParams;
 
     private RelayCommand _browseCsvCommand;
 
@@ -23,10 +23,10 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
     {
         EventHandlerBase = eventHandlerParams;
         HelpMessage = string.Join(Environment.NewLine,
-            Strings.Help_ParamsTitle,
-            Strings.Help_Load,
-            Strings.Help_Config,
-            Strings.Help_Start);
+            Strings.HelpParamsTitle,
+            Strings.HelpLoad,
+            Strings.HelpConfig,
+            Strings.HelpStart);
 
         ParamsNames = DefaultParams;
     }
