@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.Detach;
 using AlterTools.BatchExport.Views.Link;
 using AlterTools.BatchExport.Views.Params;
 using AlterTools.BatchExport.Views.Transmit;
-using Autodesk.Revit.UI;
+using MessageBox = System.Windows.MessageBox;
 
 namespace AlterTools.BatchExport.Utils;
 

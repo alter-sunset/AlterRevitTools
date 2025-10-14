@@ -1,14 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Threading;
-using System.Windows;
-using AlterTools.BatchExport.Resources;
+﻿using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Utils.Logger;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.NWC;
-using Autodesk.Revit.UI;
 using Newtonsoft.Json;
+using MessageBox = System.Windows.MessageBox;
 
 namespace AlterTools.BatchExport.Core.EventHandlers;
 
@@ -34,7 +30,7 @@ public class EventHandlerNWCBatch : EventHandlerBase
 
                 NWCForm form = JsonConvert.DeserializeObject<NWCForm>(new StreamReader(file).ReadToEnd());
 
-                nwcVm.NWCFormDeserilaizer(form);
+                nwcVm.NWCFormDeserializer(form);
             }
             catch
             {

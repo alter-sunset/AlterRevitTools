@@ -3,7 +3,6 @@ using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Utils.Logger;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.NWC;
-using Autodesk.Revit.UI;
 
 namespace AlterTools.BatchExport.Core.EventHandlers;
 

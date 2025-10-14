@@ -1,5 +1,3 @@
-using System;
-
 namespace AlterTools.BatchExport.Utils.Logger;
 
 public interface ILogger : IDisposable

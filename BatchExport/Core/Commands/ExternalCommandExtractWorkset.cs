@@ -1,13 +1,6 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
-using AlterTools.BatchExport.Utils;
+﻿using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views;
 using Autodesk.Revit.Attributes;
-using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
-using JetBrains.Annotations;
 
 namespace AlterTools.BatchExport.Core.Commands;
 

@@ -1,13 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Controls;
-using System.Windows.Forms;
-using System.Windows.Media;
 using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Utils;
-using JetBrains.Annotations;
+using Brushes = System.Windows.Media.Brushes;
 
 namespace AlterTools.BatchExport.Views.Base;
 
@@ -47,6 +42,7 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
         set => SetProperty(ref _selectedItem, value);
     }
 
+    [UsedImplicitly]
     public bool IsViewEnabled
     {
         get => _isViewEnabled;

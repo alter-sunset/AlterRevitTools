@@ -2,5 +2,6 @@
 
 public interface ISelectable
 {
+    [UsedImplicitly]
     bool IsSelected { get; set; }
 }

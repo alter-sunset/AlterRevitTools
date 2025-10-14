@@ -13,6 +13,7 @@ public class ViewModelBaseExtended : ViewModelBase, IConfigBaseExtended
 
     private string _worksetPrefix = string.Empty;
 
+    [UsedImplicitly]
     public string WorksetPrefix
     {
         get => _worksetPrefix;

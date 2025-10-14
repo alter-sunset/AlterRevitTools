@@ -1,6 +1,4 @@
-using System;
 using System.Runtime.InteropServices;
-using System.Threading;
 using System.Windows.Automation;
 
 namespace AlterTools.BatchExport.Utils;

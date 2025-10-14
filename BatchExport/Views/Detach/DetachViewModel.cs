@@ -1,8 +1,6 @@
-﻿using System;
-using AlterTools.BatchExport.Core.EventHandlers;
+﻿using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Views.Base;
-using JetBrains.Annotations;
 
 namespace AlterTools.BatchExport.Views.Detach;
 
@@ -52,6 +50,7 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
 #endif
     }
 
+    [UsedImplicitly]
     public int RadioButtonMode
     {
         get => _radioButtonMode;
@@ -59,13 +58,15 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
     }
 
     public override RelayCommand RadioButtonCommand => _radioButtonCommand ??= new RelayCommand(RB_Command);
-
+   
+    [UsedImplicitly]
     public string MaskIn
     {
         get => _maskIn;
         set => SetProperty(ref _maskIn, value);
     }
 
+    [UsedImplicitly]
     public string MaskOut
     {
         get => _maskOut;
@@ -75,6 +76,7 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
     [UsedImplicitly]
     public bool IsPurgeEnabled { get; }
 
+    [UsedImplicitly]
     public bool IsWorksetRemoverEnabled { get; }
 
     [UsedImplicitly]

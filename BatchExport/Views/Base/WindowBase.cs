@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Windows;
 using System.Windows.Controls;
+using ListBox = System.Windows.Controls.ListBox;
 
 namespace AlterTools.BatchExport.Views.Base;
 

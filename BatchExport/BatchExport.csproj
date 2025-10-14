@@ -22,6 +22,7 @@
         <AssemblyVersion>1.0.0.0</AssemblyVersion>
         <FileVersion>1.0.0.0</FileVersion>
         <InformationalVersion>1.0.0.0</InformationalVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R19'))">
         <TargetFramework>net48</TargetFramework>

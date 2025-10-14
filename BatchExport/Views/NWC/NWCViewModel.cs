@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
+﻿using System.Collections.ObjectModel;
 using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
-using Autodesk.Revit.DB;
 
 namespace AlterTools.BatchExport.Views.NWC;
 
@@ -66,30 +60,37 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
             Strings.HelpNWCEnd);
     }
 
+    [UsedImplicitly]
     public static IReadOnlyDictionary<NavisworksCoordinates, string> Coordinates => NWCContext.Coordinates;
 
+    [UsedImplicitly]
     public KeyValuePair<NavisworksCoordinates, string> SelectedCoordinates
     {
         get => _selectedCoordinates;
         set => SetProperty(ref _selectedCoordinates, value);
     }
 
+    [UsedImplicitly]
     public static IReadOnlyDictionary<NavisworksParameters, string> Parameters => NWCContext.Parameters;
 
+    [UsedImplicitly]
     public KeyValuePair<NavisworksParameters, string> SelectedParameters
     {
         get => _selectedParameters;
         set => SetProperty(ref _selectedParameters, value);
     }
 
+    [UsedImplicitly]
     public ObservableCollection<Config> Configs
     {
         get => _configs;
         set => SetProperty(ref _configs, value);
     }
 
+    [UsedImplicitly]
     public RelayCommand LoadConfigsCommand => _loadConfigsCommand ??= new RelayCommand(_ => LoadConfig());
 
+    [UsedImplicitly]
     public RelayCommand RaiseBatchEventCommand =>
         _raiseBatchEventCommand ??= new RelayCommand(_ => _eventHandlerNWCBatch.Raise(this));
 
@@ -176,10 +177,10 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
 
         using FileStream file = File.OpenRead(openFileDialog.FileName);
 
-        NWCFormDeserilaizer(JsonHelper<NWCForm>.DeserializeConfig(file));
+        NWCFormDeserializer(JsonHelper<NWCForm>.DeserializeConfig(file));
     }
 
-    public void NWCFormDeserilaizer(NWCForm form)
+    public void NWCFormDeserializer(NWCForm form)
     {
         if (form is null) return;
 

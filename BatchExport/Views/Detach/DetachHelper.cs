@@ -1,9 +1,5 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using AlterTools.BatchExport.Utils;
-using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.DB;
+﻿using AlterTools.BatchExport.Utils;
+using Application = Autodesk.Revit.ApplicationServices.Application;
 
 namespace AlterTools.BatchExport.Views.Detach;
 

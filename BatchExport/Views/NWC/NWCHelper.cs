@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using AlterTools.BatchExport.Utils;
+﻿using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Utils.Logger;
 using AlterTools.BatchExport.Views.Base;
-using Autodesk.Revit.DB;
 
 namespace AlterTools.BatchExport.Views.NWC;
 

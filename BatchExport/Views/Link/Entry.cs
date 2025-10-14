@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using AlterTools.BatchExport.Views.Base;
-using Autodesk.Revit.DB;
+﻿using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.Link;
 
@@ -25,6 +23,7 @@ public class Entry : NotifyPropertyChanged, ISelectable
 
     public string Name { get; }
 
+    [UsedImplicitly]
     public ImportPlacement[] ImportPlacements { get; set; }
 
     public ImportPlacement SelectedImportPlacement
@@ -43,6 +42,7 @@ public class Entry : NotifyPropertyChanged, ISelectable
         }
     }
 
+    [UsedImplicitly]
     public Workset[] Worksets { get; set; }
 
     public Workset SelectedWorkset

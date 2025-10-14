@@ -1,6 +1,4 @@
-﻿using Autodesk.Revit.UI;
-
-namespace AlterTools.BatchExport.Core.EventHandlers;
+﻿namespace AlterTools.BatchExport.Core.EventHandlers;
 
 /// <summary>
 ///     Class for creating Argument (Wrapped) External Events

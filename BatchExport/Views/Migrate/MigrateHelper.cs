@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Windows.Forms;
-using AlterTools.BatchExport.Utils;
-using Autodesk.Revit.DB;
+﻿using AlterTools.BatchExport.Utils;
 using Newtonsoft.Json;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 using WasBecome = System.Collections.Generic.Dictionary<string, string>;

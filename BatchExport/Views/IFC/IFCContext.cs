@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using AlterTools.BatchExport.Resources;
-using Autodesk.Revit.DB;
+﻿using AlterTools.BatchExport.Resources;
 
 namespace AlterTools.BatchExport.Views.IFC;
 

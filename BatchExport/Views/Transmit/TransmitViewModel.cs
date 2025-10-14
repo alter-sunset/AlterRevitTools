@@ -1,5 +1,4 @@
-﻿using System;
-using AlterTools.BatchExport.Core.EventHandlers;
+﻿using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Views.Base;
 
@@ -20,6 +19,7 @@ public class TransmitViewModel : ViewModelBase
             Strings.HelpStart);
     }
 
+    [UsedImplicitly]
     public bool IsSameFolder
     {
         get => _isSameFolder;

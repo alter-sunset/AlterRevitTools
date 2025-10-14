@@ -1,24 +1,34 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Windows.Media.Imaging;
 using AlterTools.BatchExport.Core.Commands;
 using AlterTools.BatchExport.Utils;
-using Autodesk.Revit.UI;
-using JetBrains.Annotations;
 
 namespace AlterTools.BatchExport.Core;
 
-[UsedImplicitly]
 internal class ButtonContext
 {
+    [UsedImplicitly]
     public string Name { get; set; }
+    
+    [UsedImplicitly]
     public string Text { get; set; }
+    
+    [UsedImplicitly]
     public string ClassName { get; set; }
+    
+    [UsedImplicitly]
     public string ToolTip { get; set; }
+    
+    [UsedImplicitly]
     public string ImageLarge { get; set; }
+    
+    [UsedImplicitly]
     public string ImageSmall { get; set; }
+    
+    [UsedImplicitly]
     public string Panel { get; set; }
+    
+    [UsedImplicitly]
     public bool Availability { get; set; }
 
     public static List<ButtonContext> GetButtonsContext()

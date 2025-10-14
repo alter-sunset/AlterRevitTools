@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Security.Cryptography;
-using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.Electrical;
-using Autodesk.Revit.UI;
+﻿using System.Security.Cryptography;
 using AlterTools.BatchExport.Resources;
+using Autodesk.Revit.DB.Electrical;
 
 namespace AlterTools.BatchExport.Utils;
 

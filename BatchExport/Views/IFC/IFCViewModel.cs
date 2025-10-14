@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
-using AlterTools.BatchExport.Core.EventHandlers;
+﻿using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
-using Autodesk.Revit.DB;
 
 namespace AlterTools.BatchExport.Views.IFC;
 
@@ -39,24 +33,30 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
             Strings.HelpStart);
     }
 
+    [UsedImplicitly]
     public string Mapping
     {
         get => _mapping;
         set => SetProperty(ref _mapping, value);
     }
 
+    [UsedImplicitly]
     public RelayCommand LoadMappingCommand => _loadMappingCommand ??= new RelayCommand(_ => LoadMapping());
 
+    [UsedImplicitly]
     public static IReadOnlyDictionary<IFCVersion, string> IFCVersions => IFCContext.IFCVersions;
 
+    [UsedImplicitly]
     public KeyValuePair<IFCVersion, string> SelectedVersion
     {
         get => _selectedVersion;
         set => SetProperty(ref _selectedVersion, value);
     }
 
-    public IReadOnlyDictionary<int, string> SpaceBoundaryLevels { get; } = IFCContext.SpaceBoundaryLevels;
+    [UsedImplicitly]
+    public static IReadOnlyDictionary<int, string> SpaceBoundaryLevels => IFCContext.SpaceBoundaryLevels;
 
+    [UsedImplicitly]
     public KeyValuePair<int, string> SelectedLevel
     {
         get => _selectedLevel;
@@ -65,12 +65,14 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
 
     public string FamilyMappingFile => _mapping;
 
+    [UsedImplicitly]
     public bool ExportBaseQuantities
     {
         get => _exportBaseQuantities;
         set => SetProperty(ref _exportBaseQuantities, value);
     }
 
+    [UsedImplicitly]
     public bool WallAndColumnSplitting
     {
         get => _wallAndColumnSplitting;

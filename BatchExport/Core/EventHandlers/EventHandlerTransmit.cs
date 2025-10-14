@@ -1,11 +1,8 @@
-﻿using System.IO;
-using System.Windows.Controls;
-using System.Windows.Media;
+﻿using System.Windows.Controls;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.Transmit;
-using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
+using Brushes = System.Windows.Media.Brushes;
 
 namespace AlterTools.BatchExport.Core.EventHandlers;
 

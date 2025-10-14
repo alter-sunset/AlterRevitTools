@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Windows;
-using AlterTools.BatchExport.Resources;
+﻿using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.Migrate;
-using Autodesk.Revit.UI;
+using MessageBox = System.Windows.MessageBox;
 
 namespace AlterTools.BatchExport.Core.EventHandlers;
 

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
+﻿using System.Windows;
 using AlterTools.BatchExport.Core.Commands;
 using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Views.Detach;
@@ -10,8 +8,7 @@ using AlterTools.BatchExport.Views.Migrate;
 using AlterTools.BatchExport.Views.NWC;
 using AlterTools.BatchExport.Views.Params;
 using AlterTools.BatchExport.Views.Transmit;
-using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
+using MessageBox = System.Windows.MessageBox;
 
 namespace AlterTools.BatchExport.Utils;
 

@@ -1,10 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.Params;
-using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.UI;
+using Application = Autodesk.Revit.ApplicationServices.Application;
 
 namespace AlterTools.BatchExport.Core.EventHandlers;
 

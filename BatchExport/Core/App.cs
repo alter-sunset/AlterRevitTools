@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Autodesk.Revit.UI;
-using JetBrains.Annotations;
-using Panel = System.Tuple<Autodesk.Revit.UI.RibbonPanel, string>;
+﻿using Panel = System.Tuple<Autodesk.Revit.UI.RibbonPanel, string>;
 
 namespace AlterTools.BatchExport.Core;
 
