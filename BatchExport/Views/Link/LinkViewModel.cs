@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
+﻿using System.Collections.ObjectModel;
 using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
-using Autodesk.Revit.DB;
 
 namespace AlterTools.BatchExport.Views.Link;
 
@@ -37,18 +31,20 @@ public class LinkViewModel : ViewModelBase
         Worksets = worksets;
         EventHandlerBase = eventHandlerLink;
         HelpMessage = string.Join(Environment.NewLine,
-            Strings.Help_LinkTitle,
-            Strings.Help_Load,
-            Strings.Help_List,
-            Strings.Help_Start);
+            Strings.HelpLinkTitle,
+            Strings.HelpLoad,
+            Strings.HelpList,
+            Strings.HelpStart);
     }
 
+    [UsedImplicitly]
     public bool IsCurrentWorkset
     {
         get => _isCurrentWorkset;
         set => SetProperty(ref _isCurrentWorkset, value);
     }
 
+    [UsedImplicitly]
     public bool PinLinks
     {
         get => _pinLinks;
@@ -57,18 +53,21 @@ public class LinkViewModel : ViewModelBase
 
     public override string[] Files => [.. Entries.Select(e => e.Name)];
 
+    [UsedImplicitly]
     public ObservableCollection<Entry> Entries
     {
         get => _entries;
         set => SetProperty(ref _entries, value);
     }
 
+    [UsedImplicitly]
     public Entry SelectedEntry
     {
         get => _selectedEntry;
         set => SetProperty(ref _selectedEntry, value);
     }
 
+    [UsedImplicitly]
     public string WorksetPrefix
     {
         get => _worksetPrefix;

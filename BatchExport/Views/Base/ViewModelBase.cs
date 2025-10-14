@@ -1,19 +1,14 @@
-﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
+﻿using System.Collections.ObjectModel;
 using System.Windows.Controls;
-using System.Windows.Forms;
-using System.Windows.Media;
 using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Utils;
-using JetBrains.Annotations;
+using Brushes = System.Windows.Media.Brushes;
 
 namespace AlterTools.BatchExport.Views.Base;
 
 public class ViewModelBase : NotifyPropertyChanged, IConfigBase
 {
-    protected static string NoFiles => Resources.Strings.Const_VMBase_NoFiles;
+    protected static string NoFiles => Resources.Strings.NoFilesVMBase;
 
     private RelayCommand _browseFolderCommand;
     private RelayCommand _deleteCommand;
@@ -47,6 +42,7 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
         set => SetProperty(ref _selectedItem, value);
     }
 
+    [UsedImplicitly]
     public bool IsViewEnabled
     {
         get => _isViewEnabled;
@@ -76,7 +72,7 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
     [UsedImplicitly]
     public RelayCommand HelpCommand =>
         _helpCommand ??= new RelayCommand(_ => MessageBox.Show(HelpMessage,
-            Resources.Strings.Base_Button_Help_Content));
+            Resources.Strings.Help));
 
     protected EventHandlerBase EventHandlerBase { get; set; }
 

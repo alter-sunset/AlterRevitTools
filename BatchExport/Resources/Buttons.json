@@ -1,72 +1,72 @@
 [
   {
     "Name": "NWC",
-    "Text": "Core.Button.NWC.Text",
+    "Text": "CoreButtonNWCText",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportModelsToNWC",
-    "ToolTip": "Core.Button.NWC.ToolTip",
+    "ToolTip": "CoreButtonNWCToolTip",
     "ImageLarge": "AlterTools.BatchExport.Resources.nwc.png",
     "ImageSmall": "AlterTools.BatchExport.Resources.nwc_16.png",
-    "Panel": "Core.Panel.Export",
+    "Panel": "CorePanelExport",
     "Availability": true
   },
   {
     "Name": "IFC",
-    "Text": "Core.Button.IFC.Text",
+    "Text": "CoreButtonIFCText",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportModelsToIFC",
-    "ToolTip": "Core.Button.IFC.ToolTip",
+    "ToolTip": "CoreButtonIFCToolTip",
     "ImageLarge": "AlterTools.BatchExport.Resources.ifc.png",
     "ImageSmall": "AlterTools.BatchExport.Resources.ifc_16.png",
-    "Panel": "Core.Panel.Export",
+    "Panel": "CorePanelExport",
     "Availability": true
   },
   {
     "Name": "Detach",
-    "Text": "Core.Button.Detach.Text",
+    "Text": "CoreButtonDetachText",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportModelsDetached",
-    "ToolTip": "Core.Button.Detach.ToolTip",
+    "ToolTip": "CoreButtonDetachToolTip",
     "ImageLarge": "AlterTools.BatchExport.Resources.detach.png",
     "ImageSmall": "AlterTools.BatchExport.Resources.detach_16.png",
-    "Panel": "Core.Panel.Export",
+    "Panel": "CorePanelExport",
     "Availability": true
   },
   {
     "Name": "Transmit",
-    "Text": "Core.Button.Transmit.Text",
+    "Text": "CoreButtonTransmitText",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportModelsTransmitted",
-    "ToolTip": "Core.Button.Transmit.ToolTip",
+    "ToolTip": "CoreButtonTransmitToolTip",
     "ImageLarge": "AlterTools.BatchExport.Resources.transmit.png",
     "ImageSmall": "AlterTools.BatchExport.Resources.transmit_16.png",
-    "Panel": "Core.Panel.Export",
+    "Panel": "CorePanelExport",
     "Availability": true
   },
   {
     "Name": "Migrate",
-    "Text": "Core.Button.Migrate.Text",
+    "Text": "CoreButtonMigrateText",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandMigrateModels",
-    "ToolTip": "Core.Button.Migrate.ToolTip",
+    "ToolTip": "CoreButtonMigrateToolTip",
     "ImageLarge": "AlterTools.BatchExport.Resources.migrate.png",
     "ImageSmall": "AlterTools.BatchExport.Resources.migrate_16.png",
-    "Panel": "Core.Panel.Export",
+    "Panel": "CorePanelExport",
     "Availability": true
   },
   {
     "Name": "Params",
-    "Text": "Core.Button.Params.Text",
+    "Text": "CoreButtonParamsText",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportParametersMap",
-    "ToolTip": "Core.Button.Params.ToolTip",
+    "ToolTip": "CoreButtonParamsToolTip",
     "ImageLarge": "AlterTools.BatchExport.Resources.params.png",
     "ImageSmall": "AlterTools.BatchExport.Resources.params_16.png",
-    "Panel": "Core.Panel.Export",
+    "Panel": "CorePanelExport",
     "Availability": true
   },
   {
     "Name": "Link",
-    "Text": "Core.Button.Link.Text",
+    "Text": "CoreButtonLinkText",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandLinkModels",
-    "ToolTip": "Core.Button.Link.ToolTip",
+    "ToolTip": "CoreButtonLinkToolTip",
     "ImageLarge": "AlterTools.BatchExport.Resources.link.png",
     "ImageSmall": "AlterTools.BatchExport.Resources.link_16.png",
-    "Panel": "Core.Panel.Import",
+    "Panel": "CorePanelImport",
     "Availability": false
   }
 ]

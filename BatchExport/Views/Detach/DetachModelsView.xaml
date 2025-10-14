@@ -8,7 +8,7 @@
                  Width="800"
                  WindowStartupLocation="CenterScreen"
                  ResizeMode="NoResize"
-                 Title="{x:Static resx:Strings.Detach_Title}"
+                 Title="{x:Static resx:Strings.DetachTitle}"
                  IsEnabled="{Binding IsViewEnabled}"
                  ShowInTaskbar="False">
     <Grid Background="WhiteSmoke">
@@ -33,14 +33,14 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    VerticalAlignment="Center"
-                   Text="{x:Static resx:Strings.Base_Header}" />
+                   Text="{x:Static resx:Strings.BaseHeader}" />
 
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="0"
                 Command="{Binding HelpCommand}"
-                ToolTip="{x:Static resx:Strings.Base_Button_Help_ToolTip}"
-                Content="{x:Static resx:Strings.Base_Button_Help_Content}" />
+                ToolTip="{x:Static resx:Strings.HelpToolTip}"
+                Content="{x:Static resx:Strings.Help}" />
         <ListBox Grid.Row="1"
                  Grid.Column="0"
                  Grid.ColumnSpan="4"
@@ -48,32 +48,32 @@
                  SelectionMode="Extended"
                  ItemsSource="{Binding ListBoxItems}"
                  SelectedItem="{Binding SelectedItem}"
-                 ToolTip="{x:Static resx:Strings.Base_ListBox_ToolTip}" />
+                 ToolTip="{x:Static resx:Strings.ListBoxToolTip}" />
 
         <Button Margin="10"
                 Grid.Column="0"
                 Grid.Row="2"
                 Command="{Binding LoadCommand}"
-                Content="{x:Static resx:Strings.Base_Button_Load_Content}"
-                ToolTip="{x:Static resx:Strings.Base_Button_Load_ToolTip}" />
+                Content="{x:Static resx:Strings.Load}"
+                ToolTip="{x:Static resx:Strings.LoadToolTip}" />
         <Button Margin="10"
                 Grid.Column="1"
                 Grid.Row="2"
                 Command="{Binding LoadListCommand}"
-                Content="{x:Static resx:Strings.Base_Button_LoadList_Content}"
-                ToolTip="{x:Static resx:Strings.Base_Button_LoadListTxt_ToolTip}" />
+                Content="{x:Static resx:Strings.LoadList}"
+                ToolTip="{x:Static resx:Strings.LoadListTxtToolTip}" />
         <Button Margin="10"
                 Grid.Column="2"
                 Grid.Row="2"
                 Command="{Binding SaveListCommand}"
-                Content="{x:Static resx:Strings.Base_Button_SaveList_Content}"
-                ToolTip="{x:Static resx:Strings.Base_Button_SaveListTxt_ToolTip}" />
+                Content="{x:Static resx:Strings.SaveList}"
+                ToolTip="{x:Static resx:Strings.SaveListTxtToolTip}" />
         <Button Margin="10"
                 Grid.Column="3"
                 Grid.Row="2"
                 Command="{Binding DeleteCommand}"
-                Content="{x:Static resx:Strings.Base_Button_Delete_Content}"
-                ToolTip="{x:Static resx:Strings.Base_Button_Delete_ToolTip}" />
+                Content="{x:Static resx:Strings.Delete}"
+                ToolTip="{x:Static resx:Strings.DeleteToolTip}" />
 
         <RadioButton Margin="10,10,10,10"
                      FontSize="14"
@@ -84,7 +84,7 @@
                      Name="RbFolder"
                      Command="{Binding RadioButtonCommand}"
                      CommandParameter="{Binding ElementName=RbFolder, Path=Tag}"
-                     Content="{x:Static resx:Strings.Base_ResultingFolder}"
+                     Content="{x:Static resx:Strings.SaveToFolder}"
                      Tag="Folder" />
         <TextBox Margin="10,10,135,10"
                  VerticalContentAlignment="Center"
@@ -96,7 +96,7 @@
                 Grid.Column="3"
                 Grid.Row="3"
                 Command="{Binding BrowseFolderCommand}"
-                Content="{x:Static resx:Strings.Base_Button_Browse}" />
+                Content="{x:Static resx:Strings.Browse}" />
 
         <RadioButton Margin="10,10,10,10"
                      FontSize="14"
@@ -104,7 +104,7 @@
                      Grid.Column="0"
                      VerticalAlignment="Center"
                      GroupName="SavingPathMode"
-                     Content="{x:Static resx:Strings.Detach_Mask}"
+                     Content="{x:Static resx:Strings.Mask}"
                      Name="RbMask"
                      Command="{Binding RadioButtonCommand}"
                      CommandParameter="{Binding ElementName=RbMask, Path=Tag}"
@@ -114,7 +114,7 @@
                    Grid.Row="4"
                    Grid.Column="1"
                    VerticalAlignment="Center"
-                   Text="{x:Static resx:Strings.Detach_Change}" />
+                   Text="{x:Static resx:Strings.Change}" />
         <TextBox Margin="110,10,80,10"
                  Grid.Row="4"
                  Grid.Column="1"
@@ -126,7 +126,7 @@
                    Grid.Row="4"
                    Grid.Column="2"
                    VerticalAlignment="Center"
-                   Text="{x:Static resx:Strings.Detach_To}" />
+                   Text="{x:Static resx:Strings.To}" />
         <TextBox Margin="180,10,10,10"
                  Grid.Row="4"
                  Grid.Column="2"
@@ -139,7 +139,7 @@
                   Grid.Column="0"
                   VerticalAlignment="Center"
                   FontSize="14"
-                  Content="{x:Static resx:Strings.Detach_Rename}"
+                  Content="{x:Static resx:Strings.RenameFiles}"
                   IsChecked="{Binding IsToRename}" />
         <TextBox Margin="10"
                  Grid.Row="5"
@@ -162,8 +162,8 @@
                   Grid.Column="3"
                   FontSize="14"
                   VerticalAlignment="Center"
-                  Content="{x:Static resx:Strings.Detach_CheckBox_Purge_Content}"
-                  ToolTip="{x:Static resx:Strings.Detach_CheckBox_Purge_ToolTip}"
+                  Content="{x:Static resx:Strings.PurgeModels}"
+                  ToolTip="{x:Static resx:Strings.PurgeModelsToolTip}"
                   IsChecked="{Binding Purge}"
                   IsEnabled="{Binding IsPurgeEnabled}" />
 
@@ -173,8 +173,8 @@
                   Grid.ColumnSpan="2"
                   FontSize="14"
                   VerticalAlignment="Center"
-                  Content="{x:Static resx:Strings.Detach_CheckBox_EmptyView_Content}"
-                  ToolTip="{x:Static resx:Strings.Detach_CheckBox_EmptyView_ToolTip}"
+                  Content="{x:Static resx:Strings.CheckForEmptyView}"
+                  ToolTip="{x:Static resx:Strings.CheckForEmptyViewToolTip}"
                   IsChecked="{Binding CheckForEmptyView}" />
         <TextBox Margin="110,10,80,10"
                  Grid.Row="6"
@@ -182,14 +182,14 @@
                  Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
                  Text="{Binding ViewName}"
-                 ToolTip="{x:Static resx:Strings.Detach_ViewName}" />
+                 ToolTip="{x:Static resx:Strings.ViewNameToCheck}" />
         <CheckBox Margin="140,10,10,10"
                   Grid.Row="6"
                   Grid.Column="2"
                   Grid.ColumnSpan="2"
                   FontSize="14"
                   VerticalContentAlignment="Center"
-                  Content="{x:Static resx:Strings.Const_RemoveEmptyWorksets}"
+                  Content="{x:Static resx:Strings.RemoveEmptyWorksets}"
                   IsChecked="{Binding RemoveEmptyWorksets}"
                   IsEnabled="{Binding IsWorksetRemoverEnabled}" />
 
@@ -198,18 +198,18 @@
                   Grid.Column="0"
                   VerticalAlignment="Center"
                   FontSize="14"
-                  Content="{x:Static resx:Strings.Const_RemoveLinks}"
+                  Content="{x:Static resx:Strings.RemoveAllLinks}"
                   IsChecked="{Binding RemoveLinks}" />
         <Button Margin="10"
                 Grid.Row="7"
                 Grid.Column="2"
                 Command="{Binding EraseCommand}"
-                Content="{x:Static resx:Strings.Base_Button_EraseList}" />
+                Content="{x:Static resx:Strings.EraseList}" />
         <Button Margin="10"
                 Grid.Row="7"
                 Grid.Column="3"
                 Command="{Binding RaiseEventCommand}"
-                Content="{x:Static resx:Strings.Base_Button_Start_Content}"
-                ToolTip="{x:Static resx:Strings.Base_Button_Start_ToolTip}" />
+                Content="{x:Static resx:Strings.Start}"
+                ToolTip="{x:Static resx:Strings.StartToolTip}" />
     </Grid>
 </base:WindowBase>

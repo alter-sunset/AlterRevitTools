@@ -1,6 +1,5 @@
-﻿using System;
-using System.Windows.Forms;
-using AlterTools.BatchExport.Resources;
+﻿using AlterTools.BatchExport.Resources;
+// ReSharper disable SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
 
 namespace AlterTools.BatchExport.Views;
 
@@ -14,10 +13,10 @@ public static class DialogHelper
     private const string DefaultFileNameJson = "ConfigBatchExport";
     private const string DefaultFileNameCsv = "ParametersExport";
     private const string Exception = "Unsupported dialog type";
-    private static string FilterTxt => Strings.Const_FilterTxt;
-    private static string FilterJson => Strings.Const_FilterJson;
-    private static string FilterRvt => Strings.Const_FilterRvt;
-    private static string FilterCsv => Strings.Const_FilterCsv;
+    private static string FilterTxt => Strings.FilterTxt;
+    private static string FilterJson => Strings.FilterJson;
+    private static string FilterRvt => Strings.FilterRvt;
+    private static string FilterCsv => Strings.FilterCsv;
 
     public static OpenFileDialog OpenFileDialog(this DialogType dialogType)
     {

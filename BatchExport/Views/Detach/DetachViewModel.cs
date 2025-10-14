@@ -1,8 +1,6 @@
-﻿using System;
-using AlterTools.BatchExport.Core.EventHandlers;
+﻿using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Views.Base;
-using JetBrains.Annotations;
 
 namespace AlterTools.BatchExport.Views.Detach;
 
@@ -12,11 +10,11 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
 
     private bool _isToRename;
 
-    private string _maskIn = Strings.Detach_MaskIn;
+    private string _maskIn = Strings.MaskIn;
 
     private string _maskInName = "R18";
 
-    private string _maskOut = Strings.Detach_MaskOut;
+    private string _maskOut = Strings.MaskOut;
 
     private string _maskOutName = "R24";
 
@@ -34,12 +32,12 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
     {
         EventHandlerBase = eventHandlerDetach;
         HelpMessage = string.Join(Environment.NewLine,
-            Strings.Help_DetachTitle,
-            Strings.Help_Load,
-            Strings.Help_Folder,
-            Strings.Help_DetachMid,
-            Strings.Help_List,
-            Strings.Help_Start);
+            Strings.HelpDetachTitle,
+            Strings.HelpLoad,
+            Strings.HelpFolder,
+            Strings.HelpDetachMid,
+            Strings.HelpList,
+            Strings.HelpStart);
 
 #if R22_OR_GREATER
         IsWorksetRemoverEnabled = true;
@@ -52,6 +50,7 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
 #endif
     }
 
+    [UsedImplicitly]
     public int RadioButtonMode
     {
         get => _radioButtonMode;
@@ -59,13 +58,15 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
     }
 
     public override RelayCommand RadioButtonCommand => _radioButtonCommand ??= new RelayCommand(RB_Command);
-
+   
+    [UsedImplicitly]
     public string MaskIn
     {
         get => _maskIn;
         set => SetProperty(ref _maskIn, value);
     }
 
+    [UsedImplicitly]
     public string MaskOut
     {
         get => _maskOut;
@@ -75,6 +76,7 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
     [UsedImplicitly]
     public bool IsPurgeEnabled { get; }
 
+    [UsedImplicitly]
     public bool IsWorksetRemoverEnabled { get; }
 
     [UsedImplicitly]

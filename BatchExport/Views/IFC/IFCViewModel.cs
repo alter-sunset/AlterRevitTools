@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
-using AlterTools.BatchExport.Core.EventHandlers;
+﻿using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
-using Autodesk.Revit.DB;
 
 namespace AlterTools.BatchExport.Views.IFC;
 
@@ -31,32 +25,38 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
     {
         EventHandlerBase = eventHandlerIFC;
         HelpMessage = string.Join(Environment.NewLine,
-            Strings.Help_IFCTitle,
-            Strings.Help_Load,
-            Strings.Help_Folder,
-            Strings.Help_Naming,
-            Strings.Help_Config,
-            Strings.Help_Start);
+            Strings.HelpIFCTitle,
+            Strings.HelpLoad,
+            Strings.HelpFolder,
+            Strings.HelpNaming,
+            Strings.HelpConfig,
+            Strings.HelpStart);
     }
 
+    [UsedImplicitly]
     public string Mapping
     {
         get => _mapping;
         set => SetProperty(ref _mapping, value);
     }
 
+    [UsedImplicitly]
     public RelayCommand LoadMappingCommand => _loadMappingCommand ??= new RelayCommand(_ => LoadMapping());
 
+    [UsedImplicitly]
     public static IReadOnlyDictionary<IFCVersion, string> IFCVersions => IFCContext.IFCVersions;
 
+    [UsedImplicitly]
     public KeyValuePair<IFCVersion, string> SelectedVersion
     {
         get => _selectedVersion;
         set => SetProperty(ref _selectedVersion, value);
     }
 
-    public IReadOnlyDictionary<int, string> SpaceBoundaryLevels { get; } = IFCContext.SpaceBoundaryLevels;
+    [UsedImplicitly]
+    public static IReadOnlyDictionary<int, string> SpaceBoundaryLevels => IFCContext.SpaceBoundaryLevels;
 
+    [UsedImplicitly]
     public KeyValuePair<int, string> SelectedLevel
     {
         get => _selectedLevel;
@@ -65,12 +65,14 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
 
     public string FamilyMappingFile => _mapping;
 
+    [UsedImplicitly]
     public bool ExportBaseQuantities
     {
         get => _exportBaseQuantities;
         set => SetProperty(ref _exportBaseQuantities, value);
     }
 
+    [UsedImplicitly]
     public bool WallAndColumnSplitting
     {
         get => _wallAndColumnSplitting;
@@ -93,7 +95,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
         }
         catch
         {
-            MessageBox.Show(Strings.Const_WrongScheme);
+            MessageBox.Show(Strings.WrongScheme);
         }
     }
 
@@ -161,7 +163,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
             WorksetPrefixes = WorksetPrefixes,
             ExportView = ExportScopeView,
             ViewName = ViewName,
-            Files = [.. ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)],
+            Files = [.. ListBoxItems.Select(item => item.Content.ToString())],
             TurnOffLog = TurnOffLog
         };
     }

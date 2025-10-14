@@ -1,6 +1,4 @@
-﻿using Autodesk.Revit.DB;
-
-namespace AlterTools.BatchExport.Views.NWC;
+﻿namespace AlterTools.BatchExport.Views.NWC;
 
 public class NWCForm : NavisworksExportOptions
 {
@@ -13,6 +11,7 @@ public class NWCForm : NavisworksExportOptions
     public new bool ConvertLights { get; set; }
     public new bool ConvertLinkedCADFormats { get; set; }
     public new double FacetingFactor { get; set; }
+    [UsedImplicitly]
     public new bool ViewId { get; set; }
     public bool TurnOffLog {get; set;}
 }

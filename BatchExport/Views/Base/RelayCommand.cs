@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows.Input;
+﻿using System.Windows.Input;
 
 namespace AlterTools.BatchExport.Views.Base;
 
@@ -17,5 +16,6 @@ public class RelayCommand(Action<object> execute, Func<object, bool> canExecute 
 
     public void Execute(object parameter) => _execute(parameter);
 
+    [UsedImplicitly]
     public static void RaiseCanExecuteChanged() => CommandManager.InvalidateRequerySuggested();
 }

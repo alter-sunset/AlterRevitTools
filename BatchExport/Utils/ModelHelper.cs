@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Security.Cryptography;
-using Autodesk.Revit.DB;
-using Autodesk.Revit.DB.Electrical;
-using Autodesk.Revit.UI;
+﻿using System.Security.Cryptography;
 using AlterTools.BatchExport.Resources;
+using Autodesk.Revit.DB.Electrical;
 
 namespace AlterTools.BatchExport.Utils;
 
@@ -103,7 +97,7 @@ public static class ModelHelper
 
         if (ids.Count == 0) return;
 
-        using Transaction tr = new(doc, Strings.Const_RemoveLinks);
+        using Transaction tr = new(doc, Strings.RemoveAllLinks);
 
         tr.Start();
         tr.SuppressAlert();
@@ -168,7 +162,7 @@ public static class ModelHelper
             .OfKind(WorksetKind.UserWorkset)
             .ToWorksets();
 
-        using Transaction tr = new(doc, Strings.Const_OpenWorksets);
+        using Transaction tr = new(doc, Strings.OpenWorksets);
         tr.Start();
 
         // Create a temporary cable tray
@@ -223,7 +217,7 @@ public static class ModelHelper
                 
                 if (previousCount == 0) break;
                 
-                using Transaction tr = new(doc, Strings.Const_Purge);
+                using Transaction tr = new(doc, Strings.PurgeUnused);
                 tr.Start();
                 
                 doc.Delete(unusedElements);
@@ -269,7 +263,7 @@ public static class ModelHelper
         ];
 
         using Transaction tr = new(doc);
-        tr.Start(Strings.Const_RemoveEmptyWorksets);
+        tr.Start(Strings.RemoveEmptyWorksets);
 
         worksets.ForEach(workset => WorksetTable.DeleteWorkset(doc, workset, new DeleteWorksetSettings()));
 

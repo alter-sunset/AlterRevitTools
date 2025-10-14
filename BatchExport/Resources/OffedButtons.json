@@ -1,12 +1,12 @@
 [
   {
     "Name": "WorksetsExtract",
-    "Text": "Core.Button.Worksets.Text",
+    "Text": "CoreButtonWorksetsText",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExtractWorkset",
-    "ToolTip": "Core.Button.Worksets.ToolTip",
+    "ToolTip": "CoreButtonWorksetsToolTip",
     "ImageLarge": "",
     "ImageSmall": "",
-    "Panel": "Core.Panel.Export",
+    "Panel": "CorePanelExport",
     "Availability": true
   }
 ]

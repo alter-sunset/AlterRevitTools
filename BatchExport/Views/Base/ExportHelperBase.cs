@@ -1,15 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Threading;
-using System.Windows.Controls;
-using System.Windows.Media;
+﻿using System.Windows.Controls;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Utils.Logger;
 using AlterTools.BatchExport.Views.NWC;
-using Autodesk.Revit.ApplicationServices;
-using Autodesk.Revit.DB;
-using Autodesk.Revit.UI;
+using Application = Autodesk.Revit.ApplicationServices.Application;
+using Brush = System.Windows.Media.Brush;
+using Brushes = System.Windows.Media.Brushes;
 
 namespace AlterTools.BatchExport.Views.Base;
 
@@ -233,7 +228,7 @@ public class ExportHelperBase
 
         if (iConfig.IgnoreMissingView)
         {
-            log.Info($"View {iConfig.ViewName} doesn't exist. The export gonna be processed by whole model.");
+            log.Info($"View {iConfig.ViewName} doesn't exist. The export gonna be processed by entire model.");
             return true;
         }
 

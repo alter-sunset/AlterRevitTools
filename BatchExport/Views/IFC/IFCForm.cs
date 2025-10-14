@@ -1,6 +1,4 @@
-﻿using Autodesk.Revit.DB;
-
-namespace AlterTools.BatchExport.Views.IFC;
+﻿namespace AlterTools.BatchExport.Views.IFC;
 
 public class IFCForm : IFCExportOptions
 {
@@ -11,6 +9,8 @@ public class IFCForm : IFCExportOptions
     public string[] Files { get; set; }
     public string ViewName { get; set; }
     public bool ExportView { get; set; }
+    
+    [UsedImplicitly]
     public new bool FilterViewId { get; set; }
     public bool TurnOffLog {get; set;}
 }

@@ -1,8 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Autodesk.Revit.UI;
-using JetBrains.Annotations;
-using Panel = System.Tuple<Autodesk.Revit.UI.RibbonPanel, string>;
+﻿using Panel = System.Tuple<Autodesk.Revit.UI.RibbonPanel, string>;
 
 namespace AlterTools.BatchExport.Core;
 
@@ -25,10 +21,10 @@ public class App : IExternalApplication
             // ignored
         }
 
-        //Get buttons to create from json config
+        // Get buttons to create from json config
         List<ButtonContext> buttons = ButtonContext.GetButtonsContext();
 
-        //Create panels from config
+        // Create panels from config
         _panels =
         [
             .. buttons

@@ -60,265 +60,335 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Browse.
+        ///   Looks up a localized string similar to Add configs!.
         /// </summary>
-        public static string Base_Button_Browse {
+        public static string AddConfigs {
             get {
-                return ResourceManager.GetString("Base.Button.Browse", resourceCulture);
+                return ResourceManager.GetString("AddConfigs", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
+        ///   Looks up a localized string similar to All.
         /// </summary>
-        public static string Base_Button_Delete_Content {
+        public static string All {
             get {
-                return ResourceManager.GetString("Base.Button.Delete.Content", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete selected files from list.
-        /// </summary>
-        public static string Base_Button_Delete_ToolTip {
-            get {
-                return ResourceManager.GetString("Base.Button.Delete.ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Erase list.
-        /// </summary>
-        public static string Base_Button_EraseList {
-            get {
-                return ResourceManager.GetString("Base.Button.EraseList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Help.
-        /// </summary>
-        public static string Base_Button_Help_Content {
-            get {
-                return ResourceManager.GetString("Base.Button.Help.Content", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Plugin usage help.
-        /// </summary>
-        public static string Base_Button_Help_ToolTip {
-            get {
-                return ResourceManager.GetString("Base.Button.Help.ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load.
-        /// </summary>
-        public static string Base_Button_Load_Content {
-            get {
-                return ResourceManager.GetString("Base.Button.Load.Content", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load (.rvt) files.
-        /// </summary>
-        public static string Base_Button_Load_ToolTip {
-            get {
-                return ResourceManager.GetString("Base.Button.Load.ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load list.
-        /// </summary>
-        public static string Base_Button_LoadList_Content {
-            get {
-                return ResourceManager.GetString("Base.Button.LoadList.Content", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load previously saved configuration file in (.json) format.
-        /// </summary>
-        public static string Base_Button_LoadList_ToolTip {
-            get {
-                return ResourceManager.GetString("Base.Button.LoadList.ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load previously saved file list in (.txt) format.
-        /// </summary>
-        public static string Base_Button_LoadListTxt_ToolTip {
-            get {
-                return ResourceManager.GetString("Base.Button.LoadListTxt.ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save list.
-        /// </summary>
-        public static string Base_Button_SaveList_Content {
-            get {
-                return ResourceManager.GetString("Base.Button.SaveList.Content", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save configuration file in (.json) format.
-        /// </summary>
-        public static string Base_Button_SaveList_ToolTip {
-            get {
-                return ResourceManager.GetString("Base.Button.SaveList.ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Save list in (.txt) format.
-        /// </summary>
-        public static string Base_Button_SaveListTxt_ToolTip {
-            get {
-                return ResourceManager.GetString("Base.Button.SaveListTxt.ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Start.
-        /// </summary>
-        public static string Base_Button_Start_Content {
-            get {
-                return ResourceManager.GetString("Base.Button.Start.Content", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Start batch export of current configuration.
-        /// </summary>
-        public static string Base_Button_Start_ToolTip {
-            get {
-                return ResourceManager.GetString("Base.Button.Start.ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Export view.
-        /// </summary>
-        public static string Base_ExportScopeView {
-            get {
-                return ResourceManager.GetString("Base.ExportScopeView", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Export entire model.
-        /// </summary>
-        public static string Base_ExportScopeWhole {
-            get {
-                return ResourceManager.GetString("Base.ExportScopeWhole", resourceCulture);
+                return ResourceManager.GetString("All", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to RVT files to be exported.
         /// </summary>
-        public static string Base_Header {
+        public static string BaseHeader {
             get {
-                return ResourceManager.GetString("Base.Header", resourceCulture);
+                return ResourceManager.GetString("BaseHeader", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ignore missing view
-        ///and export whole project.
+        ///   Looks up a localized string similar to Begin.
         /// </summary>
-        public static string Base_IgnoreMissingView {
+        public static string Begin {
             get {
-                return ResourceManager.GetString("Base.IgnoreMissingView", resourceCulture);
+                return ResourceManager.GetString("Begin", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Files list in (.rvt) format.
+        ///   Looks up a localized string similar to Begin export of multiple configurations.
         /// </summary>
-        public static string Base_ListBox_ToolTip {
+        public static string BeginToolTip {
             get {
-                return ResourceManager.GetString("Base.ListBox.ToolTip", resourceCulture);
+                return ResourceManager.GetString("BeginToolTip", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Postfix.
+        ///   Looks up a localized string similar to Browse.
         /// </summary>
-        public static string Base_Postfix {
+        public static string Browse {
             get {
-                return ResourceManager.GetString("Base.Postfix", resourceCulture);
+                return ResourceManager.GetString("Browse", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Postfix to be added to the end of a file name.
+        ///   Looks up a localized string similar to Change.
         /// </summary>
-        public static string Base_Postfix_ToolTip {
+        public static string Change {
             get {
-                return ResourceManager.GetString("Base.Postfix.ToolTip", resourceCulture);
+                return ResourceManager.GetString("Change", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prefix.
+        ///   Looks up a localized string similar to Check models for “empty” view.
         /// </summary>
-        public static string Base_Prefix {
+        public static string CheckForEmptyView {
             get {
-                return ResourceManager.GetString("Base.Prefix", resourceCulture);
+                return ResourceManager.GetString("CheckForEmptyView", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prefix to be added to the start of a file name.
+        ///   Looks up a localized string similar to Should the “View_name” view be checked for the presence of objects, and if the view is empty, the file will be saved with the prefix “EMPTY_”.
         /// </summary>
-        public static string Base_Prefix_ToolTip {
+        public static string CheckForEmptyViewToolTip {
             get {
-                return ResourceManager.GetString("Base.Prefix.ToolTip", resourceCulture);
+                return ResourceManager.GetString("CheckForEmptyViewToolTip", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Save to folder.
+        ///   Looks up a localized string similar to Convert linked 
+        ///CAD formats.
         /// </summary>
-        public static string Base_ResultingFolder {
+        public static string ConvertCAD {
             get {
-                return ResourceManager.GetString("Base.ResultingFolder", resourceCulture);
+                return ResourceManager.GetString("ConvertCAD", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Don&apos;t create log file.
+        ///   Looks up a localized string similar to Convert element parameters.
         /// </summary>
-        public static string Base_TurnOffLog {
+        public static string ConvertElementParams {
             get {
-                return ResourceManager.GetString("Base.TurnOffLog", resourceCulture);
+                return ResourceManager.GetString("ConvertElementParams", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Prefixes of Worksets to be closed.
+        ///   Looks up a localized string similar to Convert element properties.
         /// </summary>
-        public static string Base_WorksetPrefixes {
+        public static string ConvertElementProperties {
             get {
-                return ResourceManager.GetString("Base.WorksetPrefixes", resourceCulture);
+                return ResourceManager.GetString("ConvertElementProperties", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specify the Prefixes of all Worksets that need to be closed when opening the file, separated by semicolons (;). 
-        ///Worksets with Links are usually closed to speed up the opening of models..
+        ///   Looks up a localized string similar to Convert lights.
         /// </summary>
-        public static string Base_WorksetPrefixes_ToolTip {
+        public static string ConvertLights {
             get {
-                return ResourceManager.GetString("Base.WorksetPrefixes.ToolTip", resourceCulture);
+                return ResourceManager.GetString("ConvertLights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert linked files.
+        /// </summary>
+        public static string ConvertLinks {
+            get {
+                return ResourceManager.GetString("ConvertLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert construction parts.
+        /// </summary>
+        public static string ConvertParts {
+            get {
+                return ResourceManager.GetString("ConvertParts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert room as attribute.
+        /// </summary>
+        public static string ConvertRoomAsAttr {
+            get {
+                return ResourceManager.GetString("ConvertRoomAsAttr", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Convert URLs.
+        /// </summary>
+        public static string ConvertURLs {
+            get {
+                return ResourceManager.GetString("ConvertURLs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Coordinates.
+        /// </summary>
+        public static string Coordinates {
+            get {
+                return ResourceManager.GetString("Coordinates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Detach 
+        ///models.
+        /// </summary>
+        public static string CoreButtonDetachText {
+            get {
+                return ResourceManager.GetString("CoreButtonDetachText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch detach and export models.
+        /// </summary>
+        public static string CoreButtonDetachToolTip {
+            get {
+                return ResourceManager.GetString("CoreButtonDetachToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IFC 
+        ///Export.
+        /// </summary>
+        public static string CoreButtonIFCText {
+            get {
+                return ResourceManager.GetString("CoreButtonIFCText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch export models to IFC.
+        /// </summary>
+        public static string CoreButtonIFCToolTip {
+            get {
+                return ResourceManager.GetString("CoreButtonIFCToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link 
+        ///RVT models.
+        /// </summary>
+        public static string CoreButtonLinkText {
+            get {
+                return ResourceManager.GetString("CoreButtonLinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link batch of RVT models to current project in one click.
+        /// </summary>
+        public static string CoreButtonLinkToolTip {
+            get {
+                return ResourceManager.GetString("CoreButtonLinkToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Migrate 
+        ///models.
+        /// </summary>
+        public static string CoreButtonMigrateText {
+            get {
+                return ResourceManager.GetString("CoreButtonMigrateText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch migrate models and update nested links.
+        /// </summary>
+        public static string CoreButtonMigrateToolTip {
+            get {
+                return ResourceManager.GetString("CoreButtonMigrateToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NWC 
+        ///Export.
+        /// </summary>
+        public static string CoreButtonNWCText {
+            get {
+                return ResourceManager.GetString("CoreButtonNWCText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch export models to NWC.
+        /// </summary>
+        public static string CoreButtonNWCToolTip {
+            get {
+                return ResourceManager.GetString("CoreButtonNWCToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Parameters 
+        ///Export.
+        /// </summary>
+        public static string CoreButtonParamsText {
+            get {
+                return ResourceManager.GetString("CoreButtonParamsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch export parameters from models into single CSV.
+        /// </summary>
+        public static string CoreButtonParamsToolTip {
+            get {
+                return ResourceManager.GetString("CoreButtonParamsToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transmit 
+        ///models.
+        /// </summary>
+        public static string CoreButtonTransmitText {
+            get {
+                return ResourceManager.GetString("CoreButtonTransmitText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch transmit models.
+        /// </summary>
+        public static string CoreButtonTransmitToolTip {
+            get {
+                return ResourceManager.GetString("CoreButtonTransmitToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Worksets 
+        ///Export.
+        /// </summary>
+        public static string CoreButtonWorksetsText {
+            get {
+                return ResourceManager.GetString("CoreButtonWorksetsText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch export workset name from several models.
+        /// </summary>
+        public static string CoreButtonWorksetsToolTip {
+            get {
+                return ResourceManager.GetString("CoreButtonWorksetsToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch export.
+        /// </summary>
+        public static string CorePanelExport {
+            get {
+                return ResourceManager.GetString("CorePanelExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch import.
+        /// </summary>
+        public static string CorePanelImport {
+            get {
+                return ResourceManager.GetString("CorePanelImport", resourceCulture);
             }
         }
         
@@ -326,36 +396,63 @@ namespace AlterTools.BatchExport.Resources {
         ///   Looks up a localized string similar to No such folder exists. 
         ///Should I create one?.
         /// </summary>
-        public static string Const_CreateFolder {
+        public static string CreateFolderError {
             get {
-                return ResourceManager.GetString("Const.CreateFolder", resourceCulture);
+                return ResourceManager.GetString("CreateFolderError", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Default.
         /// </summary>
-        public static string Const_Default {
+        public static string Default {
             get {
-                return ResourceManager.GetString("Const.Default", resourceCulture);
+                return ResourceManager.GetString("Default", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Level;Assembly Code;Count.
         /// </summary>
-        public static string Const_DefaultParams {
+        public static string DefaultParams {
             get {
-                return ResourceManager.GetString("Const.DefaultParams", resourceCulture);
+                return ResourceManager.GetString("DefaultParams", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete selected files from list.
+        /// </summary>
+        public static string DeleteToolTip {
+            get {
+                return ResourceManager.GetString("DeleteToolTip", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to _detached.
         /// </summary>
-        public static string Const_Detached {
+        public static string Detached {
             get {
-                return ResourceManager.GetString("Const.Detached", resourceCulture);
+                return ResourceManager.GetString("Detached", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch export of detached models.
+        /// </summary>
+        public static string DetachTitle {
+            get {
+                return ResourceManager.GetString("DetachTitle", resourceCulture);
             }
         }
         
@@ -363,387 +460,199 @@ namespace AlterTools.BatchExport.Resources {
         ///   Looks up a localized string similar to A difference in coordinate systems has been detected. 
         ///Do you want to retrieve coordinates from the file?.
         /// </summary>
-        public static string Const_DiffCoord {
+        public static string DiffCoordError {
             get {
-                return ResourceManager.GetString("Const.DiffCoord", resourceCulture);
+                return ResourceManager.GetString("DiffCoordError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Divide File into Levels.
+        /// </summary>
+        public static string DivideFile {
+            get {
+                return ResourceManager.GetString("DivideFile", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Done!.
         /// </summary>
-        public static string Const_Done {
+        public static string Done {
             get {
-                return ResourceManager.GetString("Const.Done", resourceCulture);
+                return ResourceManager.GetString("Done", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import detected no valid elements in the file&apos;s Model space.
+        /// </summary>
+        public static string DwgImportDialog {
+            get {
+                return ResourceManager.GetString("DwgImportDialog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Elements.
+        /// </summary>
+        public static string Elements {
+            get {
+                return ResourceManager.GetString("Elements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Erase list.
+        /// </summary>
+        public static string EraseList {
+            get {
+                return ResourceManager.GetString("EraseList", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        public static string Const_Error {
+        public static string Error {
             get {
-                return ResourceManager.GetString("Const.Error", resourceCulture);
+                return ResourceManager.GetString("Error", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to errors..
         /// </summary>
-        public static string Const_Errors {
+        public static string Errors {
             get {
-                return ResourceManager.GetString("Const.Errors", resourceCulture);
+                return ResourceManager.GetString("Errors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export base quantities.
+        /// </summary>
+        public static string ExportBaseQuantities {
+            get {
+                return ResourceManager.GetString("ExportBaseQuantities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export element Ids.
+        /// </summary>
+        public static string ExportElementIds {
+            get {
+                return ResourceManager.GetString("ExportElementIds", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export entire model.
+        /// </summary>
+        public static string ExportEntireModel {
+            get {
+                return ResourceManager.GetString("ExportEntireModel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export room geometry.
+        /// </summary>
+        public static string ExportRoomGeometry {
+            get {
+                return ResourceManager.GetString("ExportRoomGeometry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export view.
+        /// </summary>
+        public static string ExportView {
+            get {
+                return ResourceManager.GetString("ExportView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Faceting Factor.
+        /// </summary>
+        public static string FacetingFactor {
+            get {
+                return ResourceManager.GetString("FacetingFactor", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to (CSV) split by semicolon (.csv)|*.csv.
         /// </summary>
-        public static string Const_FilterCsv {
+        public static string FilterCsv {
             get {
-                return ResourceManager.GetString("Const.FilterCsv", resourceCulture);
+                return ResourceManager.GetString("FilterCsv", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to JSON file (.json)|*.json.
         /// </summary>
-        public static string Const_FilterJson {
+        public static string FilterJson {
             get {
-                return ResourceManager.GetString("Const.FilterJson", resourceCulture);
+                return ResourceManager.GetString("FilterJson", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Revit Files (.rvt)|*.rvt.
         /// </summary>
-        public static string Const_FilterRvt {
+        public static string FilterRvt {
             get {
-                return ResourceManager.GetString("Const.FilterRvt", resourceCulture);
+                return ResourceManager.GetString("FilterRvt", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Text file (.txt)|*.txt.
         /// </summary>
-        public static string Const_FilterTxt {
+        public static string FilterTxt {
             get {
-                return ResourceManager.GetString("Const.FilterTxt", resourceCulture);
+                return ResourceManager.GetString("FilterTxt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Try and find 
+        ///missing material.
+        /// </summary>
+        public static string FindMissingMaterials {
+            get {
+                return ResourceManager.GetString("FindMissingMaterials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 1st Level.
+        /// </summary>
+        public static string FirstLevel {
+            get {
+                return ResourceManager.GetString("FirstLevel", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Good evening.
         /// </summary>
-        public static string Const_GoodEvening {
+        public static string GoodEvening {
             get {
-                return ResourceManager.GetString("Const.GoodEvening", resourceCulture);
+                return ResourceManager.GetString("GoodEvening", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Link.
+        ///   Looks up a localized string similar to Help.
         /// </summary>
-        public static string Const_Link {
+        public static string Help {
             get {
-                return ResourceManager.GetString("Const.Link", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Specify the valid path to the output file!.
-        /// </summary>
-        public static string Const_NoCsv {
-            get {
-                return ResourceManager.GetString("Const.NoCsv", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add at least one file for export!.
-        /// </summary>
-        public static string Const_NoFiles {
-            get {
-                return ResourceManager.GetString("Const.NoFiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Specify the folder for export!.
-        /// </summary>
-        public static string Const_NoFolder {
-            get {
-                return ResourceManager.GetString("Const.NoFolder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enter a mask for renaming files!.
-        /// </summary>
-        public static string Const_NoMaskFile {
-            get {
-                return ResourceManager.GetString("Const.NoMaskFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Specify the path replacement mask!.
-        /// </summary>
-        public static string Const_NoMaskPath {
-            get {
-                return ResourceManager.GetString("Const.NoMaskPath", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Specify at least one parameter for export!.
-        /// </summary>
-        public static string Const_NoParameters {
-            get {
-                return ResourceManager.GetString("Const.NoParameters", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select the Path mode!.
-        /// </summary>
-        public static string Const_NoPathMode {
-            get {
-                return ResourceManager.GetString("Const.NoPathMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The document doesn&apos;t have any transmission data.
-        /// </summary>
-        public static string Const_NoTransDataAlert {
-            get {
-                return ResourceManager.GetString("Const.NoTransDataAlert", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enter View name.
-        /// </summary>
-        public static string Const_NoViewName {
-            get {
-                return ResourceManager.GetString("Const.NoViewName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Open Worksets.
-        /// </summary>
-        public static string Const_OpenWorksets {
-            get {
-                return ResourceManager.GetString("Const.OpenWorksets", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Purge unused.
-        /// </summary>
-        public static string Const_Purge {
-            get {
-                return ResourceManager.GetString("Const.Purge", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remove empty Worksets.
-        /// </summary>
-        public static string Const_RemoveEmptyWorksets {
-            get {
-                return ResourceManager.GetString("Const.RemoveEmptyWorksets", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remove all Links.
-        /// </summary>
-        public static string Const_RemoveLinks {
-            get {
-                return ResourceManager.GetString("Const.RemoveLinks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Task completed..
-        /// </summary>
-        public static string Const_TaskCompleted {
-            get {
-                return ResourceManager.GetString("Const.TaskCompleted", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to There where.
-        /// </summary>
-        public static string Const_ThereWhere {
-            get {
-                return ResourceManager.GetString("Const.ThereWhere", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Well, the call is yours..
-        /// </summary>
-        public static string Const_ToHell {
-            get {
-                return ResourceManager.GetString("Const.ToHell", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total time:.
-        /// </summary>
-        public static string Const_TotalTime {
-            get {
-                return ResourceManager.GetString("Const.TotalTime", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Couldn&apos;t find correct info in the text file.
-        /// </summary>
-        public static string Const_VMBase_NoFiles {
-            get {
-                return ResourceManager.GetString("Const.VMBase.NoFiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Specify valid folder for export!.
-        /// </summary>
-        public static string Const_WrongFolder {
-            get {
-                return ResourceManager.GetString("Const.WrongFolder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Inconsistency between the input mask and file names!.
-        /// </summary>
-        public static string Const_WrongMask {
-            get {
-                return ResourceManager.GetString("Const.WrongMask", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Wrong file scheme.
-        /// </summary>
-        public static string Const_WrongScheme {
-            get {
-                return ResourceManager.GetString("Const.WrongScheme", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Change.
-        /// </summary>
-        public static string Detach_Change {
-            get {
-                return ResourceManager.GetString("Detach.Change", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Check models for “empty” view.
-        /// </summary>
-        public static string Detach_CheckBox_EmptyView_Content {
-            get {
-                return ResourceManager.GetString("Detach.CheckBox.EmptyView.Content", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Should the “View_name” view be checked for the presence of objects, and if the view is empty, the file will be saved with the prefix “EMPTY_”.
-        /// </summary>
-        public static string Detach_CheckBox_EmptyView_ToolTip {
-            get {
-                return ResourceManager.GetString("Detach.CheckBox.EmptyView.ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Purge models.
-        /// </summary>
-        public static string Detach_CheckBox_Purge_Content {
-            get {
-                return ResourceManager.GetString("Detach.CheckBox.Purge.Content", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Implements the functionality of the &quot;Purge unused&quot; command until complete cleanup (several times).
-        /// </summary>
-        public static string Detach_CheckBox_Purge_ToolTip {
-            get {
-                return ResourceManager.GetString("Detach.CheckBox.Purge.ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mask.
-        /// </summary>
-        public static string Detach_Mask {
-            get {
-                return ResourceManager.GetString("Detach.Mask", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 05_WIP.
-        /// </summary>
-        public static string Detach_MaskIn {
-            get {
-                return ResourceManager.GetString("Detach.MaskIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 06_Common.
-        /// </summary>
-        public static string Detach_MaskOut {
-            get {
-                return ResourceManager.GetString("Detach.MaskOut", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Rename files.
-        /// </summary>
-        public static string Detach_Rename {
-            get {
-                return ResourceManager.GetString("Detach.Rename", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Batch export of detached models.
-        /// </summary>
-        public static string Detach_Title {
-            get {
-                return ResourceManager.GetString("Detach.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to To.
-        /// </summary>
-        public static string Detach_To {
-            get {
-                return ResourceManager.GetString("Detach.To", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Name of the view to check.
-        /// </summary>
-        public static string Detach_ViewName {
-            get {
-                return ResourceManager.GetString("Detach.ViewName", resourceCulture);
+                return ResourceManager.GetString("Help", resourceCulture);
             }
         }
         
@@ -751,9 +660,9 @@ namespace AlterTools.BatchExport.Resources {
         ///   Looks up a localized string similar to 	Save the configuration by clicking the “Save config” button in (.JSON) format.
         ///	This configuration can then be used for re-exporting by clicking the “Load config” button..
         /// </summary>
-        public static string Help_Config {
+        public static string HelpConfig {
             get {
-                return ResourceManager.GetString("Help.Config", resourceCulture);
+                return ResourceManager.GetString("HelpConfig", resourceCulture);
             }
         }
         
@@ -762,45 +671,45 @@ namespace AlterTools.BatchExport.Resources {
         ///1. All files will be placed in one folder.
         ///2. Files will be placed in the appropriate folders, i.e., the path will be updated according to the mask..
         /// </summary>
-        public static string Help_DetachMid {
+        public static string HelpDetachMid {
             get {
-                return ResourceManager.GetString("Help.DetachMid", resourceCulture);
+                return ResourceManager.GetString("HelpDetachMid", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to 	The plugin is designed for batch export of detached models..
         /// </summary>
-        public static string Help_DetachTitle {
+        public static string HelpDetachTitle {
             get {
-                return ResourceManager.GetString("Help.DetachTitle", resourceCulture);
+                return ResourceManager.GetString("HelpDetachTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to 	Next, specify the folder for saving. You can enter the path manually or select a folder using the “Browse” button..
         /// </summary>
-        public static string Help_Folder {
+        public static string HelpFolder {
             get {
-                return ResourceManager.GetString("Help.Folder", resourceCulture);
+                return ResourceManager.GetString("HelpFolder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to 	The plugin is designed for batch export of files to IFC format..
         /// </summary>
-        public static string Help_IFCTitle {
+        public static string HelpIFCTitle {
             get {
-                return ResourceManager.GetString("Help.IFCTitle", resourceCulture);
+                return ResourceManager.GetString("HelpIFCTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to 	The plugin is designed for batch adding models as Revit links..
         /// </summary>
-        public static string Help_LinkTitle {
+        public static string HelpLinkTitle {
             get {
-                return ResourceManager.GetString("Help.LinkTitle", resourceCulture);
+                return ResourceManager.GetString("HelpLinkTitle", resourceCulture);
             }
         }
         
@@ -808,18 +717,18 @@ namespace AlterTools.BatchExport.Resources {
         ///   Looks up a localized string similar to 	Save the list by clicking the “Save list” button in (.txt) format.
         ///	This list can then be used for re-exporting by clicking the “Load list” button..
         /// </summary>
-        public static string Help_List {
+        public static string HelpList {
             get {
-                return ResourceManager.GetString("Help.List", resourceCulture);
+                return ResourceManager.GetString("HelpList", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to 	If you are using the plugin for the first time and do not have any previously saved lists, you need to do the following: use the “Load” button to add all the object models that need to be exported. If you accidentally added extra files, select them and click the “Delete” button..
         /// </summary>
-        public static string Help_Load {
+        public static string HelpLoad {
             get {
-                return ResourceManager.GetString("Help.Load", resourceCulture);
+                return ResourceManager.GetString("HelpLoad", resourceCulture);
             }
         }
         
@@ -830,9 +739,9 @@ namespace AlterTools.BatchExport.Resources {
         ///    Example:
         ///    { “C:\oldfile.rvt”: “C:\newfile.rvt”,}.
         /// </summary>
-        public static string Help_Migrate {
+        public static string HelpMigrate {
             get {
-                return ResourceManager.GetString("Help.Migrate", resourceCulture);
+                return ResourceManager.GetString("HelpMigrate", resourceCulture);
             }
         }
         
@@ -840,9 +749,9 @@ namespace AlterTools.BatchExport.Resources {
         ///   Looks up a localized string similar to 	Set the prefix and postfix that you want to add to the file names. If you don&apos;t need to do this, just leave the fields blank.
         ///	Select the export properties you need. The default settings are the ones that are used most often..
         /// </summary>
-        public static string Help_Naming {
+        public static string HelpNaming {
             get {
-                return ResourceManager.GetString("Help.Naming", resourceCulture);
+                return ResourceManager.GetString("HelpNaming", resourceCulture);
             }
         }
         
@@ -858,18 +767,18 @@ namespace AlterTools.BatchExport.Resources {
         ///
         ///	Use the “Begin” button to start the second-level batch export, which exports several objects with their corresponding settings..
         /// </summary>
-        public static string Help_NWCEnd {
+        public static string HelpNWCEnd {
             get {
-                return ResourceManager.GetString("Help.NWCEnd", resourceCulture);
+                return ResourceManager.GetString("HelpNWCEnd", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to 	The plugin is designed for batch exporting files to NWC format..
         /// </summary>
-        public static string Help_NWCTitle {
+        public static string HelpNWCTitle {
             get {
-                return ResourceManager.GetString("Help.NWCTitle", resourceCulture);
+                return ResourceManager.GetString("HelpNWCTitle", resourceCulture);
             }
         }
         
@@ -877,36 +786,36 @@ namespace AlterTools.BatchExport.Resources {
         ///   Looks up a localized string similar to 	The plugin is designed for batch export of parameters from the model to a .csv file.
         ///	Specify the names of the parameters to be exported, separated by semicolon (;) in the corresponding field..
         /// </summary>
-        public static string Help_ParamsTitle {
+        public static string HelpParamsTitle {
             get {
-                return ResourceManager.GetString("Help.ParamsTitle", resourceCulture);
+                return ResourceManager.GetString("HelpParamsTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to 	Start the export by clicking the “Start” button..
         /// </summary>
-        public static string Help_Start {
+        public static string HelpStart {
             get {
-                return ResourceManager.GetString("Help.Start", resourceCulture);
+                return ResourceManager.GetString("HelpStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plugin usage help.
+        /// </summary>
+        public static string HelpToolTip {
+            get {
+                return ResourceManager.GetString("HelpToolTip", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to 	The plugin is designed for batch transfer of models and implements similar functionality to the “eTransmit” plugin..
         /// </summary>
-        public static string Help_TransmitTitle {
+        public static string HelpTransmitTitle {
             get {
-                return ResourceManager.GetString("Help.TransmitTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Export base quantities.
-        /// </summary>
-        public static string IFC_BaseQuantities {
-            get {
-                return ResourceManager.GetString("IFC.BaseQuantities", resourceCulture);
+                return ResourceManager.GetString("HelpTransmitTitle", resourceCulture);
             }
         }
         
@@ -914,479 +823,732 @@ namespace AlterTools.BatchExport.Resources {
         ///   Looks up a localized string similar to Split Walls, Columns,
         ///Ducts by Level.
         /// </summary>
-        public static string IFC_CheckBox_Splitting {
+        public static string IFCCheckBoxSplitting {
             get {
-                return ResourceManager.GetString("IFC.CheckBox.Splitting", resourceCulture);
+                return ResourceManager.GetString("IFCCheckBoxSplitting", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Export parameter mapping table.
         /// </summary>
-        public static string IFC_MappingTable {
+        public static string IFCMappingTable {
             get {
-                return ResourceManager.GetString("IFC.MappingTable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Space boundaries.
-        /// </summary>
-        public static string IFC_SpaceBoundaries {
-            get {
-                return ResourceManager.GetString("IFC.SpaceBoundaries", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to None.
-        /// </summary>
-        public static string IFC_SpaceBoundaryLevels0 {
-            get {
-                return ResourceManager.GetString("IFC.SpaceBoundaryLevels0", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 1st Level.
-        /// </summary>
-        public static string IFC_SpaceBoundaryLevels1 {
-            get {
-                return ResourceManager.GetString("IFC.SpaceBoundaryLevels1", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 2nd Level.
-        /// </summary>
-        public static string IFC_SpaceBoundaryLevels2 {
-            get {
-                return ResourceManager.GetString("IFC.SpaceBoundaryLevels2", resourceCulture);
+                return ResourceManager.GetString("IFCMappingTable", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to IFC batch export.
         /// </summary>
-        public static string IFC_Title {
+        public static string IFCTitle {
             get {
-                return ResourceManager.GetString("IFC.Title", resourceCulture);
+                return ResourceManager.GetString("IFCTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to IFC version.
         /// </summary>
-        public static string IFC_Version {
+        public static string IFCVersion {
             get {
-                return ResourceManager.GetString("IFC.Version", resourceCulture);
+                return ResourceManager.GetString("IFCVersion", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add to the current Workset.
+        ///   Looks up a localized string similar to Ignore missing view
+        ///and export whole project.
         /// </summary>
-        public static string Link_CurrentWorkset {
+        public static string IgnoreMissingView {
             get {
-                return ResourceManager.GetString("Link.CurrentWorkset", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to List of RVT files to link.
-        /// </summary>
-        public static string Link_Header {
-            get {
-                return ResourceManager.GetString("Link.Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pin Links.
-        /// </summary>
-        public static string Link_Pin {
-            get {
-                return ResourceManager.GetString("Link.Pin", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Batch link models.
-        /// </summary>
-        public static string Link_Title {
-            get {
-                return ResourceManager.GetString("Link.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load config.
-        /// </summary>
-        public static string Migrate_Button_LoadConfig {
-            get {
-                return ResourceManager.GetString("Migrate.Button.LoadConfig", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to These files weren&apos;t copied:.
-        /// </summary>
-        public static string Migrate_DidntCopy {
-            get {
-                return ResourceManager.GetString("Migrate.DidntCopy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Provide path to the configuration!.
-        /// </summary>
-        public static string Migrate_NoConfig {
-            get {
-                return ResourceManager.GetString("Migrate.NoConfig", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Batch migrate models.
-        /// </summary>
-        public static string Migrate_Title {
-            get {
-                return ResourceManager.GetString("Migrate.Title", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add configs!.
-        /// </summary>
-        public static string NWC_AddConfigs {
-            get {
-                return ResourceManager.GetString("NWC.AddConfigs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to All.
-        /// </summary>
-        public static string NWC_All {
-            get {
-                return ResourceManager.GetString("NWC.All", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Begin.
-        /// </summary>
-        public static string NWC_Button_Begin {
-            get {
-                return ResourceManager.GetString("NWC.Button.Begin", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Begin export of multiple configurations.
-        /// </summary>
-        public static string NWC_Button_Begin_ToolTip {
-            get {
-                return ResourceManager.GetString("NWC.Button.Begin.ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load configs.
-        /// </summary>
-        public static string NWC_Button_LoadConfigs {
-            get {
-                return ResourceManager.GetString("NWC.Button.LoadConfigs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load list with configuration files in (.txt) format.
-        /// </summary>
-        public static string NWC_Button_LoadConfigs_ToolTip {
-            get {
-                return ResourceManager.GetString("NWC.Button.LoadConfigs.ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Convert element parameters.
-        /// </summary>
-        public static string NWC_ConvertElementParams {
-            get {
-                return ResourceManager.GetString("NWC.ConvertElementParams", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Convert element properties.
-        /// </summary>
-        public static string NWC_ConvertElementProperties {
-            get {
-                return ResourceManager.GetString("NWC.ConvertElementProperties", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Convert lights.
-        /// </summary>
-        public static string NWC_ConvertLights {
-            get {
-                return ResourceManager.GetString("NWC.ConvertLights", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Coordinates.
-        /// </summary>
-        public static string NWC_Coordinates {
-            get {
-                return ResourceManager.GetString("NWC.Coordinates", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Divide File into Levels.
-        /// </summary>
-        public static string NWC_DivideFile {
-            get {
-                return ResourceManager.GetString("NWC.DivideFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Elements.
-        /// </summary>
-        public static string NWC_Elements {
-            get {
-                return ResourceManager.GetString("NWC.Elements", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Convert linked 
-        ///CAD formats.
-        /// </summary>
-        public static string NWC_ExportCAD {
-            get {
-                return ResourceManager.GetString("NWC.ExportCAD", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Export element Ids.
-        /// </summary>
-        public static string NWC_ExportElementIds {
-            get {
-                return ResourceManager.GetString("NWC.ExportElementIds", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Convert linked files.
-        /// </summary>
-        public static string NWC_ExportLinks {
-            get {
-                return ResourceManager.GetString("NWC.ExportLinks", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Convert construction parts.
-        /// </summary>
-        public static string NWC_ExportParts {
-            get {
-                return ResourceManager.GetString("NWC.ExportParts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Convert room as attribute.
-        /// </summary>
-        public static string NWC_ExportRoomAsAttr {
-            get {
-                return ResourceManager.GetString("NWC.ExportRoomAsAttr", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Export room geometry.
-        /// </summary>
-        public static string NWC_ExportRoomGeometry {
-            get {
-                return ResourceManager.GetString("NWC.ExportRoomGeometry", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Convert URLs.
-        /// </summary>
-        public static string NWC_ExportURLs {
-            get {
-                return ResourceManager.GetString("NWC.ExportURLs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Faceting Factor.
-        /// </summary>
-        public static string NWC_Faceting {
-            get {
-                return ResourceManager.GetString("NWC.Faceting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Try and find 
-        ///missing material.
-        /// </summary>
-        public static string NWC_FindMissingMaterials {
-            get {
-                return ResourceManager.GetString("NWC.FindMissingMaterials", resourceCulture);
+                return ResourceManager.GetString("IgnoreMissingView", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Project Internal.
         /// </summary>
-        public static string NWC_Internal {
+        public static string Internal {
             get {
-                return ResourceManager.GetString("NWC.Internal", resourceCulture);
+                return ResourceManager.GetString("Internal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Link.
+        /// </summary>
+        public static string Link {
+            get {
+                return ResourceManager.GetString("Link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add to the current Workset.
+        /// </summary>
+        public static string LinkCurrentWorkset {
+            get {
+                return ResourceManager.GetString("LinkCurrentWorkset", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to List of RVT files to link.
+        /// </summary>
+        public static string LinkHeader {
+            get {
+                return ResourceManager.GetString("LinkHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch link models.
+        /// </summary>
+        public static string LinkTitle {
+            get {
+                return ResourceManager.GetString("LinkTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Files list in (.rvt) format.
+        /// </summary>
+        public static string ListBoxToolTip {
+            get {
+                return ResourceManager.GetString("ListBoxToolTip", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to LIst of JSON configs.
         /// </summary>
-        public static string NWC_ListConfigs {
+        public static string ListConfigs {
             get {
-                return ResourceManager.GetString("NWC.ListConfigs", resourceCulture);
+                return ResourceManager.GetString("ListConfigs", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to List of configuration files.
         /// </summary>
-        public static string NWC_ListConfigs_ToolTip {
+        public static string ListConfigsToolTip {
             get {
-                return ResourceManager.GetString("NWC.ListConfigs.ToolTip", resourceCulture);
+                return ResourceManager.GetString("ListConfigsToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load.
+        /// </summary>
+        public static string Load {
+            get {
+                return ResourceManager.GetString("Load", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load config.
+        /// </summary>
+        public static string LoadConfig {
+            get {
+                return ResourceManager.GetString("LoadConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load configs.
+        /// </summary>
+        public static string LoadConfigs {
+            get {
+                return ResourceManager.GetString("LoadConfigs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load list with configuration files in (.txt) format.
+        /// </summary>
+        public static string LoadConfigsToolTip {
+            get {
+                return ResourceManager.GetString("LoadConfigsToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load list.
+        /// </summary>
+        public static string LoadList {
+            get {
+                return ResourceManager.GetString("LoadList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load previously saved configuration file in (.json) format.
+        /// </summary>
+        public static string LoadListToolTip {
+            get {
+                return ResourceManager.GetString("LoadListToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load previously saved file list in (.txt) format.
+        /// </summary>
+        public static string LoadListTxtToolTip {
+            get {
+                return ResourceManager.GetString("LoadListTxtToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load (.rvt) files.
+        /// </summary>
+        public static string LoadToolTip {
+            get {
+                return ResourceManager.GetString("LoadToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mask.
+        /// </summary>
+        public static string Mask {
+            get {
+                return ResourceManager.GetString("Mask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 05_WIP.
+        /// </summary>
+        public static string MaskIn {
+            get {
+                return ResourceManager.GetString("MaskIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 06_Common.
+        /// </summary>
+        public static string MaskOut {
+            get {
+                return ResourceManager.GetString("MaskOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to These files weren&apos;t copied:.
+        /// </summary>
+        public static string MigrateDidntCopy {
+            get {
+                return ResourceManager.GetString("MigrateDidntCopy", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide path to the configuration!.
+        /// </summary>
+        public static string MigrateNoConfig {
+            get {
+                return ResourceManager.GetString("MigrateNoConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Batch migrate models.
+        /// </summary>
+        public static string MigrateTitle {
+            get {
+                return ResourceManager.GetString("MigrateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify the valid path to the output file!.
+        /// </summary>
+        public static string NoCsv {
+            get {
+                return ResourceManager.GetString("NoCsv", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add at least one file for export!.
+        /// </summary>
+        public static string NoFiles {
+            get {
+                return ResourceManager.GetString("NoFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Couldn&apos;t find correct info in the text file.
+        /// </summary>
+        public static string NoFilesVMBase {
+            get {
+                return ResourceManager.GetString("NoFilesVMBase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify the folder for export!.
+        /// </summary>
+        public static string NoFolder {
+            get {
+                return ResourceManager.GetString("NoFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter a mask for renaming files!.
+        /// </summary>
+        public static string NoMaskFile {
+            get {
+                return ResourceManager.GetString("NoMaskFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify the path replacement mask!.
+        /// </summary>
+        public static string NoMaskPath {
+            get {
+                return ResourceManager.GetString("NoMaskPath", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to None.
         /// </summary>
-        public static string NWC_None {
+        public static string None {
             get {
-                return ResourceManager.GetString("NWC.None", resourceCulture);
+                return ResourceManager.GetString("None", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Shared.
+        ///   Looks up a localized string similar to Specify at least one parameter for export!.
         /// </summary>
-        public static string NWC_Shared {
+        public static string NoParameters {
             get {
-                return ResourceManager.GetString("NWC.Shared", resourceCulture);
+                return ResourceManager.GetString("NoParameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the Path mode!.
+        /// </summary>
+        public static string NoPathMode {
+            get {
+                return ResourceManager.GetString("NoPathMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The document doesn&apos;t have any transmission data.
+        /// </summary>
+        public static string NoTransDataAlert {
+            get {
+                return ResourceManager.GetString("NoTransDataAlert", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter View name.
+        /// </summary>
+        public static string NoViewName {
+            get {
+                return ResourceManager.GetString("NoViewName", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Batch export NWC.
         /// </summary>
-        public static string NWC_Title {
+        public static string NWCTitle {
             get {
-                return ResourceManager.GetString("NWC.Title", resourceCulture);
+                return ResourceManager.GetString("NWCTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Parameters to export.
+        ///   Looks up a localized string similar to Open Worksets.
         /// </summary>
-        public static string Params_ExportParams {
+        public static string OpenWorksets {
             get {
-                return ResourceManager.GetString("Params.ExportParams", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Specify the names of the parameters to be exported using a semicolon (;)..
-        /// </summary>
-        public static string Params_ExportParams_ToolTip {
-            get {
-                return ResourceManager.GetString("Params.ExportParams.ToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Family and Type.
-        /// </summary>
-        public static string Params_FamilyAndType {
-            get {
-                return ResourceManager.GetString("Params.FamilyAndType", resourceCulture);
+                return ResourceManager.GetString("OpenWorksets", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to LIst of RVT files to process.
         /// </summary>
-        public static string Params_Header {
+        public static string ParamsHeader {
             get {
-                return ResourceManager.GetString("Params.Header", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Path to resulting file.
-        /// </summary>
-        public static string Params_ResultFile {
-            get {
-                return ResourceManager.GetString("Params.ResultFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Define path to the resulting file in (.csv) format.
-        /// </summary>
-        public static string Params_ResultFile_ToolTip {
-            get {
-                return ResourceManager.GetString("Params.ResultFile.ToolTip", resourceCulture);
+                return ResourceManager.GetString("ParamsHeader", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Batch export parameters.
         /// </summary>
-        public static string Params_Title {
+        public static string ParamsTitle {
             get {
-                return ResourceManager.GetString("Params.Title", resourceCulture);
+                return ResourceManager.GetString("ParamsTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Put everything in single folder.
+        ///   Looks up a localized string similar to Parameters to export.
         /// </summary>
-        public static string Transmit_SameFolder {
+        public static string ParamsToExport {
             get {
-                return ResourceManager.GetString("Transmit.SameFolder", resourceCulture);
+                return ResourceManager.GetString("ParamsToExport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify the names of the parameters to be exported using a semicolon (;)..
+        /// </summary>
+        public static string ParamsToExportToolTip {
+            get {
+                return ResourceManager.GetString("ParamsToExportToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Path to resulting file.
+        /// </summary>
+        public static string PathToResultingFile {
+            get {
+                return ResourceManager.GetString("PathToResultingFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Define path to the resulting file in (.csv) format.
+        /// </summary>
+        public static string PathToResultingFileToolTip {
+            get {
+                return ResourceManager.GetString("PathToResultingFileToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pin Links.
+        /// </summary>
+        public static string PinLinks {
+            get {
+                return ResourceManager.GetString("PinLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postfix.
+        /// </summary>
+        public static string Postfix {
+            get {
+                return ResourceManager.GetString("Postfix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postfix to be added to the end of a file name.
+        /// </summary>
+        public static string PostfixToolTip {
+            get {
+                return ResourceManager.GetString("PostfixToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prefix.
+        /// </summary>
+        public static string Prefix {
+            get {
+                return ResourceManager.GetString("Prefix", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prefix to be added to the start of a file name.
+        /// </summary>
+        public static string PrefixToolTip {
+            get {
+                return ResourceManager.GetString("PrefixToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Purge models.
+        /// </summary>
+        public static string PurgeModels {
+            get {
+                return ResourceManager.GetString("PurgeModels", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Implements the functionality of the &quot;Purge unused&quot; command until complete cleanup (several times).
+        /// </summary>
+        public static string PurgeModelsToolTip {
+            get {
+                return ResourceManager.GetString("PurgeModelsToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Purge unused.
+        /// </summary>
+        public static string PurgeUnused {
+            get {
+                return ResourceManager.GetString("PurgeUnused", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Put everything 
+        ///in single folder.
+        /// </summary>
+        public static string PutEverythingInSingleFolder {
+            get {
+                return ResourceManager.GetString("PutEverythingInSingleFolder", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Put all models into single directory or preserve folder structure.
         /// </summary>
-        public static string Transmit_SameFolder_ToolTip {
+        public static string PutEverythingInSingleFolderToolTip {
             get {
-                return ResourceManager.GetString("Transmit.SameFolder.ToolTip", resourceCulture);
+                return ResourceManager.GetString("PutEverythingInSingleFolderToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all Links.
+        /// </summary>
+        public static string RemoveAllLinks {
+            get {
+                return ResourceManager.GetString("RemoveAllLinks", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove empty Worksets.
+        /// </summary>
+        public static string RemoveEmptyWorksets {
+            get {
+                return ResourceManager.GetString("RemoveEmptyWorksets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Rename files.
+        /// </summary>
+        public static string RenameFiles {
+            get {
+                return ResourceManager.GetString("RenameFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save list.
+        /// </summary>
+        public static string SaveList {
+            get {
+                return ResourceManager.GetString("SaveList", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save configuration file in (.json) format.
+        /// </summary>
+        public static string SaveListToolTip {
+            get {
+                return ResourceManager.GetString("SaveListToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save list in (.txt) format.
+        /// </summary>
+        public static string SaveListTxtToolTip {
+            get {
+                return ResourceManager.GetString("SaveListTxtToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save to folder.
+        /// </summary>
+        public static string SaveToFolder {
+            get {
+                return ResourceManager.GetString("SaveToFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 2nd Level.
+        /// </summary>
+        public static string SecondLevel {
+            get {
+                return ResourceManager.GetString("SecondLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Shared.
+        /// </summary>
+        public static string Shared {
+            get {
+                return ResourceManager.GetString("Shared", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Space boundaries.
+        /// </summary>
+        public static string SpaceBoundaries {
+            get {
+                return ResourceManager.GetString("SpaceBoundaries", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start.
+        /// </summary>
+        public static string Start {
+            get {
+                return ResourceManager.GetString("Start", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start batch export of current configuration.
+        /// </summary>
+        public static string StartToolTip {
+            get {
+                return ResourceManager.GetString("StartToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Task completed..
+        /// </summary>
+        public static string TaskCompleted {
+            get {
+                return ResourceManager.GetString("TaskCompleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There where.
+        /// </summary>
+        public static string ThereWhere {
+            get {
+                return ResourceManager.GetString("ThereWhere", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To.
+        /// </summary>
+        public static string To {
+            get {
+                return ResourceManager.GetString("To", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Well, the call is yours..
+        /// </summary>
+        public static string ToHell {
+            get {
+                return ResourceManager.GetString("ToHell", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total time:.
+        /// </summary>
+        public static string TotalTime {
+            get {
+                return ResourceManager.GetString("TotalTime", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Batch export of transmitted models.
         /// </summary>
-        public static string Transmit_Title {
+        public static string TransmitTitle {
             get {
-                return ResourceManager.GetString("Transmit.Title", resourceCulture);
+                return ResourceManager.GetString("TransmitTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Don&apos;t create log file.
+        /// </summary>
+        public static string TurnOffLog {
+            get {
+                return ResourceManager.GetString("TurnOffLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name of the view to check.
+        /// </summary>
+        public static string ViewNameToCheck {
+            get {
+                return ResourceManager.GetString("ViewNameToCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Prefixes of Worksets to be closed.
+        /// </summary>
+        public static string WorksetPrefixes {
+            get {
+                return ResourceManager.GetString("WorksetPrefixes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify the Prefixes of all Worksets that need to be closed when opening the file, separated by semicolons (;). 
+        ///Worksets with Links are usually closed to speed up the opening of models..
+        /// </summary>
+        public static string WorksetPrefixesToolTip {
+            get {
+                return ResourceManager.GetString("WorksetPrefixesToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Specify valid folder for export!.
+        /// </summary>
+        public static string WrongFolder {
+            get {
+                return ResourceManager.GetString("WrongFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Inconsistency between the input mask and file names!.
+        /// </summary>
+        public static string WrongMask {
+            get {
+                return ResourceManager.GetString("WrongMask", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong file scheme.
+        /// </summary>
+        public static string WrongScheme {
+            get {
+                return ResourceManager.GetString("WrongScheme", resourceCulture);
             }
         }
     }

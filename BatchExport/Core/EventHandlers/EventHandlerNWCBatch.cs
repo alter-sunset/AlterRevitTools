@@ -1,14 +1,10 @@
-﻿using System;
-using System.IO;
-using System.Threading;
-using System.Windows;
-using AlterTools.BatchExport.Resources;
+﻿using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Utils.Logger;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.NWC;
-using Autodesk.Revit.UI;
 using Newtonsoft.Json;
+using MessageBox = System.Windows.MessageBox;
 
 namespace AlterTools.BatchExport.Core.EventHandlers;
 
@@ -20,7 +16,7 @@ public class EventHandlerNWCBatch : EventHandlerBase
 
         if (nwcVm.Configs.Count == 0)
         {
-            MessageBox.Show(Strings.NWC_AddConfigs);
+            MessageBox.Show(Strings.AddConfigs);
             return;
         }
 
@@ -34,7 +30,7 @@ public class EventHandlerNWCBatch : EventHandlerBase
 
                 NWCForm form = JsonConvert.DeserializeObject<NWCForm>(new StreamReader(file).ReadToEnd());
 
-                nwcVm.NWCFormDeserilaizer(form);
+                nwcVm.NWCFormDeserializer(form);
             }
             catch
             {
@@ -51,8 +47,8 @@ public class EventHandlerNWCBatch : EventHandlerBase
             Thread.Sleep(1000);
         }
 
-        string msg = $"{Strings.Const_TaskCompleted}" +
-                     $"\n{Strings.Const_TotalTime}{DateTime.Now - timeStart}";
+        string msg = $"{Strings.TaskCompleted}" +
+                     $"\n{Strings.TotalTime}{DateTime.Now - timeStart}";
 
         nwcVm.Finisher("ExportBatchNWCFinished", msg);
     }

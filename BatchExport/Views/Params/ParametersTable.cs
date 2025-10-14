@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace AlterTools.BatchExport.Views.Params;
+﻿namespace AlterTools.BatchExport.Views.Params;
 
 public class ParametersTable
 {

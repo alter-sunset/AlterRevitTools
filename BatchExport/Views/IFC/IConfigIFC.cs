@@ -1,5 +1,4 @@
 ﻿using AlterTools.BatchExport.Views.Base;
-using Autodesk.Revit.DB;
 
 namespace AlterTools.BatchExport.Views.IFC;
 

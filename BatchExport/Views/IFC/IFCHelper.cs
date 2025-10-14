@@ -1,8 +1,6 @@
-﻿using System.Linq;
-using AlterTools.BatchExport.Utils;
+﻿using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Utils.Logger;
 using AlterTools.BatchExport.Views.Base;
-using Autodesk.Revit.DB;
 
 namespace AlterTools.BatchExport.Views.IFC;
 
@@ -17,7 +15,7 @@ public class IFCHelper : ExportHelperBase
         IFCExportOptions options = IFC_ExportOptions(configIFC, doc);
 
         using Transaction tr = new(doc);
-        tr.Start(Resources.Strings.IFC_Title);
+        tr.Start(Resources.Strings.IFCTitle);
 
         Export(iConfig, doc, options, ref log, ref isFuckedUp);
 

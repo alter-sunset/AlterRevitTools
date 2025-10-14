@@ -1,8 +1,4 @@
-﻿using System;
-using System.IO;
-using System.Linq;
-using System.Windows.Forms;
-using AlterTools.BatchExport.Core.EventHandlers;
+﻿using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
@@ -11,7 +7,7 @@ namespace AlterTools.BatchExport.Views.Params;
 
 public class ParamsViewModel : ViewModelBase, IConfigParams
 {
-    private static string DefaultParams => Strings.Const_DefaultParams;
+    private static string DefaultParams => Strings.DefaultParams;
 
     private RelayCommand _browseCsvCommand;
 
@@ -23,20 +19,22 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
     {
         EventHandlerBase = eventHandlerParams;
         HelpMessage = string.Join(Environment.NewLine,
-            Strings.Help_ParamsTitle,
-            Strings.Help_Load,
-            Strings.Help_Config,
-            Strings.Help_Start);
+            Strings.HelpParamsTitle,
+            Strings.HelpLoad,
+            Strings.HelpConfig,
+            Strings.HelpStart);
 
         ParamsNames = DefaultParams;
     }
 
+    [UsedImplicitly]
     public string ParamsNames
     {
         get => _paramsNames;
         set => SetProperty(ref _paramsNames, value);
     }
 
+    [UsedImplicitly]
     public RelayCommand BrowseCsvCommand => _browseCsvCommand ??= new RelayCommand(_ => BrowseCsv());
 
     public string[] ParametersNames => _paramsNames.SplitBySemicolon();
@@ -64,10 +62,10 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
 
         using FileStream file = File.OpenRead(openFileDialog.FileName);
 
-        ParamsFormDeserilaizer(JsonHelper<ParamsForm>.DeserializeConfig(file));
+        ParamsFormDeserializer(JsonHelper<ParamsForm>.DeserializeConfig(file));
     }
 
-    private void ParamsFormDeserilaizer(ParamsForm form)
+    private void ParamsFormDeserializer(ParamsForm form)
     {
         if (form is null) return;
 
@@ -95,7 +93,7 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
         {
             CsvPath = CsvPath,
             ParametersNames = ParametersNames,
-            Files = [.. ListBoxItems.Select(item => item.Content.ToString() ?? string.Empty)]
+            Files = [.. ListBoxItems.Select(item => item.Content.ToString())]
         };
     }
 
