@@ -228,7 +228,7 @@ public class ExportHelperBase
 
         if (iConfig.IgnoreMissingView)
         {
-            log.Info($"View {iConfig.ViewName} doesn't exist. The export gonna be processed by whole model.");
+            log.Info($"View {iConfig.ViewName} doesn't exist. The export gonna be processed by entire model.");
             return true;
         }
 
