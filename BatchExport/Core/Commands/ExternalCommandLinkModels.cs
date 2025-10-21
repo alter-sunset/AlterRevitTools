@@ -9,7 +9,7 @@ namespace AlterTools.BatchExport.Core.Commands;
 [Transaction(TransactionMode.Manual)]
 public class ExternalCommandLinkModels : ExternalCommandBase
 {
-    internal override Func<Window> WindowFactory { get; } = () =>
+    protected override Func<Window> WindowFactory { get; } = () =>
         new LinkModelsView(new EventHandlerLink(), GetWorksets(CommandData.Application));
     
     private static Workset[] GetWorksets(UIApplication uiApp)

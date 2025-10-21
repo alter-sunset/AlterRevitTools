@@ -9,6 +9,6 @@ namespace AlterTools.BatchExport.Core.Commands;
 [Transaction(TransactionMode.Manual)]
 public class ExternalCommandExportModelsToNWC : ExternalCommandBase
 {
-    internal override Func<Window> WindowFactory { get; } =
+    protected override Func<Window> WindowFactory { get; } =
         () => new NWCExportView(new EventHandlerNWC(), new EventHandlerNWCBatch());
 }

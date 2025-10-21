@@ -9,5 +9,5 @@ namespace AlterTools.BatchExport.Core.Commands;
 [Transaction(TransactionMode.Manual)]
 public class ExternalCommandExportModelsTransmitted : ExternalCommandBase
 {
-    internal override Func<Window> WindowFactory { get; } = () => new TransmitModelsView(new EventHandlerTransmit());
+    protected override Func<Window> WindowFactory { get; } = () => new TransmitModelsView(new EventHandlerTransmit());
 }
