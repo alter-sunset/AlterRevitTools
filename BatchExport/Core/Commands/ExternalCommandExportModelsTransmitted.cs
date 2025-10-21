@@ -6,7 +6,7 @@ using Autodesk.Revit.Attributes;
 namespace AlterTools.BatchExport.Core.Commands;
 
 [UsedImplicitly]
-[Transaction(TransactionMode.Manual)]
+[Transaction(TransactionMode.ReadOnly)]
 public class ExternalCommandExportModelsTransmitted : ExternalCommandBase
 {
     protected override Func<Window> WindowFactory { get; } = () => new TransmitModelsView(new EventHandlerTransmit());

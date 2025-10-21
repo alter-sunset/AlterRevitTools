@@ -6,7 +6,7 @@ using Autodesk.Revit.Attributes;
 namespace AlterTools.BatchExport.Core.Commands;
 
 [UsedImplicitly]
-[Transaction(TransactionMode.Manual)]
+[Transaction(TransactionMode.ReadOnly)]
 public class ExternalCommandExportModelsToNWC : ExternalCommandBase
 {
     protected override Func<Window> WindowFactory { get; } =
