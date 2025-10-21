@@ -99,7 +99,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
         }
     }
 
-    protected override void LoadList()
+    private protected override void LoadList()
     {
         OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
 
@@ -134,7 +134,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
         TurnOffLog = form.TurnOffLog;
     }
 
-    protected override void SaveList()
+    private protected override void SaveList()
     {
         using IFCForm form = IFCFormSerializer();
 

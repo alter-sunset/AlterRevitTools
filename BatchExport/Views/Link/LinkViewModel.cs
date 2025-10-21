@@ -90,7 +90,7 @@ public class LinkViewModel : ViewModelBase
         }
     }
 
-    protected override void LoadList()
+    private protected override void LoadList()
     {
         using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
 
@@ -108,7 +108,7 @@ public class LinkViewModel : ViewModelBase
         FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
     }
 
-    protected override void Load()
+    private protected override void Load()
     {
         using OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
 
@@ -123,7 +123,7 @@ public class LinkViewModel : ViewModelBase
             .ForEach(Entries.Add);
     }
 
-    protected override void SaveList()
+    private protected override void SaveList()
     {
         SaveFileDialog saveFileDialog = DialogType.RevitList.SaveFileDialog();
 
@@ -136,12 +136,12 @@ public class LinkViewModel : ViewModelBase
         FolderPath = Path.GetDirectoryName(saveFileDialog.FileName);
     }
 
-    protected override void DeleteSelectedItems()
+    private protected override void DeleteSelectedItems()
     {
         Entries.Where(entry => entry.IsSelected)
             .ToList()
             .ForEach(entry => Entries.Remove(entry));
     }
 
-    protected override void Erase() => Entries.Clear();
+    private protected override void Erase() => Entries.Clear();
 }

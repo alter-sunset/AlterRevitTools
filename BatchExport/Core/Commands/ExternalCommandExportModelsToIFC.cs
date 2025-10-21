@@ -9,5 +9,6 @@ namespace AlterTools.BatchExport.Core.Commands;
 [Transaction(TransactionMode.Manual)]
 public class ExternalCommandExportModelsToIFC : ExternalCommandBase
 {
-    protected override Func<Window> WindowFactory { get; } = () => new IFCExportView(new EventHandlerIFC());
+    private protected override Func<Window> WindowFactory { get; } = () =>
+        new IFCExportView(new EventHandlerIFC());
 }

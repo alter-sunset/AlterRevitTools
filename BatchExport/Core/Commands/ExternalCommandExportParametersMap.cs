@@ -9,5 +9,6 @@ namespace AlterTools.BatchExport.Core.Commands;
 [Transaction(TransactionMode.ReadOnly)]
 public class ExternalCommandExportParametersMap : ExternalCommandBase
 {
-    protected override Func<Window> WindowFactory { get; } = () => new ExportParamsView(new EventHandlerParams());
+    private protected override Func<Window> WindowFactory { get; } = () =>
+        new ExportParamsView(new EventHandlerParams());
 }

@@ -5,8 +5,8 @@ namespace AlterTools.BatchExport.Core.Commands;
 
 public abstract class ExternalCommandBase : IExternalCommand
 {
-    protected virtual Func<Window> WindowFactory => null;
-    internal static ExternalCommandData CommandData;
+    private protected virtual Func<Window> WindowFactory => null;
+    private protected static ExternalCommandData CommandData;
     
     public Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements)
     {

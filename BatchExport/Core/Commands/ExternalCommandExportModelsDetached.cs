@@ -9,5 +9,6 @@ namespace AlterTools.BatchExport.Core.Commands;
 [Transaction(TransactionMode.Manual)]
 public class ExternalCommandExportModelsDetached : ExternalCommandBase
 {
-    protected override Func<Window> WindowFactory { get; } = () => new DetachModelsView(new EventHandlerDetach());
+    private protected override Func<Window> WindowFactory { get; } = () =>
+        new DetachModelsView(new EventHandlerDetach());
 }

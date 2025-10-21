@@ -9,5 +9,6 @@ namespace AlterTools.BatchExport.Core.Commands;
 [Transaction(TransactionMode.Manual)]
 public class ExternalCommandMigrateModels : ExternalCommandBase
 {
-    protected override Func<Window> WindowFactory { get; } = () => new MigrateModelsView(new EventHandlerMigrate());
+    private protected override Func<Window> WindowFactory { get; } = () =>
+        new MigrateModelsView(new EventHandlerMigrate());
 }

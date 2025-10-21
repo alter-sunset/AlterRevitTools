@@ -54,7 +54,7 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
         CsvPath = saveFileDialog.FileName;
     }
 
-    protected override void LoadList()
+    private protected override void LoadList()
     {
         OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
 
@@ -74,7 +74,7 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
         ListBoxItems = [.. form.Files.FilterRevitFiles().Select(DefaultListBoxItem)];
     }
 
-    protected override void SaveList()
+    private protected override void SaveList()
     {
         ParamsForm form = ParamsFormSerializer();
         SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
@@ -97,7 +97,7 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
         };
     }
 
-    protected override void Erase()
+    private protected override void Erase()
     {
         ListBoxItems.Clear();
         ParamsNames = DefaultParams;

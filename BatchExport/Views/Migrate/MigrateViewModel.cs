@@ -20,7 +20,7 @@ public class MigrateViewModel : ViewModelBase
         set => SetProperty(ref _configPath, value);
     }
 
-    protected override void LoadList()
+    private protected override void LoadList()
     {
         OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
         if (openFileDialog.ShowDialog() is DialogResult.OK)
