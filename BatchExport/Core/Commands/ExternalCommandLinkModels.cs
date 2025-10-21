@@ -1,4 +1,5 @@
-﻿using AlterTools.BatchExport.Core.EventHandlers;
+﻿using System.Windows;
+using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Views.Link;
 using Autodesk.Revit.Attributes;
 
@@ -6,13 +7,10 @@ namespace AlterTools.BatchExport.Core.Commands;
 
 [UsedImplicitly]
 [Transaction(TransactionMode.Manual)]
-public class ExternalCommandLinkModels : IExternalCommand
+public class ExternalCommandLinkModels : ExternalCommandBase
 {
-    public virtual Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements)
-    {
-        return CommandWrapper.Execute(ref msg,
-            () => new LinkModelsView(new EventHandlerLink(), GetWorksets(commandData.Application)));
-    }
+    internal override Func<Window> WindowFactory { get; } = () =>
+        new LinkModelsView(new EventHandlerLink(), GetWorksets(CommandData.Application));
     
     private static Workset[] GetWorksets(UIApplication uiApp)
     {

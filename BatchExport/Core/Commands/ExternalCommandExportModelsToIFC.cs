@@ -1,4 +1,5 @@
-﻿using AlterTools.BatchExport.Core.EventHandlers;
+﻿using System.Windows;
+using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Views.IFC;
 using Autodesk.Revit.Attributes;
 
@@ -6,10 +7,7 @@ namespace AlterTools.BatchExport.Core.Commands;
 
 [UsedImplicitly]
 [Transaction(TransactionMode.Manual)]
-public class ExternalCommandExportModelsToIFC : IExternalCommand
+public class ExternalCommandExportModelsToIFC : ExternalCommandBase
 {
-    public virtual Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements)
-    {
-        return CommandWrapper.Execute(ref msg, () => new IFCExportView(new EventHandlerIFC()));
-    }
+    internal override Func<Window> WindowFactory { get; } = () => new IFCExportView(new EventHandlerIFC());
 }
