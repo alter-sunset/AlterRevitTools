@@ -26,9 +26,9 @@ public class EventHandlerNWCBatch : EventHandlerBase
         {
             try
             {
-                using FileStream file = File.OpenRead(config.Name);
+                using FileStream fileStream = File.OpenRead(config.Name);
 
-                NWCForm form = JsonConvert.DeserializeObject<NWCForm>(new StreamReader(file).ReadToEnd());
+                NWCForm form = JsonConvert.DeserializeObject<NWCForm>(new StreamReader(fileStream).ReadToEnd());
 
                 nwcVm.NWCFormDeserializer(form);
             }
