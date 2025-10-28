@@ -156,12 +156,12 @@ public class ExportHelperBase
         }
     }
 
-    protected virtual void ExportModel(IConfigBaseExtended iConfig,
+    private protected virtual void ExportModel(IConfigBaseExtended iConfig,
         Document doc,
         ref bool isFuckedUp,
         ref ILogger log) { }
 
-    protected static void Export(IConfigBaseExtended iConfig,
+    private protected static void Export(IConfigBaseExtended iConfig,
         Document doc,
         object options,
         ref ILogger log,
@@ -218,7 +218,7 @@ public class ExportHelperBase
         isFuckedUp = true;
     }
 
-    protected static bool IsViewReadyForExport(IConfigBaseExtended iConfig, Document doc, ref ILogger log, ref bool isFuckedUp)
+    private protected static bool IsViewReadyForExport(IConfigBaseExtended iConfig, Document doc, ref ILogger log, ref bool isFuckedUp)
     {
         if (iConfig is NWCViewModel { ExportLinks: true }) return true;
 

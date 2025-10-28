@@ -6,7 +6,7 @@ namespace AlterTools.BatchExport.Views.NWC;
 
 public class NWCHelper : ExportHelperBase
 {
-    protected override void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp, ref ILogger log)
+    private protected override void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp, ref ILogger log)
     {
         if (iConfig is not IConfigNWC configNWC) return;
 

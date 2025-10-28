@@ -169,7 +169,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
     NavisworksParameters IConfigNWC.Parameters => _selectedParameters.Key;
     NavisworksCoordinates IConfigNWC.Coordinates => _selectedCoordinates.Key;
 
-    protected override void LoadList()
+    private protected override void LoadList()
     {
         OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
 
@@ -213,7 +213,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
         TurnOffLog = form.TurnOffLog;
     }
 
-    protected override void SaveList()
+    private protected override void SaveList()
     {
         using NWCForm form = NWCFormSerializer();
         using SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
@@ -284,7 +284,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
         }
     }
 
-    protected override void DeleteSelectedItems()
+    private protected override void DeleteSelectedItems()
     {
         ListBoxItems.Where(item => item.IsSelected)
             .ToList()

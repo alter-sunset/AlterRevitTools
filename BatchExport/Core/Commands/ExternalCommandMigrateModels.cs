@@ -1,13 +1,14 @@
-﻿using Autodesk.Revit.Attributes;
+﻿using System.Windows;
+using AlterTools.BatchExport.Core.EventHandlers;
+using AlterTools.BatchExport.Views.Migrate;
+using Autodesk.Revit.Attributes;
 
 namespace AlterTools.BatchExport.Core.Commands;
 
 [UsedImplicitly]
 [Transaction(TransactionMode.Manual)]
-public class ExternalCommandMigrateModels : IExternalCommand
+public class ExternalCommandMigrateModels : ExternalCommandBase
 {
-    public virtual Result Execute(ExternalCommandData commandData, ref string msg, ElementSet elements)
-    {
-        return CommandWrapper.Execute(ref msg, Forms.Migrate);
-    }
+    private protected override Func<Window> WindowFactory { get; } = () =>
+        new MigrateModelsView(new EventHandlerMigrate());
 }
