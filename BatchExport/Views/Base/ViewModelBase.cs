@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Utils;
+using AlterTools.BatchExport.Utils.Extensions;
 using Brushes = System.Windows.Media.Brushes;
 
 namespace AlterTools.BatchExport.Views.Base;

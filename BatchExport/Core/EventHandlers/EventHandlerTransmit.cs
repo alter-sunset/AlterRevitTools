@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 using AlterTools.BatchExport.Utils;
+using AlterTools.BatchExport.Utils.Extensions;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.Transmit;
 using Brushes = System.Windows.Media.Brushes;

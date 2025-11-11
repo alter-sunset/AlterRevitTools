@@ -1,5 +1,6 @@
 ﻿using System.Windows.Controls;
 using AlterTools.BatchExport.Utils;
+using AlterTools.BatchExport.Utils.Extensions;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 using Brushes = System.Windows.Media.Brushes;
 
@@ -25,7 +26,7 @@ public static class ParamsHelper
         {
             using Document doc = app.OpenDocument(filePath, out _);
             if (doc is null) return;
-            
+
             using ElementCategoryFilter filterOutHvac = new(BuiltInCategory.OST_HVAC_Zones, true);
 
             IEnumerable<ParametersTable> paramTables = new FilteredElementCollector(doc)
@@ -50,6 +51,8 @@ public static class ParamsHelper
             {
                 csvHelper.WriteElement(table);
             }
+            
+            doc.Close(false);
         }
         catch
         {
