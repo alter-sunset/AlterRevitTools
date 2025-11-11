@@ -12,19 +12,6 @@ namespace AlterTools.BatchExport.Utils;
 
 internal static class ViewModelHelper
 {
-    private static string NoFolder => Strings.NoFolder;
-    private static string WrongFolder => Strings.WrongFolder;
-    private static string CreateFolderError => Strings.CreateFolderError;
-    private static string ToHell => Strings.ToHell;
-    private static string NoFiles => Strings.NoFiles;
-    private static string NoViewName => Strings.NoViewName;
-    private static string NoPathMode => Strings.NoPathMode;
-    private static string NoMaskPath => Strings.NoMaskPath;
-    private static string WrongMask => Strings.WrongMask;
-    private static string NoMaskFile => Strings.NoMaskFile;
-    private static string NoCsv => Strings.NoCsv;
-    private static string NoParameters =>  Strings.NoParameters;
-
     internal static bool IsEverythingFilled(this DetachViewModel detachVm)
     {
         return detachVm.IsListNotEmpty()
@@ -55,10 +42,11 @@ internal static class ViewModelHelper
 
     internal static bool IsEverythingFilled(this LinkViewModel linkVm) => linkVm.IsListNotEmpty();
 
-    private static bool IsListNotEmpty(this LinkViewModel linkVm) => CheckCondition(linkVm.Entries.Count > 0, NoFiles);
+    private static bool IsListNotEmpty(this LinkViewModel linkVm) =>
+        CheckCondition(linkVm.Entries.Count > 0, Strings.NoFiles);
 
     private static bool IsListNotEmpty(this ViewModelBase vmBase) =>
-        CheckCondition(vmBase.ListBoxItems.Count > 0, NoFiles);
+        CheckCondition(vmBase.ListBoxItems.Count > 0, Strings.NoFiles);
 
     private static bool IsFolderPathOk(this ViewModelBase vmBase)
     {
@@ -66,17 +54,17 @@ internal static class ViewModelHelper
 
         if (string.IsNullOrEmpty(folderPath))
         {
-            return CheckCondition(false, NoFolder);
+            return CheckCondition(false, Strings.NoFolder);
         }
 
         if (Uri.IsWellFormedUriString(folderPath, UriKind.RelativeOrAbsolute))
         {
-            return CheckCondition(false, WrongFolder);
+            return CheckCondition(false, Strings.WrongFolder);
         }
 
         if (Directory.Exists(folderPath)) return true;
 
-        MessageBoxResult result = MessageBox.Show(CreateFolderError,
+        MessageBoxResult result = MessageBox.Show(Strings.CreateFolderError,
             Strings.GoodEvening,
             MessageBoxButton.YesNo);
 
@@ -86,20 +74,20 @@ internal static class ViewModelHelper
             return true;
         }
 
-        MessageBox.Show(ToHell);
+        MessageBox.Show(Strings.ToHell);
         return false;
     }
 
     private static bool IsViewNameOk(this ViewModelBaseExtended vmBaseExt)
     {
         return CheckCondition(!vmBaseExt.ExportScopeView
-                              || !string.IsNullOrEmpty(vmBaseExt.ViewName), NoViewName);
+                              || !string.IsNullOrEmpty(vmBaseExt.ViewName), Strings.NoViewName);
     }
 
     private static bool IsViewNameOk(this DetachViewModel detachVm)
     {
         return CheckCondition(!detachVm.CheckForEmptyView
-                              || !string.IsNullOrEmpty(detachVm.ViewName), NoViewName);
+                              || !string.IsNullOrEmpty(detachVm.ViewName), Strings.NoViewName);
     }
 
     private static bool IsRbModeOk(this DetachViewModel detachVm)
@@ -107,7 +95,7 @@ internal static class ViewModelHelper
         switch (detachVm.RadioButtonMode)
         {
             case 0:
-                return CheckCondition(false, NoPathMode);
+                return CheckCondition(false, Strings.NoPathMode);
 
             case 1:
                 return detachVm.IsFolderPathOk();
@@ -115,7 +103,7 @@ internal static class ViewModelHelper
             case 2:
                 if (string.IsNullOrEmpty(detachVm.MaskIn) || string.IsNullOrEmpty(detachVm.MaskOut))
                 {
-                    return CheckCondition(false, NoMaskPath);
+                    return CheckCondition(false, Strings.NoMaskPath);
                 }
 
                 if (!detachVm.ListBoxItems
@@ -123,7 +111,7 @@ internal static class ViewModelHelper
                         .All(i => i.ToString()
                             !.Contains(detachVm.MaskIn)))
                 {
-                    return CheckCondition(false, WrongMask);
+                    return CheckCondition(false, Strings.WrongMask);
                 }
 
                 break;
@@ -135,7 +123,7 @@ internal static class ViewModelHelper
     private static bool IsMaskNameOk(this DetachViewModel detachVm)
     {
         return CheckCondition(!detachVm.IsToRename
-                              || !string.IsNullOrEmpty(detachVm.MaskInName), NoMaskFile);
+                              || !string.IsNullOrEmpty(detachVm.MaskInName), Strings.NoMaskFile);
     }
 
     private static bool IsCsvPathNotEmpty(this ParamsViewModel paramsVm)
@@ -146,7 +134,7 @@ internal static class ViewModelHelper
             || Uri.IsWellFormedUriString(csvPath, UriKind.Absolute)
             || !csvPath.EndsWith(".csv"))
         {
-            return CheckCondition(false, NoCsv);
+            return CheckCondition(false, Strings.NoCsv);
         }
 
         return true;
@@ -154,7 +142,7 @@ internal static class ViewModelHelper
 
     private static bool AreThereAnyParameters(this ParamsViewModel paramsVm)
     {
-        return CheckCondition(paramsVm.ParametersNames.Length > 0, NoParameters);
+        return CheckCondition(paramsVm.ParametersNames.Length > 0, Strings.NoParameters);
     }
 
     private static bool CheckCondition(bool condition, string msg)
@@ -186,26 +174,5 @@ internal static class ViewModelHelper
         vmBase.IsViewEnabled = false;
         taskDialog.Show();
         vmBase.IsViewEnabled = true;
-    }
-
-    /// <returns>Unique files with .rvt extension</returns>
-    public static IEnumerable<string> FilterRevitFiles(this IEnumerable<string> files)
-    {
-        return files.Distinct()
-            .Where(file => !string.IsNullOrWhiteSpace(file)
-                           && Path.GetExtension(file) == ".rvt");
-    }
-
-    public static string RemoveDetach(this string name)
-    {
-        return name.Replace(Strings.Detached, "");
-    }
-
-    public static string[] SplitBySemicolon(this string line)
-    {
-        return [.. line.Split(';')
-            .Select(word => word.Trim())
-            .Distinct()
-            .Where(word => !string.IsNullOrWhiteSpace(word))];
     }
 }

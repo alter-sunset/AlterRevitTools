@@ -1,44 +1,10 @@
-﻿using System.Security.Cryptography;
-using AlterTools.BatchExport.Resources;
+﻿using AlterTools.BatchExport.Resources;
 using Autodesk.Revit.DB.Electrical;
 
-namespace AlterTools.BatchExport.Utils;
+namespace AlterTools.BatchExport.Utils.Extensions;
 
-public static class ModelHelper
+public static class DocumentExtensions
 {
-    /// <summary>
-    ///     Get WorksetConfiguration with closed worksets that match given prefixes
-    /// </summary>
-    public static WorksetConfiguration CloseWorksets(this ModelPath modelPath, params string[] prefixes)
-    {
-        if (prefixes is null || prefixes.Length == 0)
-        {
-            return new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
-        }
-
-        // problem occurs if centralModel can't be found
-        try
-        {
-            WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.CloseAllWorksets);
-
-            IList<WorksetId> worksetIds =
-            [
-                .. WorksharingUtils.GetUserWorksetInfo(modelPath)
-                    .Where(wp => !prefixes.Any(wp.Name.StartsWith))
-                    .Select(wp => wp.Id)
-            ];
-
-            worksetConfiguration.Open(worksetIds);
-
-            return worksetConfiguration;
-        }
-        catch
-        {
-            // just return default worksetConfiguration
-            return new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
-        }
-    }
-
     public static bool DoesViewExist(this Document doc, string viewName)
     {
         return new FilteredElementCollector(doc)
@@ -100,7 +66,10 @@ public static class ModelHelper
         using Transaction tr = new(doc, Strings.RemoveAllLinks);
 
         tr.Start();
-        tr.SuppressAlert();
+        
+        using FailureHandlingOptions failOpt = tr.GetFailureHandlingOptions();
+        failOpt.SetFailuresPreprocessor(new CopyWatchAlertSuppressor());
+        tr.SetFailureHandlingOptions(failOpt);
 
         foreach (ElementId id in ids)
         {
@@ -115,28 +84,6 @@ public static class ModelHelper
         }
 
         tr.Commit();
-    }
-
-    /// <summary>
-    ///     Returns string with MD5 Hash of given file
-    /// </summary>
-    public static string GetMd5Hash(this string fileName)
-    {
-        if (string.IsNullOrEmpty(fileName)) return null;
-
-        if (!File.Exists(fileName)) return null;
-
-        using MD5 md5 = MD5.Create();
-
-        try
-        {
-            using FileStream stream = File.OpenRead(fileName);
-            return Convert.ToBase64String(md5.ComputeHash(stream));
-        }
-        catch
-        {
-            return null;
-        }
     }
 
     /// <summary>
@@ -190,66 +137,6 @@ public static class ModelHelper
         tr.Commit();
     }
 
-    private static void SuppressAlert(this Transaction tr)
-    {
-        FailureHandlingOptions failOpt = tr.GetFailureHandlingOptions();
-        failOpt.SetFailuresPreprocessor(new CopyWatchAlertSuppressor());
-        tr.SetFailureHandlingOptions(failOpt);
-    }
-
-#if R24_OR_GREATER
-    public static void PurgeAll(this Document doc)
-    {
-        try
-        {
-            int previousCount;
-            
-            do
-            {
-                HashSet<ElementId> unusedElements =
-                    [
-                        .. doc.GetUnusedElements(new HashSet<ElementId>())
-                            .Where(el => doc.GetElement(el) is not null
-                                         && doc.GetElement(el) is not RevitLinkType)
-                    ];
-                
-                previousCount = unusedElements.Count;
-                
-                if (previousCount == 0) break;
-                
-                using Transaction tr = new(doc, Strings.PurgeUnused);
-                tr.Start();
-                
-                doc.Delete(unusedElements);
-                
-                tr.Commit();            
-            } while (0 < previousCount);
-        
-        }
-        catch
-        {
-            // ignored
-        }
-    }
-#endif
-
-    /// <summary>
-    ///     Return parameter value as string with correct null check
-    /// </summary>
-    public static string GetValueString(this Parameter param)
-    {
-        return param?.AsValueString() is null
-            ? string.Empty
-            : param.AsValueString().Trim();
-    }
-
-    public static bool IsPhysicalElement(this Element el)
-    {
-        return el.Category is not null
-               && !el.ViewSpecific
-               && el.Category.CategoryType is CategoryType.Model
-               && el.Category.CanAddSubcategory;
-    }
 
 #if R22_OR_GREATER
     public static void RemoveEmptyWorksets(this Document doc)
@@ -275,6 +162,42 @@ public static class ModelHelper
         return !new FilteredElementCollector(doc)
             .WherePasses(new ElementWorksetFilter(workset))
             .Any();
+    }
+#endif
+    
+#if R24_OR_GREATER
+    public static void PurgeAll(this Document doc)
+    {
+        try
+        {
+            int previousCount;
+            
+            do
+            {
+                HashSet<ElementId> unusedElements =
+                [
+                    .. doc.GetUnusedElements(new HashSet<ElementId>())
+                        .Where(el => doc.GetElement(el) is not null
+                                     && doc.GetElement(el) is not RevitLinkType)
+                ];
+                
+                previousCount = unusedElements.Count;
+                
+                if (previousCount == 0) break;
+                
+                using Transaction tr = new(doc, Strings.PurgeUnused);
+                tr.Start();
+                
+                doc.Delete(unusedElements);
+                
+                tr.Commit();            
+            } while (0 < previousCount);
+        
+        }
+        catch
+        {
+            // ignored
+        }
     }
 #endif
 }

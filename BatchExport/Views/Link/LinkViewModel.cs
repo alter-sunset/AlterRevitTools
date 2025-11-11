@@ -2,6 +2,7 @@
 using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Utils;
+using AlterTools.BatchExport.Utils.Extensions;
 using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.Link;
