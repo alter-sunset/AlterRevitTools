@@ -26,7 +26,7 @@ public static class ParamsHelper
         {
             using Document doc = app.OpenDocument(filePath, out _);
             if (doc is null) return;
-            
+
             using ElementCategoryFilter filterOutHvac = new(BuiltInCategory.OST_HVAC_Zones, true);
 
             IEnumerable<ParametersTable> paramTables = new FilteredElementCollector(doc)
@@ -51,6 +51,8 @@ public static class ParamsHelper
             {
                 csvHelper.WriteElement(table);
             }
+            
+            doc.Close(false);
         }
         catch
         {
