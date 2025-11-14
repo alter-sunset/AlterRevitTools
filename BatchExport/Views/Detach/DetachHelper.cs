@@ -1,5 +1,4 @@
-﻿using AlterTools.BatchExport.Utils;
-using AlterTools.BatchExport.Utils.Extensions;
+﻿using AlterTools.BatchExport.Utils.Extensions;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 
 namespace AlterTools.BatchExport.Views.Detach;
