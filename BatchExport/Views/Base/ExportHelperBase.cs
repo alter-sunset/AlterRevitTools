@@ -178,7 +178,7 @@ public class ExportHelperBase
                                    $"{(options is NavisworksExportOptions ? ".nwc" : ".ifc")}";
 
         string fileName = Path.Combine(folderPath, fileWithExtension);
-        string oldHash = File.Exists(fileName) ? fileName.GetMd5Hash() : null;
+        string oldHash = fileName.GetMd5Hash();
 
         if (oldHash is not null)
         {
