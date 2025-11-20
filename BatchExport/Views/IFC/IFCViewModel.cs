@@ -9,18 +9,17 @@ namespace AlterTools.BatchExport.Views.IFC;
 public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
 {
     private bool _exportBaseQuantities;
-
-    private RelayCommand _loadMappingCommand;
+    private bool _wallAndColumnSplitting;
 
     private string _mapping = string.Empty;
+    
+    private RelayCommand _loadMappingCommand;
 
     private KeyValuePair<int, string> _selectedLevel =
         IFCContext.SpaceBoundaryLevels.FirstOrDefault(lev => lev.Key == 1);
 
     private KeyValuePair<IFCVersion, string> _selectedVersion =
         IFCContext.IFCVersions.FirstOrDefault(ver => ver.Key is IFCVersion.Default);
-
-    private bool _wallAndColumnSplitting;
 
     public IFCViewModel(EventHandlerIFC eventHandlerIFC)
     {
@@ -102,16 +101,16 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
 
     private protected override void LoadList()
     {
-        OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
+        using OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
 
         if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
         using FileStream file = File.OpenRead(openFileDialog.FileName);
 
-        IFCFormDeserializer(JsonHelper<IFCForm>.DeserializeConfig(file));
+        DeserializeIFCForm(JsonHelper<IFCForm>.DeserializeConfig(file));
     }
 
-    private void IFCFormDeserializer(IFCForm form)
+    private void DeserializeIFCForm(IFCForm form)
     {
         if (form is null) return;
 
@@ -137,9 +136,9 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
 
     private protected override void SaveList()
     {
-        using IFCForm form = IFCFormSerializer();
+        using IFCForm form = SerializeIFCForm();
 
-        SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
+        using SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
 
         if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
 
@@ -149,7 +148,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
         JsonHelper<IFCForm>.SerializeConfig(form, fileName);
     }
 
-    private IFCForm IFCFormSerializer()
+    private IFCForm SerializeIFCForm()
     {
         return new IFCForm
         {
