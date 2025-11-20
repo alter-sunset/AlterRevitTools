@@ -11,7 +11,6 @@ public class EventHandlerNWC : EventHandlerBase
     protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
     {
         if (iConfigBase is not NWCViewModel nwcVm) return;
-
         if (!nwcVm.IsEverythingFilled()) return;
 
         ILogger log = LoggerFactory.CreateLogger(nwcVm.FolderPath, nwcVm.TurnOffLog);
