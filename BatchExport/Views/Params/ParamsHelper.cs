@@ -10,13 +10,15 @@ public static class ParamsHelper
 {
     private static string _fileName;
     private static ParamsViewModel _paramsVm;
-    public static void ExportParameters(this ListBoxItem item, Application app, ParamsViewModel paramsVm,
+    public static void ExportParameters(this ListBoxItem item,
+        Application app,
+        ParamsViewModel paramsVm,
         CsvHelper csvHelper)
     {
-        string filePath = item.Content?.ToString();
-        string fileName = Path.GetFileName(filePath);
-        _fileName = fileName;
         _paramsVm = paramsVm;
+        
+        string filePath = item.Content?.ToString();
+        _fileName = Path.GetFileName(filePath);
 
         if (!File.Exists(filePath))
         {
