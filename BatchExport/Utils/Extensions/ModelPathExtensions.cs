@@ -37,7 +37,8 @@ public static class ModelPathExtensions
         WorksetConfiguration worksetConfiguration,
         Application app)
     {
-        OpenOptions openOptions = new() { DetachFromCentralOption = detachOption };
+        using OpenOptions openOptions = new();
+        openOptions.DetachFromCentralOption = detachOption;
         openOptions.SetOpenWorksetsConfiguration(worksetConfiguration);
 
         return app.OpenDocumentFile(modelPath, openOptions);
@@ -84,7 +85,7 @@ public static class ModelPathExtensions
 
         foreach (ElementId refId in externalReferences)
         {
-            ExternalFileReference extRef = transData.GetLastSavedReferenceData(refId);
+            using ExternalFileReference extRef = transData.GetLastSavedReferenceData(refId);
             if (extRef.ExternalFileReferenceType is not ExternalFileReferenceType.RevitLink) continue;
             
             string name = Path.GetFileName(extRef.GetPath().CentralServerPath);
@@ -110,15 +111,15 @@ public static class ModelPathExtensions
 
         foreach (ElementId refId in externalReferences)
         {
-            ExternalFileReference extRef = transData.GetLastSavedReferenceData(refId);
+            using ExternalFileReference extRef = transData.GetLastSavedReferenceData(refId);
             if (extRef.ExternalFileReferenceType is not ExternalFileReferenceType.RevitLink) continue;
 
-            ModelPath modelPath = extRef.GetAbsolutePath();
+            using ModelPath modelPath = extRef.GetAbsolutePath();
             string path = ModelPathUtils.ConvertModelPathToUserVisiblePath(modelPath);
 
             if (!oldNewFilePairs.TryGetValue(path, out string newFile)) continue;
 
-            ModelPath newPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(newFile);
+            using ModelPath newPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(newFile);
 
             try
             {
