@@ -36,16 +36,7 @@ public static class ParamsHelper
                 .Where(el => !string.IsNullOrWhiteSpace(
                     el.get_Parameter(BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM)
                         .GetValueString()))
-                .Select(el => new ParametersTable
-                {
-                    ModelName = fileName,
-                    Parameters = el.GetParametersSet(paramsVm.ParametersNames),
-#if R24_OR_GREATER
-                    ElementId = el.Id.Value,
-#else
-                    ElementId = el.Id.IntegerValue,
-#endif
-                });
+                .Select(el => el.GetParametersTable(fileName, paramsVm));
 
             foreach (ParametersTable table in paramTables)
             {
@@ -65,5 +56,19 @@ public static class ParamsHelper
     private static Dictionary<string, string> GetParametersSet(this Element element, string[] parametersNames)
     {
         return parametersNames.ToDictionary(name => name, name => element.LookupParameter(name).GetValueString());
+    }
+
+    private static ParametersTable GetParametersTable(this Element el, string fileName, ParamsViewModel paramsVm)
+    {
+        return new ParametersTable
+        {
+            ModelName = fileName,
+            Parameters = el.GetParametersSet(paramsVm.ParametersNames),
+#if R24_OR_GREATER
+            ElementId = el.Id.Value,
+#else
+            ElementId = el.Id.IntegerValue,
+#endif
+        };
     }
 }
