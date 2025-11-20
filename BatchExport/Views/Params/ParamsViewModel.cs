@@ -10,11 +10,10 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
 {
     private static string DefaultParams => Strings.DefaultParams;
 
-    private RelayCommand _browseCsvCommand;
-
     private string _csvPath = string.Empty;
-
     private string _paramsNames;
+
+    private RelayCommand _browseCsvCommand;
 
     public ParamsViewModel(EventHandlerParams eventHandlerParams)
     {
@@ -63,10 +62,10 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
 
         using FileStream file = File.OpenRead(openFileDialog.FileName);
 
-        ParamsFormDeserializer(JsonHelper<ParamsForm>.DeserializeConfig(file));
+        DeserializeParamsForm(JsonHelper<ParamsForm>.DeserializeConfig(file));
     }
 
-    private void ParamsFormDeserializer(ParamsForm form)
+    private void DeserializeParamsForm(ParamsForm form)
     {
         if (form is null) return;
 
@@ -77,7 +76,7 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
 
     private protected override void SaveList()
     {
-        ParamsForm form = ParamsFormSerializer();
+        ParamsForm form = SerializeParamsForm();
         SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
 
         if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
@@ -88,7 +87,7 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
         JsonHelper<ParamsForm>.SerializeConfig(form, fileName);
     }
 
-    private ParamsForm ParamsFormSerializer()
+    private ParamsForm SerializeParamsForm()
     {
         return new ParamsForm
         {
