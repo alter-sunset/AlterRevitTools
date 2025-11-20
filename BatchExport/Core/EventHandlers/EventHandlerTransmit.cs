@@ -37,6 +37,6 @@ public class EventHandlerTransmit : EventHandlerBase
             item.Background = Brushes.Green;
         }
 
-        transmitVm.Finisher("TransmitModelsFinished");
+        transmitVm.FinishWork("TransmitModelsFinished");
     }
 }

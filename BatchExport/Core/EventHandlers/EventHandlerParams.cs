@@ -23,6 +23,6 @@ public class EventHandlerParams : EventHandlerBase
             listItems.ForEach(item => item.ExportParameters(app, paramsVm, csvHelper));
         }
 
-        paramsVm.Finisher("ExportParametersFinished");
+        paramsVm.FinishWork("ExportParametersFinished");
     }
 }

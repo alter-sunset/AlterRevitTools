@@ -14,6 +14,6 @@ public class EventHandlerLink : EventHandlerBase
 
         linkVm.CreateLinks(uiApp);
 
-        linkVm.Finisher("LinkModelsFinished");
+        linkVm.FinishWork("LinkModelsFinished");
     }
 }

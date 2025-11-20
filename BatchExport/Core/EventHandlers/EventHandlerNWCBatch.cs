@@ -50,6 +50,6 @@ public class EventHandlerNWCBatch : EventHandlerBase
         string msg = $"{Strings.TaskCompleted}" +
                      $"\n{Strings.TotalTime}{DateTime.Now - timeStart}";
 
-        nwcVm.Finisher("ExportBatchNWCFinished", msg);
+        nwcVm.FinishWork("ExportBatchNWCFinished", msg);
     }
 }

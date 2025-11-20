@@ -23,6 +23,6 @@ public class EventHandlerIFC : EventHandlerBase
 
         log.Dispose();
 
-        ifcVm.Finisher("ExportIFCFinished", msg);
+        ifcVm.FinishWork("ExportIFCFinished", msg);
     }
 }

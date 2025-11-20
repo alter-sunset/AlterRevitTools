@@ -23,6 +23,6 @@ public class EventHandlerNWC : EventHandlerBase
 
         log.Dispose();
 
-        nwcVm.Finisher("ExportNWCFinished", msg);
+        nwcVm.FinishWork("ExportNWCFinished", msg);
     }
 }

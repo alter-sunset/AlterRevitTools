@@ -36,6 +36,6 @@ public class EventHandlerDetach : EventHandlerBase
         }
         errorSuppressor.Dispose();
 
-        detachVm.Finisher("DetachModelsFinished");
+        detachVm.FinishWork("DetachModelsFinished");
     }
 }
