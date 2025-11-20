@@ -8,11 +8,15 @@ namespace AlterTools.BatchExport.Views.Params;
 
 public static class ParamsHelper
 {
+    private static string _fileName;
+    private static ParamsViewModel _paramsVm;
     public static void ExportParameters(this ListBoxItem item, Application app, ParamsViewModel paramsVm,
         CsvHelper csvHelper)
     {
         string filePath = item.Content?.ToString();
         string fileName = Path.GetFileName(filePath);
+        _fileName = fileName;
+        _paramsVm = paramsVm;
 
         if (!File.Exists(filePath))
         {
@@ -36,7 +40,7 @@ public static class ParamsHelper
                 .Where(el => !string.IsNullOrWhiteSpace(
                     el.get_Parameter(BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM)
                         .GetValueString()))
-                .Select(el => el.GetParametersTable(fileName, paramsVm));
+                .Select(GetParametersTable);
 
             foreach (ParametersTable table in paramTables)
             {
@@ -58,12 +62,12 @@ public static class ParamsHelper
         return parametersNames.ToDictionary(name => name, name => element.LookupParameter(name).GetValueString());
     }
 
-    private static ParametersTable GetParametersTable(this Element el, string fileName, ParamsViewModel paramsVm)
+    private static ParametersTable GetParametersTable(this Element el)
     {
         return new ParametersTable
         {
-            ModelName = fileName,
-            Parameters = el.GetParametersSet(paramsVm.ParametersNames),
+            ModelName = _fileName,
+            Parameters = el.GetParametersSet(_paramsVm.ParametersNames),
 #if R24_OR_GREATER
             ElementId = el.Id.Value,
 #else
