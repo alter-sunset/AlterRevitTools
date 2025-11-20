@@ -9,11 +9,10 @@ public class EventHandlerLink : EventHandlerBase
     protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
     {
         if (iConfigBase is not LinkViewModel linkVm) return;
-
         if (!linkVm.IsEverythingFilled()) return;
 
         linkVm.CreateLinks(uiApp);
 
-        linkVm.Finisher("LinkModelsFinished");
+        linkVm.FinishWork("LinkModelsFinished");
     }
 }

@@ -1,5 +1,4 @@
-﻿using AlterTools.BatchExport.Utils;
-using AlterTools.BatchExport.Utils.Extensions;
+﻿using AlterTools.BatchExport.Utils.Extensions;
 using AlterTools.BatchExport.Utils.Logger;
 using AlterTools.BatchExport.Views.Base;
 
@@ -13,7 +12,7 @@ public class IFCHelper : ExportHelperBase
 
         if (iConfig is not IConfigIFC configIFC || !IsViewReadyForExport(iConfig, doc, ref log, ref isFuckedUp)) return;
 
-        IFCExportOptions options = IFC_ExportOptions(configIFC, doc);
+        using IFCExportOptions options = GetIFCExportOptions(configIFC, doc);
 
         using Transaction tr = new(doc);
         tr.Start(Resources.Strings.IFCTitle);
@@ -23,7 +22,7 @@ public class IFCHelper : ExportHelperBase
         tr.Commit();
     }
 
-    private static IFCExportOptions IFC_ExportOptions(IConfigIFC config, Document doc)
+    private static IFCExportOptions GetIFCExportOptions(IConfigIFC config, Document doc)
     {
         IFCExportOptions options = new()
         {

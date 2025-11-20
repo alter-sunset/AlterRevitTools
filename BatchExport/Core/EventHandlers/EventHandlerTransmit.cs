@@ -12,7 +12,6 @@ public class EventHandlerTransmit : EventHandlerBase
     protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
     {
         if (iConfigBase is not TransmitViewModel transmitVm) return;
-
         if (!transmitVm.IsEverythingFilled()) return;
 
         string folderPath = transmitVm.FolderPath;
@@ -32,11 +31,12 @@ public class EventHandlerTransmit : EventHandlerBase
 
             File.Copy(filePath, transmittedFilePath, true);
 
-            ModelPath transmittedModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(transmittedFilePath);
+            using ModelPath transmittedModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(transmittedFilePath);
             transmittedModelPath.UnloadRevitLinks(folderPath, transmitVm.IsSameFolder);
+            
             item.Background = Brushes.Green;
         }
 
-        transmitVm.Finisher("TransmitModelsFinished");
+        transmitVm.FinishWork("TransmitModelsFinished");
     }
 }

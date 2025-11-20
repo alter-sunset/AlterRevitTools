@@ -11,7 +11,6 @@ public class EventHandlerIFC : EventHandlerBase
     protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
     {
         if (iConfigBase is not IFCViewModel ifcVm) return;
-
         if (!ifcVm.IsEverythingFilled()) return;
 
         ILogger log = LoggerFactory.CreateLogger(ifcVm.FolderPath, ifcVm.TurnOffLog);
@@ -23,6 +22,6 @@ public class EventHandlerIFC : EventHandlerBase
 
         log.Dispose();
 
-        ifcVm.Finisher("ExportIFCFinished", msg);
+        ifcVm.FinishWork("ExportIFCFinished", msg);
     }
 }

@@ -30,7 +30,7 @@ public class EventHandlerNWCBatch : EventHandlerBase
 
                 NWCForm form = JsonConvert.DeserializeObject<NWCForm>(new StreamReader(fileStream).ReadToEnd());
 
-                nwcVm.NWCFormDeserializer(form);
+                nwcVm.DeserializeNWCForm(form);
             }
             catch
             {
@@ -50,6 +50,6 @@ public class EventHandlerNWCBatch : EventHandlerBase
         string msg = $"{Strings.TaskCompleted}" +
                      $"\n{Strings.TotalTime}{DateTime.Now - timeStart}";
 
-        nwcVm.Finisher("ExportBatchNWCFinished", msg);
+        nwcVm.FinishWork("ExportBatchNWCFinished", msg);
     }
 }

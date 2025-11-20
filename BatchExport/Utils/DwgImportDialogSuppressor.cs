@@ -8,7 +8,6 @@ public class DwgImportDialogSuppressor : IDisposable
     private const string TargetTitle = "Revit";
     private const int CheckIntervalMs = 300;
     private const uint WmClose = 0x0010;
-    private static string TargetMessage => Resources.Strings.DwgImportDialog;
 
     private Thread _watcherThread;
     private bool _running;
@@ -47,7 +46,7 @@ public class DwgImportDialogSuppressor : IDisposable
                     new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.Text));
                 
                 string msg = textElement?.Current.Name;
-                if (msg is null || !msg.Contains(TargetMessage)) continue;
+                if (msg is null || !msg.Contains(Resources.Strings.DwgImportDialog)) continue;
                 
                 _ = SendMessage(hWnd, WmClose, 0, 0);
             }

@@ -1,5 +1,4 @@
-﻿using AlterTools.BatchExport.Utils;
-using AlterTools.BatchExport.Utils.Extensions;
+﻿using AlterTools.BatchExport.Utils.Extensions;
 using AlterTools.BatchExport.Utils.Logger;
 using AlterTools.BatchExport.Views.Base;
 
@@ -13,12 +12,12 @@ public class NWCHelper : ExportHelperBase
 
         if (!IsViewReadyForExport(iConfig, doc, ref log, ref isFuckedUp)) return;
 
-        NavisworksExportOptions options = NWC_ExportOptions(configNWC, doc);
+        using NavisworksExportOptions options = GetNWCExportOptions(configNWC, doc);
 
         Export(iConfig, doc, options, ref log, ref isFuckedUp);
     }
 
-    private static NavisworksExportOptions NWC_ExportOptions(IConfigNWC config, Document doc)
+    private static NavisworksExportOptions GetNWCExportOptions(IConfigNWC config, Document doc)
     {
         NavisworksExportOptions options = new()
         {

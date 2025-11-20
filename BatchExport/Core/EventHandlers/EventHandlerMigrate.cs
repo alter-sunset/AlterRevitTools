@@ -26,6 +26,6 @@ public class EventHandlerMigrate : EventHandlerBase
               $"\n{string.Join("\n", failedFiles)}"
             : Strings.TaskCompleted;
 
-        migrateVm.Finisher("MigrateModelsFinished", msg);
+        migrateVm.FinishWork("MigrateModelsFinished", msg);
     }
 }

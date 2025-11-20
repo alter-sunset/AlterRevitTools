@@ -7,26 +7,19 @@ namespace AlterTools.BatchExport.Views.Detach;
 public class DetachViewModel : ViewModelBase, IConfigDetach
 {
     private bool _checkForEmptyView = true;
-
+    private bool _removeLinks = true;
     private bool _isToRename;
-
-    private string _maskIn = Strings.MaskIn;
-
-    private string _maskInName = "R18";
-
-    private string _maskOut = Strings.MaskOut;
-
-    private string _maskOutName = "R24";
-
+    private bool _removeEmptyWorksets;
     private bool _purge;
-
-    private RelayCommand _radioButtonCommand;
-
+    
     private int _radioButtonMode;
 
-    private bool _removeEmptyWorksets;
+    private string _maskIn = Strings.MaskIn;
+    private string _maskOut = Strings.MaskOut;
+    private string _maskInName = "R18";
+    private string _maskOutName = "R24";
 
-    private bool _removeLinks = true;
+    private RelayCommand _radioButtonCommand;
 
     public DetachViewModel(EventHandlerDetach eventHandlerDetach)
     {
@@ -43,7 +36,6 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
         IsWorksetRemoverEnabled = true;
         _removeEmptyWorksets = true;
 #endif
-
 #if R24_OR_GREATER
         IsPurgeEnabled = true;
         _purge = true;
@@ -57,7 +49,7 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
         set => SetProperty(ref _radioButtonMode, value);
     }
 
-    public override RelayCommand RadioButtonCommand => _radioButtonCommand ??= new RelayCommand(RB_Command);
+    public override RelayCommand RadioButtonCommand => _radioButtonCommand ??= new RelayCommand(GetRbCommand);
    
     [UsedImplicitly]
     public string MaskIn
@@ -122,7 +114,7 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
         set => SetProperty(ref _removeEmptyWorksets, value);
     }
 
-    private void RB_Command(object parameter)
+    private void GetRbCommand(object parameter)
     {
         _radioButtonMode = (string)parameter switch
         {

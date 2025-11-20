@@ -12,7 +12,6 @@ public class EventHandlerDetach : EventHandlerBase
     protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
     {
         if (iConfigBase is not DetachViewModel detachVm) return;
-
         if (!detachVm.IsEverythingFilled()) return;
 
         using Application app = uiApp.Application;
@@ -36,6 +35,6 @@ public class EventHandlerDetach : EventHandlerBase
         }
         errorSuppressor.Dispose();
 
-        detachVm.Finisher("DetachModelsFinished");
+        detachVm.FinishWork("DetachModelsFinished");
     }
 }

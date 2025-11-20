@@ -65,7 +65,7 @@ internal class ButtonContext
         try
         {
             Assembly assembly = Assembly.GetExecutingAssembly();
-            Stream stream = assembly.GetManifestResourceStream(imagePath);
+            using Stream stream = assembly.GetManifestResourceStream(imagePath);
             return BitmapFrame.Create(stream!);
         }
         catch

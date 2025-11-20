@@ -11,7 +11,7 @@ internal static class LinkHelper
 
     internal static void CreateLinks(this LinkViewModel linkViewModel, UIApplication uiApp)
     {
-        Document doc = uiApp.ActiveUIDocument.Document;
+        using Document doc = uiApp.ActiveUIDocument.Document;
 
         bool isCurrentWorkset = linkViewModel.IsCurrentWorkset;
         bool setWorksetId = !isCurrentWorkset && linkViewModel.Worksets.Length > 0;
@@ -34,11 +34,11 @@ internal static class LinkHelper
 
     private static void TryCreateLink(Document doc, Entry entry, LinkProps props)
     {
-        BasicFileInfo fileInfo = BasicFileInfo.Extract(entry.Name);
+        using BasicFileInfo fileInfo = BasicFileInfo.Extract(entry.Name);
 
-        ModelPath linkPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(entry.Name);
+        using ModelPath linkPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(entry.Name);
 
-        RevitLinkOptions revitLinkOptions = fileInfo.IsWorkshared && 0 != props.WorksetPrefixes.Length
+        using RevitLinkOptions revitLinkOptions = fileInfo.IsWorkshared && 0 != props.WorksetPrefixes.Length
             ? new RevitLinkOptions(false, linkPath.CloseWorksets(props.WorksetPrefixes))
             : new RevitLinkOptions(false);
 
@@ -90,9 +90,8 @@ internal static class LinkHelper
             TaskDialog.Show(Resources.Strings.Error,
                 msg,
                 TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
-        if (result is TaskDialogResult.Yes)
-        {
-            action?.Invoke();
-        }
+        if (result is not TaskDialogResult.Yes) return;
+        
+        action?.Invoke();
     }
 }

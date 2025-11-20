@@ -1,5 +1,4 @@
-﻿using AlterTools.BatchExport.Utils;
-using AlterTools.BatchExport.Utils.Extensions;
+﻿using AlterTools.BatchExport.Utils.Extensions;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 
 namespace AlterTools.BatchExport.Views.Detach;
@@ -10,7 +9,7 @@ public static class DetachHelper
     {
         try
         {
-            Document doc = app.OpenDocument(filePath, out bool isWorkshared);
+            using Document doc = app.OpenDocument(filePath, out bool isWorkshared);
             if (doc is null) return;
 
             string fileDetachedPath = GetDetachedFilePath(iConfigDetach, doc, filePath);
@@ -35,7 +34,6 @@ public static class DetachHelper
             fileDetachedPath = RenamePath(originalFilePath,
                 RenameType.Folder,
                 detachViewModel.MaskIn, detachViewModel.MaskOut);
-            
         }
 
         if (iConfigDetach.IsToRename)
@@ -43,7 +41,6 @@ public static class DetachHelper
             fileDetachedPath = RenamePath(fileDetachedPath,
                 RenameType.Title,
                 iConfigDetach.MaskInName, iConfigDetach.MaskOutName);
-            
         }
 
         if (iConfigDetach.CheckForEmptyView)
@@ -54,7 +51,8 @@ public static class DetachHelper
         return fileDetachedPath;
     }
 
-    private static void CheckAndModifyForEmptyView(Document doc, IConfigDetach iConfigDetach,
+    private static void CheckAndModifyForEmptyView(Document doc,
+        IConfigDetach iConfigDetach,
         ref string fileDetachedPath)
     {
         doc.OpenAllWorksets();
@@ -128,21 +126,20 @@ public static class DetachHelper
 
     private static void SaveDocument(Document doc, string fileDetachedPath, bool isWorkshared)
     {
-        SaveAsOptions saveOptions = new()
-        {
-            OverwriteExistingFile = true,
-            MaximumBackups = 1
-        };
+        using SaveAsOptions saveOptions = new();
+        saveOptions.OverwriteExistingFile = true;
+        saveOptions.MaximumBackups = 1;
 
         if (isWorkshared)
         {
-            WorksharingSaveAsOptions worksharingOptions = new() { SaveAsCentral = true };
+            using WorksharingSaveAsOptions worksharingOptions = new();
+            worksharingOptions.SaveAsCentral = true;
             saveOptions.SetWorksharingOptions(worksharingOptions);
         }
 
         try
         {
-            ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(fileDetachedPath);
+            using ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(fileDetachedPath);
             doc.SaveAs(modelPath, saveOptions);
         }
         catch
@@ -168,32 +165,27 @@ public static class DetachHelper
 
         if (isWorkshared)
         {
-            ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(fileDetachedPath);
+            using ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(fileDetachedPath);
             UpdateTransmissionData(modelPath);
 
             string backupFolderPath = fileDetachedPath.Replace(".rvt", "_backup");
-
-            if (Directory.Exists(backupFolderPath))
-            {
-                Directory.Delete(backupFolderPath, true);
-            }
-
-            return;
+            if (!Directory.Exists(backupFolderPath)) return;
+            
+            Directory.Delete(backupFolderPath, true);
         }
 
         for (int i = 1; i <= 3; i++)
         {
             string versionedFilePath = fileDetachedPath.Replace(".rvt", $".{i:D4}.rvt");
-            if (File.Exists(versionedFilePath))
-            {
-                File.Delete(versionedFilePath);
-            }
+            if (!File.Exists(versionedFilePath)) continue;
+            
+            File.Delete(versionedFilePath);
         }
     }
 
     private static void UpdateTransmissionData(ModelPath modelPath)
     {
-        TransmissionData transData = TransmissionData.ReadTransmissionData(modelPath);
+        using TransmissionData transData = TransmissionData.ReadTransmissionData(modelPath);
         if (transData is null) return;
 
         transData.IsTransmitted = true;

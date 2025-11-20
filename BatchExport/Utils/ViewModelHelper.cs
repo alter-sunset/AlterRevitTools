@@ -162,14 +162,12 @@ internal static class ViewModelHelper
     /// <param name="vmBase">ViewModel to finalize</param>
     /// <param name="id">TaskDialog Id</param>
     /// <param name="msg">Message to show to user</param>
-    public static void Finisher(this ViewModelBase vmBase, string id, string msg = "Task completed")
+    public static void FinishWork(this ViewModelBase vmBase, string id, string msg = "Task completed")
     {
-        TaskDialog taskDialog = new(Strings.Done)
-        {
-            CommonButtons = TaskDialogCommonButtons.Close,
-            Id = id,
-            MainContent = msg
-        };
+        using TaskDialog taskDialog = new(Strings.Done);
+        taskDialog.CommonButtons = TaskDialogCommonButtons.Close;
+        taskDialog.Id = id;
+        taskDialog.MainContent = msg;
 
         vmBase.IsViewEnabled = false;
         taskDialog.Show();
