@@ -9,6 +9,11 @@ namespace AlterTools.BatchExport.Views.Base;
 public class ViewModelBase : NotifyPropertyChanged, IConfigBase
 {
     private protected static string NoFiles => Resources.Strings.NoFilesVMBase;
+    
+    private bool _isViewEnabled = true;
+    
+    private string _viewName = "Navisworks";
+    private string _folderPath;
 
     private RelayCommand _browseFolderCommand;
     private RelayCommand _deleteCommand;
@@ -19,15 +24,8 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
     private RelayCommand _raiseEventCommand;
     private RelayCommand _saveListCommand;
     
-    private string _folderPath;
-    
-    private bool _isViewEnabled = true;
-    
     private ObservableCollection<ListBoxItem> _listBoxItems = [];
-    
     private ListBoxItem _selectedItem;
-
-    private string _viewName = "Navisworks";
 
     public ObservableCollection<ListBoxItem> ListBoxItems
     {
@@ -71,8 +69,7 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
 
     [UsedImplicitly]
     public RelayCommand HelpCommand =>
-        _helpCommand ??= new RelayCommand(_ => MessageBox.Show(HelpMessage,
-            Resources.Strings.Help));
+        _helpCommand ??= new RelayCommand(_ => MessageBox.Show(HelpMessage, Resources.Strings.Help));
 
     private protected EventHandlerBase EventHandlerBase { get; set; }
 
@@ -134,7 +131,7 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
 
     private protected virtual void SaveList()
     {
-        SaveFileDialog saveFileDialog = DialogType.RevitList.SaveFileDialog();
+        using SaveFileDialog saveFileDialog = DialogType.RevitList.SaveFileDialog();
         if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
 
         string fileName = saveFileDialog.FileName;
@@ -155,12 +152,12 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
 
     private void BrowseFolder()
     {
-        FolderBrowserDialog folderBrowserDialog = new() { SelectedPath = FolderPath };
+        using FolderBrowserDialog folderBrowserDialog = new();
+        folderBrowserDialog.SelectedPath = FolderPath;
 
-        if (folderBrowserDialog.ShowDialog() is DialogResult.OK)
-        {
-            FolderPath = folderBrowserDialog.SelectedPath;
-        }
+        if (folderBrowserDialog.ShowDialog() is not DialogResult.OK) return;
+        
+        FolderPath = folderBrowserDialog.SelectedPath;
     }
 
     private protected static ListBoxItem DefaultListBoxItem(string content)
