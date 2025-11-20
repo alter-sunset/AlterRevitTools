@@ -11,7 +11,6 @@ public class EventHandlerParams : EventHandlerBase
     protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
     {
         if (iConfigBase is not ParamsViewModel paramsVm) return;
-
         if (!paramsVm.IsEverythingFilled()) return;
 
         using (CsvHelper csvHelper = new(paramsVm.CsvPath, paramsVm.ParametersNames))
