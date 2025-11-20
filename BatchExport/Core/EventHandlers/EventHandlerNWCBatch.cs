@@ -30,7 +30,7 @@ public class EventHandlerNWCBatch : EventHandlerBase
 
                 NWCForm form = JsonConvert.DeserializeObject<NWCForm>(new StreamReader(fileStream).ReadToEnd());
 
-                nwcVm.NWCFormDeserializer(form);
+                nwcVm.DeserializeNWCForm(form);
             }
             catch
             {

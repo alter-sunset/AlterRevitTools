@@ -12,33 +12,22 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
     private readonly EventHandlerNWCBatch _eventHandlerNWCBatch;
 
     private ObservableCollection<Config> _configs = [];
-
-    private bool _convertElementProperties;
-
-    private bool _convertLights;
-
-    private bool _convertLinkedCADFormats;
-
-    private bool _divideFileIntoLevels = true;
-
-    private bool _exportElementIds = true;
-
-    private bool _exportLinks;
-
-    private bool _exportParts;
-
-    private bool _exportRoomAsAttribute = true;
-
-    private bool _exportRoomGeometry;
-
-    private bool _exportUrls;
-
+    
     private double _facetingFactor = 1;
 
+    private bool _divideFileIntoLevels = true;
+    private bool _exportElementIds = true;
+    private bool _exportRoomAsAttribute = true;
+    private bool _convertElementProperties;
+    private bool _convertLights;
+    private bool _convertLinkedCADFormats;
+    private bool _exportLinks;
+    private bool _exportParts;
+    private bool _exportRoomGeometry;
+    private bool _exportUrls;
     private bool _findMissingMaterials;
 
     private RelayCommand _loadConfigsCommand;
-
     private RelayCommand _raiseBatchEventCommand;
 
     private KeyValuePair<NavisworksCoordinates, string> _selectedCoordinates =
@@ -172,16 +161,16 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
 
     private protected override void LoadList()
     {
-        OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
+        using OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
 
         if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
 
         using FileStream file = File.OpenRead(openFileDialog.FileName);
 
-        NWCFormDeserializer(JsonHelper<NWCForm>.DeserializeConfig(file));
+        DeserializeNWCForm(JsonHelper<NWCForm>.DeserializeConfig(file));
     }
 
-    public void NWCFormDeserializer(NWCForm form)
+    public void DeserializeNWCForm(NWCForm form)
     {
         if (form is null) return;
 
@@ -216,7 +205,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
 
     private protected override void SaveList()
     {
-        using NWCForm form = NWCFormSerializer();
+        using NWCForm form = SerializeNWCForm();
         using SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
 
         if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
@@ -231,7 +220,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
         JsonHelper<NWCForm>.SerializeConfig(form, fileName);
     }
 
-    private NWCForm NWCFormSerializer()
+    private NWCForm SerializeNWCForm()
     {
         return new NWCForm
         {
