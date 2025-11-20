@@ -22,10 +22,9 @@ public class MigrateViewModel : ViewModelBase
 
     private protected override void LoadList()
     {
-        OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
-        if (openFileDialog.ShowDialog() is DialogResult.OK)
-        {
-            ConfigPath = openFileDialog.FileName;
-        }
+        using OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
+        if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
+        
+        ConfigPath = openFileDialog.FileName;
     }
 }
