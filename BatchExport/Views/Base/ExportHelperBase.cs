@@ -39,7 +39,7 @@ public class ExportHelperBase
                 continue;
             }
 
-            Document doc = OpenDocument(file, app, iConfig, log, items);
+            using Document doc = OpenDocument(file, app, iConfig, log, items);
             if (doc is null) continue;
 
             log.FileOpened();
@@ -87,28 +87,29 @@ public class ExportHelperBase
     private static void UpdateItemBackground(ListBoxItem[] items, string file, Brush color)
     {
         ListBoxItem item = items.FirstOrDefault(i => i.Content.ToString() == file);
-        if (item is not null)
-        {
-            item.Background = color;
-        }
+        if (item is null) return;
+        item.Background = color;
     }
 
-    private static Document OpenDocument(string file, Application app, IConfigBaseExtended iConfig, ILogger log,
+    private static Document OpenDocument(string file,
+        Application app,
+        IConfigBaseExtended iConfig,
+        ILogger log,
         ListBoxItem[] items)
     {
         try
         {
-            BasicFileInfo fileInfo = BasicFileInfo.Extract(file);
-            ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(file);
+            using BasicFileInfo fileInfo = BasicFileInfo.Extract(file);
+            using ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(file);
 
-            TransmissionData trData =
+            using TransmissionData trData =
                 File.Exists(fileInfo.CentralPath) // ensure that central model exists and reachable
                     ? TransmissionData.ReadTransmissionData(modelPath)
                     : null;
 
             bool transmitted = trData is { IsTransmitted: true };
 
-            WorksetConfiguration worksetConfiguration = fileInfo.IsWorkshared
+            using WorksetConfiguration worksetConfiguration = fileInfo.IsWorkshared
                 ? file.Equals(fileInfo.CentralPath)
                   && !transmitted
                   && iConfig.WorksetPrefixes.Length != 0
@@ -222,9 +223,7 @@ public class ExportHelperBase
     private protected static bool IsViewReadyForExport(IConfigBaseExtended iConfig, Document doc, ref ILogger log, ref bool isFuckedUp)
     {
         if (iConfig is NWCViewModel { ExportLinks: true }) return true;
-
         if (!iConfig.ExportScopeView) return true;
-        
         if (!doc.IsViewEmpty(GetView(iConfig, doc))) return true;
 
         if (iConfig.IgnoreMissingView)
