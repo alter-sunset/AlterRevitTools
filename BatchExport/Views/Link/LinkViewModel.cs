@@ -16,15 +16,13 @@ public class LinkViewModel : ViewModelBase
 
     public readonly Workset[] Worksets;
 
-    private ObservableCollection<Entry> _entries = [];
-
+    private bool _pinLinks = true;
     private bool _isCurrentWorkset;
 
-    private bool _pinLinks = true;
-
-    private Entry _selectedEntry;
-
     private string _worksetPrefix = string.Empty;
+    
+    private ObservableCollection<Entry> _entries = [];
+    private Entry _selectedEntry;
 
     public LinkViewModel(EventHandlerLink eventHandlerLink, Workset[] worksets)
     {
@@ -125,7 +123,7 @@ public class LinkViewModel : ViewModelBase
 
     private protected override void SaveList()
     {
-        SaveFileDialog saveFileDialog = DialogType.RevitList.SaveFileDialog();
+        using SaveFileDialog saveFileDialog = DialogType.RevitList.SaveFileDialog();
 
         if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
 
