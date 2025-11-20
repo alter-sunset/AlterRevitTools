@@ -24,10 +24,9 @@ public static class MigrateHelper
     private static void CreateDirectoryForFile(string filePath)
     {
         string dir = Path.GetDirectoryName(filePath);
-        if (dir is not null && !Directory.Exists(dir))
-        {
-            Directory.CreateDirectory(dir);
-        }
+        if (dir is null || Directory.Exists(dir)) return;
+        
+        Directory.CreateDirectory(dir);
     }
 
     public static List<string> ProcessFiles(string configPath, Application app)
@@ -77,7 +76,7 @@ public static class MigrateHelper
 
     private static void ProcessMovedFile(string newFile, WasBecome items, Application app)
     {
-        ModelPath newFilePath = ModelPathUtils.ConvertUserVisiblePathToModelPath(newFile);
+        using ModelPath newFilePath = ModelPathUtils.ConvertUserVisiblePathToModelPath(newFile);
         newFilePath.ReplaceLinks(items);
 
         using Document doc = newFilePath.OpenTransmitted(app);
