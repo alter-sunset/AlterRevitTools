@@ -180,19 +180,22 @@ public static class DocumentExtensions
                     .Where(el => doc.GetElement(el) is not null
                                  && doc.GetElement(el) is not RevitLinkType)
             ];
-#else
-            HashSet<ElementId> unusedElements = doc.GetUnusedElements();
-#endif
             previousCount = unusedElements.Count;
-
             if (previousCount == 0) break;
 
             using Transaction tr = new(doc, Strings.PurgeUnused);
             tr.Start();
-
-#if R24_OR_GREATER
+            
             doc.Delete(unusedElements);
+            tr.Commit();
 #else
+            HashSet<ElementId> unusedElements = doc.GetUnusedElements();
+            previousCount = unusedElements.Count;
+            if (previousCount == 0) break;
+            
+            using Transaction tr = new(doc, Strings.PurgeUnused);
+            tr.Start();
+            
             foreach (ElementId id in unusedElements)
             {
                 try
@@ -204,8 +207,8 @@ public static class DocumentExtensions
                     // ignored
                 }
             }
-#endif
             tr.Commit();
+#endif
         } while (0 < previousCount);
     }
 
