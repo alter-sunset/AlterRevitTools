@@ -181,7 +181,7 @@ public static class DocumentExtensions
                                  && doc.GetElement(el) is not RevitLinkType)
             ];
 #else
-            List<ElementId> unusedElements = doc.GetUnusedElements();
+            HashSet<ElementId> unusedElements = doc.GetUnusedElements();
 #endif
             previousCount = unusedElements.Count;
 
@@ -205,7 +205,6 @@ public static class DocumentExtensions
                 }
             }
 #endif
-
             tr.Commit();
         } while (0 < previousCount);
     }
@@ -220,17 +219,19 @@ public static class DocumentExtensions
         return (ICollection<ElementId>)method.Invoke(doc, null);
     }
 
-    private static List<ElementId> GetUnusedElements(this Document doc)
+    private static HashSet<ElementId> GetUnusedElements(this Document doc)
     {
-        return GetUnusedAssets(doc, "GetUnusedAppearances")
-            .Concat(GetUnusedAssets(doc, "GetUnusedImportCategories"))
-            .Concat(GetUnusedAssets(doc, "GetUnusedFamilies"))
-            .Concat(GetUnusedAssets(doc, "GetUnusedLinkSymbols"))
-            .Concat(GetUnusedAssets(doc, "GetUnusedMaterials"))
-            .Concat(GetUnusedAssets(doc, "GetUnusedStructures"))
-            .Concat(GetUnusedAssets(doc, "GetUnusedSymbols"))
-            .Concat(GetUnusedAssets(doc, "GetUnusedThermals"))
-            .ToList();
+        return
+        [
+            ..GetUnusedAssets(doc, "GetUnusedAppearances")
+                .Concat(GetUnusedAssets(doc, "GetUnusedFamilies"))
+                .Concat(GetUnusedAssets(doc, "GetUnusedImportCategories"))
+                .Concat(GetUnusedAssets(doc, "GetUnusedLinkSymbols"))
+                .Concat(GetUnusedAssets(doc, "GetUnusedMaterials"))
+                .Concat(GetUnusedAssets(doc, "GetUnusedStructures"))
+                .Concat(GetUnusedAssets(doc, "GetUnusedSymbols"))
+                .Concat(GetUnusedAssets(doc, "GetUnusedThermals"))
+        ];
     }
 #endif
 }

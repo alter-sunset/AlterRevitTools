@@ -36,8 +36,7 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
         IsWorksetRemoverEnabled = true;
         _removeEmptyWorksets = true;
 #endif
-        IsPurgeEnabled = true;
-        _purge = true;
+        _purge = false;
     }
 
     [UsedImplicitly]

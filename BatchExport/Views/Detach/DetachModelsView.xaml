@@ -164,8 +164,7 @@
                   VerticalAlignment="Center"
                   Content="{x:Static resx:Strings.PurgeModels}"
                   ToolTip="{x:Static resx:Strings.PurgeModelsToolTip}"
-                  IsChecked="{Binding Purge}"
-                  IsEnabled="{Binding IsPurgeEnabled}" />
+                  IsChecked="{Binding Purge}" />
 
         <CheckBox Margin="10,0,95,0"
                   Grid.Row="6"
