@@ -11,7 +11,7 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
     private bool _isToRename;
     private bool _removeEmptyWorksets;
     private bool _purge;
-    
+
     private int _radioButtonMode;
 
     private string _maskIn = Strings.MaskIn;
@@ -36,10 +36,8 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
         IsWorksetRemoverEnabled = true;
         _removeEmptyWorksets = true;
 #endif
-#if R24_OR_GREATER
         IsPurgeEnabled = true;
         _purge = true;
-#endif
     }
 
     [UsedImplicitly]
@@ -50,7 +48,7 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
     }
 
     public override RelayCommand RadioButtonCommand => _radioButtonCommand ??= new RelayCommand(GetRbCommand);
-   
+
     [UsedImplicitly]
     public string MaskIn
     {
@@ -65,11 +63,9 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
         set => SetProperty(ref _maskOut, value);
     }
 
-    [UsedImplicitly]
-    public bool IsPurgeEnabled { get; }
+    [UsedImplicitly] public bool IsPurgeEnabled { get; }
 
-    [UsedImplicitly]
-    public bool IsWorksetRemoverEnabled { get; }
+    [UsedImplicitly] public bool IsWorksetRemoverEnabled { get; }
 
     [UsedImplicitly]
     public bool Purge

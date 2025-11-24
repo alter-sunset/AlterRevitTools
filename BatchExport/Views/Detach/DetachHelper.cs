@@ -116,12 +116,10 @@ public static class DetachHelper
         }
 #endif
 
-#if R24_OR_GREATER
         if (iConfigDetach.Purge)
         {
             doc.PurgeAll();
         }
-#endif
     }
 
     private static void SaveDocument(Document doc, string fileDetachedPath, bool isWorkshared)
@@ -170,7 +168,7 @@ public static class DetachHelper
 
             string backupFolderPath = fileDetachedPath.Replace(".rvt", "_backup");
             if (!Directory.Exists(backupFolderPath)) return;
-            
+
             Directory.Delete(backupFolderPath, true);
         }
 
@@ -178,7 +176,7 @@ public static class DetachHelper
         {
             string versionedFilePath = fileDetachedPath.Replace(".rvt", $".{i:D4}.rvt");
             if (!File.Exists(versionedFilePath)) continue;
-            
+
             File.Delete(versionedFilePath);
         }
     }

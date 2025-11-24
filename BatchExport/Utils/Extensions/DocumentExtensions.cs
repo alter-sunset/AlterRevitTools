@@ -1,4 +1,5 @@
-﻿using AlterTools.BatchExport.Resources;
+﻿using System.Reflection;
+using AlterTools.BatchExport.Resources;
 using Autodesk.Revit.DB.Electrical;
 
 namespace AlterTools.BatchExport.Utils.Extensions;
@@ -66,7 +67,7 @@ public static class DocumentExtensions
         using Transaction tr = new(doc, Strings.RemoveAllLinks);
 
         tr.Start();
-        
+
         using FailureHandlingOptions failOpt = tr.GetFailureHandlingOptions();
         failOpt.SetFailuresPreprocessor(new CopyWatchAlertSuppressor());
         tr.SetFailureHandlingOptions(failOpt);
@@ -141,7 +142,7 @@ public static class DocumentExtensions
 #if R22_OR_GREATER
     public static void RemoveEmptyWorksets(this Document doc)
     {
-        List<WorksetId> worksets = 
+        List<WorksetId> worksets =
         [
             .. new FilteredWorksetCollector(doc)
                 .OfKind(WorksetKind.UserWorkset)
@@ -164,40 +165,75 @@ public static class DocumentExtensions
             .Any();
     }
 #endif
-    
-#if R24_OR_GREATER
+
+
     public static void PurgeAll(this Document doc)
     {
-        try
+        int previousCount;
+
+        do
         {
-            int previousCount;
-            
-            do
+#if R24_OR_GREATER
+        HashSet<ElementId> unusedElements =
+        [
+            .. doc.GetUnusedElements(new HashSet<ElementId>())
+                .Where(el => doc.GetElement(el) is not null
+                             && doc.GetElement(el) is not RevitLinkType)
+        ];
+#else
+            List<ElementId> unusedElements = doc.GetUnusedElements();
+#endif
+            previousCount = unusedElements.Count;
+
+            if (previousCount == 0) break;
+
+            using Transaction tr = new(doc, Strings.PurgeUnused);
+            tr.Start();
+
+#if R24_OR_GREATER
+        doc.Delete(unusedElements);
+#else
+            foreach (ElementId id in unusedElements)
             {
-                HashSet<ElementId> unusedElements =
-                [
-                    .. doc.GetUnusedElements(new HashSet<ElementId>())
-                        .Where(el => doc.GetElement(el) is not null
-                                     && doc.GetElement(el) is not RevitLinkType)
-                ];
-                
-                previousCount = unusedElements.Count;
-                
-                if (previousCount == 0) break;
-                
-                using Transaction tr = new(doc, Strings.PurgeUnused);
-                tr.Start();
-                
-                doc.Delete(unusedElements);
-                
-                tr.Commit();            
-            } while (0 < previousCount);
-        
-        }
-        catch
+                try
+                {
+                    doc.Delete(id);
+                }
+                catch
+                {
+                    // ignored
+                }
+            }
+#endif
+
+            tr.Commit();
+        } while (0 < previousCount);
+    }
+
+#if R24_OR_GREATER
+#else
+    private static ICollection<ElementId> GetUnusedAssets(Document doc, string methodName)
+    {
+        MethodInfo method = typeof(Document).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+        if (method != null)
         {
-            // ignored
+            return (ICollection<ElementId>)method.Invoke(doc, null);
         }
+
+        return new List<ElementId>();
+    }
+
+    private static List<ElementId> GetUnusedElements(this Document doc)
+    {
+        return GetUnusedAssets(doc, "GetUnusedAppearances")
+            .Concat(GetUnusedAssets(doc, "GetUnusedImportCategories"))
+            .Concat(GetUnusedAssets(doc, "GetUnusedFamilies"))
+            .Concat(GetUnusedAssets(doc, "GetUnusedLinkSymbols"))
+            .Concat(GetUnusedAssets(doc, "GetUnusedMaterials"))
+            .Concat(GetUnusedAssets(doc, "GetUnusedStructures"))
+            .Concat(GetUnusedAssets(doc, "GetUnusedSymbols"))
+            .Concat(GetUnusedAssets(doc, "GetUnusedThermals"))
+            .ToList();
     }
 #endif
 }
