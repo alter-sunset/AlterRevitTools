@@ -174,12 +174,12 @@ public static class DocumentExtensions
         do
         {
 #if R24_OR_GREATER
-        HashSet<ElementId> unusedElements =
-        [
-            .. doc.GetUnusedElements(new HashSet<ElementId>())
-                .Where(el => doc.GetElement(el) is not null
-                             && doc.GetElement(el) is not RevitLinkType)
-        ];
+            HashSet<ElementId> unusedElements =
+            [
+                .. doc.GetUnusedElements(new HashSet<ElementId>())
+                    .Where(el => doc.GetElement(el) is not null
+                                 && doc.GetElement(el) is not RevitLinkType)
+            ];
 #else
             List<ElementId> unusedElements = doc.GetUnusedElements();
 #endif
@@ -191,7 +191,7 @@ public static class DocumentExtensions
             tr.Start();
 
 #if R24_OR_GREATER
-        doc.Delete(unusedElements);
+            doc.Delete(unusedElements);
 #else
             foreach (ElementId id in unusedElements)
             {
