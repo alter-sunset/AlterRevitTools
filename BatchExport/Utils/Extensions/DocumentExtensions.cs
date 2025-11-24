@@ -231,6 +231,8 @@ public static class DocumentExtensions
                 .Concat(GetUnusedAssets(doc, "GetUnusedStructures"))
                 .Concat(GetUnusedAssets(doc, "GetUnusedSymbols"))
                 .Concat(GetUnusedAssets(doc, "GetUnusedThermals"))
+                .Where(el => doc.GetElement(el) is not null
+                             && doc.GetElement(el) is not RevitLinkType)
         ];
     }
 #endif
