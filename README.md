@@ -49,7 +49,7 @@ It is also useful for quickly preparing models received from contractors.
   - All links can be removed from the model.
   - Models can be checked for "empty views" to filter out empty files from third parties.
   - Models can be purged of empty worksets. *(Available from version **2022**)*
-  - Models can be purged of all unused elements. *(Available from version **2024**)*
+  - Models can be purged of all unused elements.
   
 ![detach](https://github.com/user-attachments/assets/df9d9db8-ca8e-495f-990d-33c2767bcf61)
 
