@@ -214,13 +214,10 @@ public static class DocumentExtensions
 #else
     private static ICollection<ElementId> GetUnusedAssets(Document doc, string methodName)
     {
-        MethodInfo method = typeof(Document).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
-        if (method != null)
-        {
-            return (ICollection<ElementId>)method.Invoke(doc, null);
-        }
-
-        return new List<ElementId>();
+        MethodInfo method = typeof(Document)
+            .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+        if (method is null) return [];
+        return (ICollection<ElementId>)method.Invoke(doc, null);
     }
 
     private static List<ElementId> GetUnusedElements(this Document doc)
