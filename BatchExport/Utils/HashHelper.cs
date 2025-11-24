@@ -10,7 +10,6 @@ public static class HashHelper
     public static string GetMd5Hash(this string fileName)
     {
         if (string.IsNullOrEmpty(fileName)) return null;
-
         if (!File.Exists(fileName)) return null;
 
         using MD5 md5 = MD5.Create();

@@ -8,11 +8,17 @@ namespace AlterTools.BatchExport.Views.Params;
 
 public static class ParamsHelper
 {
-    public static void ExportParameters(this ListBoxItem item, Application app, ParamsViewModel paramsVm,
+    private static string _fileName;
+    private static ParamsViewModel _paramsVm;
+    public static void ExportParameters(this ListBoxItem item,
+        Application app,
+        ParamsViewModel paramsVm,
         CsvHelper csvHelper)
     {
+        _paramsVm = paramsVm;
+        
         string filePath = item.Content?.ToString();
-        string fileName = Path.GetFileName(filePath);
+        _fileName = Path.GetFileName(filePath);
 
         if (!File.Exists(filePath))
         {
@@ -36,16 +42,7 @@ public static class ParamsHelper
                 .Where(el => !string.IsNullOrWhiteSpace(
                     el.get_Parameter(BuiltInParameter.ELEM_FAMILY_AND_TYPE_PARAM)
                         .GetValueString()))
-                .Select(el => new ParametersTable
-                {
-                    ModelName = fileName,
-                    Parameters = el.GetParametersSet(paramsVm.ParametersNames),
-#if R24_OR_GREATER
-                    ElementId = el.Id.Value,
-#else
-                    ElementId = el.Id.IntegerValue,
-#endif
-                });
+                .Select(GetParametersTable);
 
             foreach (ParametersTable table in paramTables)
             {
@@ -65,5 +62,19 @@ public static class ParamsHelper
     private static Dictionary<string, string> GetParametersSet(this Element element, string[] parametersNames)
     {
         return parametersNames.ToDictionary(name => name, name => element.LookupParameter(name).GetValueString());
+    }
+
+    private static ParametersTable GetParametersTable(this Element el)
+    {
+        return new ParametersTable
+        {
+            ModelName = _fileName,
+            Parameters = el.GetParametersSet(_paramsVm.ParametersNames),
+#if R24_OR_GREATER
+            ElementId = el.Id.Value,
+#else
+            ElementId = el.Id.IntegerValue,
+#endif
+        };
     }
 }

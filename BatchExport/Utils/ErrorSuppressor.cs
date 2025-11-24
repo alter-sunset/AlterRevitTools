@@ -40,7 +40,7 @@ public class ErrorSuppressor : IDisposable
 
     private static void ApplicationFailuresProcessing(object sender, FailuresProcessingEventArgs args)
     {
-        FailuresAccessor accessor = args.GetFailuresAccessor();
+        using FailuresAccessor accessor = args.GetFailuresAccessor();
         FailureProcessingResult result = PreprocessFailures(accessor);
         args.SetProcessingResult(result);
     }
