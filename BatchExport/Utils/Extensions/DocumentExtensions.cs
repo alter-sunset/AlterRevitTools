@@ -174,25 +174,28 @@ public static class DocumentExtensions
         do
         {
 #if R24_OR_GREATER
-        HashSet<ElementId> unusedElements =
-        [
-            .. doc.GetUnusedElements(new HashSet<ElementId>())
-                .Where(el => doc.GetElement(el) is not null
-                             && doc.GetElement(el) is not RevitLinkType)
-        ];
-#else
-            List<ElementId> unusedElements = doc.GetUnusedElements();
-#endif
+            HashSet<ElementId> unusedElements =
+            [
+                .. doc.GetUnusedElements(new HashSet<ElementId>())
+                    .Where(el => doc.GetElement(el) is not null
+                                 && doc.GetElement(el) is not RevitLinkType)
+            ];
             previousCount = unusedElements.Count;
-
             if (previousCount == 0) break;
 
             using Transaction tr = new(doc, Strings.PurgeUnused);
             tr.Start();
-
-#if R24_OR_GREATER
-        doc.Delete(unusedElements);
+            
+            doc.Delete(unusedElements);
+            tr.Commit();
 #else
+            HashSet<ElementId> unusedElements = doc.GetUnusedElements();
+            previousCount = unusedElements.Count;
+            if (previousCount == 0) break;
+            
+            using Transaction tr = new(doc, Strings.PurgeUnused);
+            tr.Start();
+            
             foreach (ElementId id in unusedElements)
             {
                 try
@@ -204,9 +207,8 @@ public static class DocumentExtensions
                     // ignored
                 }
             }
-#endif
-
             tr.Commit();
+#endif
         } while (0 < previousCount);
     }
 
@@ -214,26 +216,27 @@ public static class DocumentExtensions
 #else
     private static ICollection<ElementId> GetUnusedAssets(Document doc, string methodName)
     {
-        MethodInfo method = typeof(Document).GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
-        if (method != null)
-        {
-            return (ICollection<ElementId>)method.Invoke(doc, null);
-        }
-
-        return new List<ElementId>();
+        MethodInfo method = typeof(Document)
+            .GetMethod(methodName, BindingFlags.NonPublic | BindingFlags.Instance);
+        if (method is null) return [];
+        return (ICollection<ElementId>)method.Invoke(doc, null);
     }
 
-    private static List<ElementId> GetUnusedElements(this Document doc)
+    private static HashSet<ElementId> GetUnusedElements(this Document doc)
     {
-        return GetUnusedAssets(doc, "GetUnusedAppearances")
-            .Concat(GetUnusedAssets(doc, "GetUnusedImportCategories"))
-            .Concat(GetUnusedAssets(doc, "GetUnusedFamilies"))
-            .Concat(GetUnusedAssets(doc, "GetUnusedLinkSymbols"))
-            .Concat(GetUnusedAssets(doc, "GetUnusedMaterials"))
-            .Concat(GetUnusedAssets(doc, "GetUnusedStructures"))
-            .Concat(GetUnusedAssets(doc, "GetUnusedSymbols"))
-            .Concat(GetUnusedAssets(doc, "GetUnusedThermals"))
-            .ToList();
+        return
+        [
+            ..GetUnusedAssets(doc, "GetUnusedAppearances")
+                .Concat(GetUnusedAssets(doc, "GetUnusedFamilies"))
+                .Concat(GetUnusedAssets(doc, "GetUnusedImportCategories"))
+                .Concat(GetUnusedAssets(doc, "GetUnusedLinkSymbols"))
+                .Concat(GetUnusedAssets(doc, "GetUnusedMaterials"))
+                .Concat(GetUnusedAssets(doc, "GetUnusedStructures"))
+                .Concat(GetUnusedAssets(doc, "GetUnusedSymbols"))
+                .Concat(GetUnusedAssets(doc, "GetUnusedThermals"))
+                .Where(el => doc.GetElement(el) is not null
+                             && doc.GetElement(el) is not RevitLinkType)
+        ];
     }
 #endif
 }

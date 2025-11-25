@@ -115,7 +115,7 @@ public static class DetachHelper
             doc.RemoveEmptyWorksets();
         }
 #endif
-
+        
         if (iConfigDetach.Purge)
         {
             doc.PurgeAll();
