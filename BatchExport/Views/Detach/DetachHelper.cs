@@ -104,11 +104,6 @@ public static class DetachHelper
 
     private static void ProcessDocument(Document doc, IConfigDetach iConfigDetach)
     {
-        if (iConfigDetach.Purge)
-        {
-            doc.PurgeAll();
-        }
-
         if (iConfigDetach.RemoveLinks)
         {
             doc.DeleteAllLinks();
@@ -120,6 +115,11 @@ public static class DetachHelper
             doc.RemoveEmptyWorksets();
         }
 #endif
+        
+        if (iConfigDetach.Purge)
+        {
+            doc.PurgeAll();
+        }
     }
 
     private static void SaveDocument(Document doc, string fileDetachedPath, bool isWorkshared)
