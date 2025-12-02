@@ -13,7 +13,7 @@ public class EventHandlerParams : EventHandlerBase
         if (iConfigBase is not ParamsViewModel paramsVm) return;
         if (!paramsVm.IsEverythingFilled()) return;
 
-        using (CsvHelper csvHelper = new(paramsVm.CsvPath, paramsVm.ParametersNames))
+        using (CsvHelper csvHelper = new(paramsVm.CsvPath, ["ModelName", "ElementId", .. paramsVm.ParametersNames]))
         {
             using ErrorSuppressor errorSuppressor = new(uiApp);
             using Application app = uiApp.Application;

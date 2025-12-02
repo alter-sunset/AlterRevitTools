@@ -4,19 +4,12 @@ namespace AlterTools.BatchExport.Utils;
 
 public class CsvHelper : IDisposable
 {
-    private static readonly string[] HeaderBase = ["ModelName", "ElementId"];
     private readonly StreamWriter _stream;
-
-    public CsvHelper(string csvFilePath, string[] parametersNames)
+    
+    public CsvHelper(string csvFilePath, string[] headers)
     {
         _stream = new StreamWriter(csvFilePath);
-        _stream.WriteLine(string.Join("|", HeaderBase.Concat(parametersNames))); // Header
-    }
-
-    public CsvHelper(string csvFilePath)
-    {
-        _stream = new StreamWriter(csvFilePath);
-        _stream.WriteLine("ModelName|WorksetName");
+        _stream.WriteLine(string.Join("|", headers));
     }
 
     public void Dispose() => _stream.Dispose();

@@ -11,7 +11,7 @@ public static class ModelPathExtensions
         Application app,
         WorksetConfiguration worksetConfiguration)
     {
-        return modelPath.OpenDocumentWithOptions(DetachFromCentralOption.DoNotDetach,
+        return modelPath.OpenWithOptions(DetachFromCentralOption.DoNotDetach,
             worksetConfiguration,
             app);
     }
@@ -20,19 +20,19 @@ public static class ModelPathExtensions
         Application app,
         WorksetConfiguration worksetConfiguration)
     {
-        return modelPath.OpenDocumentWithOptions(DetachFromCentralOption.DetachAndPreserveWorksets,
+        return modelPath.OpenWithOptions(DetachFromCentralOption.DetachAndPreserveWorksets,
             worksetConfiguration,
             app);
     }
 
     public static Document OpenTransmitted(this ModelPath modelPath, Application app)
     {
-        return modelPath.OpenDocumentWithOptions(DetachFromCentralOption.ClearTransmittedSaveAsNewCentral,
+        return modelPath.OpenWithOptions(DetachFromCentralOption.ClearTransmittedSaveAsNewCentral,
             new WorksetConfiguration(WorksetConfigurationOption.CloseAllWorksets),
             app);
     }
 
-    private static Document OpenDocumentWithOptions(this ModelPath modelPath,
+    private static Document OpenWithOptions(this ModelPath modelPath,
         DetachFromCentralOption detachOption,
         WorksetConfiguration worksetConfiguration,
         Application app)
