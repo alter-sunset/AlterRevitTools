@@ -6,9 +6,7 @@ public class CsvHelper : IDisposable
 {
     private readonly StreamWriter _stream;
     private readonly string _separator;
-    /// <summary>
-    /// 
-    /// </summary>
+
     /// <param name="csvFilePath">Path of the output file</param>
     /// <param name="headers">Array of headers</param>
     /// <param name="separator">Char that will be used as a separator. Default is |</param>
@@ -30,5 +28,8 @@ public class CsvHelper : IDisposable
                     .Select(v => v.Replace(Environment.NewLine, " ")))));
     }
 
-    public void WriteWorkset(string modelName, string worksetName) => _stream.WriteLine($"{modelName}{_separator}{worksetName}");
+    public void WriteWorkset(string modelName, string worksetName)
+    {
+        _stream.WriteLine($"{modelName}{_separator}{worksetName}");
+    }
 }
