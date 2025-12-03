@@ -21,11 +21,12 @@ public class CsvHelper : IDisposable
 
     public void WriteElement(ParametersTable paramsTable)
     {
-        _stream.WriteLine(string.Join(_separator,
-            new[] { paramsTable.ModelName, paramsTable.ElementId.ToString() }
-                .Concat(paramsTable.Parameters
-                    .Values
-                    .Select(v => v.Replace(Environment.NewLine, " ")))));
+        string[] start = [ paramsTable.ModelName, paramsTable.ElementId.ToString() ];
+        IEnumerable<string> line = start.Concat(
+            paramsTable.Parameters
+                .Values
+                .Select(v => v.Replace(Environment.NewLine, " ")));
+        _stream.WriteLine(string.Join(_separator,  line));
     }
 
     public void WriteWorkset(string modelName, string worksetName)
