@@ -9,25 +9,18 @@ internal class ButtonContext
 {
     [UsedImplicitly]
     public string Name { get; set; }
-    
     [UsedImplicitly]
     public string Text { get; set; }
-    
     [UsedImplicitly]
     public string ClassName { get; set; }
-    
     [UsedImplicitly]
     public string ToolTip { get; set; }
-    
     [UsedImplicitly]
     public string ImageLarge { get; set; }
-    
     [UsedImplicitly]
     public string ImageSmall { get; set; }
-    
     [UsedImplicitly]
     public string Panel { get; set; }
-    
     [UsedImplicitly]
     public bool Availability { get; set; }
 
@@ -40,7 +33,10 @@ internal class ButtonContext
     {
         try
         {
-            PushButtonData pbData = new(Name,GetString(Text), Assembly.GetExecutingAssembly().Location, ClassName)
+            PushButtonData pbData = new(Name,
+                GetString(Text),
+                Assembly.GetExecutingAssembly().Location,
+                ClassName)
             {
                 ToolTip = GetString(ToolTip),
                 Image = GetImage(ImageSmall),

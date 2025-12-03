@@ -29,9 +29,10 @@ public class ExternalCommandExtractWorkset : IExternalCommand
         foreach (string file in files)
         {
             string modelName = Path.GetFileName(file);
+            using ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(file);
 
             IEnumerable<string> worksets = WorksharingUtils
-                .GetUserWorksetInfo(ModelPathUtils.ConvertUserVisiblePathToModelPath(file))
+                .GetUserWorksetInfo(modelPath)
                 .Select(workset => workset.Name);
 
             foreach (string workset in worksets)

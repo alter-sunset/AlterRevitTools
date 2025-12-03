@@ -28,7 +28,7 @@ public static class DocumentExtensions
         {
             using FilteredElementCollector collector = new(doc, view.Id);
 
-            return !collector.Where(el => el.Category != null
+            return !collector.Where(el => el.Category is not null
                                           && el.GetType() != typeof(RevitLinkInstance))
                 .Any(el => el.CanBeHidden(view));
         }
