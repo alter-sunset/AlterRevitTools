@@ -42,11 +42,15 @@ internal static class ViewModelHelper
 
     internal static bool IsEverythingFilled(this LinkViewModel linkVm) => linkVm.IsListNotEmpty();
 
-    private static bool IsListNotEmpty(this LinkViewModel linkVm) =>
-        CheckCondition(linkVm.Entries.Count > 0, Strings.NoFiles);
+    private static bool IsListNotEmpty(this LinkViewModel linkVm)
+    {
+        return CheckCondition(linkVm.Entries.Count > 0, Strings.NoFiles);
+    }
 
-    private static bool IsListNotEmpty(this ViewModelBase vmBase) =>
-        CheckCondition(vmBase.ListBoxItems.Count > 0, Strings.NoFiles);
+    private static bool IsListNotEmpty(this ViewModelBase vmBase)
+    {
+        return CheckCondition(vmBase.ListBoxItems.Count > 0, Strings.NoFiles);
+    }
 
     private static bool IsFolderPathOk(this ViewModelBase vmBase)
     {
@@ -80,14 +84,18 @@ internal static class ViewModelHelper
 
     private static bool IsViewNameOk(this ViewModelBaseExtended vmBaseExt)
     {
-        return CheckCondition(!vmBaseExt.ExportScopeView
-                              || !string.IsNullOrEmpty(vmBaseExt.ViewName), Strings.NoViewName);
+        bool condition = !vmBaseExt.ExportScopeView
+                         || !string.IsNullOrEmpty(vmBaseExt.ViewName);
+        
+        return CheckCondition(condition, Strings.NoViewName);
     }
 
     private static bool IsViewNameOk(this DetachViewModel detachVm)
     {
-        return CheckCondition(!detachVm.CheckForEmptyView
-                              || !string.IsNullOrEmpty(detachVm.ViewName), Strings.NoViewName);
+        bool condition = !detachVm.CheckForEmptyView
+                         || !string.IsNullOrEmpty(detachVm.ViewName);
+        
+        return CheckCondition(condition, Strings.NoViewName);
     }
 
     private static bool IsRbModeOk(this DetachViewModel detachVm)
@@ -122,8 +130,10 @@ internal static class ViewModelHelper
 
     private static bool IsMaskNameOk(this DetachViewModel detachVm)
     {
-        return CheckCondition(!detachVm.IsToRename
-                              || !string.IsNullOrEmpty(detachVm.MaskInName), Strings.NoMaskFile);
+        bool condition = !detachVm.IsToRename
+                         || !string.IsNullOrEmpty(detachVm.MaskInName);
+        
+        return CheckCondition(condition, Strings.NoMaskFile);
     }
 
     private static bool IsCsvPathNotEmpty(this ParamsViewModel paramsVm)
