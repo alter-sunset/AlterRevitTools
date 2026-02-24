@@ -14,7 +14,7 @@ public class ExportHelperBase
     public void BatchExportModels(IConfigBaseExtended iConfig, UIApplication uiApp, ref ILogger log)
     {
         using Application app = uiApp.Application;
-        using ErrorSuppressor errorSuppressor = new(uiApp);
+        // using ErrorSuppressor errorSuppressor = new(uiApp);
 
         string[] models = iConfig.Files;
 

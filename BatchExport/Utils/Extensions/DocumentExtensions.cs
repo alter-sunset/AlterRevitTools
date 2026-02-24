@@ -68,27 +68,27 @@ public static class DocumentExtensions
 
         if (links.Length == 0) return;
 
-        using Transaction tr = new(doc, Strings.RemoveAllLinks); // change string
-
-        tr.Start();
-
         // using FailureHandlingOptions failOpt = tr.GetFailureHandlingOptions();
         // failOpt.SetFailuresPreprocessor(new CopyWatchAlertSuppressor());
         // tr.SetFailureHandlingOptions(failOpt);
 
         foreach (RevitLinkType link in links)
         {
+            using Transaction tr = new(doc, Strings.RemoveAllLinks); // change string
+            tr.Start();
+            
             try
             {
+
                 link.Unload(null);
+                tr.Commit();
             }
             catch
             {
-                // ignored
+                tr.RollBack();
             }
         }
 
-        tr.Commit();
     }
 
     /// <summary>
