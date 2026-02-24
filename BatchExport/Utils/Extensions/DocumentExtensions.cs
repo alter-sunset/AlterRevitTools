@@ -54,6 +54,42 @@ public static class DocumentExtensions
             // ignored
         }
     }
+    
+    /// <summary>
+    ///     Unload all possible links from the doc
+    /// </summary>
+    public static void UnloadAllLinks(this Document doc)
+    {
+        var links = new FilteredElementCollector(doc)
+            .WhereElementIsElementType()
+            .OfClass(typeof(RevitLinkType))
+            .Cast<RevitLinkType>()
+            .ToArray();
+
+        if (links.Length == 0) return;
+
+        using Transaction tr = new(doc, Strings.RemoveAllLinks); // change string
+
+        tr.Start();
+
+        // using FailureHandlingOptions failOpt = tr.GetFailureHandlingOptions();
+        // failOpt.SetFailuresPreprocessor(new CopyWatchAlertSuppressor());
+        // tr.SetFailureHandlingOptions(failOpt);
+
+        foreach (RevitLinkType link in links)
+        {
+            try
+            {
+                link.Unload(null);
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+
+        tr.Commit();
+    }
 
     /// <summary>
     ///     Delete all possible links from the doc

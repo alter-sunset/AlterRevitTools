@@ -39,12 +39,18 @@ public class ExportHelperBase
                 continue;
             }
 
-            using Document doc = OpenDocument(file, app, iConfig, log, items);
+            using Document doc = OpenDocument(file, app,  log, items, out bool isWorkshared);
             if (doc is null) continue;
 
             log.FileOpened();
             UpdateItemBackground(items, file, Brushes.Blue);
+            
+            //      unload all links
 
+            doc.UnloadAllLinks();
+
+            if (isWorkshared) doc.OpenAllWorksets();
+            
             bool isFuckedUp = false;
 
             try
@@ -93,9 +99,9 @@ public class ExportHelperBase
 
     private static Document OpenDocument(string file,
         Application app,
-        IConfigBaseExtended iConfig,
         ILogger log,
-        ListBoxItem[] items)
+        ListBoxItem[] items,
+        out bool isWorkshared)
     {
         try
         {
@@ -107,14 +113,17 @@ public class ExportHelperBase
                     ? TransmissionData.ReadTransmissionData(modelPath)
                     : null;
 
-            bool transmitted = trData is { IsTransmitted: true };
+            // bool transmitted = trData is { IsTransmitted: true };
 
-            using WorksetConfiguration worksetConfiguration = fileInfo.IsWorkshared
-                ? file.Equals(fileInfo.CentralPath)
-                  && !transmitted
-                  && iConfig.WorksetPrefixes.Length != 0
-                    ? modelPath.CloseWorksets(iConfig.WorksetPrefixes)
-                    : new WorksetConfiguration()
+            isWorkshared = fileInfo.IsWorkshared;
+            
+            using WorksetConfiguration worksetConfiguration = isWorkshared
+                ? new WorksetConfiguration(WorksetConfigurationOption.CloseAllWorksets)
+                // file.Equals(fileInfo.CentralPath)
+                //   && !transmitted
+                //   && iConfig.WorksetPrefixes.Length != 0
+                //     ? modelPath.CloseWorksets(iConfig.WorksetPrefixes)
+                //     : new WorksetConfiguration()
                 : null;
 
             return worksetConfiguration is null
@@ -126,6 +135,8 @@ public class ExportHelperBase
             log.Error("File didn't open. ", ex);
 
             UpdateItemBackground(items, file, Brushes.Red);
+            
+            isWorkshared = false;
 
             return null;
         }

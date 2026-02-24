@@ -71,6 +71,34 @@
         <OutputPath>bin\R2026\</OutputPath>
         <DefineConstants>R20_OR_GREATER;R22_OR_GREATER;R24_OR_GREATER;R25_OR_GREATER</DefineConstants>
     </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug R25' ">
+      <DebugSymbols>true</DebugSymbols>
+      <DebugType>full</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release R19' ">
+      <DebugType>none</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release R20' ">
+      <DebugType>none</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release R21' ">
+      <DebugType>none</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release R22' ">
+      <DebugType>none</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release R23' ">
+      <DebugType>none</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release R24' ">
+      <DebugType>none</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release R25' ">
+      <DebugType>none</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release R26' ">
+      <DebugType>none</DebugType>
+    </PropertyGroup>
     <ItemGroup>
         <EmbeddedResource Include="Resources\Buttons.json" />
         <EmbeddedResource Include="Resources\detach.png" />
