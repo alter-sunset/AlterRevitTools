@@ -54,41 +54,30 @@ public static class DocumentExtensions
             // ignored
         }
     }
-    
+
     /// <summary>
     ///     Unload all possible links from the doc
     /// </summary>
     public static void UnloadAllLinks(this Document doc)
     {
-        var links = new FilteredElementCollector(doc)
-            .WhereElementIsElementType()
+        RevitLinkType[] links = new FilteredElementCollector(doc)
             .OfClass(typeof(RevitLinkType))
             .Cast<RevitLinkType>()
             .ToArray();
 
         if (links.Length == 0) return;
 
-        // using FailureHandlingOptions failOpt = tr.GetFailureHandlingOptions();
-        // failOpt.SetFailuresPreprocessor(new CopyWatchAlertSuppressor());
-        // tr.SetFailureHandlingOptions(failOpt);
-
         foreach (RevitLinkType link in links)
         {
-            using Transaction tr = new(doc, Strings.RemoveAllLinks); // change string
-            tr.Start();
-            
             try
             {
-
-                link.Unload(null);
-                tr.Commit();
+                link.UnloadLocally(null);
             }
             catch
             {
-                tr.RollBack();
+                // ignore
             }
         }
-
     }
 
     /// <summary>
@@ -221,7 +210,7 @@ public static class DocumentExtensions
 
             using Transaction tr = new(doc, Strings.PurgeUnused);
             tr.Start();
-            
+
             doc.Delete(unusedElements);
             tr.Commit();
 #else

@@ -14,7 +14,7 @@ public class ExportHelperBase
     public void BatchExportModels(IConfigBaseExtended iConfig, UIApplication uiApp, ref ILogger log)
     {
         using Application app = uiApp.Application;
-        // using ErrorSuppressor errorSuppressor = new(uiApp);
+        using ErrorSuppressor errorSuppressor = new(uiApp);
 
         string[] models = iConfig.Files;
 
@@ -39,18 +39,19 @@ public class ExportHelperBase
                 continue;
             }
 
-            using Document doc = OpenDocument(file, app,  log, items, out bool isWorkshared);
+            using Document doc = OpenDocument(file, app, log, iConfig, items, out bool isWorkshared,
+                out bool transmittedWrong);
             if (doc is null) continue;
 
             log.FileOpened();
             UpdateItemBackground(items, file, Brushes.Blue);
-            
-            //      unload all links
 
-            doc.UnloadAllLinks();
+            if (transmittedWrong)
+            {
+                doc.UnloadAllLinks();
+                if (isWorkshared) doc.OpenAllWorksets();
+            }
 
-            if (isWorkshared) doc.OpenAllWorksets();
-            
             bool isFuckedUp = false;
 
             try
@@ -100,9 +101,13 @@ public class ExportHelperBase
     private static Document OpenDocument(string file,
         Application app,
         ILogger log,
+        IConfigBaseExtended iConfig,
         ListBoxItem[] items,
-        out bool isWorkshared)
+        out bool isWorkshared,
+        out bool transmittedWrong)
     {
+        isWorkshared = false;
+        transmittedWrong = false;
         try
         {
             using BasicFileInfo fileInfo = BasicFileInfo.Extract(file);
@@ -113,29 +118,40 @@ public class ExportHelperBase
                     ? TransmissionData.ReadTransmissionData(modelPath)
                     : null;
 
-            // bool transmitted = trData is { IsTransmitted: true };
+            transmittedWrong = trData is null;
+            bool transmitted = trData is { IsTransmitted: true };
 
             isWorkshared = fileInfo.IsWorkshared;
-            
-            using WorksetConfiguration worksetConfiguration = isWorkshared
-                ? new WorksetConfiguration(WorksetConfigurationOption.CloseAllWorksets)
-                // file.Equals(fileInfo.CentralPath)
-                //   && !transmitted
-                //   && iConfig.WorksetPrefixes.Length != 0
-                //     ? modelPath.CloseWorksets(iConfig.WorksetPrefixes)
-                //     : new WorksetConfiguration()
-                : null;
 
-            return worksetConfiguration is null
-                ? app.OpenDocumentFile(file)
-                : modelPath.OpenDetached(app, worksetConfiguration);
+            WorksetConfiguration worksetConfiguration;
+
+            if (!isWorkshared)
+            {
+                worksetConfiguration = null;
+            }
+            else if (!file.Equals(fileInfo.CentralPath))
+            {
+                worksetConfiguration = new WorksetConfiguration(WorksetConfigurationOption.CloseAllWorksets);
+            }
+            else if (!transmitted && iConfig.WorksetPrefixes.Length != 0)
+            {
+                worksetConfiguration = modelPath.CloseWorksets(iConfig.WorksetPrefixes);
+            }
+            else
+            {
+                worksetConfiguration = new WorksetConfiguration();
+            }
+
+            if (worksetConfiguration is null) return app.OpenDocumentFile(file);
+            if (trData is null) return modelPath.OpenAsIs(app, worksetConfiguration);
+            return modelPath.OpenDetached(app, worksetConfiguration);
         }
         catch (Exception ex)
         {
             log.Error("File didn't open. ", ex);
 
             UpdateItemBackground(items, file, Brushes.Red);
-            
+
             isWorkshared = false;
 
             return null;
@@ -172,7 +188,9 @@ public class ExportHelperBase
     private protected virtual void ExportModel(IConfigBaseExtended iConfig,
         Document doc,
         ref bool isFuckedUp,
-        ref ILogger log) { }
+        ref ILogger log)
+    {
+    }
 
     private protected static void Export(IConfigBaseExtended iConfig,
         Document doc,
@@ -231,7 +249,8 @@ public class ExportHelperBase
         isFuckedUp = true;
     }
 
-    private protected static bool IsViewReadyForExport(IConfigBaseExtended iConfig, Document doc, ref ILogger log, ref bool isFuckedUp)
+    private protected static bool IsViewReadyForExport(IConfigBaseExtended iConfig, Document doc, ref ILogger log,
+        ref bool isFuckedUp)
     {
         if (iConfig is NWCViewModel { ExportLinks: true }) return true;
         if (!iConfig.ExportScopeView) return true;
