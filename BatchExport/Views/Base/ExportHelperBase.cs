@@ -39,17 +39,17 @@ public class ExportHelperBase
                 continue;
             }
 
-            using Document doc = OpenDocument(file, app, log, iConfig, items, out bool isWorkshared,
-                out bool transmittedWrong);
+            using Document doc = OpenDocument(file, app, log, iConfig, items, out bool transmittedWrong);
             if (doc is null) continue;
 
             log.FileOpened();
             UpdateItemBackground(items, file, Brushes.Blue);
 
+            // doesn't work in r22 (can't open worksets back)
             if (transmittedWrong)
             {
                 doc.UnloadAllLinks();
-                if (isWorkshared) doc.OpenAllWorksets();
+                doc.OpenAllWorksets();
             }
 
             bool isFuckedUp = false;
@@ -103,10 +103,8 @@ public class ExportHelperBase
         ILogger log,
         IConfigBaseExtended iConfig,
         ListBoxItem[] items,
-        out bool isWorkshared,
         out bool transmittedWrong)
     {
-        isWorkshared = false;
         transmittedWrong = false;
         try
         {
@@ -121,11 +119,9 @@ public class ExportHelperBase
             transmittedWrong = trData is null;
             bool transmitted = trData is { IsTransmitted: true };
 
-            isWorkshared = fileInfo.IsWorkshared;
-
             WorksetConfiguration worksetConfiguration;
 
-            if (!isWorkshared)
+            if (!fileInfo.IsWorkshared)
             {
                 worksetConfiguration = null;
             }
@@ -151,8 +147,6 @@ public class ExportHelperBase
             log.Error("File didn't open. ", ex);
 
             UpdateItemBackground(items, file, Brushes.Red);
-
-            isWorkshared = false;
 
             return null;
         }

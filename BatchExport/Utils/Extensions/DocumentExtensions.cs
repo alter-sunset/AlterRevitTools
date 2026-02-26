@@ -130,6 +130,8 @@ public static class DocumentExtensions
             .FirstOrDefault();
         if (levelId is null) return;
 
+        using UIDocument uiDoc = new(doc);
+
         // List of all user worksets
         IList<Workset> collectorWorkset = new FilteredWorksetCollector(doc)
             .OfKind(WorksetKind.UserWorkset)
@@ -148,13 +150,10 @@ public static class DocumentExtensions
             // Change the workset of the cable tray
             Parameter wsParam = ct.get_Parameter(BuiltInParameter.ELEM_PARTITION_PARAM);
 
-            if (wsParam is { IsReadOnly: false })
-            {
-                wsParam.Set(workset.Id.IntegerValue);
-            }
+            if (wsParam is { IsReadOnly: false }) wsParam.Set(workset.Id.IntegerValue);
 
             // Show the cable tray to open the workset
-            new UIDocument(doc).ShowElements(ct.Id);
+            uiDoc.ShowElements(ct.Id);
         }
 
         // Delete the temporary cable tray
@@ -217,10 +216,10 @@ public static class DocumentExtensions
             HashSet<ElementId> unusedElements = doc.GetUnusedElements();
             previousCount = unusedElements.Count;
             if (previousCount == 0) break;
-            
+
             using Transaction tr = new(doc, Strings.PurgeUnused);
             tr.Start();
-            
+
             foreach (ElementId id in unusedElements)
             {
                 try
@@ -232,6 +231,7 @@ public static class DocumentExtensions
                     // ignored
                 }
             }
+
             tr.Commit();
 #endif
         } while (0 < previousCount);
