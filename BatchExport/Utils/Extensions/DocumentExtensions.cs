@@ -28,7 +28,7 @@ public static class DocumentExtensions
         {
             using FilteredElementCollector collector = new(doc, view.Id);
 
-            return !collector.Where(el => el.Category != null
+            return !collector.Where(el => el.Category is not null
                                           && el.GetType() != typeof(RevitLinkInstance))
                 .Any(el => el.CanBeHidden(view));
         }
@@ -52,6 +52,31 @@ public static class DocumentExtensions
         catch
         {
             // ignored
+        }
+    }
+
+    /// <summary>
+    ///     Unload all possible links from the doc
+    /// </summary>
+    public static void UnloadAllLinks(this Document doc)
+    {
+        RevitLinkType[] links = new FilteredElementCollector(doc)
+            .OfClass(typeof(RevitLinkType))
+            .Cast<RevitLinkType>()
+            .ToArray();
+
+        if (links.Length == 0) return;
+
+        foreach (RevitLinkType link in links)
+        {
+            try
+            {
+                link.UnloadLocally(null);
+            }
+            catch
+            {
+                // ignore
+            }
         }
     }
 
@@ -105,6 +130,8 @@ public static class DocumentExtensions
             .FirstOrDefault();
         if (levelId is null) return;
 
+        using UIDocument uiDoc = new(doc);
+
         // List of all user worksets
         IList<Workset> collectorWorkset = new FilteredWorksetCollector(doc)
             .OfKind(WorksetKind.UserWorkset)
@@ -123,13 +150,10 @@ public static class DocumentExtensions
             // Change the workset of the cable tray
             Parameter wsParam = ct.get_Parameter(BuiltInParameter.ELEM_PARTITION_PARAM);
 
-            if (wsParam is { IsReadOnly: false })
-            {
-                wsParam.Set(workset.Id.IntegerValue);
-            }
+            if (wsParam is { IsReadOnly: false }) wsParam.Set(workset.Id.IntegerValue);
 
             // Show the cable tray to open the workset
-            new UIDocument(doc).ShowElements(ct.Id);
+            uiDoc.ShowElements(ct.Id);
         }
 
         // Delete the temporary cable tray
@@ -185,17 +209,17 @@ public static class DocumentExtensions
 
             using Transaction tr = new(doc, Strings.PurgeUnused);
             tr.Start();
-            
+
             doc.Delete(unusedElements);
             tr.Commit();
 #else
             HashSet<ElementId> unusedElements = doc.GetUnusedElements();
             previousCount = unusedElements.Count;
             if (previousCount == 0) break;
-            
+
             using Transaction tr = new(doc, Strings.PurgeUnused);
             tr.Start();
-            
+
             foreach (ElementId id in unusedElements)
             {
                 try
@@ -207,6 +231,7 @@ public static class DocumentExtensions
                     // ignored
                 }
             }
+
             tr.Commit();
 #endif
         } while (0 < previousCount);

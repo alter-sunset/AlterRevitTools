@@ -21,7 +21,7 @@ public class App : IExternalApplication
             // ignored
         }
 
-        // Get buttons to create from json config
+        // Get buttons to create from JSON config
         List<ButtonContext> buttons = ButtonContext.GetButtonsContext();
 
         // Create panels from config
@@ -70,6 +70,6 @@ public class App : IExternalApplication
             // ignored
         }
     }
-    
+
     private static string GetString(string name) => Resources.Strings.ResourceManager.GetString(name);
 }

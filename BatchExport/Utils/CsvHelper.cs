@@ -4,31 +4,33 @@ namespace AlterTools.BatchExport.Utils;
 
 public class CsvHelper : IDisposable
 {
-    private static readonly string[] HeaderBase = ["ModelName", "ElementId"];
     private readonly StreamWriter _stream;
+    private readonly string _separator;
 
-    public CsvHelper(string csvFilePath, string[] parametersNames)
+    /// <param name="csvFilePath">Path of the output file</param>
+    /// <param name="headers">Array of headers</param>
+    /// <param name="separator">Char that will be used as a separator. Default is |</param>
+    public CsvHelper(string csvFilePath, string[] headers, char separator = '|')
     {
+        _separator = separator.ToString();
         _stream = new StreamWriter(csvFilePath);
-        _stream.WriteLine(string.Join("|", HeaderBase.Concat(parametersNames))); // Header
-    }
-
-    public CsvHelper(string csvFilePath)
-    {
-        _stream = new StreamWriter(csvFilePath);
-        _stream.WriteLine("ModelName|WorksetName");
+        _stream.WriteLine(string.Join(_separator, headers));
     }
 
     public void Dispose() => _stream.Dispose();
 
     public void WriteElement(ParametersTable paramsTable)
     {
-        _stream.WriteLine(string.Join("|",
-            new[] { paramsTable.ModelName, paramsTable.ElementId.ToString() }
-                .Concat(paramsTable.Parameters
-                    .Values
-                    .Select(v => v.Replace(Environment.NewLine, " ")))));
+        string[] start = [ paramsTable.ModelName, paramsTable.ElementId.ToString() ];
+        IEnumerable<string> line = start.Concat(
+            paramsTable.Parameters
+                .Values
+                .Select(v => v.Replace(Environment.NewLine, " ")));
+        _stream.WriteLine(string.Join(_separator,  line));
     }
 
-    public void WriteWorkset(string modelName, string worksetName) => _stream.WriteLine($"{modelName}|{worksetName}");
+    public void WriteWorkset(string modelName, string worksetName)
+    {
+        _stream.WriteLine($"{modelName}{_separator}{worksetName}");
+    }
 }

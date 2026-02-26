@@ -1,4 +1,5 @@
-﻿using AlterTools.BatchExport.Resources;
+﻿using System.Text;
+using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.Migrate;
@@ -20,12 +21,13 @@ public class EventHandlerMigrate : EventHandlerBase
 
         List<string> failedFiles = MigrateHelper.ProcessFiles(migrateVm.ConfigPath, uiApp.Application);
 
-        string msg = failedFiles.Count > 0
-            ? $"{Strings.TaskCompleted}" +
-              $"\n{Strings.MigrateDidntCopy}" +
-              $"\n{string.Join("\n", failedFiles)}"
-            : Strings.TaskCompleted;
+        StringBuilder sb = new(Strings.TaskCompleted);
+        if (failedFiles.Count > 0)
+        {
+            sb.AppendLine(Strings.MigrateDidntCopy);
+            sb.AppendLine(string.Join("\n", failedFiles));
+        }
 
-        migrateVm.FinishWork("MigrateModelsFinished", msg);
+        migrateVm.FinishWork("MigrateModelsFinished", sb.ToString());
     }
 }

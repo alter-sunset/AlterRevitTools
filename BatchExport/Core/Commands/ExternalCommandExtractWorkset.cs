@@ -24,14 +24,15 @@ public class ExternalCommandExtractWorkset : IExternalCommand
         
         string[] files = Directory.GetFiles(folderDialog.SelectedPath, "*.rvt", SearchOption.AllDirectories);
         
-        using CsvHelper csvHelper = new(saveFileDialog.FileName);
+        using CsvHelper csvHelper = new(saveFileDialog.FileName, ["ModelName", "WorksetName"]);
 
         foreach (string file in files)
         {
             string modelName = Path.GetFileName(file);
+            using ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(file);
 
             IEnumerable<string> worksets = WorksharingUtils
-                .GetUserWorksetInfo(ModelPathUtils.ConvertUserVisiblePathToModelPath(file))
+                .GetUserWorksetInfo(modelPath)
                 .Select(workset => workset.Name);
 
             foreach (string workset in worksets)
