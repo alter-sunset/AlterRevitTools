@@ -39,18 +39,19 @@ public class ExportHelperBase
                 continue;
             }
 
-            using Document doc = OpenDocument(file, app, log, iConfig, items, out bool transmittedWrong);
+            Document doc = OpenDocument(file, app, log, iConfig, items, out bool transmittedWrong);
             if (doc is null) continue;
 
             log.FileOpened();
             UpdateItemBackground(items, file, Brushes.Blue);
 
-            // doesn't work in r22 (can't open worksets back)
+#if R25_OR_GREATER
             if (transmittedWrong)
             {
                 doc.UnloadAllLinks();
                 doc.OpenAllWorksets();
             }
+#endif
 
             bool isFuckedUp = false;
 
@@ -125,10 +126,12 @@ public class ExportHelperBase
             {
                 worksetConfiguration = null;
             }
+#if R25_OR_GREATER
             else if (!file.Equals(fileInfo.CentralPath))
             {
                 worksetConfiguration = new WorksetConfiguration(WorksetConfigurationOption.CloseAllWorksets);
             }
+#endif
             else if (!transmitted && iConfig.WorksetPrefixes.Length != 0)
             {
                 worksetConfiguration = modelPath.CloseWorksets(iConfig.WorksetPrefixes);
