@@ -10,13 +10,14 @@ public static class ParamsHelper
 {
     private static string _fileName;
     private static ParamsViewModel _paramsVm;
+
     public static void ExportParameters(this ListBoxItem item,
         Application app,
         ParamsViewModel paramsVm,
         CsvHelper csvHelper)
     {
         _paramsVm = paramsVm;
-        
+
         string filePath = item.Content?.ToString();
         _fileName = Path.GetFileName(filePath);
 
@@ -48,7 +49,7 @@ public static class ParamsHelper
             {
                 csvHelper.WriteElement(table);
             }
-            
+
             doc.Close(false);
         }
         catch
@@ -61,7 +62,20 @@ public static class ParamsHelper
 
     private static Dictionary<string, string> GetParametersSet(this Element element, string[] parametersNames)
     {
-        return parametersNames.ToDictionary(name => name, name => element.LookupParameter(name).GetValueString());
+        return parametersNames.ToDictionary(name => name, element.GetParameterString);
+    }
+
+    private static string GetParameterString(this Element element, string parameterName)
+    {
+        using Parameter param = element.LookupParameter(parameterName);
+        try
+        {
+            return param.HasValue ? param.GetValueString() : string.Empty;
+        }
+        catch
+        {
+            return param.GetValueString();
+        }
     }
 
     private static ParametersTable GetParametersTable(this Element el)
