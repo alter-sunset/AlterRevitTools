@@ -5,6 +5,8 @@ namespace AlterTools.BatchExport.Views.Detach;
 
 public static class DetachHelper
 {
+    private const string Rsn = "RSN://";
+
     public static void DetachModel(this IConfigDetach iConfigDetach, Application app, string filePath)
     {
         try
@@ -27,14 +29,27 @@ public static class DetachHelper
     private static string GetDetachedFilePath(IConfigDetach iConfigDetach, Document doc, string originalFilePath)
     {
         string docTitle = doc.Title.RemoveDetach();
-        string fileDetachedPath = Path.Combine(iConfigDetach.FolderPath, $"{docTitle}.rvt");
 
-        if (iConfigDetach is DetachViewModel { RadioButtonMode: 2 } detachViewModel)
+        if (iConfigDetach is not DetachViewModel detachViewModel) throw new ArgumentException();
+
+        string fileDetachedPath = detachViewModel.RadioButtonMode switch
         {
-            fileDetachedPath = RenamePath(originalFilePath,
+            1 => Path.Combine(iConfigDetach.FolderPath, $"{docTitle}.rvt"),
+            2 => RenamePath(originalFilePath,
                 RenameType.Folder,
-                detachViewModel.MaskIn, detachViewModel.MaskOut);
-        }
+                detachViewModel.MaskIn, detachViewModel.MaskOut),
+            3 => string.Concat(Rsn, detachViewModel.ServerPath, "/", $"{docTitle}.rvt"),
+            _ => throw new ArgumentOutOfRangeException(nameof(iConfigDetach), iConfigDetach, null)
+        };
+
+        // string fileDetachedPath = Path.Combine(iConfigDetach.FolderPath, $"{docTitle}.rvt");
+        //
+        // if (iConfigDetach is DetachViewModel { RadioButtonMode: 2 } detachViewModel)
+        // {
+        //     fileDetachedPath = RenamePath(originalFilePath,
+        //         RenameType.Folder,
+        //         detachViewModel.MaskIn, detachViewModel.MaskOut);
+        // }
 
         if (iConfigDetach.IsToRename)
         {
@@ -115,7 +130,7 @@ public static class DetachHelper
             doc.RemoveEmptyWorksets();
         }
 #endif
-        
+
         if (iConfigDetach.Purge)
         {
             doc.PurgeAll();
@@ -159,6 +174,11 @@ public static class DetachHelper
         finally
         {
             doc?.Close();
+        }
+
+        if (fileDetachedPath.StartsWith("RSN"))
+        {
+            return;
         }
 
         if (isWorkshared)

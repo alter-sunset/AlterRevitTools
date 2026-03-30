@@ -114,6 +114,15 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Browse server.
+        /// </summary>
+        public static string BrowseServer {
+            get {
+                return ResourceManager.GetString("BrowseServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change.
         /// </summary>
         public static string Change {
@@ -1386,6 +1395,15 @@ namespace AlterTools.BatchExport.Resources {
         public static string SaveToFolder {
             get {
                 return ResourceManager.GetString("SaveToFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save to server.
+        /// </summary>
+        public static string SaveToServer {
+            get {
+                return ResourceManager.GetString("SaveToServer", resourceCulture);
             }
         }
         

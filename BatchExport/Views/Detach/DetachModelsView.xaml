@@ -4,7 +4,7 @@
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:base="clr-namespace:AlterTools.BatchExport.Views.Base"
                  xmlns:resx="clr-namespace:AlterTools.BatchExport.Resources"
-                 Height="550"
+                 Height="600"
                  Width="800"
                  WindowStartupLocation="CenterScreen"
                  ResizeMode="NoResize"
@@ -21,6 +21,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
             <RowDefinition Height="3*" />
+            <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
@@ -134,31 +135,54 @@
                  VerticalContentAlignment="Center"
                  Text="{Binding MaskOut}" />
 
+        <RadioButton Margin="10,10,10,10"
+                     FontSize="14"
+                     Grid.Row="5"
+                     Grid.Column="0"
+                     VerticalAlignment="Center"
+                     GroupName="SavingPathMode"
+                     Name="RbServer"
+                     Command="{Binding RadioButtonCommand}"
+                     CommandParameter="{Binding ElementName=RbServer, Path=Tag}"
+                     Content="{x:Static resx:Strings.SaveToServer}"
+                     Tag="Server" />
+        <TextBox Margin="10,10,135,10"
+                 VerticalContentAlignment="Center"
+                 Grid.Row="5"
+                 Grid.Column="1"
+                 Grid.ColumnSpan="3"
+                 Text="{Binding ServerPath}" />
+        <Button Margin="80,10,10,10"
+                Grid.Row="5"
+                Grid.Column="3"
+                Command="{Binding BrowseServerCommand}"
+                Content="{x:Static resx:Strings.BrowseServer}" />
+
         <CheckBox Margin="10,0,0,0"
-                  Grid.Row="5"
+                  Grid.Row="6"
                   Grid.Column="0"
                   VerticalAlignment="Center"
                   FontSize="14"
                   Content="{x:Static resx:Strings.RenameFiles}"
                   IsChecked="{Binding IsToRename}" />
         <TextBox Margin="10"
-                 Grid.Row="5"
+                 Grid.Row="6"
                  Grid.Column="1"
                  VerticalContentAlignment="Center"
                  Text="{Binding MaskInName}" />
-        <TextBlock Grid.Row="5"
+        <TextBlock Grid.Row="6"
                    Grid.Column="1"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center"
                    TextAlignment="Center"
                    Text="=>" Grid.ColumnSpan="2" Width="20" />
         <TextBox Margin="10"
-                 Grid.Row="5"
+                 Grid.Row="6"
                  Grid.Column="2"
                  VerticalContentAlignment="Center"
                  Text="{Binding MaskOutName}" />
         <CheckBox Margin="10"
-                  Grid.Row="5"
+                  Grid.Row="6"
                   Grid.Column="3"
                   FontSize="14"
                   VerticalAlignment="Center"
@@ -167,7 +191,7 @@
                   IsChecked="{Binding Purge}" />
 
         <CheckBox Margin="10,0,95,0"
-                  Grid.Row="6"
+                  Grid.Row="7"
                   Grid.Column="0"
                   Grid.ColumnSpan="2"
                   FontSize="14"
@@ -176,14 +200,14 @@
                   ToolTip="{x:Static resx:Strings.CheckForEmptyViewToolTip}"
                   IsChecked="{Binding CheckForEmptyView}" />
         <TextBox Margin="110,10,80,10"
-                 Grid.Row="6"
+                 Grid.Row="7"
                  Grid.Column="1"
                  Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
                  Text="{Binding ViewName}"
                  ToolTip="{x:Static resx:Strings.ViewNameToCheck}" />
         <CheckBox Margin="140,10,10,10"
-                  Grid.Row="6"
+                  Grid.Row="7"
                   Grid.Column="2"
                   Grid.ColumnSpan="2"
                   FontSize="14"
@@ -193,19 +217,19 @@
                   IsEnabled="{Binding IsWorksetRemoverEnabled}" />
 
         <CheckBox Margin="10,0,0,0"
-                  Grid.Row="7"
+                  Grid.Row="8"
                   Grid.Column="0"
                   VerticalAlignment="Center"
                   FontSize="14"
                   Content="{x:Static resx:Strings.RemoveAllLinks}"
                   IsChecked="{Binding RemoveLinks}" />
         <Button Margin="10"
-                Grid.Row="7"
+                Grid.Row="8"
                 Grid.Column="2"
                 Command="{Binding EraseCommand}"
                 Content="{x:Static resx:Strings.EraseList}" />
         <Button Margin="10"
-                Grid.Row="7"
+                Grid.Row="8"
                 Grid.Column="3"
                 Command="{Binding RaiseEventCommand}"
                 Content="{x:Static resx:Strings.Start}"
