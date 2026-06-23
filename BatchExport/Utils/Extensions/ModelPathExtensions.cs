@@ -60,12 +60,10 @@ public static class ModelPathExtensions
         {
             WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.CloseAllWorksets);
 
-            IList<WorksetId> worksetIds =
-            [
-                .. WorksharingUtils.GetUserWorksetInfo(modelPath)
-                    .Where(wp => !prefixes.Any(wp.Name.StartsWith))
-                    .Select(wp => wp.Id)
-            ];
+            IList<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)
+                .Where(wp => !prefixes.Any(wp.Name.StartsWith))
+                .Select(wp => wp.Id)
+                .ToList();
 
             worksetConfiguration.Open(worksetIds);
 
@@ -73,17 +71,17 @@ public static class ModelPathExtensions
         }
         catch
         {
-            // just return default worksetConfiguration
-            // return new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
+            if (app is null) return new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
+            // open document in advance with all worksets closed, obtain desired ids and pass them into config
+            using WorksetConfiguration config = new(WorksetConfigurationOption.CloseAllWorksets);
 
-            WorksetConfiguration config = new(WorksetConfigurationOption.CloseAllWorksets);
-
-            Document doc = modelPath.OpenDetached(app, config);
+            using Document doc = modelPath.OpenDetached(app, config);
 
             List<WorksetId> idsToOpen = new FilteredWorksetCollector(doc)
                 .OfKind(WorksetKind.UserWorkset)
-                .Where(ws => !prefixes.Any(p =>
-                    ws.Name.StartsWith(p, StringComparison.OrdinalIgnoreCase)))
+                .Where(ws => !prefixes
+                    .Any(p => ws.Name
+                        .StartsWith(p, StringComparison.OrdinalIgnoreCase)))
                 .Select(ws => ws.Id)
                 .ToList();
 
