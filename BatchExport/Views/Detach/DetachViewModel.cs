@@ -135,5 +135,10 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
     private void BrowseServer()
     {
         // TODO: BrowseServer implementation
+        
+        // first window: list of servers from rsn.ini
+        // second window: list folders on server
+        
+        // if needed files also add models in folder 
     }
 }

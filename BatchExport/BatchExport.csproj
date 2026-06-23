@@ -14,7 +14,7 @@
         <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
         <Optimize>True</Optimize>
         <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-        <Configurations>Release R19;Release R20;Release R21;Release R22;Release R23;Release R24;Release R25;Debug R25;Release R26</Configurations>
+        <Configurations>Release R19;Release R20;Release R21;Release R22;Release R23;Release R24;Release R25;Debug R25;Release R26;Release R27</Configurations>
         <RootNamespace>$(SolutionName).$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
         <Company>AlterSunset</Company>
         <Product>AlterTools</Product>
@@ -71,63 +71,72 @@
         <OutputPath>bin\R2026\</OutputPath>
         <DefineConstants>R20_OR_GREATER;R22_OR_GREATER;R24_OR_GREATER;R25_OR_GREATER</DefineConstants>
     </PropertyGroup>
+    <PropertyGroup Condition="$(Configuration.Contains('R27'))">
+        <TargetFramework>net10.0-windows</TargetFramework>
+        <RevitVersion>2027</RevitVersion>
+        <OutputPath>bin\R2027\</OutputPath>
+        <DefineConstants>R20_OR_GREATER;R22_OR_GREATER;R24_OR_GREATER;R25_OR_GREATER</DefineConstants>
+    </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug R25' ">
-      <DebugSymbols>true</DebugSymbols>
-      <DebugType>full</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Release R19' ">
-      <DebugType>none</DebugType>
+        <DebugType>none</DebugType>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Release R20' ">
-      <DebugType>none</DebugType>
+        <DebugType>none</DebugType>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Release R21' ">
-      <DebugType>none</DebugType>
+        <DebugType>none</DebugType>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Release R22' ">
-      <DebugType>none</DebugType>
+        <DebugType>none</DebugType>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Release R23' ">
-      <DebugType>none</DebugType>
+        <DebugType>none</DebugType>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Release R24' ">
-      <DebugType>none</DebugType>
+        <DebugType>none</DebugType>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Release R25' ">
-      <DebugType>none</DebugType>
+        <DebugType>none</DebugType>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Release R26' ">
-      <DebugType>none</DebugType>
+        <DebugType>none</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release R27' ">
+        <DebugType>none</DebugType>
     </PropertyGroup>
     <ItemGroup>
-        <EmbeddedResource Include="Resources\Buttons.json" />
-        <EmbeddedResource Include="Resources\detach.png" />
-        <EmbeddedResource Include="Resources\detach_16.png" />
-        <EmbeddedResource Include="Resources\migrate.png" />
-        <EmbeddedResource Include="Resources\migrate_16.png" />
-        <EmbeddedResource Include="Resources\nwc.png" />
-        <EmbeddedResource Include="Resources\nwc_16.png" />
-        <EmbeddedResource Include="Resources\ifc.png" />
-        <EmbeddedResource Include="Resources\ifc_16.png" />
-        <EmbeddedResource Include="Resources\link.png" />
-        <EmbeddedResource Include="Resources\link_16.png" />
-        <EmbeddedResource Include="Resources\params.png" />
-        <EmbeddedResource Include="Resources\params_16.png" />
-        <EmbeddedResource Include="Resources\transmit.png" />
-        <EmbeddedResource Include="Resources\transmit_16.png" />
+        <EmbeddedResource Include="Resources\Buttons.json"/>
+        <EmbeddedResource Include="Resources\detach.png"/>
+        <EmbeddedResource Include="Resources\detach_16.png"/>
+        <EmbeddedResource Include="Resources\migrate.png"/>
+        <EmbeddedResource Include="Resources\migrate_16.png"/>
+        <EmbeddedResource Include="Resources\nwc.png"/>
+        <EmbeddedResource Include="Resources\nwc_16.png"/>
+        <EmbeddedResource Include="Resources\ifc.png"/>
+        <EmbeddedResource Include="Resources\ifc_16.png"/>
+        <EmbeddedResource Include="Resources\link.png"/>
+        <EmbeddedResource Include="Resources\link_16.png"/>
+        <EmbeddedResource Include="Resources\params.png"/>
+        <EmbeddedResource Include="Resources\params_16.png"/>
+        <EmbeddedResource Include="Resources\transmit.png"/>
+        <EmbeddedResource Include="Resources\transmit_16.png"/>
         <EmbeddedResource Update="Resources\Strings.resx">
-          <Generator>PublicResXFileCodeGenerator</Generator>
-          <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+            <Generator>PublicResXFileCodeGenerator</Generator>
+            <LastGenOutput>Strings.Designer.cs</LastGenOutput>
         </EmbeddedResource>
         <EmbeddedResource Update="Resources\Strings.ru-ru.resx">
-          <DependentUpon>Strings.resx</DependentUpon>
+            <DependentUpon>Strings.resx</DependentUpon>
         </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="JetBrains.Annotations" Version="2024.3.0" />
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-        <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*" />
-        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*" />
+        <PackageReference Include="JetBrains.Annotations" Version="2024.3.0"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*"/>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*"/>
     </ItemGroup>
     <ItemGroup>
         <None Update="AlterTools.BatchExport.addin">
@@ -135,13 +144,18 @@
         </None>
     </ItemGroup>
     <ItemGroup>
-        <EditorConfigFiles Remove=".editorconfig" />
+        <EditorConfigFiles Remove=".editorconfig"/>
     </ItemGroup>
     <ItemGroup>
-      <Compile Update="Resources\Strings.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>Strings.resx</DependentUpon>
-      </Compile>
+        <Compile Update="Resources\Strings.Designer.cs">
+            <DesignTime>True</DesignTime>
+            <AutoGen>True</AutoGen>
+            <DependentUpon>Strings.resx</DependentUpon>
+        </Compile>
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="RevitServerApi">
+            <HintPath>..\..\..\RevitServerApi\bin\Release\netstandard2.0\RevitServerApi.dll</HintPath>
+        </Reference>
     </ItemGroup>
 </Project>

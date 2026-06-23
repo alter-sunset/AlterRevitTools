@@ -11,13 +11,16 @@ public static class DetachHelper
     {
         try
         {
+            ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
+            using TransmissionData transData = TransmissionData.ReadTransmissionData(modelPath);
+
             using Document doc = app.OpenDocument(filePath, out bool isWorkshared);
             if (doc is null) return;
 
             string fileDetachedPath = GetDetachedFilePath(iConfigDetach, doc, filePath);
 
             ProcessDocument(doc, iConfigDetach);
-            SaveDocument(doc, fileDetachedPath, isWorkshared);
+            SaveDocument(doc, fileDetachedPath, isWorkshared, transData);
             Cleanup(doc, fileDetachedPath, isWorkshared);
         }
         catch
@@ -137,7 +140,8 @@ public static class DetachHelper
         }
     }
 
-    private static void SaveDocument(Document doc, string fileDetachedPath, bool isWorkshared)
+    private static void SaveDocument(Document doc, string fileDetachedPath, bool isWorkshared,
+        TransmissionData transData)
     {
         using SaveAsOptions saveOptions = new();
         saveOptions.OverwriteExistingFile = true;
@@ -147,6 +151,13 @@ public static class DetachHelper
         {
             using WorksharingSaveAsOptions worksharingOptions = new();
             worksharingOptions.SaveAsCentral = true;
+            
+            if (transData is not null && transData.IsTransmitted)
+            {
+                worksharingOptions.ClearTransmitted = true;
+            }
+
+            worksharingOptions.OpenWorksetsDefault = SimpleWorksetConfiguration.AskUserToSpecify;
             saveOptions.SetWorksharingOptions(worksharingOptions);
         }
 
@@ -176,10 +187,8 @@ public static class DetachHelper
             doc?.Close();
         }
 
-        if (fileDetachedPath.StartsWith("RSN"))
-        {
-            return;
-        }
+        // RevitServer path, no cleanup needed
+        if (fileDetachedPath.StartsWith("RSN")) return;
 
         if (isWorkshared)
         {
