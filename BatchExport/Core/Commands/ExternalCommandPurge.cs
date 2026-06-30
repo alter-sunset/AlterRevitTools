@@ -15,6 +15,7 @@ public class ExternalCommandPurge : IExternalCommand
         using ErrorSuppressor errorSuppressor = new(uiApp);
 
         doc.PurgeAll();
+        doc.PurgeAll();
 
         return Result.Succeeded;
     }
