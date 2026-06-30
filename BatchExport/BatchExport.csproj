@@ -131,6 +131,10 @@
         <EmbeddedResource Update="Resources\Strings.ru-ru.resx">
             <DependentUpon>Strings.resx</DependentUpon>
         </EmbeddedResource>
+        <None Remove="Resources\purge.png" />
+        <EmbeddedResource Include="Resources\purge.png" />
+        <None Remove="Resources\purge_16.png" />
+        <EmbeddedResource Include="Resources\purge_16.png" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="JetBrains.Annotations" Version="2024.3.0"/>

@@ -550,4 +550,16 @@ Export</value>
     <data name="BrowseServer" xml:space="preserve">
         <value>Browse server</value>
     </data>
+    <data name="CoreButtonPurgeText" xml:space="preserve">
+        <value>Purge</value>
+    </data>
+    <data name="CoreButtonPurgeToolTip" xml:space="preserve">
+        <value>Purge all unused elements</value>
+    </data>
+    <data name="CorePanelTools" xml:space="preserve">
+        <value>BIM tools</value>
+    </data>
+    <data name="Purge" xml:space="preserve">
+        <value>Purge</value>
+    </data>
 </root>

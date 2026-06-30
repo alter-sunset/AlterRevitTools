@@ -549,4 +549,17 @@ Revit ссылок</value>
     <data name="BrowseServer" xml:space="preserve">
         <value>Обзор сервера</value>
     </data>
+    <data name="CoreButtonPurgeText" xml:space="preserve">
+        <value>Очистить 
+модель</value>
+    </data>
+    <data name="CoreButtonPurgeToolTip" xml:space="preserve">
+        <value>Очистить все неиспользуемые элементы</value>
+    </data>
+    <data name="CorePanelTools" xml:space="preserve">
+        <value>BIM инструменты</value>
+    </data>
+    <data name="Purge" xml:space="preserve">
+        <value>Очистить</value>
+    </data>
 </root>

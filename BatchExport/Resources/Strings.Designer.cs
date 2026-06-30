@@ -346,6 +346,24 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Purge.
+        /// </summary>
+        public static string CoreButtonPurgeText {
+            get {
+                return ResourceManager.GetString("CoreButtonPurgeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Purge all unused elements.
+        /// </summary>
+        public static string CoreButtonPurgeToolTip {
+            get {
+                return ResourceManager.GetString("CoreButtonPurgeToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transmit 
         ///models.
         /// </summary>
@@ -398,6 +416,15 @@ namespace AlterTools.BatchExport.Resources {
         public static string CorePanelImport {
             get {
                 return ResourceManager.GetString("CorePanelImport", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to BIM tools.
+        /// </summary>
+        public static string CorePanelTools {
+            get {
+                return ResourceManager.GetString("CorePanelTools", resourceCulture);
             }
         }
         
@@ -1286,6 +1313,15 @@ namespace AlterTools.BatchExport.Resources {
         public static string PrefixToolTip {
             get {
                 return ResourceManager.GetString("PrefixToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Purge.
+        /// </summary>
+        public static string Purge {
+            get {
+                return ResourceManager.GetString("Purge", resourceCulture);
             }
         }
         

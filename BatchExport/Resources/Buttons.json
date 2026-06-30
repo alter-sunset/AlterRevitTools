@@ -68,5 +68,15 @@
     "ImageSmall": "AlterTools.BatchExport.Resources.link_16.png",
     "Panel": "CorePanelImport",
     "Availability": false
+  },
+  {
+    "Name": "Purge",
+    "Text": "CoreButtonPurgeText",
+    "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandPurge",
+    "ToolTip": "CoreButtonPurgeToolTip",
+    "ImageLarge": "AlterTools.BatchExport.Resources.purge.png",
+    "ImageSmall": "AlterTools.BatchExport.Resources.purge_16.png",
+    "Panel": "CorePanelTools",
+    "Availability": false
   }
 ]
