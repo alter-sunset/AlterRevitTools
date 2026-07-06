@@ -4,9 +4,10 @@
 
 ***Supports versions 2019-2026***
 
-  **The plugin includes 7 modules:**
+  **The plugin includes 9 modules:**
   - 6 for export
   - 1 for import
+  - 2 tools
 
  ### Export:
   - [Export NWC (Navisworks Cache)](#export-nwc)
@@ -18,6 +19,10 @@
 
 ### Import:
   - [Import RVT](#import-rvt)
+
+### Tools:
+  - [Purge](#purge)
+  - [Delink](#delink)
 
 ## Export NWC
 This module allows batch exporting models to Navisworks cache (.nwc) with predefined settings.
@@ -74,3 +79,9 @@ This module exports defined parameters from provided models to single CSV file.
 This module allows batch importing multiple RVT links in a single action.
 
 ![link](https://github.com/user-attachments/assets/57dba03d-fe8d-42b3-910d-43262f1137dc)
+
+## Purge
+Purge all unused elements from current model in one go.
+
+## Delink
+Remove all linked documents from current model.
