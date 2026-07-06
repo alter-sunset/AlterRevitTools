@@ -81,13 +81,30 @@ public static class DocumentExtensions
     }
 
     /// <summary>
-    ///     Delete all possible links from the doc
+    /// Delete all possible links from the doc
     /// </summary>
-    public static void DeleteAllLinks(this Document doc)
+    /// <param name="doc">Document to wirk with</param>
+    /// <param name="noImports">true if imported instances should be left intact.</param>
+    public static void DeleteAllLinks(this Document doc, bool noImports = true)
     {
         ICollection<ElementId> ids = ExternalFileUtils.GetAllExternalFileReferences(doc);
+        ICollection<ElementId> imgs = [];
+        ICollection<ElementId> importedCads = [];
+        if (!noImports)
+        {
+            imgs = new FilteredElementCollector(doc)
+                .WhereElementIsElementType()
+                .OfCategory(BuiltInCategory.OST_RasterImages)
+                .ToElementIds();
+            importedCads = new FilteredElementCollector(doc)
+                .WhereElementIsElementType()
+                .OfClass(typeof(CADLinkType))
+                .ToElementIds();
+        }
 
-        if (ids.Count == 0) return;
+        IEnumerable<ElementId> all = ids.Concat(imgs).Concat(importedCads);
+
+        if (ids.Count == 0 && imgs.Count == 0 && importedCads.Count == 0) return;
 
         using Transaction tr = new(doc, Strings.RemoveAllLinks);
 
@@ -97,7 +114,7 @@ public static class DocumentExtensions
         failOpt.SetFailuresPreprocessor(new CopyWatchAlertSuppressor());
         tr.SetFailureHandlingOptions(failOpt);
 
-        foreach (ElementId id in ids)
+        foreach (ElementId id in all)
         {
             try
             {

@@ -14,7 +14,7 @@ public class ExternalCommandDelink : IExternalCommand
         using Document doc = uiApp.ActiveUIDocument.Document;
         using ErrorSuppressor errorSuppressor = new(uiApp);
 
-        doc.DeleteAllLinks();
+        doc.DeleteAllLinks(false);
 
         return Result.Succeeded;
     }
