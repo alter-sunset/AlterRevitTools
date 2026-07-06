@@ -2,6 +2,7 @@
 using AlterTools.BatchExport.Views;
 using Autodesk.Revit.Attributes;
 using Application = Autodesk.Revit.ApplicationServices.Application;
+using TaskDialog = Autodesk.Revit.UI.TaskDialog;
 
 namespace AlterTools.BatchExport.Core.Commands;
 

@@ -80,6 +80,16 @@
     "Availability": false
   },
   {
+    "Name": "Delink",
+    "Text": "CoreButtonDelinkText",
+    "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandDelink",
+    "ToolTip": "CoreButtonDelinkToolTip",
+    "ImageLarge": "AlterTools.BatchExport.Resources.delink.png",
+    "ImageSmall": "AlterTools.BatchExport.Resources.delink_16.png",
+    "Panel": "CorePanelTools",
+    "Availability": false
+  },
+  {
     "Name": "WorksetsExtract",
     "Text": "CoreButtonWorksetsText",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExtractWorkset",

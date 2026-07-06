@@ -562,4 +562,14 @@ Export</value>
     <data name="Purge" xml:space="preserve">
         <value>Purge</value>
     </data>
+    <data name="CoreButtonDelinkText" xml:space="preserve">
+        <value>Remove 
+all links</value>
+    </data>
+    <data name="CoreButtonDelinkToolTip" xml:space="preserve">
+        <value>Remove all possible links from the models</value>
+    </data>
+    <data name="Delink" xml:space="preserve">
+        <value>Delink</value>
+    </data>
 </root>

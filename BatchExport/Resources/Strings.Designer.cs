@@ -232,6 +232,25 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove 
+        ///all links.
+        /// </summary>
+        public static string CoreButtonDelinkText {
+            get {
+                return ResourceManager.GetString("CoreButtonDelinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all possible links from the models.
+        /// </summary>
+        public static string CoreButtonDelinkToolTip {
+            get {
+                return ResourceManager.GetString("CoreButtonDelinkToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Detach 
         ///models.
         /// </summary>
@@ -471,6 +490,15 @@ namespace AlterTools.BatchExport.Resources {
         public static string DeleteToolTip {
             get {
                 return ResourceManager.GetString("DeleteToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delink.
+        /// </summary>
+        public static string Delink {
+            get {
+                return ResourceManager.GetString("Delink", resourceCulture);
             }
         }
         

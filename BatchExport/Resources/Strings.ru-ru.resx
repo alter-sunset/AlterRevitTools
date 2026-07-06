@@ -562,4 +562,14 @@ Revit ссылок</value>
     <data name="Purge" xml:space="preserve">
         <value>Очистить</value>
     </data>
+    <data name="CoreButtonDelinkText" xml:space="preserve">
+        <value>Удалить 
+все связи</value>
+    </data>
+    <data name="CoreButtonDelinkToolTip" xml:space="preserve">
+        <value>Удалить все возможные ссылки из модели</value>
+    </data>
+    <data name="Delink" xml:space="preserve">
+        <value>Отвязать</value>
+    </data>
 </root>
