@@ -43,11 +43,12 @@ public static class ModelPathExtensions
 
         return app.OpenDocumentFile(modelPath, openOptions);
     }
-    
+
     /// <summary>
     ///     Get WorksetConfiguration with closed worksets that match given prefixes
     /// </summary>
-    public static WorksetConfiguration CloseWorksets(this ModelPath modelPath, params string[] prefixes)
+    public static WorksetConfiguration CloseWorksets(this ModelPath modelPath, Application app,
+        params string[] prefixes)
     {
         if (prefixes is null || prefixes.Length == 0)
         {
@@ -59,12 +60,10 @@ public static class ModelPathExtensions
         {
             WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.CloseAllWorksets);
 
-            IList<WorksetId> worksetIds =
-            [
-                .. WorksharingUtils.GetUserWorksetInfo(modelPath)
-                    .Where(wp => !prefixes.Any(wp.Name.StartsWith))
-                    .Select(wp => wp.Id)
-            ];
+            IList<WorksetId> worksetIds = WorksharingUtils.GetUserWorksetInfo(modelPath)
+                .Where(wp => !prefixes.Any(wp.Name.StartsWith))
+                .Select(wp => wp.Id)
+                .ToList();
 
             worksetConfiguration.Open(worksetIds);
 
@@ -72,11 +71,28 @@ public static class ModelPathExtensions
         }
         catch
         {
-            // just return default worksetConfiguration
-            return new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
+            if (app is null) return new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets);
+            // open document in advance with all worksets closed, obtain desired ids and pass them into config
+            using WorksetConfiguration config = new(WorksetConfigurationOption.CloseAllWorksets);
+
+            using Document doc = modelPath.OpenDetached(app, config);
+
+            List<WorksetId> idsToOpen = new FilteredWorksetCollector(doc)
+                .OfKind(WorksetKind.UserWorkset)
+                .Where(ws => !prefixes
+                    .Any(p => ws.Name
+                        .StartsWith(p, StringComparison.OrdinalIgnoreCase)))
+                .Select(ws => ws.Id)
+                .ToList();
+
+            doc.Close(false);
+
+            WorksetConfiguration worksetConfiguration = new(WorksetConfigurationOption.CloseAllWorksets);
+            worksetConfiguration.Open(idsToOpen);
+            return worksetConfiguration;
         }
     }
-    
+
     public static void UnloadRevitLinks(this ModelPath filePath, string folder, bool isSameFolder = true)
     {
         if (!TryGetTransmissionData(filePath, out TransmissionData transData)) return;
@@ -87,7 +103,7 @@ public static class ModelPathExtensions
         {
             using ExternalFileReference extRef = transData.GetLastSavedReferenceData(refId);
             if (extRef.ExternalFileReferenceType is not ExternalFileReferenceType.RevitLink) continue;
-            
+
             string name = Path.GetFileName(extRef.GetPath().CentralServerPath);
             if (name is null) continue;
 
@@ -135,7 +151,7 @@ public static class ModelPathExtensions
 
         TransmissionData.WriteTransmissionData(filePath, transData);
     }
-    
+
     private static bool TryGetTransmissionData(ModelPath filePath, out TransmissionData transData)
     {
         transData = TransmissionData.ReadTransmissionData(filePath);

@@ -31,9 +31,12 @@ public class EventHandlerTransmit : EventHandlerBase
 
             File.Copy(filePath, transmittedFilePath, true);
 
-            using ModelPath transmittedModelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(transmittedFilePath);
+            // TODO: add copying mechanism for RS
+
+            using ModelPath transmittedModelPath =
+                ModelPathUtils.ConvertUserVisiblePathToModelPath(transmittedFilePath);
             transmittedModelPath.UnloadRevitLinks(folderPath, transmitVm.IsSameFolder);
-            
+
             item.Background = Brushes.Green;
         }
 

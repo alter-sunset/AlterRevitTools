@@ -14,12 +14,14 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
 
     private int _radioButtonMode;
 
+    private string _serverPath = string.Empty;
     private string _maskIn = Strings.MaskIn;
     private string _maskOut = Strings.MaskOut;
     private string _maskInName = "R18";
     private string _maskOutName = "R24";
 
     private RelayCommand _radioButtonCommand;
+    private RelayCommand _browseServerCommand;
 
     public DetachViewModel(EventHandlerDetach eventHandlerDetach)
     {
@@ -47,6 +49,13 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
     }
 
     public override RelayCommand RadioButtonCommand => _radioButtonCommand ??= new RelayCommand(GetRbCommand);
+
+    [UsedImplicitly]
+    public string ServerPath
+    {
+        get => _serverPath;
+        set => SetProperty(ref _serverPath, value);
+    }
 
     [UsedImplicitly]
     public string MaskIn
@@ -115,7 +124,21 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
         {
             "Folder" => 1,
             "Mask" => 2,
+            "Server" => 3,
             _ => _radioButtonMode
         };
+    }
+
+    [UsedImplicitly]
+    public RelayCommand BrowseServerCommand => _browseServerCommand ??= new RelayCommand(_ => BrowseServer());
+
+    private void BrowseServer()
+    {
+        // TODO: BrowseServer implementation
+        
+        // first window: list of servers from rsn.ini
+        // second window: list folders on server
+        
+        // if needed files also add models in folder 
     }
 }

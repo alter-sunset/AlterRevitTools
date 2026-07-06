@@ -39,19 +39,11 @@ public class ExportHelperBase
                 continue;
             }
 
-            Document doc = OpenDocument(file, app, log, iConfig, items, out bool transmittedWrong);
+            Document doc = OpenDocument(file, app, log, iConfig, items);
             if (doc is null) continue;
 
             log.FileOpened();
             UpdateItemBackground(items, file, Brushes.Blue);
-
-#if R25_OR_GREATER
-            if (transmittedWrong)
-            {
-                doc.UnloadAllLinks();
-                doc.OpenAllWorksets();
-            }
-#endif
 
             bool isFuckedUp = false;
 
@@ -103,10 +95,8 @@ public class ExportHelperBase
         Application app,
         ILogger log,
         IConfigBaseExtended iConfig,
-        ListBoxItem[] items,
-        out bool transmittedWrong)
+        ListBoxItem[] items)
     {
-        transmittedWrong = false;
         try
         {
             using BasicFileInfo fileInfo = BasicFileInfo.Extract(file);
@@ -117,7 +107,6 @@ public class ExportHelperBase
                     ? TransmissionData.ReadTransmissionData(modelPath)
                     : null;
 
-            transmittedWrong = trData is null;
             bool transmitted = trData is { IsTransmitted: true };
 
             WorksetConfiguration worksetConfiguration;
@@ -126,15 +115,9 @@ public class ExportHelperBase
             {
                 worksetConfiguration = null;
             }
-#if R25_OR_GREATER
-            else if (!file.Equals(fileInfo.CentralPath))
-            {
-                worksetConfiguration = new WorksetConfiguration(WorksetConfigurationOption.CloseAllWorksets);
-            }
-#endif
             else if (!transmitted && iConfig.WorksetPrefixes.Length != 0)
             {
-                worksetConfiguration = modelPath.CloseWorksets(iConfig.WorksetPrefixes);
+                worksetConfiguration = modelPath.CloseWorksets(app, iConfig.WorksetPrefixes);
             }
             else
             {
@@ -142,7 +125,6 @@ public class ExportHelperBase
             }
 
             if (worksetConfiguration is null) return app.OpenDocumentFile(file);
-            if (trData is null) return modelPath.OpenAsIs(app, worksetConfiguration);
             return modelPath.OpenDetached(app, worksetConfiguration);
         }
         catch (Exception ex)

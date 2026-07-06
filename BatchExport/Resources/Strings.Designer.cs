@@ -114,6 +114,15 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Browse server.
+        /// </summary>
+        public static string BrowseServer {
+            get {
+                return ResourceManager.GetString("BrowseServer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change.
         /// </summary>
         public static string Change {
@@ -219,6 +228,25 @@ namespace AlterTools.BatchExport.Resources {
         public static string Coordinates {
             get {
                 return ResourceManager.GetString("Coordinates", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove 
+        ///all links.
+        /// </summary>
+        public static string CoreButtonDelinkText {
+            get {
+                return ResourceManager.GetString("CoreButtonDelinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all possible links from the models.
+        /// </summary>
+        public static string CoreButtonDelinkToolTip {
+            get {
+                return ResourceManager.GetString("CoreButtonDelinkToolTip", resourceCulture);
             }
         }
         
@@ -337,6 +365,24 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Purge.
+        /// </summary>
+        public static string CoreButtonPurgeText {
+            get {
+                return ResourceManager.GetString("CoreButtonPurgeText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Purge all unused elements.
+        /// </summary>
+        public static string CoreButtonPurgeToolTip {
+            get {
+                return ResourceManager.GetString("CoreButtonPurgeToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transmit 
         ///models.
         /// </summary>
@@ -393,6 +439,15 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to BIM tools.
+        /// </summary>
+        public static string CorePanelTools {
+            get {
+                return ResourceManager.GetString("CorePanelTools", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No such folder exists. 
         ///Should I create one?.
         /// </summary>
@@ -435,6 +490,15 @@ namespace AlterTools.BatchExport.Resources {
         public static string DeleteToolTip {
             get {
                 return ResourceManager.GetString("DeleteToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delink.
+        /// </summary>
+        public static string Delink {
+            get {
+                return ResourceManager.GetString("Delink", resourceCulture);
             }
         }
         
@@ -1281,6 +1345,15 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Purge.
+        /// </summary>
+        public static string Purge {
+            get {
+                return ResourceManager.GetString("Purge", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Purge models.
         /// </summary>
         public static string PurgeModels {
@@ -1386,6 +1459,15 @@ namespace AlterTools.BatchExport.Resources {
         public static string SaveToFolder {
             get {
                 return ResourceManager.GetString("SaveToFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Save to server.
+        /// </summary>
+        public static string SaveToServer {
+            get {
+                return ResourceManager.GetString("SaveToServer", resourceCulture);
             }
         }
         

@@ -5,17 +5,22 @@ namespace AlterTools.BatchExport.Views.Detach;
 
 public static class DetachHelper
 {
+    private const string Rsn = "RSN://";
+
     public static void DetachModel(this IConfigDetach iConfigDetach, Application app, string filePath)
     {
         try
         {
+            ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
+            using TransmissionData transData = TransmissionData.ReadTransmissionData(modelPath);
+
             using Document doc = app.OpenDocument(filePath, out bool isWorkshared);
             if (doc is null) return;
 
             string fileDetachedPath = GetDetachedFilePath(iConfigDetach, doc, filePath);
 
             ProcessDocument(doc, iConfigDetach);
-            SaveDocument(doc, fileDetachedPath, isWorkshared);
+            SaveDocument(doc, fileDetachedPath, isWorkshared, transData);
             Cleanup(doc, fileDetachedPath, isWorkshared);
         }
         catch
@@ -27,14 +32,27 @@ public static class DetachHelper
     private static string GetDetachedFilePath(IConfigDetach iConfigDetach, Document doc, string originalFilePath)
     {
         string docTitle = doc.Title.RemoveDetach();
-        string fileDetachedPath = Path.Combine(iConfigDetach.FolderPath, $"{docTitle}.rvt");
 
-        if (iConfigDetach is DetachViewModel { RadioButtonMode: 2 } detachViewModel)
+        if (iConfigDetach is not DetachViewModel detachViewModel) throw new ArgumentException();
+
+        string fileDetachedPath = detachViewModel.RadioButtonMode switch
         {
-            fileDetachedPath = RenamePath(originalFilePath,
+            1 => Path.Combine(iConfigDetach.FolderPath, $"{docTitle}.rvt"),
+            2 => RenamePath(originalFilePath,
                 RenameType.Folder,
-                detachViewModel.MaskIn, detachViewModel.MaskOut);
-        }
+                detachViewModel.MaskIn, detachViewModel.MaskOut),
+            3 => string.Concat(Rsn, detachViewModel.ServerPath, "/", $"{docTitle}.rvt"),
+            _ => throw new ArgumentOutOfRangeException(nameof(iConfigDetach), iConfigDetach, null)
+        };
+
+        // string fileDetachedPath = Path.Combine(iConfigDetach.FolderPath, $"{docTitle}.rvt");
+        //
+        // if (iConfigDetach is DetachViewModel { RadioButtonMode: 2 } detachViewModel)
+        // {
+        //     fileDetachedPath = RenamePath(originalFilePath,
+        //         RenameType.Folder,
+        //         detachViewModel.MaskIn, detachViewModel.MaskOut);
+        // }
 
         if (iConfigDetach.IsToRename)
         {
@@ -115,14 +133,15 @@ public static class DetachHelper
             doc.RemoveEmptyWorksets();
         }
 #endif
-        
+
         if (iConfigDetach.Purge)
         {
             doc.PurgeAll();
         }
     }
 
-    private static void SaveDocument(Document doc, string fileDetachedPath, bool isWorkshared)
+    private static void SaveDocument(Document doc, string fileDetachedPath, bool isWorkshared,
+        TransmissionData transData)
     {
         using SaveAsOptions saveOptions = new();
         saveOptions.OverwriteExistingFile = true;
@@ -132,6 +151,13 @@ public static class DetachHelper
         {
             using WorksharingSaveAsOptions worksharingOptions = new();
             worksharingOptions.SaveAsCentral = true;
+            
+            if (transData is not null && transData.IsTransmitted)
+            {
+                worksharingOptions.ClearTransmitted = true;
+            }
+
+            worksharingOptions.OpenWorksetsDefault = SimpleWorksetConfiguration.AskUserToSpecify;
             saveOptions.SetWorksharingOptions(worksharingOptions);
         }
 
@@ -160,6 +186,9 @@ public static class DetachHelper
         {
             doc?.Close();
         }
+
+        // RevitServer path, no cleanup needed
+        if (fileDetachedPath.StartsWith("RSN")) return;
 
         if (isWorkshared)
         {

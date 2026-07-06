@@ -16,7 +16,7 @@ internal static class LinkHelper
         bool isCurrentWorkset = linkViewModel.IsCurrentWorkset;
         bool setWorksetId = !isCurrentWorkset && linkViewModel.Worksets.Length > 0;
 
-        List<Entry> entries = 
+        List<Entry> entries =
         [
             .. linkViewModel.Entries
                 .Where(entry => !string.IsNullOrWhiteSpace(entry.Name)
@@ -39,7 +39,7 @@ internal static class LinkHelper
         using ModelPath linkPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(entry.Name);
 
         using RevitLinkOptions revitLinkOptions = fileInfo.IsWorkshared && 0 != props.WorksetPrefixes.Length
-            ? new RevitLinkOptions(false, linkPath.CloseWorksets(props.WorksetPrefixes))
+            ? new RevitLinkOptions(false, linkPath.CloseWorksets(null, props.WorksetPrefixes))
             : new RevitLinkOptions(false);
 
         using Transaction tr = new(doc);
@@ -55,7 +55,7 @@ internal static class LinkHelper
         LinkLoadResult linkLoadResult = null;
 
         using DwgImportDialogSuppressor suppressor = new();
-        
+
         try
         {
             linkLoadResult = RevitLinkType.Create(doc, linkPath, revitLinkOptions);
@@ -91,7 +91,7 @@ internal static class LinkHelper
                 msg,
                 TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No);
         if (result is not TaskDialogResult.Yes) return;
-        
+
         action?.Invoke();
     }
 }
