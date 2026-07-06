@@ -88,15 +88,5 @@
     "ImageSmall": "AlterTools.BatchExport.Resources.delink_16.png",
     "Panel": "CorePanelTools",
     "Availability": false
-  },
-  {
-    "Name": "WorksetsExtract",
-    "Text": "CoreButtonWorksetsText",
-    "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExtractWorkset",
-    "ToolTip": "CoreButtonWorksetsToolTip",
-    "ImageLarge": "AlterTools.BatchExport.Resources.link.png",
-    "ImageSmall": "AlterTools.BatchExport.Resources.link_16.png",
-    "Panel": "CorePanelExport",
-    "Availability": true
   }
 ]
