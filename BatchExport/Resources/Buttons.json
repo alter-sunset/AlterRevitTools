@@ -88,5 +88,15 @@
     "ImageSmall": "AlterTools.BatchExport.Resources.delink_16.png",
     "Panel": "CorePanelTools",
     "Availability": false
+  },
+  {
+    "Name": "UpdateRsLink",
+    "Text": "CoreButtonUpdateRsLinkText",
+    "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandUpdateRsLink",
+    "ToolTip": "CoreButtonUpdateRsLinkToolTip",
+    "ImageLarge": "AlterTools.BatchExport.Resources.updaterslink.png",
+    "ImageSmall": "AlterTools.BatchExport.Resources.updaterslink_16.png",
+    "Panel": "CorePanelTools",
+    "Availability": true
   }
 ]

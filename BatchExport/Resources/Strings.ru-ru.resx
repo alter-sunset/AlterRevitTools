@@ -572,4 +572,14 @@ Revit ссылок</value>
     <data name="Delink" xml:space="preserve">
         <value>Отвязать</value>
     </data>
+    <data name="UpdateRsLink" xml:space="preserve">
+        <value>Обновить модели на Revit Server</value>
+    </data>
+    <data name="CoreButtonUpdateRsLinkText" xml:space="preserve">
+        <value>Обновить 
+связи на RS</value>
+    </data>
+    <data name="CoreButtonUpdateRsLinkToolTip" xml:space="preserve">
+        <value>Заменить переданные связи на Revit Server</value>
+    </data>
 </root>

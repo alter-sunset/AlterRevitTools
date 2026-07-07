@@ -572,4 +572,14 @@ all links</value>
     <data name="Delink" xml:space="preserve">
         <value>Delink</value>
     </data>
+    <data name="UpdateRsLink" xml:space="preserve">
+        <value>Update models on Revit Server</value>
+    </data>
+    <data name="CoreButtonUpdateRsLinkText" xml:space="preserve">
+        <value>Update 
+RS links</value>
+    </data>
+    <data name="CoreButtonUpdateRsLinkToolTip" xml:space="preserve">
+        <value>Replace transmitted shared models on Revit Server</value>
+    </data>
 </root>

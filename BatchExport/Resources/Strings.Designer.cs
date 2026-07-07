@@ -402,6 +402,25 @@ namespace AlterTools.BatchExport.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update 
+        ///RS links.
+        /// </summary>
+        public static string CoreButtonUpdateRsLinkText {
+            get {
+                return ResourceManager.GetString("CoreButtonUpdateRsLinkText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Replace transmitted shared models on Revit Server.
+        /// </summary>
+        public static string CoreButtonUpdateRsLinkToolTip {
+            get {
+                return ResourceManager.GetString("CoreButtonUpdateRsLinkToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Worksets 
         ///Export.
         /// </summary>
@@ -1576,6 +1595,15 @@ namespace AlterTools.BatchExport.Resources {
         public static string TurnOffLog {
             get {
                 return ResourceManager.GetString("TurnOffLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update models on Revit Server.
+        /// </summary>
+        public static string UpdateRsLink {
+            get {
+                return ResourceManager.GetString("UpdateRsLink", resourceCulture);
             }
         }
         
