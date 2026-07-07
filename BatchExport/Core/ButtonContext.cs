@@ -7,26 +7,18 @@ namespace AlterTools.BatchExport.Core;
 
 internal class ButtonContext
 {
-    [UsedImplicitly]
-    public string Name { get; set; }
-    [UsedImplicitly]
-    public string Text { get; set; }
-    [UsedImplicitly]
-    public string ClassName { get; set; }
-    [UsedImplicitly]
-    public string ToolTip { get; set; }
-    [UsedImplicitly]
-    public string ImageLarge { get; set; }
-    [UsedImplicitly]
-    public string ImageSmall { get; set; }
-    [UsedImplicitly]
-    public string Panel { get; set; }
-    [UsedImplicitly]
-    public bool Availability { get; set; }
+    [UsedImplicitly] public string Name { get; set; }
+    [UsedImplicitly] public string Text { get; set; }
+    [UsedImplicitly] public string ClassName { get; set; }
+    [UsedImplicitly] public string ToolTip { get; set; }
+    [UsedImplicitly] public string ImageLarge { get; set; }
+    [UsedImplicitly] public string ImageSmall { get; set; }
+    [UsedImplicitly] public string Panel { get; set; }
+    [UsedImplicitly] public bool Availability { get; set; }
 
     public static List<ButtonContext> GetButtonsContext()
     {
-        return JsonHelper<List<ButtonContext>>.DeserializeResource("AlterTools.BatchExport.Resources.Buttons.json");
+        return JsonHelper<List<ButtonContext>>.DeserializeResource("Resources\\Buttons.json");
     }
 
     public PushButtonData GetPushButtonData()
@@ -60,9 +52,13 @@ internal class ButtonContext
     {
         try
         {
-            Assembly assembly = Assembly.GetExecutingAssembly();
-            using Stream stream = assembly.GetManifestResourceStream(imagePath);
-            return BitmapFrame.Create(stream!);
+            string libraryFolder = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location)!;
+            string fullPath = Path.Combine(libraryFolder, imagePath);
+
+            if (!File.Exists(fullPath)) return null;
+
+            using FileStream stream = File.OpenRead(fullPath);
+            return BitmapFrame.Create(stream, BitmapCreateOptions.None, BitmapCacheOption.OnLoad);
         }
         catch
         {
