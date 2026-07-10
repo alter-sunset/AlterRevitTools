@@ -17,10 +17,12 @@ public class ExternalCommandUpdateRsLink : IExternalCommand
 
         using WorksharingSaveAsOptions worksharingSaveAsOptions = new();
         worksharingSaveAsOptions.SaveAsCentral = true;
+
         using SaveAsOptions saveAsOptions = new();
         saveAsOptions.OverwriteExistingFile = true;
         saveAsOptions.SetWorksharingOptions(worksharingSaveAsOptions);
 
+        // Open csv catalogue with path pairs
         using OpenFileDialog openFileDialog = new();
         if (openFileDialog.ShowDialog() is not DialogResult.OK) return Result.Cancelled;
         string catalogue = openFileDialog.FileName;
@@ -29,6 +31,8 @@ public class ExternalCommandUpdateRsLink : IExternalCommand
             .Select(l => l.Split('|'))
             .ToDictionary(l => l[0].Trim(), l => l[1].Trim());
 
+        ErrorSuppressor errorSuppressor = new(uiApp);
+
         foreach ((string tempPath, string newPath) in pathPairs)
         {
             if (!File.Exists(tempPath)) continue;
@@ -36,14 +40,14 @@ public class ExternalCommandUpdateRsLink : IExternalCommand
             using Document doc =
                 tempMPath.OpenDetached(app, new WorksetConfiguration(WorksetConfigurationOption.CloseAllWorksets));
 
-            using ErrorSuppressor errorSuppressor = new(uiApp);
-
-            doc.DeleteAllLinks(false);
-            doc.PurgeAll();
+            doc.DeleteAllLinks(false); // Remove all linked documents
+            doc.PurgeAll(); // Remove all unused elements
 
             ModelPath newMPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(newPath);
             doc.SaveAs(newMPath, saveAsOptions);
         }
+
+        errorSuppressor.Dispose();
 
         using TaskDialog taskDialog = new("Finished");
         taskDialog.CommonButtons = TaskDialogCommonButtons.Close;
