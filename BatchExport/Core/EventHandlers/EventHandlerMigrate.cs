@@ -1,5 +1,5 @@
 ﻿using System.Text;
-using AlterTools.BatchExport.Resources;
+using AlterTools.Resources;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.Migrate;

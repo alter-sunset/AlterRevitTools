@@ -1,5 +1,5 @@
 ﻿using AlterTools.BatchExport.Core.EventHandlers;
-using AlterTools.BatchExport.Resources;
+using AlterTools.Resources;
 using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.Detach;
@@ -135,10 +135,10 @@ public class DetachViewModel : ViewModelBase, IConfigDetach
     private void BrowseServer()
     {
         // TODO: BrowseServer implementation
-        
+
         // first window: list of servers from rsn.ini
         // second window: list folders on server
-        
+
         // if needed files also add models in folder 
     }
 }

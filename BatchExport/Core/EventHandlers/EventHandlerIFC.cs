@@ -1,4 +1,4 @@
-﻿using AlterTools.BatchExport.Resources;
+﻿using AlterTools.Resources;
 using AlterTools.atUtils.Logger;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;

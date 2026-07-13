@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using AlterTools.BatchExport.Core.EventHandlers;
-using AlterTools.BatchExport.Resources;
+using AlterTools.Resources;
 using AlterTools.atUtils.Extensions;
 using AlterTools.BatchExport.Views.Base;
 

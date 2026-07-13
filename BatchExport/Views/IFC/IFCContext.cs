@@ -1,4 +1,4 @@
-﻿using AlterTools.BatchExport.Resources;
+﻿using AlterTools.Resources;
 
 namespace AlterTools.BatchExport.Views.IFC;
 

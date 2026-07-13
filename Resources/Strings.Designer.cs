@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AlterTools.BatchExport.Resources {
+namespace AlterTools.Resources {
     using System;
     
     

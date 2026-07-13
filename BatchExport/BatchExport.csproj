@@ -130,13 +130,6 @@
         <Content Include="Resources\delink_16.png" CopyToOutputDirectory="PreserveNewest"/>
         <Content Include="Resources\updaterslink.png" CopyToOutputDirectory="PreserveNewest"/>
         <Content Include="Resources\updaterslink_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <EmbeddedResource Update="Resources\Strings.resx">
-            <Generator>PublicResXFileCodeGenerator</Generator>
-            <LastGenOutput>Strings.Designer.cs</LastGenOutput>
-        </EmbeddedResource>
-        <EmbeddedResource Update="Resources\Strings.ru-ru.resx">
-            <DependentUpon>Strings.resx</DependentUpon>
-        </EmbeddedResource>
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="JetBrains.Annotations" Version="2024.3.0"/>
@@ -151,13 +144,6 @@
     </ItemGroup>
     <ItemGroup>
         <EditorConfigFiles Remove=".editorconfig"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Compile Update="Resources\Strings.Designer.cs">
-            <DesignTime>True</DesignTime>
-            <AutoGen>True</AutoGen>
-            <DependentUpon>Strings.resx</DependentUpon>
-        </Compile>
     </ItemGroup>
     <ItemGroup>
         <Reference Include="RevitServerApi">

@@ -4,7 +4,7 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:base="clr-namespace:AlterTools.BatchExport.Views.Base"
-                 xmlns:resx="clr-namespace:AlterTools.BatchExport.Resources"
+                 xmlns:resx="clr-namespace:AlterTools.Resources;assembly=Resources"
                  mc:Ignorable="d"
                  IsEnabled="{Binding IsViewEnabled}"
                  ShowInTaskbar="False"
@@ -33,7 +33,7 @@
                    Grid.Column="0"
                    Grid.ColumnSpan="2"
                    VerticalAlignment="Center"
-                   Text="{x:Static resx:Strings.ParamsHeader}"/>
+                   Text="{x:Static resx:Strings.ParamsHeader}" />
 
         <Button Margin="10"
                 Grid.Column="3"

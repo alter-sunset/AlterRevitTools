@@ -3,7 +3,7 @@
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:base="clr-namespace:AlterTools.BatchExport.Views.Base"
-                 xmlns:resx="clr-namespace:AlterTools.BatchExport.Resources"
+                 xmlns:resx="clr-namespace:AlterTools.Resources;assembly=Resources"
                  Height="200"
                  Width="600"
                  WindowStartupLocation="CenterScreen"

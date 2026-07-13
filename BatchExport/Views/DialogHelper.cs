@@ -1,4 +1,5 @@
-﻿using AlterTools.BatchExport.Resources;
+﻿using AlterTools.Resources;
+
 // ReSharper disable SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
 
 namespace AlterTools.BatchExport.Views;

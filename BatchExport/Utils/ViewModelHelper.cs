@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using AlterTools.BatchExport.Resources;
+using AlterTools.Resources;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.Detach;
 using AlterTools.BatchExport.Views.Link;
@@ -86,7 +86,7 @@ internal static class ViewModelHelper
     {
         bool condition = !vmBaseExt.ExportScopeView
                          || !string.IsNullOrEmpty(vmBaseExt.ViewName);
-        
+
         return CheckCondition(condition, Strings.NoViewName);
     }
 
@@ -94,7 +94,7 @@ internal static class ViewModelHelper
     {
         bool condition = !detachVm.CheckForEmptyView
                          || !string.IsNullOrEmpty(detachVm.ViewName);
-        
+
         return CheckCondition(condition, Strings.NoViewName);
     }
 
@@ -132,7 +132,7 @@ internal static class ViewModelHelper
     {
         bool condition = !detachVm.IsToRename
                          || !string.IsNullOrEmpty(detachVm.MaskInName);
-        
+
         return CheckCondition(condition, Strings.NoMaskFile);
     }
 

@@ -2,7 +2,7 @@
                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                  xmlns:base="clr-namespace:AlterTools.BatchExport.Views.Base"
-                 xmlns:resx="clr-namespace:AlterTools.BatchExport.Resources"
+                 xmlns:resx="clr-namespace:AlterTools.Resources;assembly=Resources"
                  Height="900"
                  Width="800"
                  WindowStartupLocation="CenterScreen"
@@ -96,7 +96,7 @@
                 Grid.Row="3"
                 Command="{Binding BrowseFolderCommand}"
                 Content="{x:Static resx:Strings.Browse}" />
-        
+
         <TextBlock Margin="10,0,80,0"
                    Grid.Row="4"
                    Grid.Column="0"
@@ -128,7 +128,7 @@
                   Grid.Column="0"
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding ConvertElementProperties}"
-                  Content="{x:Static resx:Strings.ConvertElementProperties}"/>
+                  Content="{x:Static resx:Strings.ConvertElementProperties}" />
         <TextBlock Margin="10,10,110,10"
                    Grid.Row="5"
                    Grid.Column="1"
@@ -146,38 +146,38 @@
                   Grid.Column="2"
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding DivideFileIntoLevels}"
-                  Content="{x:Static resx:Strings.DivideFile}"/>
+                  Content="{x:Static resx:Strings.DivideFile}" />
         <CheckBox Margin="10,10,10,10"
                   Grid.Row="5"
                   Grid.Column="3"
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding ExportElementIds}"
-                  Content="{x:Static resx:Strings.ExportElementIds}"/>
+                  Content="{x:Static resx:Strings.ExportElementIds}" />
 
         <CheckBox Margin="10"
                   Grid.Row="6"
                   Grid.Column="0"
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding ExportLinks}"
-                  Content="{x:Static resx:Strings.ConvertLinks}"/>
+                  Content="{x:Static resx:Strings.ConvertLinks}" />
         <CheckBox Margin="10"
                   Grid.Row="6"
                   Grid.Column="1"
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding ExportParts}"
-                  Content="{x:Static resx:Strings.ConvertParts}"/>
+                  Content="{x:Static resx:Strings.ConvertParts}" />
         <CheckBox Margin="10"
                   Grid.Row="6"
                   Grid.Column="2"
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding ExportRoomAsAttribute}"
-                  Content="{x:Static resx:Strings.ConvertRoomAsAttr}"/>
+                  Content="{x:Static resx:Strings.ConvertRoomAsAttr}" />
         <CheckBox Margin="10"
                   Grid.Row="6"
                   Grid.Column="3"
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding ExportRoomGeometry}"
-                  Content="{x:Static resx:Strings.ExportRoomGeometry}"/>
+                  Content="{x:Static resx:Strings.ExportRoomGeometry}" />
 
         <RadioButton Margin="10"
                      Grid.Row="7"
@@ -185,14 +185,14 @@
                      VerticalContentAlignment="Center"
                      GroupName="ExportScope"
                      IsChecked="{Binding ExportScopeWhole}"
-                     Content="{x:Static resx:Strings.ExportEntireModel}"/>
+                     Content="{x:Static resx:Strings.ExportEntireModel}" />
         <RadioButton Margin="10,10,50,10"
                      Grid.Row="7"
                      Grid.Column="1"
                      VerticalContentAlignment="Center"
                      GroupName="ExportScope"
                      IsChecked="{Binding ExportScopeView}"
-                     Content="{x:Static resx:Strings.ExportView}"/>
+                     Content="{x:Static resx:Strings.ExportView}" />
         <TextBox Margin="155,10,10,10"
                  Grid.Row="7"
                  Grid.Column="1"
@@ -205,14 +205,14 @@
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding IgnoreMissingView}"
                   Content="{x:Static resx:Strings.IgnoreMissingView}"
-                  FontSize="11"/>
+                  FontSize="11" />
 
         <CheckBox Margin="10"
                   Grid.Row="8"
                   Grid.Column="0"
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding FindMissingMaterials}"
-                  Content="{x:Static resx:Strings.FindMissingMaterials}"/>
+                  Content="{x:Static resx:Strings.FindMissingMaterials}" />
         <TextBlock Margin="10,0,30,0"
                    FontSize="12"
                    Grid.Row="8"
@@ -234,19 +234,19 @@
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding ExportUrls}"
                   Content="{x:Static resx:Strings.ConvertURLs}" />
-        
+
         <CheckBox Margin="10"
                   Grid.Row="9"
                   Grid.Column="0"
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding ConvertLinkedCADFormats}"
-                  Content="{x:Static resx:Strings.ConvertCAD}"/>
+                  Content="{x:Static resx:Strings.ConvertCAD}" />
         <CheckBox Margin="10"
                   Grid.Row="9"
                   Grid.Column="1"
                   VerticalContentAlignment="Center"
                   IsChecked="{Binding ConvertLights}"
-                  Content="{x:Static resx:Strings.ConvertLights}"/>
+                  Content="{x:Static resx:Strings.ConvertLights}" />
         <TextBlock Margin="10,0,30,0"
                    Grid.Row="9"
                    Grid.Column="2"
@@ -265,15 +265,15 @@
                    Grid.Column="0"
                    VerticalAlignment="Center"
                    TextWrapping="Wrap"
-                   Text="{x:Static resx:Strings.WorksetPrefixes}"/>
+                   Text="{x:Static resx:Strings.WorksetPrefixes}" />
         <TextBox Margin="10,10,10,10"
                  Grid.Row="10"
                  Grid.Column="1"
                  Grid.ColumnSpan="2"
                  VerticalContentAlignment="Center"
                  Text="{Binding WorksetPrefix}"
-                 ToolTip="{x:Static resx:Strings.WorksetPrefixesToolTip}"/>
-        
+                 ToolTip="{x:Static resx:Strings.WorksetPrefixesToolTip}" />
+
         <CheckBox Margin="10"
                   Grid.Row="11"
                   Grid.Column="0"
@@ -285,7 +285,7 @@
                 Grid.Row="11"
                 Grid.Column="2"
                 Command="{Binding EraseCommand}"
-                Content="{x:Static resx:Strings.EraseList}"/>
+                Content="{x:Static resx:Strings.EraseList}" />
         <Button Margin="10"
                 Grid.Row="11"
                 Grid.Column="3"
