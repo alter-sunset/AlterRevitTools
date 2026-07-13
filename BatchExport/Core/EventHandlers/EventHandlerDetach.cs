@@ -1,4 +1,5 @@
 ﻿using System.Windows.Controls;
+using AlterTools.atUtils;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.Detach;
@@ -33,6 +34,7 @@ public class EventHandlerDetach : EventHandlerBase
             detachVm.DetachModel(app, filePath);
             item.Background = Brushes.Green;
         }
+
         errorSuppressor.Dispose();
 
         detachVm.FinishWork("DetachModelsFinished");

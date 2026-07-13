@@ -1,8 +1,9 @@
-﻿using System.Reflection;
+﻿using System.IO;
+using System.Reflection;
 using Newtonsoft.Json;
 using MessageBox = System.Windows.MessageBox;
 
-namespace AlterTools.BatchExport.Utils;
+namespace AlterTools.atUtils;
 
 public static class JsonHelper<T>
 {

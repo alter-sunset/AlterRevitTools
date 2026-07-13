@@ -1,7 +1,7 @@
 ﻿using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Resources;
-using AlterTools.BatchExport.Utils;
-using AlterTools.BatchExport.Utils.Extensions;
+using AlterTools.atUtils;
+using AlterTools.atUtils.Extensions;
 using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.Params;
@@ -34,8 +34,7 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
         set => SetProperty(ref _paramsNames, value);
     }
 
-    [UsedImplicitly]
-    public RelayCommand BrowseCsvCommand => _browseCsvCommand ??= new RelayCommand(_ => BrowseCsv());
+    [UsedImplicitly] public RelayCommand BrowseCsvCommand => _browseCsvCommand ??= new RelayCommand(_ => BrowseCsv());
 
     public string[] ParametersNames => _paramsNames.SplitBySemicolon();
 

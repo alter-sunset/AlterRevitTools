@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Resources;
-using AlterTools.BatchExport.Utils.Extensions;
+using AlterTools.atUtils.Extensions;
 using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.Link;
@@ -20,7 +20,7 @@ public class LinkViewModel : ViewModelBase
     private bool _isCurrentWorkset;
 
     private string _worksetPrefix = string.Empty;
-    
+
     private ObservableCollection<Entry> _entries = [];
     private Entry _selectedEntry;
 
@@ -83,7 +83,7 @@ public class LinkViewModel : ViewModelBase
                 entry.SelectedWorkset = sourceEntry.SelectedWorkset;
                 continue;
             }
-            
+
             entry.SelectedImportPlacement = sourceEntry.SelectedImportPlacement;
         }
     }

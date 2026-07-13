@@ -1,6 +1,6 @@
 ﻿using AlterTools.BatchExport.Resources;
 using AlterTools.BatchExport.Utils;
-using AlterTools.BatchExport.Utils.Logger;
+using AlterTools.atUtils.Logger;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.NWC;
 using Newtonsoft.Json;

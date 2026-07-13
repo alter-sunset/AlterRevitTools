@@ -1,12 +1,13 @@
-﻿using Application = Autodesk.Revit.ApplicationServices.Application;
+﻿using System.IO;
+using Autodesk.Revit.DB;
+using Application = Autodesk.Revit.ApplicationServices.Application;
 using TaskDialog = Autodesk.Revit.UI.TaskDialog;
 using MessageBox = System.Windows.MessageBox;
 
-namespace AlterTools.BatchExport.Utils.Extensions;
+namespace AlterTools.atUtils.Extensions;
 
 public static class ModelPathExtensions
 {
-    [UsedImplicitly]
     public static Document OpenAsIs(this ModelPath modelPath,
         Application app,
         WorksetConfiguration worksetConfiguration)

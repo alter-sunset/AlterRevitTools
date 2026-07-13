@@ -1,4 +1,4 @@
-namespace AlterTools.BatchExport.Utils.Logger;
+namespace AlterTools.atUtils.Logger;
 
 public static class LoggerFactory
 {

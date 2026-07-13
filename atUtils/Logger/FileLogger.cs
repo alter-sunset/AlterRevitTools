@@ -1,4 +1,6 @@
-﻿namespace AlterTools.BatchExport.Utils.Logger;
+﻿using System.IO;
+
+namespace AlterTools.atUtils.Logger;
 
 public class FileLogger : ILogger
 {

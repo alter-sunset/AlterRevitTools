@@ -1,8 +1,10 @@
-﻿using Autodesk.Revit.DB.Events;
+﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.DB.Events;
+using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Events;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 
-namespace AlterTools.BatchExport.Utils;
+namespace AlterTools.atUtils;
 
 public class ErrorSuppressor : IDisposable
 {
@@ -58,6 +60,7 @@ public class ErrorSuppressor : IDisposable
                 accessor.ResolveFailure(failure);
                 return FailureProcessingResult.ProceedWithCommit;
             }
+
             accessor.DeleteWarning(failure);
         }
 

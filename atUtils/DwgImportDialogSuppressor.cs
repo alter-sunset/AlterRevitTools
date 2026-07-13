@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using System.Windows.Automation;
 
-namespace AlterTools.BatchExport.Utils;
+namespace AlterTools.atUtils;
 
 public class DwgImportDialogSuppressor : IDisposable
 {
@@ -14,7 +14,7 @@ public class DwgImportDialogSuppressor : IDisposable
 
     [DllImport("user32.dll", SetLastError = true)]
     private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
-    
+
     [DllImport("user32.dll")]
     private static extern int SendMessage(IntPtr hWnd, uint msg, int wParam, int lParam);
 
@@ -33,21 +33,21 @@ public class DwgImportDialogSuppressor : IDisposable
         while (_running)
         {
             Thread.Sleep(CheckIntervalMs);
-            
+
             try
             {
                 IntPtr hWnd = FindWindow(null, TargetTitle);
                 if (hWnd == IntPtr.Zero) continue;
-                
+
                 AutomationElement dialog = AutomationElement.FromHandle(hWnd);
                 if (dialog is null) continue;
-                
+
                 AutomationElement textElement = dialog.FindFirst(TreeScope.Descendants,
                     new PropertyCondition(AutomationElement.ControlTypeProperty, ControlType.Text));
-                
+
                 string msg = textElement?.Current.Name;
                 if (msg is null || !msg.Contains(Resources.Strings.DwgImportDialog)) continue;
-                
+
                 _ = SendMessage(hWnd, WmClose, 0, 0);
             }
             catch
@@ -61,7 +61,7 @@ public class DwgImportDialogSuppressor : IDisposable
     {
         _running = false;
         if (_watcherThread is not { IsAlive: true }) return;
-        
+
         _watcherThread.Join();
         _watcherThread = null;
     }

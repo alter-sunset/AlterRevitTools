@@ -1,12 +1,13 @@
-﻿using AlterTools.BatchExport.Utils.Extensions;
-using AlterTools.BatchExport.Utils.Logger;
+﻿using AlterTools.atUtils.Extensions;
+using AlterTools.atUtils.Logger;
 using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.IFC;
 
 public class IFCHelper : ExportHelperBase
 {
-    private protected override void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp, ref ILogger log)
+    private protected override void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp,
+        ref ILogger log)
     {
         if (iConfig is null || doc is null) return;
 
@@ -40,7 +41,7 @@ public class IFCHelper : ExportHelperBase
                 .FirstOrDefault(el => el.Name == config.ViewName && !((View3D)el).IsTemplate)
                 .Id;
         }
-        
+
         return options;
     }
 }

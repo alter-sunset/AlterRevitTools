@@ -1,6 +1,7 @@
+using Autodesk.Revit.DB;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 
-namespace AlterTools.BatchExport.Utils.Extensions;
+namespace AlterTools.atUtils.Extensions;
 
 public static class ApplicationExtensions
 {
@@ -17,12 +18,12 @@ public static class ApplicationExtensions
                 doc = app.OpenDocumentFile(filePath);
             }
             else
-            {                
+            {
                 ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
-                
+
                 doc = modelPath.OpenDetached(app,
                     new WorksetConfiguration(WorksetConfigurationOption.CloseAllWorksets));
-                
+
                 isWorkshared = true;
             }
         }

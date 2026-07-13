@@ -1,7 +1,7 @@
 ﻿using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Resources;
-using AlterTools.BatchExport.Utils;
-using AlterTools.BatchExport.Utils.Extensions;
+using AlterTools.atUtils;
+using AlterTools.atUtils.Extensions;
 using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.IFC;
@@ -12,7 +12,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
     private bool _wallAndColumnSplitting;
 
     private string _mapping = string.Empty;
-    
+
     private RelayCommand _loadMappingCommand;
 
     private KeyValuePair<int, string> _selectedLevel =
@@ -43,8 +43,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
     [UsedImplicitly]
     public RelayCommand LoadMappingCommand => _loadMappingCommand ??= new RelayCommand(_ => LoadMapping());
 
-    [UsedImplicitly]
-    public static IReadOnlyDictionary<IFCVersion, string> IFCVersions => IFCContext.IFCVersions;
+    [UsedImplicitly] public static IReadOnlyDictionary<IFCVersion, string> IFCVersions => IFCContext.IFCVersions;
 
     [UsedImplicitly]
     public KeyValuePair<IFCVersion, string> SelectedVersion
@@ -125,7 +124,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
         ExportScopeView = form.ExportView;
         ViewName = form.ViewName;
         SelectedLevel = SpaceBoundaryLevels.FirstOrDefault(level => level.Key == form.SpaceBoundaryLevel);
-        ListBoxItems = 
+        ListBoxItems =
         [
             .. form.Files
                 .FilterRevitFiles()

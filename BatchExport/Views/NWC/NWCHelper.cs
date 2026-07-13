@@ -1,12 +1,13 @@
-﻿using AlterTools.BatchExport.Utils.Extensions;
-using AlterTools.BatchExport.Utils.Logger;
+﻿using AlterTools.atUtils.Extensions;
+using AlterTools.atUtils.Logger;
 using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.NWC;
 
 public class NWCHelper : ExportHelperBase
 {
-    private protected override void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp, ref ILogger log)
+    private protected override void ExportModel(IConfigBaseExtended iConfig, Document doc, ref bool isFuckedUp,
+        ref ILogger log)
     {
         if (iConfig is not IConfigNWC configNWC) return;
 
@@ -53,7 +54,7 @@ public class NWCHelper : ExportHelperBase
         }
         else if (config.IgnoreMissingView)
         {
-            options.ExportScope =  NavisworksExportScope.Model;
+            options.ExportScope = NavisworksExportScope.Model;
         }
 
         return options;

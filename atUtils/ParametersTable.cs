@@ -1,4 +1,4 @@
-﻿namespace AlterTools.BatchExport.Views.Params;
+﻿namespace AlterTools.atUtils;
 
 public class ParametersTable
 {

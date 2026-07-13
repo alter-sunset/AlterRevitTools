@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Resources;
-using AlterTools.BatchExport.Utils;
-using AlterTools.BatchExport.Utils.Extensions;
+using AlterTools.atUtils;
+using AlterTools.atUtils.Extensions;
 using AlterTools.BatchExport.Views.Base;
 
 namespace AlterTools.BatchExport.Views.NWC;
@@ -12,7 +12,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
     private readonly EventHandlerNWCBatch _eventHandlerNWCBatch;
 
     private ObservableCollection<Config> _configs = [];
-    
+
     private double _facetingFactor = 1;
 
     private bool _divideFileIntoLevels = true;
@@ -189,7 +189,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
         NamePostfix = form.NamePostfix;
         WorksetPrefix = string.Join(";", form.WorksetPrefixes);
         ExportScopeView = NavisworksExportScope.View == form.ExportScope;
-        ListBoxItems = 
+        ListBoxItems =
         [
             .. form.Files
                 .FilterRevitFiles()
@@ -240,11 +240,11 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
             FolderPath = FolderPath,
             NamePrefix = NamePrefix,
             NamePostfix = NamePostfix,
-            WorksetPrefixes = 
-                [
-                    .. WorksetPrefix.Split(';')
-                        .Select(prefix => prefix.Trim())
-                ],
+            WorksetPrefixes =
+            [
+                .. WorksetPrefix.Split(';')
+                    .Select(prefix => prefix.Trim())
+            ],
             ConvertLights = ConvertLights,
             ConvertLinkedCADFormats = ConvertLinkedCADFormats,
             FacetingFactor = FacetingFactor,
@@ -261,7 +261,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
 
         IEnumerable<string> configs = File.ReadLines(openFileDialog.FileName);
 
-        Configs = 
+        Configs =
         [
             .. configs.Where(config => config.EndsWith(".json")
                                        && File.Exists(config))

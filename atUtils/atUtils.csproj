@@ -1,4 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
+
     <PropertyGroup>
         <LangVersion>12</LangVersion>
         <OutputType>Library</OutputType>
@@ -109,27 +110,12 @@
         <DebugType>none</DebugType>
     </PropertyGroup>
     <ItemGroup>
-        <Content Include="Resources\Buttons.json" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\detach.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\detach_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\migrate.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\migrate_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\nwc.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\nwc_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\ifc.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\ifc_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\link.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\link_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\params.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\params_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\transmit.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\transmit_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\purge.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\purge_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\delink.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\delink_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\updaterslink.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\updaterslink_16.png" CopyToOutputDirectory="PreserveNewest"/>
+        <PackageReference Include="JetBrains.Annotations" Version="2024.3.0"/>
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*"/>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*"/>
+    </ItemGroup>
+    <ItemGroup>
         <EmbeddedResource Update="Resources\Strings.resx">
             <Generator>PublicResXFileCodeGenerator</Generator>
             <LastGenOutput>Strings.Designer.cs</LastGenOutput>
@@ -137,34 +123,10 @@
         <EmbeddedResource Update="Resources\Strings.ru-ru.resx">
             <DependentUpon>Strings.resx</DependentUpon>
         </EmbeddedResource>
-    </ItemGroup>
-    <ItemGroup>
-        <PackageReference Include="JetBrains.Annotations" Version="2024.3.0"/>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
-        <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*"/>
-        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*"/>
-    </ItemGroup>
-    <ItemGroup>
-        <None Update="AlterTools.BatchExport.addin">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
-    </ItemGroup>
-    <ItemGroup>
-        <EditorConfigFiles Remove=".editorconfig"/>
-    </ItemGroup>
-    <ItemGroup>
         <Compile Update="Resources\Strings.Designer.cs">
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>Strings.resx</DependentUpon>
         </Compile>
-    </ItemGroup>
-    <ItemGroup>
-        <Reference Include="RevitServerApi">
-            <HintPath>..\..\..\RevitServerApi\bin\Release\netstandard2.0\RevitServerApi.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="..\atUtils\atUtils.csproj"/>
     </ItemGroup>
 </Project>

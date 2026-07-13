@@ -1,5 +1,5 @@
-﻿using AlterTools.BatchExport.Utils;
-using AlterTools.BatchExport.Utils.Extensions;
+﻿using AlterTools.atUtils;
+using AlterTools.atUtils.Extensions;
 using Autodesk.Revit.Attributes;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 using TaskDialog = Autodesk.Revit.UI.TaskDialog;
@@ -33,17 +33,17 @@ public class ExternalCommandUpdateRsLink : IExternalCommand
 
         ErrorSuppressor errorSuppressor = new(uiApp);
 
-        foreach ((string tempPath, string newPath) in pathPairs)
+        foreach (KeyValuePair<string, string> pair in pathPairs)
         {
-            if (!File.Exists(tempPath)) continue;
-            ModelPath tempMPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(tempPath);
+            if (!File.Exists(pair.Key)) continue;
+            ModelPath tempMPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(pair.Key);
             using Document doc =
                 tempMPath.OpenDetached(app, new WorksetConfiguration(WorksetConfigurationOption.CloseAllWorksets));
 
             doc.DeleteAllLinks(false); // Remove all linked documents
             doc.PurgeAll(); // Remove all unused elements
 
-            ModelPath newMPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(newPath);
+            ModelPath newMPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(pair.Value);
             doc.SaveAs(newMPath, saveAsOptions);
         }
 

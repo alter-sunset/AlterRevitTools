@@ -1,6 +1,7 @@
+using System.IO;
 using System.Security.Cryptography;
 
-namespace AlterTools.BatchExport.Utils;
+namespace AlterTools.atUtils;
 
 public static class HashHelper
 {
