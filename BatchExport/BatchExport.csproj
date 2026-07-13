@@ -151,6 +151,6 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\atUtils\atUtils.csproj"/>
+        <ProjectReference Include="..\Utils\Utils.csproj"/>
     </ItemGroup>
 </Project>
