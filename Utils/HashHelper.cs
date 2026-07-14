@@ -1,7 +1,7 @@
 using System.IO;
 using System.Security.Cryptography;
 
-namespace AlterTools.atUtils;
+namespace AlterTools.Utils;
 
 public static class HashHelper
 {

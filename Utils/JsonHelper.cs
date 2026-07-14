@@ -1,9 +1,9 @@
 ﻿using System.IO;
 using System.Reflection;
-using Newtonsoft.Json;
+using System.Text.Json;
 using MessageBox = System.Windows.MessageBox;
 
-namespace AlterTools.atUtils;
+namespace AlterTools.Utils;
 
 public static class JsonHelper<T>
 {
@@ -17,7 +17,7 @@ public static class JsonHelper<T>
             if (!File.Exists(fullPath)) return default;
 
             string json = File.ReadAllText(fullPath);
-            return JsonConvert.DeserializeObject<T>(json);
+            return JsonSerializer.Deserialize<T>(json);
         }
         catch
         {
@@ -27,7 +27,7 @@ public static class JsonHelper<T>
 
     public static T DeserializeConfig(FileStream file)
     {
-        return HandleSerialization(() => JsonConvert.DeserializeObject<T>(new StreamReader(file).ReadToEnd()));
+        return HandleSerialization(() => JsonSerializer.Deserialize<T>(new StreamReader(file).ReadToEnd()));
     }
 
     public static void SerializeConfig(T value, string path)
@@ -37,7 +37,7 @@ public static class JsonHelper<T>
             using FileStream stream = new(path, FileMode.Create, FileAccess.Write, FileShare.None);
             using StreamWriter writer = new(stream);
 
-            writer.Write(JsonConvert.SerializeObject(value, Formatting.Indented));
+            writer.Write(JsonSerializer.Serialize(value, new JsonSerializerOptions { WriteIndented = true }));
 
             return default;
         });

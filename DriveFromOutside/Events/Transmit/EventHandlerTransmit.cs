@@ -1,6 +1,7 @@
 ﻿using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Utils.Extensions;
+using AlterTools.BatchExport.Views.Base;
 using Autodesk.Revit.ApplicationServices;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
@@ -9,7 +10,7 @@ namespace AlterTools.DriveFromOutside.Events.Transmit;
 
 public class EventHandlerTransmit : RevitEventWrapper<TransmitConfig>
 {
-    protected override void Execute(UIApplication uiApp, TransmitConfig transmitConfig)
+    protected override void Execute(UIApplication uiApp, ViewModelBase transmitConfig)
     {
         using Application? app = uiApp.Application;
 

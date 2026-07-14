@@ -1,7 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using AlterTools.BatchExport.Core.EventHandlers;
-using AlterTools.atUtils.Extensions;
+using AlterTools.Utils.Extensions;
+using AlterTools.Utils.Interfaces;
 using Brushes = System.Windows.Media.Brushes;
 
 namespace AlterTools.BatchExport.Views.Base;

@@ -1,7 +1,7 @@
 using Autodesk.Revit.DB;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 
-namespace AlterTools.atUtils.Extensions;
+namespace AlterTools.Utils.Extensions;
 
 public static class ApplicationExtensions
 {

@@ -1,16 +1,17 @@
 ﻿using AlterTools.Resources;
 using AlterTools.BatchExport.Utils;
-using AlterTools.atUtils.Logger;
 using AlterTools.BatchExport.Views.Base;
+using AlterTools.Utils.Logger;
+using AlterTools.Utils.Interfaces;
 using AlterTools.BatchExport.Views.NWC;
-using Newtonsoft.Json;
+using System.Text.Json;
 using MessageBox = System.Windows.MessageBox;
 
 namespace AlterTools.BatchExport.Core.EventHandlers;
 
 public class EventHandlerNWCBatch : EventHandlerBase
 {
-    protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
+    protected override void Execute(UIApplication uiApp, ViewModelBase iConfigBase)
     {
         if (iConfigBase is not NWCViewModel nwcVm) return;
 
@@ -28,7 +29,7 @@ public class EventHandlerNWCBatch : EventHandlerBase
             {
                 using FileStream fileStream = File.OpenRead(config.Name);
 
-                NWCForm form = JsonConvert.DeserializeObject<NWCForm>(new StreamReader(fileStream).ReadToEnd());
+                NWCForm form = JsonSerializer.Deserialize<NWCForm>(new StreamReader(fileStream).ReadToEnd());
 
                 nwcVm.DeserializeNWCForm(form);
             }

@@ -2,6 +2,7 @@
 using AlterTools.Resources;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
+using AlterTools.Utils.Interfaces;
 using AlterTools.BatchExport.Views.Migrate;
 using MessageBox = System.Windows.MessageBox;
 
@@ -9,7 +10,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers;
 
 public class EventHandlerMigrate : EventHandlerBase
 {
-    protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
+    protected override void Execute(UIApplication uiApp, ViewModelBase iConfigBase)
     {
         if (iConfigBase is not MigrateViewModel migrateVm) return;
 

@@ -1,6 +1,6 @@
 using Autodesk.Revit.DB;
 
-namespace AlterTools.atUtils.Extensions;
+namespace AlterTools.Utils.Extensions;
 
 public static class ElementExtensions
 {

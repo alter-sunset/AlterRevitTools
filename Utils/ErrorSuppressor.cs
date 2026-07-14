@@ -4,7 +4,7 @@ using Autodesk.Revit.UI;
 using Autodesk.Revit.UI.Events;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 
-namespace AlterTools.atUtils;
+namespace AlterTools.Utils;
 
 public class ErrorSuppressor : IDisposable
 {

@@ -1,14 +1,15 @@
 ﻿using AlterTools.Resources;
-using AlterTools.atUtils.Logger;
+using AlterTools.Utils.Logger;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
+using AlterTools.Utils.Interfaces;
 using AlterTools.BatchExport.Views.IFC;
 
 namespace AlterTools.BatchExport.Core.EventHandlers;
 
 public class EventHandlerIFC : EventHandlerBase
 {
-    protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
+    protected override void Execute(UIApplication uiApp, ViewModelBase iConfigBase)
     {
         if (iConfigBase is not IFCViewModel ifcVm) return;
         if (!ifcVm.IsEverythingFilled()) return;

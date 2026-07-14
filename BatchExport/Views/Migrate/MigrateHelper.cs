@@ -1,5 +1,5 @@
-﻿using AlterTools.atUtils.Extensions;
-using Newtonsoft.Json;
+﻿using AlterTools.Utils.Extensions;
+using System.Text.Json;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 using WasBecome = System.Collections.Generic.Dictionary<string, string>;
 
@@ -16,7 +16,7 @@ public static class MigrateHelper
     {
         using FileStream fileStream = File.OpenRead(configPath);
 
-        WasBecome items = JsonConvert.DeserializeObject<WasBecome>(new StreamReader(fileStream).ReadToEnd());
+        WasBecome items = JsonSerializer.Deserialize<WasBecome>(new StreamReader(fileStream).ReadToEnd());
 
         return items ?? throw new InvalidOperationException(WrongScheme);
     }

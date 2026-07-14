@@ -1,4 +1,6 @@
-﻿namespace AlterTools.BatchExport.Core.EventHandlers;
+﻿using AlterTools.BatchExport.Views.Base;
+
+namespace AlterTools.BatchExport.Core.EventHandlers;
 
 /// <summary>
 ///     Class for creating Argument (Wrapped) External Events
@@ -8,7 +10,7 @@ public abstract class RevitEventWrapper<TType> : IExternalEventHandler
 {
     private readonly object _lock = new();
     private readonly ExternalEvent _revitEvent;
-    private TType _savedArgs;
+    private ViewModelBase _savedArgs;
 
     /// <summary>
     ///     Class for wrapping methods for execution within a "valid" Revit API context.
@@ -21,7 +23,7 @@ public abstract class RevitEventWrapper<TType> : IExternalEventHandler
     /// <param name="uiApp">Revit UI Application to use as the "wrapper" API context.</param>
     public void Execute(UIApplication uiApp)
     {
-        TType args;
+        ViewModelBase args;
         lock (_lock)
         {
             args = _savedArgs;
@@ -41,7 +43,7 @@ public abstract class RevitEventWrapper<TType> : IExternalEventHandler
     ///     Execute the wrapped external event in a valid Revit API context.
     /// </summary>
     /// <param name="args">Arguments that could be passed to the execution method.</param>
-    public void Raise(TType args)
+    public void Raise(ViewModelBase args)
     {
         lock (_lock)
         {
@@ -56,5 +58,5 @@ public abstract class RevitEventWrapper<TType> : IExternalEventHandler
     /// </summary>
     /// <param name="uiApp">Revit UI Application to use as the "wrapper" API context.</param>
     /// <param name="args">Arguments that could be passed to the execution method.</param>
-    protected abstract void Execute(UIApplication uiApp, TType args);
+    protected abstract void Execute(UIApplication uiApp, ViewModelBase args);
 }

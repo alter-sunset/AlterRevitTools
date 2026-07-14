@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace AlterTools.atUtils;
+namespace AlterTools.Utils;
 
 public class CsvHelper : IDisposable
 {

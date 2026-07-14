@@ -1,7 +1,8 @@
 ﻿using System.Windows.Controls;
-using AlterTools.atUtils;
+using AlterTools.Utils;
 using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.Base;
+using AlterTools.Utils.Interfaces;
 using AlterTools.BatchExport.Views.Detach;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 using Brushes = System.Windows.Media.Brushes;
@@ -10,7 +11,7 @@ namespace AlterTools.BatchExport.Core.EventHandlers;
 
 public class EventHandlerDetach : EventHandlerBase
 {
-    protected override void Execute(UIApplication uiApp, IConfigBase iConfigBase)
+    protected override void Execute(UIApplication uiApp, ViewModelBase iConfigBase)
     {
         if (iConfigBase is not DetachViewModel detachVm) return;
         if (!detachVm.IsEverythingFilled()) return;

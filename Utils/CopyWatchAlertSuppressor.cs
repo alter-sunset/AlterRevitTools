@@ -1,6 +1,6 @@
 ﻿using Autodesk.Revit.DB;
 
-namespace AlterTools.atUtils;
+namespace AlterTools.Utils;
 
 public class CopyWatchAlertSuppressor : IFailuresPreprocessor
 {

@@ -4,7 +4,7 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Electrical;
 using Autodesk.Revit.UI;
 
-namespace AlterTools.atUtils.Extensions;
+namespace AlterTools.Utils.Extensions;
 
 public static class DocumentExtensions
 {

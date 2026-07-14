@@ -1,7 +1,7 @@
 using System.Runtime.InteropServices;
 using System.Windows.Automation;
 
-namespace AlterTools.atUtils;
+namespace AlterTools.Utils;
 
 public class DwgImportDialogSuppressor : IDisposable
 {

@@ -1,4 +1,4 @@
-namespace AlterTools.atUtils.Logger;
+namespace AlterTools.Utils.Logger;
 
 public interface ILogger : IDisposable
 {

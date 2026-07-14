@@ -4,7 +4,7 @@ using Application = Autodesk.Revit.ApplicationServices.Application;
 using TaskDialog = Autodesk.Revit.UI.TaskDialog;
 using MessageBox = System.Windows.MessageBox;
 
-namespace AlterTools.atUtils.Extensions;
+namespace AlterTools.Utils.Extensions;
 
 public static class ModelPathExtensions
 {

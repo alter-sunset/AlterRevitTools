@@ -1,4 +1,5 @@
 ﻿using AlterTools.BatchExport.Views.Base;
+using AlterTools.Utils.Interfaces;
 
 namespace AlterTools.BatchExport.Views.Link;
 
@@ -23,8 +24,7 @@ public class Entry : NotifyPropertyChanged, ISelectable
 
     public string Name { get; }
 
-    [UsedImplicitly]
-    public ImportPlacement[] ImportPlacements { get; set; }
+    [UsedImplicitly] public ImportPlacement[] ImportPlacements { get; set; }
 
     public ImportPlacement SelectedImportPlacement
     {
@@ -42,8 +42,7 @@ public class Entry : NotifyPropertyChanged, ISelectable
         }
     }
 
-    [UsedImplicitly]
-    public Workset[] Worksets { get; set; }
+    [UsedImplicitly] public Workset[] Worksets { get; set; }
 
     public Workset SelectedWorkset
     {

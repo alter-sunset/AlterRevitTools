@@ -1,5 +1,6 @@
 ﻿using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.BatchExport.Utils;
+using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.IFC;
 using Autodesk.Revit.UI;
 
@@ -7,7 +8,7 @@ namespace AlterTools.DriveFromOutside.Events.IFC;
 
 public class EventHandlerIFC : RevitEventWrapper<IFCConfig>
 {
-    protected override void Execute(UIApplication uiApp, IFCConfig ifcConfig)
+    protected override void Execute(UIApplication uiApp, ViewModelBase ifcConfig)
     {
         Logger log = new(ifcConfig.FolderPath);
         IFCHelper ifcHelper = new();

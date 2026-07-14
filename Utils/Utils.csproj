@@ -110,9 +110,9 @@
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="JetBrains.Annotations" Version="2024.3.0"/>
-        <PackageReference Include="Newtonsoft.Json" Version="13.0.3"/>
         <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*"/>
         <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*"/>
+        <PackageReference Include="System.Text.Json" Version="10.0.9"/>
     </ItemGroup>
     <ItemGroup>
         <ProjectReference Include="..\Resources\Resources.csproj"/>

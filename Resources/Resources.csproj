@@ -3,9 +3,6 @@
         <LangVersion>12</LangVersion>
         <OutputType>Library</OutputType>
         <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-        <UseWindowsForms>true</UseWindowsForms>
-        <UseWPF>true</UseWPF>
-        <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
         <PlatformTarget>AnyCPU</PlatformTarget>
         <GenerateDocumentationFile>False</GenerateDocumentationFile>
         <ErrorReport>none</ErrorReport>
@@ -23,6 +20,7 @@
         <FileVersion>1.0.4.1</FileVersion>
         <InformationalVersion>1.0.0.0</InformationalVersion>
         <ImplicitUsings>enable</ImplicitUsings>
+        <NeutralLanguage>en</NeutralLanguage>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R19'))">
         <TargetFramework>net48</TargetFramework>

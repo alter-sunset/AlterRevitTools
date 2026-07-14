@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace AlterTools.atUtils.Extensions;
+namespace AlterTools.Utils.Extensions;
 
 public static class StringsExtensions
 {

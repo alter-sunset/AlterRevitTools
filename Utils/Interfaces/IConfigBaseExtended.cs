@@ -1,6 +1,6 @@
 ﻿using JetBrains.Annotations;
 
-namespace AlterTools.BatchExport.Views.Base;
+namespace AlterTools.Utils.Interfaces;
 
 public interface IConfigBaseExtended : IConfigBase
 {

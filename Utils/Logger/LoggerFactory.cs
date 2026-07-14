@@ -1,4 +1,4 @@
-namespace AlterTools.atUtils.Logger;
+namespace AlterTools.Utils.Logger;
 
 public static class LoggerFactory
 {

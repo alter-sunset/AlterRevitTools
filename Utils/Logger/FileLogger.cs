@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace AlterTools.atUtils.Logger;
+namespace AlterTools.Utils.Logger;
 
 public class FileLogger : ILogger
 {

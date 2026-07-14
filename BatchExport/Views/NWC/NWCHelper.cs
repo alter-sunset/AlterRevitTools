@@ -1,6 +1,7 @@
-﻿using AlterTools.atUtils.Extensions;
-using AlterTools.atUtils.Logger;
+﻿using AlterTools.Utils.Extensions;
+using AlterTools.Utils.Logger;
 using AlterTools.BatchExport.Views.Base;
+using AlterTools.Utils.Interfaces;
 
 namespace AlterTools.BatchExport.Views.NWC;
 

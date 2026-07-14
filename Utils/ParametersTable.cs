@@ -1,4 +1,4 @@
-﻿namespace AlterTools.atUtils;
+﻿namespace AlterTools.Utils;
 
 public class ParametersTable
 {
