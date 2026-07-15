@@ -1,14 +1,18 @@
-﻿using AlterTools.Utils;
-using AlterTools.BatchExport.Views;
+﻿using System.IO;
+using AlterTools.Utils;
+using AlterTools.Resources;
 using Autodesk.Revit.Attributes;
+using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
+using JetBrains.Annotations;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 using TaskDialog = Autodesk.Revit.UI.TaskDialog;
 
-namespace AlterTools.BatchExport.Core.Commands;
+namespace AlterTools.atExtractWorkset;
 
 [UsedImplicitly]
 [Transaction(TransactionMode.ReadOnly)]
-public class ExternalCommandExtractWorkset : IExternalCommand
+public class Command : IExternalCommand
 {
     public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
     {
@@ -20,7 +24,10 @@ public class ExternalCommandExtractWorkset : IExternalCommand
             return Result.Cancelled;
         }
 
-        using SaveFileDialog saveFileDialog = DialogType.SingleCsv.SaveFileDialog();
+        using SaveFileDialog saveFileDialog = new();
+        saveFileDialog.FileName = "ParametersExport";
+        saveFileDialog.DefaultExt = ".csv";
+        saveFileDialog.Filter = Strings.FilterCsv;
         if (saveFileDialog.ShowDialog() is not DialogResult.OK)
         {
             return Result.Cancelled;

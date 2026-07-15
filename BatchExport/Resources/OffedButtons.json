@@ -2,7 +2,8 @@
   {
     "Name": "WorksetsExtract",
     "Text": "CoreButtonWorksetsText",
-    "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExtractWorkset",
+    "LibraryName": "atExtractWorkset.dll",
+    "ClassName": "AlterTools.atExtractWorkset.Command",
     "ToolTip": "CoreButtonWorksetsToolTip",
     "ImageLarge": "",
     "ImageSmall": "",

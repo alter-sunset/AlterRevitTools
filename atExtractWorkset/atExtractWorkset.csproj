@@ -26,6 +26,8 @@
         <NeutralLanguage>en</NeutralLanguage>
         <DebugSymbols>false</DebugSymbols>
         <DebugType>none</DebugType>
+        <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+        <IncludeNativeLibrariesForSelfExtract>false</IncludeNativeLibrariesForSelfExtract>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R19'))">
         <TargetFramework>net48</TargetFramework>
@@ -112,89 +114,15 @@
         <DebugType>none</DebugType>
     </PropertyGroup>
     <ItemGroup>
-        <Content Include="Resources\Buttons.json" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\detach.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\detach_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\migrate.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\migrate_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\nwc.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\nwc_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\ifc.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\ifc_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\link.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\link_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\params.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\params_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\transmit.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\transmit_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\purge.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\purge_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\delink.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\delink_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\updaterslink.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\updaterslink_16.png" CopyToOutputDirectory="PreserveNewest"/>
-    </ItemGroup>
-    <ItemGroup>
         <PackageReference Include="JetBrains.Annotations" Version="2024.3.0"/>
         <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*"/>
         <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*"/>
-        <PackageReference Include="System.Runtime.Loader" Version="4.3.0"/>
         <PackageReference Include="System.Text.Json" Version="10.0.9"/>
-    </ItemGroup>
-    <ItemGroup>
-        <None Update="AlterTools.BatchExport.addin">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
     </ItemGroup>
     <ItemGroup>
         <EditorConfigFiles Remove=".editorconfig"/>
     </ItemGroup>
     <ItemGroup>
-        <Reference Include="RevitServerApi">
-            <HintPath>..\..\..\RevitServerApi\bin\Release\netstandard2.0\RevitServerApi.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-    <ItemGroup>
         <ProjectReference Include="..\Utils\Utils.csproj"/>
     </ItemGroup>
-    <ItemGroup>
-        <ProjectReference Include="@(DynamicLibraryProject)" ReferenceOutputAssembly="false"/>
-    </ItemGroup>
-    <ItemGroup>
-        <Folder Include="Commands\"/>
-    </ItemGroup>
-    <ItemGroup>
-        <DynamicLibraryProject Include="..\atPurge\atPurge.csproj">
-            <Link>Commands\atPurge\atPurge.csproj</Link>
-        </DynamicLibraryProject>
-        <DynamicLibraryProject Include="..\atDelink\atDelink.csproj">
-            <Link>Commands\atDelink\atDelink.csproj</Link>
-        </DynamicLibraryProject>
-        <DynamicLibraryProject Include="..\atUpdateRsLink\atUpdateRsLink.csproj">
-            <Link>Commands\atUpdateRsLink\atUpdateRsLink.csproj</Link>
-        </DynamicLibraryProject>
-        <DynamicLibraryProject Include="..\atExtractWorkset\atExtractWorkset.csproj">
-            <Link>Commands\atExtractWorkset\atExtractWorkset.csproj</Link>
-        </DynamicLibraryProject>
-    </ItemGroup>
-    <Target Name="CopyDynamicLibraries" AfterTargets="Build">
-        <!-- Ask the neighbouring project for its actual output path -->
-        <MSBuild
-                Projects="@(DynamicLibraryProject)"
-                Targets="GetTargetPath"
-                BuildInParallel="true"
-                Properties="Configuration=$(Configuration);TargetFramework=$(TargetFramework)">
-
-            <Output
-                    TaskParameter="TargetOutputs"
-                    ItemName="DynamicLibraryOutputs"/>
-        </MSBuild>
-
-        <MakeDir Directories="$(OutDir)Commands"/>
-
-        <Copy
-                SourceFiles="@(DynamicLibraryOutputs)"
-                DestinationFolder="$(OutDir)Commands"
-                SkipUnchangedFiles="true"/>
-    </Target>
 </Project>
