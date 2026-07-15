@@ -27,7 +27,7 @@ public abstract class RevitEventWrapper<TType> : IExternalEventHandler
         lock (_lock)
         {
             args = _savedArgs;
-            _savedArgs = default;
+            _savedArgs = null;
         }
 
         Execute(uiApp, args);

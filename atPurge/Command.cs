@@ -1,12 +1,15 @@
 ﻿using AlterTools.Utils;
 using AlterTools.Utils.Extensions;
 using Autodesk.Revit.Attributes;
+using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
+using JetBrains.Annotations;
 
-namespace AlterTools.BatchExport.Core.Commands;
+namespace AlterTools.atPurge;
 
 [UsedImplicitly]
 [Transaction(TransactionMode.Manual)]
-public class ExternalCommandDelink : IExternalCommand
+public class Command : IExternalCommand
 {
     public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
     {
@@ -14,7 +17,7 @@ public class ExternalCommandDelink : IExternalCommand
         using Document doc = uiApp.ActiveUIDocument.Document;
         using ErrorSuppressor errorSuppressor = new(uiApp);
 
-        doc.DeleteAllLinks(false);
+        doc.PurgeAll();
 
         return Result.Succeeded;
     }

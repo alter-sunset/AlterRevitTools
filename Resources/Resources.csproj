@@ -21,6 +21,10 @@
         <InformationalVersion>1.0.0.0</InformationalVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <NeutralLanguage>en</NeutralLanguage>
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>none</DebugType>
+        <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+        <IncludeNativeLibrariesForSelfExtract>false</IncludeNativeLibrariesForSelfExtract>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R19'))">
         <TargetFramework>net48</TargetFramework>

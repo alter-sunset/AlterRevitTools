@@ -23,6 +23,7 @@
         <FileVersion>1.0.4.1</FileVersion>
         <InformationalVersion>1.0.0.0</InformationalVersion>
         <ImplicitUsings>enable</ImplicitUsings>
+        <NeutralLanguage>en</NeutralLanguage>
         <DebugSymbols>false</DebugSymbols>
         <DebugType>none</DebugType>
         <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
@@ -119,6 +120,9 @@
         <PackageReference Include="System.Text.Json" Version="10.0.9"/>
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\Resources\Resources.csproj"/>
+        <EditorConfigFiles Remove=".editorconfig"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Utils\Utils.csproj"/>
     </ItemGroup>
 </Project>

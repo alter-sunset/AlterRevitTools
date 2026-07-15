@@ -1,14 +1,18 @@
-﻿using AlterTools.Utils;
+﻿using System.IO;
+using AlterTools.Utils;
 using AlterTools.Utils.Extensions;
 using Autodesk.Revit.Attributes;
+using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
+using JetBrains.Annotations;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 using TaskDialog = Autodesk.Revit.UI.TaskDialog;
 
-namespace AlterTools.BatchExport.Core.Commands;
+namespace AlterTools.atUpdateRsLink;
 
 [UsedImplicitly]
 [Transaction(TransactionMode.Manual)]
-public class ExternalCommandUpdateRsLink : IExternalCommand
+public class Command : IExternalCommand
 {
     public Result Execute(ExternalCommandData commandData, ref string message, ElementSet elements)
     {

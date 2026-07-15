@@ -9,12 +9,16 @@ internal class ButtonContext
 {
     [UsedImplicitly] public string Name { get; set; }
     [UsedImplicitly] public string Text { get; set; }
+    [UsedImplicitly] public string LibraryName { get; set; }
     [UsedImplicitly] public string ClassName { get; set; }
     [UsedImplicitly] public string ToolTip { get; set; }
     [UsedImplicitly] public string ImageLarge { get; set; }
     [UsedImplicitly] public string ImageSmall { get; set; }
     [UsedImplicitly] public string Panel { get; set; }
     [UsedImplicitly] public bool Availability { get; set; }
+
+    private static string AssemblyFolder => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+    private static string CommandsFolder => Path.Combine(AssemblyFolder, "Commands");
 
     public static List<ButtonContext> GetButtonsContext()
     {
@@ -27,7 +31,7 @@ internal class ButtonContext
         {
             PushButtonData pbData = new(Name,
                 GetString(Text),
-                Assembly.GetExecutingAssembly().Location,
+                Path.Combine(CommandsFolder, LibraryName),
                 ClassName)
             {
                 ToolTip = GetString(ToolTip),
@@ -37,7 +41,7 @@ internal class ButtonContext
 
             if (Availability)
             {
-                pbData.AvailabilityClassName = typeof(CommandAvailability).FullName;
+                pbData.AvailabilityClassName = ClassName + "Availability";
             }
 
             return pbData;

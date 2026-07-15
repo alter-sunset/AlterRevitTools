@@ -12,6 +12,8 @@ public class App : IExternalApplication
 
     public Result OnStartup(UIControlledApplication uiApp)
     {
+        CommandLoader.LoadAll("Commands");
+
         try
         {
             uiApp.CreateRibbonTab(TabName);

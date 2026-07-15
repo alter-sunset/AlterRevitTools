@@ -2,6 +2,7 @@
   {
     "Name": "NWC",
     "Text": "CoreButtonNWCText",
+    "LibraryName": "blank.dll",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportModelsToNWC",
     "ToolTip": "CoreButtonNWCToolTip",
     "ImageLarge": "Resources\\nwc.png",
@@ -12,6 +13,7 @@
   {
     "Name": "IFC",
     "Text": "CoreButtonIFCText",
+    "LibraryName": "blank.dll",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportModelsToIFC",
     "ToolTip": "CoreButtonIFCToolTip",
     "ImageLarge": "Resources\\ifc.png",
@@ -22,6 +24,7 @@
   {
     "Name": "Detach",
     "Text": "CoreButtonDetachText",
+    "LibraryName": "blank.dll",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportModelsDetached",
     "ToolTip": "CoreButtonDetachToolTip",
     "ImageLarge": "Resources\\detach.png",
@@ -32,6 +35,7 @@
   {
     "Name": "Transmit",
     "Text": "CoreButtonTransmitText",
+    "LibraryName": "blank.dll",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportModelsTransmitted",
     "ToolTip": "CoreButtonTransmitToolTip",
     "ImageLarge": "Resources\\transmit.png",
@@ -42,6 +46,7 @@
   {
     "Name": "Migrate",
     "Text": "CoreButtonMigrateText",
+    "LibraryName": "blank.dll",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandMigrateModels",
     "ToolTip": "CoreButtonMigrateToolTip",
     "ImageLarge": "Resources\\migrate.png",
@@ -52,6 +57,7 @@
   {
     "Name": "Params",
     "Text": "CoreButtonParamsText",
+    "LibraryName": "blank.dll",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportParametersMap",
     "ToolTip": "CoreButtonParamsToolTip",
     "ImageLarge": "Resources\\params.png",
@@ -62,6 +68,7 @@
   {
     "Name": "Link",
     "Text": "CoreButtonLinkText",
+    "LibraryName": "blank.dll",
     "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandLinkModels",
     "ToolTip": "CoreButtonLinkToolTip",
     "ImageLarge": "Resources\\link.png",
@@ -72,7 +79,8 @@
   {
     "Name": "Purge",
     "Text": "CoreButtonPurgeText",
-    "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandPurge",
+    "LibraryName": "atPurge.dll",
+    "ClassName": "AlterTools.atPurge.Command",
     "ToolTip": "CoreButtonPurgeToolTip",
     "ImageLarge": "Resources\\purge.png",
     "ImageSmall": "Resources\\purge_16.png",
@@ -82,7 +90,8 @@
   {
     "Name": "Delink",
     "Text": "CoreButtonDelinkText",
-    "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandDelink",
+    "LibraryName": "atDelink.dll",
+    "ClassName": "AlterTools.atDelink.Command",
     "ToolTip": "CoreButtonDelinkToolTip",
     "ImageLarge": "Resources\\delink.png",
     "ImageSmall": "Resources\\delink_16.png",
@@ -92,7 +101,8 @@
   {
     "Name": "UpdateRsLink",
     "Text": "CoreButtonUpdateRsLinkText",
-    "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandUpdateRsLink",
+    "LibraryName": "atUpdateRsLink.dll",
+    "ClassName": "AlterTools.atUpdateRsLink.Command",
     "ToolTip": "CoreButtonUpdateRsLinkToolTip",
     "ImageLarge": "Resources\\updaterslink.png",
     "ImageSmall": "Resources\\updaterslink_16.png",
