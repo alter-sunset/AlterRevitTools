@@ -1,9 +1,8 @@
 ﻿using System.Windows.Controls;
-using AlterTools.Utils;
 using AlterTools.BatchExport.Utils;
-using AlterTools.BatchExport.Views.Base;
-using AlterTools.Utils.Interfaces;
 using AlterTools.BatchExport.Views.Detach;
+using AlterTools.Utils;
+using AlterTools.Utils.MVVM;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 using Brushes = System.Windows.Media.Brushes;
 

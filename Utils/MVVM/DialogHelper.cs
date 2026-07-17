@@ -2,7 +2,7 @@
 
 // ReSharper disable SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
 
-namespace AlterTools.BatchExport.Views;
+namespace AlterTools.Utils.MVVM;
 
 public static class DialogHelper
 {

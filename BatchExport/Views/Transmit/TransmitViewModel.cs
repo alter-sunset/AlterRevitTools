@@ -1,6 +1,6 @@
 ﻿using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.Resources;
-using AlterTools.BatchExport.Views.Base;
+using AlterTools.Utils.MVVM;
 
 namespace AlterTools.BatchExport.Views.Transmit;
 

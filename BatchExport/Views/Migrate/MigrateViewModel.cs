@@ -1,5 +1,5 @@
 ﻿using AlterTools.BatchExport.Core.EventHandlers;
-using AlterTools.BatchExport.Views.Base;
+using AlterTools.Utils.MVVM;
 
 namespace AlterTools.BatchExport.Views.Migrate;
 
@@ -20,11 +20,11 @@ public class MigrateViewModel : ViewModelBase
         set => SetProperty(ref _configPath, value);
     }
 
-    private protected override void LoadList()
+    protected override void LoadList()
     {
         using OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
         if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
-        
+
         ConfigPath = openFileDialog.FileName;
     }
 }

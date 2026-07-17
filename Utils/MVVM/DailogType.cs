@@ -1,4 +1,4 @@
-﻿namespace AlterTools.BatchExport.Views;
+﻿namespace AlterTools.Utils.MVVM;
 
 public enum DialogType
 {

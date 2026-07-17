@@ -1,10 +1,11 @@
 ﻿using System.Windows;
-using AlterTools.Resources;
 using AlterTools.BatchExport.Views.Base;
 using AlterTools.BatchExport.Views.Detach;
 using AlterTools.BatchExport.Views.Link;
 using AlterTools.BatchExport.Views.Params;
 using AlterTools.BatchExport.Views.Transmit;
+using AlterTools.Resources;
+using AlterTools.Utils.MVVM;
 using MessageBox = System.Windows.MessageBox;
 using TaskDialog = Autodesk.Revit.UI.TaskDialog;
 

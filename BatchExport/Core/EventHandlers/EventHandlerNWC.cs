@@ -1,9 +1,8 @@
-﻿using AlterTools.Resources;
-using AlterTools.BatchExport.Utils;
-using AlterTools.BatchExport.Views.Base;
-using AlterTools.Utils.Logger;
-using AlterTools.Utils.Interfaces;
+﻿using AlterTools.BatchExport.Utils;
 using AlterTools.BatchExport.Views.NWC;
+using AlterTools.Resources;
+using AlterTools.Utils.Logger;
+using AlterTools.Utils.MVVM;
 
 namespace AlterTools.BatchExport.Core.EventHandlers;
 

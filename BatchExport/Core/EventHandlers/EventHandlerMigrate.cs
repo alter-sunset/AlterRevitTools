@@ -1,9 +1,8 @@
 ﻿using System.Text;
-using AlterTools.Resources;
 using AlterTools.BatchExport.Utils;
-using AlterTools.BatchExport.Views.Base;
-using AlterTools.Utils.Interfaces;
 using AlterTools.BatchExport.Views.Migrate;
+using AlterTools.Resources;
+using AlterTools.Utils.MVVM;
 using MessageBox = System.Windows.MessageBox;
 
 namespace AlterTools.BatchExport.Core.EventHandlers;

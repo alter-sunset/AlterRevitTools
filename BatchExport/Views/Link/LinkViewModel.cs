@@ -2,7 +2,7 @@
 using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.Resources;
 using AlterTools.Utils.Extensions;
-using AlterTools.BatchExport.Views.Base;
+using AlterTools.Utils.MVVM;
 
 namespace AlterTools.BatchExport.Views.Link;
 
@@ -88,7 +88,7 @@ public class LinkViewModel : ViewModelBase
         }
     }
 
-    private protected override void LoadList()
+    protected override void LoadList()
     {
         using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
 
@@ -106,7 +106,7 @@ public class LinkViewModel : ViewModelBase
         FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
     }
 
-    private protected override void Load()
+    protected override void Load()
     {
         using OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
 
@@ -121,7 +121,7 @@ public class LinkViewModel : ViewModelBase
             .ForEach(Entries.Add);
     }
 
-    private protected override void SaveList()
+    protected override void SaveList()
     {
         using SaveFileDialog saveFileDialog = DialogType.RevitList.SaveFileDialog();
 
@@ -134,12 +134,12 @@ public class LinkViewModel : ViewModelBase
         FolderPath = Path.GetDirectoryName(saveFileDialog.FileName);
     }
 
-    private protected override void DeleteSelectedItems()
+    protected override void DeleteSelectedItems()
     {
         Entries.Where(entry => entry.IsSelected)
             .ToList()
             .ForEach(entry => Entries.Remove(entry));
     }
 
-    private protected override void Erase() => Entries.Clear();
+    protected override void Erase() => Entries.Clear();
 }

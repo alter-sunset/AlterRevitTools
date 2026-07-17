@@ -1,10 +1,9 @@
-﻿using AlterTools.Resources;
+﻿using System.Text.Json;
 using AlterTools.BatchExport.Utils;
-using AlterTools.BatchExport.Views.Base;
-using AlterTools.Utils.Logger;
-using AlterTools.Utils.Interfaces;
 using AlterTools.BatchExport.Views.NWC;
-using System.Text.Json;
+using AlterTools.Resources;
+using AlterTools.Utils.Logger;
+using AlterTools.Utils.MVVM;
 using MessageBox = System.Windows.MessageBox;
 
 namespace AlterTools.BatchExport.Core.EventHandlers;

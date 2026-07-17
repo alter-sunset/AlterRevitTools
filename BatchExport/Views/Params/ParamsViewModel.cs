@@ -2,7 +2,7 @@
 using AlterTools.Resources;
 using AlterTools.Utils;
 using AlterTools.Utils.Extensions;
-using AlterTools.BatchExport.Views.Base;
+using AlterTools.Utils.MVVM;
 
 namespace AlterTools.BatchExport.Views.Params;
 
@@ -53,7 +53,7 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
         CsvPath = saveFileDialog.FileName;
     }
 
-    private protected override void LoadList()
+    protected override void LoadList()
     {
         OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
 
@@ -73,7 +73,7 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
         ListBoxItems = [.. form.Files.FilterRevitFiles().Select(DefaultListBoxItem)];
     }
 
-    private protected override void SaveList()
+    protected override void SaveList()
     {
         ParamsForm form = SerializeParamsForm();
         SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
@@ -96,7 +96,7 @@ public class ParamsViewModel : ViewModelBase, IConfigParams
         };
     }
 
-    private protected override void Erase()
+    protected override void Erase()
     {
         ListBoxItems.Clear();
         ParamsNames = DefaultParams;

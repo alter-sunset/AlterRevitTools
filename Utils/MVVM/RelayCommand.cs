@@ -1,6 +1,6 @@
 ﻿using System.Windows.Input;
 
-namespace AlterTools.BatchExport.Views.Base;
+namespace AlterTools.Utils.MVVM;
 
 public class RelayCommand(Action<object> execute, Func<object, bool> canExecute = null) : ICommand
 {
@@ -16,6 +16,5 @@ public class RelayCommand(Action<object> execute, Func<object, bool> canExecute 
 
     public void Execute(object parameter) => _execute(parameter);
 
-    [UsedImplicitly]
     public static void RaiseCanExecuteChanged() => CommandManager.InvalidateRequerySuggested();
 }

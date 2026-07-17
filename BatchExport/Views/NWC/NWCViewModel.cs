@@ -1,9 +1,10 @@
 ﻿using System.Collections.ObjectModel;
 using AlterTools.BatchExport.Core.EventHandlers;
+using AlterTools.BatchExport.Views.Base;
 using AlterTools.Resources;
 using AlterTools.Utils;
 using AlterTools.Utils.Extensions;
-using AlterTools.BatchExport.Views.Base;
+using AlterTools.Utils.MVVM;
 
 namespace AlterTools.BatchExport.Views.NWC;
 
@@ -159,7 +160,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
     NavisworksParameters IConfigNWC.Parameters => _selectedParameters.Key;
     NavisworksCoordinates IConfigNWC.Coordinates => _selectedCoordinates.Key;
 
-    private protected override void LoadList()
+    protected override void LoadList()
     {
         using OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
 
@@ -203,7 +204,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
         TurnOffLog = form.TurnOffLog;
     }
 
-    private protected override void SaveList()
+    protected override void SaveList()
     {
         using NWCForm form = SerializeNWCForm();
         using SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
@@ -274,7 +275,7 @@ public class NWCViewModel : ViewModelBaseExtended, IConfigNWC
         }
     }
 
-    private protected override void DeleteSelectedItems()
+    protected override void DeleteSelectedItems()
     {
         ListBoxItems.Where(item => item.IsSelected)
             .ToList()

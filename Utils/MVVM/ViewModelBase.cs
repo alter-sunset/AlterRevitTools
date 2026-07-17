@@ -1,15 +1,16 @@
 ﻿using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows.Controls;
-using AlterTools.BatchExport.Core.EventHandlers;
 using AlterTools.Utils.Extensions;
 using AlterTools.Utils.Interfaces;
+using JetBrains.Annotations;
 using Brushes = System.Windows.Media.Brushes;
 
-namespace AlterTools.BatchExport.Views.Base;
+namespace AlterTools.Utils.MVVM;
 
 public class ViewModelBase : NotifyPropertyChanged, IConfigBase
 {
-    private protected static string NoFiles => Resources.Strings.NoFilesVMBase;
+    internal protected static string NoFiles => Resources.Strings.NoFilesVMBase;
 
     private bool _isViewEnabled = true;
 
@@ -62,13 +63,13 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
     [UsedImplicitly]
     public RelayCommand BrowseFolderCommand => _browseFolderCommand ??= new RelayCommand(_ => BrowseFolder());
 
-    private protected string HelpMessage { get; set; }
+    internal protected string HelpMessage { get; set; }
 
     [UsedImplicitly]
     public RelayCommand HelpCommand =>
         _helpCommand ??= new RelayCommand(_ => MessageBox.Show(HelpMessage, Resources.Strings.Help));
 
-    private protected EventHandlerBase EventHandlerBase { get; set; }
+    internal protected EventHandlerBase EventHandlerBase { get; set; }
 
     [UsedImplicitly]
     public RelayCommand RaiseEventCommand => _raiseEventCommand ??= new RelayCommand(_ => EventHandlerBase.Raise(this));
@@ -89,7 +90,7 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
         set => SetProperty(ref _folderPath, value);
     }
 
-    private protected virtual void LoadList()
+    internal protected virtual void LoadList()
     {
         using OpenFileDialog openFileDialog = DialogType.SingleText.OpenFileDialog();
 
@@ -107,7 +108,7 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
         FolderPath = Path.GetDirectoryName(openFileDialog.FileName);
     }
 
-    private protected virtual void Load()
+    internal protected virtual void Load()
     {
         using OpenFileDialog openFileDialog = DialogType.MultiRevit.OpenFileDialog();
 
@@ -125,7 +126,7 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
         }
     }
 
-    private protected virtual void SaveList()
+    internal protected virtual void SaveList()
     {
         using SaveFileDialog saveFileDialog = DialogType.RevitList.SaveFileDialog();
         if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
@@ -137,14 +138,14 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
         FolderPath = Path.GetDirectoryName(saveFileDialog.FileName);
     }
 
-    private protected virtual void DeleteSelectedItems()
+    internal protected virtual void DeleteSelectedItems()
     {
         ListBoxItems.Where(item => item.IsSelected)
             .ToList()
             .ForEach(item => ListBoxItems.Remove(item));
     }
 
-    private protected virtual void Erase() => ListBoxItems.Clear();
+    internal protected virtual void Erase() => ListBoxItems.Clear();
 
     private void BrowseFolder()
     {
@@ -156,7 +157,7 @@ public class ViewModelBase : NotifyPropertyChanged, IConfigBase
         FolderPath = folderBrowserDialog.SelectedPath;
     }
 
-    private protected static ListBoxItem DefaultListBoxItem(string content)
+    internal protected static ListBoxItem DefaultListBoxItem(string content)
     {
         return new ListBoxItem
         {

@@ -1,18 +1,18 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace AlterTools.BatchExport.Views.Base;
+namespace AlterTools.Utils.MVVM;
 
 public class NotifyPropertyChanged : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler PropertyChanged;
 
-    private protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
+    internal protected void OnPropertyChanged([CallerMemberName] string propertyName = "")
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 
-    private protected void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
+    internal protected void SetProperty<T>(ref T field, T value, [CallerMemberName] string propertyName = null)
     {
         if (value is string stringValue)
         {

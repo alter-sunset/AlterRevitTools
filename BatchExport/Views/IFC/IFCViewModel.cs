@@ -1,8 +1,9 @@
 ﻿using AlterTools.BatchExport.Core.EventHandlers;
+using AlterTools.BatchExport.Views.Base;
 using AlterTools.Resources;
 using AlterTools.Utils;
 using AlterTools.Utils.Extensions;
-using AlterTools.BatchExport.Views.Base;
+using AlterTools.Utils.MVVM;
 
 namespace AlterTools.BatchExport.Views.IFC;
 
@@ -98,7 +99,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
         }
     }
 
-    private protected override void LoadList()
+    protected override void LoadList()
     {
         using OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
 
@@ -133,7 +134,7 @@ public class IFCViewModel : ViewModelBaseExtended, IConfigIFC
         TurnOffLog = form.TurnOffLog;
     }
 
-    private protected override void SaveList()
+    protected override void SaveList()
     {
         using IFCForm form = SerializeIFCForm();
 
