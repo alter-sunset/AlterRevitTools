@@ -1,14 +1,9 @@
 using AlterTools.atExportModel.Enums;
-using AlterTools.atExportModel.Interfaces;
-using AlterTools.Utils.MVVM;
 
-namespace AlterTools.atExportModel;
+namespace AlterTools.atExportModel.Interfaces;
 
-public class MainViewModel(ExternalEventHandler handler) : NotifyPropertyChanged, IConfigExport
+public interface IConfigExport
 {
-    private readonly ExternalEventHandler _handler = handler;
-
-
     public bool ExportRvt { get; set; }
     public RvtExportMode RvtExportMode { get; set; }
 
@@ -20,4 +15,8 @@ public class MainViewModel(ExternalEventHandler handler) : NotifyPropertyChanged
 
     public bool CleanModel { get; set; }
     public IConfigClean ConfigClean { get; set; }
+
+    //maybe later
+    // public bool Report { get; set; }
+    // public IConfigReport ConfigReport { get; set; }
 }

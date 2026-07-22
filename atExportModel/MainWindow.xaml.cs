@@ -2,10 +2,11 @@ using System.Windows;
 
 namespace AlterTools.atExportModel;
 
-public partial class MainWindow : Window
+public partial class MainWindow
 {
-    public MainWindow()
+    public MainWindow(MainViewModel mainViewModel)
     {
         InitializeComponent();
+        DataContext = mainViewModel;
     }
 }

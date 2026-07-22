@@ -8,42 +8,50 @@ namespace AlterTools.Utils.MVVM;
 /// <typeparam name="TType">The Class type being wrapped for the External Event Handler.</typeparam>
 public abstract class RevitEventWrapper<TType> : IExternalEventHandler
 {
-    private readonly object _lock = new();
+    private readonly object _lock;
+    private TType _savedArgs;
     private readonly ExternalEvent _revitEvent;
-    private ViewModelBase _savedArgs;
 
     /// <summary>
-    ///     Class for wrapping methods for execution within a "valid" Revit API context.
+    /// Class for wrapping methods for execution within a "valid" Revit API context.
     /// </summary>
-    protected RevitEventWrapper() => _revitEvent = ExternalEvent.Create(this);
-
-    /// <summary>
-    ///     Wraps the "Execution" method in a valid Revit API context.
-    /// </summary>
-    /// <param name="uiApp">Revit UI Application to use as the "wrapper" API context.</param>
-    public void Execute(UIApplication uiApp)
+    protected RevitEventWrapper()
     {
-        ViewModelBase args;
-        lock (_lock)
-        {
-            args = _savedArgs;
-            _savedArgs = null;
-        }
-
-        Execute(uiApp, args);
+        _revitEvent = ExternalEvent.Create(this);
+        _lock = new object();
     }
 
     /// <summary>
-    ///     Get the name of the operation.
+    /// Wraps the "Execution" method in a valid Revit API context.
     /// </summary>
-    /// <returns>Operation Name.</returns>
-    public string GetName() => GetType().Name;
+    /// <param name="app">Revit UI Application to use as the "wrapper" API context.</param>
+    public void Execute(UIApplication app)
+    {
+        TType args;
+
+        lock (_lock)
+        {
+            args = _savedArgs;
+            _savedArgs = default;
+        }
+
+        Execute(app, args);
+    }
 
     /// <summary>
-    ///     Execute the wrapped external event in a valid Revit API context.
+    /// Get the name of the operation.
+    /// </summary>
+    /// <returns>Operation Name.</returns>
+    public string GetName()
+    {
+        return GetType().Name;
+    }
+
+    /// <summary>
+    /// Execute the wrapped external event in a valid Revit API context.
     /// </summary>
     /// <param name="args">Arguments that could be passed to the execution method.</param>
-    public void Raise(ViewModelBase args)
+    public void Raise(TType args)
     {
         lock (_lock)
         {
@@ -54,9 +62,9 @@ public abstract class RevitEventWrapper<TType> : IExternalEventHandler
     }
 
     /// <summary>
-    ///     Override void which wraps the "Execution" method in a valid Revit API context.
+    /// Override void which wraps the "Execution" method in a valid Revit API context.
     /// </summary>
-    /// <param name="uiApp">Revit UI Application to use as the "wrapper" API context.</param>
+    /// <param name="app">Revit UI Application to use as the "wrapper" API context.</param>
     /// <param name="args">Arguments that could be passed to the execution method.</param>
-    protected abstract void Execute(UIApplication uiApp, ViewModelBase args);
+    public abstract void Execute(UIApplication app, TType args);
 }
