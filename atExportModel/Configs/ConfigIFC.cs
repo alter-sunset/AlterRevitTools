@@ -6,6 +6,7 @@ namespace AlterTools.atExportModel.Configs;
 
 public class ConfigIFC : IConfigIFC, IConfigIFCAdditionalFields
 {
+    public bool UseUserMapping { get; set; }
     public string FamilyMappingFile { get; set; }
     public bool ExportBaseQuantities { get; set; }
     public bool WallAndColumnSplitting { get; set; }

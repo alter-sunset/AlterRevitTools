@@ -202,7 +202,8 @@
                     VerticalAlignment="Center"
                     Margin="20 0 0 0"
                     Content="Экспорт только спецификаций, заголовок которых содержит IFC, Pset или ''Общие''"
-                    IsChecked="{Binding Config.ExportSpecificSchedules}" />
+                    IsChecked="{Binding Config.ExportSpecificSchedules}"
+                    IsEnabled="{Binding Config.ExportSchedulesAsPsets}" />
 
                 <!-- 7 -->
                 <CheckBox
@@ -223,12 +224,14 @@
                     Width="370"
                     Height="25"
                     Margin="20 0 0 0"
-                    Text="{Binding Config.ExportUserDefinedPsetsFileName}" />
+                    Text="{Binding Config.ExportUserDefinedPsetsFileName}"
+                    IsEnabled="{Binding Config.ExportUserDefinedPsets}" />
                 <Button
                     Grid.Row="7"
                     Grid.Column="1"
                     Height="25"
-                    Content="Обзор..." />
+                    Content="Обзор..."
+                    IsEnabled="{Binding Config.ExportUserDefinedPsets}" />
 
                 <!-- 9 -->
                 <CheckBox
@@ -237,7 +240,8 @@
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Content="Дополнительно: таблица соответствия параметров экспорта" />
+                    Content="Дополнительно: таблица соответствия параметров экспорта"
+                    IsChecked="{Binding Config.UseUserMapping}" />
 
                 <!-- 10 -->
                 <TextBox
@@ -247,12 +251,15 @@
                     VerticalAlignment="Center"
                     Width="370"
                     Height="25"
-                    Margin="20 0 0 0" />
+                    Margin="20 0 0 0"
+                    Text="{Binding Config.FamilyMappingFile}"
+                    IsEnabled="{Binding Config.UseUserMapping}" />
                 <Button
                     Grid.Row="9"
                     Grid.Column="1"
                     Height="25"
-                    Content="Обзор..." />
+                    Content="Обзор..."
+                    IsEnabled="{Binding Config.UseUserMapping}" />
             </Grid>
         </GroupBox>
 
