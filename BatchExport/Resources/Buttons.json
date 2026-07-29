@@ -1,5 +1,16 @@
 [
   {
+    "Name": "Export",
+    "Text": "CoreButtonExportText",
+    "LibraryName": "atExportModel.dll",
+    "ClassName": "AlterTools.atExportModel.Command",
+    "ToolTip": "CoreButtonExportToolTip",
+    "ImageLarge": "Resources\\nwc.png",
+    "ImageSmall": "Resources\\nwc_16.png",
+    "Panel": "CorePanelExport",
+    "Availability": true
+  },
+  {
     "Name": "NWC",
     "Text": "CoreButtonNWCText",
     "LibraryName": "blank.dll",

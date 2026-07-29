@@ -16,7 +16,7 @@ public class ConfigNWC : IConfigNWC
     public bool FindMissingMaterials { get; set; }
     public bool ConvertLinkedCADFormats { get; set; }
     public bool ConvertLights { get; set; }
-    public double FacetingFactor { get; set; }
-    public NavisworksParameters Parameters { get; }
-    public NavisworksCoordinates Coordinates { get; }
+    public double FacetingFactor { get; set; } = 1;
+    public NavisworksParameters Parameters { get; set; } = NavisworksParameters.All;
+    public NavisworksCoordinates Coordinates { get; set; } = NavisworksCoordinates.Shared;
 }

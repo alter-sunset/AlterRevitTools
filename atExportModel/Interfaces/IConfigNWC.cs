@@ -16,6 +16,6 @@ public interface IConfigNWC
     bool ConvertLinkedCADFormats { get; set; }
     bool ConvertLights { get; set; }
     double FacetingFactor { get; set; }
-    NavisworksParameters Parameters { get; }
-    NavisworksCoordinates Coordinates { get; }
+    NavisworksParameters Parameters { get; set; }
+    NavisworksCoordinates Coordinates { get; set; }
 }

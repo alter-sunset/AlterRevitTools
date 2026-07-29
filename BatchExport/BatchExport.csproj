@@ -176,6 +176,9 @@
         <DynamicLibraryProject Include="..\atExtractWorkset\atExtractWorkset.csproj">
             <Link>Commands\atExtractWorkset\atExtractWorkset.csproj</Link>
         </DynamicLibraryProject>
+        <DynamicLibraryProject Include="..\atExportModel\atExportModel.csproj">
+            <Link>Commands\atExportModel\atExportModel.csproj</Link>
+        </DynamicLibraryProject>
     </ItemGroup>
     <Target Name="CopyDynamicLibraries" AfterTargets="Build">
         <!-- Ask the neighbouring project for its actual output path -->

@@ -270,6 +270,24 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Test Export.
+        /// </summary>
+        public static string CoreButtonExportText {
+            get {
+                return ResourceManager.GetString("CoreButtonExportText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Test Export.
+        /// </summary>
+        public static string CoreButtonExportToolTip {
+            get {
+                return ResourceManager.GetString("CoreButtonExportToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to IFC 
         ///Export.
         /// </summary>
@@ -609,6 +627,15 @@ namespace AlterTools.Resources {
         public static string Errors {
             get {
                 return ResourceManager.GetString("Errors", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export.
+        /// </summary>
+        public static string Export {
+            get {
+                return ResourceManager.GetString("Export", resourceCulture);
             }
         }
         

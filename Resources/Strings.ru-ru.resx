@@ -582,4 +582,13 @@ Revit ссылок</value>
     <data name="CoreButtonUpdateRsLinkToolTip" xml:space="preserve">
         <value>Заменить переданные связи на Revit Server</value>
     </data>
+    <data name="Export" xml:space="preserve">
+        <value>Экспорт</value>
+    </data>
+    <data name="CoreButtonExportText" xml:space="preserve">
+        <value>Тест Экспорт</value>
+    </data>
+    <data name="CoreButtonExportToolTip" xml:space="preserve">
+        <value>Тест Экспорт</value>
+    </data>
 </root>
