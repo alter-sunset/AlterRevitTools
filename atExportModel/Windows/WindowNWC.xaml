@@ -6,9 +6,10 @@
         xmlns:resx="clr-namespace:AlterTools.Resources;assembly=Resources"
         mc:Ignorable="d"
         Title="WindowNWC"
-        Height="600"
+        Height="630"
         Width="450"
-        ShowInTaskbar="False">
+        ShowInTaskbar="False"
+        ResizeMode="NoResize">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
