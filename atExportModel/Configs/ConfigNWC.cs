@@ -5,18 +5,19 @@ namespace AlterTools.atExportModel.Configs;
 
 public class ConfigNWC : IConfigNWC
 {
-    public bool ConvertElementProperties { get; set; }
-    public bool DivideFileIntoLevels { get; set; }
-    public bool ExportElementIds { get; set; }
-    public bool ExportLinks { get; set; }
-    public bool ExportParts { get; set; }
-    public bool ExportRoomAsAttribute { get; set; }
-    public bool ExportRoomGeometry { get; set; }
-    public bool ExportUrls { get; set; }
-    public bool FindMissingMaterials { get; set; }
-    public bool ConvertLinkedCADFormats { get; set; }
-    public bool ConvertLights { get; set; }
-    public double FacetingFactor { get; set; } = 1;
+    public bool ConvertElementProperties { get; set; } = true;
+    public bool DivideFileIntoLevels { get; set; } = true;
+    public bool ExportElementIds { get; set; } = true;
+    public bool ExportLinks { get; set; } = false;
+    public bool ExportParts { get; set; } = true;
+    public bool ExportRoomAsAttribute { get; set; } = true;
+    public bool ExportRoomGeometry { get; set; } = false;
+    public bool ExportUrls { get; set; } = false;
+    public bool FindMissingMaterials { get; set; } = true;
+    public bool ConvertLinkedCADFormats { get; set; } = false;
+    public bool ConvertLights { get; set; } = true;
+    public double FacetingFactor { get; set; } = 1.0;
     public NavisworksParameters Parameters { get; set; } = NavisworksParameters.All;
     public NavisworksCoordinates Coordinates { get; set; } = NavisworksCoordinates.Shared;
+    public NavisworksExportScope ExportScope { get; set; } = NavisworksExportScope.View;
 }

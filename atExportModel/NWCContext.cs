@@ -19,4 +19,11 @@ internal static class NWCContext
             { NavisworksParameters.Elements, Strings.Elements },
             { NavisworksParameters.None, Strings.None }
         };
+
+    public static IReadOnlyDictionary<NavisworksExportScope, string> ExportScopes { get; } =
+        new Dictionary<NavisworksExportScope, string>
+        {
+            { NavisworksExportScope.Model, Strings.Model },
+            { NavisworksExportScope.View, Strings.View }
+        };
 }

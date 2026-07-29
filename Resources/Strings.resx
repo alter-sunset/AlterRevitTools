@@ -250,8 +250,7 @@ Do you want to retrieve coordinates from the file?</value>
         <value>Export room geometry</value>
     </data>
     <data name="FindMissingMaterials" xml:space="preserve">
-        <value>Try and find 
-missing material</value>
+        <value>Try and find missing material</value>
     </data>
     <data name="ConvertElementParams" xml:space="preserve">
         <value>Convert element parameters</value>
@@ -260,8 +259,7 @@ missing material</value>
         <value>Convert URLs</value>
     </data>
     <data name="ConvertCAD" xml:space="preserve">
-        <value>Convert linked 
-CAD formats</value>
+        <value>Convert linked CAD formats</value>
     </data>
     <data name="ConvertLights" xml:space="preserve">
         <value>Convert lights</value>
@@ -590,5 +588,11 @@ RS links</value>
     </data>
     <data name="CoreButtonExportToolTip" xml:space="preserve">
         <value>Test Export</value>
+    </data>
+    <data name="Model" xml:space="preserve">
+        <value>Model</value>
+    </data>
+    <data name="View" xml:space="preserve">
+        <value>View</value>
     </data>
 </root>

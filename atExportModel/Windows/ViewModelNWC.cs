@@ -14,6 +14,7 @@ public class ViewModelNWC : NotifyPropertyChanged
 
         SelectedCoordinates = Coordinates.First(x => x.Key == Config.Coordinates);
         SelectedParameters = Parameters.First(x => x.Key == Config.Parameters);
+        SelectedExportScope = ExportScopes.First(x => x.Key == Config.ExportScope);
     }
 
     public bool ConvertElementProperties
@@ -183,6 +184,20 @@ public class ViewModelNWC : NotifyPropertyChanged
             if (Config.Parameters == value.Key) return;
 
             Config.Parameters = value.Key;
+            OnPropertyChanged();
+        }
+    }
+
+    public static IReadOnlyDictionary<NavisworksExportScope, string> ExportScopes => NWCContext.ExportScopes;
+
+    public KeyValuePair<NavisworksExportScope, string> SelectedExportScope
+    {
+        get => ExportScopes.First(x => x.Key == Config.ExportScope);
+        set
+        {
+            if (Config.ExportScope == value.Key) return;
+
+            Config.ExportScope = value.Key;
             OnPropertyChanged();
         }
     }

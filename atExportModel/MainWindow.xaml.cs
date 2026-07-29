@@ -13,9 +13,16 @@ public partial class MainWindow
         DataContext = mainViewModel;
     }
 
-    private void Settings_Click(object sender, RoutedEventArgs e)
+    private void NWC_Settings_Click(object sender, RoutedEventArgs e)
     {
         WindowNWC window = new(ViewModel.ViewModelNWC);
+
+        window.ShowDialog();
+    }
+
+    private void IFC_Settings_Click(object sender, RoutedEventArgs e)
+    {
+        WindowIFC window = new(ViewModel.ViewModelIFC);
 
         window.ShowDialog();
     }

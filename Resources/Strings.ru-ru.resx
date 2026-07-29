@@ -248,8 +248,7 @@ Id элементов</value>
 геометрию помещений</value>
     </data>
     <data name="FindMissingMaterials" xml:space="preserve">
-        <value>Проверять и находить 
-отсутсвующие материалы</value>
+        <value>Проверять и находить отсутсвующие материалы</value>
     </data>
     <data name="ConvertElementParams" xml:space="preserve">
         <value>Конвертировать параметры объектов</value>
@@ -258,8 +257,7 @@ Id элементов</value>
         <value>Экспортировать URL адреса</value>
     </data>
     <data name="ConvertCAD" xml:space="preserve">
-        <value>Экспортировать 
-связанные файлы САПР</value>
+        <value>Экспортировать связанные файлы САПР</value>
     </data>
     <data name="ConvertLights" xml:space="preserve">
         <value>Экспортировать 
@@ -590,5 +588,11 @@ Revit ссылок</value>
     </data>
     <data name="CoreButtonExportToolTip" xml:space="preserve">
         <value>Тест Экспорт</value>
+    </data>
+    <data name="Model" xml:space="preserve">
+        <value>Модель</value>
+    </data>
+    <data name="View" xml:space="preserve">
+        <value>Вид</value>
     </data>
 </root>

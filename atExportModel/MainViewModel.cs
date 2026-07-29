@@ -10,7 +10,6 @@ public class MainViewModel : NotifyPropertyChanged, IConfigExport
 {
     private readonly ExternalEventHandler _handler;
 
-
     public bool ExportRVT { get; set; }
     public RvtExportMode RvtExportMode { get; set; }
 
@@ -20,6 +19,8 @@ public class MainViewModel : NotifyPropertyChanged, IConfigExport
 
     public bool ExportIFC { get; set; }
     public IConfigIFC ConfigIFC { get; set; }
+    public IConfigIFCAdditionalFields ConfigIFCAdditionalFields { get; set; }
+    public ViewModelIFC ViewModelIFC { get; }
 
     public bool CleanModel { get; set; }
     public IConfigClean ConfigClean { get; set; }
@@ -27,7 +28,12 @@ public class MainViewModel : NotifyPropertyChanged, IConfigExport
     public MainViewModel(ExternalEventHandler handler)
     {
         _handler = handler;
+
         ConfigNWC = new ConfigNWC();
         ViewModelNWC = new ViewModelNWC(ConfigNWC);
+
+        ConfigIFC = new ConfigIFC();
+        ConfigIFCAdditionalFields = (IConfigIFCAdditionalFields)ConfigIFC;
+        ViewModelIFC = new ViewModelIFC((ConfigIFC)ConfigIFC);
     }
 }

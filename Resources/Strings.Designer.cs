@@ -150,8 +150,7 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Convert linked 
-        ///CAD formats.
+        ///   Looks up a localized string similar to Convert linked CAD formats.
         /// </summary>
         public static string ConvertCAD {
             get {
@@ -730,8 +729,7 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Try and find 
-        ///missing material.
+        ///   Looks up a localized string similar to Try and find missing material.
         /// </summary>
         public static string FindMissingMaterials {
             get {
@@ -1171,6 +1169,15 @@ namespace AlterTools.Resources {
         public static string MigrateTitle {
             get {
                 return ResourceManager.GetString("MigrateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Model.
+        /// </summary>
+        public static string Model {
+            get {
+                return ResourceManager.GetString("Model", resourceCulture);
             }
         }
         
@@ -1631,6 +1638,15 @@ namespace AlterTools.Resources {
         public static string UpdateRsLink {
             get {
                 return ResourceManager.GetString("UpdateRsLink", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View.
+        /// </summary>
+        public static string View {
+            get {
+                return ResourceManager.GetString("View", resourceCulture);
             }
         }
         

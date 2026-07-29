@@ -18,4 +18,5 @@ public interface IConfigNWC
     double FacetingFactor { get; set; }
     NavisworksParameters Parameters { get; set; }
     NavisworksCoordinates Coordinates { get; set; }
+    NavisworksExportScope ExportScope { get; set; }
 }

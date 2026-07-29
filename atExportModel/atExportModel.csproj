@@ -128,4 +128,11 @@
     <ItemGroup>
         <ProjectReference Include="..\Utils\Utils.csproj"/>
     </ItemGroup>
+    <ItemGroup>
+        <Page Update="Windows\WindowIFC.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+    </ItemGroup>
 </Project>

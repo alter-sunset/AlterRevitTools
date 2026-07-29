@@ -3,9 +3,12 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:AlterTools.atExportModel.Windows"
+        xmlns:resx="clr-namespace:AlterTools.Resources;assembly=Resources"
         mc:Ignorable="d"
-        Title="WindowNWC" Height="600" Width="450">
+        Title="WindowNWC"
+        Height="600"
+        Width="450"
+        ShowInTaskbar="False">
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -34,7 +37,7 @@
         <!-- 1 -->
         <TextBlock Grid.Row="0"
                    VerticalAlignment="Center"
-                   Text="Конвертировать идентификаторы объектов" />
+                   Text="{x:Static resx:Strings.ExportElementIds}" />
 
         <CheckBox Grid.Row="0"
                   Grid.Column="1"
@@ -44,41 +47,39 @@
                   IsChecked="{Binding ExportElementIds}" />
 
         <!-- 2 -->
-        <TextBlock Grid.Row="1"
+        <TextBlock Grid.Row="1" Grid.Column="0"
                    VerticalAlignment="Center"
-                   Text="Конвертировать параметры объектов" />
+                   Text="{x:Static resx:Strings.ConvertElementParams}" />
 
         <ComboBox Grid.Row="1"
                   Grid.Column="1"
                   Width="100"
                   SelectedIndex="0"
                   HorizontalAlignment="Left"
-                  Margin="5">
-            <ComboBoxItem Content="Все" />
-            <ComboBoxItem Content="Только общие" />
-            <ComboBoxItem Content="Нет" />
-        </ComboBox>
+                  Margin="5"
+                  ItemsSource="{Binding Parameters}"
+                  SelectedItem="{Binding SelectedParameters}"
+                  DisplayMemberPath="Value" />
 
         <!-- 3 -->
-        <TextBlock Grid.Row="2"
+        <TextBlock Grid.Row="2" Grid.Column="0"
                    VerticalAlignment="Center"
-                   Text="Координаты" />
+                   Text="{x:Static resx:Strings.Coordinates}" />
 
         <ComboBox Grid.Row="2"
                   Grid.Column="1"
                   Width="100"
                   SelectedIndex="0"
                   HorizontalAlignment="Left"
-                  Margin="5">
-            <ComboBoxItem Content="Общие" />
-            <ComboBoxItem Content="Общие + Shared" />
-            <ComboBoxItem Content="Internal" />
-        </ComboBox>
+                  Margin="5"
+                  ItemsSource="{Binding Coordinates}"
+                  SelectedItem="{Binding SelectedCoordinates}"
+                  DisplayMemberPath="Value" />
 
         <!-- 4 -->
-        <TextBlock Grid.Row="3"
+        <TextBlock Grid.Row="3" Grid.Column="0"
                    VerticalAlignment="Center"
-                   Text="Коэффициент фасетизации" />
+                   Text="{x:Static resx:Strings.FacetingFactor}" />
 
         <TextBox Grid.Row="3"
                  Grid.Column="1"
@@ -89,9 +90,9 @@
                  Text="{Binding FacetingFactor}" />
 
         <!-- 5 -->
-        <TextBlock Grid.Row="4"
+        <TextBlock Grid.Row="4" Grid.Column="0"
                    VerticalAlignment="Center"
-                   Text="Преобразовать URL-адреса" />
+                   Text="{x:Static resx:Strings.ConvertURLs}" />
 
         <CheckBox Grid.Row="4"
                   Grid.Column="1"
@@ -101,9 +102,9 @@
                   IsChecked="{Binding ExportUrls}" />
 
         <!-- 6 -->
-        <TextBlock Grid.Row="5"
+        <TextBlock Grid.Row="5" Grid.Column="0"
                    VerticalAlignment="Center"
-                   Text="Преобразовать источники света" />
+                   Text="{x:Static resx:Strings.ConvertLights}" />
 
         <CheckBox Grid.Row="5"
                   Grid.Column="1"
@@ -112,9 +113,9 @@
                   Margin="5" />
 
         <!-- 7 -->
-        <TextBlock Grid.Row="6"
+        <TextBlock Grid.Row="6" Grid.Column="0"
                    VerticalAlignment="Center"
-                   Text="Преобразовать помещение как атрибут" />
+                   Text="{x:Static resx:Strings.ConvertRoomAsAttr}" />
 
         <CheckBox Grid.Row="6"
                   Grid.Column="1"
@@ -124,9 +125,9 @@
                   IsChecked="{Binding ExportRoomAsAttribute}" />
 
         <!-- 8 -->
-        <TextBlock Grid.Row="7"
+        <TextBlock Grid.Row="7" Grid.Column="0"
                    VerticalAlignment="Center"
-                   Text="Конвертировать параметры объектов" />
+                   Text="{x:Static resx:Strings.ConvertElementProperties}" />
 
         <CheckBox Grid.Row="7"
                   Grid.Column="1"
@@ -136,9 +137,9 @@
                   IsChecked="{Binding ConvertElementProperties}" />
 
         <!-- 9 -->
-        <TextBlock Grid.Row="8"
+        <TextBlock Grid.Row="8" Grid.Column="0"
                    VerticalAlignment="Center"
-                   Text="Преобразовать связанные CAD файлы" />
+                   Text="{x:Static resx:Strings.ConvertCAD}" />
 
         <CheckBox Grid.Row="8"
                   Grid.Column="1"
@@ -148,9 +149,9 @@
                   IsChecked="{Binding ConvertLinkedCADFormats}" />
 
         <!-- 10 -->
-        <TextBlock Grid.Row="9"
+        <TextBlock Grid.Row="9" Grid.Column="0"
                    VerticalAlignment="Center"
-                   Text="Преобразовать связанные файлы" />
+                   Text="{x:Static resx:Strings.ConvertLinks}" />
 
         <CheckBox Grid.Row="9"
                   Grid.Column="1"
@@ -160,9 +161,9 @@
                   IsChecked="{Binding ExportLinks}" />
 
         <!-- 11 -->
-        <TextBlock Grid.Row="10"
+        <TextBlock Grid.Row="10" Grid.Column="0"
                    VerticalAlignment="Center"
-                   Text="Преобразовать элементы конструкции" />
+                   Text="{x:Static resx:Strings.ConvertParts}" />
 
         <CheckBox Grid.Row="10"
                   Grid.Column="1"
@@ -172,9 +173,9 @@
                   IsChecked="{Binding ExportParts}" />
 
         <!-- 12 -->
-        <TextBlock Grid.Row="11"
+        <TextBlock Grid.Row="11" Grid.Column="0"
                    VerticalAlignment="Center"
-                   Text="Проверять и находить отсутствующие материалы" />
+                   Text="{x:Static resx:Strings.FindMissingMaterials}" />
 
         <CheckBox Grid.Row="11"
                   Grid.Column="1"
@@ -184,9 +185,9 @@
                   IsChecked="{Binding FindMissingMaterials}" />
 
         <!-- 13 -->
-        <TextBlock Grid.Row="12"
+        <TextBlock Grid.Row="12" Grid.Column="0"
                    VerticalAlignment="Center"
-                   Text="Разделить файл на уровни" />
+                   Text="{x:Static resx:Strings.DivideFile}" />
 
         <CheckBox Grid.Row="12"
                   Grid.Column="1"
@@ -196,24 +197,24 @@
                   IsChecked="{Binding DivideFileIntoLevels}" />
 
         <!-- 14 -->
-        <TextBlock Grid.Row="13"
+        <TextBlock Grid.Row="13" Grid.Column="0"
                    VerticalAlignment="Center"
-                   Text="Экспорт" />
+                   Text="{x:Static resx:Strings.Export}" />
 
         <ComboBox Grid.Row="13"
                   Grid.Column="1"
                   HorizontalAlignment="Left"
                   Margin="5"
                   Width="100"
-                  SelectedIndex="0">
-            <ComboBoxItem Content="NWD" />
-            <ComboBoxItem Content="NWC" />
-        </ComboBox>
+                  ItemsSource="{Binding ExportScopes}"
+                  SelectedItem="{Binding SelectedExportScope}"
+                  DisplayMemberPath="Value" />
+
 
         <!-- 15 -->
-        <TextBlock Grid.Row="14"
+        <TextBlock Grid.Row="14" Grid.Column="0"
                    VerticalAlignment="Center"
-                   Text="Экспортировать геометрию помещения" />
+                   Text="{x:Static resx:Strings.ExportRoomGeometry}" />
 
         <CheckBox Grid.Row="14"
                   Grid.Column="1"
@@ -224,7 +225,7 @@
 
         <!-- OK Button -->
         <Button Grid.Row="15"
-                Grid.ColumnSpan="2"
+                Grid.ColumnSpan="2" Grid.Column="0"
                 Content="OK"
                 Width="114"
                 HorizontalAlignment="Right"
