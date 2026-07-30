@@ -1,4 +1,6 @@
-﻿using Autodesk.Revit.Attributes;
+﻿using System.Diagnostics;
+using System.Windows.Interop;
+using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
@@ -12,6 +14,14 @@ public class Command : IExternalCommand
         ExternalEventHandler handler = new();
         MainViewModel viewModel = new(handler);
         MainWindow window = new(viewModel);
+
+        UIApplication uiApp = commandData.Application;
+        // Link WPF window as a child of Revit
+        WindowInteropHelper helper = new(window)
+        {
+            Owner = uiApp.MainWindowHandle
+        };
+
         window.Show();
 
         return Result.Succeeded;
