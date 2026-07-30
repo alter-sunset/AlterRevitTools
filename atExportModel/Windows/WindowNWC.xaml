@@ -45,7 +45,7 @@
                   VerticalAlignment="Center"
                   HorizontalAlignment="Left"
                   Margin="5"
-                  IsChecked="{Binding ExportElementIds}" />
+                  IsChecked="{Binding Config.ExportElementIds}" />
 
         <!-- 2 -->
         <TextBlock Grid.Row="1" Grid.Column="0"
@@ -88,7 +88,7 @@
                  Margin="5"
                  Width="100"
                  VerticalContentAlignment="Center"
-                 Text="{Binding FacetingFactor}" />
+                 Text="{Binding Config.FacetingFactor}" />
 
         <!-- 5 -->
         <TextBlock Grid.Row="4" Grid.Column="0"
@@ -100,7 +100,7 @@
                   VerticalAlignment="Center"
                   HorizontalAlignment="Left"
                   Margin="5"
-                  IsChecked="{Binding ExportUrls}" />
+                  IsChecked="{Binding Config.ExportUrls}" />
 
         <!-- 6 -->
         <TextBlock Grid.Row="5" Grid.Column="0"
@@ -111,7 +111,8 @@
                   Grid.Column="1"
                   VerticalAlignment="Center"
                   HorizontalAlignment="Left"
-                  Margin="5" />
+                  Margin="5"
+                  IsChecked="{Binding Config.ConvertLights}" />
 
         <!-- 7 -->
         <TextBlock Grid.Row="6" Grid.Column="0"
@@ -123,7 +124,7 @@
                   VerticalAlignment="Center"
                   HorizontalAlignment="Left"
                   Margin="5"
-                  IsChecked="{Binding ExportRoomAsAttribute}" />
+                  IsChecked="{Binding Config.ExportRoomAsAttribute}" />
 
         <!-- 8 -->
         <TextBlock Grid.Row="7" Grid.Column="0"
@@ -135,7 +136,7 @@
                   VerticalAlignment="Center"
                   HorizontalAlignment="Left"
                   Margin="5"
-                  IsChecked="{Binding ConvertElementProperties}" />
+                  IsChecked="{Binding Config.ConvertElementProperties}" />
 
         <!-- 9 -->
         <TextBlock Grid.Row="8" Grid.Column="0"
@@ -147,7 +148,7 @@
                   VerticalAlignment="Center"
                   HorizontalAlignment="Left"
                   Margin="5"
-                  IsChecked="{Binding ConvertLinkedCADFormats}" />
+                  IsChecked="{Binding Config.ConvertLinkedCADFormats}" />
 
         <!-- 10 -->
         <TextBlock Grid.Row="9" Grid.Column="0"
@@ -159,7 +160,7 @@
                   VerticalAlignment="Center"
                   HorizontalAlignment="Left"
                   Margin="5"
-                  IsChecked="{Binding ExportLinks}" />
+                  IsChecked="{Binding Config.ExportLinks}" />
 
         <!-- 11 -->
         <TextBlock Grid.Row="10" Grid.Column="0"
@@ -171,7 +172,7 @@
                   VerticalAlignment="Center"
                   HorizontalAlignment="Left"
                   Margin="5"
-                  IsChecked="{Binding ExportParts}" />
+                  IsChecked="{Binding Config.ExportParts}" />
 
         <!-- 12 -->
         <TextBlock Grid.Row="11" Grid.Column="0"
@@ -183,7 +184,7 @@
                   VerticalAlignment="Center"
                   HorizontalAlignment="Left"
                   Margin="5"
-                  IsChecked="{Binding FindMissingMaterials}" />
+                  IsChecked="{Binding Config.FindMissingMaterials}" />
 
         <!-- 13 -->
         <TextBlock Grid.Row="12" Grid.Column="0"
@@ -195,7 +196,7 @@
                   VerticalAlignment="Center"
                   HorizontalAlignment="Left"
                   Margin="5"
-                  IsChecked="{Binding DivideFileIntoLevels}" />
+                  IsChecked="{Binding Config.DivideFileIntoLevels}" />
 
         <!-- 14 -->
         <TextBlock Grid.Row="13" Grid.Column="0"
@@ -222,7 +223,7 @@
                   VerticalAlignment="Center"
                   HorizontalAlignment="Left"
                   Margin="5"
-                  IsChecked="{Binding ExportRoomGeometry}" />
+                  IsChecked="{Binding Config.ExportRoomGeometry}" />
 
         <!-- OK Button -->
         <Button Grid.Row="15"

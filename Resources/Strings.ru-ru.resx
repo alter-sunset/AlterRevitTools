@@ -218,8 +218,7 @@
         <value>Пакетный экспорт NWC</value>
     </data>
     <data name="ConvertElementProperties" xml:space="preserve">
-        <value>Конвертировать 
-свойства объекта</value>
+        <value>Конвертировать свойства объекта</value>
     </data>
     <data name="Coordinates" xml:space="preserve">
         <value>Координаты</value>
@@ -232,16 +231,13 @@
 Id элементов</value>
     </data>
     <data name="ConvertLinks" xml:space="preserve">
-        <value>Экспортировать 
-связанные файлы</value>
+        <value>Экспортировать связанные файлы</value>
     </data>
     <data name="ConvertParts" xml:space="preserve">
-        <value>Экспортировать 
-элементы конструкции</value>
+        <value>Экспортировать элементы конструкции</value>
     </data>
     <data name="ConvertRoomAsAttr" xml:space="preserve">
-        <value>Экспортировать 
-помещение как атрибут</value>
+        <value>Экспортировать помещение как атрибут</value>
     </data>
     <data name="ExportRoomGeometry" xml:space="preserve">
         <value>Экспортировать 
@@ -260,8 +256,7 @@ Id элементов</value>
         <value>Экспортировать связанные файлы САПР</value>
     </data>
     <data name="ConvertLights" xml:space="preserve">
-        <value>Экспортировать 
-источники света</value>
+        <value>Экспортировать источники света</value>
     </data>
     <data name="FacetingFactor" xml:space="preserve">
         <value>Коэффициент фасетизации</value>
