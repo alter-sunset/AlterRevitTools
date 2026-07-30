@@ -8,11 +8,13 @@ using AlterTools.Utils.MVVM;
 
 namespace AlterTools.atExportModel;
 
-public class MainViewModel : NotifyPropertyChanged, IConfigExport
+public class MainViewModel : NotifyPropertyChanged, IConfigExportMultiple
 {
     private readonly ExternalEventHandler _handler;
 
     public bool ExportRVT { get; set; } = false;
+    public bool AsTransmit { get; set; } = true;
+    public bool AsCentralModel => !AsTransmit;
     public RvtExportMode RvtExportMode { get; set; }
 
     public bool ExportNWC { get; set; } = false;
@@ -32,22 +34,18 @@ public class MainViewModel : NotifyPropertyChanged, IConfigExport
     public string FolderPathNWC { get; set; }
     public string FolderPathIFC { get; set; }
 
-    public string[] InputFiles
-    {
-        get => _filesCollection.Select(item => item.Content.ToString()).ToArray();
-        set => _filesCollection = [.. value.Select(e => new ListBoxItem { Content = e })];
-    }
 
-    private ObservableCollection<ListBoxItem> _filesCollection = [];
+    private ObservableCollection<string> _inputFiles = [];
 
-    public ObservableCollection<ListBoxItem> FilesCollection
+    public ObservableCollection<string> InputFiles
     {
-        get => _filesCollection;
-        set => SetProperty(ref _filesCollection, value);
+        get => _inputFiles;
+        set => SetProperty(ref _inputFiles, value);
     }
 
     private RelayCommand _loadCommand;
     private RelayCommand _deleteCommand;
+    private RelayCommand _execute;
 
     public MainViewModel(ExternalEventHandler handler)
     {
@@ -63,6 +61,7 @@ public class MainViewModel : NotifyPropertyChanged, IConfigExport
 
     public RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
     public RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(param => Delete(param));
+    public RelayCommand Execute => _execute ??= new RelayCommand(_ => _handler.Raise(this));
 
     private void Load()
     {
@@ -78,7 +77,7 @@ public class MainViewModel : NotifyPropertyChanged, IConfigExport
 
         foreach (string file in files)
         {
-            FilesCollection.Add(new ListBoxItem { Content = file });
+            InputFiles.Add(file);
         }
     }
 
@@ -87,12 +86,13 @@ public class MainViewModel : NotifyPropertyChanged, IConfigExport
         // If the parameter is null or wrong type, exit safely
         if (parameter is not System.Collections.IList selectedItems) return;
 
-        // Copy the items safely to a separate list before modifying the collection
-        List<ListBoxItem> itemsToDelete = selectedItems.Cast<ListBoxItem>().ToList();
+        // Safely copy the selected strings to a temporary list
+        List<string> itemsToDelete = selectedItems.Cast<string>().ToList();
 
-        foreach (ListBoxItem item in itemsToDelete)
+        // Remove the strings directly from your collection
+        foreach (string item in itemsToDelete)
         {
-            FilesCollection.Remove(item);
+            InputFiles.Remove(item);
         }
     }
 }
