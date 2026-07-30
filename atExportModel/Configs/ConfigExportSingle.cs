@@ -20,4 +20,22 @@ public class ConfigExportSingle : IConfigExportSingle
     public string FolderPathNWC { get; set; }
     public string FolderPathIFC { get; set; }
     public string FileName { get; set; }
+
+    public ConfigExportSingle(IConfigExport parent)
+    {
+        ExportRVT = parent.ExportRVT;
+        AsTransmit = parent.AsTransmit;
+        RvtExportMode = parent.RvtExportMode;
+        ExportNWC = parent.ExportNWC;
+        ConfigNWC = parent.ConfigNWC;
+        ExportIFC = parent.ExportIFC;
+        ConfigIFC = parent.ConfigIFC;
+        ConfigIFCAdditionalFields = parent.ConfigIFCAdditionalFields;
+        CleanModel = parent.CleanModel;
+        ConfigClean = parent.ConfigClean;
+        ViewName = parent.ViewName;
+        FolderPathRVT = parent.FolderPathRVT;
+        FolderPathNWC = parent.FolderPathNWC;
+        FolderPathIFC = parent.FolderPathIFC;
+    }
 }

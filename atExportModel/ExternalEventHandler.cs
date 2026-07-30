@@ -17,14 +17,24 @@ public class ExternalEventHandler : RevitEventWrapper<IConfigExportMultiple>
     {
         if (args is null) return;
         using Application app = uiApp.Application;
-        using ErrorSuppressor errorSuppressor = new(uiApp);
+        // using ErrorSuppressor errorSuppressor = new(uiApp);
+        ConfigExportSingle config = new(args);
 
         foreach (string file in args.InputFiles)
         {
-            ConfigExportSingle config = args as ConfigExportSingle;
             config.FileName = file;
             ProcessModel(app, config);
         }
+    }
+
+    private static void Debug(string arg)
+    {
+        using TaskDialog taskDialog = new("debug");
+        taskDialog.CommonButtons = TaskDialogCommonButtons.Close;
+        taskDialog.Id = "debug";
+        taskDialog.MainContent = arg;
+
+        taskDialog.Show();
     }
 
     private static void ProcessModel(Application app, ConfigExportSingle config)
