@@ -17,6 +17,7 @@ public class ExternalEventHandler : RevitEventWrapper<IConfigExportMultiple>
     {
         if (args is null) return;
         using Application app = uiApp.Application;
+        // Turned off for debug
         // using ErrorSuppressor errorSuppressor = new(uiApp);
         ConfigExportSingle config = new(args);
 
@@ -74,6 +75,7 @@ public class ExternalEventHandler : RevitEventWrapper<IConfigExportMultiple>
         // export ifc and rollback transaction
         if (config.ExportIFC)
         {
+            // TODO: finish Window and ViewModel
             using Transaction tr = new(doc);
             tr.Start(Resources.Strings.IFCTitle);
 
@@ -85,6 +87,7 @@ public class ExternalEventHandler : RevitEventWrapper<IConfigExportMultiple>
 
         if (config.ExportRVT)
         {
+            // TODO: what if not workshared
             using ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(config.FileName);
             using TransmissionData transData = TransmissionData.ReadTransmissionData(modelPath);
             // clean

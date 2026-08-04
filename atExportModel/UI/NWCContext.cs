@@ -1,7 +1,7 @@
 ﻿using AlterTools.Resources;
 using Autodesk.Revit.DB;
 
-namespace AlterTools.atExportModel;
+namespace AlterTools.atExportModel.UI;
 
 internal static class NWCContext
 {

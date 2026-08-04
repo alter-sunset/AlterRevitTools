@@ -10,14 +10,14 @@ public class ConfigIFC : IConfigIFC, IConfigIFCAdditionalFields
     public string FamilyMappingFile { get; set; }
     public bool ExportBaseQuantities { get; set; }
     public bool WallAndColumnSplitting { get; set; }
-    public IFCVersion FileVersion { get; set; }
-    public SpaceBoundaryLevel SpaceBoundaryLevel { get; set; }
+    public IFCVersion FileVersion { get; set; } = IFCVersion.IFC2x3;
+    public SpaceBoundaryLevel SpaceBoundaryLevel { get; set; } = SpaceBoundaryLevel.None;
 
     public ExchangeRequirement ExchangeRequirement { get; set; }
-    public IFCFileType IFCFileType { get; set; }
-    public SitePlacement SitePlacement { get; set; }
+    public IFCFileType IFCFileType { get; set; } = IFCFileType.IFC;
+    public SitePlacement SitePlacement { get; set; } = SitePlacement.SharedCoordinates;
     public bool IncludeSteelElements { get; set; }
-    public double TessellationLevelOfDetail { get; set; }
+    public double TessellationLevelOfDetail { get; set; } = 0.25;
     public bool Export2DElements { get; set; }
     public bool ExportLinkedFiles { get; set; }
     public bool VisibleElementsOfCurrentView { get; set; }

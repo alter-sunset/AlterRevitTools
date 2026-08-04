@@ -1,6 +1,6 @@
 using System.Windows;
 
-namespace AlterTools.atExportModel.Windows;
+namespace AlterTools.atExportModel.UI;
 
 public partial class WindowIFC
 {

@@ -2,7 +2,7 @@ using AlterTools.atExportModel.Interfaces;
 using AlterTools.Utils.MVVM;
 using Autodesk.Revit.DB;
 
-namespace AlterTools.atExportModel.Windows;
+namespace AlterTools.atExportModel.UI;
 
 public class ViewModelNWC : NotifyPropertyChanged
 {
