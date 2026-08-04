@@ -4,7 +4,7 @@ namespace AlterTools.atExportModel.Interfaces;
 
 public interface IConfigClean
 {
-    bool UnloadLinks { get; set; }
+    bool UnloadLinks { get; set; } // should i?
     bool RemoveLinkedRvt { get; set; }
     bool RemoveLinkedCad { get; set; }
     bool RemoveOrphanedRooms { get; set; }
@@ -12,8 +12,8 @@ public interface IConfigClean
     bool RemoveEmptyWorksets { get; set; }
 #endif
     bool Purge { get; set; }
-    SheetOptions SheetOptions { get; set; }
+    bool RemoveSheets { get; set; }
 
-    // Remove views enum? or class
-    // remove sheets enum or class?
+    bool RemoveViews { get; set; }
+    // add viewTypes (steal from eTransmit)
 }
