@@ -75,7 +75,6 @@ public class ExternalEventHandler : RevitEventWrapper<IConfigExportMultiple>
         // export ifc and rollback transaction
         if (config.ExportIFC)
         {
-            // TODO: finish Window and ViewModel
             using Transaction tr = new(doc);
             tr.Start(Resources.Strings.IFCTitle);
 
@@ -212,14 +211,15 @@ public class ExternalEventHandler : RevitEventWrapper<IConfigExportMultiple>
             options.AddOption(field.Key, field.Value);
         }
 
-        // add logic for view, and don't forget to add to Window
-        // if (configIFC.ExportScopeView && doc.DoesViewExist(configIFC.ViewName))
-        // {
-        //     options.FilterViewId = new FilteredElementCollector(doc)
-        //         .OfClass(typeof(View3D))
-        //         .FirstOrDefault(el => el.Name == configIFC.ViewName && !((View3D)el).IsTemplate)
-        //         .Id;
-        // }
+        if (configIFCAdd.UseActiveViewGeometry &&
+            !string.IsNullOrWhiteSpace(config.ViewName) &&
+            doc.DoesViewExist(config.ViewName))
+        {
+            options.FilterViewId = new FilteredElementCollector(doc)
+                .OfClass(typeof(View3D))
+                .FirstOrDefault(el => el.Name == config.ViewName && !((View3D)el).IsTemplate)
+                .Id;
+        }
 
         return options;
     }

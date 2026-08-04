@@ -20,7 +20,9 @@ public interface IConfigIFCAdditionalFields
     bool ExportSpecificSchedules { get; set; }
     bool ExportUserDefinedPsets { get; set; }
     string ExportUserDefinedPsetsFileName { get; set; }
-    IClassificationSettings ClassificationSettings { get; set; } // not sure how to include it yet
+
+    // not sure how to include it yet
+    //IClassificationSettings ClassificationSettings { get; set; }
     bool ExportPartsAsBuildingElements { get; set; }
     bool ExportSolidModelRep { get; set; }
     bool UseActiveViewGeometry { get; set; }
