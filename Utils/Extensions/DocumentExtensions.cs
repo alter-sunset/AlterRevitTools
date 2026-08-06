@@ -1,13 +1,102 @@
-﻿using System.Reflection;
+﻿using System.IO;
+using System.Reflection;
 using AlterTools.Resources;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Electrical;
 using Autodesk.Revit.UI;
+using Application = Autodesk.Revit.ApplicationServices.Application;
 
 namespace AlterTools.Utils.Extensions;
 
 public static class DocumentExtensions
 {
+    public static Document OpenDocument(string file, Application app, out bool isWorkshared)
+    {
+        try
+        {
+            using BasicFileInfo fileInfo = BasicFileInfo.Extract(file);
+            isWorkshared = fileInfo.IsWorkshared;
+            using ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(file);
+
+            using TransmissionData trData =
+                File.Exists(fileInfo.CentralPath) // ensure that central model exists and reachable
+                    ? TransmissionData.ReadTransmissionData(modelPath)
+                    : null;
+
+            // bool transmitted = trData is { IsTransmitted: true };
+
+            WorksetConfiguration worksetConfiguration;
+
+            if (!isWorkshared)
+            {
+                worksetConfiguration = null;
+            }
+            // else if (!transmitted && iConfig.WorksetPrefixes.Length != 0)
+            // {
+            //     worksetConfiguration = modelPath.CloseWorksets(app, iConfig.WorksetPrefixes);
+            // } // need to add worksetClosing method or smthng
+            else
+            {
+                worksetConfiguration = new WorksetConfiguration();
+            }
+
+            if (worksetConfiguration is null) return app.OpenDocumentFile(file);
+            return modelPath.OpenDetached(app, worksetConfiguration);
+        }
+        catch
+        {
+            isWorkshared = false;
+            return null;
+        }
+    }
+
+    public static void SaveDocument(Document doc, string fileDetachedPath, bool isWorkshared,
+        TransmissionData transData)
+    {
+        using SaveAsOptions saveOptions = new();
+        saveOptions.OverwriteExistingFile = true;
+        saveOptions.MaximumBackups = 1;
+
+        if (isWorkshared)
+        {
+            using WorksharingSaveAsOptions worksharingOptions = new();
+            worksharingOptions.SaveAsCentral = true;
+
+            if (transData is not null && transData.IsTransmitted)
+            {
+                worksharingOptions.ClearTransmitted = true;
+            }
+
+            worksharingOptions.OpenWorksetsDefault = SimpleWorksetConfiguration.AskUserToSpecify;
+            saveOptions.SetWorksharingOptions(worksharingOptions);
+        }
+
+        try
+        {
+            using ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(fileDetachedPath);
+            doc.SaveAs(modelPath, saveOptions);
+        }
+        catch
+        {
+            // ignored
+        }
+    }
+
+    public static void CloseDocument(Document doc)
+    {
+        if (doc is null) return;
+
+        try
+        {
+            doc.FreeTheModel();
+        }
+        finally
+        {
+            doc.Close(false);
+            doc.Dispose();
+        }
+    }
+
     public static bool DoesViewExist(this Document doc, string viewName)
     {
         return new FilteredElementCollector(doc)
