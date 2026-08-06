@@ -1,14 +1,12 @@
 using System.Collections.ObjectModel;
-using System.Windows.Controls;
 using AlterTools.atExportModel.Configs;
 using AlterTools.atExportModel.Enums;
 using AlterTools.atExportModel.Interfaces;
-using AlterTools.atExportModel.UI;
 using AlterTools.Utils.MVVM;
 
-namespace AlterTools.atExportModel;
+namespace AlterTools.atExportModel.UI;
 
-public class MainViewModel : NotifyPropertyChanged, IConfigExportMultiple
+public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
 {
     private readonly ExternalEventHandler _handler;
 
@@ -48,7 +46,7 @@ public class MainViewModel : NotifyPropertyChanged, IConfigExportMultiple
     private RelayCommand _deleteCommand;
     private RelayCommand _execute;
 
-    public MainViewModel(ExternalEventHandler handler)
+    public ViewModelMain(ExternalEventHandler handler)
     {
         _handler = handler;
 

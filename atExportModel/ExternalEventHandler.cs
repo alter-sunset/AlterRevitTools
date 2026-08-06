@@ -16,9 +16,11 @@ public class ExternalEventHandler : RevitEventWrapper<IConfigExportMultiple>
     public override void Execute(UIApplication uiApp, IConfigExportMultiple args)
     {
         if (args is null) return;
+        
         using Application app = uiApp.Application;
-        // Turned off for debug
-        // using ErrorSuppressor errorSuppressor = new(uiApp);
+        
+        using ErrorSuppressor errorSuppressor = new(uiApp);
+        
         ConfigExportSingle config = new(args);
 
         foreach (string file in args.InputFiles)
@@ -59,13 +61,13 @@ public class ExternalEventHandler : RevitEventWrapper<IConfigExportMultiple>
             return;
         }
 
-        // open model
+        // Open model
         using Document doc = OpenDocument(config.FileName, app, out bool isWorkshared);
         if (doc is null) return;
 
         string modelName = doc.Title.RemoveDetach();
 
-        // export nwc
+        // Export NWC
         if (config.ExportNWC)
         {
             using NavisworksExportOptions options = GetNWCExportOptions(config, doc);

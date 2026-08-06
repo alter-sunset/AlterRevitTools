@@ -1,16 +1,15 @@
 using System.Windows;
-using AlterTools.atExportModel.UI;
 
-namespace AlterTools.atExportModel;
+namespace AlterTools.atExportModel.UI;
 
-public partial class MainWindow
+public partial class WindowMain
 {
-    private MainViewModel ViewModel => (MainViewModel)DataContext;
+    private ViewModelMain ViewModel => (ViewModelMain)DataContext;
 
-    public MainWindow(MainViewModel mainViewModel)
+    public WindowMain(ViewModelMain viewModelMain)
     {
         InitializeComponent();
-        DataContext = mainViewModel;
+        DataContext = viewModelMain;
     }
 
     private void NWC_Settings_Click(object sender, RoutedEventArgs e)
@@ -30,7 +29,7 @@ public partial class MainWindow
     private void Clean_Setting_Click(object sender, RoutedEventArgs e)
     {
         WindowClean window = new(ViewModel.ViewModelClean);
-        
+
         window.ShowDialog();
     }
 }
