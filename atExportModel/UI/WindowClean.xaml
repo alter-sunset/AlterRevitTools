@@ -38,49 +38,56 @@
                 Grid.Row="0"
                 Margin="10 0"
                 VerticalAlignment="Center"
-                Content="Удалить неиспользуемые элементы" />
+                Content="Удалить неиспользуемые элементы"
+                IsChecked="{Binding Config.Purge}" />
 
             <!-- 2 -->
             <CheckBox
                 Grid.Row="1"
                 Margin="10 0"
                 VerticalAlignment="Center"
-                Content="Удалить связи САПР" />
+                Content="Удалить связи САПР"
+                IsChecked="{Binding Config.RemoveLinkedCad}" />
 
             <!-- 3 -->
             <CheckBox
                 Grid.Row="2"
                 Margin="10 0"
                 VerticalAlignment="Center"
-                Content="Удалить связи RVT" />
+                Content="Удалить связи RVT"
+                IsChecked="{Binding Config.RemoveLinkedRvt}" />
 
             <!-- 4 -->
             <CheckBox
                 Grid.Row="3"
                 Margin="10 0"
                 VerticalAlignment="Center"
-                Content="Удалить неразмещённые помещения" />
+                Content="Удалить неразмещённые помещения"
+                IsChecked="{Binding Config.RemoveOrphanedRooms}" />
 
             <!-- 5 -->
             <CheckBox
                 Grid.Row="4"
                 Margin="10 0"
                 VerticalAlignment="Center"
-                Content="Удалить пустые рабочие наборы" />
+                Content="Удалить пустые рабочие наборы"
+                IsChecked="{Binding Config.RemoveEmptyWorksets}" />
 
             <!-- 6 -->
             <CheckBox
                 Grid.Row="5"
                 Margin="10 0"
                 VerticalAlignment="Center"
-                Content="Удалить все листы" />
+                Content="Удалить все листы"
+                IsChecked="{Binding Config.RemoveSheets}" />
 
             <!-- 7 -->
             <CheckBox
                 Grid.Row="6"
                 Margin="10 0"
                 VerticalAlignment="Center"
-                Content="Удалить выбранные типы видов:" />
+                Content="Удалить выбранные типы видов:"
+                IsChecked="{Binding Config.RemoveViews}" />
         </Grid>
 
         <GroupBox
@@ -90,7 +97,7 @@
             Margin="10"
             Background="WhiteSmoke"
             Header="Типы видов для удаления"
-            IsEnabled="False">
+            IsEnabled="{Binding Config.RemoveViews}">
             <Grid Margin="0 10">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
@@ -115,105 +122,121 @@
                     Grid.Row="0"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Все" />
+                    Content="Все"
+                    IsThreeState="True"
+                    IsChecked="{Binding All}" />
 
                 <!-- 2 -->
                 <CheckBox
                     Grid.Row="1"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="3D виды" />
+                    Content="3D виды"
+                    IsChecked="{Binding ThreeDViews}" />
 
                 <!-- 3 -->
                 <CheckBox
                     Grid.Row="2"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Виды узлов" />
+                    Content="Виды узлов"
+                    IsChecked="{Binding Details}" />
 
                 <!-- 4 -->
                 <CheckBox
                     Grid.Row="3"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Визуализация" />
+                    Content="Визуализация"
+                    IsChecked="{Binding Renderings}" />
 
                 <!-- 5 -->
                 <CheckBox
                     Grid.Row="4"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Графические спецификации колонн" />
+                    Content="Графические спецификации колонн"
+                    IsChecked="{Binding ColumnSchedules}" />
 
                 <!-- 6 -->
                 <CheckBox
                     Grid.Row="5"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Легенды" />
+                    Content="Легенды"
+                    IsChecked="{Binding Legends}" />
 
                 <!-- 7 -->
                 <CheckBox
                     Grid.Row="6"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Обходы" />
+                    Content="Обходы"
+                    IsChecked="{Binding Walkthroughs}" />
 
                 <!-- 8 -->
                 <CheckBox
                     Grid.Row="7"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Планы зонирования" />
+                    Content="Планы зонирования"
+                    IsChecked="{Binding AreaPlans}" />
 
                 <!-- 9 -->
                 <CheckBox
                     Grid.Row="8"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Планы несущих конструкций" />
+                    Content="Планы несущих конструкций"
+                    IsChecked="{Binding EngineeringPlans}" />
 
                 <!-- 10 -->
                 <CheckBox
                     Grid.Row="9"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Планы потолков" />
+                    Content="Планы потолков"
+                    IsChecked="{Binding CeilingPlans}" />
 
                 <!-- 11 -->
                 <CheckBox
                     Grid.Row="10"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Планы этажей" />
+                    Content="Планы этажей"
+                    IsChecked="{Binding FloorPlans}" />
 
                 <!-- 12 -->
                 <CheckBox
                     Grid.Row="11"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Разрезы" />
+                    Content="Разрезы"
+                    IsChecked="{Binding Sections}" />
 
                 <!-- 13 -->
                 <CheckBox
                     Grid.Row="12"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Спецификации" />
+                    Content="Спецификации"
+                    IsChecked="{Binding Schedules}" />
 
                 <!-- 14 -->
                 <CheckBox
                     Grid.Row="13"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Фасады" />
+                    Content="Фасады"
+                    IsChecked="{Binding Elevations}" />
 
                 <!-- 15 -->
                 <CheckBox
                     Grid.Row="14"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Чертёжные виды" />
+                    Content="Чертёжные виды"
+                    IsChecked="{Binding DraftingViews}" />
             </Grid>
         </GroupBox>
 

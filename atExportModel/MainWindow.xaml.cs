@@ -26,4 +26,11 @@ public partial class MainWindow
 
         window.ShowDialog();
     }
+
+    private void Clean_Setting_Click(object sender, RoutedEventArgs e)
+    {
+        WindowClean window = new(ViewModel.ViewModelClean);
+        
+        window.ShowDialog();
+    }
 }

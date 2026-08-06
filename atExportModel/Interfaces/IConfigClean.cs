@@ -1,4 +1,4 @@
-﻿using AlterTools.atExportModel.Enums;
+﻿using AlterTools.atExportModel.Configs;
 
 namespace AlterTools.atExportModel.Interfaces;
 
@@ -8,12 +8,9 @@ public interface IConfigClean
     bool RemoveLinkedRvt { get; set; }
     bool RemoveLinkedCad { get; set; }
     bool RemoveOrphanedRooms { get; set; }
-#if R22_OR_GREATER
     bool RemoveEmptyWorksets { get; set; }
-#endif
     bool Purge { get; set; }
     bool RemoveSheets { get; set; }
-
     bool RemoveViews { get; set; }
-    // add viewTypes (steal from eTransmit)
+    ConfigRemoveViews ConfigRemoveViews { get; set; }
 }

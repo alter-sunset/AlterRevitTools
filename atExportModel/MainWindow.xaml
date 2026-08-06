@@ -134,7 +134,7 @@
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Content="Настройки очистки"
-                    Command="{Binding ConfigClean}"
+                    Click="Clean_Setting_Click"
                     IsEnabled="{Binding IsChecked, ElementName=RvtCheckBox}" />
             </Grid>
         </GroupBox>

@@ -28,6 +28,7 @@ public class MainViewModel : NotifyPropertyChanged, IConfigExportMultiple
 
     public bool CleanModel { get; set; } = false;
     public IConfigClean ConfigClean { get; set; }
+    public ViewModelClean ViewModelClean { get; }
 
     public string ViewName { get; set; } = "Navisworks";
     public string FolderPathRVT { get; set; }
@@ -57,6 +58,9 @@ public class MainViewModel : NotifyPropertyChanged, IConfigExportMultiple
         ConfigIFC = new ConfigIFC();
         ConfigIFCAdditionalFields = (IConfigIFCAdditionalFields)ConfigIFC;
         ViewModelIFC = new ViewModelIFC((ConfigIFC)ConfigIFC);
+
+        ConfigClean = new ConfigClean();
+        ViewModelClean = new ViewModelClean((ConfigClean)ConfigClean);
     }
 
     public RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
