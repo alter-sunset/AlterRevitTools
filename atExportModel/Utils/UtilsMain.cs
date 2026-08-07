@@ -1,5 +1,6 @@
 using System.IO;
 using AlterTools.atExportModel.Configs;
+using AlterTools.atExportModel.Enums;
 using AlterTools.Utils.Extensions;
 using Autodesk.Revit.DB;
 using Application = Autodesk.Revit.ApplicationServices.Application;
@@ -14,7 +15,7 @@ public static class UtilsMain
                         !config.ExportIFC &&
                         !config.CleanModel &&
                         config.ExportRVT &&
-                        config.AsTransmit;
+                        config.RvtExportMode == RvtExportMode.Transmit;
 
         // 1. Check if file should be opened at all -- forgot about RevitServer, maybe need to add external worker?
         if (dontOpen)
@@ -42,7 +43,7 @@ public static class UtilsMain
             doc.Export(config.FolderPathNWC, modelName, options);
         }
 
-        // export ifc and rollback transaction
+        // Export ifc and rollback transaction
         if (config.ExportIFC)
         {
             using Transaction tr = new(doc);
@@ -56,19 +57,21 @@ public static class UtilsMain
 
         if (config.ExportRVT)
         {
-            // TODO: what if not workshared
-            using ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(config.FileName);
-            using TransmissionData transData = TransmissionData.ReadTransmissionData(modelPath);
-            // clean
+            // Clean
             if (config.CleanModel)
             {
-                //process document
+                UtilsRVT.CleanTheModel(config.ConfigClean);
             }
 
-            // saveAs -- currently only transmit
-            // TODO: Add newCentral
-            DocumentExtensions.SaveDocument(doc, modelName, isWorkshared, transData);
-            //do stuff on close
+            string fileDetachedPath = Path.Combine(config.FolderPathRVT, $"{modelName}.rvt");
+
+            using ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(config.FileName);
+            TransmissionData transData = null;
+            if (isWorkshared) transData = TransmissionData.ReadTransmissionData(modelPath);
+
+            DocumentExtensions.SaveDocument(doc, fileDetachedPath, isWorkshared, transData);
+
+            UtilsRVT.CleanupAndClose(doc, fileDetachedPath, isWorkshared, config.RvtExportMode);
             return;
         }
 

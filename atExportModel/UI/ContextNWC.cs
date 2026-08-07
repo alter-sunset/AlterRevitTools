@@ -3,7 +3,7 @@ using Autodesk.Revit.DB;
 
 namespace AlterTools.atExportModel.UI;
 
-internal static class NWCContext
+internal static class ContextNWC
 {
     public static IReadOnlyDictionary<NavisworksCoordinates, string> Coordinates { get; } =
         new Dictionary<NavisworksCoordinates, string>

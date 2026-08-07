@@ -28,3 +28,4 @@ public class Command : IExternalCommand
         return Result.Succeeded;
     }
 }
+// TODO: fill the resources

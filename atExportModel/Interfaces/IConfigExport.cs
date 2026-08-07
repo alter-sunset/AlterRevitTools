@@ -5,7 +5,8 @@ namespace AlterTools.atExportModel.Interfaces;
 public interface IConfigExport
 {
     public bool ExportRVT { get; set; }
-    public bool AsTransmit { get; set; }
+
+    // public bool AsTransmit { get; set; }
     public RvtExportMode RvtExportMode { get; set; }
 
     public bool ExportNWC { get; set; }

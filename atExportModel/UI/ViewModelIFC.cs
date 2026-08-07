@@ -26,7 +26,7 @@ public class ViewModelIFC : NotifyPropertyChanged
             .First(x => x.Key == config.TessellationLevelOfDetail);
     }
 
-    public static IReadOnlyDictionary<IFCVersion, string> IFCVersions => IFCContext.IFCVersions;
+    public static IReadOnlyDictionary<IFCVersion, string> IFCVersions => ContextIFC.IFCVersions;
 
     public KeyValuePair<IFCVersion, string> SelectedIFCVersion
     {
@@ -40,7 +40,7 @@ public class ViewModelIFC : NotifyPropertyChanged
         }
     }
 
-    public static IReadOnlyDictionary<SpaceBoundaryLevel, string> SpaceBoundaryLevels => IFCContext.SpaceBoundaryLevels;
+    public static IReadOnlyDictionary<SpaceBoundaryLevel, string> SpaceBoundaryLevels => ContextIFC.SpaceBoundaryLevels;
 
     public KeyValuePair<SpaceBoundaryLevel, string> SelectedSpaceBoundaryLevel
     {
@@ -54,7 +54,7 @@ public class ViewModelIFC : NotifyPropertyChanged
         }
     }
 
-    public static IReadOnlyDictionary<IFCFileType, string> IFCFileTypes => IFCContext.IFCFileTypes;
+    public static IReadOnlyDictionary<IFCFileType, string> IFCFileTypes => ContextIFC.IFCFileTypes;
 
     public KeyValuePair<IFCFileType, string> SelectedIFCFileType
     {
@@ -68,7 +68,7 @@ public class ViewModelIFC : NotifyPropertyChanged
         }
     }
 
-    public static IReadOnlyDictionary<SitePlacement, string> SitePlacements => IFCContext.SitePlacements;
+    public static IReadOnlyDictionary<SitePlacement, string> SitePlacements => ContextIFC.SitePlacements;
 
     public KeyValuePair<SitePlacement, string> SelectedSitePlacement
     {
@@ -82,7 +82,7 @@ public class ViewModelIFC : NotifyPropertyChanged
         }
     }
 
-    public static IReadOnlyDictionary<double, string> LevelsOfDetail => IFCContext.LevelsOfDetail;
+    public static IReadOnlyDictionary<double, string> LevelsOfDetail => ContextIFC.LevelsOfDetail;
 
     public KeyValuePair<double, string> SelectedLevelOfDetail
     {

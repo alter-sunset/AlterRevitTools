@@ -11,9 +11,21 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
     private readonly ExternalEventHandler _handler;
 
     public bool ExportRVT { get; set; } = false;
-    public bool AsTransmit { get; set; } = true;
-    public bool AsCentralModel => !AsTransmit;
-    public RvtExportMode RvtExportMode { get; set; }
+
+    private RvtExportMode _rvtExportMode = RvtExportMode.Transmit;
+
+    public RvtExportMode RvtExportMode
+    {
+        get => _rvtExportMode;
+        set
+        {
+            if (_rvtExportMode == value)
+                return;
+
+            _rvtExportMode = value;
+            OnPropertyChanged();
+        }
+    }
 
     public bool ExportNWC { get; set; } = false;
     public IConfigNWC ConfigNWC { get; set; }

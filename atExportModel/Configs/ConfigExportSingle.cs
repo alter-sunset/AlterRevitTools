@@ -6,7 +6,6 @@ namespace AlterTools.atExportModel.Configs;
 public class ConfigExportSingle : IConfigExportSingle
 {
     public bool ExportRVT { get; set; }
-    public bool AsTransmit { get; set; }
     public RvtExportMode RvtExportMode { get; set; }
     public bool ExportNWC { get; set; }
     public IConfigNWC ConfigNWC { get; set; }
@@ -24,7 +23,6 @@ public class ConfigExportSingle : IConfigExportSingle
     public ConfigExportSingle(IConfigExport parent)
     {
         ExportRVT = parent.ExportRVT;
-        AsTransmit = parent.AsTransmit;
         RvtExportMode = parent.RvtExportMode;
         ExportNWC = parent.ExportNWC;
         ConfigNWC = parent.ConfigNWC;

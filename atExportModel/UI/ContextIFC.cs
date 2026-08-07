@@ -4,7 +4,7 @@ using Autodesk.Revit.DB;
 
 namespace AlterTools.atExportModel.UI;
 
-internal static class IFCContext
+internal static class ContextIFC
 {
     public static IReadOnlyDictionary<IFCVersion, string> IFCVersions { get; } = new Dictionary<IFCVersion, string>
     {

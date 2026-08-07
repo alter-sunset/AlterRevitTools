@@ -17,7 +17,7 @@ public class ViewModelNWC : NotifyPropertyChanged
         SelectedExportScope = ExportScopes.First(x => x.Key == Config.ExportScope);
     }
 
-    public static IReadOnlyDictionary<NavisworksCoordinates, string> Coordinates => NWCContext.Coordinates;
+    public static IReadOnlyDictionary<NavisworksCoordinates, string> Coordinates => ContextNWC.Coordinates;
 
     public KeyValuePair<NavisworksCoordinates, string> SelectedCoordinates
     {
@@ -31,7 +31,7 @@ public class ViewModelNWC : NotifyPropertyChanged
         }
     }
 
-    public static IReadOnlyDictionary<NavisworksParameters, string> Parameters => NWCContext.Parameters;
+    public static IReadOnlyDictionary<NavisworksParameters, string> Parameters => ContextNWC.Parameters;
 
     public KeyValuePair<NavisworksParameters, string> SelectedParameters
     {
@@ -45,7 +45,7 @@ public class ViewModelNWC : NotifyPropertyChanged
         }
     }
 
-    public static IReadOnlyDictionary<NavisworksExportScope, string> ExportScopes => NWCContext.ExportScopes;
+    public static IReadOnlyDictionary<NavisworksExportScope, string> ExportScopes => ContextNWC.ExportScopes;
 
     public KeyValuePair<NavisworksExportScope, string> SelectedExportScope
     {
