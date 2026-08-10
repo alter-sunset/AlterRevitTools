@@ -12,7 +12,13 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
 
     private readonly ExternalEventHandler _handler;
 
-    public bool ExportRVT { get; set; } = false;
+    private bool _exportRVT;
+
+    public bool ExportRVT
+    {
+        get => _exportRVT;
+        set => SetProperty(ref _exportRVT, value);
+    }
 
     private RvtExportMode _rvtExportMode = RvtExportMode.Transmit;
 
@@ -29,11 +35,25 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
         }
     }
 
-    public bool ExportNWC { get; set; } = false;
+    private bool _exportNWC;
+
+    public bool ExportNWC
+    {
+        get => _exportNWC;
+        set => SetProperty(ref _exportNWC, value);
+    }
+
     public IConfigNWC ConfigNWC { get; set; }
     public ViewModelNWC ViewModelNWC { get; }
 
-    public bool ExportIFC { get; set; } = false;
+    private bool _exportIFC;
+
+    public bool ExportIFC
+    {
+        get => _exportIFC;
+        set => SetProperty(ref _exportIFC, value);
+    }
+
     public IConfigIFC ConfigIFC { get; set; }
     public IConfigIFCAdditionalFields ConfigIFCAdditionalFields { get; set; }
     public ViewModelIFC ViewModelIFC { get; }

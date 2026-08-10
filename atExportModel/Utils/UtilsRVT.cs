@@ -166,7 +166,36 @@ public static class UtilsRVT
             doc.Delete(viewsToDelete);
         }
 
+        EnsureDefault3DView(doc);
+
         tr.Commit();
+    }
+
+    private static void EnsureDefault3DView(Document doc)
+    {
+        // Check whether a non-template 3D view already exists.
+        bool has3DView = new FilteredElementCollector(doc)
+            .OfClass(typeof(View3D))
+            .OfType<View3D>()
+            .Any(view => !view.IsTemplate && !view.IsPerspective);
+
+        if (has3DView) return;
+
+        // Find a suitable 3D view type.
+        ViewFamilyType viewFamilyType = new FilteredElementCollector(doc)
+            .OfClass(typeof(ViewFamilyType))
+            .OfType<ViewFamilyType>()
+            .FirstOrDefault(type => type.ViewFamily == ViewFamily.ThreeDimensional);
+
+        if (viewFamilyType is null) return;
+
+        // Create a default isometric 3D view.
+        View3D view3D = View3D.CreateIsometric(doc, viewFamilyType.Id);
+
+        if (view3D is not null)
+        {
+            view3D.Name = "Default 3D View";
+        }
     }
 
     private static bool ShouldRemoveView(View view, ConfigRemoveViews config)
