@@ -31,6 +31,7 @@
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
                 <RowDefinition Height="30" />
+                <RowDefinition Height="30" />
             </Grid.RowDefinitions>
 
             <!-- 1 -->
@@ -62,28 +63,36 @@
                 Grid.Row="3"
                 Margin="10 0"
                 VerticalAlignment="Center"
-                Content="Удалить неразмещённые помещения"
-                IsChecked="{Binding Config.RemoveOrphanedRooms}" />
+                Content="Выгрузить связи RVT"
+                IsChecked="{Binding Config.UnloadLinks}" />
 
             <!-- 5 -->
             <CheckBox
                 Grid.Row="4"
                 Margin="10 0"
                 VerticalAlignment="Center"
-                Content="Удалить пустые рабочие наборы"
-                IsChecked="{Binding Config.RemoveEmptyWorksets}" />
+                Content="Удалить неразмещённые помещения"
+                IsChecked="{Binding Config.RemoveOrphanedRooms}" />
 
             <!-- 6 -->
             <CheckBox
                 Grid.Row="5"
                 Margin="10 0"
                 VerticalAlignment="Center"
-                Content="Удалить все листы"
-                IsChecked="{Binding Config.RemoveSheets}" />
+                Content="Удалить пустые рабочие наборы"
+                IsChecked="{Binding Config.RemoveEmptyWorksets}" />
 
             <!-- 7 -->
             <CheckBox
                 Grid.Row="6"
+                Margin="10 0"
+                VerticalAlignment="Center"
+                Content="Удалить все листы"
+                IsChecked="{Binding Config.RemoveSheets}" />
+
+            <!-- 8 -->
+            <CheckBox
+                Grid.Row="7"
                 Margin="10 0"
                 VerticalAlignment="Center"
                 Content="Удалить выбранные типы видов:"

@@ -2,6 +2,7 @@
 using System.Reflection;
 using AlterTools.Resources;
 using Autodesk.Revit.DB;
+using Autodesk.Revit.DB.Architecture;
 using Autodesk.Revit.DB.Electrical;
 using Autodesk.Revit.UI;
 using JetBrains.Annotations;
@@ -175,7 +176,7 @@ public static class DocumentExtensions
     /// <summary>
     /// Delete all possible links from the doc
     /// </summary>
-    /// <param name="doc">Document to wirk with</param>
+    /// <param name="doc">Document to work with</param>
     /// <param name="noImports">true if imported instances should be left intact.</param>
     public static void DeleteAllLinks(this Document doc, bool noImports = true)
     {
@@ -211,6 +212,55 @@ public static class DocumentExtensions
             try
             {
                 doc.Delete(id);
+            }
+            catch
+            {
+                // ignored
+            }
+        }
+
+        tr.Commit();
+    }
+
+    /// <summary>
+    /// Delete all possible Revit links from the doc
+    /// </summary>
+    /// <param name="doc">Document to work with</param>
+    public static void DeleteRVTLinks(this Document doc) => doc.DeleteLinks(ExternalFileReferenceType.RevitLink);
+
+    /// <summary>
+    /// Delete all possible Revit links from the doc
+    /// </summary>
+    /// <param name="doc">Document to work with</param>
+    public static void DeleteCADLinks(this Document doc) => doc.DeleteLinks(ExternalFileReferenceType.CADLink);
+
+    /// <summary>
+    /// Delete all possible links from the doc
+    /// </summary>
+    /// <param name="doc">Document to work with</param>
+    private static void DeleteLinks(this Document doc, ExternalFileReferenceType efRefType)
+    {
+        ICollection<ElementId> ids = ExternalFileUtils.GetAllExternalFileReferences(doc);
+
+        if (ids.Count == 0) return;
+
+        using Transaction tr = new(doc, Strings.RemoveAllLinks);
+
+        tr.Start();
+
+        using FailureHandlingOptions failOpt = tr.GetFailureHandlingOptions();
+        failOpt.SetFailuresPreprocessor(new CopyWatchAlertSuppressor());
+        tr.SetFailureHandlingOptions(failOpt);
+
+        foreach (ElementId id in ids)
+        {
+            try
+            {
+                ExternalFileReference externalFileRef = ExternalFileUtils.GetExternalFileReference(doc, id);
+                if (externalFileRef.ExternalFileReferenceType == efRefType)
+                {
+                    doc.Delete(id);
+                }
             }
             catch
             {
@@ -373,4 +423,44 @@ public static class DocumentExtensions
         ];
     }
 #endif
+
+    public static void RemoveOrphanedRooms(this Document doc)
+    {
+        using Transaction tr = new(doc, "Remove Orphaned Rooms");
+        tr.Start();
+
+        List<ElementId> orphanedRooms = new FilteredElementCollector(doc)
+            .OfCategory(BuiltInCategory.OST_Rooms)
+            .WhereElementIsNotElementType()
+            .OfType<Room>()
+            .Where(room => room.Area <= 0)
+            .Select(room => room.Id)
+            .ToList();
+
+        if (orphanedRooms.Any())
+        {
+            doc.Delete(orphanedRooms);
+        }
+
+        tr.Commit();
+    }
+
+    public static void RemoveAllSheets(this Document doc)
+    {
+        using Transaction tr = new(doc, "Remove Sheets");
+        tr.Start();
+
+        List<ElementId> sheetIds = new FilteredElementCollector(doc)
+            .OfClass(typeof(ViewSheet))
+            .WhereElementIsNotElementType()
+            .Select(e => e.Id)
+            .ToList();
+
+        if (sheetIds.Any())
+        {
+            doc.Delete(sheetIds);
+        }
+
+        tr.Commit();
+    }
 }

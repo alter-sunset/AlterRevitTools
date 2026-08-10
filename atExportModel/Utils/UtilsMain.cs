@@ -60,7 +60,7 @@ public static class UtilsMain
             // Clean
             if (config.CleanModel)
             {
-                UtilsRVT.CleanTheModel(config.ConfigClean);
+                UtilsRVT.CleanTheModel(doc, config.ConfigClean);
             }
 
             string fileDetachedPath = Path.Combine(config.FolderPathRVT, $"{modelName}.rvt");

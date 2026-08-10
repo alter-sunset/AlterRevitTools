@@ -8,6 +8,8 @@ namespace AlterTools.atExportModel.UI;
 
 public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
 {
+    // TODO: check for fields to be filled
+
     private readonly ExternalEventHandler _handler;
 
     public bool ExportRVT { get; set; } = false;
