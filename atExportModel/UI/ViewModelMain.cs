@@ -76,9 +76,12 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
         set => SetProperty(ref _inputFiles, value);
     }
 
+    private RelayCommand _settingsNWCCommand;
+    private RelayCommand _settingsIFCCommand;
+    private RelayCommand _settingsCleanCommand;
     private RelayCommand _loadCommand;
     private RelayCommand _deleteCommand;
-    private RelayCommand _execute;
+    private RelayCommand _executeCommand;
 
     public ViewModelMain(ExternalEventHandler handler)
     {
@@ -95,9 +98,30 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
         ViewModelClean = new ViewModelClean((ConfigClean)ConfigClean);
     }
 
+    public RelayCommand SettingsNWCCommand => _settingsNWCCommand ??= new RelayCommand(_ => OpenSettingsNWC());
+    public RelayCommand SettingsIFCCommand => _settingsIFCCommand ??= new RelayCommand(_ => OpenSettingIFC());
+    public RelayCommand SettingsCleanCommand => _settingsCleanCommand ??= new RelayCommand(_ => OpenSettingsClean());
     public RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
     public RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(param => Delete(param));
-    public RelayCommand Execute => _execute ??= new RelayCommand(_ => _handler.Raise(this));
+    public RelayCommand ExecuteCommand => _executeCommand ??= new RelayCommand(_ => _handler.Raise(this));
+
+    private void OpenSettingsNWC()
+    {
+        WindowNWC window = new(ViewModelNWC);
+        window.ShowDialog();
+    }
+
+    private void OpenSettingIFC()
+    {
+        WindowIFC window = new(ViewModelIFC);
+        window.ShowDialog();
+    }
+
+    private void OpenSettingsClean()
+    {
+        WindowClean window = new(ViewModelClean);
+        window.ShowDialog();
+    }
 
     private void Load()
     {

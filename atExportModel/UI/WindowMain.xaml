@@ -73,7 +73,7 @@
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Content="Настройки экспорта"
-                    Click="NWC_Settings_Click" />
+                    Command="{Binding SettingsNWCCommand}" />
 
                 <CheckBox
                     Grid.Row="1"
@@ -93,7 +93,7 @@
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Content="Настройки экспорта"
-                    Click="IFC_Settings_Click" />
+                    Command="{Binding SettingsIFCCommand}" />
 
                 <CheckBox
                     x:Name="RvtCheckBox"
@@ -147,7 +147,7 @@
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
                     Content="Настройки очистки"
-                    Click="Clean_Setting_Click"
+                    Command="{Binding SettingsCleanCommand}"
                     IsEnabled="{Binding IsChecked, ElementName=RvtCheckBox}" />
             </Grid>
         </GroupBox>
@@ -281,19 +281,21 @@
                 Grid.Column="2"
                 Margin="5 5"
                 Content="Импорт"
-                Height="30" />
+                Height="30" 
+                Command="{Binding ImportCommand}"/>
             <Button
                 Grid.Column="3"
                 Margin="5 5"
                 Content="Экспорт"
-                Height="30" />
+                Height="30" 
+                Command="{Binding ExportCommand}"/>
 
             <Button
                 Grid.Column="5"
                 Margin="5 5 10 5"
                 Content="Запуск"
                 Height="30"
-                Command="{Binding Execute}" />
+                Command="{Binding ExecuteCommand}" />
         </Grid>
     </Grid>
 </Window>
