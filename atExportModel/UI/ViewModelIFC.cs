@@ -95,4 +95,42 @@ public class ViewModelIFC : NotifyPropertyChanged
             OnPropertyChanged();
         }
     }
+
+    private RelayCommand _browseUserDefinedPsetsCommand;
+    private RelayCommand _browseUserMappingCommand;
+
+    public string ExportUserDefinedPsetsFileName
+    {
+        get => Config.ExportUserDefinedPsetsFileName;
+        set
+        {
+            if (Config.ExportUserDefinedPsetsFileName == value) return;
+            Config.ExportUserDefinedPsetsFileName = value;
+
+            OnPropertyChanged();
+        }
+    }
+
+    public string FamilyMappingFile
+    {
+        get => Config.FamilyMappingFile;
+        set
+        {
+            if (Config.FamilyMappingFile == value) return;
+            Config.FamilyMappingFile = value;
+
+            OnPropertyChanged();
+        }
+    }
+
+    public RelayCommand BrowseUserDefinedPsetsCommand =>
+        _browseUserDefinedPsetsCommand ??= new RelayCommand(_ => BrowseFilePset());
+
+    public RelayCommand BrowseUserMappingCommand =>
+        _browseUserMappingCommand ??= new RelayCommand(_ => BrowseFileMapping());
+
+    private void BrowseFilePset() =>
+        ExportUserDefinedPsetsFileName = VmHelper.BrowseFile(ExportUserDefinedPsetsFileName);
+
+    private void BrowseFileMapping() => FamilyMappingFile = VmHelper.BrowseFile(FamilyMappingFile);
 }

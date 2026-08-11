@@ -234,14 +234,15 @@
                     Width="370"
                     Height="25"
                     Margin="20 0 0 0"
-                    Text="{Binding Config.ExportUserDefinedPsetsFileName}"
+                    Text="{Binding ExportUserDefinedPsetsFileName}"
                     IsEnabled="{Binding Config.ExportUserDefinedPsets}" />
                 <Button
                     Grid.Row="7"
                     Grid.Column="1"
                     Height="25"
                     Content="Обзор..."
-                    IsEnabled="{Binding Config.ExportUserDefinedPsets}" />
+                    IsEnabled="{Binding Config.ExportUserDefinedPsets}"
+                    Command="{Binding BrowseUserDefinedPsetsCommand}" />
 
                 <!-- 9 -->
                 <CheckBox
@@ -262,14 +263,15 @@
                     Width="370"
                     Height="25"
                     Margin="20 0 0 0"
-                    Text="{Binding Config.FamilyMappingFile}"
+                    Text="{Binding FamilyMappingFile}"
                     IsEnabled="{Binding Config.UseUserMapping}" />
                 <Button
                     Grid.Row="9"
                     Grid.Column="1"
                     Height="25"
                     Content="Обзор..."
-                    IsEnabled="{Binding Config.UseUserMapping}" />
+                    IsEnabled="{Binding Config.UseUserMapping}"
+                    Command="{Binding BrowseUserMappingCommand}" />
             </Grid>
         </GroupBox>
 
