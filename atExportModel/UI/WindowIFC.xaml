@@ -6,7 +6,7 @@
         xmlns:resx="clr-namespace:AlterTools.Resources;assembly=Resources"
         mc:Ignorable="d"
         Title="WindowIFC"
-        Height="550"
+        Height="560"
         Width="1120"
         ShowInTaskbar="False"
         ResizeMode="NoResize">

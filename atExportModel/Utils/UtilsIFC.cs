@@ -1,3 +1,4 @@
+using System.IO;
 using System.Reflection;
 using AlterTools.atExportModel.Configs;
 using AlterTools.atExportModel.Interfaces;
@@ -44,5 +45,21 @@ public static class UtilsIFC
         }
 
         return options;
+    }
+
+    // Do I need it, or exporter will handle it?
+    private static void ValidateConditionals(IConfigIFC configIFC, IConfigIFCAdditionalFields configIFCAdd)
+    {
+        if (string.IsNullOrWhiteSpace(configIFC.FamilyMappingFile)
+            || !File.Exists(configIFC.FamilyMappingFile))
+        {
+            configIFC.UseUserMapping = false;
+        }
+
+        if (string.IsNullOrWhiteSpace(configIFCAdd.ExportUserDefinedPsetsFileName)
+            || !File.Exists(configIFCAdd.ExportUserDefinedPsetsFileName))
+        {
+            configIFCAdd.ExportUserDefinedPsets = false;
+        }
     }
 }

@@ -5,6 +5,7 @@ namespace AlterTools.atExportModel.Interfaces;
 
 public interface IConfigIFC
 {
+    bool UseUserMapping { get; set; }
     string FamilyMappingFile { get; set; }
     bool ExportBaseQuantities { get; set; }
     bool WallAndColumnSplitting { get; set; }
