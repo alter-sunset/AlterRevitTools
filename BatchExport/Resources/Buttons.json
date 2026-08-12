@@ -13,8 +13,8 @@
   {
     "Name": "Migrate",
     "Text": "CoreButtonMigrateText",
-    "LibraryName": "blank.dll",
-    "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandMigrateModels",
+    "LibraryName": "atMigrate.dll",
+    "ClassName": "AlterTools.atMigrate.Command",
     "ToolTip": "CoreButtonMigrateToolTip",
     "ImageLarge": "Resources\\migrate.png",
     "ImageSmall": "Resources\\migrate_16.png",

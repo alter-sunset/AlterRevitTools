@@ -1,16 +1,15 @@
-﻿using System.Text.Json;
+using System.IO;
+using System.Text.Json;
 using AlterTools.Utils.Extensions;
+using Autodesk.Revit.DB;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 using WasBecome = System.Collections.Generic.Dictionary<string, string>;
 
-namespace AlterTools.BatchExport.Views.Migrate;
+namespace AlterTools.atMigrate;
 
-public static class MigrateHelper
+public static class Helper
 {
     private static string WrongScheme => Resources.Strings.WrongScheme;
-
-    public static bool IsConfigPathValid(string configPath) =>
-        !string.IsNullOrEmpty(configPath) && ".json" == Path.GetExtension(configPath);
 
     private static WasBecome LoadMigrationConfig(string configPath)
     {
@@ -29,7 +28,7 @@ public static class MigrateHelper
         Directory.CreateDirectory(dir);
     }
 
-    public static List<string> ProcessFiles(string configPath, Application app)
+    public static void ProcessFiles(string configPath, Application app)
     {
         WasBecome items;
 
@@ -40,7 +39,7 @@ public static class MigrateHelper
         catch (Exception)
         {
             MessageBox.Show(WrongScheme);
-            return [];
+            return;
         }
 
         List<string> failedFiles = new(items.Count);
@@ -70,8 +69,6 @@ public static class MigrateHelper
         }
 
         movedFiles.ForEach(movedFile => ProcessMovedFile(movedFile, items, app));
-
-        return failedFiles;
     }
 
     private static void ProcessMovedFile(string newFile, WasBecome items, Application app)
