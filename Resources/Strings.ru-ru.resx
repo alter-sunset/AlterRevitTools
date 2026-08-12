@@ -591,4 +591,94 @@ Revit ссылок</value>
     <data name="FolderRVT" xml:space="preserve">
         <value>Папка RVT</value>
     </data>
+    <data name="SettingsNWC" xml:space="preserve">
+        <value>Настройки NWC</value>
+    </data>
+    <data name="SettingsIFC" xml:space="preserve">
+        <value>Настройки IFC</value>
+    </data>
+    <data name="General" xml:space="preserve">
+        <value>Общие</value>
+    </data>
+    <data name="ModelsExport" xml:space="preserve">
+        <value>Экспорт моделей</value>
+    </data>
+    <data name="FileType" xml:space="preserve">
+        <value>Тип файла</value>
+    </data>
+    <data name="LevelOfDetail" xml:space="preserve">
+        <value>Детализация</value>
+    </data>
+    <data name="PropertySets" xml:space="preserve">
+        <value>Наборы характеристик</value>
+    </data>
+    <data name="ExportRevitPsets" xml:space="preserve">
+        <value>Экспортировать наборы характеристик Revit</value>
+    </data>
+    <data name="ExportIFCCommonPsets" xml:space="preserve">
+        <value>Экспорт общих наборов характеристик IFC</value>
+    </data>
+    <data name="ExportMaterialPsets" xml:space="preserve">
+        <value>Экспорт наборов свойств материалов</value>
+    </data>
+    <data name="ExportSchedulesAsPsets" xml:space="preserve">
+        <value>Экспорт спецификаций в виде наборов характеристик</value>
+    </data>
+    <data name="ExportSpecificSchedules" xml:space="preserve">
+        <value>Экспорт только спецификаций, заголовок которых содержит IFC, Pset или "Общие"</value>
+    </data>
+    <data name="ExportUserDefinedPsets" xml:space="preserve">
+        <value>Основное: экспорт пользовательских наборов характеристик</value>
+    </data>
+    <data name="UseUserMapping" xml:space="preserve">
+        <value>Дополнительно: таблица соответствия параметров экспорта</value>
+    </data>
+    <data name="Advanced" xml:space="preserve">
+        <value>Дополнительные свойства</value>
+    </data>
+    <data name="WallAndColumnSplitting" xml:space="preserve">
+        <value>Разделить стены, колонны, воздуховоды по уровню</value>
+    </data>
+    <data name="IncludeSteelElements" xml:space="preserve">
+        <value>Включить стальные элементы</value>
+    </data>
+    <data name="Export2DElements" xml:space="preserve">
+        <value>Экспорт 2D-элементов вида в плане</value>
+    </data>
+    <data name="ExportRoomsInView" xml:space="preserve">
+        <value>Экспортитровать помещения на 3D-видах</value>
+    </data>
+    <data name="ExportPartsAsBuildingElements" xml:space="preserve">
+        <value>Экспорт деталей в качестве элементов здания</value>
+    </data>
+    <data name="ExportSolidModelRep" xml:space="preserve">
+        <value>Разрешить использование смешанных представлений "Модель твёрдого тела"</value>
+    </data>
+    <data name="UseActiveViewGeometry" xml:space="preserve">
+        <value>Используйте активный вид при создании геометрии</value>
+    </data>
+    <data name="UseFamilyAndTypeNameForReference" xml:space="preserve">
+        <value>Используйте команду имя семейства и типоразмера для ссылки</value>
+    </data>
+    <data name="Use2DRoomBoundaryForVolume" xml:space="preserve">
+        <value>Используйте 2D-границы помещений для параметра "Объём помещения"</value>
+    </data>
+    <data name="IncludeSiteElevation" xml:space="preserve">
+        <value>Включить отметку IFCSITE в локальное начало координат размещения площадки</value>
+    </data>
+    <data name="StoreIFCGUID" xml:space="preserve">
+        <value>Сохранить IFC GUID в параметре элемента после экспорта</value>
+    </data>
+    <data name="ExportBoundingBox" xml:space="preserve">
+        <value>Экспорт ограничивающей рамки</value>
+    </data>
+    <data name="UseOnlyTriangulation" xml:space="preserve">
+        <value>Сохранить мозаичную геометрию как триангуляцию</value>
+    </data>
+    <data name="UseTypeNameOnlyForIfcType" xml:space="preserve">
+        <value>Использовать имя типа только для имени IFCEntity</value>
+    </data>
+    <data name="UseVisibleRevitNameAsEntityName" xml:space="preserve">
+        <value>Использовать видимое имя Revit в качестве имени IFCEntity</value>
+    </data>
 </root>

@@ -69,6 +69,15 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Advanced.
+        /// </summary>
+        public static string Advanced {
+            get {
+                return ResourceManager.GetString("Advanced", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to All.
         /// </summary>
         public static string All {
@@ -590,11 +599,29 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export 2D plan view elements.
+        /// </summary>
+        public static string Export2DElements {
+            get {
+                return ResourceManager.GetString("Export2DElements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export base quantities.
         /// </summary>
         public static string ExportBaseQuantities {
             get {
                 return ResourceManager.GetString("ExportBaseQuantities", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export bounding box.
+        /// </summary>
+        public static string ExportBoundingBox {
+            get {
+                return ResourceManager.GetString("ExportBoundingBox", resourceCulture);
             }
         }
         
@@ -617,11 +644,47 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export IFC common property sets.
+        /// </summary>
+        public static string ExportIFCCommonPsets {
+            get {
+                return ResourceManager.GetString("ExportIFCCommonPsets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export material property sets.
+        /// </summary>
+        public static string ExportMaterialPsets {
+            get {
+                return ResourceManager.GetString("ExportMaterialPsets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export parameters.
         /// </summary>
         public static string ExportParameters {
             get {
                 return ResourceManager.GetString("ExportParameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export parts as building elements.
+        /// </summary>
+        public static string ExportPartsAsBuildingElements {
+            get {
+                return ResourceManager.GetString("ExportPartsAsBuildingElements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export Revit property sets.
+        /// </summary>
+        public static string ExportRevitPsets {
+            get {
+                return ResourceManager.GetString("ExportRevitPsets", resourceCulture);
             }
         }
         
@@ -635,11 +698,56 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export rooms, areas and spaces in 3D views.
+        /// </summary>
+        public static string ExportRoomsInView {
+            get {
+                return ResourceManager.GetString("ExportRoomsInView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export schedules as property sets.
+        /// </summary>
+        public static string ExportSchedulesAsPsets {
+            get {
+                return ResourceManager.GetString("ExportSchedulesAsPsets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export settings.
         /// </summary>
         public static string ExportSettings {
             get {
                 return ResourceManager.GetString("ExportSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Allow use of mixed &quot;Solid Model&quot; representation.
+        /// </summary>
+        public static string ExportSolidModelRep {
+            get {
+                return ResourceManager.GetString("ExportSolidModelRep", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export only schedules containing IFC, Pset, or Common in the title.
+        /// </summary>
+        public static string ExportSpecificSchedules {
+            get {
+                return ResourceManager.GetString("ExportSpecificSchedules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export user defined property sets.
+        /// </summary>
+        public static string ExportUserDefinedPsets {
+            get {
+                return ResourceManager.GetString("ExportUserDefinedPsets", resourceCulture);
             }
         }
         
@@ -658,6 +766,15 @@ namespace AlterTools.Resources {
         public static string FacetingFactor {
             get {
                 return ResourceManager.GetString("FacetingFactor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File type.
+        /// </summary>
+        public static string FileType {
+            get {
+                return ResourceManager.GetString("FileType", resourceCulture);
             }
         }
         
@@ -739,6 +856,15 @@ namespace AlterTools.Resources {
         public static string FolderRVT {
             get {
                 return ResourceManager.GetString("FolderRVT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to General.
+        /// </summary>
+        public static string General {
+            get {
+                return ResourceManager.GetString("General", resourceCulture);
             }
         }
         
@@ -980,11 +1106,38 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Include IFCSite elevation in the site local placement origin.
+        /// </summary>
+        public static string IncludeSiteElevation {
+            get {
+                return ResourceManager.GetString("IncludeSiteElevation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Include Steel Elements.
+        /// </summary>
+        public static string IncludeSteelElements {
+            get {
+                return ResourceManager.GetString("IncludeSteelElements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project Internal.
         /// </summary>
         public static string Internal {
             get {
                 return ResourceManager.GetString("Internal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Level of detail.
+        /// </summary>
+        public static string LevelOfDetail {
+            get {
+                return ResourceManager.GetString("LevelOfDetail", resourceCulture);
             }
         }
         
@@ -1412,6 +1565,15 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Property Sets.
+        /// </summary>
+        public static string PropertySets {
+            get {
+                return ResourceManager.GetString("PropertySets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Purge.
         /// </summary>
         public static string Purge {
@@ -1548,6 +1710,24 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to IFC settings.
+        /// </summary>
+        public static string SettingsIFC {
+            get {
+                return ResourceManager.GetString("SettingsIFC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NWC settings.
+        /// </summary>
+        public static string SettingsNWC {
+            get {
+                return ResourceManager.GetString("SettingsNWC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Shared.
         /// </summary>
         public static string Shared {
@@ -1580,6 +1760,15 @@ namespace AlterTools.Resources {
         public static string StartToolTip {
             get {
                 return ResourceManager.GetString("StartToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Store the IFC GUID in an element parameter after export.
+        /// </summary>
+        public static string StoreIFCGUID {
+            get {
+                return ResourceManager.GetString("StoreIFCGUID", resourceCulture);
             }
         }
         
@@ -1665,6 +1854,69 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Use 2D room boundaries for room volume.
+        /// </summary>
+        public static string Use2DRoomBoundaryForVolume {
+            get {
+                return ResourceManager.GetString("Use2DRoomBoundaryForVolume", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use active view when creating geometry.
+        /// </summary>
+        public static string UseActiveViewGeometry {
+            get {
+                return ResourceManager.GetString("UseActiveViewGeometry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use family and type name for reference.
+        /// </summary>
+        public static string UseFamilyAndTypeNameForReference {
+            get {
+                return ResourceManager.GetString("UseFamilyAndTypeNameForReference", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Keep Tessellated Geometry as Triangulation.
+        /// </summary>
+        public static string UseOnlyTriangulation {
+            get {
+                return ResourceManager.GetString("UseOnlyTriangulation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use Type name only for IFCType name.
+        /// </summary>
+        public static string UseTypeNameOnlyForIfcType {
+            get {
+                return ResourceManager.GetString("UseTypeNameOnlyForIfcType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export parameter mapping table.
+        /// </summary>
+        public static string UseUserMapping {
+            get {
+                return ResourceManager.GetString("UseUserMapping", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Use visible Revit name as the IFCEntity name.
+        /// </summary>
+        public static string UseVisibleRevitNameAsEntityName {
+            get {
+                return ResourceManager.GetString("UseVisibleRevitNameAsEntityName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to View.
         /// </summary>
         public static string View {
@@ -1688,6 +1940,15 @@ namespace AlterTools.Resources {
         public static string ViewNameToCheck {
             get {
                 return ResourceManager.GetString("ViewNameToCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Split Walls, Columns, Ducts by Level.
+        /// </summary>
+        public static string WallAndColumnSplitting {
+            get {
+                return ResourceManager.GetString("WallAndColumnSplitting", resourceCulture);
             }
         }
         

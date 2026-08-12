@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:resx="clr-namespace:AlterTools.Resources;assembly=Resources"
         mc:Ignorable="d"
-        Title="WindowNWC"
+        Title="{x:Static resx:Strings.SettingsNWC}"
         Height="630"
         Width="450"
         ShowInTaskbar="False"

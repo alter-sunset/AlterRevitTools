@@ -5,7 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:resx="clr-namespace:AlterTools.Resources;assembly=Resources"
         mc:Ignorable="d"
-        Title="WindowIFC"
+        Title="{x:Static resx:Strings.SettingsIFC}"
         Height="560"
         Width="1120"
         ShowInTaskbar="False"
@@ -21,12 +21,12 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <!-- Общие -->
+        <!-- General -->
         <GroupBox
             Grid.Row="0"
             Grid.Column="0"
             Margin="10 0"
-            Header="Общие"
+            Header="{x:Static resx:Strings.General}"
             Background="WhiteSmoke">
             <Grid Margin="10 0">
                 <Grid.RowDefinitions>
@@ -45,7 +45,7 @@
                 <TextBlock
                     Grid.Row="0"
                     Grid.Column="0"
-                    Text="Версия IFC"
+                    Text="{x:Static resx:Strings.IFCVersion}"
                     TextAlignment="Left"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center" />
@@ -62,7 +62,7 @@
                 <TextBlock
                     Grid.Row="1"
                     Grid.Column="0"
-                    Text="Тип файла"
+                    Text="{x:Static resx:Strings.FileType}"
                     TextAlignment="Left"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center" />
@@ -79,7 +79,7 @@
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="0"
-                    Text="Граница пространств"
+                    Text="{x:Static resx:Strings.SpaceBoundaries}"
                     TextAlignment="Left"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center" />
@@ -96,7 +96,7 @@
                 <TextBlock
                     Grid.Row="3"
                     Grid.Column="0"
-                    Text="Координаты"
+                    Text="{x:Static resx:Strings.Coordinates}"
                     TextAlignment="Left"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center" />
@@ -113,7 +113,7 @@
                 <TextBlock
                     Grid.Row="4"
                     Grid.Column="0"
-                    Text="Детализация"
+                    Text="{x:Static resx:Strings.LevelOfDetail}"
                     TextAlignment="Left"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center" />
@@ -128,12 +128,12 @@
             </Grid>
         </GroupBox>
 
-        <!-- Наборы характеристик -->
+        <!-- Property Sets -->
         <GroupBox
             Grid.Row="1"
             Grid.Column="0"
             Margin="10 0"
-            Header="Наборы характеристик"
+            Header="{x:Static resx:Strings.PropertySets}"
             Background="WhiteSmoke">
             <Grid Margin="10 0">
                 <Grid.RowDefinitions>
@@ -160,7 +160,7 @@
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Content="Экспортировать наборы характеристик Revit"
+                    Content="{x:Static resx:Strings.ExportRevitPsets}"
                     IsChecked="{Binding ConfigAdd.ExportInternalRevitPropertySets}" />
 
                 <!-- 2 -->
@@ -170,7 +170,7 @@
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Content="Экспорт общих наборов характеристик IFC"
+                    Content="{x:Static resx:Strings.ExportIFCCommonPsets}"
                     IsChecked="{Binding ConfigAdd.ExportIFCCommonPropertySets}" />
 
                 <!-- 3 -->
@@ -180,7 +180,7 @@
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Content="Экспорт основных величин"
+                    Content="{x:Static resx:Strings.ExportBaseQuantities}"
                     IsChecked="{Binding Config.ExportBaseQuantities}" />
 
                 <!-- 4 -->
@@ -190,7 +190,7 @@
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Content="Экспорт наборов свойств материалов"
+                    Content="{x:Static resx:Strings.ExportMaterialPsets}"
                     IsChecked="{Binding ConfigAdd.ExportMaterialPsets}" />
 
                 <!-- 5 -->
@@ -200,7 +200,7 @@
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Content="Экспорт спецификаций в виде наборов характеристик"
+                    Content="{x:Static resx:Strings.ExportSchedulesAsPsets}"
                     IsChecked="{Binding ConfigAdd.ExportSchedulesAsPsets}" />
 
                 <!-- 6 -->
@@ -211,7 +211,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Margin="20 0 0 0"
-                    Content="Экспорт только спецификаций, заголовок которых содержит IFC, Pset или ''Общие''"
+                    Content="{x:Static resx:Strings.ExportSpecificSchedules}"
                     IsChecked="{Binding ConfigAdd.ExportSpecificSchedules}"
                     IsEnabled="{Binding ConfigAdd.ExportSchedulesAsPsets}" />
 
@@ -222,7 +222,7 @@
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Content="Основное: экспорт пользовательских наборов характеристик"
+                    Content="{x:Static resx:Strings.ExportUserDefinedPsets}"
                     IsChecked="{Binding ConfigAdd.ExportUserDefinedPsets}" />
 
                 <!-- 8 -->
@@ -240,7 +240,7 @@
                     Grid.Row="7"
                     Grid.Column="1"
                     Height="25"
-                    Content="Обзор..."
+                    Content="{x:Static resx:Strings.Browse}"
                     IsEnabled="{Binding ConfigAdd.ExportUserDefinedPsets}"
                     Command="{Binding BrowseUserDefinedPsetsCommand}" />
 
@@ -251,7 +251,7 @@
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
-                    Content="Дополнительно: таблица соответствия параметров экспорта"
+                    Content="{x:Static resx:Strings.UseUserMapping}"
                     IsChecked="{Binding Config.UseUserMapping}" />
 
                 <!-- 10 -->
@@ -269,7 +269,7 @@
                     Grid.Row="9"
                     Grid.Column="1"
                     Height="25"
-                    Content="Обзор..."
+                    Content="{x:Static resx:Strings.Browse}"
                     IsEnabled="{Binding Config.UseUserMapping}"
                     Command="{Binding BrowseUserMappingCommand}" />
             </Grid>
@@ -281,7 +281,7 @@
             Grid.Row="0"
             Grid.RowSpan="2"
             Margin="10 0 10 40"
-            Header="Дополнительные свойства"
+            Header="{x:Static resx:Strings.Advanced}"
             Background="WhiteSmoke">
             <Grid Margin="10 0 ">
                 <Grid.RowDefinitions>
@@ -307,7 +307,7 @@
                     Grid.Row="0"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
-                    Content="Разделить стены, колонны, воздуховоды по уровню"
+                    Content="{x:Static resx:Strings.WallAndColumnSplitting}"
                     IsChecked="{Binding Config.WallAndColumnSplitting}" />
 
                 <!-- 2 -->
@@ -315,7 +315,7 @@
                     Grid.Row="1"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
-                    Content="Включить стальные элементы"
+                    Content="{x:Static resx:Strings.IncludeSteelElements}"
                     IsChecked="{Binding ConfigAdd.IncludeSteelElements}" />
 
                 <!-- 3 -->
@@ -323,7 +323,7 @@
                     Grid.Row="2"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
-                    Content="Экспорт 2D-элементов вида в плане"
+                    Content="{x:Static resx:Strings.Export2DElements}"
                     IsChecked="{Binding ConfigAdd.Export2DElements}" />
 
                 <!-- 4 -->
@@ -331,7 +331,7 @@
                     Grid.Row="3"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
-                    Content="Экспортитровать помещения на 3D-видах"
+                    Content="{x:Static resx:Strings.ExportRoomsInView}"
                     IsChecked="{Binding ConfigAdd.ExportRoomsInView}" />
 
                 <!-- 5 -->
@@ -339,7 +339,7 @@
                     Grid.Row="4"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
-                    Content="Экспорт деталей в качестве элементов здания"
+                    Content="{ x:Static resx:Strings.ExportPartsAsBuildingElements}"
                     IsChecked="{Binding ConfigAdd.ExportPartsAsBuildingElements}" />
 
                 <!-- 6 -->
@@ -347,7 +347,7 @@
                     Grid.Row="5"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
-                    Content="Разрешить использование смешанных представлений ''Модель твёрдого тела''"
+                    Content="{ x:Static resx:Strings.ExportSolidModelRep}"
                     IsChecked="{Binding ConfigAdd.ExportSolidModelRep}" />
 
                 <!-- 7 -->
@@ -355,7 +355,7 @@
                     Grid.Row="6"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
-                    Content="Используйте активный вид при создании геометрии"
+                    Content="{ x:Static resx:Strings.UseActiveViewGeometry}"
                     IsChecked="{Binding ConfigAdd.UseActiveViewGeometry}" />
 
                 <!-- 8 -->
@@ -363,7 +363,7 @@
                     Grid.Row="7"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
-                    Content="Используйте команду имя семейства и типоразмера для ссылки"
+                    Content="{ x:Static resx:Strings.UseFamilyAndTypeNameForReference}"
                     IsChecked="{Binding ConfigAdd.UseFamilyAndTypeNameForReference}" />
 
                 <!-- 9 -->
@@ -371,7 +371,7 @@
                     Grid.Row="8"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
-                    Content="Используйте 2D-границы помещений для параметра ''Объём помещения''"
+                    Content="{ x:Static resx:Strings.Use2DRoomBoundaryForVolume}"
                     IsChecked="{Binding ConfigAdd.Use2DRoomBoundaryForVolume}" />
 
                 <!-- 10 -->
@@ -379,7 +379,7 @@
                     Grid.Row="9"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
-                    Content="Включить отметку IFCSITE в локальное начало координат размещения площадки"
+                    Content="{ x:Static resx:Strings.IncludeSiteElevation}"
                     IsChecked="{Binding ConfigAdd.IncludeSiteElevation}" />
 
                 <!-- 11 -->
@@ -387,7 +387,7 @@
                     Grid.Row="10"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
-                    Content="Сохранить IFC GUID в параметре элемента после экспорта"
+                    Content="{ x:Static resx:Strings.StoreIFCGUID}"
                     IsChecked="{Binding ConfigAdd.StoreIFCGUID}" />
 
                 <!-- 12 -->
@@ -395,7 +395,7 @@
                     Grid.Row="11"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
-                    Content="Экспорт ограничивающей рамки"
+                    Content="{ x:Static resx:Strings.ExportBoundingBox}"
                     IsChecked="{Binding ConfigAdd.ExportBoundingBox}" />
 
                 <!-- 13 -->
@@ -403,7 +403,7 @@
                     Grid.Row="12"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
-                    Content="Сохранить мозаичную геометрию как триангуляцию"
+                    Content="{ x:Static resx:Strings.UseOnlyTriangulation}"
                     IsChecked="{Binding ConfigAdd.UseOnlyTriangulation}" />
 
                 <!-- 14 -->
@@ -411,7 +411,7 @@
                     Grid.Row="13"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
-                    Content="Использовать имя типа только для имени IFCEntity"
+                    Content="{ x:Static resx:Strings.UseTypeNameOnlyForIfcType}"
                     IsChecked="{Binding ConfigAdd.UseTypeNameOnlyForIfcType}" />
 
                 <!-- 15 -->
@@ -419,7 +419,7 @@
                     Grid.Row="14"
                     VerticalAlignment="Center"
                     HorizontalAlignment="Left"
-                    Content="Использовать видимое имя Revit в качестве имени IFCEntity"
+                    Content="{ x:Static resx:Strings.UseVisibleRevitNameAsEntityName}"
                     IsChecked="{Binding ConfigAdd.UseVisibleRevitNameAsEntityName}" />
             </Grid>
         </GroupBox>
