@@ -1,8 +1,6 @@
-using AlterTools.atExportModel.Interfaces;
-
 namespace AlterTools.atExportModel.Configs;
 
-public class ConfigClean : IConfigClean
+public class ConfigClean
 {
     public bool UnloadLinks { get; set; } = true;
     public bool RemoveLinkedRvt { get; set; } = false;

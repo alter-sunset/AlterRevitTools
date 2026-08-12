@@ -11,7 +11,7 @@ namespace AlterTools.atExportModel.Utils;
 public static class UtilsRVT
 {
     // TODO: fill it with stuff
-    public static void CleanTheModel(Document doc, IConfigClean config)
+    public static void CleanTheModel(Document doc, ConfigClean config)
     {
         if (config is null) return;
 

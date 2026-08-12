@@ -11,33 +11,17 @@ public class ViewModelClean : NotifyPropertyChanged
     public ViewModelClean(ConfigClean config)
     {
         Config = config;
-        _all = Config.ConfigRemoveViews.All;
-        _threeDViews = Config.ConfigRemoveViews.ThreeDViews;
-        _areaPlans = Config.ConfigRemoveViews.AreaPlans;
-        _ceilingPlans = Config.ConfigRemoveViews.CeilingPlans;
-        _details = Config.ConfigRemoveViews.Details;
-        _draftingViews = Config.ConfigRemoveViews.DraftingViews;
-        _elevations = Config.ConfigRemoveViews.Elevations;
-        _floorPlans = Config.ConfigRemoveViews.FloorPlans;
-        _columnSchedules = Config.ConfigRemoveViews.ColumnSchedules;
-        _legends = Config.ConfigRemoveViews.Legends;
-        _renderings = Config.ConfigRemoveViews.Renderings;
-        _schedules = Config.ConfigRemoveViews.Schedules;
-        _sections = Config.ConfigRemoveViews.Sections;
-        _engineeringPlans = Config.ConfigRemoveViews.EngineeringPlans;
-        _walkthroughs = Config.ConfigRemoveViews.Walkthroughs;
     }
-
-    private bool? _all;
 
     public bool? All
     {
-        get => _all;
+        get => Config.ConfigRemoveViews.All;
         set
         {
-            if (_all == value) return;
+            if (Config.ConfigRemoveViews.All == value) return;
 
-            SetProperty(ref _all, value);
+            Config.ConfigRemoveViews.All = value;
+            OnPropertyChanged();
 
             if (_updating || value is null) return;
 
@@ -62,227 +46,186 @@ public class ViewModelClean : NotifyPropertyChanged
         }
     }
 
-    private bool _threeDViews;
-
     public bool ThreeDViews
     {
-        get => _threeDViews;
+        get => Config.ConfigRemoveViews.ThreeDViews;
         set
         {
-            if (_threeDViews == value)
-                return;
-
-            SetProperty(ref _threeDViews, value);
+            if (Config.ConfigRemoveViews.ThreeDViews == value) return;
 
             Config.ConfigRemoveViews.ThreeDViews = value;
+            OnPropertyChanged();
             UpdateAll();
         }
     }
-
-    private bool _areaPlans;
 
     public bool AreaPlans
     {
-        get => _areaPlans;
+        get => Config.ConfigRemoveViews.AreaPlans;
         set
         {
-            if (_areaPlans == value)
-                return;
+            if (Config.ConfigRemoveViews.AreaPlans == value) return;
 
-            SetProperty(ref _areaPlans, value);
             Config.ConfigRemoveViews.AreaPlans = value;
+            OnPropertyChanged();
             UpdateAll();
         }
     }
-
-    private bool _ceilingPlans;
 
     public bool CeilingPlans
     {
-        get => _ceilingPlans;
+        get => Config.ConfigRemoveViews.CeilingPlans;
         set
         {
-            if (_ceilingPlans == value)
-                return;
+            if (Config.ConfigRemoveViews.CeilingPlans == value) return;
 
-            SetProperty(ref _ceilingPlans, value);
             Config.ConfigRemoveViews.CeilingPlans = value;
+            OnPropertyChanged();
             UpdateAll();
         }
     }
-
-    private bool _details;
 
     public bool Details
     {
-        get => _details;
+        get => Config.ConfigRemoveViews.Details;
         set
         {
-            if (_details == value)
-                return;
+            if (Config.ConfigRemoveViews.Details == value) return;
 
-            SetProperty(ref _details, value);
             Config.ConfigRemoveViews.Details = value;
+            OnPropertyChanged();
             UpdateAll();
         }
     }
-
-    private bool _draftingViews;
 
     public bool DraftingViews
     {
-        get => _draftingViews;
+        get => Config.ConfigRemoveViews.DraftingViews;
         set
         {
-            if (_draftingViews == value)
-                return;
+            if (Config.ConfigRemoveViews.DraftingViews == value) return;
 
-            SetProperty(ref _draftingViews, value);
             Config.ConfigRemoveViews.DraftingViews = value;
+            OnPropertyChanged();
             UpdateAll();
         }
     }
-
-    private bool _elevations;
 
     public bool Elevations
     {
-        get => _elevations;
+        get => Config.ConfigRemoveViews.Elevations;
         set
         {
-            if (_elevations == value)
-                return;
+            if (Config.ConfigRemoveViews.Elevations == value) return;
 
-            SetProperty(ref _elevations, value);
             Config.ConfigRemoveViews.Elevations = value;
+            OnPropertyChanged();
             UpdateAll();
         }
     }
-
-    private bool _floorPlans;
 
     public bool FloorPlans
     {
-        get => _floorPlans;
+        get => Config.ConfigRemoveViews.FloorPlans;
         set
         {
-            if (_floorPlans == value)
-                return;
+            if (Config.ConfigRemoveViews.FloorPlans == value) return;
 
-            SetProperty(ref _floorPlans, value);
             Config.ConfigRemoveViews.FloorPlans = value;
+            OnPropertyChanged();
             UpdateAll();
         }
     }
-
-    private bool _columnSchedules;
 
     public bool ColumnSchedules
     {
-        get => _columnSchedules;
+        get => Config.ConfigRemoveViews.ColumnSchedules;
         set
         {
-            if (_columnSchedules == value)
-                return;
+            if (Config.ConfigRemoveViews.ColumnSchedules == value) return;
 
-            SetProperty(ref _columnSchedules, value);
             Config.ConfigRemoveViews.ColumnSchedules = value;
+            OnPropertyChanged();
             UpdateAll();
         }
     }
-
-    private bool _legends;
 
     public bool Legends
     {
-        get => _legends;
+        get => Config.ConfigRemoveViews.Legends;
         set
         {
-            if (_legends == value)
-                return;
+            if (Config.ConfigRemoveViews.Legends == value) return;
 
-            SetProperty(ref _legends, value);
             Config.ConfigRemoveViews.Legends = value;
+            OnPropertyChanged();
             UpdateAll();
         }
     }
-
-    private bool _renderings;
 
     public bool Renderings
     {
-        get => _renderings;
+        get => Config.ConfigRemoveViews.Renderings;
         set
         {
-            if (_renderings == value)
-                return;
+            if (Config.ConfigRemoveViews.Renderings == value) return;
 
-            SetProperty(ref _renderings, value);
             Config.ConfigRemoveViews.Renderings = value;
+            OnPropertyChanged();
             UpdateAll();
         }
     }
-
-    private bool _schedules;
 
     public bool Schedules
     {
-        get => _schedules;
+        get => Config.ConfigRemoveViews.Schedules;
         set
         {
-            if (_schedules == value)
+            if (Config.ConfigRemoveViews.Schedules == value)
                 return;
 
-            SetProperty(ref _schedules, value);
             Config.ConfigRemoveViews.Schedules = value;
+            OnPropertyChanged();
             UpdateAll();
         }
     }
-
-    private bool _sections;
 
     public bool Sections
     {
-        get => _sections;
+        get => Config.ConfigRemoveViews.Sections;
         set
         {
-            if (_sections == value)
-                return;
+            if (Config.ConfigRemoveViews.Sections == value) return;
 
-            SetProperty(ref _sections, value);
             Config.ConfigRemoveViews.Sections = value;
+            OnPropertyChanged();
             UpdateAll();
         }
     }
-
-    private bool _engineeringPlans;
 
     public bool EngineeringPlans
     {
-        get => _engineeringPlans;
+        get => Config.ConfigRemoveViews.EngineeringPlans;
         set
         {
-            if (_engineeringPlans == value)
+            if (Config.ConfigRemoveViews.EngineeringPlans == value)
                 return;
 
-            SetProperty(ref _engineeringPlans, value);
             Config.ConfigRemoveViews.EngineeringPlans = value;
+            OnPropertyChanged();
             UpdateAll();
         }
     }
 
-    private bool _walkthroughs;
-
     public bool Walkthroughs
     {
-        get => _walkthroughs;
+        get => Config.ConfigRemoveViews.Walkthroughs;
         set
         {
-            if (_walkthroughs == value)
-                return;
+            if (Config.ConfigRemoveViews.Walkthroughs == value) return;
 
-            SetProperty(ref _walkthroughs, value);
             Config.ConfigRemoveViews.Walkthroughs = value;
+            OnPropertyChanged();
             UpdateAll();
         }
     }

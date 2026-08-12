@@ -9,21 +9,23 @@ namespace AlterTools.atExportModel.UI;
 public class ViewModelIFC : NotifyPropertyChanged
 {
     public ConfigIFC Config { get; set; }
+    public ConfigIFCAdd ConfigAdd { get; set; }
 
-    public ViewModelIFC(ConfigIFC config)
+    public ViewModelIFC(ConfigIFC config, ConfigIFCAdd configAdd)
     {
         Config = config;
+        ConfigAdd = configAdd;
 
         SelectedIFCVersion = IFCVersions
             .First(x => x.Key == config.FileVersion);
         SelectedSpaceBoundaryLevel = SpaceBoundaryLevels
             .First(x => x.Key == config.SpaceBoundaryLevel);
         SelectedIFCFileType = IFCFileTypes
-            .First(x => x.Key == config.IFCFileType);
+            .First(x => x.Key == configAdd.IFCFileType);
         SelectedSitePlacement = SitePlacements
-            .First(x => x.Key == config.SitePlacement);
+            .First(x => x.Key == configAdd.SitePlacement);
         SelectedLevelOfDetail = LevelsOfDetail
-            .First(x => x.Key == config.TessellationLevelOfDetail);
+            .First(x => x.Key == configAdd.TessellationLevelOfDetail);
     }
 
     public static IReadOnlyDictionary<IFCVersion, string> IFCVersions => ContextIFC.IFCVersions;
@@ -58,11 +60,11 @@ public class ViewModelIFC : NotifyPropertyChanged
 
     public KeyValuePair<IFCFileType, string> SelectedIFCFileType
     {
-        get => IFCFileTypes.First(x => x.Key == Config.IFCFileType);
+        get => IFCFileTypes.First(x => x.Key == ConfigAdd.IFCFileType);
         set
         {
-            if (Config.IFCFileType == value.Key) return;
-            Config.IFCFileType = value.Key;
+            if (ConfigAdd.IFCFileType == value.Key) return;
+            ConfigAdd.IFCFileType = value.Key;
 
             OnPropertyChanged();
         }
@@ -72,11 +74,11 @@ public class ViewModelIFC : NotifyPropertyChanged
 
     public KeyValuePair<SitePlacement, string> SelectedSitePlacement
     {
-        get => SitePlacements.First(x => x.Key == Config.SitePlacement);
+        get => SitePlacements.First(x => x.Key == ConfigAdd.SitePlacement);
         set
         {
-            if (Config.SitePlacement == value.Key) return;
-            Config.SitePlacement = value.Key;
+            if (ConfigAdd.SitePlacement == value.Key) return;
+            ConfigAdd.SitePlacement = value.Key;
 
             OnPropertyChanged();
         }
@@ -86,11 +88,11 @@ public class ViewModelIFC : NotifyPropertyChanged
 
     public KeyValuePair<double, string> SelectedLevelOfDetail
     {
-        get => LevelsOfDetail.First(x => x.Key == Config.TessellationLevelOfDetail);
+        get => LevelsOfDetail.First(x => x.Key == ConfigAdd.TessellationLevelOfDetail);
         set
         {
-            if (Config.TessellationLevelOfDetail == value.Key) return;
-            Config.TessellationLevelOfDetail = value.Key;
+            if (ConfigAdd.TessellationLevelOfDetail == value.Key) return;
+            ConfigAdd.TessellationLevelOfDetail = value.Key;
 
             OnPropertyChanged();
         }
@@ -101,11 +103,11 @@ public class ViewModelIFC : NotifyPropertyChanged
 
     public string ExportUserDefinedPsetsFileName
     {
-        get => Config.ExportUserDefinedPsetsFileName;
+        get => ConfigAdd.ExportUserDefinedPsetsFileName;
         set
         {
-            if (Config.ExportUserDefinedPsetsFileName == value) return;
-            Config.ExportUserDefinedPsetsFileName = value;
+            if (ConfigAdd.ExportUserDefinedPsetsFileName == value) return;
+            ConfigAdd.ExportUserDefinedPsetsFileName = value;
 
             OnPropertyChanged();
         }

@@ -2,7 +2,7 @@ namespace AlterTools.atExportModel.Configs;
 
 public class ConfigRemoveViews
 {
-    public bool? All { get; set; }
+    public bool? All { get; set; } = false;
     public bool ThreeDViews { get; set; }
     public bool AreaPlans { get; set; }
     public bool CeilingPlans { get; set; }

@@ -1,3 +1,4 @@
+using AlterTools.atExportModel.Configs;
 using AlterTools.atExportModel.Interfaces;
 using AlterTools.Utils.MVVM;
 using Autodesk.Revit.DB;
@@ -6,9 +7,9 @@ namespace AlterTools.atExportModel.UI;
 
 public class ViewModelNWC : NotifyPropertyChanged
 {
-    public IConfigNWC Config { get; set; }
+    public ConfigNWC Config { get; set; }
 
-    public ViewModelNWC(IConfigNWC config)
+    public ViewModelNWC(ConfigNWC config)
     {
         Config = config;
 

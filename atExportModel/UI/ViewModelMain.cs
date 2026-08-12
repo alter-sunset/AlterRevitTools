@@ -4,6 +4,7 @@ using System.Windows;
 using AlterTools.atExportModel.Configs;
 using AlterTools.atExportModel.Enums;
 using AlterTools.atExportModel.Interfaces;
+using AlterTools.Utils;
 using AlterTools.Utils.MVVM;
 using MessageBox = System.Windows.MessageBox;
 
@@ -44,7 +45,18 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
         set => SetProperty(ref _exportNWC, value);
     }
 
-    public IConfigNWC ConfigNWC { get; set; }
+    private ConfigNWC _configNWC;
+
+    public ConfigNWC ConfigNWC
+    {
+        get => _configNWC;
+        set
+        {
+            SetProperty(ref _configNWC, value);
+            if (ViewModelNWC is not null) ViewModelNWC.Config = value;
+        }
+    }
+
     public ViewModelNWC ViewModelNWC { get; }
 
     private bool _exportIFC;
@@ -55,12 +67,53 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
         set => SetProperty(ref _exportIFC, value);
     }
 
-    public IConfigIFC ConfigIFC { get; set; }
-    public IConfigIFCAdditionalFields ConfigIFCAdditionalFields { get; set; }
+    private ConfigIFC _configIFC;
+    private ConfigIFCAdd _configIFCAdd;
+
+    public ConfigIFC ConfigIFC
+    {
+        get => _configIFC;
+        set
+        {
+            SetProperty(ref _configIFC, value);
+            if (ViewModelIFC is not null) ViewModelIFC.Config = value;
+        }
+    }
+
+    public ConfigIFCAdd ConfigIFCAdditionalFields
+    {
+        get => _configIFCAdd;
+        set
+        {
+            SetProperty(ref _configIFCAdd, value);
+            if (ViewModelIFC is not null) ViewModelIFC.ConfigAdd = value;
+        }
+    }
+
     public ViewModelIFC ViewModelIFC { get; }
 
-    public bool CleanModel { get; set; } = false;
-    public IConfigClean ConfigClean { get; set; }
+    private bool _cleanModel;
+
+    public bool CleanModel
+    {
+        get => _cleanModel;
+        set => SetProperty(ref _cleanModel, value);
+    }
+
+    private ConfigClean _configClean;
+
+    public ConfigClean ConfigClean
+    {
+        get => _configClean;
+        set
+        {
+            SetProperty(ref _configClean, value);
+            if (ViewModelClean is null) return;
+            ViewModelClean.Config = value;
+            ViewModelClean.Config.ConfigRemoveViews = value.ConfigRemoveViews;
+        }
+    }
+
     public ViewModelClean ViewModelClean { get; }
 
     private string _viewName = "Navisworks";
@@ -108,6 +161,8 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
     private RelayCommand _settingsIFCCommand;
     private RelayCommand _settingsCleanCommand;
     private RelayCommand _loadCommand;
+    private RelayCommand _importCommand;
+    private RelayCommand _exportCommand;
     private RelayCommand _deleteCommand;
     private RelayCommand _executeCommand;
 
@@ -119,11 +174,11 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
         ViewModelNWC = new ViewModelNWC(ConfigNWC);
 
         ConfigIFC = new ConfigIFC();
-        ConfigIFCAdditionalFields = (IConfigIFCAdditionalFields)ConfigIFC;
-        ViewModelIFC = new ViewModelIFC((ConfigIFC)ConfigIFC);
+        ConfigIFCAdditionalFields = new ConfigIFCAdd();
+        ViewModelIFC = new ViewModelIFC(ConfigIFC, ConfigIFCAdditionalFields);
 
         ConfigClean = new ConfigClean();
-        ViewModelClean = new ViewModelClean((ConfigClean)ConfigClean);
+        ViewModelClean = new ViewModelClean(ConfigClean);
     }
 
     public RelayCommand SettingsNWCCommand => _settingsNWCCommand ??= new RelayCommand(_ => OpenSettingsNWC());
@@ -135,6 +190,8 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
     public RelayCommand BrowseFolderRVTCommand => _browseRVTFolderCommand ??= new RelayCommand(_ => BrowseFolderRVT());
 
     public RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
+    public RelayCommand ImportCommand => _importCommand ??= new RelayCommand(_ => ImportConfig());
+    public RelayCommand ExportCommand => _exportCommand ??= new RelayCommand(_ => ExportConfig());
     public RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(param => Delete(param));
     public RelayCommand ExecuteCommand => _executeCommand ??= new RelayCommand(_ => Execute());
 
@@ -176,6 +233,65 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
         {
             InputFiles.Add(file);
         }
+    }
+
+    private void ImportConfig()
+    {
+        using OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
+
+        if (openFileDialog.ShowDialog() is not DialogResult.OK) return;
+
+        using FileStream file = File.OpenRead(openFileDialog.FileName);
+
+        DeserializeConfig(JsonHelper<ConfigExportMultiple>.DeserializeConfig(file));
+    }
+
+    private void DeserializeConfig(ConfigExportMultiple config)
+    {
+        if (config == null) return;
+
+        // RVT Export Settings
+        ExportRVT = config.ExportRVT;
+        RvtExportMode = config.RvtExportMode;
+        FolderPathRVT = config.FolderPathRVT;
+
+        // NWC Export Settings
+        ExportNWC = config.ExportNWC;
+        ConfigNWC = config.ConfigNWC;
+        FolderPathNWC = config.FolderPathNWC;
+
+        // IFC Export Settings
+        ExportIFC = config.ExportIFC;
+        ConfigIFC = config.ConfigIFC;
+        ConfigIFCAdditionalFields = config.ConfigIFCAdditionalFields;
+        FolderPathIFC = config.FolderPathIFC;
+
+        // Model Cleaning Settings
+        CleanModel = config.CleanModel;
+        ConfigClean = config.ConfigClean;
+
+        // General Settings
+        ViewName = config.ViewName;
+
+        // Input Files Collection
+        InputFiles.Clear();
+        foreach (string file in config.InputFiles)
+        {
+            InputFiles.Add(file);
+        }
+    }
+
+    private void ExportConfig()
+    {
+        ConfigExportMultiple configExportMultiple = new(this);
+        using SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();
+
+        if (saveFileDialog.ShowDialog() is not DialogResult.OK) return;
+
+        string fileName = saveFileDialog.FileName;
+        File.Delete(fileName);
+
+        JsonHelper<ConfigExportMultiple>.SerializeConfig(configExportMultiple, fileName);
     }
 
     private void Delete(object parameter)

@@ -1,3 +1,4 @@
+using AlterTools.atExportModel.Configs;
 using AlterTools.atExportModel.Enums;
 
 namespace AlterTools.atExportModel.Interfaces;
@@ -10,14 +11,14 @@ public interface IConfigExport
     public RvtExportMode RvtExportMode { get; set; }
 
     public bool ExportNWC { get; set; }
-    public IConfigNWC ConfigNWC { get; set; }
+    public ConfigNWC ConfigNWC { get; set; }
 
     public bool ExportIFC { get; set; }
-    public IConfigIFC ConfigIFC { get; set; }
-    public IConfigIFCAdditionalFields ConfigIFCAdditionalFields { get; set; }
+    public ConfigIFC ConfigIFC { get; set; }
+    public ConfigIFCAdd ConfigIFCAdditionalFields { get; set; }
 
     public bool CleanModel { get; set; }
-    public IConfigClean ConfigClean { get; set; }
+    public ConfigClean ConfigClean { get; set; }
 
     public string ViewName { get; set; }
     public string FolderPathRVT { get; set; }

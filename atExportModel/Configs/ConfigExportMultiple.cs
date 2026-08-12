@@ -1,9 +1,10 @@
+using System.Collections.ObjectModel;
 using AlterTools.atExportModel.Enums;
 using AlterTools.atExportModel.Interfaces;
 
 namespace AlterTools.atExportModel.Configs;
 
-public class ConfigExportSingle : IConfigExportSingle
+public class ConfigExportMultiple : IConfigExportMultiple
 {
     public bool ExportRVT { get; set; }
     public RvtExportMode RvtExportMode { get; set; }
@@ -18,13 +19,13 @@ public class ConfigExportSingle : IConfigExportSingle
     public string FolderPathRVT { get; set; }
     public string FolderPathNWC { get; set; }
     public string FolderPathIFC { get; set; }
-    public string FileName { get; set; }
+    public ObservableCollection<string> InputFiles { get; set; }
 
-    public ConfigExportSingle()
+    public ConfigExportMultiple()
     {
     }
 
-    public ConfigExportSingle(IConfigExport parent)
+    public ConfigExportMultiple(IConfigExportMultiple parent)
     {
         ExportRVT = parent.ExportRVT;
         RvtExportMode = parent.RvtExportMode;
@@ -39,5 +40,6 @@ public class ConfigExportSingle : IConfigExportSingle
         FolderPathRVT = parent.FolderPathRVT;
         FolderPathNWC = parent.FolderPathNWC;
         FolderPathIFC = parent.FolderPathIFC;
+        InputFiles = parent.InputFiles;
     }
 }

@@ -11,8 +11,8 @@ public static class UtilsIFC
 {
     public static IFCExportOptions GetIFCExportOptions(ConfigExportSingle config, Document doc)
     {
-        IConfigIFC configIFC = config.ConfigIFC;
-        IConfigIFCAdditionalFields configIFCAdd = config.ConfigIFCAdditionalFields;
+        ConfigIFC configIFC = config.ConfigIFC;
+        ConfigIFCAdd configIFCAdd = config.ConfigIFCAdditionalFields;
         IFCExportOptions options = new()
         {
             ExportBaseQuantities = configIFC.ExportBaseQuantities,
@@ -48,7 +48,7 @@ public static class UtilsIFC
     }
 
     // Do I need it, or exporter will handle it?
-    private static void ValidateConditionals(IConfigIFC configIFC, IConfigIFCAdditionalFields configIFCAdd)
+    private static void ValidateConditionals(ConfigIFC configIFC, ConfigIFCAdd configIFCAdd)
     {
         if (string.IsNullOrWhiteSpace(configIFC.FamilyMappingFile)
             || !File.Exists(configIFC.FamilyMappingFile))

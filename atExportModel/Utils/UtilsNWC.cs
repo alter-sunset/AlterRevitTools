@@ -9,7 +9,7 @@ public static class UtilsNWC
 {
     public static NavisworksExportOptions GetNWCExportOptions(ConfigExportSingle config, Document doc)
     {
-        IConfigNWC configNWC = config.ConfigNWC;
+        ConfigNWC configNWC = config.ConfigNWC;
         NavisworksExportOptions options = new()
         {
             ConvertElementProperties = configNWC.ConvertElementProperties,

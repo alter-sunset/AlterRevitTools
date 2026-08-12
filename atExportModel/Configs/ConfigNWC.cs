@@ -3,7 +3,7 @@ using Autodesk.Revit.DB;
 
 namespace AlterTools.atExportModel.Configs;
 
-public class ConfigNWC : IConfigNWC
+public class ConfigNWC
 {
     public bool ConvertElementProperties { get; set; } = true;
     public bool DivideFileIntoLevels { get; set; } = true;

@@ -55,9 +55,9 @@ internal static class ContextIFC
 
     public static IReadOnlyDictionary<double, string> LevelsOfDetail { get; } = new Dictionary<double, string>
     {
-        { 0.25, "Low" },
-        { 0.5, "Medium" },
-        { 0.75, "High" },
-        { 1.0, "Max" },
+        { 0.25, "Ultra-Low" },
+        { 0.5, "Low" },
+        { 0.75, "Medium" },
+        { 1.0, "High" },
     };
 }
