@@ -716,4 +716,10 @@ RS links</value>
     <data name="DraftingViews" xml:space="preserve">
         <value>Drafting views</value>
     </data>
+    <data name="ProvideFilesError" xml:space="preserve">
+        <value>Provide at least one file!</value>
+    </data>
+    <data name="SelectExportModeError" xml:space="preserve">
+        <value>Select at least one export mode!</value>
+    </data>
 </root>

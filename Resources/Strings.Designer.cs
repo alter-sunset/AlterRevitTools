@@ -1574,6 +1574,15 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Provide at least one file!.
+        /// </summary>
+        public static string ProvideFilesError {
+            get {
+                return ResourceManager.GetString("ProvideFilesError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Purge.
         /// </summary>
         public static string Purge {
@@ -1759,6 +1768,15 @@ namespace AlterTools.Resources {
         public static string Sections {
             get {
                 return ResourceManager.GetString("Sections", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select at least one export mode!.
+        /// </summary>
+        public static string SelectExportModeError {
+            get {
+                return ResourceManager.GetString("SelectExportModeError", resourceCulture);
             }
         }
         

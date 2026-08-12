@@ -5,6 +5,7 @@ using AlterTools.atExportModel.Enums;
 using AlterTools.atExportModel.Interfaces;
 using AlterTools.Utils;
 using AlterTools.Utils.MVVM;
+using AlterTools.Resources;
 using MessageBox = System.Windows.MessageBox;
 
 namespace AlterTools.atExportModel.UI;
@@ -319,13 +320,13 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
     {
         if (!_inputFiles.Any())
         {
-            MessageBox.Show("Provide at least one file!");
+            MessageBox.Show(Strings.ProvideFilesError);
             return false;
         }
 
         if (!_exportNWC && !_exportIFC && !_exportRVT)
         {
-            MessageBox.Show("Select at least one export mode!");
+            MessageBox.Show(Strings.SelectExportModeError);
             return false;
         }
 

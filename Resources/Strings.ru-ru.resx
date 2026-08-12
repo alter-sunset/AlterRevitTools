@@ -708,4 +708,10 @@ Revit ссылок</value>
     <data name="DraftingViews" xml:space="preserve">
         <value>Чертёжные виды</value>
     </data>
+    <data name="ProvideFilesError" xml:space="preserve">
+        <value>Добавьте хотя бы один файл!</value>
+    </data>
+    <data name="SelectExportModeError" xml:space="preserve">
+        <value>Выберите хотя бы один режим экспорта!</value>
+    </data>
 </root>

@@ -1,6 +1,7 @@
 using AlterTools.atExportModel.Configs;
 using AlterTools.atExportModel.Utils;
 using AlterTools.atExportModel.Interfaces;
+using AlterTools.Resources;
 using AlterTools.Utils;
 using AlterTools.Utils.MVVM;
 using Autodesk.Revit.UI;
@@ -25,5 +26,7 @@ public class ExternalEventHandler : RevitEventWrapper<IConfigExportMultiple>
             config.FileName = file;
             UtilsMain.ProcessModel(app, config);
         }
+
+        MessageBox.Show(Strings.Done);
     }
 }
