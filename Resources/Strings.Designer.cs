@@ -78,6 +78,15 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to as CM.
+        /// </summary>
+        public static string AsCM {
+            get {
+                return ResourceManager.GetString("AsCM", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to RVT files to be exported.
         /// </summary>
         public static string BaseHeader {
@@ -105,7 +114,7 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Browse.
+        ///   Looks up a localized string similar to Browse....
         /// </summary>
         public static string Browse {
             get {
@@ -146,6 +155,24 @@ namespace AlterTools.Resources {
         public static string CheckForEmptyViewToolTip {
             get {
                 return ResourceManager.GetString("CheckForEmptyViewToolTip", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clean.
+        /// </summary>
+        public static string Clean {
+            get {
+                return ResourceManager.GetString("Clean", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Clean settings.
+        /// </summary>
+        public static string CleanSettings {
+            get {
+                return ResourceManager.GetString("CleanSettings", resourceCulture);
             }
         }
         
@@ -250,25 +277,6 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Detach 
-        ///models.
-        /// </summary>
-        public static string CoreButtonDetachText {
-            get {
-                return ResourceManager.GetString("CoreButtonDetachText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Batch detach and export models.
-        /// </summary>
-        public static string CoreButtonDetachToolTip {
-            get {
-                return ResourceManager.GetString("CoreButtonDetachToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Test Export.
         /// </summary>
         public static string CoreButtonExportText {
@@ -283,25 +291,6 @@ namespace AlterTools.Resources {
         public static string CoreButtonExportToolTip {
             get {
                 return ResourceManager.GetString("CoreButtonExportToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to IFC 
-        ///Export.
-        /// </summary>
-        public static string CoreButtonIFCText {
-            get {
-                return ResourceManager.GetString("CoreButtonIFCText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Batch export models to IFC.
-        /// </summary>
-        public static string CoreButtonIFCToolTip {
-            get {
-                return ResourceManager.GetString("CoreButtonIFCToolTip", resourceCulture);
             }
         }
         
@@ -344,25 +333,6 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to NWC 
-        ///Export.
-        /// </summary>
-        public static string CoreButtonNWCText {
-            get {
-                return ResourceManager.GetString("CoreButtonNWCText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Batch export models to NWC.
-        /// </summary>
-        public static string CoreButtonNWCToolTip {
-            get {
-                return ResourceManager.GetString("CoreButtonNWCToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Parameters 
         ///Export.
         /// </summary>
@@ -396,25 +366,6 @@ namespace AlterTools.Resources {
         public static string CoreButtonPurgeToolTip {
             get {
                 return ResourceManager.GetString("CoreButtonPurgeToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Transmit 
-        ///models.
-        /// </summary>
-        public static string CoreButtonTransmitText {
-            get {
-                return ResourceManager.GetString("CoreButtonTransmitText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Batch transmit models.
-        /// </summary>
-        public static string CoreButtonTransmitToolTip {
-            get {
-                return ResourceManager.GetString("CoreButtonTransmitToolTip", resourceCulture);
             }
         }
         
@@ -666,11 +617,29 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export parameters.
+        /// </summary>
+        public static string ExportParameters {
+            get {
+                return ResourceManager.GetString("ExportParameters", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Export room geometry.
         /// </summary>
         public static string ExportRoomGeometry {
             get {
                 return ResourceManager.GetString("ExportRoomGeometry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export settings.
+        /// </summary>
+        public static string ExportSettings {
+            get {
+                return ResourceManager.GetString("ExportSettings", resourceCulture);
             }
         }
         
@@ -743,6 +712,33 @@ namespace AlterTools.Resources {
         public static string FirstLevel {
             get {
                 return ResourceManager.GetString("FirstLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to IFC Folder.
+        /// </summary>
+        public static string FolderIFC {
+            get {
+                return ResourceManager.GetString("FolderIFC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to NWC Folder.
+        /// </summary>
+        public static string FolderNWC {
+            get {
+                return ResourceManager.GetString("FolderNWC", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to RVT Folder.
+        /// </summary>
+        public static string FolderRVT {
+            get {
+                return ResourceManager.GetString("FolderRVT", resourceCulture);
             }
         }
         
@@ -975,6 +971,15 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Import.
+        /// </summary>
+        public static string Import {
+            get {
+                return ResourceManager.GetString("Import", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Project Internal.
         /// </summary>
         public static string Internal {
@@ -1178,6 +1183,15 @@ namespace AlterTools.Resources {
         public static string Model {
             get {
                 return ResourceManager.GetString("Model", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Models export.
+        /// </summary>
+        public static string ModelsExport {
+            get {
+                return ResourceManager.GetString("ModelsExport", resourceCulture);
             }
         }
         
@@ -1615,6 +1629,15 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to transmit.
+        /// </summary>
+        public static string Transmit {
+            get {
+                return ResourceManager.GetString("Transmit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Batch export of transmitted models.
         /// </summary>
         public static string TransmitTitle {
@@ -1647,6 +1670,15 @@ namespace AlterTools.Resources {
         public static string View {
             get {
                 return ResourceManager.GetString("View", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View name.
+        /// </summary>
+        public static string ViewName {
+            get {
+                return ResourceManager.GetString("ViewName", resourceCulture);
             }
         }
         

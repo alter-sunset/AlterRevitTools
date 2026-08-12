@@ -8,7 +8,7 @@
         xmlns:utils="clr-namespace:AlterTools.atExportModel.Utils"
         xmlns:enums="clr-namespace:AlterTools.atExportModel.Enums"
         mc:Ignorable="d"
-        Title="Models Export"
+        Title="{x:Static resx:Strings.ModelsExport}"
         Height="600"
         Width="900"
         ResizeMode="NoResize">
@@ -36,7 +36,7 @@
         <GroupBox
             Grid.Row="0"
             Grid.Column="0"
-            Header="Параметры экспорта"
+            Header="{x:Static resx:Strings.ExportParameters}"
             Margin="10 "
             Background="WhiteSmoke">
             <Grid
@@ -72,7 +72,7 @@
                     VerticalAlignment="Center"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
-                    Content="Настройки экспорта"
+                    Content="{x:Static resx:Strings.ExportSettings}"
                     Command="{Binding SettingsNWCCommand}" />
 
                 <CheckBox
@@ -92,7 +92,7 @@
                     VerticalAlignment="Center"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
-                    Content="Настройки экспорта"
+                    Content="{x:Static resx:Strings.ExportSettings}"
                     Command="{Binding SettingsIFCCommand}" />
 
                 <CheckBox
@@ -110,7 +110,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     GroupName="ModelType"
-                    Content="для передачи"
+                    Content="{x:Static resx:Strings.Transmit}"
                     IsChecked="{Binding RvtExportMode,
                         Mode=TwoWay,
                         Converter={StaticResource EnumToBooleanConverter},
@@ -122,7 +122,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     GroupName="ModelType"
-                    Content="как ЦМ"
+                    Content="{x:Static resx:Strings.AsCM}"
                     IsChecked="{Binding RvtExportMode,
                         Mode=TwoWay,
                         Converter={StaticResource EnumToBooleanConverter},
@@ -131,7 +131,7 @@
                 <CheckBox
                     Grid.Row="3"
                     Grid.Column="0"
-                    Content="Очистка"
+                    Content="{x:Static resx:Strings.Clean}"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     IsChecked="{Binding CleanModel}"
@@ -146,7 +146,7 @@
                     VerticalAlignment="Center"
                     HorizontalContentAlignment="Center"
                     VerticalContentAlignment="Center"
-                    Content="Настройки очистки"
+                    Content="{x:Static resx:Strings.CleanSettings}"
                     Command="{Binding SettingsCleanCommand}"
                     IsEnabled="{Binding IsChecked, ElementName=RvtCheckBox}" />
             </Grid>
@@ -176,7 +176,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Margin="10"
-                    Text="Имя вида" />
+                    Text="{x:Static resx:Strings.ViewName}" />
                 <TextBox
                     Grid.Row="0"
                     Grid.Column="1"
@@ -201,7 +201,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Margin="10"
-                    Text="Папка NWC" />
+                    Text="{x:Static resx:Strings.FolderNWC}" />
                 <TextBox
                     Grid.Row="1"
                     Grid.Column="1"
@@ -216,7 +216,7 @@
                     Grid.Column="2"
                     Height="25"
                     Width="100"
-                    Content="Обзор..."
+                    Content="{x:Static resx:Strings.Browse}"
                     Command="{Binding BrowseFolderNWCCommand}"
                     IsEnabled="{Binding ExportNWC}" />
 
@@ -226,7 +226,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Margin="10"
-                    Text="Папка IFC" />
+                    Text="{x:Static resx:Strings.FolderIFC}" />
                 <TextBox
                     Grid.Row="2"
                     Grid.Column="1"
@@ -241,7 +241,7 @@
                     Grid.Column="2"
                     Height="25"
                     Width="100"
-                    Content="Обзор..."
+                    Content="{x:Static resx:Strings.Browse}"
                     Command="{Binding BrowseFolderIFCCommand}"
                     IsEnabled="{Binding ExportIFC}" />
 
@@ -251,7 +251,7 @@
                     HorizontalAlignment="Left"
                     VerticalAlignment="Center"
                     Margin="10"
-                    Text="Папка RVT" />
+                    Text="{x:Static resx:Strings.FolderRVT}" />
                 <TextBox
                     Grid.Row="3"
                     Grid.Column="1"
@@ -266,7 +266,7 @@
                     Grid.Column="2"
                     Height="25"
                     Width="100"
-                    Content="Обзор..."
+                    Content="{x:Static resx:Strings.Browse}"
                     Command="{Binding BrowseFolderRVTCommand}"
                     IsEnabled="{Binding ExportRVT}" />
             </Grid>
@@ -299,7 +299,7 @@
             <Button
                 Grid.Column="0"
                 Margin="0 5 5 5"
-                Content="Загрузить"
+                Content="{x:Static resx:Strings.Load}"
                 Height="30"
                 Width="100"
                 HorizontalAlignment="Left"
@@ -308,7 +308,7 @@
             <Button
                 Grid.Column="2"
                 Margin="5 5"
-                Content="Импорт"
+                Content="{x:Static resx:Strings.Import}"
                 Height="30"
                 Width="100"
                 HorizontalAlignment="Right"
@@ -316,7 +316,7 @@
             <Button
                 Grid.Column="3"
                 Margin="5 5"
-                Content="Экспорт"
+                Content="{x:Static resx:Strings.Export}"
                 Height="30"
                 Width="100"
                 HorizontalAlignment="Left"
@@ -325,7 +325,7 @@
             <Button
                 Grid.Column="5"
                 Margin="5 5 10 5"
-                Content="Запуск"
+                Content="{x:Static resx:Strings.Start}"
                 Height="30"
                 Width="100"
                 HorizontalAlignment="Right"

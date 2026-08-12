@@ -69,7 +69,7 @@
         <value>Save to folder</value>
     </data>
     <data name="Browse" xml:space="preserve">
-        <value>Browse</value>
+        <value>Browse...</value>
     </data>
     <data name="LinkTitle" xml:space="preserve">
         <value>Batch link models</value>
@@ -474,22 +474,6 @@ where the first string is the current path to the file, and the second is the ne
     <data name="CorePanelImport" xml:space="preserve">
         <value>Batch import</value>
     </data>
-    <data name="CoreButtonNWCText" xml:space="preserve">
-        <value>NWC 
-Export</value>
-    </data>
-    <data name="CoreButtonIFCText" xml:space="preserve">
-        <value>IFC 
-Export</value>
-    </data>
-    <data name="CoreButtonDetachText" xml:space="preserve">
-        <value>Detach 
-models</value>
-    </data>
-    <data name="CoreButtonTransmitText" xml:space="preserve">
-        <value>Transmit 
-models</value>
-    </data>
     <data name="CoreButtonMigrateText" xml:space="preserve">
         <value>Migrate 
 models</value>
@@ -505,18 +489,6 @@ RVT models</value>
     <data name="CoreButtonWorksetsText" xml:space="preserve">
         <value>Worksets 
 Export</value>
-    </data>
-    <data name="CoreButtonNWCToolTip" xml:space="preserve">
-        <value>Batch export models to NWC</value>
-    </data>
-    <data name="CoreButtonIFCToolTip" xml:space="preserve">
-        <value>Batch export models to IFC</value>
-    </data>
-    <data name="CoreButtonDetachToolTip" xml:space="preserve">
-        <value>Batch detach and export models</value>
-    </data>
-    <data name="CoreButtonTransmitToolTip" xml:space="preserve">
-        <value>Batch transmit models</value>
     </data>
     <data name="CoreButtonMigrateToolTip" xml:space="preserve">
         <value>Batch migrate models and update nested links</value>
@@ -594,5 +566,41 @@ RS links</value>
     </data>
     <data name="View" xml:space="preserve">
         <value>View</value>
+    </data>
+    <data name="ModelsExport" xml:space="preserve">
+        <value>Models export</value>
+    </data>
+    <data name="ExportParameters" xml:space="preserve">
+        <value>Export parameters</value>
+    </data>
+    <data name="ExportSettings" xml:space="preserve">
+        <value>Export settings</value>
+    </data>
+    <data name="Transmit" xml:space="preserve">
+        <value>transmit</value>
+    </data>
+    <data name="AsCM" xml:space="preserve">
+        <value>as CM</value>
+    </data>
+    <data name="Clean" xml:space="preserve">
+        <value>Clean</value>
+    </data>
+    <data name="CleanSettings" xml:space="preserve">
+        <value>Clean settings</value>
+    </data>
+    <data name="Import" xml:space="preserve">
+        <value>Import</value>
+    </data>
+    <data name="ViewName" xml:space="preserve">
+        <value>View name</value>
+    </data>
+    <data name="FolderNWC" xml:space="preserve">
+        <value>NWC Folder</value>
+    </data>
+    <data name="FolderIFC" xml:space="preserve">
+        <value>IFC Folder</value>
+    </data>
+    <data name="FolderRVT" xml:space="preserve">
+        <value>RVT Folder</value>
     </data>
 </root>

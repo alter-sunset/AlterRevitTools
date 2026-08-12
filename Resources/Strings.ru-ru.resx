@@ -61,7 +61,7 @@
         <value>Папка для сохранения</value>
     </data>
     <data name="Browse" xml:space="preserve">
-        <value>Обзор</value>
+        <value>Обзор...</value>
     </data>
     <data name="LinkTitle" xml:space="preserve">
         <value>Пакетное добавление связей</value>
@@ -464,22 +464,6 @@
     <data name="CorePanelImport" xml:space="preserve">
         <value>Пакетный импорт</value>
     </data>
-    <data name="CoreButtonNWCText" xml:space="preserve">
-        <value>Экспорт 
-NWC</value>
-    </data>
-    <data name="CoreButtonIFCText" xml:space="preserve">
-        <value>Экспорт 
-IFC</value>
-    </data>
-    <data name="CoreButtonDetachText" xml:space="preserve">
-        <value>Отсоединение 
-моделей</value>
-    </data>
-    <data name="CoreButtonTransmitText" xml:space="preserve">
-        <value>Передача 
-моделей</value>
-    </data>
     <data name="CoreButtonMigrateText" xml:space="preserve">
         <value>Миграция 
 моделей</value>
@@ -495,18 +479,6 @@ Revit ссылок</value>
     <data name="CoreButtonWorksetsText" xml:space="preserve">
         <value>Экспорт 
 рабочих наборов</value>
-    </data>
-    <data name="CoreButtonNWCToolTip" xml:space="preserve">
-        <value>Пакетный экспорт в NWC</value>
-    </data>
-    <data name="CoreButtonIFCToolTip" xml:space="preserve">
-        <value>Пакетный экспорт в IFC</value>
-    </data>
-    <data name="CoreButtonDetachToolTip" xml:space="preserve">
-        <value>Пакетный экспорт отсоединённых моделей</value>
-    </data>
-    <data name="CoreButtonTransmitToolTip" xml:space="preserve">
-        <value>Пакетная передача моделей</value>
     </data>
     <data name="CoreButtonMigrateToolTip" xml:space="preserve">
         <value>Пакетная миграция моделей с обновлением связей</value>
@@ -585,5 +557,38 @@ Revit ссылок</value>
     </data>
     <data name="View" xml:space="preserve">
         <value>Вид</value>
+    </data>
+    <data name="ExportParameters" xml:space="preserve">
+        <value>Параметры экспорта</value>
+    </data>
+    <data name="ExportSettings" xml:space="preserve">
+        <value>Настройки экспорта</value>
+    </data>
+    <data name="Transmit" xml:space="preserve">
+        <value>для передачи</value>
+    </data>
+    <data name="AsCM" xml:space="preserve">
+        <value>как ЦМ</value>
+    </data>
+    <data name="Clean" xml:space="preserve">
+        <value>Очистка</value>
+    </data>
+    <data name="CleanSettings" xml:space="preserve">
+        <value>Настройки очистки</value>
+    </data>
+    <data name="Import" xml:space="preserve">
+        <value>Импорт</value>
+    </data>
+    <data name="ViewName" xml:space="preserve">
+        <value>Имя вида</value>
+    </data>
+    <data name="FolderNWC" xml:space="preserve">
+        <value>Папка NWC</value>
+    </data>
+    <data name="FolderIFC" xml:space="preserve">
+        <value>Папка IFC</value>
+    </data>
+    <data name="FolderRVT" xml:space="preserve">
+        <value>Папка RVT</value>
     </data>
 </root>
