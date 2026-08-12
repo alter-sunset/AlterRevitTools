@@ -2,7 +2,7 @@ using System.Windows;
 
 namespace AlterTools.atExportModel.UI;
 
-public partial class WindowClean : Window
+public partial class WindowClean
 {
     public WindowClean(ViewModelClean viewModelClean)
     {

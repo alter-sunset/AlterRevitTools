@@ -1,6 +1,5 @@
 using AlterTools.atExportModel.Configs;
 using AlterTools.atExportModel.Enums;
-using AlterTools.Resources;
 using AlterTools.Utils.MVVM;
 using Autodesk.Revit.DB;
 

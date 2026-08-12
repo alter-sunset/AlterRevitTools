@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using System.Windows.Interop;
+﻿using System.Windows.Interop;
 using AlterTools.atExportModel.UI;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
@@ -28,4 +27,3 @@ public class Command : IExternalCommand
         return Result.Succeeded;
     }
 }
-// TODO: fill the resources
