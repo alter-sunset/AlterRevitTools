@@ -144,8 +144,6 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigLink
             .ForEach(entry => Entries.Remove(entry));
     }
 
-    private void Erase() => Entries.Clear();
-
     private RelayCommand _executeCommand;
     public RelayCommand ExecuteCommand => _executeCommand ??= new RelayCommand(_ => Execute());
 
@@ -166,15 +164,10 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigLink
 
     private bool _isViewEnabled = true;
 
-    private string _viewName = "Navisworks";
-
     private RelayCommand _browseFolderCommand;
     private RelayCommand _deleteCommand;
-    private RelayCommand _eraseCommand;
-    private RelayCommand _helpCommand;
     private RelayCommand _loadCommand;
     private RelayCommand _loadListCommand;
-    private RelayCommand _raiseEventCommand;
     private RelayCommand _saveListCommand;
 
     private ObservableCollection<ListBoxItem> _listBoxItems = [];
@@ -202,7 +195,6 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigLink
     public RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
     public RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
     public RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(_ => DeleteSelectedItems());
-    public RelayCommand EraseCommand => _eraseCommand ??= new RelayCommand(_ => Erase());
     public RelayCommand BrowseFolderCommand => _browseFolderCommand ??= new RelayCommand(_ => BrowseFolder());
 
     private void BrowseFolder()

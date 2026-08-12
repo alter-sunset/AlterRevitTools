@@ -11,50 +11,6 @@
     "Availability": true
   },
   {
-    "Name": "NWC",
-    "Text": "CoreButtonNWCText",
-    "LibraryName": "blank.dll",
-    "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportModelsToNWC",
-    "ToolTip": "CoreButtonNWCToolTip",
-    "ImageLarge": "Resources\\nwc.png",
-    "ImageSmall": "Resources\\nwc_16.png",
-    "Panel": "CorePanelExport",
-    "Availability": true
-  },
-  {
-    "Name": "IFC",
-    "Text": "CoreButtonIFCText",
-    "LibraryName": "blank.dll",
-    "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportModelsToIFC",
-    "ToolTip": "CoreButtonIFCToolTip",
-    "ImageLarge": "Resources\\ifc.png",
-    "ImageSmall": "Resources\\ifc_16.png",
-    "Panel": "CorePanelExport",
-    "Availability": true
-  },
-  {
-    "Name": "Detach",
-    "Text": "CoreButtonDetachText",
-    "LibraryName": "blank.dll",
-    "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportModelsDetached",
-    "ToolTip": "CoreButtonDetachToolTip",
-    "ImageLarge": "Resources\\detach.png",
-    "ImageSmall": "Resources\\detach_16.png",
-    "Panel": "CorePanelExport",
-    "Availability": true
-  },
-  {
-    "Name": "Transmit",
-    "Text": "CoreButtonTransmitText",
-    "LibraryName": "blank.dll",
-    "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportModelsTransmitted",
-    "ToolTip": "CoreButtonTransmitToolTip",
-    "ImageLarge": "Resources\\transmit.png",
-    "ImageSmall": "Resources\\transmit_16.png",
-    "Panel": "CorePanelExport",
-    "Availability": true
-  },
-  {
     "Name": "Migrate",
     "Text": "CoreButtonMigrateText",
     "LibraryName": "blank.dll",
@@ -79,8 +35,8 @@
   {
     "Name": "Link",
     "Text": "CoreButtonLinkText",
-    "LibraryName": "blank.dll",
-    "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandLinkModels",
+    "LibraryName": "atLink.dll",
+    "ClassName": "AlterTools.atLink.Command",
     "ToolTip": "CoreButtonLinkToolTip",
     "ImageLarge": "Resources\\link.png",
     "ImageSmall": "Resources\\link_16.png",

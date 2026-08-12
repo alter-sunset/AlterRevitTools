@@ -8,13 +8,19 @@
                  xmlns:mvvm="clr-namespace:AlterTools.Utils.MVVM;assembly=Utils"
                  xmlns:atLink="clr-namespace:AlterTools.atLink"
                  mc:Ignorable="d"
-                 Height="450"
+                 Height="500"
                  Width="800"
                  WindowStartupLocation="CenterScreen"
                  ResizeMode="NoResize"
                  Title="{x:Static resx:Strings.LinkTitle}"
                  IsEnabled="{Binding IsViewEnabled}"
                  ShowInTaskbar="False">
+    <Window.InputBindings>
+        <!-- The CommandParameter feeds the real UI selection list to your backend -->
+        <KeyBinding Key="Delete"
+                    Command="{Binding DeleteCommand}"
+                    CommandParameter="{Binding SelectedItems, ElementName=FilesListBox}" />
+    </Window.InputBindings>
     <Grid Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -23,38 +29,70 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="4*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="300" />
+            <RowDefinition Height="50" />
         </Grid.RowDefinitions>
-        <TextBlock Margin="10,0,10,0"
-                   FontSize="14"
-                   Grid.Column="0"
-                   Grid.ColumnSpan="2"
-                   VerticalAlignment="Center"
-                   Text="{x:Static resx:Strings.LinkHeader}" />
 
-        <Button Margin="10"
-                Grid.Column="3"
-                Grid.Row="0"
-                Command="{Binding HelpCommand}"
-                ToolTip="{x:Static resx:Strings.HelpToolTip}"
-                Content="{x:Static resx:Strings.Help}" />
-        <ListBox Grid.Row="1"
-                 Grid.Column="0"
-                 Grid.ColumnSpan="4"
-                 Margin="10"
-                 Width="760"
-                 SelectionMode="Extended"
-                 ItemsSource="{Binding Entries}"
-                 SelectedItem="{Binding SelectedEntry}"
-                 ScrollViewer.HorizontalScrollBarVisibility="Auto"
-                 ScrollViewer.VerticalScrollBarVisibility="Auto"
-                 HorizontalContentAlignment="Left"
-                 SelectionChanged="ListBox_SelectionChanged"
-                 ToolTip="{x:Static resx:Strings.ListBoxToolTip}">
+        <!-- 1 -->
+        <CheckBox Margin="10,0,10,0"
+                  Grid.Column="0"
+                  Grid.Row="0"
+                  VerticalAlignment="Center"
+                  Content="{x:Static resx:Strings.PinLinks}"
+                  IsChecked="{Binding PinLinks}" />
+        <TextBlock Margin="10 0"
+                   FontSize="12"
+                   Grid.Row="0"
+                   Grid.Column="1"
+                   VerticalAlignment="Center"
+                   TextWrapping="Wrap"
+                   Text="{x:Static resx:Strings.WorksetPrefixes}" />
+        <TextBox Margin="10 10"
+                 Grid.Row="0"
+                 Grid.Column="2"
+                 Grid.ColumnSpan="2"
+                 Height="30"
+                 VerticalContentAlignment="Center"
+                 Text="{Binding WorksetPrefix}"
+                 ToolTip="{x:Static resx:Strings.WorksetPrefixesToolTip}" />
+
+        <!-- 2 -->
+        <CheckBox Margin="10,0,100,0"
+                  Grid.Column="0"
+                  Grid.Row="1"
+                  VerticalAlignment="Center"
+                  Content="{x:Static resx:Strings.LinkCurrentWorkset}"
+                  Grid.ColumnSpan="2"
+                  IsChecked="{Binding IsCurrentWorkset}" />
+        <!-- 3 -->
+        <TextBlock
+            Grid.Row="2"
+            Margin="10,0,10,0"
+            FontSize="14"
+            Grid.Column="0"
+            Grid.ColumnSpan="2"
+            VerticalAlignment="Center"
+            Text="{x:Static resx:Strings.LinkHeader}" />
+
+        <!-- 4 -->
+        <ListBox
+            x:Name="FilesListBox"
+            Grid.Row="3"
+            Grid.Column="0"
+            Grid.ColumnSpan="4"
+            Margin="10"
+            Width="760"
+            SelectionMode="Extended"
+            ItemsSource="{Binding Entries}"
+            SelectedItem="{Binding SelectedEntry}"
+            ScrollViewer.HorizontalScrollBarVisibility="Auto"
+            ScrollViewer.VerticalScrollBarVisibility="Auto"
+            HorizontalContentAlignment="Left"
+            SelectionChanged="ListBox_SelectionChanged"
+            ToolTip="{x:Static resx:Strings.ListBoxToolTip}">
             <ListBox.ItemTemplate>
                 <DataTemplate DataType="atLink:Entry">
                     <Grid>
@@ -82,67 +120,38 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
+        <!-- 5 -->
         <Button Margin="10"
                 Grid.Column="0"
-                Grid.Row="2"
+                Grid.Row="4"
+                Height="30"
+                Width="100"
+                HorizontalAlignment="Left"
                 Command="{Binding LoadCommand}"
                 Content="{x:Static resx:Strings.Load}"
                 ToolTip="{x:Static resx:Strings.LoadToolTip}" />
         <Button Margin="10"
                 Grid.Column="1"
-                Grid.Row="2"
+                Grid.Row="4"
+                Height="30"
+                Width="100"
+                HorizontalAlignment="Right"
                 Command="{Binding LoadListCommand}"
-                Content="{x:Static resx:Strings.LoadList}"
-                ToolTip="{x:Static resx:Strings.LoadListTxtToolTip}" />
+                Content="{x:Static resx:Strings.Import}" />
         <Button Margin="10"
                 Grid.Column="2"
-                Grid.Row="2"
+                Grid.Row="4"
+                Height="30"
+                Width="100"
+                HorizontalAlignment="Left"
                 Command="{Binding SaveListCommand}"
-                Content="{x:Static resx:Strings.SaveList}"
-                ToolTip="{x:Static resx:Strings.SaveListTxtToolTip}" />
-        <Button Margin="10"
-                Grid.Column="3"
-                Grid.Row="2"
-                Command="{Binding DeleteCommand}"
-                Content="{x:Static resx:Strings.Delete}"
-                ToolTip="{x:Static resx:Strings.DeleteToolTip}" />
-
-        <CheckBox Margin="10,0,10,0"
-                  Grid.Column="0"
-                  Grid.Row="3"
-                  VerticalAlignment="Center"
-                  Content="{x:Static resx:Strings.PinLinks}"
-                  IsChecked="{Binding PinLinks}" />
-        <TextBlock Margin="10,0,10,0"
-                   FontSize="12"
-                   Grid.Row="3"
-                   Grid.Column="1"
-                   VerticalAlignment="Center"
-                   TextWrapping="Wrap"
-                   Text="{x:Static resx:Strings.WorksetPrefixes}" />
-        <TextBox Margin="10,10,10,10"
-                 Grid.Row="3"
-                 Grid.Column="2"
-                 Grid.ColumnSpan="2"
-                 VerticalContentAlignment="Center"
-                 Text="{Binding WorksetPrefix}"
-                 ToolTip="{x:Static resx:Strings.WorksetPrefixesToolTip}" />
-
-        <CheckBox Margin="10,0,100,0"
-                  Grid.Column="0"
-                  Grid.Row="4"
-                  VerticalAlignment="Center"
-                  Content="{x:Static resx:Strings.LinkCurrentWorkset}"
-                  Grid.ColumnSpan="2"
-                  IsChecked="{Binding IsCurrentWorkset}" />
-        <Button Margin="10"
-                Grid.Row="4"
-                Grid.Column="2"
-                Command="{Binding EraseCommand}"
-                Content="{x:Static resx:Strings.EraseList}" />
+                Content="{x:Static resx:Strings.Export}" />
         <Button Margin="10"
                 Grid.Row="4"
                 Grid.Column="3"
+                Height="30"
+                Width="100"
+                HorizontalAlignment="Right"
                 Command="{Binding ExecuteCommand}"
                 Content="{x:Static resx:Strings.Start}" />
     </Grid>
