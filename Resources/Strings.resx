@@ -116,12 +116,6 @@
     <data name="PurgeModelsToolTip" xml:space="preserve">
         <value>Implements the functionality of the "Purge unused" command until complete cleanup (several times)</value>
     </data>
-    <data name="CheckForEmptyView" xml:space="preserve">
-        <value>Check models for “empty” view</value>
-    </data>
-    <data name="CheckForEmptyViewToolTip" xml:space="preserve">
-        <value>Should the “View_name” view be checked for the presence of objects, and if the view is empty, the file will be saved with the prefix “EMPTY_”</value>
-    </data>
     <data name="ViewNameToCheck" xml:space="preserve">
         <value>Name of the view to check</value>
     </data>
@@ -142,18 +136,6 @@
     </data>
     <data name="Default" xml:space="preserve">
         <value>Default</value>
-    </data>
-    <data name="Prefix" xml:space="preserve">
-        <value>Prefix</value>
-    </data>
-    <data name="PrefixToolTip" xml:space="preserve">
-        <value>Prefix to be added to the start of a file name</value>
-    </data>
-    <data name="Postfix" xml:space="preserve">
-        <value>Postfix</value>
-    </data>
-    <data name="PostfixToolTip" xml:space="preserve">
-        <value>Postfix to be added to the end of a file name</value>
     </data>
     <data name="IFCMappingTable" xml:space="preserve">
         <value>Export parameter mapping table</value>
@@ -279,12 +261,6 @@ Do you want to retrieve coordinates from the file?</value>
     <data name="LoadConfigsToolTip" xml:space="preserve">
         <value>Load list with configuration files in (.txt) format</value>
     </data>
-    <data name="Begin" xml:space="preserve">
-        <value>Begin</value>
-    </data>
-    <data name="BeginToolTip" xml:space="preserve">
-        <value>Begin export of multiple configurations</value>
-    </data>
     <data name="ParamsTitle" xml:space="preserve">
         <value>Batch export parameters</value>
     </data>
@@ -306,13 +282,6 @@ Do you want to retrieve coordinates from the file?</value>
     <data name="DefaultParams" xml:space="preserve">
         <value>Level;Assembly Code;Count</value>
     </data>
-    <data name="TransmitTitle" xml:space="preserve">
-        <value>Batch export of transmitted models</value>
-    </data>
-    <data name="PutEverythingInSingleFolder" xml:space="preserve">
-        <value>Put everything 
-in single folder</value>
-    </data>
     <data name="FilterTxt" xml:space="preserve">
         <value>Text file (.txt)|*.txt</value>
     </data>
@@ -332,7 +301,7 @@ in single folder</value>
         <value>Open Worksets</value>
     </data>
     <data name="PurgeUnused" xml:space="preserve">
-        <value>Purge unused</value>
+        <value>Purge unused elements</value>
     </data>
     <data name="RemoveEmptyWorksets" xml:space="preserve">
         <value>Remove empty Worksets</value>
@@ -391,9 +360,6 @@ Should I create one?</value>
     </data>
     <data name="MigrateDidntCopy" xml:space="preserve">
         <value>These files weren't copied:</value>
-    </data>
-    <data name="AddConfigs" xml:space="preserve">
-        <value>Add configs!</value>
     </data>
     <data name="TotalTime" xml:space="preserve">
         <value>Total time:</value>
@@ -507,9 +473,6 @@ Export</value>
     </data>
     <data name="SaveListTxtToolTip" xml:space="preserve">
         <value>Save list in (.txt) format</value>
-    </data>
-    <data name="PutEverythingInSingleFolderToolTip" xml:space="preserve">
-        <value>Put all models into single directory or preserve folder structure</value>
     </data>
     <data name="DwgImportDialog" xml:space="preserve">
         <value>Import detected no valid elements in the file's Model space</value>
@@ -689,5 +652,68 @@ RS links</value>
     </data>
     <data name="UseVisibleRevitNameAsEntityName" xml:space="preserve">
         <value>Use visible Revit name as the IFCEntity name</value>
+    </data>
+    <data name="RemoveLinkedCad" xml:space="preserve">
+        <value>Remove linked CAD files</value>
+    </data>
+    <data name="RemoveLinkedRvt" xml:space="preserve">
+        <value>Remove linked RVT files</value>
+    </data>
+    <data name="UnloadLinks" xml:space="preserve">
+        <value>Unload RVT link</value>
+    </data>
+    <data name="RemoveOrphanedRooms" xml:space="preserve">
+        <value>Remove unassigned rooms</value>
+    </data>
+    <data name="RemoveSheets" xml:space="preserve">
+        <value>Remove all sheets</value>
+    </data>
+    <data name="RemoveViews" xml:space="preserve">
+        <value>Remove selected view types:</value>
+    </data>
+    <data name="ViewTypesToDelete" xml:space="preserve">
+        <value>View types to delete</value>
+    </data>
+    <data name="ThreeDViews" xml:space="preserve">
+        <value>3D views</value>
+    </data>
+    <data name="Details" xml:space="preserve">
+        <value>Details</value>
+    </data>
+    <data name="Renderings" xml:space="preserve">
+        <value>Renderings</value>
+    </data>
+    <data name="ColumnsSchedules" xml:space="preserve">
+        <value>Column schedules</value>
+    </data>
+    <data name="Legends" xml:space="preserve">
+        <value>Legends</value>
+    </data>
+    <data name="Walkthroughs" xml:space="preserve">
+        <value>Walkthroughs</value>
+    </data>
+    <data name="AreaPlans" xml:space="preserve">
+        <value>Area plans</value>
+    </data>
+    <data name="EngineeringPlans" xml:space="preserve">
+        <value>Engineering plans</value>
+    </data>
+    <data name="CeilingPlans" xml:space="preserve">
+        <value>Ceiling plans</value>
+    </data>
+    <data name="FloorPlans" xml:space="preserve">
+        <value>Floor plans</value>
+    </data>
+    <data name="Sections" xml:space="preserve">
+        <value>Sections</value>
+    </data>
+    <data name="Schedules" xml:space="preserve">
+        <value>Schedules</value>
+    </data>
+    <data name="Elevations" xml:space="preserve">
+        <value>Elevations</value>
+    </data>
+    <data name="DraftingViews" xml:space="preserve">
+        <value>Drafting views</value>
     </data>
 </root>

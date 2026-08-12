@@ -3,9 +3,10 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:resx="clr-namespace:AlterTools.Resources;assembly=Resources"
         xmlns:local="clr-namespace:AlterTools.atExportModel.UI"
         mc:Ignorable="d"
-        Title="ViewModelClean"
+        Title="{ x:Static resx:Strings.CleanSettings}"
         Height="400"
         Width="550"
         ShowInTaskbar="False"
@@ -39,7 +40,7 @@
                 Grid.Row="0"
                 Margin="10 0"
                 VerticalAlignment="Center"
-                Content="Удалить неиспользуемые элементы"
+                Content="{ x:Static resx:Strings.PurgeUnused}"
                 IsChecked="{Binding Config.Purge}" />
 
             <!-- 2 -->
@@ -47,7 +48,7 @@
                 Grid.Row="1"
                 Margin="10 0"
                 VerticalAlignment="Center"
-                Content="Удалить связи САПР"
+                Content="{ x:Static resx:Strings.RemoveLinkedCad}"
                 IsChecked="{Binding Config.RemoveLinkedCad}" />
 
             <!-- 3 -->
@@ -55,7 +56,7 @@
                 Grid.Row="2"
                 Margin="10 0"
                 VerticalAlignment="Center"
-                Content="Удалить связи RVT"
+                Content="{ x:Static resx:Strings.RemoveLinkedRvt}"
                 IsChecked="{Binding Config.RemoveLinkedRvt}" />
 
             <!-- 4 -->
@@ -63,7 +64,7 @@
                 Grid.Row="3"
                 Margin="10 0"
                 VerticalAlignment="Center"
-                Content="Выгрузить связи RVT"
+                Content="{ x:Static resx:Strings.UnloadLinks}"
                 IsChecked="{Binding Config.UnloadLinks}" />
 
             <!-- 5 -->
@@ -71,7 +72,7 @@
                 Grid.Row="4"
                 Margin="10 0"
                 VerticalAlignment="Center"
-                Content="Удалить неразмещённые помещения"
+                Content="{ x:Static resx:Strings.RemoveOrphanedRooms}"
                 IsChecked="{Binding Config.RemoveOrphanedRooms}" />
 
             <!-- 6 -->
@@ -79,7 +80,7 @@
                 Grid.Row="5"
                 Margin="10 0"
                 VerticalAlignment="Center"
-                Content="Удалить пустые рабочие наборы"
+                Content="{ x:Static resx:Strings.RemoveEmptyWorksets}"
                 IsChecked="{Binding Config.RemoveEmptyWorksets}" />
 
             <!-- 7 -->
@@ -87,7 +88,7 @@
                 Grid.Row="6"
                 Margin="10 0"
                 VerticalAlignment="Center"
-                Content="Удалить все листы"
+                Content="{ x:Static resx:Strings.RemoveSheets}"
                 IsChecked="{Binding Config.RemoveSheets}" />
 
             <!-- 8 -->
@@ -95,7 +96,7 @@
                 Grid.Row="7"
                 Margin="10 0"
                 VerticalAlignment="Center"
-                Content="Удалить выбранные типы видов:"
+                Content="{ x:Static resx:Strings.RemoveViews}"
                 IsChecked="{Binding Config.RemoveViews}" />
         </Grid>
 
@@ -105,7 +106,7 @@
             Grid.RowSpan="2"
             Margin="10"
             Background="WhiteSmoke"
-            Header="Типы видов для удаления"
+            Header="{ x:Static resx:Strings.ViewTypesToDelete}"
             IsEnabled="{Binding Config.RemoveViews}">
             <Grid Margin="0 10">
                 <Grid.RowDefinitions>
@@ -131,7 +132,7 @@
                     Grid.Row="0"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Все"
+                    Content="{ x:Static resx:Strings.All}"
                     IsThreeState="True"
                     IsChecked="{Binding All}" />
 
@@ -140,7 +141,7 @@
                     Grid.Row="1"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="3D виды"
+                    Content="{ x:Static resx:Strings.ThreeDViews}"
                     IsChecked="{Binding ThreeDViews}" />
 
                 <!-- 3 -->
@@ -148,7 +149,7 @@
                     Grid.Row="2"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Виды узлов"
+                    Content="{ x:Static resx:Strings.Details}"
                     IsChecked="{Binding Details}" />
 
                 <!-- 4 -->
@@ -156,7 +157,7 @@
                     Grid.Row="3"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Визуализация"
+                    Content="{ x:Static resx:Strings.Renderings}"
                     IsChecked="{Binding Renderings}" />
 
                 <!-- 5 -->
@@ -164,7 +165,7 @@
                     Grid.Row="4"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Графические спецификации колонн"
+                    Content="{ x:Static resx:Strings.ColumnsSchedules}"
                     IsChecked="{Binding ColumnSchedules}" />
 
                 <!-- 6 -->
@@ -172,7 +173,7 @@
                     Grid.Row="5"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Легенды"
+                    Content="{ x:Static resx:Strings.Legends}"
                     IsChecked="{Binding Legends}" />
 
                 <!-- 7 -->
@@ -180,7 +181,7 @@
                     Grid.Row="6"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Обходы"
+                    Content="{ x:Static resx:Strings.Walkthroughs}"
                     IsChecked="{Binding Walkthroughs}" />
 
                 <!-- 8 -->
@@ -188,7 +189,7 @@
                     Grid.Row="7"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Планы зонирования"
+                    Content="{ x:Static resx:Strings.AreaPlans}"
                     IsChecked="{Binding AreaPlans}" />
 
                 <!-- 9 -->
@@ -196,7 +197,7 @@
                     Grid.Row="8"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Планы несущих конструкций"
+                    Content="{ x:Static resx:Strings.EngineeringPlans}"
                     IsChecked="{Binding EngineeringPlans}" />
 
                 <!-- 10 -->
@@ -204,7 +205,7 @@
                     Grid.Row="9"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Планы потолков"
+                    Content="{ x:Static resx:Strings.CeilingPlans}"
                     IsChecked="{Binding CeilingPlans}" />
 
                 <!-- 11 -->
@@ -212,7 +213,7 @@
                     Grid.Row="10"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Планы этажей"
+                    Content="{ x:Static resx:Strings.FloorPlans}"
                     IsChecked="{Binding FloorPlans}" />
 
                 <!-- 12 -->
@@ -220,7 +221,7 @@
                     Grid.Row="11"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Разрезы"
+                    Content="{ x:Static resx:Strings.Sections}"
                     IsChecked="{Binding Sections}" />
 
                 <!-- 13 -->
@@ -228,7 +229,7 @@
                     Grid.Row="12"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Спецификации"
+                    Content="{ x:Static resx:Strings.Schedules}"
                     IsChecked="{Binding Schedules}" />
 
                 <!-- 14 -->
@@ -236,7 +237,7 @@
                     Grid.Row="13"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Фасады"
+                    Content="{ x:Static resx:Strings.Elevations}"
                     IsChecked="{Binding Elevations}" />
 
                 <!-- 15 -->
@@ -244,7 +245,7 @@
                     Grid.Row="14"
                     VerticalAlignment="Center"
                     Margin="10 0"
-                    Content="Чертёжные виды"
+                    Content="{ x:Static resx:Strings.DraftingViews}"
                     IsChecked="{Binding DraftingViews}" />
             </Grid>
         </GroupBox>

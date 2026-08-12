@@ -108,12 +108,6 @@
     <data name="PurgeModelsToolTip" xml:space="preserve">
         <value>Реализует функционал команды "Удалить неиспользуемые'" до полной очистки (несколько раз)</value>
     </data>
-    <data name="CheckForEmptyView" xml:space="preserve">
-        <value>Проверить модели на "пустой" вид</value>
-    </data>
-    <data name="CheckForEmptyViewToolTip" xml:space="preserve">
-        <value>Следует ли проверить вид "Имя_вида" на наличие объектов, и если вид пустой - то сохранить файл с префиксом "EMPTY_"</value>
-    </data>
     <data name="ViewNameToCheck" xml:space="preserve">
         <value>Имя вида для проверки</value>
     </data>
@@ -134,18 +128,6 @@
     </data>
     <data name="Default" xml:space="preserve">
         <value>По умолчанию</value>
-    </data>
-    <data name="Prefix" xml:space="preserve">
-        <value>Префикс названия</value>
-    </data>
-    <data name="PrefixToolTip" xml:space="preserve">
-        <value>Префикс, который необходимо вставить перед названием файла</value>
-    </data>
-    <data name="Postfix" xml:space="preserve">
-        <value>Постфикс названия</value>
-    </data>
-    <data name="PostfixToolTip" xml:space="preserve">
-        <value>Постфикс, который необходимо вставить после названия файла</value>
     </data>
     <data name="IFCMappingTable" xml:space="preserve">
         <value>Таблица соответствия параметров экспорта</value>
@@ -269,12 +251,6 @@
     <data name="LoadConfigsToolTip" xml:space="preserve">
         <value>Загрузить список с файлами конфигураций в формате (.txt)</value>
     </data>
-    <data name="Begin" xml:space="preserve">
-        <value>Начать</value>
-    </data>
-    <data name="BeginToolTip" xml:space="preserve">
-        <value>Запустить экспорт нескольких конфигураций</value>
-    </data>
     <data name="ParamsTitle" xml:space="preserve">
         <value>Пакетный экспорт параметров</value>
     </data>
@@ -296,12 +272,6 @@
     <data name="DefaultParams" xml:space="preserve">
         <value>ADSK_Этаж;ADSK_Номер здания;ADSK_Комплект чертежей;</value>
     </data>
-    <data name="TransmitTitle" xml:space="preserve">
-        <value>Пакетный экспорт передаваемых моделей</value>
-    </data>
-    <data name="PutEverythingInSingleFolder" xml:space="preserve">
-        <value>Всё в одной папке</value>
-    </data>
     <data name="FilterTxt" xml:space="preserve">
         <value>Текстовый файл (.txt)|*.txt</value>
     </data>
@@ -321,7 +291,7 @@
         <value>Открыть Рабочие наборы</value>
     </data>
     <data name="PurgeUnused" xml:space="preserve">
-        <value>Удалить неиспользуемые</value>
+        <value>Удалить неиспользуемые элементы</value>
     </data>
     <data name="RemoveEmptyWorksets" xml:space="preserve">
         <value>Удалить пустые рабочие наборы</value>
@@ -381,9 +351,6 @@
     </data>
     <data name="MigrateDidntCopy" xml:space="preserve">
         <value>Следующие файлы не были скопированы:</value>
-    </data>
-    <data name="AddConfigs" xml:space="preserve">
-        <value>Добавьте конфиги!</value>
     </data>
     <data name="TotalTime" xml:space="preserve">
         <value>Всего затрачено времени:</value>
@@ -497,9 +464,6 @@ Revit ссылок</value>
     </data>
     <data name="SaveListTxtToolTip" xml:space="preserve">
         <value>Сохранить список в формате (.txt)</value>
-    </data>
-    <data name="PutEverythingInSingleFolderToolTip" xml:space="preserve">
-        <value>Поместить все файлы в одну папку или сохранить структуру каталога</value>
     </data>
     <data name="DwgImportDialog" xml:space="preserve">
         <value>При импорте не обнаружено подходящих элементов в пространстве модели</value>
@@ -680,5 +644,68 @@ Revit ссылок</value>
     </data>
     <data name="UseVisibleRevitNameAsEntityName" xml:space="preserve">
         <value>Использовать видимое имя Revit в качестве имени IFCEntity</value>
+    </data>
+    <data name="RemoveLinkedCad" xml:space="preserve">
+        <value>Удалить связи САПР</value>
+    </data>
+    <data name="RemoveLinkedRvt" xml:space="preserve">
+        <value>Удалить связи RVT</value>
+    </data>
+    <data name="UnloadLinks" xml:space="preserve">
+        <value>Выгрузить связи RVT</value>
+    </data>
+    <data name="RemoveOrphanedRooms" xml:space="preserve">
+        <value>Удалить неразмещённые помещения</value>
+    </data>
+    <data name="RemoveSheets" xml:space="preserve">
+        <value>Удалить все листы</value>
+    </data>
+    <data name="RemoveViews" xml:space="preserve">
+        <value>Удалить выбранные типы видов:</value>
+    </data>
+    <data name="ThreeDViews" xml:space="preserve">
+        <value>3D виды</value>
+    </data>
+    <data name="Details" xml:space="preserve">
+        <value>Виды узлов</value>
+    </data>
+    <data name="Renderings" xml:space="preserve">
+        <value>Визуализация</value>
+    </data>
+    <data name="ColumnsSchedules" xml:space="preserve">
+        <value>Графические спецификации колонн</value>
+    </data>
+    <data name="Legends" xml:space="preserve">
+        <value>Легенды</value>
+    </data>
+    <data name="ViewTypesToDelete" xml:space="preserve">
+        <value>Типы видов для удаления</value>
+    </data>
+    <data name="Walkthroughs" xml:space="preserve">
+        <value>Обходы</value>
+    </data>
+    <data name="AreaPlans" xml:space="preserve">
+        <value>Планы зонирования</value>
+    </data>
+    <data name="EngineeringPlans" xml:space="preserve">
+        <value>Планы несущих конструкций</value>
+    </data>
+    <data name="CeilingPlans" xml:space="preserve">
+        <value>Планы потолков</value>
+    </data>
+    <data name="FloorPlans" xml:space="preserve">
+        <value>Планы этажей</value>
+    </data>
+    <data name="Sections" xml:space="preserve">
+        <value>Разрезы</value>
+    </data>
+    <data name="Schedules" xml:space="preserve">
+        <value>Спецификации</value>
+    </data>
+    <data name="Elevations" xml:space="preserve">
+        <value>Фасады</value>
+    </data>
+    <data name="DraftingViews" xml:space="preserve">
+        <value>Чертёжные виды</value>
     </data>
 </root>

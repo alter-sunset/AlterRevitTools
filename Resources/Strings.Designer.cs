@@ -60,15 +60,6 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add configs!.
-        /// </summary>
-        public static string AddConfigs {
-            get {
-                return ResourceManager.GetString("AddConfigs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Advanced.
         /// </summary>
         public static string Advanced {
@@ -83,6 +74,15 @@ namespace AlterTools.Resources {
         public static string All {
             get {
                 return ResourceManager.GetString("All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Area plans.
+        /// </summary>
+        public static string AreaPlans {
+            get {
+                return ResourceManager.GetString("AreaPlans", resourceCulture);
             }
         }
         
@@ -105,24 +105,6 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Begin.
-        /// </summary>
-        public static string Begin {
-            get {
-                return ResourceManager.GetString("Begin", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Begin export of multiple configurations.
-        /// </summary>
-        public static string BeginToolTip {
-            get {
-                return ResourceManager.GetString("BeginToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Browse....
         /// </summary>
         public static string Browse {
@@ -141,29 +123,20 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ceiling plans.
+        /// </summary>
+        public static string CeilingPlans {
+            get {
+                return ResourceManager.GetString("CeilingPlans", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Change.
         /// </summary>
         public static string Change {
             get {
                 return ResourceManager.GetString("Change", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Check models for “empty” view.
-        /// </summary>
-        public static string CheckForEmptyView {
-            get {
-                return ResourceManager.GetString("CheckForEmptyView", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Should the “View_name” view be checked for the presence of objects, and if the view is empty, the file will be saved with the prefix “EMPTY_”.
-        /// </summary>
-        public static string CheckForEmptyViewToolTip {
-            get {
-                return ResourceManager.GetString("CheckForEmptyViewToolTip", resourceCulture);
             }
         }
         
@@ -182,6 +155,15 @@ namespace AlterTools.Resources {
         public static string CleanSettings {
             get {
                 return ResourceManager.GetString("CleanSettings", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Column schedules.
+        /// </summary>
+        public static string ColumnsSchedules {
+            get {
+                return ResourceManager.GetString("ColumnsSchedules", resourceCulture);
             }
         }
         
@@ -517,6 +499,15 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Details.
+        /// </summary>
+        public static string Details {
+            get {
+                return ResourceManager.GetString("Details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A difference in coordinate systems has been detected. 
         ///Do you want to retrieve coordinates from the file?.
         /// </summary>
@@ -545,6 +536,15 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Drafting views.
+        /// </summary>
+        public static string DraftingViews {
+            get {
+                return ResourceManager.GetString("DraftingViews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Import detected no valid elements in the file&apos;s Model space.
         /// </summary>
         public static string DwgImportDialog {
@@ -559,6 +559,24 @@ namespace AlterTools.Resources {
         public static string Elements {
             get {
                 return ResourceManager.GetString("Elements", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Elevations.
+        /// </summary>
+        public static string Elevations {
+            get {
+                return ResourceManager.GetString("Elevations", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Engineering plans.
+        /// </summary>
+        public static string EngineeringPlans {
+            get {
+                return ResourceManager.GetString("EngineeringPlans", resourceCulture);
             }
         }
         
@@ -829,6 +847,15 @@ namespace AlterTools.Resources {
         public static string FirstLevel {
             get {
                 return ResourceManager.GetString("FirstLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Floor plans.
+        /// </summary>
+        public static string FloorPlans {
+            get {
+                return ResourceManager.GetString("FloorPlans", resourceCulture);
             }
         }
         
@@ -1129,6 +1156,15 @@ namespace AlterTools.Resources {
         public static string Internal {
             get {
                 return ResourceManager.GetString("Internal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Legends.
+        /// </summary>
+        public static string Legends {
+            get {
+                return ResourceManager.GetString("Legends", resourceCulture);
             }
         }
         
@@ -1529,42 +1565,6 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Postfix.
-        /// </summary>
-        public static string Postfix {
-            get {
-                return ResourceManager.GetString("Postfix", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Postfix to be added to the end of a file name.
-        /// </summary>
-        public static string PostfixToolTip {
-            get {
-                return ResourceManager.GetString("PostfixToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Prefix.
-        /// </summary>
-        public static string Prefix {
-            get {
-                return ResourceManager.GetString("Prefix", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Prefix to be added to the start of a file name.
-        /// </summary>
-        public static string PrefixToolTip {
-            get {
-                return ResourceManager.GetString("PrefixToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Property Sets.
         /// </summary>
         public static string PropertySets {
@@ -1601,30 +1601,11 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Purge unused.
+        ///   Looks up a localized string similar to Purge unused elements.
         /// </summary>
         public static string PurgeUnused {
             get {
                 return ResourceManager.GetString("PurgeUnused", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Put everything 
-        ///in single folder.
-        /// </summary>
-        public static string PutEverythingInSingleFolder {
-            get {
-                return ResourceManager.GetString("PutEverythingInSingleFolder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Put all models into single directory or preserve folder structure.
-        /// </summary>
-        public static string PutEverythingInSingleFolderToolTip {
-            get {
-                return ResourceManager.GetString("PutEverythingInSingleFolderToolTip", resourceCulture);
             }
         }
         
@@ -1647,11 +1628,65 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Remove linked CAD files.
+        /// </summary>
+        public static string RemoveLinkedCad {
+            get {
+                return ResourceManager.GetString("RemoveLinkedCad", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove linked RVT files.
+        /// </summary>
+        public static string RemoveLinkedRvt {
+            get {
+                return ResourceManager.GetString("RemoveLinkedRvt", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove unassigned rooms.
+        /// </summary>
+        public static string RemoveOrphanedRooms {
+            get {
+                return ResourceManager.GetString("RemoveOrphanedRooms", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove all sheets.
+        /// </summary>
+        public static string RemoveSheets {
+            get {
+                return ResourceManager.GetString("RemoveSheets", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Remove selected view types:.
+        /// </summary>
+        public static string RemoveViews {
+            get {
+                return ResourceManager.GetString("RemoveViews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Rename files.
         /// </summary>
         public static string RenameFiles {
             get {
                 return ResourceManager.GetString("RenameFiles", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Renderings.
+        /// </summary>
+        public static string Renderings {
+            get {
+                return ResourceManager.GetString("Renderings", resourceCulture);
             }
         }
         
@@ -1701,11 +1736,29 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Schedules.
+        /// </summary>
+        public static string Schedules {
+            get {
+                return ResourceManager.GetString("Schedules", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 2nd Level.
         /// </summary>
         public static string SecondLevel {
             get {
                 return ResourceManager.GetString("SecondLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sections.
+        /// </summary>
+        public static string Sections {
+            get {
+                return ResourceManager.GetString("Sections", resourceCulture);
             }
         }
         
@@ -1791,6 +1844,15 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to 3D views.
+        /// </summary>
+        public static string ThreeDViews {
+            get {
+                return ResourceManager.GetString("ThreeDViews", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To.
         /// </summary>
         public static string To {
@@ -1827,20 +1889,20 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Batch export of transmitted models.
-        /// </summary>
-        public static string TransmitTitle {
-            get {
-                return ResourceManager.GetString("TransmitTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Don&apos;t create log file.
         /// </summary>
         public static string TurnOffLog {
             get {
                 return ResourceManager.GetString("TurnOffLog", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unload RVT link.
+        /// </summary>
+        public static string UnloadLinks {
+            get {
+                return ResourceManager.GetString("UnloadLinks", resourceCulture);
             }
         }
         
@@ -1940,6 +2002,24 @@ namespace AlterTools.Resources {
         public static string ViewNameToCheck {
             get {
                 return ResourceManager.GetString("ViewNameToCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to View types to delete.
+        /// </summary>
+        public static string ViewTypesToDelete {
+            get {
+                return ResourceManager.GetString("ViewTypesToDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Walkthroughs.
+        /// </summary>
+        public static string Walkthroughs {
+            get {
+                return ResourceManager.GetString("Walkthroughs", resourceCulture);
             }
         }
         
