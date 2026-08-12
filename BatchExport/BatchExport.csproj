@@ -113,20 +113,12 @@
     </PropertyGroup>
     <ItemGroup>
         <Content Include="Resources\Buttons.json" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\detach.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\detach_16.png" CopyToOutputDirectory="PreserveNewest"/>
         <Content Include="Resources\migrate.png" CopyToOutputDirectory="PreserveNewest"/>
         <Content Include="Resources\migrate_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\nwc.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\nwc_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\ifc.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\ifc_16.png" CopyToOutputDirectory="PreserveNewest"/>
         <Content Include="Resources\link.png" CopyToOutputDirectory="PreserveNewest"/>
         <Content Include="Resources\link_16.png" CopyToOutputDirectory="PreserveNewest"/>
         <Content Include="Resources\params.png" CopyToOutputDirectory="PreserveNewest"/>
         <Content Include="Resources\params_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\transmit.png" CopyToOutputDirectory="PreserveNewest"/>
-        <Content Include="Resources\transmit_16.png" CopyToOutputDirectory="PreserveNewest"/>
         <Content Include="Resources\purge.png" CopyToOutputDirectory="PreserveNewest"/>
         <Content Include="Resources\purge_16.png" CopyToOutputDirectory="PreserveNewest"/>
         <Content Include="Resources\delink.png" CopyToOutputDirectory="PreserveNewest"/>
@@ -170,7 +162,7 @@
         <DynamicLibraryProject Include="..\atDelink\atDelink.csproj">
             <Link>Commands\atDelink\atDelink.csproj</Link>
         </DynamicLibraryProject>
-        <DynamicLibraryProject Include="..\atDelink\atLink.csproj">
+        <DynamicLibraryProject Include="..\atLink\atLink.csproj">
             <Link>Commands\atLink\atLink.csproj</Link>
         </DynamicLibraryProject>
         <DynamicLibraryProject Include="..\atUpdateRsLink\atUpdateRsLink.csproj">

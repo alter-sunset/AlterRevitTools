@@ -15,9 +15,6 @@
             PublicKeyToken=b77a5c561934e089
         </value>
     </resheader>
-    <data name="DetachTitle" xml:space="preserve">
-        <value>Пакетный экспорт отсоединённых моделей</value>
-    </data>
     <data name="BaseHeader" xml:space="preserve">
         <value>Список RVT файлов для экспорта</value>
     </data>
@@ -146,9 +143,6 @@
     </data>
     <data name="ExportView" xml:space="preserve">
         <value>Экспортировать вид</value>
-    </data>
-    <data name="IgnoreMissingView" xml:space="preserve">
-        <value>Игнорировать отсутствие вида и экспортировать весь проект</value>
     </data>
     <data name="SpaceBoundaries" xml:space="preserve">
         <value>Границы пространств</value>
@@ -510,11 +504,8 @@ Revit ссылок</value>
     <data name="Export" xml:space="preserve">
         <value>Экспорт</value>
     </data>
-    <data name="CoreButtonExportText" xml:space="preserve">
-        <value>Тест Экспорт</value>
-    </data>
     <data name="CoreButtonExportToolTip" xml:space="preserve">
-        <value>Тест Экспорт</value>
+        <value>Пакетный экспорт моделей в NWC, IFC, RVT</value>
     </data>
     <data name="Model" xml:space="preserve">
         <value>Модель</value>
@@ -713,5 +704,9 @@ Revit ссылок</value>
     </data>
     <data name="SelectExportModeError" xml:space="preserve">
         <value>Выберите хотя бы один режим экспорта!</value>
+    </data>
+    <data name="CoreButtonExportText" xml:space="preserve">
+        <value>Экспорт 
+Моделей</value>
     </data>
 </root>

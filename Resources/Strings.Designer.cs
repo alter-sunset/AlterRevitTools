@@ -268,7 +268,7 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Test Export.
+        ///   Looks up a localized string similar to Models Export.
         /// </summary>
         public static string CoreButtonExportText {
             get {
@@ -277,7 +277,7 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Test Export.
+        ///   Looks up a localized string similar to Batch export models to NWC, IFC, RVT.
         /// </summary>
         public static string CoreButtonExportToolTip {
             get {
@@ -486,15 +486,6 @@ namespace AlterTools.Resources {
         public static string Detached {
             get {
                 return ResourceManager.GetString("Detached", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Batch export of detached models.
-        /// </summary>
-        public static string DetachTitle {
-            get {
-                return ResourceManager.GetString("DetachTitle", resourceCulture);
             }
         }
         
@@ -1110,16 +1101,6 @@ namespace AlterTools.Resources {
         public static string IFCVersion {
             get {
                 return ResourceManager.GetString("IFCVersion", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ignore missing view
-        ///and export whole project.
-        /// </summary>
-        public static string IgnoreMissingView {
-            get {
-                return ResourceManager.GetString("IgnoreMissingView", resourceCulture);
             }
         }
         

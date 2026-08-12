@@ -5,8 +5,8 @@
     "LibraryName": "atExportModel.dll",
     "ClassName": "AlterTools.atExportModel.Command",
     "ToolTip": "CoreButtonExportToolTip",
-    "ImageLarge": "Resources\\nwc.png",
-    "ImageSmall": "Resources\\nwc_16.png",
+    "ImageLarge": "Resources\\export.png",
+    "ImageSmall": "Resources\\export_16.png",
     "Panel": "CorePanelExport",
     "Availability": true
   },

@@ -23,9 +23,6 @@
             PublicKeyToken=b77a5c561934e089
         </value>
     </resheader>
-    <data name="DetachTitle" xml:space="preserve">
-        <value>Batch export of detached models</value>
-    </data>
     <data name="BaseHeader" xml:space="preserve">
         <value>RVT files to be exported</value>
     </data>
@@ -155,10 +152,6 @@ Ducts by Level</value>
     </data>
     <data name="ExportView" xml:space="preserve">
         <value>Export view</value>
-    </data>
-    <data name="IgnoreMissingView" xml:space="preserve">
-        <value>Ignore missing view
-and export whole project</value>
     </data>
     <data name="SpaceBoundaries" xml:space="preserve">
         <value>Space boundaries</value>
@@ -519,10 +512,10 @@ RS links</value>
         <value>Export</value>
     </data>
     <data name="CoreButtonExportText" xml:space="preserve">
-        <value>Test Export</value>
+        <value>Models Export</value>
     </data>
     <data name="CoreButtonExportToolTip" xml:space="preserve">
-        <value>Test Export</value>
+        <value>Batch export models to NWC, IFC, RVT</value>
     </data>
     <data name="Model" xml:space="preserve">
         <value>Model</value>
