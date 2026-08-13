@@ -5,15 +5,12 @@
 ***Supports versions 2019-2026***
 
   **The plugin includes 9 modules:**
-  - 6 for export
+  - 3 for export
   - 1 for import
   - 2 tools
 
  ### Export:
-  - [Export NWC (Navisworks Cache)](#export-nwc)
-  - [Export IFC (Industry Foundation Classes)](#export-ifc)
-  - [Export Detached Models](#export-detached-models)
-  - [Transmit Models (***May be deprecated in the future***)](#transmit-models)
+  - [Export Models](#export-models)
   - [Migrate Models](#migrate-models)
   - [Export Parameters](#export-parameters)
 
@@ -24,51 +21,25 @@
   - [Purge](#purge)
   - [Delink](#delink)
 
-## Export NWC
-This module allows batch exporting models to Navisworks cache (.nwc) with predefined settings.
+## Export Models
+This module allows batch exporting models:
+  - To Navisworks cache (.nwc) with predefined settings,
+  - To .ifc files with predefined settings
+  - For sharing outside the organization. (It implements functionality similar to *eTransmit* but works faster by skipping nested link searches. It is also useful for quickly preparing models received from contractors.)
 
   **Key features:**
   - Export configurations can be saved to a .json file for reuse.
-  - Multiple configurations can be added to a list to export multiple batches. *(Different objects, settings for various purposes, etc.)*
-
-![nwc](https://github.com/user-attachments/assets/b45a0bc5-69c3-4969-b235-770c64827d0f)
-
-## Export IFC
-This module allows batch exporting models to .ifc files with predefined settings.
-
- **Key features:**
-  - Export configurations can be saved to a .json file for reuse.
-
-![ifc](https://github.com/user-attachments/assets/56e45e34-e95a-4fa2-b831-1cefd546b8f5)
-
-## Export Detached Models
-This module allows batch exporting models for sharing outside the organization.<br>
-It implements functionality similar to *eTransmit* but works faster by skipping nested link searches.<br>
-It is also useful for quickly preparing models received from contractors.
-
-  **Key features:**
-  - The model list can be saved to a text file for reuse.
-  - Files can be relocated using masks. *(e.g., preserving folder structures.)*
-  - Files can be automatically renamed using masks.
   - Files are automatically upgraded to the active Revit version.
-  - All links can be removed from the model.
-  - Models can be checked for "empty views" to filter out empty files from third parties.
+  - All links can be unloaded or removed from the model.
   - Models can be purged of empty worksets. *(Available from version **2022**)*
+  - Models can by purged of unassigned rooms.
   - Models can be purged of all unused elements.
-  
-![detach](https://github.com/user-attachments/assets/df9d9db8-ca8e-495f-990d-33c2767bcf61)
+  - Models can be cleaned of sheets and views.
 
-## Transmit Models
-***This module may be deprecated as its functionality overlaps with the Detach module.*** <br>
+<img width="886" height="593" alt="image" src="https://github.com/user-attachments/assets/1145f4f1-c221-457c-a4e2-eef0a0e527af" />
+<img width="436" height="623" alt="image" src="https://github.com/user-attachments/assets/16e6aff9-fb44-4c4c-aec0-23abecd6b571" /> <img width="536" height="393" alt="image" src="https://github.com/user-attachments/assets/f63e1d76-b80e-46f0-a4dd-0d44d2b053f4" />
+<img width="1106" height="553" alt="image" src="https://github.com/user-attachments/assets/04604b98-0983-43c0-aa09-a2289c4c4a13" />
 
-This module exports batches of models for sharing outside the organization. <br>
-It mimics *eTransmit* but skips nested link searches for faster performance. <br>
-
-*Technically, the plugin copies files and sets the **IsTransmitted = true** flag. Its primary purpose is to quickly share models without triggering errors on opening. For cleaning or upgrading models, use the Detach module instead.*
-
-## Migrate Models
-This module migrates projects to new locations while preserving link structures. For example, moving from design stage "P" to stage "R". <br>
-It uses a .json file containing *Dictionary<string, string>*, where the key is the source file path and the value is the target path.
 
 ## Export parameters
 This module exports defined parameters from provided models to single CSV file.
