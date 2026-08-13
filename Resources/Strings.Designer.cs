@@ -1141,6 +1141,15 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid config file!.
+        /// </summary>
+        public static string InvalidConfigFile {
+            get {
+                return ResourceManager.GetString("InvalidConfigFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Legends.
         /// </summary>
         public static string Legends {

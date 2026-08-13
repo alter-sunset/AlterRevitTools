@@ -1,11 +1,12 @@
+using System.Collections;
 using System.Collections.ObjectModel;
 using System.IO;
 using AlterTools.atExportModel.Configs;
 using AlterTools.atExportModel.Enums;
 using AlterTools.atExportModel.Interfaces;
+using AlterTools.Resources;
 using AlterTools.Utils;
 using AlterTools.Utils.MVVM;
-using AlterTools.Resources;
 using MessageBox = System.Windows.MessageBox;
 
 namespace AlterTools.atExportModel.UI;
@@ -13,16 +14,83 @@ namespace AlterTools.atExportModel.UI;
 public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
 {
     private readonly ExternalEventHandler _handler;
+    private RelayCommand _browseIFCFolderCommand;
+
+    private RelayCommand _browseNWCFolderCommand;
+    private RelayCommand _browseRVTFolderCommand;
+
+    private bool _cleanModel;
+
+    private ConfigClean _configClean;
+
+    private ConfigIFC _configIFC;
+    private ConfigIFCAdd _configIFCAdd;
+
+    private ConfigNWC _configNWC;
+    private RelayCommand _deleteCommand;
+    private RelayCommand _executeCommand;
+    private RelayCommand _exportCommand;
+
+    private bool _exportIFC;
+
+    private bool _exportNWC;
 
     private bool _exportRVT;
+    private string _folderPathIFC = string.Empty;
+    private string _folderPathNWC = string.Empty;
+    private string _folderPathRVT = string.Empty;
+    private RelayCommand _importCommand;
+
+    private ObservableCollection<string> _inputFiles = [];
+    private RelayCommand _loadCommand;
+
+    private RvtExportMode _rvtExportMode = RvtExportMode.Transmit;
+    private RelayCommand _settingsCleanCommand;
+    private RelayCommand _settingsIFCCommand;
+    private RelayCommand _settingsNWCCommand;
+
+    private string _viewName = "Navisworks";
+
+    public ViewModelMain(ExternalEventHandler handler)
+    {
+        _handler = handler;
+
+        ConfigNWC = new ConfigNWC();
+        ViewModelNWC = new ViewModelNWC(ConfigNWC);
+
+        ConfigIFC = new ConfigIFC();
+        ConfigIFCAdditionalFields = new ConfigIFCAdd();
+        ViewModelIFC = new ViewModelIFC(ConfigIFC, ConfigIFCAdditionalFields);
+
+        ConfigClean = new ConfigClean();
+        ViewModelClean = new ViewModelClean(ConfigClean);
+    }
+
+    public ViewModelNWC ViewModelNWC { get; }
+
+    public ViewModelIFC ViewModelIFC { get; }
+
+    public ViewModelClean ViewModelClean { get; }
+
+    public RelayCommand SettingsNWCCommand => _settingsNWCCommand ??= new RelayCommand(_ => OpenSettingsNWC());
+    public RelayCommand SettingsIFCCommand => _settingsIFCCommand ??= new RelayCommand(_ => OpenSettingIFC());
+    public RelayCommand SettingsCleanCommand => _settingsCleanCommand ??= new RelayCommand(_ => OpenSettingsClean());
+
+    public RelayCommand BrowseFolderNWCCommand => _browseNWCFolderCommand ??= new RelayCommand(_ => BrowseFolderNWC());
+    public RelayCommand BrowseFolderIFCCommand => _browseIFCFolderCommand ??= new RelayCommand(_ => BrowseFolderIFC());
+    public RelayCommand BrowseFolderRVTCommand => _browseRVTFolderCommand ??= new RelayCommand(_ => BrowseFolderRVT());
+
+    public RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
+    public RelayCommand ImportCommand => _importCommand ??= new RelayCommand(_ => ImportConfig());
+    public RelayCommand ExportCommand => _exportCommand ??= new RelayCommand(_ => ExportConfig());
+    public RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(param => Delete(param));
+    public RelayCommand ExecuteCommand => _executeCommand ??= new RelayCommand(_ => Execute());
 
     public bool ExportRVT
     {
         get => _exportRVT;
         set => SetProperty(ref _exportRVT, value);
     }
-
-    private RvtExportMode _rvtExportMode = RvtExportMode.Transmit;
 
     public RvtExportMode RvtExportMode
     {
@@ -37,15 +105,11 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
         }
     }
 
-    private bool _exportNWC;
-
     public bool ExportNWC
     {
         get => _exportNWC;
         set => SetProperty(ref _exportNWC, value);
     }
-
-    private ConfigNWC _configNWC;
 
     public ConfigNWC ConfigNWC
     {
@@ -57,18 +121,11 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
         }
     }
 
-    public ViewModelNWC ViewModelNWC { get; }
-
-    private bool _exportIFC;
-
     public bool ExportIFC
     {
         get => _exportIFC;
         set => SetProperty(ref _exportIFC, value);
     }
-
-    private ConfigIFC _configIFC;
-    private ConfigIFCAdd _configIFCAdd;
 
     public ConfigIFC ConfigIFC
     {
@@ -90,17 +147,11 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
         }
     }
 
-    public ViewModelIFC ViewModelIFC { get; }
-
-    private bool _cleanModel;
-
     public bool CleanModel
     {
         get => _cleanModel;
         set => SetProperty(ref _cleanModel, value);
     }
-
-    private ConfigClean _configClean;
 
     public ConfigClean ConfigClean
     {
@@ -113,13 +164,6 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
             ViewModelClean.Config.ConfigRemoveViews = value.ConfigRemoveViews;
         }
     }
-
-    public ViewModelClean ViewModelClean { get; }
-
-    private string _viewName = "Navisworks";
-    private string _folderPathNWC = string.Empty;
-    private string _folderPathIFC = string.Empty;
-    private string _folderPathRVT = string.Empty;
 
     public string ViewName
     {
@@ -145,54 +189,11 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
         set => SetProperty(ref _folderPathIFC, value);
     }
 
-    private ObservableCollection<string> _inputFiles = [];
-
     public ObservableCollection<string> InputFiles
     {
         get => _inputFiles;
         set => SetProperty(ref _inputFiles, value);
     }
-
-    private RelayCommand _browseNWCFolderCommand;
-    private RelayCommand _browseIFCFolderCommand;
-    private RelayCommand _browseRVTFolderCommand;
-    private RelayCommand _settingsNWCCommand;
-    private RelayCommand _settingsIFCCommand;
-    private RelayCommand _settingsCleanCommand;
-    private RelayCommand _loadCommand;
-    private RelayCommand _importCommand;
-    private RelayCommand _exportCommand;
-    private RelayCommand _deleteCommand;
-    private RelayCommand _executeCommand;
-
-    public ViewModelMain(ExternalEventHandler handler)
-    {
-        _handler = handler;
-
-        ConfigNWC = new ConfigNWC();
-        ViewModelNWC = new ViewModelNWC(ConfigNWC);
-
-        ConfigIFC = new ConfigIFC();
-        ConfigIFCAdditionalFields = new ConfigIFCAdd();
-        ViewModelIFC = new ViewModelIFC(ConfigIFC, ConfigIFCAdditionalFields);
-
-        ConfigClean = new ConfigClean();
-        ViewModelClean = new ViewModelClean(ConfigClean);
-    }
-
-    public RelayCommand SettingsNWCCommand => _settingsNWCCommand ??= new RelayCommand(_ => OpenSettingsNWC());
-    public RelayCommand SettingsIFCCommand => _settingsIFCCommand ??= new RelayCommand(_ => OpenSettingIFC());
-    public RelayCommand SettingsCleanCommand => _settingsCleanCommand ??= new RelayCommand(_ => OpenSettingsClean());
-
-    public RelayCommand BrowseFolderNWCCommand => _browseNWCFolderCommand ??= new RelayCommand(_ => BrowseFolderNWC());
-    public RelayCommand BrowseFolderIFCCommand => _browseIFCFolderCommand ??= new RelayCommand(_ => BrowseFolderIFC());
-    public RelayCommand BrowseFolderRVTCommand => _browseRVTFolderCommand ??= new RelayCommand(_ => BrowseFolderRVT());
-
-    public RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
-    public RelayCommand ImportCommand => _importCommand ??= new RelayCommand(_ => ImportConfig());
-    public RelayCommand ExportCommand => _exportCommand ??= new RelayCommand(_ => ExportConfig());
-    public RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(param => Delete(param));
-    public RelayCommand ExecuteCommand => _executeCommand ??= new RelayCommand(_ => Execute());
 
     private void OpenSettingsNWC()
     {
@@ -212,9 +213,20 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
         window.ShowDialog();
     }
 
-    private void BrowseFolderNWC() => FolderPathNWC = VmHelper.BrowseFolder(FolderPathNWC);
-    private void BrowseFolderIFC() => FolderPathIFC = VmHelper.BrowseFolder(FolderPathIFC);
-    private void BrowseFolderRVT() => FolderPathRVT = VmHelper.BrowseFolder(FolderPathRVT);
+    private void BrowseFolderNWC()
+    {
+        FolderPathNWC = VmHelper.BrowseFolder(FolderPathNWC);
+    }
+
+    private void BrowseFolderIFC()
+    {
+        FolderPathIFC = VmHelper.BrowseFolder(FolderPathIFC);
+    }
+
+    private void BrowseFolderRVT()
+    {
+        FolderPathRVT = VmHelper.BrowseFolder(FolderPathRVT);
+    }
 
     private void Load()
     {
@@ -228,10 +240,7 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
             .Distinct()
             .Where(file => !existingFiles.Contains(file));
 
-        foreach (string file in files)
-        {
-            InputFiles.Add(file);
-        }
+        foreach (string file in files) InputFiles.Add(file);
     }
 
     private void ImportConfig()
@@ -242,7 +251,14 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
 
         using FileStream file = File.OpenRead(openFileDialog.FileName);
 
-        DeserializeConfig(JsonHelper<ConfigExportMultiple>.DeserializeConfig(file));
+        try
+        {
+            DeserializeConfig(JsonHelper<ConfigExportMultiple>.DeserializeConfig(file));
+        }
+        catch
+        {
+            MessageBox.Show(Strings.InvalidConfigFile);
+        }
     }
 
     private void DeserializeConfig(ConfigExportMultiple config)
@@ -274,10 +290,7 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
 
         // Input Files Collection
         InputFiles.Clear();
-        foreach (string file in config.InputFiles)
-        {
-            InputFiles.Add(file);
-        }
+        foreach (string file in config.InputFiles) InputFiles.Add(file);
     }
 
     private void ExportConfig()
@@ -296,16 +309,13 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
     private void Delete(object parameter)
     {
         // If the parameter is null or wrong type, exit safely
-        if (parameter is not System.Collections.IList selectedItems) return;
+        if (parameter is not IList selectedItems) return;
 
         // Safely copy the selected strings to a temporary list
         List<string> itemsToDelete = selectedItems.Cast<string>().ToList();
 
         // Remove the strings directly from your collection
-        foreach (string item in itemsToDelete)
-        {
-            InputFiles.Remove(item);
-        }
+        foreach (string item in itemsToDelete) InputFiles.Remove(item);
     }
 
     private void Execute()

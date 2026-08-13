@@ -38,9 +38,9 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigParams
     }
 
     public RelayCommand BrowseCsvCommand => _browseCsvCommand ??= new RelayCommand(_ => BrowseCsv());
-    public RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadList());
+    public RelayCommand LoadListCommand => _loadListCommand ??= new RelayCommand(_ => LoadConfig());
     public RelayCommand LoadCommand => _loadCommand ??= new RelayCommand(_ => Load());
-    public RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveList());
+    public RelayCommand SaveListCommand => _saveListCommand ??= new RelayCommand(_ => SaveConfig());
     public RelayCommand DeleteCommand => _deleteCommand ??= new RelayCommand(param => Delete(param));
     public RelayCommand ExecuteCommand => _executeCommand ??= new RelayCommand(_ => Execute());
 
@@ -71,7 +71,7 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigParams
         CsvPath = saveFileDialog.FileName;
     }
 
-    private void LoadList()
+    private void LoadConfig()
     {
         OpenFileDialog openFileDialog = DialogType.SingleJson.OpenFileDialog();
 
@@ -79,7 +79,14 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigParams
 
         using FileStream file = File.OpenRead(openFileDialog.FileName);
 
-        DeserializeParamsForm(JsonHelper<ConfigParams>.DeserializeConfig(file));
+        try
+        {
+            DeserializeParamsForm(JsonHelper<ConfigParams>.DeserializeConfig(file));
+        }
+        catch
+        {
+            MessageBox.Show(Strings.InvalidConfigFile);
+        }
     }
 
     private void DeserializeParamsForm(ConfigParams form)
@@ -91,7 +98,7 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigParams
         Files = [.. form.Files.FilterRevitFiles()];
     }
 
-    private void SaveList()
+    private void SaveConfig()
     {
         ConfigParams form = SerializeParamsForm();
         SaveFileDialog saveFileDialog = DialogType.SingleJson.SaveFileDialog();

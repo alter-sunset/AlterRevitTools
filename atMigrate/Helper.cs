@@ -1,5 +1,6 @@
 using System.IO;
 using System.Text.Json;
+using AlterTools.Resources;
 using AlterTools.Utils.Extensions;
 using Autodesk.Revit.DB;
 using Application = Autodesk.Revit.ApplicationServices.Application;
@@ -15,9 +16,16 @@ public static class Helper
     {
         using FileStream fileStream = File.OpenRead(configPath);
 
-        WasBecome items = JsonSerializer.Deserialize<WasBecome>(new StreamReader(fileStream).ReadToEnd());
-
-        return items ?? throw new InvalidOperationException(WrongScheme);
+        try
+        {
+            WasBecome items = JsonSerializer.Deserialize<WasBecome>(new StreamReader(fileStream).ReadToEnd());
+            return items ?? throw new InvalidOperationException(WrongScheme);
+        }
+        catch
+        {
+            MessageBox.Show(Strings.InvalidConfigFile);
+            return null;
+        }
     }
 
     private static void CreateDirectoryForFile(string filePath)

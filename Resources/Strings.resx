@@ -715,4 +715,7 @@ RS links</value>
     <data name="SelectExportModeError" xml:space="preserve">
         <value>Select at least one export mode!</value>
     </data>
+    <data name="InvalidConfigFile" xml:space="preserve">
+        <value>Invalid config file!</value>
+    </data>
 </root>
