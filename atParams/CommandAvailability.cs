@@ -1,4 +1,7 @@
-﻿namespace AlterTools.BatchExport.Core.Commands;
+﻿using Autodesk.Revit.DB;
+using Autodesk.Revit.UI;
+
+namespace AlterTools.atParams;
 
 public class CommandAvailability : IExternalCommandAvailability
 {

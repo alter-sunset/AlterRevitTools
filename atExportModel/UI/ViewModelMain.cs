@@ -145,7 +145,6 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
         set => SetProperty(ref _folderPathIFC, value);
     }
 
-
     private ObservableCollection<string> _inputFiles = [];
 
     public ObservableCollection<string> InputFiles

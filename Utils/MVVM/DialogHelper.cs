@@ -1,7 +1,5 @@
 ﻿using AlterTools.Resources;
 
-// ReSharper disable SwitchExpressionHandlesSomeKnownEnumValuesWithExceptionInDefault
-
 namespace AlterTools.Utils.MVVM;
 
 public static class DialogHelper

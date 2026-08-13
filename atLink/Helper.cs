@@ -8,7 +8,7 @@ using TaskDialog = Autodesk.Revit.UI.TaskDialog;
 
 namespace AlterTools.atLink;
 
-internal static class LinkHelper
+internal static class Helper
 {
     private static string DiffCoord => Resources.Strings.DiffCoordError;
 

@@ -1,37 +1,26 @@
-﻿using System.Windows.Controls;
+﻿using System.IO;
 using AlterTools.Utils;
 using AlterTools.Utils.Extensions;
+using Autodesk.Revit.DB;
 using Application = Autodesk.Revit.ApplicationServices.Application;
-using Brushes = System.Windows.Media.Brushes;
 
-namespace AlterTools.BatchExport.Views.Params;
+namespace AlterTools.atParams;
 
-public static class ParamsHelper
+public static class Helper
 {
     private static string _fileName;
-    private static ParamsViewModel _paramsVm;
+    private static string[] _parametersNames;
 
-    public static void ExportParameters(this ListBoxItem item,
-        Application app,
-        ParamsViewModel paramsVm,
-        CsvHelper csvHelper)
+    public static void ExportParameters(string file, Application app, string[] parametersNames, CsvHelper csvHelper)
     {
-        _paramsVm = paramsVm;
+        _fileName = Path.GetFileName(file);
+        _parametersNames = parametersNames;
 
-        string filePath = item.Content?.ToString();
-        _fileName = Path.GetFileName(filePath);
-
-        if (!File.Exists(filePath))
-        {
-            item.Background = Brushes.Red;
-            return;
-        }
-
-        item.Background = Brushes.Blue;
+        if (!File.Exists(file)) return;
 
         try
         {
-            using Document doc = app.OpenDocument(filePath, out _);
+            using Document doc = app.OpenDocument(file, out _);
             if (doc is null) return;
 
             using ElementCategoryFilter filterOutHvac = new(BuiltInCategory.OST_HVAC_Zones, true);
@@ -56,8 +45,6 @@ public static class ParamsHelper
         {
             // ignored
         }
-
-        item.Background = Brushes.Green;
     }
 
     private static Dictionary<string, string> GetParametersSet(this Element element, string[] parametersNames)
@@ -83,7 +70,7 @@ public static class ParamsHelper
         return new ParametersTable
         {
             ModelName = _fileName,
-            Parameters = el.GetParametersSet(_paramsVm.ParametersNames),
+            Parameters = el.GetParametersSet(_parametersNames),
 #if R24_OR_GREATER
             ElementId = el.Id.Value,
 #else

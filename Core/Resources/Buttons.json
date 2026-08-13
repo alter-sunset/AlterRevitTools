@@ -24,8 +24,8 @@
   {
     "Name": "Params",
     "Text": "CoreButtonParamsText",
-    "LibraryName": "blank.dll",
-    "ClassName": "AlterTools.BatchExport.Core.Commands.ExternalCommandExportParametersMap",
+    "LibraryName": "atParams.dll",
+    "ClassName": "AlterTools.atParams.Command",
     "ToolTip": "CoreButtonParamsToolTip",
     "ImageLarge": "Resources\\params.png",
     "ImageSmall": "Resources\\params_16.png",

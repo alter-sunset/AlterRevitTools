@@ -125,18 +125,24 @@
         <Content Include="Resources\delink_16.png" CopyToOutputDirectory="PreserveNewest"/>
         <Content Include="Resources\updaterslink.png" CopyToOutputDirectory="PreserveNewest"/>
         <Content Include="Resources\updaterslink_16.png" CopyToOutputDirectory="PreserveNewest"/>
+        <None Remove="Resources\export.png"/>
+        <Content Include="Resources\export.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="Resources\export_16.png"/>
+        <Content Include="Resources\export_16.png">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <None Remove="AlterTools.addin"/>
+        <Content Include="AlterTools.addin">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
     </ItemGroup>
     <ItemGroup>
-        <PackageReference Include="JetBrains.Annotations" Version="2024.3.0"/>
         <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*"/>
         <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*"/>
         <PackageReference Include="System.Runtime.Loader" Version="4.3.0"/>
         <PackageReference Include="System.Text.Json" Version="10.0.9"/>
-    </ItemGroup>
-    <ItemGroup>
-        <None Update="AlterTools.BatchExport.addin">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </None>
     </ItemGroup>
     <ItemGroup>
         <EditorConfigFiles Remove=".editorconfig"/>
@@ -167,6 +173,9 @@
         </DynamicLibraryProject>
         <DynamicLibraryProject Include="..\atMigrate\atMigrate.csproj">
             <Link>Commands\atMigrate\atMigrate.csproj</Link>
+        </DynamicLibraryProject>
+        <DynamicLibraryProject Include="..\atParams\atParams.csproj">
+            <Link>Commands\atParams\atParams.csproj</Link>
         </DynamicLibraryProject>
         <DynamicLibraryProject Include="..\atUpdateRsLink\atUpdateRsLink.csproj">
             <Link>Commands\atUpdateRsLink\atUpdateRsLink.csproj</Link>

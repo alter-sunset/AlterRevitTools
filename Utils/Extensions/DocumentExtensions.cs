@@ -5,7 +5,6 @@ using Autodesk.Revit.DB;
 using Autodesk.Revit.DB.Architecture;
 using Autodesk.Revit.DB.Electrical;
 using Autodesk.Revit.UI;
-using JetBrains.Annotations;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 
 namespace AlterTools.Utils.Extensions;
@@ -53,7 +52,7 @@ public static class DocumentExtensions
     }
 
     public static void SaveDocument(Document doc, string fileDetachedPath, bool isWorkshared,
-        [CanBeNull] TransmissionData transData)
+        TransmissionData transData)
     {
         using SaveAsOptions saveOptions = new();
         saveOptions.OverwriteExistingFile = true;

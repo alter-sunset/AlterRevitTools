@@ -8,7 +8,7 @@
                  xmlns:mvvm="clr-namespace:AlterTools.Utils.MVVM;assembly=Utils"
                  xmlns:atLink="clr-namespace:AlterTools.atLink"
                  mc:Ignorable="d"
-                 Height="500"
+                 Height="470"
                  Width="800"
                  WindowStartupLocation="CenterScreen"
                  ResizeMode="NoResize"
@@ -30,7 +30,6 @@
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
-            <RowDefinition Height="30" />
             <RowDefinition Height="30" />
             <RowDefinition Height="300" />
             <RowDefinition Height="50" />
@@ -67,20 +66,11 @@
                   Content="{x:Static resx:Strings.LinkCurrentWorkset}"
                   Grid.ColumnSpan="2"
                   IsChecked="{Binding IsCurrentWorkset}" />
-        <!-- 3 -->
-        <TextBlock
-            Grid.Row="2"
-            Margin="10,0,10,0"
-            FontSize="14"
-            Grid.Column="0"
-            Grid.ColumnSpan="2"
-            VerticalAlignment="Center"
-            Text="{x:Static resx:Strings.LinkHeader}" />
 
-        <!-- 4 -->
+        <!-- 3 -->
         <ListBox
             x:Name="FilesListBox"
-            Grid.Row="3"
+            Grid.Row="2"
             Grid.Column="0"
             Grid.ColumnSpan="4"
             Margin="10"
@@ -120,10 +110,10 @@
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <!-- 5 -->
+        <!-- 4 -->
         <Button Margin="10"
                 Grid.Column="0"
-                Grid.Row="4"
+                Grid.Row="3"
                 Height="30"
                 Width="100"
                 HorizontalAlignment="Left"
@@ -132,7 +122,7 @@
                 ToolTip="{x:Static resx:Strings.LoadToolTip}" />
         <Button Margin="10"
                 Grid.Column="1"
-                Grid.Row="4"
+                Grid.Row="3"
                 Height="30"
                 Width="100"
                 HorizontalAlignment="Right"
@@ -140,14 +130,14 @@
                 Content="{x:Static resx:Strings.Import}" />
         <Button Margin="10"
                 Grid.Column="2"
-                Grid.Row="4"
+                Grid.Row="3"
                 Height="30"
                 Width="100"
                 HorizontalAlignment="Left"
                 Command="{Binding SaveListCommand}"
                 Content="{x:Static resx:Strings.Export}" />
         <Button Margin="10"
-                Grid.Row="4"
+                Grid.Row="3"
                 Grid.Column="3"
                 Height="30"
                 Width="100"

@@ -1,20 +1,22 @@
-﻿using System.Reflection;
+﻿using System.IO;
+using System.Reflection;
 using System.Windows.Media.Imaging;
 using AlterTools.Utils;
+using Autodesk.Revit.UI;
 
-namespace AlterTools.BatchExport.Core;
+namespace AlterTools.Core;
 
 internal class ButtonContext
 {
-    [UsedImplicitly] public string Name { get; set; }
-    [UsedImplicitly] public string Text { get; set; }
-    [UsedImplicitly] public string LibraryName { get; set; }
-    [UsedImplicitly] public string ClassName { get; set; }
-    [UsedImplicitly] public string ToolTip { get; set; }
-    [UsedImplicitly] public string ImageLarge { get; set; }
-    [UsedImplicitly] public string ImageSmall { get; set; }
-    [UsedImplicitly] public string Panel { get; set; }
-    [UsedImplicitly] public bool Availability { get; set; }
+    public string Name { get; set; }
+    public string Text { get; set; }
+    public string LibraryName { get; set; }
+    public string ClassName { get; set; }
+    public string ToolTip { get; set; }
+    public string ImageLarge { get; set; }
+    public string ImageSmall { get; set; }
+    public string Panel { get; set; }
+    public bool Availability { get; set; }
 
     private static string AssemblyFolder => Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
     private static string CommandsFolder => Path.Combine(AssemblyFolder, "Commands");

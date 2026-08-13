@@ -1,6 +1,7 @@
+using System.IO;
 using System.Reflection;
 
-namespace AlterTools.BatchExport.Core;
+namespace AlterTools.Core;
 
 internal static class CommandLoader
 {

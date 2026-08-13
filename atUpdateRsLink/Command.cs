@@ -4,13 +4,11 @@ using AlterTools.Utils.Extensions;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using JetBrains.Annotations;
 using Application = Autodesk.Revit.ApplicationServices.Application;
 using TaskDialog = Autodesk.Revit.UI.TaskDialog;
 
 namespace AlterTools.atUpdateRsLink;
 
-[UsedImplicitly]
 [Transaction(TransactionMode.Manual)]
 public class Command : IExternalCommand
 {

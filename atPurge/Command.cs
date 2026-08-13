@@ -3,11 +3,9 @@ using AlterTools.Utils.Extensions;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
-using JetBrains.Annotations;
 
 namespace AlterTools.atPurge;
 
-[UsedImplicitly]
 [Transaction(TransactionMode.Manual)]
 public class Command : IExternalCommand
 {

@@ -1,10 +1,9 @@
 ﻿using System.Windows.Interop;
-using AlterTools.Utils.Extensions;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 
-namespace AlterTools.atLink;
+namespace AlterTools.atParams;
 
 [Transaction(TransactionMode.Manual)]
 public class Command : IExternalCommand
@@ -14,7 +13,7 @@ public class Command : IExternalCommand
         UIApplication uiApp = commandData.Application;
 
         ExternalEventHandler handler = new();
-        ViewModelMain viewModel = new(handler, uiApp.GetWorksets());
+        ViewModelMain viewModel = new(handler);
         WindowMain window = new(viewModel);
 
         // Link WPF window as a child of Revit
