@@ -1,0 +1,77 @@
+﻿using Autodesk.Revit.UI;
+using Panel = System.Tuple<Autodesk.Revit.UI.RibbonPanel, string>;
+
+namespace AlterTools.Core;
+
+// TODO: Add RevitServerViewer
+
+public class App : IExternalApplication
+{
+    private const string TabName = "AlterTools";
+    private Panel[] _panels;
+
+    public Result OnStartup(UIControlledApplication uiApp)
+    {
+        CommandLoader.LoadAll("Commands");
+
+        try
+        {
+            uiApp.CreateRibbonTab(TabName);
+        }
+        catch
+        {
+            // ignored
+        }
+
+        // Get buttons to create from JSON config
+        List<ButtonContext> buttons = ButtonContext.GetButtonsContext();
+
+        // Create panels from config
+        _panels =
+        [
+            .. buttons
+                .Select(button => GetString(button.Panel))
+                .Distinct()
+                .Select(panelName => new Panel(GetRibbonPanel(uiApp, panelName), panelName))
+        ];
+
+        buttons.ForEach(CreateButton);
+
+        return Result.Succeeded;
+    }
+
+    public Result OnShutdown(UIControlledApplication a) => Result.Succeeded;
+
+    private static RibbonPanel GetRibbonPanel(UIControlledApplication uiApp, string panelName)
+    {
+        try
+        {
+            uiApp.CreateRibbonPanel(TabName, panelName);
+        }
+        catch
+        {
+            // ignored
+        }
+
+        return uiApp.GetRibbonPanels(TabName)
+            .FirstOrDefault(panel => panel.Name == panelName);
+    }
+
+    private void CreateButton(ButtonContext button)
+    {
+        RibbonPanel ribbonPanel = _panels
+            .First(panel => panel.Item2 == GetString(button.Panel))
+            .Item1;
+
+        try
+        {
+            ribbonPanel.AddItem(button.GetPushButtonData());
+        }
+        catch
+        {
+            // ignored
+        }
+    }
+
+    private static string GetString(string name) => Resources.Strings.ResourceManager.GetString(name);
+}

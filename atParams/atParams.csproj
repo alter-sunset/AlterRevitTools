@@ -1,0 +1,138 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <LangVersion>12</LangVersion>
+        <OutputType>Library</OutputType>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <UseWindowsForms>true</UseWindowsForms>
+        <UseWPF>true</UseWPF>
+        <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <GenerateDocumentationFile>False</GenerateDocumentationFile>
+        <ErrorReport>none</ErrorReport>
+        <IncludeSymbols>False</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+        <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
+        <Optimize>True</Optimize>
+        <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+        <Configurations>Release R19;Release R20;Release R21;Release R22;Release R23;Release R24;Release R25;Debug R25;Release R26;Release R27</Configurations>
+        <RootNamespace>$(SolutionName).$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+        <Company>AlterSunset</Company>
+        <Product>AlterTools</Product>
+        <GenerateAssemblyInfo>True</GenerateAssemblyInfo>
+        <AssemblyVersion>1.0.4.1</AssemblyVersion>
+        <FileVersion>1.0.4.1</FileVersion>
+        <InformationalVersion>1.0.0.0</InformationalVersion>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <NeutralLanguage>en</NeutralLanguage>
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>none</DebugType>
+        <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+        <IncludeNativeLibrariesForSelfExtract>false</IncludeNativeLibrariesForSelfExtract>
+    </PropertyGroup>
+    <PropertyGroup Condition="$(Configuration.Contains('R19'))">
+        <TargetFramework>net48</TargetFramework>
+        <RevitVersion>2019</RevitVersion>
+        <OutputPath>bin\R2019\</OutputPath>
+    </PropertyGroup>
+    <PropertyGroup Condition="$(Configuration.Contains('R20'))">
+        <TargetFramework>net48</TargetFramework>
+        <RevitVersion>2020</RevitVersion>
+        <OutputPath>bin\R2020\</OutputPath>
+        <DefineConstants>R20_OR_GREATER</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="$(Configuration.Contains('R21'))">
+        <TargetFramework>net48</TargetFramework>
+        <RevitVersion>2021</RevitVersion>
+        <OutputPath>bin\R2021\</OutputPath>
+        <DefineConstants>R20_OR_GREATER</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="$(Configuration.Contains('R22'))">
+        <TargetFramework>net48</TargetFramework>
+        <RevitVersion>2022</RevitVersion>
+        <OutputPath>bin\R2022\</OutputPath>
+        <DefineConstants>R20_OR_GREATER;R22_OR_GREATER</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="$(Configuration.Contains('R23'))">
+        <TargetFramework>net48</TargetFramework>
+        <RevitVersion>2023</RevitVersion>
+        <OutputPath>bin\R2023\</OutputPath>
+        <DefineConstants>R20_OR_GREATER;R22_OR_GREATER</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="$(Configuration.Contains('R24'))">
+        <TargetFramework>net48</TargetFramework>
+        <RevitVersion>2024</RevitVersion>
+        <OutputPath>bin\R2024\</OutputPath>
+        <DefineConstants>R20_OR_GREATER;R22_OR_GREATER;R24_OR_GREATER</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="$(Configuration.Contains('R25'))">
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <RevitVersion>2025</RevitVersion>
+        <OutputPath>bin\R2025\</OutputPath>
+        <DefineConstants>R20_OR_GREATER;R22_OR_GREATER;R24_OR_GREATER;R25_OR_GREATER</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="$(Configuration.Contains('R26'))">
+        <TargetFramework>net8.0-windows</TargetFramework>
+        <RevitVersion>2026</RevitVersion>
+        <OutputPath>bin\R2026\</OutputPath>
+        <DefineConstants>R20_OR_GREATER;R22_OR_GREATER;R24_OR_GREATER;R25_OR_GREATER</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="$(Configuration.Contains('R27'))">
+        <TargetFramework>net10.0-windows</TargetFramework>
+        <RevitVersion>2027</RevitVersion>
+        <OutputPath>bin\R2027\</OutputPath>
+        <DefineConstants>R20_OR_GREATER;R22_OR_GREATER;R24_OR_GREATER;R25_OR_GREATER</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Debug R25' ">
+        <DebugSymbols>true</DebugSymbols>
+        <DebugType>full</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release R19' ">
+        <DebugType>none</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release R20' ">
+        <DebugType>none</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release R21' ">
+        <DebugType>none</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release R22' ">
+        <DebugType>none</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release R23' ">
+        <DebugType>none</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release R24' ">
+        <DebugType>none</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release R25' ">
+        <DebugType>none</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release R26' ">
+        <DebugType>none</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)' == 'Release R27' ">
+        <DebugType>none</DebugType>
+    </PropertyGroup>
+    <ItemGroup>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPI" Version="$(RevitVersion).*"/>
+        <PackageReference Include="Nice3point.Revit.Api.RevitAPIUI" Version="$(RevitVersion).*"/>
+    </ItemGroup>
+    <ItemGroup>
+        <EditorConfigFiles Remove=".editorconfig"/>
+    </ItemGroup>
+    <ItemGroup>
+        <ProjectReference Include="..\Utils\Utils.csproj"/>
+    </ItemGroup>
+    <ItemGroup>
+        <Page Update="WindowMain.xaml">
+            <Generator>MSBuild:Compile</Generator>
+            <XamlRuntime>Wpf</XamlRuntime>
+            <SubType>Designer</SubType>
+        </Page>
+    </ItemGroup>
+    <ItemGroup>
+        <Compile Update="WindowMain.xaml.cs">
+            <SubType>Code</SubType>
+        </Compile>
+    </ItemGroup>
+</Project>

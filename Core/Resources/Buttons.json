@@ -1,0 +1,79 @@
+[
+  {
+    "Name": "Export",
+    "Text": "CoreButtonExportText",
+    "LibraryName": "atExportModel.dll",
+    "ClassName": "AlterTools.atExportModel.Command",
+    "ToolTip": "CoreButtonExportToolTip",
+    "ImageLarge": "Resources\\export.png",
+    "ImageSmall": "Resources\\export_16.png",
+    "Panel": "CorePanelExport",
+    "Availability": true
+  },
+  {
+    "Name": "Migrate",
+    "Text": "CoreButtonMigrateText",
+    "LibraryName": "atMigrate.dll",
+    "ClassName": "AlterTools.atMigrate.Command",
+    "ToolTip": "CoreButtonMigrateToolTip",
+    "ImageLarge": "Resources\\migrate.png",
+    "ImageSmall": "Resources\\migrate_16.png",
+    "Panel": "CorePanelExport",
+    "Availability": true
+  },
+  {
+    "Name": "Params",
+    "Text": "CoreButtonParamsText",
+    "LibraryName": "atParams.dll",
+    "ClassName": "AlterTools.atParams.Command",
+    "ToolTip": "CoreButtonParamsToolTip",
+    "ImageLarge": "Resources\\params.png",
+    "ImageSmall": "Resources\\params_16.png",
+    "Panel": "CorePanelExport",
+    "Availability": true
+  },
+  {
+    "Name": "Link",
+    "Text": "CoreButtonLinkText",
+    "LibraryName": "atLink.dll",
+    "ClassName": "AlterTools.atLink.Command",
+    "ToolTip": "CoreButtonLinkToolTip",
+    "ImageLarge": "Resources\\link.png",
+    "ImageSmall": "Resources\\link_16.png",
+    "Panel": "CorePanelImport",
+    "Availability": false
+  },
+  {
+    "Name": "Purge",
+    "Text": "CoreButtonPurgeText",
+    "LibraryName": "atPurge.dll",
+    "ClassName": "AlterTools.atPurge.Command",
+    "ToolTip": "CoreButtonPurgeToolTip",
+    "ImageLarge": "Resources\\purge.png",
+    "ImageSmall": "Resources\\purge_16.png",
+    "Panel": "CorePanelTools",
+    "Availability": false
+  },
+  {
+    "Name": "Delink",
+    "Text": "CoreButtonDelinkText",
+    "LibraryName": "atDelink.dll",
+    "ClassName": "AlterTools.atDelink.Command",
+    "ToolTip": "CoreButtonDelinkToolTip",
+    "ImageLarge": "Resources\\delink.png",
+    "ImageSmall": "Resources\\delink_16.png",
+    "Panel": "CorePanelTools",
+    "Availability": false
+  },
+  {
+    "Name": "UpdateRsLink",
+    "Text": "CoreButtonUpdateRsLinkText",
+    "LibraryName": "atUpdateRsLink.dll",
+    "ClassName": "AlterTools.atUpdateRsLink.Command",
+    "ToolTip": "CoreButtonUpdateRsLinkToolTip",
+    "ImageLarge": "Resources\\updaterslink.png",
+    "ImageSmall": "Resources\\updaterslink_16.png",
+    "Panel": "CorePanelTools",
+    "Availability": true
+  }
+]
