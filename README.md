@@ -37,19 +37,23 @@ This module allows batch exporting models:
   - Models can be cleaned of sheets and views.
 
 <img width="886" height="593" alt="image" src="https://github.com/user-attachments/assets/1145f4f1-c221-457c-a4e2-eef0a0e527af" />
-<img width="436" height="623" alt="image" src="https://github.com/user-attachments/assets/16e6aff9-fb44-4c4c-aec0-23abecd6b571" /> <img width="536" height="393" alt="image" src="https://github.com/user-attachments/assets/f63e1d76-b80e-46f0-a4dd-0d44d2b053f4" />
+<img width="436" height="623" alt="image" src="https://github.com/user-attachments/assets/16e6aff9-fb44-4c4c-aec0-23abecd6b571" />
 <img width="1106" height="553" alt="image" src="https://github.com/user-attachments/assets/04604b98-0983-43c0-aa09-a2289c4c4a13" />
+<img width="536" height="393" alt="image" src="https://github.com/user-attachments/assets/f63e1d76-b80e-46f0-a4dd-0d44d2b053f4" />
 
+## Migrate Models
+This module migrates projects to new locations while preserving link structures. For example, moving from design stage "P" to stage "R". <br>
+It uses a .json file containing *Dictionary<string, string>*, where the key is the source file path and the value is the target path.
 
 ## Export parameters
 This module exports defined parameters from provided models to single CSV file.
 
-![params](https://github.com/user-attachments/assets/35041617-fb24-437a-8f33-542766cdca5c)
+<img width="786" height="493" alt="image" src="https://github.com/user-attachments/assets/31c04398-dd48-44e7-b64a-47591e21c539" />
 
 ## Import RVT
 This module allows batch importing multiple RVT links in a single action.
 
-![link](https://github.com/user-attachments/assets/57dba03d-fe8d-42b3-910d-43262f1137dc)
+<img width="786" height="463" alt="image" src="https://github.com/user-attachments/assets/fec34487-6aea-4c2d-a6ce-d7fe9df2dabc" />
 
 ## Purge
 Purge all unused elements from current model in one go.
