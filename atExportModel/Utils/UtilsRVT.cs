@@ -50,10 +50,12 @@ public static class UtilsRVT
             RemoveViewsNotOnSheets(doc, config.ConfigRemoveViews);
         }
 
+#if R22_OR_GREATER
         if (config.RemoveEmptyWorksets)
         {
             doc.RemoveEmptyWorksets();
         }
+#endif
     }
 
     public static void CleanupAndClose(Document doc,

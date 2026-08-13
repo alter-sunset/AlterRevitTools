@@ -1,4 +1,7 @@
-﻿using Autodesk.Revit.UI;
+﻿using System.IO;
+using System.Reflection;
+using System.Runtime.Loader;
+using Autodesk.Revit.UI;
 using Panel = System.Tuple<Autodesk.Revit.UI.RibbonPanel, string>;
 
 namespace AlterTools.Core;
@@ -23,7 +26,15 @@ public class App : IExternalApplication
             // ignored
         }
 
-        // Get buttons to create from JSON config
+        // 2. Call an isolated method to handle the JSON parsing and UI creation
+        return InitializeRibbon(uiApp);
+    }
+
+    // This method must be separate. The JIT compiler won't look for System.Text.Json 10.0
+    // until this specific method is stepped into, giving our resolver time to activate.
+    private Result InitializeRibbon(UIControlledApplication uiApp)
+    {
+        // Get buttons to create from JSON config (uses your System.Text.Json v10.0)
         List<ButtonContext> buttons = ButtonContext.GetButtonsContext();
 
         // Create panels from config
