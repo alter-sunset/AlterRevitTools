@@ -4,7 +4,7 @@
 
 ***Supports versions 2019-2026***
 
-  **The plugin includes 9 modules:**
+  **The plugin includes 6 modules:**
   - 3 for export
   - 1 for import
   - 2 tools
