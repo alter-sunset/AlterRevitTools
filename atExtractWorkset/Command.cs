@@ -5,7 +5,6 @@ using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Application = Autodesk.Revit.ApplicationServices.Application;
-using TaskDialog = Autodesk.Revit.UI.TaskDialog;
 
 namespace AlterTools.atExtractWorkset;
 
@@ -73,12 +72,7 @@ public class Command : IExternalCommand
 
         errorSuppressor.Dispose();
 
-        using TaskDialog taskDialog = new("Закончил");
-        taskDialog.CommonButtons = TaskDialogCommonButtons.Close;
-        taskDialog.Id = "WorksetExtractFinish";
-        taskDialog.MainContent = "Закончил.";
-
-        taskDialog.Show();
+        MessageBox.Show(Strings.Done);
 
         return Result.Succeeded;
     }

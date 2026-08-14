@@ -887,206 +887,6 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Good evening.
-        /// </summary>
-        public static string GoodEvening {
-            get {
-                return ResourceManager.GetString("GoodEvening", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Help.
-        /// </summary>
-        public static string Help {
-            get {
-                return ResourceManager.GetString("Help", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 	Save the configuration by clicking the “Save config” button in (.JSON) format.
-        ///	This configuration can then be used for re-exporting by clicking the “Load config” button..
-        /// </summary>
-        public static string HelpConfig {
-            get {
-                return ResourceManager.GetString("HelpConfig", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 	Select the export mode:
-        ///1. All files will be placed in one folder.
-        ///2. Files will be placed in the appropriate folders, i.e., the path will be updated according to the mask..
-        /// </summary>
-        public static string HelpDetachMid {
-            get {
-                return ResourceManager.GetString("HelpDetachMid", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 	The plugin is designed for batch export of detached models..
-        /// </summary>
-        public static string HelpDetachTitle {
-            get {
-                return ResourceManager.GetString("HelpDetachTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 	Next, specify the folder for saving. You can enter the path manually or select a folder using the “Browse” button..
-        /// </summary>
-        public static string HelpFolder {
-            get {
-                return ResourceManager.GetString("HelpFolder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 	The plugin is designed for batch export of files to IFC format..
-        /// </summary>
-        public static string HelpIFCTitle {
-            get {
-                return ResourceManager.GetString("HelpIFCTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 	The plugin is designed for batch adding models as Revit links..
-        /// </summary>
-        public static string HelpLinkTitle {
-            get {
-                return ResourceManager.GetString("HelpLinkTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 	Save the list by clicking the “Save list” button in (.txt) format.
-        ///	This list can then be used for re-exporting by clicking the “Load list” button..
-        /// </summary>
-        public static string HelpList {
-            get {
-                return ResourceManager.GetString("HelpList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 	If you are using the plugin for the first time and do not have any previously saved lists, you need to do the following: use the “Load” button to add all the object models that need to be exported. If you accidentally added extra files, select them and click the “Delete” button..
-        /// </summary>
-        public static string HelpLoad {
-            get {
-                return ResourceManager.GetString("HelpLoad", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 	The plugin is designed to migrate a project to a new location while preserving the structure of links, both within folders and within the models themselves.
-        ///	Open or paste a link to the Json config, which stores the structure of type Dictionary&lt;string, string&gt;,
-        ///where the first string is the current path to the file, and the second is the new path.
-        ///    Example:
-        ///    { “C:\oldfile.rvt”: “C:\newfile.rvt”,}.
-        /// </summary>
-        public static string HelpMigrate {
-            get {
-                return ResourceManager.GetString("HelpMigrate", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 	Set the prefix and postfix that you want to add to the file names. If you don&apos;t need to do this, just leave the fields blank.
-        ///	Select the export properties you need. The default settings are the ones that are used most often..
-        /// </summary>
-        public static string HelpNaming {
-            get {
-                return ResourceManager.GetString("HelpNaming", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 
-        ///	**********************************************
-        ///
-        ///	If you have several saved configurations, you can use the second-level batch export.
-        ///	Use the “Load Configs” button to load a list (.txt) with paths to configurations in (.JSON) format. The list structure looks like this: 
-        ///	path\\config.json
-        ///	path\\config2.json
-        ///	path\\config3.json
-        ///
-        ///	Use the “Begin” button to start the second-level batch export, which exports several objects with their corresponding settings..
-        /// </summary>
-        public static string HelpNWCEnd {
-            get {
-                return ResourceManager.GetString("HelpNWCEnd", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 	The plugin is designed for batch exporting files to NWC format..
-        /// </summary>
-        public static string HelpNWCTitle {
-            get {
-                return ResourceManager.GetString("HelpNWCTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 	The plugin is designed for batch export of parameters from the model to a .csv file.
-        ///	Specify the names of the parameters to be exported, separated by semicolon (;) in the corresponding field..
-        /// </summary>
-        public static string HelpParamsTitle {
-            get {
-                return ResourceManager.GetString("HelpParamsTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 	Start the export by clicking the “Start” button..
-        /// </summary>
-        public static string HelpStart {
-            get {
-                return ResourceManager.GetString("HelpStart", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Plugin usage help.
-        /// </summary>
-        public static string HelpToolTip {
-            get {
-                return ResourceManager.GetString("HelpToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 	The plugin is designed for batch transfer of models and implements similar functionality to the “eTransmit” plugin..
-        /// </summary>
-        public static string HelpTransmitTitle {
-            get {
-                return ResourceManager.GetString("HelpTransmitTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Split Walls, Columns,
-        ///Ducts by Level.
-        /// </summary>
-        public static string IFCCheckBoxSplitting {
-            get {
-                return ResourceManager.GetString("IFCCheckBoxSplitting", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Export parameter mapping table.
-        /// </summary>
-        public static string IFCMappingTable {
-            get {
-                return ResourceManager.GetString("IFCMappingTable", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to IFC batch export.
         /// </summary>
         public static string IFCTitle {
@@ -1240,110 +1040,11 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Load config.
-        /// </summary>
-        public static string LoadConfig {
-            get {
-                return ResourceManager.GetString("LoadConfig", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load configs.
-        /// </summary>
-        public static string LoadConfigs {
-            get {
-                return ResourceManager.GetString("LoadConfigs", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load list with configuration files in (.txt) format.
-        /// </summary>
-        public static string LoadConfigsToolTip {
-            get {
-                return ResourceManager.GetString("LoadConfigsToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load list.
-        /// </summary>
-        public static string LoadList {
-            get {
-                return ResourceManager.GetString("LoadList", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load previously saved configuration file in (.json) format.
-        /// </summary>
-        public static string LoadListToolTip {
-            get {
-                return ResourceManager.GetString("LoadListToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Load previously saved file list in (.txt) format.
-        /// </summary>
-        public static string LoadListTxtToolTip {
-            get {
-                return ResourceManager.GetString("LoadListTxtToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Load (.rvt) files.
         /// </summary>
         public static string LoadToolTip {
             get {
                 return ResourceManager.GetString("LoadToolTip", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mask.
-        /// </summary>
-        public static string Mask {
-            get {
-                return ResourceManager.GetString("Mask", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 05_WIP.
-        /// </summary>
-        public static string MaskIn {
-            get {
-                return ResourceManager.GetString("MaskIn", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to 06_Common.
-        /// </summary>
-        public static string MaskOut {
-            get {
-                return ResourceManager.GetString("MaskOut", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to These files weren&apos;t copied:.
-        /// </summary>
-        public static string MigrateDidntCopy {
-            get {
-                return ResourceManager.GetString("MigrateDidntCopy", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Provide path to the configuration!.
-        /// </summary>
-        public static string MigrateNoConfig {
-            get {
-                return ResourceManager.GetString("MigrateNoConfig", resourceCulture);
             }
         }
         
@@ -1375,56 +1076,11 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specify the valid path to the output file!.
-        /// </summary>
-        public static string NoCsv {
-            get {
-                return ResourceManager.GetString("NoCsv", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Add at least one file for export!.
         /// </summary>
         public static string NoFiles {
             get {
                 return ResourceManager.GetString("NoFiles", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Couldn&apos;t find correct info in the text file.
-        /// </summary>
-        public static string NoFilesVMBase {
-            get {
-                return ResourceManager.GetString("NoFilesVMBase", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Specify the folder for export!.
-        /// </summary>
-        public static string NoFolder {
-            get {
-                return ResourceManager.GetString("NoFolder", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Enter a mask for renaming files!.
-        /// </summary>
-        public static string NoMaskFile {
-            get {
-                return ResourceManager.GetString("NoMaskFile", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Specify the path replacement mask!.
-        /// </summary>
-        public static string NoMaskPath {
-            get {
-                return ResourceManager.GetString("NoMaskPath", resourceCulture);
             }
         }
         
@@ -1438,24 +1094,6 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Specify at least one parameter for export!.
-        /// </summary>
-        public static string NoParameters {
-            get {
-                return ResourceManager.GetString("NoParameters", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select the Path mode!.
-        /// </summary>
-        public static string NoPathMode {
-            get {
-                return ResourceManager.GetString("NoPathMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to The document doesn&apos;t have any transmission data.
         /// </summary>
         public static string NoTransDataAlert {
@@ -1465,38 +1103,11 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Enter View name.
-        /// </summary>
-        public static string NoViewName {
-            get {
-                return ResourceManager.GetString("NoViewName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Batch export NWC.
-        /// </summary>
-        public static string NWCTitle {
-            get {
-                return ResourceManager.GetString("NWCTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Open Worksets.
         /// </summary>
         public static string OpenWorksets {
             get {
                 return ResourceManager.GetString("OpenWorksets", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to LIst of RVT files to process.
-        /// </summary>
-        public static string ParamsHeader {
-            get {
-                return ResourceManager.GetString("ParamsHeader", resourceCulture);
             }
         }
         
@@ -1861,47 +1472,11 @@ namespace AlterTools.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to To.
-        /// </summary>
-        public static string To {
-            get {
-                return ResourceManager.GetString("To", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Well, the call is yours..
-        /// </summary>
-        public static string ToHell {
-            get {
-                return ResourceManager.GetString("ToHell", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Total time:.
-        /// </summary>
-        public static string TotalTime {
-            get {
-                return ResourceManager.GetString("TotalTime", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to transmit.
         /// </summary>
         public static string Transmit {
             get {
                 return ResourceManager.GetString("Transmit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Don&apos;t create log file.
-        /// </summary>
-        public static string TurnOffLog {
-            get {
-                return ResourceManager.GetString("TurnOffLog", resourceCulture);
             }
         }
         

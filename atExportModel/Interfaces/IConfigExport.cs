@@ -24,8 +24,4 @@ public interface IConfigExport
     public string FolderPathRVT { get; set; }
     public string FolderPathNWC { get; set; }
     public string FolderPathIFC { get; set; }
-
-    //maybe later
-    // public bool Report { get; set; }
-    // public IConfigReport ConfigReport { get; set; }
 }

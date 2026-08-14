@@ -117,14 +117,10 @@ public static class UtilsRVT
         using Transaction tr = new(doc, "Remove Views Not On Sheets");
         tr.Start();
 
-        // ---------------------------------------------------------
         // Get all views that are currently placed on sheets.
-        // ---------------------------------------------------------
-
         HashSet<ElementId> viewsOnSheets = [];
 
-        // Normal views, legends, sections, elevations, etc.
-        // placed using Viewport.
+        // Normal views, legends, sections, elevations, etc. placed using Viewport.
         IEnumerable<Viewport> viewports = new FilteredElementCollector(doc)
             .OfClass(typeof(Viewport))
             .OfType<Viewport>();
@@ -134,8 +130,7 @@ public static class UtilsRVT
             viewsOnSheets.Add(viewport.ViewId);
         }
 
-        // Schedules are placed using ScheduleSheetInstance,
-        // rather than Viewport.
+        // Schedules are placed using ScheduleSheetInstance, rather than Viewport.
         IEnumerable<ScheduleSheetInstance> scheduleInstances = new FilteredElementCollector(doc)
             .OfClass(typeof(ScheduleSheetInstance))
             .OfType<ScheduleSheetInstance>();
@@ -145,10 +140,7 @@ public static class UtilsRVT
             viewsOnSheets.Add(scheduleInstance.ScheduleId);
         }
 
-        // ---------------------------------------------------------
         // Find views matching the configuration.
-        // ---------------------------------------------------------
-
         List<ElementId> viewsToDelete = new FilteredElementCollector(doc)
             .OfClass(typeof(View))
             .OfType<View>()
@@ -158,10 +150,7 @@ public static class UtilsRVT
             .Select(view => view.Id)
             .ToList();
 
-        // ---------------------------------------------------------
         // Delete.
-        // ---------------------------------------------------------
-
         if (viewsToDelete.Any())
         {
             doc.Delete(viewsToDelete);

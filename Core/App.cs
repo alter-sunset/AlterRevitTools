@@ -1,7 +1,4 @@
-﻿using System.IO;
-using System.Reflection;
-using System.Runtime.Loader;
-using Autodesk.Revit.UI;
+﻿using Autodesk.Revit.UI;
 using Panel = System.Tuple<Autodesk.Revit.UI.RibbonPanel, string>;
 
 namespace AlterTools.Core;

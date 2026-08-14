@@ -1,9 +1,9 @@
-﻿using AlterTools.Utils;
+﻿using AlterTools.Resources;
+using AlterTools.Utils;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Application = Autodesk.Revit.ApplicationServices.Application;
-using TaskDialog = Autodesk.Revit.UI.TaskDialog;
 
 namespace AlterTools.atMigrate;
 
@@ -25,12 +25,7 @@ public class Command : IExternalCommand
             Helper.ProcessFiles(catalogue, app);
         }
 
-        using TaskDialog taskDialog = new("Finished");
-        taskDialog.CommonButtons = TaskDialogCommonButtons.Close;
-        taskDialog.Id = "MigrateFinished";
-        taskDialog.MainContent = "Models have been successfully migrated";
-
-        taskDialog.Show();
+        MessageBox.Show(Strings.Done);
 
         return Result.Succeeded;
     }

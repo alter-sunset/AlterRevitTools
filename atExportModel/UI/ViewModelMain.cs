@@ -14,42 +14,40 @@ namespace AlterTools.atExportModel.UI;
 public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
 {
     private readonly ExternalEventHandler _handler;
-    private RelayCommand _browseIFCFolderCommand;
-
-    private RelayCommand _browseNWCFolderCommand;
-    private RelayCommand _browseRVTFolderCommand;
-
-    private bool _cleanModel;
-
-    private ConfigClean _configClean;
-
-    private ConfigIFC _configIFC;
-    private ConfigIFCAdd _configIFCAdd;
-
-    private ConfigNWC _configNWC;
-    private RelayCommand _deleteCommand;
-    private RelayCommand _executeCommand;
-    private RelayCommand _exportCommand;
-
-    private bool _exportIFC;
 
     private bool _exportNWC;
-
+    private bool _exportIFC;
     private bool _exportRVT;
-    private string _folderPathIFC = string.Empty;
-    private string _folderPathNWC = string.Empty;
-    private string _folderPathRVT = string.Empty;
-    private RelayCommand _importCommand;
-
-    private ObservableCollection<string> _inputFiles = [];
-    private RelayCommand _loadCommand;
+    private bool _cleanModel;
 
     private RvtExportMode _rvtExportMode = RvtExportMode.Transmit;
+
+    private ConfigNWC _configNWC;
+    private ConfigIFC _configIFC;
+    private ConfigIFCAdd _configIFCAdd;
+    private ConfigClean _configClean;
+
     private RelayCommand _settingsCleanCommand;
     private RelayCommand _settingsIFCCommand;
     private RelayCommand _settingsNWCCommand;
 
+    private RelayCommand _browseNWCFolderCommand;
+    private RelayCommand _browseIFCFolderCommand;
+    private RelayCommand _browseRVTFolderCommand;
+
+    private RelayCommand _loadCommand;
+    private RelayCommand _importCommand;
+    private RelayCommand _exportCommand;
+    private RelayCommand _deleteCommand;
+    private RelayCommand _executeCommand;
+
     private string _viewName = "Navisworks";
+
+    private string _folderPathIFC = string.Empty;
+    private string _folderPathNWC = string.Empty;
+    private string _folderPathRVT = string.Empty;
+
+    private ObservableCollection<string> _inputFiles = [];
 
     public ViewModelMain(ExternalEventHandler handler)
     {
@@ -67,9 +65,7 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigExportMultiple
     }
 
     public ViewModelNWC ViewModelNWC { get; }
-
     public ViewModelIFC ViewModelIFC { get; }
-
     public ViewModelClean ViewModelClean { get; }
 
     public RelayCommand SettingsNWCCommand => _settingsNWCCommand ??= new RelayCommand(_ => OpenSettingsNWC());
