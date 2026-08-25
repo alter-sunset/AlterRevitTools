@@ -128,6 +128,7 @@
                         ConverterParameter={x:Static enums:RvtExportMode.CentralModel}}" />
 
                 <CheckBox
+                    x:Name="CleanCheckBox"
                     Grid.Row="3"
                     Grid.Column="0"
                     Content="{x:Static resx:Strings.Clean}"
@@ -147,7 +148,7 @@
                     VerticalContentAlignment="Center"
                     Content="{x:Static resx:Strings.CleanSettings}"
                     Command="{Binding SettingsCleanCommand}"
-                    IsEnabled="{Binding IsChecked, ElementName=RvtCheckBox}" />
+                    IsEnabled="{Binding IsChecked, ElementName=CleanCheckBox}" />
             </Grid>
         </GroupBox>
 
