@@ -17,7 +17,7 @@
         <!-- The CommandParameter feeds the real UI selection list to your backend -->
         <KeyBinding Key="Delete"
                     Command="{Binding DeleteCommand}"
-                    CommandParameter="{Binding (ListBox.SelectedItems), ElementName=FilesListBox}" />
+                    CommandParameter="{Binding SelectedItems, ElementName=FilesListBox}" />
     </Window.InputBindings>
     <Grid Background="WhiteSmoke">
         <Grid.ColumnDefinitions>
@@ -72,6 +72,7 @@
 
         <!-- 3 -->
         <ListBox
+            x:Name="FilesListBox"
             Grid.Row="2"
             Grid.Column="0"
             Grid.ColumnSpan="4"
@@ -82,7 +83,6 @@
 
         <!-- 4 -->
         <Button
-            x:Name="FilesListBox"
             Margin="10"
             Grid.Column="0"
             Grid.Row="3"
