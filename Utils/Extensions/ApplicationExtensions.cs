@@ -22,7 +22,7 @@ public static class ApplicationExtensions
                 ModelPath modelPath = ModelPathUtils.ConvertUserVisiblePathToModelPath(filePath);
 
                 doc = modelPath.OpenDetached(app,
-                    new WorksetConfiguration(WorksetConfigurationOption.CloseAllWorksets));
+                    new WorksetConfiguration(WorksetConfigurationOption.OpenAllWorksets));
 
                 isWorkshared = true;
             }

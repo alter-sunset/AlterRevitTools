@@ -36,4 +36,9 @@ public class CsvHelper : IDisposable
     {
         _stream.WriteLine($"{modelName}{_separator}{worksetName}");
     }
+
+    public void Flush()
+    {
+        _stream.Flush();
+    }
 }

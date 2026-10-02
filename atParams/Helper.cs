@@ -64,6 +64,7 @@ public class Helper(string file, Application app, IConfigParams config, CsvHelpe
                 csvHelper.WriteElement(table);
             }
 
+            csvHelper.Flush();
             doc.Close(false);
             logger.Success("Export finished.");
             logger.TimeForFile(startTime);
