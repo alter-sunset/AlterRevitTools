@@ -16,7 +16,6 @@ public class ExternalEventHandler : RevitEventWrapper<IConfigExportMultiple>
         if (args is null) return;
 
         using Application app = uiApp.Application;
-
         using ErrorSuppressor errorSuppressor = new(uiApp);
 
         ConfigExportSingle config = new(args);

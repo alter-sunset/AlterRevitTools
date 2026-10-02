@@ -18,12 +18,6 @@
     <data name="BaseHeader" xml:space="preserve">
         <value>Список RVT файлов для экспорта</value>
     </data>
-    <data name="HelpToolTip" xml:space="preserve">
-        <value>Справка по работе с плагином</value>
-    </data>
-    <data name="Help" xml:space="preserve">
-        <value>Справка</value>
-    </data>
     <data name="ListBoxToolTip" xml:space="preserve">
         <value>Список файлов в формате (.rvt)</value>
     </data>
@@ -32,12 +26,6 @@
     </data>
     <data name="LoadToolTip" xml:space="preserve">
         <value>Загрузить файлы в формате (.rvt)</value>
-    </data>
-    <data name="LoadList" xml:space="preserve">
-        <value>Загрузить список</value>
-    </data>
-    <data name="LoadListToolTip" xml:space="preserve">
-        <value>Загрузить сохранённый ранее файл конфигурации в формате (.json)</value>
     </data>
     <data name="SaveList" xml:space="preserve">
         <value>Сохранить список</value>
@@ -69,9 +57,6 @@
     <data name="MigrateTitle" xml:space="preserve">
         <value>Пакетная миграция моделей</value>
     </data>
-    <data name="LoadConfig" xml:space="preserve">
-        <value>Загрузить конфиг</value>
-    </data>
     <data name="Start" xml:space="preserve">
         <value>Запуск</value>
     </data>
@@ -84,17 +69,8 @@
     <data name="NoTransDataAlert" xml:space="preserve">
         <value>В модели нет данных класса TransmissionData</value>
     </data>
-    <data name="NoFilesVMBase" xml:space="preserve">
-        <value>В текстовом файле не было найдено подходящей информации</value>
-    </data>
-    <data name="Mask" xml:space="preserve">
-        <value>Маска</value>
-    </data>
     <data name="Change" xml:space="preserve">
         <value>Заменить</value>
-    </data>
-    <data name="To" xml:space="preserve">
-        <value>На</value>
     </data>
     <data name="RenameFiles" xml:space="preserve">
         <value>Переименовать файлы</value>
@@ -111,12 +87,6 @@
     <data name="EraseList" xml:space="preserve">
         <value>Удалить список</value>
     </data>
-    <data name="MaskIn" xml:space="preserve">
-        <value>05_В_Работе\52_ПД</value>
-    </data>
-    <data name="MaskOut" xml:space="preserve">
-        <value>06_Общие\62_ПД</value>
-    </data>
     <data name="FirstLevel" xml:space="preserve">
         <value>Первый уровень</value>
     </data>
@@ -126,17 +96,11 @@
     <data name="Default" xml:space="preserve">
         <value>По умолчанию</value>
     </data>
-    <data name="IFCMappingTable" xml:space="preserve">
-        <value>Таблица соответствия параметров экспорта</value>
-    </data>
     <data name="ExportBaseQuantities" xml:space="preserve">
         <value>Экспорт основных величин</value>
     </data>
     <data name="IFCVersion" xml:space="preserve">
         <value>Версия IFC</value>
-    </data>
-    <data name="IFCCheckBoxSplitting" xml:space="preserve">
-        <value>Разделить стены, колонны и воздуховоды по уровню</value>
     </data>
     <data name="ExportEntireModel" xml:space="preserve">
         <value>Экспортировать весь проект</value>
@@ -153,9 +117,6 @@
     <data name="WorksetPrefixesToolTip" xml:space="preserve">
         <value>Укажите через точку-запятую (;) префиксы всех рабочих наборов, которые необходимо закрыть при открытии файла. 
 Обычно закрывают рабочие наборы со связями, чтобы ускорить открытие моделей.</value>
-    </data>
-    <data name="TurnOffLog" xml:space="preserve">
-        <value>Не создавать лог-файл</value>
     </data>
     <data name="DiffCoordError" xml:space="preserve">
         <value>Обнаружено различие систем координат. 
@@ -187,9 +148,6 @@
     </data>
     <data name="Elements" xml:space="preserve">
         <value>Объекты</value>
-    </data>
-    <data name="NWCTitle" xml:space="preserve">
-        <value>Пакетный экспорт NWC</value>
     </data>
     <data name="ConvertElementProperties" xml:space="preserve">
         <value>Конвертировать свойства объекта</value>
@@ -239,17 +197,8 @@
     <data name="ListConfigsToolTip" xml:space="preserve">
         <value>Список файлов конфигураций</value>
     </data>
-    <data name="LoadConfigs" xml:space="preserve">
-        <value>Загрузить конфиги</value>
-    </data>
-    <data name="LoadConfigsToolTip" xml:space="preserve">
-        <value>Загрузить список с файлами конфигураций в формате (.txt)</value>
-    </data>
     <data name="ParamsTitle" xml:space="preserve">
         <value>Пакетный экспорт параметров</value>
-    </data>
-    <data name="ParamsHeader" xml:space="preserve">
-        <value>Список RVT файлов для обработки</value>
     </data>
     <data name="PathToResultingFile" xml:space="preserve">
         <value>Путь к выходному файлу</value>
@@ -290,17 +239,11 @@
     <data name="RemoveEmptyWorksets" xml:space="preserve">
         <value>Удалить пустые рабочие наборы</value>
     </data>
-    <data name="GoodEvening" xml:space="preserve">
-        <value>Добрый вечер</value>
-    </data>
     <data name="Done" xml:space="preserve">
         <value>Готово!</value>
     </data>
     <data name="Detached" xml:space="preserve">
         <value>_отсоединено</value>
-    </data>
-    <data name="NoFolder" xml:space="preserve">
-        <value>Укажите папку для экспорта!</value>
     </data>
     <data name="WrongFolder" xml:space="preserve">
         <value>Укажите корректную папку для экспорта!</value>
@@ -309,115 +252,20 @@
         <value>Такой папки не существует. 
 Создать папку?</value>
     </data>
-    <data name="ToHell" xml:space="preserve">
-        <value>Нет, так нет. 
-Тогда живи в проклятом мире, который сам и создал.</value>
-    </data>
     <data name="NoFiles" xml:space="preserve">
         <value>Добавьте хотя бы один файл для экспорта!</value>
-    </data>
-    <data name="NoViewName" xml:space="preserve">
-        <value>Введите имя вида!</value>
-    </data>
-    <data name="NoPathMode" xml:space="preserve">
-        <value>Выберите режим выбора пути!</value>
-    </data>
-    <data name="NoMaskPath" xml:space="preserve">
-        <value>Укажите маску замены пути!</value>
     </data>
     <data name="WrongMask" xml:space="preserve">
         <value>Несоответствие входной маски и имён файлов!</value>
     </data>
-    <data name="NoMaskFile" xml:space="preserve">
-        <value>Введите маску для переименования файлов!</value>
-    </data>
-    <data name="NoCsv" xml:space="preserve">
-        <value>Укажите корректный путь к выходному файлу!</value>
-    </data>
-    <data name="NoParameters" xml:space="preserve">
-        <value>Укажите хотя бы один параметр для экспорта!</value>
-    </data>
     <data name="TaskCompleted" xml:space="preserve">
         <value>Задание выполнено.</value>
-    </data>
-    <data name="MigrateNoConfig" xml:space="preserve">
-        <value>Предоставьте ссылку на конфиг!</value>
-    </data>
-    <data name="MigrateDidntCopy" xml:space="preserve">
-        <value>Следующие файлы не были скопированы:</value>
-    </data>
-    <data name="TotalTime" xml:space="preserve">
-        <value>Всего затрачено времени:</value>
     </data>
     <data name="ThereWhere" xml:space="preserve">
         <value>В процессе выполнения было</value>
     </data>
     <data name="Errors" xml:space="preserve">
         <value>ошибок.</value>
-    </data>
-    <data name="HelpLoad" xml:space="preserve">
-        <value>	Если вы впервые используете плагин, и у вас нет ранее сохранённых списков, то вам необходимо выполнить следующее: используя кнопку "Загрузить" добавьте все модели объекта, которые необходимо экспортировать. Если случайно были добавлены лишние файлы, выделите их и нажмите кнопку "Удалить"</value>
-    </data>
-    <data name="HelpFolder" xml:space="preserve">
-        <value>	Далее укажите папку для сохранения. Прописать путь можно в ручную или же выбрать папку используя кнопку "Обзор".</value>
-    </data>
-    <data name="HelpNaming" xml:space="preserve">
-        <value>	Задайте префикс и постфикс, которые будет необходимо добавить в название файлов. Если такой необходимости нет, то оставьте поля пустыми.
-	Выберите необходимые свойства экспорта. По умолчанию стоят стандартные настройки, с которыми чаще всего работают.</value>
-    </data>
-    <data name="HelpList" xml:space="preserve">
-        <value>	Сохраните список кнопкой "Сохранить список" в формате (.txt).
-	Далее этот список можно будет использовать для повторного экспорта, используя кнопку "Загрузить список".</value>
-    </data>
-    <data name="HelpConfig" xml:space="preserve">
-        <value>	Сохраните конфигурацию кнопкой "Сохранить конфиг" в формате (.JSON).
-	Далее эту конфигурацию можно будет использовать для повторного экспорта, используя кнопку "Загрузить конфиг".</value>
-    </data>
-    <data name="HelpStart" xml:space="preserve">
-        <value>	Запустите экспорт кнопкой "Запуск".</value>
-    </data>
-    <data name="HelpDetachTitle" xml:space="preserve">
-        <value>	Плагин предназначен для пакетного экспорта отсоединённых моделей.</value>
-    </data>
-    <data name="HelpDetachMid" xml:space="preserve">
-        <value>	Выберите режим экспорта:
-1. Все файлы будут помещены в одну папку.
-2. Файлы будут помещены в соответствующие папки, то есть будет произведено обновление пути по маске.</value>
-    </data>
-    <data name="HelpIFCTitle" xml:space="preserve">
-        <value>	Плагин предназначен для пакетного экспорта файлов в формат IFC.</value>
-    </data>
-    <data name="HelpLinkTitle" xml:space="preserve">
-        <value>	Плагин предназначен для пакетного добавления моделей в качестве Revit ссылок.</value>
-    </data>
-    <data name="HelpMigrate" xml:space="preserve">
-        <value>	Плагин предназначен для миграции проекта в новое место с сохранением структуры связей, как внутри папок, так и внутри самих моделей.
-	Откройте или вставьте ссылку на Json конфиг, который хранит в себе структуру типа Dictionary&lt;string, string&gt;,
-где первый string - текущий путь к файлу, второй - новый путь.
-	Пример:
-	{ "C:\oldfile.rvt": "C:\newfile.rvt",}</value>
-    </data>
-    <data name="HelpNWCTitle" xml:space="preserve">
-        <value>	Плагин предназначен для пакетного экспорта файлов в формат NWC.</value>
-    </data>
-    <data name="HelpNWCEnd" xml:space="preserve">
-        <value>
-	**********************************************
-
-	Если у вас есть несколько сохранённых конфигураций, то можно использовать пакетный экспорт второго уровня.
-	Кнопкой "Загрузить конфиги" загрузите список (.txt) с путями к конфигурациям в формате (.JSON). Структура списка выглядит следующим образом: 
-	path\\config.json
-	path\\config2.json
-	path\\config3.json
-
-	Кнопкой "Начать" запустите пакетный экспорт второго уровня, который экспортирует несколько объектов с соответствующими им настройками.</value>
-    </data>
-    <data name="HelpTransmitTitle" xml:space="preserve">
-        <value>	Плагин предназначен для пакетной передачи моделей и реализует схожий функционал с плагином "eTransmit".</value>
-    </data>
-    <data name="HelpParamsTitle" xml:space="preserve">
-        <value>	Плагин предназначен для пакетного эскпорта параметров из модели в файл формата .csv.
-	Укажите наименования параметров, которые необходимо экспортировать, через точку-запятую (;) в соответсвующее поле.</value>
     </data>
     <data name="CorePanelExport" xml:space="preserve">
         <value>Пакетный экспорт</value>
@@ -452,9 +300,6 @@ Revit ссылок</value>
     </data>
     <data name="CoreButtonWorksetsToolTip" xml:space="preserve">
         <value>Пакетный экспорт рабочих наборов из моделей</value>
-    </data>
-    <data name="LoadListTxtToolTip" xml:space="preserve">
-        <value>Загрузить сохранённый ранее список файлов в формате (.txt)</value>
     </data>
     <data name="SaveListTxtToolTip" xml:space="preserve">
         <value>Сохранить список в формате (.txt)</value>
@@ -708,5 +553,8 @@ Revit ссылок</value>
     <data name="CoreButtonExportText" xml:space="preserve">
         <value>Экспорт 
 Моделей</value>
+    </data>
+    <data name="InvalidConfigFile" xml:space="preserve">
+        <value>Неверный файл конфигурации!</value>
     </data>
 </root>

@@ -32,11 +32,19 @@
         <RevitVersion>2019</RevitVersion>
         <OutputPath>bin\R2019\</OutputPath>
     </PropertyGroup>
+    <PropertyGroup Condition="'$(PublishProfile)' == 'Publish AlterTools R19'">
+        <Configuration>Release R19</Configuration>
+        <TargetFramework>net48</TargetFramework>
+    </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R20'))">
         <TargetFramework>net48</TargetFramework>
         <RevitVersion>2020</RevitVersion>
         <OutputPath>bin\R2020\</OutputPath>
         <DefineConstants>R20_OR_GREATER</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(PublishProfile)' == 'Publish AlterTools R20'">
+        <Configuration>Release R20</Configuration>
+        <TargetFramework>net48</TargetFramework>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R21'))">
         <TargetFramework>net48</TargetFramework>
@@ -44,11 +52,19 @@
         <OutputPath>bin\R2021\</OutputPath>
         <DefineConstants>R20_OR_GREATER</DefineConstants>
     </PropertyGroup>
+    <PropertyGroup Condition="'$(PublishProfile)' == 'Publish AlterTools R21'">
+        <Configuration>Release R21</Configuration>
+        <TargetFramework>net48</TargetFramework>
+    </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R22'))">
         <TargetFramework>net48</TargetFramework>
         <RevitVersion>2022</RevitVersion>
         <OutputPath>bin\R2022\</OutputPath>
         <DefineConstants>R20_OR_GREATER;R22_OR_GREATER</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(PublishProfile)' == 'Publish AlterTools R22'">
+        <Configuration>Release R22</Configuration>
+        <TargetFramework>net48</TargetFramework>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R23'))">
         <TargetFramework>net48</TargetFramework>
@@ -56,11 +72,19 @@
         <OutputPath>bin\R2023\</OutputPath>
         <DefineConstants>R20_OR_GREATER;R22_OR_GREATER</DefineConstants>
     </PropertyGroup>
+    <PropertyGroup Condition="'$(PublishProfile)' == 'Publish AlterTools R23'">
+        <Configuration>Release R23</Configuration>
+        <TargetFramework>net48</TargetFramework>
+    </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R24'))">
         <TargetFramework>net48</TargetFramework>
         <RevitVersion>2024</RevitVersion>
         <OutputPath>bin\R2024\</OutputPath>
         <DefineConstants>R20_OR_GREATER;R22_OR_GREATER;R24_OR_GREATER</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(PublishProfile)' == 'Publish AlterTools R24'">
+        <Configuration>Release R24</Configuration>
+        <TargetFramework>net48</TargetFramework>
     </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R25'))">
         <TargetFramework>net8.0-windows</TargetFramework>
@@ -68,17 +92,29 @@
         <OutputPath>bin\R2025\</OutputPath>
         <DefineConstants>R20_OR_GREATER;R22_OR_GREATER;R24_OR_GREATER;R25_OR_GREATER</DefineConstants>
     </PropertyGroup>
+    <PropertyGroup Condition="'$(PublishProfile)' == 'Publish AlterTools R25'">
+        <Configuration>Release R25</Configuration>
+        <TargetFramework>net8.0-windows</TargetFramework>
+    </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R26'))">
         <TargetFramework>net8.0-windows</TargetFramework>
         <RevitVersion>2026</RevitVersion>
         <OutputPath>bin\R2026\</OutputPath>
         <DefineConstants>R20_OR_GREATER;R22_OR_GREATER;R24_OR_GREATER;R25_OR_GREATER</DefineConstants>
     </PropertyGroup>
+    <PropertyGroup Condition="'$(PublishProfile)' == 'Publish AlterTools R26'">
+        <Configuration>Release R26</Configuration>
+        <TargetFramework>net8.0-windows</TargetFramework>
+    </PropertyGroup>
     <PropertyGroup Condition="$(Configuration.Contains('R27'))">
         <TargetFramework>net10.0-windows</TargetFramework>
         <RevitVersion>2027</RevitVersion>
         <OutputPath>bin\R2027\</OutputPath>
         <DefineConstants>R20_OR_GREATER;R22_OR_GREATER;R24_OR_GREATER;R25_OR_GREATER</DefineConstants>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(PublishProfile)' == 'Publish AlterTools R27'">
+        <Configuration>Release R27</Configuration>
+        <TargetFramework>net10.0-windows</TargetFramework>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)' == 'Debug R25' ">
         <DebugSymbols>true</DebugSymbols>
@@ -115,6 +151,8 @@
         <Content Include="Resources\Buttons.json" CopyToOutputDirectory="PreserveNewest"/>
         <Content Include="Resources\migrate.png" CopyToOutputDirectory="PreserveNewest"/>
         <Content Include="Resources\migrate_16.png" CopyToOutputDirectory="PreserveNewest"/>
+        <Content Include="Resources\export.png" CopyToOutputDirectory="PreserveNewest"/>
+        <Content Include="Resources\export_16.png" CopyToOutputDirectory="PreserveNewest"/>
         <Content Include="Resources\link.png" CopyToOutputDirectory="PreserveNewest"/>
         <Content Include="Resources\link_16.png" CopyToOutputDirectory="PreserveNewest"/>
         <Content Include="Resources\params.png" CopyToOutputDirectory="PreserveNewest"/>
@@ -125,18 +163,9 @@
         <Content Include="Resources\delink_16.png" CopyToOutputDirectory="PreserveNewest"/>
         <Content Include="Resources\updaterslink.png" CopyToOutputDirectory="PreserveNewest"/>
         <Content Include="Resources\updaterslink_16.png" CopyToOutputDirectory="PreserveNewest"/>
-        <None Remove="Resources\export.png"/>
-        <Content Include="Resources\export.png">
+        <None Update="AlterTools.addin">
             <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
-        <None Remove="Resources\export_16.png"/>
-        <Content Include="Resources\export_16.png">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
-        <None Remove="AlterTools.addin"/>
-        <Content Include="AlterTools.addin">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
+        </None>
     </ItemGroup>
     <!-- Shared packages across all targets -->
     <ItemGroup>
@@ -203,7 +232,13 @@
             <Link>Commands\atExportModel\atExportModel.csproj</Link>
         </DynamicLibraryProject>
     </ItemGroup>
-    <Target Name="CopyDynamicLibraries" AfterTargets="Build">
+    <Target Name="CopyDynamicLibraries" AfterTargets="Build;Publish">
+        <!-- Determine the correct destination directory based on Build vs Publish context -->
+        <PropertyGroup>
+            <TargetCommandsDir Condition="'$(PublishDir)' != ''">$(PublishDir)Commands</TargetCommandsDir>
+            <TargetCommandsDir Condition="'$(PublishDir)' == ''">$(OutDir)Commands</TargetCommandsDir>
+        </PropertyGroup>
+
         <!-- Ask the neighbouring project for its actual output path -->
         <MSBuild
                 Projects="@(DynamicLibraryProject)"
@@ -216,11 +251,22 @@
                     ItemName="DynamicLibraryOutputs"/>
         </MSBuild>
 
-        <MakeDir Directories="$(OutDir)Commands"/>
+        <MakeDir Directories="$(TargetCommandsDir)"/>
 
         <Copy
                 SourceFiles="@(DynamicLibraryOutputs)"
-                DestinationFolder="$(OutDir)Commands"
+                DestinationFolder="$(TargetCommandsDir)"
                 SkipUnchangedFiles="true"/>
+    </Target>
+
+    <Target Name="MoveContentToRoot" AfterTargets="Publish">
+        <!-- Copies the specific file from your project root directly to the deployment root -->
+        <Copy
+                SourceFiles="AlterTools.addin"
+                DestinationFiles="$(PublishDir)..\AlterTools.addin"
+                SkipUnchangedFiles="true"/>
+
+        <!-- Cleans up and deletes the duplicate file inside the subfolder if it was copied there -->
+        <Delete Files="$(PublishDir)AlterTools.addin" Condition="Exists('$(PublishDir)AlterTools.addin')"/>
     </Target>
 </Project>

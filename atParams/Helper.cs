@@ -1,31 +1,56 @@
 ﻿using System.IO;
 using AlterTools.Utils;
 using AlterTools.Utils.Extensions;
+using AlterTools.Utils.Logger;
 using Autodesk.Revit.DB;
 using Application = Autodesk.Revit.ApplicationServices.Application;
+using View = Autodesk.Revit.DB.View;
 
 namespace AlterTools.atParams;
 
-public static class Helper
+public class Helper(string file, Application app, IConfigParams config, CsvHelper csvHelper, ILogger logger)
 {
-    private static string _fileName;
-    private static string[] _parametersNames;
+    private string FileName => Path.GetFileName(file);
+    private readonly string[] _parametersNames = config.ParametersNames;
+    private readonly string _viewName = config.ViewName;
 
-    public static void ExportParameters(string file, Application app, string[] parametersNames, CsvHelper csvHelper)
+    public void ExportParameters()
     {
-        _fileName = Path.GetFileName(file);
-        _parametersNames = parametersNames;
+        DateTime startTime = DateTime.Now;
+        logger.Start(FileName);
 
-        if (!File.Exists(file)) return;
+        if (!File.Exists(file))
+        {
+            logger.Error($"File {file} not found.");
+            return;
+        }
 
         try
         {
             using Document doc = app.OpenDocument(file, out _);
-            if (doc is null) return;
+            if (doc is null)
+            {
+                logger.Error($"Can't open document {FileName}.");
+                return;
+            }
+
+            logger.FileOpened();
+
+            View targetView = new FilteredElementCollector(doc)
+                .OfClass(typeof(View))
+                .Cast<View>()
+                .FirstOrDefault(v =>
+                    !v.IsTemplate &&
+                    v.Name.Equals(_viewName, StringComparison.OrdinalIgnoreCase));
+            if (targetView is null)
+            {
+                logger.Error($"Can't find view {_viewName}.");
+                return;
+            }
 
             using ElementCategoryFilter filterOutHvac = new(BuiltInCategory.OST_HVAC_Zones, true);
 
-            IEnumerable<ParametersTable> paramTables = new FilteredElementCollector(doc)
+            IEnumerable<ParametersTable> paramTables = new FilteredElementCollector(doc, targetView.Id)
                 .WhereElementIsNotElementType()
                 .WherePasses(filterOutHvac)
                 .Where(el => el.IsPhysicalElement())
@@ -39,38 +64,53 @@ public static class Helper
                 csvHelper.WriteElement(table);
             }
 
+            csvHelper.Flush();
+
             doc.Close(false);
+
+            logger.Success("Export finished.");
+            logger.TimeForFile(startTime);
         }
-        catch
+        catch (Exception ex)
         {
-            // ignored
+            logger.Error($"Some kind of error on file {FileName}. {ex.Message}");
         }
+
+        logger.LineBreak();
     }
 
-    private static Dictionary<string, string> GetParametersSet(this Element element, string[] parametersNames)
+    private static Dictionary<string, string> GetParametersSet(Element el, string[] paramsNames) =>
+        paramsNames.ToDictionary(pN => pN, pN => GetParameterString(el, pN));
+
+
+    private static Parameter FindParameter(Element element, string parameterName)
     {
-        return parametersNames.ToDictionary(name => name, element.GetParameterString);
+        Parameter param = element.LookupParameter(parameterName);
+        if (param is not null && param.HasValue) return param;
+
+        ElementId typeId = element.GetTypeId();
+        if (typeId == ElementId.InvalidElementId) return null;
+
+        param = element.Document.GetElement(typeId)?.LookupParameter(parameterName);
+        return param is not null && param.HasValue
+            ? param
+            : null;
     }
 
-    private static string GetParameterString(this Element element, string parameterName)
+    private static string GetParameterString(Element element, string parameterName)
     {
-        using Parameter param = element.LookupParameter(parameterName);
-        try
-        {
-            return param.HasValue ? param.GetValueString() : string.Empty;
-        }
-        catch
-        {
-            return param.GetValueString();
-        }
+        Parameter param = FindParameter(element, parameterName);
+        return param == null
+            ? string.Empty
+            : param.GetValueString();
     }
 
-    private static ParametersTable GetParametersTable(this Element el)
+    private ParametersTable GetParametersTable(Element el)
     {
         return new ParametersTable
         {
-            ModelName = _fileName,
-            Parameters = el.GetParametersSet(_parametersNames),
+            ModelName = FileName,
+            Parameters = GetParametersSet(el, _parametersNames),
 #if R24_OR_GREATER
             ElementId = el.Id.Value,
 #else

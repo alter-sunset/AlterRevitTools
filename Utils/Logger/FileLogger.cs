@@ -9,7 +9,10 @@ public class FileLogger : ILogger
 
     public FileLogger(string path)
     {
-        _stream = new StreamWriter($@"{path}\Log_{_startTime:yy-MM-dd_HH-mm-ss}.log");
+        _stream = new StreamWriter($@"{path}\Log_{_startTime:yy-MM-dd_HH-mm-ss}.log")
+        {
+            AutoFlush = true
+        };
         _stream.WriteLine($"Initial launch at {_startTime}.");
     }
 

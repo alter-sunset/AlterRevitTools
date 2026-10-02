@@ -1,8 +1,12 @@
+using System.IO;
+using System.Windows.Shapes;
 using AlterTools.Resources;
 using AlterTools.Utils;
+using AlterTools.Utils.Logger;
 using AlterTools.Utils.MVVM;
 using Autodesk.Revit.UI;
 using Application = Autodesk.Revit.ApplicationServices.Application;
+using Path = System.IO.Path;
 
 namespace AlterTools.atParams;
 
@@ -12,13 +16,20 @@ public class ExternalEventHandler : RevitEventWrapper<IConfigParams>
     {
         using (CsvHelper csvHelper = new(args.CsvPath, ["ModelName", "ElementId", .. args.ParametersNames]))
         {
+            using ILogger logger = LoggerFactory.CreateLogger(Path.GetDirectoryName(args.CsvPath), false);
+            logger.LineBreak();
+
             using ErrorSuppressor errorSuppressor = new(uiApp);
             using Application app = uiApp.Application;
 
             foreach (string file in args.Files)
             {
-                Helper.ExportParameters(file, app, args.ParametersNames, csvHelper);
+                Helper helper = new(file, app, args, csvHelper, logger);
+                helper.ExportParameters();
             }
+
+            logger.ErrorTotal();
+            logger.TimeTotal();
         }
 
         MessageBox.Show(Strings.Done);

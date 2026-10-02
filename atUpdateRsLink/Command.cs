@@ -1,11 +1,11 @@
 ﻿using System.IO;
+using AlterTools.Resources;
 using AlterTools.Utils;
 using AlterTools.Utils.Extensions;
 using Autodesk.Revit.Attributes;
 using Autodesk.Revit.DB;
 using Autodesk.Revit.UI;
 using Application = Autodesk.Revit.ApplicationServices.Application;
-using TaskDialog = Autodesk.Revit.UI.TaskDialog;
 
 namespace AlterTools.atUpdateRsLink;
 
@@ -51,12 +51,7 @@ public class Command : IExternalCommand
 
         errorSuppressor.Dispose();
 
-        using TaskDialog taskDialog = new("Finished");
-        taskDialog.CommonButtons = TaskDialogCommonButtons.Close;
-        taskDialog.Id = "UpdateRsLinkFinished";
-        taskDialog.MainContent = "Models have been successfully updated";
-
-        taskDialog.Show();
+        MessageBox.Show(Strings.Done);
 
         return Result.Succeeded;
     }
