@@ -13,7 +13,10 @@ public class CsvHelper : IDisposable
     public CsvHelper(string csvFilePath, string[] headers, char separator = '|')
     {
         _separator = separator.ToString();
-        _stream = new StreamWriter(csvFilePath);
+        _stream = new StreamWriter(csvFilePath)
+        {
+            AutoFlush = true
+        };
         _stream.WriteLine(string.Join(_separator, headers));
     }
 

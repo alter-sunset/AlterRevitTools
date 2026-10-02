@@ -12,6 +12,7 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigParams
 {
     private readonly ExternalEventHandler _handler;
 
+    private string _viewName = "Navisworks";
     private string _paramsNames;
     private string _csvPath = string.Empty;
     private ObservableCollection<string> _files = [];
@@ -54,6 +55,12 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigParams
     {
         get => _csvPath;
         set => SetProperty(ref _csvPath, value);
+    }
+
+    public string ViewName
+    {
+        get => _viewName;
+        set => _viewName = value;
     }
 
     public ObservableCollection<string> Files
