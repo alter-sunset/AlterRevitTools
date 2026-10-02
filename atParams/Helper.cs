@@ -18,12 +18,12 @@ public class Helper(string file, Application app, IConfigParams config, CsvHelpe
     {
         DateTime startTime = DateTime.Now;
         logger.Start(FileName);
+
         if (!File.Exists(file))
         {
             logger.Error($"File {file} not found.");
             return;
         }
-
 
         try
         {
@@ -65,38 +65,33 @@ public class Helper(string file, Application app, IConfigParams config, CsvHelpe
             }
 
             csvHelper.Flush();
+
             doc.Close(false);
+
             logger.Success("Export finished.");
             logger.TimeForFile(startTime);
         }
-        catch
+        catch (Exception ex)
         {
-            logger.Error($"Some kind of error on file {FileName}.");
-            // ignored
+            logger.Error($"Some kind of error on file {FileName}. {ex.Message}");
         }
 
         logger.LineBreak();
     }
 
-    private Dictionary<string, string> GetParametersSet(Element element, string[] parametersNames)
-    {
-        return parametersNames.ToDictionary(name => name, name => GetParameterString(element, name));
-    }
+    private static Dictionary<string, string> GetParametersSet(Element el, string[] paramsNames) =>
+        paramsNames.ToDictionary(pN => pN, pN => GetParameterString(el, pN));
+
 
     private static Parameter FindParameter(Element element, string parameterName)
     {
         Parameter param = element.LookupParameter(parameterName);
-
         if (param is not null && param.HasValue) return param;
 
         ElementId typeId = element.GetTypeId();
-
         if (typeId == ElementId.InvalidElementId) return null;
 
-        Element type = element.Document.GetElement(typeId);
-
-        param = type?.LookupParameter(parameterName);
-
+        param = element.Document.GetElement(typeId)?.LookupParameter(parameterName);
         return param is not null && param.HasValue
             ? param
             : null;
@@ -105,7 +100,6 @@ public class Helper(string file, Application app, IConfigParams config, CsvHelpe
     private static string GetParameterString(Element element, string parameterName)
     {
         Parameter param = FindParameter(element, parameterName);
-
         return param == null
             ? string.Empty
             : param.GetValueString();

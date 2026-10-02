@@ -14,11 +14,11 @@ public class ExternalEventHandler : RevitEventWrapper<IConfigParams>
 {
     public override void Execute(UIApplication uiApp, IConfigParams args)
     {
-        ILogger logger = LoggerFactory.CreateLogger(Path.GetDirectoryName(args.CsvPath), false);
-        logger.LineBreak();
-
         using (CsvHelper csvHelper = new(args.CsvPath, ["ModelName", "ElementId", .. args.ParametersNames]))
         {
+            using ILogger logger = LoggerFactory.CreateLogger(Path.GetDirectoryName(args.CsvPath), false);
+            logger.LineBreak();
+
             using ErrorSuppressor errorSuppressor = new(uiApp);
             using Application app = uiApp.Application;
 
@@ -27,11 +27,11 @@ public class ExternalEventHandler : RevitEventWrapper<IConfigParams>
                 Helper helper = new(file, app, args, csvHelper, logger);
                 helper.ExportParameters();
             }
+
+            logger.ErrorTotal();
+            logger.TimeTotal();
         }
 
-        logger.ErrorTotal();
-        logger.TimeTotal();
-        logger.Dispose();
         MessageBox.Show(Strings.Done);
     }
 }

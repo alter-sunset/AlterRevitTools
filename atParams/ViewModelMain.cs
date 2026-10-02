@@ -60,7 +60,7 @@ public class ViewModelMain : NotifyPropertyChanged, IConfigParams
     public string ViewName
     {
         get => _viewName;
-        set => _viewName = value;
+        set => SetProperty(ref _viewName, value);
     }
 
     public ObservableCollection<string> Files
